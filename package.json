@@ -1,5 +1,5 @@
 {
-  "name": "comdex-proto-codecs",
+  "name": "comdex-codec",
   "version": "0.1.0",
   "dependencies": {
     "@vercel/ncc": "^0.29.1",
