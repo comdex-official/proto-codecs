@@ -1,5 +1,5 @@
 {
-  "name": "comdex-web-app",
+  "name": "comdex-proto-codecs",
   "version": "0.1.0",
   "dependencies": {
     "@vercel/ncc": "^0.29.1",
