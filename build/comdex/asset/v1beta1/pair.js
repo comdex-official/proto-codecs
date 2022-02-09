@@ -8,12 +8,14 @@ exports.Pair = exports.protobufPackage = void 0;
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.asset.v1beta1";
-const basePair = {
-    id: long_1.default.UZERO,
-    assetIn: long_1.default.UZERO,
-    assetOut: long_1.default.UZERO,
-    liquidationRatio: "",
-};
+function createBasePair() {
+    return {
+        id: long_1.default.UZERO,
+        assetIn: long_1.default.UZERO,
+        assetOut: long_1.default.UZERO,
+        liquidationRatio: "",
+    };
+}
 exports.Pair = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.id.isZero()) {
@@ -33,7 +35,7 @@ exports.Pair = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...basePair };
+        const message = createBasePair();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -57,33 +59,18 @@ exports.Pair = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...basePair };
-        if (object.id !== undefined && object.id !== null) {
-            message.id = long_1.default.fromString(object.id);
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.assetIn !== undefined && object.assetIn !== null) {
-            message.assetIn = long_1.default.fromString(object.assetIn);
-        }
-        else {
-            message.assetIn = long_1.default.UZERO;
-        }
-        if (object.assetOut !== undefined && object.assetOut !== null) {
-            message.assetOut = long_1.default.fromString(object.assetOut);
-        }
-        else {
-            message.assetOut = long_1.default.UZERO;
-        }
-        if (object.liquidationRatio !== undefined &&
-            object.liquidationRatio !== null) {
-            message.liquidationRatio = String(object.liquidationRatio);
-        }
-        else {
-            message.liquidationRatio = "";
-        }
-        return message;
+        return {
+            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            assetIn: isSet(object.assetIn)
+                ? long_1.default.fromString(object.assetIn)
+                : long_1.default.UZERO,
+            assetOut: isSet(object.assetOut)
+                ? long_1.default.fromString(object.assetOut)
+                : long_1.default.UZERO,
+            liquidationRatio: isSet(object.liquidationRatio)
+                ? String(object.liquidationRatio)
+                : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -98,37 +85,29 @@ exports.Pair = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...basePair };
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.assetIn !== undefined && object.assetIn !== null) {
-            message.assetIn = object.assetIn;
-        }
-        else {
-            message.assetIn = long_1.default.UZERO;
-        }
-        if (object.assetOut !== undefined && object.assetOut !== null) {
-            message.assetOut = object.assetOut;
-        }
-        else {
-            message.assetOut = long_1.default.UZERO;
-        }
-        if (object.liquidationRatio !== undefined &&
-            object.liquidationRatio !== null) {
-            message.liquidationRatio = object.liquidationRatio;
-        }
-        else {
-            message.liquidationRatio = "";
-        }
+        var _a;
+        const message = createBasePair();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.assetIn =
+            object.assetIn !== undefined && object.assetIn !== null
+                ? long_1.default.fromValue(object.assetIn)
+                : long_1.default.UZERO;
+        message.assetOut =
+            object.assetOut !== undefined && object.assetOut !== null
+                ? long_1.default.fromValue(object.assetOut)
+                : long_1.default.UZERO;
+        message.liquidationRatio = (_a = object.liquidationRatio) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=pair.js.map
