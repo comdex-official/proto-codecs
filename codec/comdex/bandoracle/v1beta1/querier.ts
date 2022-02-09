@@ -1,8 +1,8 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Params } from "codec/comdex/bandoracle/v1beta1/params";
-import { FetchPriceResult } from "codec/comdex/bandoracle/v1beta1/fetch_price";
+import { Params } from "../../../comdex/bandoracle/v1beta1/params";
+import { FetchPriceResult } from "../../../comdex/bandoracle/v1beta1/fetch_price";
 
 export const protobufPackage = "comdex.bandoracle.v1beta1";
 

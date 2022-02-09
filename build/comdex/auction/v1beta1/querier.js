@@ -7,9 +7,9 @@ exports.QueryServiceClientImpl = exports.QueryParamsResponse = exports.QueryPara
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const auction_1 = require("codec/comdex/auction/v1beta1/auction");
-const pagination_1 = require("codec/cosmos/base/query/v1beta1/pagination");
-const params_1 = require("codec/comdex/auction/v1beta1/params");
+const auction_1 = require("../../../comdex/auction/v1beta1/auction");
+const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
+const params_1 = require("../../../comdex/auction/v1beta1/params");
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseQueryAuctionRequest() {
     return { id: long_1.default.UZERO };

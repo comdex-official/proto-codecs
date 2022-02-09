@@ -7,9 +7,9 @@ exports.QueryServiceClientImpl = exports.QueryParamsResponse = exports.QueryPara
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const pagination_1 = require("codec/cosmos/base/query/v1beta1/pagination");
-const oracle_1 = require("codec/comdex/oracle/v1beta1/oracle");
-const params_1 = require("codec/comdex/oracle/v1beta1/params");
+const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
+const oracle_1 = require("../../../comdex/oracle/v1beta1/oracle");
+const params_1 = require("../../../comdex/oracle/v1beta1/params");
 exports.protobufPackage = "comdex.oracle.v1beta1";
 function createBaseQueryMarketsRequest() {
     return { pagination: undefined };

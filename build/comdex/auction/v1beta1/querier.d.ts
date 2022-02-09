@@ -1,8 +1,8 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { CollateralAuction } from "codec/comdex/auction/v1beta1/auction";
-import { PageRequest, PageResponse } from "codec/cosmos/base/query/v1beta1/pagination";
-import { Params } from "codec/comdex/auction/v1beta1/params";
+import { CollateralAuction } from "../../../comdex/auction/v1beta1/auction";
+import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import { Params } from "../../../comdex/auction/v1beta1/params";
 export declare const protobufPackage = "comdex.auction.v1beta1";
 export interface QueryAuctionRequest {
     id: Long;

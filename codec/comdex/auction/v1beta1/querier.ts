@@ -1,12 +1,12 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { CollateralAuction } from "codec/comdex/auction/v1beta1/auction";
+import { CollateralAuction } from "../../../comdex/auction/v1beta1/auction";
 import {
   PageRequest,
   PageResponse,
-} from "codec/cosmos/base/query/v1beta1/pagination";
-import { Params } from "codec/comdex/auction/v1beta1/params";
+} from "../../../cosmos/base/query/v1beta1/pagination";
+import { Params } from "../../../comdex/auction/v1beta1/params";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
