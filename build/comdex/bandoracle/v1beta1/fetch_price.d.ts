@@ -1,24 +1,28 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-export declare const protobufPackage = "comdex.asset.v1beta1";
-export interface Pair {
-    id: Long;
-    assetIn: Long;
-    assetOut: Long;
-    liquidationRatio: string;
+export declare const protobufPackage = "comdex.bandoracle.v1beta1";
+export interface FetchPriceCallData {
+    symbols: string[];
+    multiplier: Long;
 }
-export declare const Pair: {
-    encode(message: Pair, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Pair;
-    fromJSON(object: any): Pair;
-    toJSON(message: Pair): unknown;
+export interface FetchPriceResult {
+    rates: Long[];
+}
+export interface Market {
+    symbol: string;
+    scriptId: Long;
+}
+export declare const FetchPriceCallData: {
+    encode(message: FetchPriceCallData, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): FetchPriceCallData;
+    fromJSON(object: any): FetchPriceCallData;
+    toJSON(message: FetchPriceCallData): unknown;
     fromPartial<I extends {
-        id?: string | number | Long.Long | undefined;
-        assetIn?: string | number | Long.Long | undefined;
-        assetOut?: string | number | Long.Long | undefined;
-        liquidationRatio?: string | undefined;
+        symbols?: string[] | undefined;
+        multiplier?: string | number | Long.Long | undefined;
     } & {
-        id?: string | number | (Long.Long & {
+        symbols?: (string[] & string[] & Record<Exclude<keyof I["symbols"], keyof string[]>, never>) | undefined;
+        multiplier?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -75,8 +79,18 @@ export declare const Pair: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["id"], keyof Long.Long>, never>) | undefined;
-        assetIn?: string | number | (Long.Long & {
+        } & Record<Exclude<keyof I["multiplier"], keyof Long.Long>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof FetchPriceCallData>, never>>(object: I): FetchPriceCallData;
+};
+export declare const FetchPriceResult: {
+    encode(message: FetchPriceResult, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): FetchPriceResult;
+    fromJSON(object: any): FetchPriceResult;
+    toJSON(message: FetchPriceResult): unknown;
+    fromPartial<I extends {
+        rates?: (string | number | Long.Long)[] | undefined;
+    } & {
+        rates?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -133,8 +147,20 @@ export declare const Pair: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["assetIn"], keyof Long.Long>, never>) | undefined;
-        assetOut?: string | number | (Long.Long & {
+        } & Record<Exclude<keyof I["rates"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["rates"], keyof (string | number | Long.Long)[]>, never>) | undefined;
+    } & Record<Exclude<keyof I, "rates">, never>>(object: I): FetchPriceResult;
+};
+export declare const Market: {
+    encode(message: Market, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Market;
+    fromJSON(object: any): Market;
+    toJSON(message: Market): unknown;
+    fromPartial<I extends {
+        symbol?: string | undefined;
+        scriptId?: string | number | Long.Long | undefined;
+    } & {
+        symbol?: string | undefined;
+        scriptId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -191,9 +217,8 @@ export declare const Pair: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["assetOut"], keyof Long.Long>, never>) | undefined;
-        liquidationRatio?: string | undefined;
-    } & Record<Exclude<keyof I, keyof Pair>, never>>(object: I): Pair;
+        } & Record<Exclude<keyof I["scriptId"], keyof Long.Long>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof Market>, never>>(object: I): Market;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

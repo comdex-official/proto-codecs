@@ -1,24 +1,23 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-export declare const protobufPackage = "comdex.asset.v1beta1";
-export interface Pair {
-    id: Long;
-    assetIn: Long;
-    assetOut: Long;
-    liquidationRatio: string;
+export declare const protobufPackage = "comdex.oracle.v1beta1";
+export interface Market {
+    symbol: string;
+    scriptId: Long;
+    rates: Long;
 }
-export declare const Pair: {
-    encode(message: Pair, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Pair;
-    fromJSON(object: any): Pair;
-    toJSON(message: Pair): unknown;
+export declare const Market: {
+    encode(message: Market, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Market;
+    fromJSON(object: any): Market;
+    toJSON(message: Market): unknown;
     fromPartial<I extends {
-        id?: string | number | Long.Long | undefined;
-        assetIn?: string | number | Long.Long | undefined;
-        assetOut?: string | number | Long.Long | undefined;
-        liquidationRatio?: string | undefined;
+        symbol?: string | undefined;
+        scriptId?: string | number | Long.Long | undefined;
+        rates?: string | number | Long.Long | undefined;
     } & {
-        id?: string | number | (Long.Long & {
+        symbol?: string | undefined;
+        scriptId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -75,8 +74,8 @@ export declare const Pair: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["id"], keyof Long.Long>, never>) | undefined;
-        assetIn?: string | number | (Long.Long & {
+        } & Record<Exclude<keyof I["scriptId"], keyof Long.Long>, never>) | undefined;
+        rates?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -133,67 +132,8 @@ export declare const Pair: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["assetIn"], keyof Long.Long>, never>) | undefined;
-        assetOut?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["assetOut"], keyof Long.Long>, never>) | undefined;
-        liquidationRatio?: string | undefined;
-    } & Record<Exclude<keyof I, keyof Pair>, never>>(object: I): Pair;
+        } & Record<Exclude<keyof I["rates"], keyof Long.Long>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof Market>, never>>(object: I): Market;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

@@ -1,22 +1,42 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-export declare const protobufPackage = "comdex.asset.v1beta1";
-export interface Pair {
+export declare const protobufPackage = "comdex.liquidation.v1beta1";
+export interface LockedVault {
     id: Long;
-    assetIn: Long;
-    assetOut: Long;
-    liquidationRatio: string;
+    vaultId: Long;
+    pairId: Long;
+    owner: string;
+    amountIn: string;
+    amountOut: string;
+    initiator: string;
+    isAuctionComplete: boolean;
+    isAuctionInProgress: boolean;
+    crAtLiquidation: string;
+    currentCollateralisationRatio: string;
+    collateralToBeAuctioned: string;
+    liquidationTimestamp?: Date;
+    selloffHistory: string[];
 }
-export declare const Pair: {
-    encode(message: Pair, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Pair;
-    fromJSON(object: any): Pair;
-    toJSON(message: Pair): unknown;
+export declare const LockedVault: {
+    encode(message: LockedVault, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LockedVault;
+    fromJSON(object: any): LockedVault;
+    toJSON(message: LockedVault): unknown;
     fromPartial<I extends {
         id?: string | number | Long.Long | undefined;
-        assetIn?: string | number | Long.Long | undefined;
-        assetOut?: string | number | Long.Long | undefined;
-        liquidationRatio?: string | undefined;
+        vaultId?: string | number | Long.Long | undefined;
+        pairId?: string | number | Long.Long | undefined;
+        owner?: string | undefined;
+        amountIn?: string | undefined;
+        amountOut?: string | undefined;
+        initiator?: string | undefined;
+        isAuctionComplete?: boolean | undefined;
+        isAuctionInProgress?: boolean | undefined;
+        crAtLiquidation?: string | undefined;
+        currentCollateralisationRatio?: string | undefined;
+        collateralToBeAuctioned?: string | undefined;
+        liquidationTimestamp?: Date | undefined;
+        selloffHistory?: string[] | undefined;
     } & {
         id?: string | number | (Long.Long & {
             high: number;
@@ -76,7 +96,7 @@ export declare const Pair: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["id"], keyof Long.Long>, never>) | undefined;
-        assetIn?: string | number | (Long.Long & {
+        vaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -133,8 +153,8 @@ export declare const Pair: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["assetIn"], keyof Long.Long>, never>) | undefined;
-        assetOut?: string | number | (Long.Long & {
+        } & Record<Exclude<keyof I["vaultId"], keyof Long.Long>, never>) | undefined;
+        pairId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -191,9 +211,19 @@ export declare const Pair: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["assetOut"], keyof Long.Long>, never>) | undefined;
-        liquidationRatio?: string | undefined;
-    } & Record<Exclude<keyof I, keyof Pair>, never>>(object: I): Pair;
+        } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
+        owner?: string | undefined;
+        amountIn?: string | undefined;
+        amountOut?: string | undefined;
+        initiator?: string | undefined;
+        isAuctionComplete?: boolean | undefined;
+        isAuctionInProgress?: boolean | undefined;
+        crAtLiquidation?: string | undefined;
+        currentCollateralisationRatio?: string | undefined;
+        collateralToBeAuctioned?: string | undefined;
+        liquidationTimestamp?: Date | undefined;
+        selloffHistory?: (string[] & string[] & Record<Exclude<keyof I["selloffHistory"], keyof string[]>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof LockedVault>, never>>(object: I): LockedVault;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

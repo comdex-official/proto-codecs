@@ -8,12 +8,15 @@ exports.PageResponse = exports.PageRequest = exports.protobufPackage = void 0;
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "cosmos.base.query.v1beta1";
-const basePageRequest = {
-    offset: long_1.default.UZERO,
-    limit: long_1.default.UZERO,
-    countTotal: false,
-    reverse: false,
-};
+function createBasePageRequest() {
+    return {
+        key: new Uint8Array(),
+        offset: long_1.default.UZERO,
+        limit: long_1.default.UZERO,
+        countTotal: false,
+        reverse: false,
+    };
+}
 exports.PageRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key.length !== 0) {
@@ -36,8 +39,7 @@ exports.PageRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...basePageRequest };
-        message.key = new Uint8Array();
+        const message = createBasePageRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -64,36 +66,15 @@ exports.PageRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...basePageRequest };
-        message.key = new Uint8Array();
-        if (object.key !== undefined && object.key !== null) {
-            message.key = bytesFromBase64(object.key);
-        }
-        if (object.offset !== undefined && object.offset !== null) {
-            message.offset = long_1.default.fromString(object.offset);
-        }
-        else {
-            message.offset = long_1.default.UZERO;
-        }
-        if (object.limit !== undefined && object.limit !== null) {
-            message.limit = long_1.default.fromString(object.limit);
-        }
-        else {
-            message.limit = long_1.default.UZERO;
-        }
-        if (object.countTotal !== undefined && object.countTotal !== null) {
-            message.countTotal = Boolean(object.countTotal);
-        }
-        else {
-            message.countTotal = false;
-        }
-        if (object.reverse !== undefined && object.reverse !== null) {
-            message.reverse = Boolean(object.reverse);
-        }
-        else {
-            message.reverse = false;
-        }
-        return message;
+        return {
+            key: isSet(object.key) ? bytesFromBase64(object.key) : new Uint8Array(),
+            offset: isSet(object.offset)
+                ? long_1.default.fromString(object.offset)
+                : long_1.default.UZERO,
+            limit: isSet(object.limit) ? long_1.default.fromString(object.limit) : long_1.default.UZERO,
+            countTotal: isSet(object.countTotal) ? Boolean(object.countTotal) : false,
+            reverse: isSet(object.reverse) ? Boolean(object.reverse) : false,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -108,41 +89,25 @@ exports.PageRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...basePageRequest };
-        if (object.key !== undefined && object.key !== null) {
-            message.key = object.key;
-        }
-        else {
-            message.key = new Uint8Array();
-        }
-        if (object.offset !== undefined && object.offset !== null) {
-            message.offset = object.offset;
-        }
-        else {
-            message.offset = long_1.default.UZERO;
-        }
-        if (object.limit !== undefined && object.limit !== null) {
-            message.limit = object.limit;
-        }
-        else {
-            message.limit = long_1.default.UZERO;
-        }
-        if (object.countTotal !== undefined && object.countTotal !== null) {
-            message.countTotal = object.countTotal;
-        }
-        else {
-            message.countTotal = false;
-        }
-        if (object.reverse !== undefined && object.reverse !== null) {
-            message.reverse = object.reverse;
-        }
-        else {
-            message.reverse = false;
-        }
+        var _a, _b, _c;
+        const message = createBasePageRequest();
+        message.key = (_a = object.key) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.offset =
+            object.offset !== undefined && object.offset !== null
+                ? long_1.default.fromValue(object.offset)
+                : long_1.default.UZERO;
+        message.limit =
+            object.limit !== undefined && object.limit !== null
+                ? long_1.default.fromValue(object.limit)
+                : long_1.default.UZERO;
+        message.countTotal = (_b = object.countTotal) !== null && _b !== void 0 ? _b : false;
+        message.reverse = (_c = object.reverse) !== null && _c !== void 0 ? _c : false;
         return message;
     },
 };
-const basePageResponse = { total: long_1.default.UZERO };
+function createBasePageResponse() {
+    return { nextKey: new Uint8Array(), total: long_1.default.UZERO };
+}
 exports.PageResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.nextKey.length !== 0) {
@@ -156,8 +121,7 @@ exports.PageResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...basePageResponse };
-        message.nextKey = new Uint8Array();
+        const message = createBasePageResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -175,18 +139,12 @@ exports.PageResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...basePageResponse };
-        message.nextKey = new Uint8Array();
-        if (object.nextKey !== undefined && object.nextKey !== null) {
-            message.nextKey = bytesFromBase64(object.nextKey);
-        }
-        if (object.total !== undefined && object.total !== null) {
-            message.total = long_1.default.fromString(object.total);
-        }
-        else {
-            message.total = long_1.default.UZERO;
-        }
-        return message;
+        return {
+            nextKey: isSet(object.nextKey)
+                ? bytesFromBase64(object.nextKey)
+                : new Uint8Array(),
+            total: isSet(object.total) ? long_1.default.fromString(object.total) : long_1.default.UZERO,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -197,19 +155,13 @@ exports.PageResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...basePageResponse };
-        if (object.nextKey !== undefined && object.nextKey !== null) {
-            message.nextKey = object.nextKey;
-        }
-        else {
-            message.nextKey = new Uint8Array();
-        }
-        if (object.total !== undefined && object.total !== null) {
-            message.total = object.total;
-        }
-        else {
-            message.total = long_1.default.UZERO;
-        }
+        var _a;
+        const message = createBasePageResponse();
+        message.nextKey = (_a = object.nextKey) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.total =
+            object.total !== undefined && object.total !== null
+                ? long_1.default.fromValue(object.total)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -238,7 +190,6 @@ const btoa = globalThis.btoa ||
     ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
 function base64FromBytes(arr) {
     const bin = [];
-    // @ts-ignore: 
     for (const byte of arr) {
         bin.push(String.fromCharCode(byte));
     }
@@ -247,5 +198,8 @@ function base64FromBytes(arr) {
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=pagination.js.map
