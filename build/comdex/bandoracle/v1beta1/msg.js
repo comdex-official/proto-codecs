@@ -7,8 +7,8 @@ exports.MsgClientImpl = exports.MsgFetchPriceDataResponse = exports.MsgFetchPric
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const fetch_price_1 = require("codec/comdex/bandoracle/v1beta1/fetch_price");
-const coin_1 = require("codec/cosmos/base/v1beta1/coin");
+const fetch_price_1 = require("../../../comdex/bandoracle/v1beta1/fetch_price");
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 exports.protobufPackage = "comdex.bandoracle.v1beta1";
 function createBaseMsgFetchPriceData() {
     return {

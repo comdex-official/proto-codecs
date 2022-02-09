@@ -1,7 +1,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { FetchPriceCallData } from "codec/comdex/bandoracle/v1beta1/fetch_price";
-import { Coin } from "codec/cosmos/base/v1beta1/coin";
+import { FetchPriceCallData } from "../../../comdex/bandoracle/v1beta1/fetch_price";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
 export declare const protobufPackage = "comdex.bandoracle.v1beta1";
 export interface MsgFetchPriceData {
     creator: string;

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Timestamp } from "codec/google/protobuf/timestamp";
+import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.liquidation.v1beta1";
 
