@@ -1,12 +1,12 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { LockedVault } from "codec/comdex/liquidation/v1beta1/locked_vault";
+import { LockedVault } from "../../../comdex/liquidation/v1beta1/locked_vault";
 import {
   PageRequest,
   PageResponse,
-} from "codec/cosmos/base/query/v1beta1/pagination";
-import { Params } from "codec/comdex/liquidation/v1beta1/params";
+} from "../../../cosmos/base/query/v1beta1/pagination";
+import { Params } from "../../../comdex/liquidation/v1beta1/params";
 
 export const protobufPackage = "comdex.liquidation.v1beta1";
 
