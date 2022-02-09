@@ -7,8 +7,8 @@ exports.QueryClientImpl = exports.QueryLastFetchPriceIdResponse = exports.QueryL
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const params_1 = require("codec/comdex/bandoracle/v1beta1/params");
-const fetch_price_1 = require("codec/comdex/bandoracle/v1beta1/fetch_price");
+const params_1 = require("../../../comdex/bandoracle/v1beta1/params");
+const fetch_price_1 = require("../../../comdex/bandoracle/v1beta1/fetch_price");
 exports.protobufPackage = "comdex.bandoracle.v1beta1";
 function createBaseQueryParamsRequest() {
     return {};

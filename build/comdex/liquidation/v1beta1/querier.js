@@ -7,9 +7,9 @@ exports.QueryServiceClientImpl = exports.QueryParamsResponse = exports.QueryPara
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const locked_vault_1 = require("codec/comdex/liquidation/v1beta1/locked_vault");
-const pagination_1 = require("codec/cosmos/base/query/v1beta1/pagination");
-const params_1 = require("codec/comdex/liquidation/v1beta1/params");
+const locked_vault_1 = require("../../../comdex/liquidation/v1beta1/locked_vault");
+const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
+const params_1 = require("../../../comdex/liquidation/v1beta1/params");
 exports.protobufPackage = "comdex.liquidation.v1beta1";
 function createBaseQueryLockedVaultRequest() {
     return { id: long_1.default.UZERO };

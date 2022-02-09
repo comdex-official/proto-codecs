@@ -1,8 +1,8 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { PageRequest, PageResponse } from "codec/cosmos/base/query/v1beta1/pagination";
-import { Market } from "codec/comdex/oracle/v1beta1/oracle";
-import { Params } from "codec/comdex/oracle/v1beta1/params";
+import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import { Market } from "../../../comdex/oracle/v1beta1/oracle";
+import { Params } from "../../../comdex/oracle/v1beta1/params";
 export declare const protobufPackage = "comdex.oracle.v1beta1";
 export interface QueryMarketsRequest {
     pagination?: PageRequest;
