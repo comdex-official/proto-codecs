@@ -11,12 +11,14 @@ export interface Pair {
   liquidationRatio: string;
 }
 
-const basePair: object = {
-  id: Long.UZERO,
-  assetIn: Long.UZERO,
-  assetOut: Long.UZERO,
-  liquidationRatio: "",
-};
+function createBasePair(): Pair {
+  return {
+    id: Long.UZERO,
+    assetIn: Long.UZERO,
+    assetOut: Long.UZERO,
+    liquidationRatio: "",
+  };
+}
 
 export const Pair = {
   encode(message: Pair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -38,7 +40,7 @@ export const Pair = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Pair {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePair } as Pair;
+    const message = createBasePair();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -63,31 +65,18 @@ export const Pair = {
   },
 
   fromJSON(object: any): Pair {
-    const message = { ...basePair } as Pair;
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Long.fromString(object.id);
-    } else {
-      message.id = Long.UZERO;
-    }
-    if (object.assetIn !== undefined && object.assetIn !== null) {
-      message.assetIn = Long.fromString(object.assetIn);
-    } else {
-      message.assetIn = Long.UZERO;
-    }
-    if (object.assetOut !== undefined && object.assetOut !== null) {
-      message.assetOut = Long.fromString(object.assetOut);
-    } else {
-      message.assetOut = Long.UZERO;
-    }
-    if (
-      object.liquidationRatio !== undefined &&
-      object.liquidationRatio !== null
-    ) {
-      message.liquidationRatio = String(object.liquidationRatio);
-    } else {
-      message.liquidationRatio = "";
-    }
-    return message;
+    return {
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      assetIn: isSet(object.assetIn)
+        ? Long.fromString(object.assetIn)
+        : Long.UZERO,
+      assetOut: isSet(object.assetOut)
+        ? Long.fromString(object.assetOut)
+        : Long.UZERO,
+      liquidationRatio: isSet(object.liquidationRatio)
+        ? String(object.liquidationRatio)
+        : "",
+    };
   },
 
   toJSON(message: Pair): unknown {
@@ -103,31 +92,21 @@ export const Pair = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Pair>): Pair {
-    const message = { ...basePair } as Pair;
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id as Long;
-    } else {
-      message.id = Long.UZERO;
-    }
-    if (object.assetIn !== undefined && object.assetIn !== null) {
-      message.assetIn = object.assetIn as Long;
-    } else {
-      message.assetIn = Long.UZERO;
-    }
-    if (object.assetOut !== undefined && object.assetOut !== null) {
-      message.assetOut = object.assetOut as Long;
-    } else {
-      message.assetOut = Long.UZERO;
-    }
-    if (
-      object.liquidationRatio !== undefined &&
-      object.liquidationRatio !== null
-    ) {
-      message.liquidationRatio = object.liquidationRatio;
-    } else {
-      message.liquidationRatio = "";
-    }
+  fromPartial<I extends Exact<DeepPartial<Pair>, I>>(object: I): Pair {
+    const message = createBasePair();
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO;
+    message.assetIn =
+      object.assetIn !== undefined && object.assetIn !== null
+        ? Long.fromValue(object.assetIn)
+        : Long.UZERO;
+    message.assetOut =
+      object.assetOut !== undefined && object.assetOut !== null
+        ? Long.fromValue(object.assetOut)
+        : Long.UZERO;
+    message.liquidationRatio = object.liquidationRatio ?? "";
     return message;
   },
 };
@@ -139,10 +118,12 @@ type Builtin =
   | string
   | number
   | boolean
-  | undefined
-  | Long;
+  | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
@@ -151,7 +132,19 @@ export type DeepPartial<T> = T extends Builtin
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >;
+
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }
