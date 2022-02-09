@@ -1,7 +1,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Coin } from "codec/cosmos/base/v1beta1/coin";
-import { Pair } from "codec/comdex/asset/v1beta1/pair";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Pair } from "../../../comdex/asset/v1beta1/pair";
 export declare const protobufPackage = "comdex.auction.v1beta1";
 export interface CollateralAuction {
     id: Long;

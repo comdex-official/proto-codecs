@@ -7,9 +7,9 @@ exports.CollateralAuction = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const coin_1 = require("codec/cosmos/base/v1beta1/coin");
-const pair_1 = require("codec/comdex/asset/v1beta1/pair");
-const timestamp_1 = require("codec/google/protobuf/timestamp");
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const pair_1 = require("../../../comdex/asset/v1beta1/pair");
+const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseCollateralAuction() {
     return {

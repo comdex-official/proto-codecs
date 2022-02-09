@@ -1,9 +1,9 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Coin } from "codec/cosmos/base/v1beta1/coin";
-import { Pair } from "codec/comdex/asset/v1beta1/pair";
-import { Timestamp } from "codec/google/protobuf/timestamp";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Pair } from "../../../comdex/asset/v1beta1/pair";
+import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
