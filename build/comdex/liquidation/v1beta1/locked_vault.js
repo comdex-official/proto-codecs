@@ -7,7 +7,7 @@ exports.LockedVault = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const timestamp_1 = require("codec/google/protobuf/timestamp");
+const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.liquidation.v1beta1";
 function createBaseLockedVault() {
     return {

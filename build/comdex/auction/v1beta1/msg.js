@@ -7,7 +7,7 @@ exports.MsgServiceClientImpl = exports.MsgPlaceBidResponse = exports.MsgPlaceBid
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const coin_1 = require("codec/cosmos/base/v1beta1/coin");
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseMsgPlaceBidRequest() {
     return { auctionId: long_1.default.UZERO, bidder: "", amount: undefined };

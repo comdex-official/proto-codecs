@@ -1,6 +1,6 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Params } from "codec/comdex/oracle/v1beta1/params";
+import { Params } from "../../../comdex/oracle/v1beta1/params";
 export declare const protobufPackage = "comdex.oracle.v1beta1";
 export interface GenesisState {
     params?: Params;

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Params } from "codec/comdex/bandoracle/v1beta1/params";
+import { Params } from "../../../comdex/bandoracle/v1beta1/params";
 
 export const protobufPackage = "comdex.bandoracle.v1beta1";
 
