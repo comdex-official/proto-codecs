@@ -12,12 +12,14 @@ export interface CollateralAuction {
   lockedVaultId: Long;
   auctionedCollateral?: Coin;
   discountQuantity?: Coin;
+  activeBiddingId: Long;
   bidder: string;
   bid?: Coin;
   minBid?: Coin;
   maxBid?: Coin;
   endTime?: Date;
   pair?: Pair;
+  biddingIds: Long[];
 }
 
 function createBaseCollateralAuction(): CollateralAuction {
@@ -26,12 +28,14 @@ function createBaseCollateralAuction(): CollateralAuction {
     lockedVaultId: Long.UZERO,
     auctionedCollateral: undefined,
     discountQuantity: undefined,
+    activeBiddingId: Long.UZERO,
     bidder: "",
     bid: undefined,
     minBid: undefined,
     maxBid: undefined,
     endTime: undefined,
     pair: undefined,
+    biddingIds: [],
   };
 }
 
@@ -55,27 +59,35 @@ export const CollateralAuction = {
     if (message.discountQuantity !== undefined) {
       Coin.encode(message.discountQuantity, writer.uint32(34).fork()).ldelim();
     }
+    if (!message.activeBiddingId.isZero()) {
+      writer.uint32(40).uint64(message.activeBiddingId);
+    }
     if (message.bidder !== "") {
-      writer.uint32(42).string(message.bidder);
+      writer.uint32(50).string(message.bidder);
     }
     if (message.bid !== undefined) {
-      Coin.encode(message.bid, writer.uint32(50).fork()).ldelim();
+      Coin.encode(message.bid, writer.uint32(58).fork()).ldelim();
     }
     if (message.minBid !== undefined) {
-      Coin.encode(message.minBid, writer.uint32(58).fork()).ldelim();
+      Coin.encode(message.minBid, writer.uint32(66).fork()).ldelim();
     }
     if (message.maxBid !== undefined) {
-      Coin.encode(message.maxBid, writer.uint32(66).fork()).ldelim();
+      Coin.encode(message.maxBid, writer.uint32(74).fork()).ldelim();
     }
     if (message.endTime !== undefined) {
       Timestamp.encode(
         toTimestamp(message.endTime),
-        writer.uint32(74).fork()
+        writer.uint32(82).fork()
       ).ldelim();
     }
     if (message.pair !== undefined) {
-      Pair.encode(message.pair, writer.uint32(82).fork()).ldelim();
+      Pair.encode(message.pair, writer.uint32(90).fork()).ldelim();
     }
+    writer.uint32(98).fork();
+    for (const v of message.biddingIds) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
     return writer;
   },
 
@@ -99,24 +111,37 @@ export const CollateralAuction = {
           message.discountQuantity = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.bidder = reader.string();
+          message.activeBiddingId = reader.uint64() as Long;
           break;
         case 6:
-          message.bid = Coin.decode(reader, reader.uint32());
+          message.bidder = reader.string();
           break;
         case 7:
-          message.minBid = Coin.decode(reader, reader.uint32());
+          message.bid = Coin.decode(reader, reader.uint32());
           break;
         case 8:
-          message.maxBid = Coin.decode(reader, reader.uint32());
+          message.minBid = Coin.decode(reader, reader.uint32());
           break;
         case 9:
+          message.maxBid = Coin.decode(reader, reader.uint32());
+          break;
+        case 10:
           message.endTime = fromTimestamp(
             Timestamp.decode(reader, reader.uint32())
           );
           break;
-        case 10:
+        case 11:
           message.pair = Pair.decode(reader, reader.uint32());
+          break;
+        case 12:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.biddingIds.push(reader.uint64() as Long);
+            }
+          } else {
+            message.biddingIds.push(reader.uint64() as Long);
+          }
           break;
         default:
           reader.skipType(tag & 7);
@@ -138,6 +163,9 @@ export const CollateralAuction = {
       discountQuantity: isSet(object.discountQuantity)
         ? Coin.fromJSON(object.discountQuantity)
         : undefined,
+      activeBiddingId: isSet(object.activeBiddingId)
+        ? Long.fromString(object.activeBiddingId)
+        : Long.UZERO,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       bid: isSet(object.bid) ? Coin.fromJSON(object.bid) : undefined,
       minBid: isSet(object.minBid) ? Coin.fromJSON(object.minBid) : undefined,
@@ -146,6 +174,9 @@ export const CollateralAuction = {
         ? fromJsonTimestamp(object.endTime)
         : undefined,
       pair: isSet(object.pair) ? Pair.fromJSON(object.pair) : undefined,
+      biddingIds: Array.isArray(object?.biddingIds)
+        ? object.biddingIds.map((e: any) => Long.fromString(e))
+        : [],
     };
   },
 
@@ -163,6 +194,10 @@ export const CollateralAuction = {
       (obj.discountQuantity = message.discountQuantity
         ? Coin.toJSON(message.discountQuantity)
         : undefined);
+    message.activeBiddingId !== undefined &&
+      (obj.activeBiddingId = (
+        message.activeBiddingId || Long.UZERO
+      ).toString());
     message.bidder !== undefined && (obj.bidder = message.bidder);
     message.bid !== undefined &&
       (obj.bid = message.bid ? Coin.toJSON(message.bid) : undefined);
@@ -174,6 +209,13 @@ export const CollateralAuction = {
       (obj.endTime = message.endTime.toISOString());
     message.pair !== undefined &&
       (obj.pair = message.pair ? Pair.toJSON(message.pair) : undefined);
+    if (message.biddingIds) {
+      obj.biddingIds = message.biddingIds.map((e) =>
+        (e || Long.UZERO).toString()
+      );
+    } else {
+      obj.biddingIds = [];
+    }
     return obj;
   },
 
@@ -198,6 +240,10 @@ export const CollateralAuction = {
       object.discountQuantity !== undefined && object.discountQuantity !== null
         ? Coin.fromPartial(object.discountQuantity)
         : undefined;
+    message.activeBiddingId =
+      object.activeBiddingId !== undefined && object.activeBiddingId !== null
+        ? Long.fromValue(object.activeBiddingId)
+        : Long.UZERO;
     message.bidder = object.bidder ?? "";
     message.bid =
       object.bid !== undefined && object.bid !== null
@@ -216,6 +262,7 @@ export const CollateralAuction = {
       object.pair !== undefined && object.pair !== null
         ? Pair.fromPartial(object.pair)
         : undefined;
+    message.biddingIds = object.biddingIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };
