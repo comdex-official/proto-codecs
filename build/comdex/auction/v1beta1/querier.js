@@ -3,13 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryServiceClientImpl = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryAuctionsResponse = exports.QueryAuctionsRequest = exports.QueryAuctionResponse = exports.QueryAuctionRequest = exports.protobufPackage = void 0;
+exports.QueryServiceClientImpl = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryBiddingsResponse = exports.QueryBiddingsRequest = exports.QueryAuctionsResponse = exports.QueryAuctionsRequest = exports.QueryAuctionResponse = exports.QueryAuctionRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const auction_1 = require("../../../comdex/auction/v1beta1/auction");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 const params_1 = require("../../../comdex/auction/v1beta1/params");
+const biddings_1 = require("./biddings");
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseQueryAuctionRequest() {
     return { id: long_1.default.UZERO };
@@ -229,6 +230,111 @@ exports.QueryAuctionsResponse = {
         return message;
     },
 };
+function createBaseQueryBiddingsRequest() {
+    return { bidder: "" };
+}
+exports.QueryBiddingsRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.bidder !== "") {
+            writer.uint32(10).string(message.bidder);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryBiddingsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.bidder = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            bidder: isSet(object.bidder) ? String(object.bidder) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.bidder !== undefined && (obj.bidder = message.bidder);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryBiddingsRequest();
+        message.bidder = (_a = object.bidder) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseQueryBiddingsResponse() {
+    return { bidder: "", biddings: [] };
+}
+exports.QueryBiddingsResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.bidder !== "") {
+            writer.uint32(10).string(message.bidder);
+        }
+        for (const v of message.biddings) {
+            biddings_1.Biddings.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryBiddingsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.bidder = reader.string();
+                    break;
+                case 2:
+                    message.biddings.push(biddings_1.Biddings.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            bidder: isSet(object.bidder) ? String(object.bidder) : "",
+            biddings: Array.isArray(object === null || object === void 0 ? void 0 : object.biddings)
+                ? object.biddings.map((e) => biddings_1.Biddings.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.bidder !== undefined && (obj.bidder = message.bidder);
+        if (message.biddings) {
+            obj.biddings = message.biddings.map((e) => e ? biddings_1.Biddings.toJSON(e) : undefined);
+        }
+        else {
+            obj.biddings = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseQueryBiddingsResponse();
+        message.bidder = (_a = object.bidder) !== null && _a !== void 0 ? _a : "";
+        message.biddings =
+            ((_b = object.biddings) === null || _b === void 0 ? void 0 : _b.map((e) => biddings_1.Biddings.fromPartial(e))) || [];
+        return message;
+    },
+};
 function createBaseQueryParamsRequest() {
     return {};
 }
@@ -314,6 +420,7 @@ class QueryServiceClientImpl {
         this.rpc = rpc;
         this.QueryAuction = this.QueryAuction.bind(this);
         this.QueryAuctions = this.QueryAuctions.bind(this);
+        this.QueryBiddings = this.QueryBiddings.bind(this);
         this.QueryParams = this.QueryParams.bind(this);
     }
     QueryAuction(request) {
@@ -325,6 +432,11 @@ class QueryServiceClientImpl {
         const data = exports.QueryAuctionsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QueryAuctions", data);
         return promise.then((data) => exports.QueryAuctionsResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    QueryBiddings(request) {
+        const data = exports.QueryBiddingsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QueryBiddings", data);
+        return promise.then((data) => exports.QueryBiddingsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryParams(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
