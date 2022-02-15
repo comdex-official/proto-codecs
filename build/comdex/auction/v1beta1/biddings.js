@@ -15,6 +15,7 @@ function createBaseBiddings() {
         id: long_1.default.UZERO,
         auctionId: long_1.default.UZERO,
         auctionStatus: "",
+        auctionedCollateral: undefined,
         bidder: "",
         bid: undefined,
         biddingTimestamp: undefined,
@@ -32,17 +33,20 @@ exports.Biddings = {
         if (message.auctionStatus !== "") {
             writer.uint32(26).string(message.auctionStatus);
         }
+        if (message.auctionedCollateral !== undefined) {
+            coin_1.Coin.encode(message.auctionedCollateral, writer.uint32(34).fork()).ldelim();
+        }
         if (message.bidder !== "") {
-            writer.uint32(34).string(message.bidder);
+            writer.uint32(42).string(message.bidder);
         }
         if (message.bid !== undefined) {
-            coin_1.Coin.encode(message.bid, writer.uint32(42).fork()).ldelim();
+            coin_1.Coin.encode(message.bid, writer.uint32(50).fork()).ldelim();
         }
         if (message.biddingTimestamp !== undefined) {
-            timestamp_1.Timestamp.encode(toTimestamp(message.biddingTimestamp), writer.uint32(50).fork()).ldelim();
+            timestamp_1.Timestamp.encode(toTimestamp(message.biddingTimestamp), writer.uint32(58).fork()).ldelim();
         }
         if (message.biddingStatus !== "") {
-            writer.uint32(58).string(message.biddingStatus);
+            writer.uint32(66).string(message.biddingStatus);
         }
         return writer;
     },
@@ -63,15 +67,18 @@ exports.Biddings = {
                     message.auctionStatus = reader.string();
                     break;
                 case 4:
-                    message.bidder = reader.string();
+                    message.auctionedCollateral = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 case 5:
-                    message.bid = coin_1.Coin.decode(reader, reader.uint32());
+                    message.bidder = reader.string();
                     break;
                 case 6:
-                    message.biddingTimestamp = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    message.bid = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 case 7:
+                    message.biddingTimestamp = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                case 8:
                     message.biddingStatus = reader.string();
                     break;
                 default:
@@ -90,6 +97,9 @@ exports.Biddings = {
             auctionStatus: isSet(object.auctionStatus)
                 ? String(object.auctionStatus)
                 : "",
+            auctionedCollateral: isSet(object.auctionedCollateral)
+                ? coin_1.Coin.fromJSON(object.auctionedCollateral)
+                : undefined,
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             bid: isSet(object.bid) ? coin_1.Coin.fromJSON(object.bid) : undefined,
             biddingTimestamp: isSet(object.biddingTimestamp)
@@ -108,6 +118,10 @@ exports.Biddings = {
             (obj.auctionId = (message.auctionId || long_1.default.UZERO).toString());
         message.auctionStatus !== undefined &&
             (obj.auctionStatus = message.auctionStatus);
+        message.auctionedCollateral !== undefined &&
+            (obj.auctionedCollateral = message.auctionedCollateral
+                ? coin_1.Coin.toJSON(message.auctionedCollateral)
+                : undefined);
         message.bidder !== undefined && (obj.bidder = message.bidder);
         message.bid !== undefined &&
             (obj.bid = message.bid ? coin_1.Coin.toJSON(message.bid) : undefined);
@@ -129,6 +143,11 @@ exports.Biddings = {
                 ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO;
         message.auctionStatus = (_a = object.auctionStatus) !== null && _a !== void 0 ? _a : "";
+        message.auctionedCollateral =
+            object.auctionedCollateral !== undefined &&
+                object.auctionedCollateral !== null
+                ? coin_1.Coin.fromPartial(object.auctionedCollateral)
+                : undefined;
         message.bidder = (_b = object.bidder) !== null && _b !== void 0 ? _b : "";
         message.bid =
             object.bid !== undefined && object.bid !== null
