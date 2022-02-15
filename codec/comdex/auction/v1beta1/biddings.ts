@@ -10,6 +10,7 @@ export interface Biddings {
   id: Long;
   auctionId: Long;
   auctionStatus: string;
+  auctionedCollateral?: Coin;
   bidder: string;
   bid?: Coin;
   biddingTimestamp?: Date;
@@ -27,6 +28,7 @@ function createBaseBiddings(): Biddings {
     id: Long.UZERO,
     auctionId: Long.UZERO,
     auctionStatus: "",
+    auctionedCollateral: undefined,
     bidder: "",
     bid: undefined,
     biddingTimestamp: undefined,
@@ -48,20 +50,26 @@ export const Biddings = {
     if (message.auctionStatus !== "") {
       writer.uint32(26).string(message.auctionStatus);
     }
+    if (message.auctionedCollateral !== undefined) {
+      Coin.encode(
+        message.auctionedCollateral,
+        writer.uint32(34).fork()
+      ).ldelim();
+    }
     if (message.bidder !== "") {
-      writer.uint32(34).string(message.bidder);
+      writer.uint32(42).string(message.bidder);
     }
     if (message.bid !== undefined) {
-      Coin.encode(message.bid, writer.uint32(42).fork()).ldelim();
+      Coin.encode(message.bid, writer.uint32(50).fork()).ldelim();
     }
     if (message.biddingTimestamp !== undefined) {
       Timestamp.encode(
         toTimestamp(message.biddingTimestamp),
-        writer.uint32(50).fork()
+        writer.uint32(58).fork()
       ).ldelim();
     }
     if (message.biddingStatus !== "") {
-      writer.uint32(58).string(message.biddingStatus);
+      writer.uint32(66).string(message.biddingStatus);
     }
     return writer;
   },
@@ -83,17 +91,20 @@ export const Biddings = {
           message.auctionStatus = reader.string();
           break;
         case 4:
-          message.bidder = reader.string();
+          message.auctionedCollateral = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.bid = Coin.decode(reader, reader.uint32());
+          message.bidder = reader.string();
           break;
         case 6:
+          message.bid = Coin.decode(reader, reader.uint32());
+          break;
+        case 7:
           message.biddingTimestamp = fromTimestamp(
             Timestamp.decode(reader, reader.uint32())
           );
           break;
-        case 7:
+        case 8:
           message.biddingStatus = reader.string();
           break;
         default:
@@ -113,6 +124,9 @@ export const Biddings = {
       auctionStatus: isSet(object.auctionStatus)
         ? String(object.auctionStatus)
         : "",
+      auctionedCollateral: isSet(object.auctionedCollateral)
+        ? Coin.fromJSON(object.auctionedCollateral)
+        : undefined,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       bid: isSet(object.bid) ? Coin.fromJSON(object.bid) : undefined,
       biddingTimestamp: isSet(object.biddingTimestamp)
@@ -132,6 +146,10 @@ export const Biddings = {
       (obj.auctionId = (message.auctionId || Long.UZERO).toString());
     message.auctionStatus !== undefined &&
       (obj.auctionStatus = message.auctionStatus);
+    message.auctionedCollateral !== undefined &&
+      (obj.auctionedCollateral = message.auctionedCollateral
+        ? Coin.toJSON(message.auctionedCollateral)
+        : undefined);
     message.bidder !== undefined && (obj.bidder = message.bidder);
     message.bid !== undefined &&
       (obj.bid = message.bid ? Coin.toJSON(message.bid) : undefined);
@@ -153,6 +171,11 @@ export const Biddings = {
         ? Long.fromValue(object.auctionId)
         : Long.UZERO;
     message.auctionStatus = object.auctionStatus ?? "";
+    message.auctionedCollateral =
+      object.auctionedCollateral !== undefined &&
+      object.auctionedCollateral !== null
+        ? Coin.fromPartial(object.auctionedCollateral)
+        : undefined;
     message.bidder = object.bidder ?? "";
     message.bid =
       object.bid !== undefined && object.bid !== null
