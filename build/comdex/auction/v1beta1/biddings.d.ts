@@ -6,6 +6,7 @@ export interface Biddings {
     id: Long;
     auctionId: Long;
     auctionStatus: string;
+    auctionedCollateral?: Coin;
     bidder: string;
     bid?: Coin;
     biddingTimestamp?: Date;
@@ -25,6 +26,10 @@ export declare const Biddings: {
         id?: string | number | Long.Long | undefined;
         auctionId?: string | number | Long.Long | undefined;
         auctionStatus?: string | undefined;
+        auctionedCollateral?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
         bidder?: string | undefined;
         bid?: {
             denom?: string | undefined;
@@ -150,6 +155,13 @@ export declare const Biddings: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["auctionId"], keyof Long.Long>, never>) | undefined;
         auctionStatus?: string | undefined;
+        auctionedCollateral?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["auctionedCollateral"], keyof Coin>, never>) | undefined;
         bidder?: string | undefined;
         bid?: ({
             denom?: string | undefined;

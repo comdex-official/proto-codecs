@@ -1455,6 +1455,10 @@ export declare const QueryBiddingsResponse: {
             id?: string | number | Long.Long | undefined;
             auctionId?: string | number | Long.Long | undefined;
             auctionStatus?: string | undefined;
+            auctionedCollateral?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
             bidder?: string | undefined;
             bid?: {
                 denom?: string | undefined;
@@ -1469,6 +1473,10 @@ export declare const QueryBiddingsResponse: {
             id?: string | number | Long.Long | undefined;
             auctionId?: string | number | Long.Long | undefined;
             auctionStatus?: string | undefined;
+            auctionedCollateral?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
             bidder?: string | undefined;
             bid?: {
                 denom?: string | undefined;
@@ -1480,6 +1488,10 @@ export declare const QueryBiddingsResponse: {
             id?: string | number | Long.Long | undefined;
             auctionId?: string | number | Long.Long | undefined;
             auctionStatus?: string | undefined;
+            auctionedCollateral?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
             bidder?: string | undefined;
             bid?: {
                 denom?: string | undefined;
@@ -1605,6 +1617,13 @@ export declare const QueryBiddingsResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["biddings"][number]["auctionId"], keyof Long.Long>, never>) | undefined;
             auctionStatus?: string | undefined;
+            auctionedCollateral?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & Record<Exclude<keyof I["biddings"][number]["auctionedCollateral"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             bidder?: string | undefined;
             bid?: ({
                 denom?: string | undefined;
@@ -1619,6 +1638,10 @@ export declare const QueryBiddingsResponse: {
             id?: string | number | Long.Long | undefined;
             auctionId?: string | number | Long.Long | undefined;
             auctionStatus?: string | undefined;
+            auctionedCollateral?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
             bidder?: string | undefined;
             bid?: {
                 denom?: string | undefined;
