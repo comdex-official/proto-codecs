@@ -36,12 +36,31 @@ export interface QueryVaultsResponse {
   pagination?: PageResponse;
 }
 
-const baseVaultInfo: object = {
-  id: Long.UZERO,
-  pairId: Long.UZERO,
-  owner: "",
-  collateralizationRatio: "",
-};
+export interface QueryAllVaultsRequest {
+  pagination?: PageRequest;
+}
+
+export interface QueryAllVaultsResponse {
+  vaultsInfo: VaultInfo[];
+  pagination?: PageResponse;
+}
+
+export interface QueryTotalCollateralRequest {}
+
+export interface QueryTotalCollateralResponse {
+  collaterals: Coin[];
+}
+
+function createBaseVaultInfo(): VaultInfo {
+  return {
+    id: Long.UZERO,
+    pairId: Long.UZERO,
+    owner: "",
+    collateral: undefined,
+    debt: undefined,
+    collateralizationRatio: "",
+  };
+}
 
 export const VaultInfo = {
   encode(
@@ -72,7 +91,7 @@ export const VaultInfo = {
   decode(input: _m0.Reader | Uint8Array, length?: number): VaultInfo {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseVaultInfo } as VaultInfo;
+    const message = createBaseVaultInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -103,41 +122,20 @@ export const VaultInfo = {
   },
 
   fromJSON(object: any): VaultInfo {
-    const message = { ...baseVaultInfo } as VaultInfo;
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Long.fromString(object.id);
-    } else {
-      message.id = Long.UZERO;
-    }
-    if (object.pairId !== undefined && object.pairId !== null) {
-      message.pairId = Long.fromString(object.pairId);
-    } else {
-      message.pairId = Long.UZERO;
-    }
-    if (object.owner !== undefined && object.owner !== null) {
-      message.owner = String(object.owner);
-    } else {
-      message.owner = "";
-    }
-    if (object.collateral !== undefined && object.collateral !== null) {
-      message.collateral = Coin.fromJSON(object.collateral);
-    } else {
-      message.collateral = undefined;
-    }
-    if (object.debt !== undefined && object.debt !== null) {
-      message.debt = Coin.fromJSON(object.debt);
-    } else {
-      message.debt = undefined;
-    }
-    if (
-      object.collateralizationRatio !== undefined &&
-      object.collateralizationRatio !== null
-    ) {
-      message.collateralizationRatio = String(object.collateralizationRatio);
-    } else {
-      message.collateralizationRatio = "";
-    }
-    return message;
+    return {
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
+      owner: isSet(object.owner) ? String(object.owner) : "",
+      collateral: isSet(object.collateral)
+        ? Coin.fromJSON(object.collateral)
+        : undefined,
+      debt: isSet(object.debt) ? Coin.fromJSON(object.debt) : undefined,
+      collateralizationRatio: isSet(object.collateralizationRatio)
+        ? String(object.collateralizationRatio)
+        : "",
+    };
   },
 
   toJSON(message: VaultInfo): unknown {
@@ -158,46 +156,35 @@ export const VaultInfo = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<VaultInfo>): VaultInfo {
-    const message = { ...baseVaultInfo } as VaultInfo;
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id as Long;
-    } else {
-      message.id = Long.UZERO;
-    }
-    if (object.pairId !== undefined && object.pairId !== null) {
-      message.pairId = object.pairId as Long;
-    } else {
-      message.pairId = Long.UZERO;
-    }
-    if (object.owner !== undefined && object.owner !== null) {
-      message.owner = object.owner;
-    } else {
-      message.owner = "";
-    }
-    if (object.collateral !== undefined && object.collateral !== null) {
-      message.collateral = Coin.fromPartial(object.collateral);
-    } else {
-      message.collateral = undefined;
-    }
-    if (object.debt !== undefined && object.debt !== null) {
-      message.debt = Coin.fromPartial(object.debt);
-    } else {
-      message.debt = undefined;
-    }
-    if (
-      object.collateralizationRatio !== undefined &&
-      object.collateralizationRatio !== null
-    ) {
-      message.collateralizationRatio = object.collateralizationRatio;
-    } else {
-      message.collateralizationRatio = "";
-    }
+  fromPartial<I extends Exact<DeepPartial<VaultInfo>, I>>(
+    object: I
+  ): VaultInfo {
+    const message = createBaseVaultInfo();
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO;
+    message.pairId =
+      object.pairId !== undefined && object.pairId !== null
+        ? Long.fromValue(object.pairId)
+        : Long.UZERO;
+    message.owner = object.owner ?? "";
+    message.collateral =
+      object.collateral !== undefined && object.collateral !== null
+        ? Coin.fromPartial(object.collateral)
+        : undefined;
+    message.debt =
+      object.debt !== undefined && object.debt !== null
+        ? Coin.fromPartial(object.debt)
+        : undefined;
+    message.collateralizationRatio = object.collateralizationRatio ?? "";
     return message;
   },
 };
 
-const baseQueryVaultRequest: object = { id: Long.UZERO };
+function createBaseQueryVaultRequest(): QueryVaultRequest {
+  return { id: Long.UZERO };
+}
 
 export const QueryVaultRequest = {
   encode(
@@ -213,7 +200,7 @@ export const QueryVaultRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryVaultRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryVaultRequest } as QueryVaultRequest;
+    const message = createBaseQueryVaultRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -229,13 +216,9 @@ export const QueryVaultRequest = {
   },
 
   fromJSON(object: any): QueryVaultRequest {
-    const message = { ...baseQueryVaultRequest } as QueryVaultRequest;
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Long.fromString(object.id);
-    } else {
-      message.id = Long.UZERO;
-    }
-    return message;
+    return {
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+    };
   },
 
   toJSON(message: QueryVaultRequest): unknown {
@@ -245,18 +228,21 @@ export const QueryVaultRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryVaultRequest>): QueryVaultRequest {
-    const message = { ...baseQueryVaultRequest } as QueryVaultRequest;
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id as Long;
-    } else {
-      message.id = Long.UZERO;
-    }
+  fromPartial<I extends Exact<DeepPartial<QueryVaultRequest>, I>>(
+    object: I
+  ): QueryVaultRequest {
+    const message = createBaseQueryVaultRequest();
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO;
     return message;
   },
 };
 
-const baseQueryVaultResponse: object = {};
+function createBaseQueryVaultResponse(): QueryVaultResponse {
+  return { vaultInfo: undefined };
+}
 
 export const QueryVaultResponse = {
   encode(
@@ -272,7 +258,7 @@ export const QueryVaultResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryVaultResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryVaultResponse } as QueryVaultResponse;
+    const message = createBaseQueryVaultResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -288,13 +274,11 @@ export const QueryVaultResponse = {
   },
 
   fromJSON(object: any): QueryVaultResponse {
-    const message = { ...baseQueryVaultResponse } as QueryVaultResponse;
-    if (object.vaultInfo !== undefined && object.vaultInfo !== null) {
-      message.vaultInfo = VaultInfo.fromJSON(object.vaultInfo);
-    } else {
-      message.vaultInfo = undefined;
-    }
-    return message;
+    return {
+      vaultInfo: isSet(object.vaultInfo)
+        ? VaultInfo.fromJSON(object.vaultInfo)
+        : undefined,
+    };
   },
 
   toJSON(message: QueryVaultResponse): unknown {
@@ -306,18 +290,21 @@ export const QueryVaultResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryVaultResponse>): QueryVaultResponse {
-    const message = { ...baseQueryVaultResponse } as QueryVaultResponse;
-    if (object.vaultInfo !== undefined && object.vaultInfo !== null) {
-      message.vaultInfo = VaultInfo.fromPartial(object.vaultInfo);
-    } else {
-      message.vaultInfo = undefined;
-    }
+  fromPartial<I extends Exact<DeepPartial<QueryVaultResponse>, I>>(
+    object: I
+  ): QueryVaultResponse {
+    const message = createBaseQueryVaultResponse();
+    message.vaultInfo =
+      object.vaultInfo !== undefined && object.vaultInfo !== null
+        ? VaultInfo.fromPartial(object.vaultInfo)
+        : undefined;
     return message;
   },
 };
 
-const baseQueryVaultsRequest: object = { owner: "" };
+function createBaseQueryVaultsRequest(): QueryVaultsRequest {
+  return { owner: "", pagination: undefined };
+}
 
 export const QueryVaultsRequest = {
   encode(
@@ -336,7 +323,7 @@ export const QueryVaultsRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryVaultsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryVaultsRequest } as QueryVaultsRequest;
+    const message = createBaseQueryVaultsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -355,18 +342,12 @@ export const QueryVaultsRequest = {
   },
 
   fromJSON(object: any): QueryVaultsRequest {
-    const message = { ...baseQueryVaultsRequest } as QueryVaultsRequest;
-    if (object.owner !== undefined && object.owner !== null) {
-      message.owner = String(object.owner);
-    } else {
-      message.owner = "";
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
-    return message;
+    return {
+      owner: isSet(object.owner) ? String(object.owner) : "",
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
+    };
   },
 
   toJSON(message: QueryVaultsRequest): unknown {
@@ -379,23 +360,22 @@ export const QueryVaultsRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryVaultsRequest>): QueryVaultsRequest {
-    const message = { ...baseQueryVaultsRequest } as QueryVaultsRequest;
-    if (object.owner !== undefined && object.owner !== null) {
-      message.owner = object.owner;
-    } else {
-      message.owner = "";
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
+  fromPartial<I extends Exact<DeepPartial<QueryVaultsRequest>, I>>(
+    object: I
+  ): QueryVaultsRequest {
+    const message = createBaseQueryVaultsRequest();
+    message.owner = object.owner ?? "";
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
 
-const baseQueryVaultsResponse: object = {};
+function createBaseQueryVaultsResponse(): QueryVaultsResponse {
+  return { vaultsInfo: [], pagination: undefined };
+}
 
 export const QueryVaultsResponse = {
   encode(
@@ -417,8 +397,7 @@ export const QueryVaultsResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryVaultsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryVaultsResponse } as QueryVaultsResponse;
-    message.vaultsInfo = [];
+    const message = createBaseQueryVaultsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -437,19 +416,14 @@ export const QueryVaultsResponse = {
   },
 
   fromJSON(object: any): QueryVaultsResponse {
-    const message = { ...baseQueryVaultsResponse } as QueryVaultsResponse;
-    message.vaultsInfo = [];
-    if (object.vaultsInfo !== undefined && object.vaultsInfo !== null) {
-      for (const e of object.vaultsInfo) {
-        message.vaultsInfo.push(VaultInfo.fromJSON(e));
-      }
-    }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromJSON(object.pagination);
-    } else {
-      message.pagination = undefined;
-    }
-    return message;
+    return {
+      vaultsInfo: Array.isArray(object?.vaultsInfo)
+        ? object.vaultsInfo.map((e: any) => VaultInfo.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
+    };
   },
 
   toJSON(message: QueryVaultsResponse): unknown {
@@ -468,19 +442,280 @@ export const QueryVaultsResponse = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<QueryVaultsResponse>): QueryVaultsResponse {
-    const message = { ...baseQueryVaultsResponse } as QueryVaultsResponse;
-    message.vaultsInfo = [];
-    if (object.vaultsInfo !== undefined && object.vaultsInfo !== null) {
-      for (const e of object.vaultsInfo) {
-        message.vaultsInfo.push(VaultInfo.fromPartial(e));
+  fromPartial<I extends Exact<DeepPartial<QueryVaultsResponse>, I>>(
+    object: I
+  ): QueryVaultsResponse {
+    const message = createBaseQueryVaultsResponse();
+    message.vaultsInfo =
+      object.vaultsInfo?.map((e) => VaultInfo.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllVaultsRequest(): QueryAllVaultsRequest {
+  return { pagination: undefined };
+}
+
+export const QueryAllVaultsRequest = {
+  encode(
+    message: QueryAllVaultsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAllVaultsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllVaultsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
       }
     }
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageResponse.fromPartial(object.pagination);
-    } else {
-      message.pagination = undefined;
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllVaultsRequest {
+    return {
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllVaultsRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllVaultsRequest>, I>>(
+    object: I
+  ): QueryAllVaultsRequest {
+    const message = createBaseQueryAllVaultsRequest();
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllVaultsResponse(): QueryAllVaultsResponse {
+  return { vaultsInfo: [], pagination: undefined };
+}
+
+export const QueryAllVaultsResponse = {
+  encode(
+    message: QueryAllVaultsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.vaultsInfo) {
+      VaultInfo.encode(v!, writer.uint32(10).fork()).ldelim();
     }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAllVaultsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllVaultsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.vaultsInfo.push(VaultInfo.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllVaultsResponse {
+    return {
+      vaultsInfo: Array.isArray(object?.vaultsInfo)
+        ? object.vaultsInfo.map((e: any) => VaultInfo.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllVaultsResponse): unknown {
+    const obj: any = {};
+    if (message.vaultsInfo) {
+      obj.vaultsInfo = message.vaultsInfo.map((e) =>
+        e ? VaultInfo.toJSON(e) : undefined
+      );
+    } else {
+      obj.vaultsInfo = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllVaultsResponse>, I>>(
+    object: I
+  ): QueryAllVaultsResponse {
+    const message = createBaseQueryAllVaultsResponse();
+    message.vaultsInfo =
+      object.vaultsInfo?.map((e) => VaultInfo.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryTotalCollateralRequest(): QueryTotalCollateralRequest {
+  return {};
+}
+
+export const QueryTotalCollateralRequest = {
+  encode(
+    _: QueryTotalCollateralRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryTotalCollateralRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryTotalCollateralRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryTotalCollateralRequest {
+    return {};
+  },
+
+  toJSON(_: QueryTotalCollateralRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryTotalCollateralRequest>, I>>(
+    _: I
+  ): QueryTotalCollateralRequest {
+    const message = createBaseQueryTotalCollateralRequest();
+    return message;
+  },
+};
+
+function createBaseQueryTotalCollateralResponse(): QueryTotalCollateralResponse {
+  return { collaterals: [] };
+}
+
+export const QueryTotalCollateralResponse = {
+  encode(
+    message: QueryTotalCollateralResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.collaterals) {
+      Coin.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryTotalCollateralResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryTotalCollateralResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.collaterals.push(Coin.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryTotalCollateralResponse {
+    return {
+      collaterals: Array.isArray(object?.collaterals)
+        ? object.collaterals.map((e: any) => Coin.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: QueryTotalCollateralResponse): unknown {
+    const obj: any = {};
+    if (message.collaterals) {
+      obj.collaterals = message.collaterals.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.collaterals = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryTotalCollateralResponse>, I>>(
+    object: I
+  ): QueryTotalCollateralResponse {
+    const message = createBaseQueryTotalCollateralResponse();
+    message.collaterals =
+      object.collaterals?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -488,6 +723,12 @@ export const QueryVaultsResponse = {
 export interface QueryService {
   QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse>;
   QueryVaults(request: QueryVaultsRequest): Promise<QueryVaultsResponse>;
+  QueryAllVaults(
+    request: QueryAllVaultsRequest
+  ): Promise<QueryAllVaultsResponse>;
+  QueryTotalCollaterals(
+    request: QueryTotalCollateralRequest
+  ): Promise<QueryTotalCollateralResponse>;
 }
 
 export class QueryServiceClientImpl implements QueryService {
@@ -496,6 +737,8 @@ export class QueryServiceClientImpl implements QueryService {
     this.rpc = rpc;
     this.QueryVault = this.QueryVault.bind(this);
     this.QueryVaults = this.QueryVaults.bind(this);
+    this.QueryAllVaults = this.QueryAllVaults.bind(this);
+    this.QueryTotalCollaterals = this.QueryTotalCollaterals.bind(this);
   }
   QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse> {
     const data = QueryVaultRequest.encode(request).finish();
@@ -520,6 +763,34 @@ export class QueryServiceClientImpl implements QueryService {
       QueryVaultsResponse.decode(new _m0.Reader(data))
     );
   }
+
+  QueryAllVaults(
+    request: QueryAllVaultsRequest
+  ): Promise<QueryAllVaultsResponse> {
+    const data = QueryAllVaultsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.vault.v1beta1.QueryService",
+      "QueryAllVaults",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllVaultsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryTotalCollaterals(
+    request: QueryTotalCollateralRequest
+  ): Promise<QueryTotalCollateralResponse> {
+    const data = QueryTotalCollateralRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.vault.v1beta1.QueryService",
+      "QueryTotalCollaterals",
+      data
+    );
+    return promise.then((data) =>
+      QueryTotalCollateralResponse.decode(new _m0.Reader(data))
+    );
+  }
 }
 
 interface Rpc {
@@ -537,10 +808,12 @@ type Builtin =
   | string
   | number
   | boolean
-  | undefined
-  | Long;
+  | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
@@ -549,7 +822,19 @@ export type DeepPartial<T> = T extends Builtin
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >;
+
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }
