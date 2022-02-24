@@ -1,0 +1,1 @@
+{"version":3,"file":"annotations.js","sourceRoot":"","sources":["../../../codec/protoc-gen-openapiv2/options/annotations.ts"],"names":[],"mappings":";;;;;;AAAA,oBAAoB;AACpB,gDAAwB;AACxB,iEAAqC;AAExB,QAAA,eAAe,GAAG,2CAA2C,CAAC;AAE3E,IAAI,iBAAG,CAAC,IAAI,CAAC,IAAI,KAAK,cAAI,EAAE;IAC1B,iBAAG,CAAC,IAAI,CAAC,IAAI,GAAG,cAAW,CAAC;IAC5B,iBAAG,CAAC,SAAS,EAAE,CAAC;CACjB"}
