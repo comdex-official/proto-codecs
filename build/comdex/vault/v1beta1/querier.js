@@ -3,12 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryServiceClientImpl = exports.QueryTotalCollateralResponse = exports.QueryTotalCollateralRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultsResponse = exports.QueryVaultsRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
+exports.QueryServiceClientImpl = exports.QueryCAssetsMintStatsResponse = exports.QueryCAssetsMintStatsRequest = exports.QueryTotalCollateralResponse = exports.QueryTotalCollateralRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultsResponse = exports.QueryVaultsRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
+const vault_1 = require("./vault");
 exports.protobufPackage = "comdex.vault.v1beta1";
 function createBaseVaultInfo() {
     return {
@@ -18,6 +19,7 @@ function createBaseVaultInfo() {
         collateral: undefined,
         debt: undefined,
         collateralizationRatio: "",
+        rewardsReceived: [],
     };
 }
 exports.VaultInfo = {
@@ -39,6 +41,9 @@ exports.VaultInfo = {
         }
         if (message.collateralizationRatio !== "") {
             writer.uint32(50).string(message.collateralizationRatio);
+        }
+        for (const v of message.rewardsReceived) {
+            coin_1.Coin.encode(v, writer.uint32(58).fork()).ldelim();
         }
         return writer;
     },
@@ -67,6 +72,9 @@ exports.VaultInfo = {
                 case 6:
                     message.collateralizationRatio = reader.string();
                     break;
+                case 7:
+                    message.rewardsReceived.push(coin_1.Coin.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -88,6 +96,9 @@ exports.VaultInfo = {
             collateralizationRatio: isSet(object.collateralizationRatio)
                 ? String(object.collateralizationRatio)
                 : "",
+            rewardsReceived: Array.isArray(object === null || object === void 0 ? void 0 : object.rewardsReceived)
+                ? object.rewardsReceived.map((e) => coin_1.Coin.fromJSON(e))
+                : [],
         };
     },
     toJSON(message) {
@@ -105,10 +116,16 @@ exports.VaultInfo = {
             (obj.debt = message.debt ? coin_1.Coin.toJSON(message.debt) : undefined);
         message.collateralizationRatio !== undefined &&
             (obj.collateralizationRatio = message.collateralizationRatio);
+        if (message.rewardsReceived) {
+            obj.rewardsReceived = message.rewardsReceived.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
+        }
+        else {
+            obj.rewardsReceived = [];
+        }
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c;
         const message = createBaseVaultInfo();
         message.id =
             object.id !== undefined && object.id !== null
@@ -128,6 +145,8 @@ exports.VaultInfo = {
                 ? coin_1.Coin.fromPartial(object.debt)
                 : undefined;
         message.collateralizationRatio = (_b = object.collateralizationRatio) !== null && _b !== void 0 ? _b : "";
+        message.rewardsReceived =
+            ((_c = object.rewardsReceived) === null || _c === void 0 ? void 0 : _c.map((e) => coin_1.Coin.fromPartial(e))) || [];
         return message;
     },
 };
@@ -564,6 +583,91 @@ exports.QueryTotalCollateralResponse = {
         return message;
     },
 };
+function createBaseQueryCAssetsMintStatsRequest() {
+    return {};
+}
+exports.QueryCAssetsMintStatsRequest = {
+    encode(_, writer = minimal_1.default.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryCAssetsMintStatsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseQueryCAssetsMintStatsRequest();
+        return message;
+    },
+};
+function createBaseQueryCAssetsMintStatsResponse() {
+    return { mintStats: [] };
+}
+exports.QueryCAssetsMintStatsResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        for (const v of message.mintStats) {
+            vault_1.CAssetsMintStatistics.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryCAssetsMintStatsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.mintStats.push(vault_1.CAssetsMintStatistics.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            mintStats: Array.isArray(object === null || object === void 0 ? void 0 : object.mintStats)
+                ? object.mintStats.map((e) => vault_1.CAssetsMintStatistics.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.mintStats) {
+            obj.mintStats = message.mintStats.map((e) => e ? vault_1.CAssetsMintStatistics.toJSON(e) : undefined);
+        }
+        else {
+            obj.mintStats = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryCAssetsMintStatsResponse();
+        message.mintStats =
+            ((_a = object.mintStats) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.CAssetsMintStatistics.fromPartial(e))) || [];
+        return message;
+    },
+};
 class QueryServiceClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -571,6 +675,7 @@ class QueryServiceClientImpl {
         this.QueryVaults = this.QueryVaults.bind(this);
         this.QueryAllVaults = this.QueryAllVaults.bind(this);
         this.QueryTotalCollaterals = this.QueryTotalCollaterals.bind(this);
+        this.QueryCAssetMintStatistics = this.QueryCAssetMintStatistics.bind(this);
     }
     QueryVault(request) {
         const data = exports.QueryVaultRequest.encode(request).finish();
@@ -591,6 +696,11 @@ class QueryServiceClientImpl {
         const data = exports.QueryTotalCollateralRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.QueryService", "QueryTotalCollaterals", data);
         return promise.then((data) => exports.QueryTotalCollateralResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    QueryCAssetMintStatistics(request) {
+        const data = exports.QueryCAssetsMintStatsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.QueryService", "QueryCAssetMintStatistics", data);
+        return promise.then((data) => exports.QueryCAssetsMintStatsResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.QueryServiceClientImpl = QueryServiceClientImpl;

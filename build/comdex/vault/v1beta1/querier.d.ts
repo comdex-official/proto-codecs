@@ -2,6 +2,7 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import { CAssetsMintStatistics } from "./vault";
 export declare const protobufPackage = "comdex.vault.v1beta1";
 export interface VaultInfo {
     id: Long;
@@ -10,6 +11,7 @@ export interface VaultInfo {
     collateral?: Coin;
     debt?: Coin;
     collateralizationRatio: string;
+    rewardsReceived: Coin[];
 }
 export interface QueryVaultRequest {
     id: Long;
@@ -37,6 +39,11 @@ export interface QueryTotalCollateralRequest {
 export interface QueryTotalCollateralResponse {
     collaterals: Coin[];
 }
+export interface QueryCAssetsMintStatsRequest {
+}
+export interface QueryCAssetsMintStatsResponse {
+    mintStats: CAssetsMintStatistics[];
+}
 export declare const VaultInfo: {
     encode(message: VaultInfo, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): VaultInfo;
@@ -55,6 +62,10 @@ export declare const VaultInfo: {
             amount?: string | undefined;
         } | undefined;
         collateralizationRatio?: string | undefined;
+        rewardsReceived?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
     } & {
         id?: string | number | (Long.Long & {
             high: number;
@@ -188,6 +199,19 @@ export declare const VaultInfo: {
             amount?: string | undefined;
         } & Record<Exclude<keyof I["debt"], keyof Coin>, never>) | undefined;
         collateralizationRatio?: string | undefined;
+        rewardsReceived?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["rewardsReceived"][number], keyof Coin>, never>)[] & Record<Exclude<keyof I["rewardsReceived"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof VaultInfo>, never>>(object: I): VaultInfo;
 };
 export declare const QueryVaultRequest: {
@@ -277,6 +301,10 @@ export declare const QueryVaultResponse: {
                 amount?: string | undefined;
             } | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
         } | undefined;
     } & {
         vaultInfo?: ({
@@ -292,6 +320,10 @@ export declare const QueryVaultResponse: {
                 amount?: string | undefined;
             } | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -425,6 +457,19 @@ export declare const QueryVaultResponse: {
                 amount?: string | undefined;
             } & Record<Exclude<keyof I["vaultInfo"]["debt"], keyof Coin>, never>) | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] & ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & Record<Exclude<keyof I["vaultInfo"]["rewardsReceived"][number], keyof Coin>, never>)[] & Record<Exclude<keyof I["vaultInfo"]["rewardsReceived"], keyof {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["vaultInfo"], keyof VaultInfo>, never>) | undefined;
     } & Record<Exclude<keyof I, "vaultInfo">, never>>(object: I): QueryVaultResponse;
 };
@@ -592,6 +637,10 @@ export declare const QueryVaultsResponse: {
                 amount?: string | undefined;
             } | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -611,6 +660,10 @@ export declare const QueryVaultsResponse: {
                 amount?: string | undefined;
             } | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
@@ -624,6 +677,10 @@ export declare const QueryVaultsResponse: {
                 amount?: string | undefined;
             } | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -757,6 +814,19 @@ export declare const QueryVaultsResponse: {
                 amount?: string | undefined;
             } & Record<Exclude<keyof I["vaultsInfo"][number]["debt"], keyof Coin>, never>) | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] & ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & Record<Exclude<keyof I["vaultsInfo"][number]["rewardsReceived"][number], keyof Coin>, never>)[] & Record<Exclude<keyof I["vaultsInfo"][number]["rewardsReceived"], keyof {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["vaultsInfo"][number], keyof VaultInfo>, never>)[] & Record<Exclude<keyof I["vaultsInfo"], keyof {
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
@@ -770,6 +840,10 @@ export declare const QueryVaultsResponse: {
                 amount?: string | undefined;
             } | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -999,6 +1073,10 @@ export declare const QueryAllVaultsResponse: {
                 amount?: string | undefined;
             } | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -1018,6 +1096,10 @@ export declare const QueryAllVaultsResponse: {
                 amount?: string | undefined;
             } | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
@@ -1031,6 +1113,10 @@ export declare const QueryAllVaultsResponse: {
                 amount?: string | undefined;
             } | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -1164,6 +1250,19 @@ export declare const QueryAllVaultsResponse: {
                 amount?: string | undefined;
             } & Record<Exclude<keyof I["vaultsInfo"][number]["debt"], keyof Coin>, never>) | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] & ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & Record<Exclude<keyof I["vaultsInfo"][number]["rewardsReceived"][number], keyof Coin>, never>)[] & Record<Exclude<keyof I["vaultsInfo"][number]["rewardsReceived"], keyof {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["vaultsInfo"][number], keyof VaultInfo>, never>)[] & Record<Exclude<keyof I["vaultsInfo"], keyof {
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
@@ -1177,6 +1276,10 @@ export declare const QueryAllVaultsResponse: {
                 amount?: string | undefined;
             } | undefined;
             collateralizationRatio?: string | undefined;
+            rewardsReceived?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -1277,11 +1380,114 @@ export declare const QueryTotalCollateralResponse: {
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "collaterals">, never>>(object: I): QueryTotalCollateralResponse;
 };
+export declare const QueryCAssetsMintStatsRequest: {
+    encode(_: QueryCAssetsMintStatsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCAssetsMintStatsRequest;
+    fromJSON(_: any): QueryCAssetsMintStatsRequest;
+    toJSON(_: QueryCAssetsMintStatsRequest): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryCAssetsMintStatsRequest;
+};
+export declare const QueryCAssetsMintStatsResponse: {
+    encode(message: QueryCAssetsMintStatsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCAssetsMintStatsResponse;
+    fromJSON(object: any): QueryCAssetsMintStatsResponse;
+    toJSON(message: QueryCAssetsMintStatsResponse): unknown;
+    fromPartial<I extends {
+        mintStats?: {
+            collateralDenom?: string | undefined;
+            mintedAssets?: {
+                [x: string]: string | number | Long.Long | undefined;
+            } | undefined;
+        }[] | undefined;
+    } & {
+        mintStats?: ({
+            collateralDenom?: string | undefined;
+            mintedAssets?: {
+                [x: string]: string | number | Long.Long | undefined;
+            } | undefined;
+        }[] & ({
+            collateralDenom?: string | undefined;
+            mintedAssets?: {
+                [x: string]: string | number | Long.Long | undefined;
+            } | undefined;
+        } & {
+            collateralDenom?: string | undefined;
+            mintedAssets?: ({
+                [x: string]: string | number | Long.Long | undefined;
+            } & {
+                [x: string]: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["mintStats"][number]["mintedAssets"][string], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["mintStats"][number]["mintedAssets"], string | number>, never>) | undefined;
+        } & Record<Exclude<keyof I["mintStats"][number], keyof CAssetsMintStatistics>, never>)[] & Record<Exclude<keyof I["mintStats"], keyof {
+            collateralDenom?: string | undefined;
+            mintedAssets?: {
+                [x: string]: string | number | Long.Long | undefined;
+            } | undefined;
+        }[]>, never>) | undefined;
+    } & Record<Exclude<keyof I, "mintStats">, never>>(object: I): QueryCAssetsMintStatsResponse;
+};
 export interface QueryService {
     QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse>;
     QueryVaults(request: QueryVaultsRequest): Promise<QueryVaultsResponse>;
     QueryAllVaults(request: QueryAllVaultsRequest): Promise<QueryAllVaultsResponse>;
     QueryTotalCollaterals(request: QueryTotalCollateralRequest): Promise<QueryTotalCollateralResponse>;
+    QueryCAssetMintStatistics(request: QueryCAssetsMintStatsRequest): Promise<QueryCAssetsMintStatsResponse>;
 }
 export declare class QueryServiceClientImpl implements QueryService {
     private readonly rpc;
@@ -1290,6 +1496,7 @@ export declare class QueryServiceClientImpl implements QueryService {
     QueryVaults(request: QueryVaultsRequest): Promise<QueryVaultsResponse>;
     QueryAllVaults(request: QueryAllVaultsRequest): Promise<QueryAllVaultsResponse>;
     QueryTotalCollaterals(request: QueryTotalCollateralRequest): Promise<QueryTotalCollateralResponse>;
+    QueryCAssetMintStatistics(request: QueryCAssetsMintStatsRequest): Promise<QueryCAssetsMintStatsResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
