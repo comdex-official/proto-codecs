@@ -6,6 +6,7 @@ import {
   PageRequest,
   PageResponse,
 } from "../../../cosmos/base/query/v1beta1/pagination";
+import { CAssetsMintStatistics } from "./vault";
 
 export const protobufPackage = "comdex.vault.v1beta1";
 
@@ -16,6 +17,7 @@ export interface VaultInfo {
   collateral?: Coin;
   debt?: Coin;
   collateralizationRatio: string;
+  rewardsReceived: Coin[];
 }
 
 export interface QueryVaultRequest {
@@ -51,6 +53,12 @@ export interface QueryTotalCollateralResponse {
   collaterals: Coin[];
 }
 
+export interface QueryCAssetsMintStatsRequest {}
+
+export interface QueryCAssetsMintStatsResponse {
+  mintStats: CAssetsMintStatistics[];
+}
+
 function createBaseVaultInfo(): VaultInfo {
   return {
     id: Long.UZERO,
@@ -59,6 +67,7 @@ function createBaseVaultInfo(): VaultInfo {
     collateral: undefined,
     debt: undefined,
     collateralizationRatio: "",
+    rewardsReceived: [],
   };
 }
 
@@ -84,6 +93,9 @@ export const VaultInfo = {
     }
     if (message.collateralizationRatio !== "") {
       writer.uint32(50).string(message.collateralizationRatio);
+    }
+    for (const v of message.rewardsReceived) {
+      Coin.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
@@ -113,6 +125,9 @@ export const VaultInfo = {
         case 6:
           message.collateralizationRatio = reader.string();
           break;
+        case 7:
+          message.rewardsReceived.push(Coin.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -135,6 +150,9 @@ export const VaultInfo = {
       collateralizationRatio: isSet(object.collateralizationRatio)
         ? String(object.collateralizationRatio)
         : "",
+      rewardsReceived: Array.isArray(object?.rewardsReceived)
+        ? object.rewardsReceived.map((e: any) => Coin.fromJSON(e))
+        : [],
     };
   },
 
@@ -153,6 +171,13 @@ export const VaultInfo = {
       (obj.debt = message.debt ? Coin.toJSON(message.debt) : undefined);
     message.collateralizationRatio !== undefined &&
       (obj.collateralizationRatio = message.collateralizationRatio);
+    if (message.rewardsReceived) {
+      obj.rewardsReceived = message.rewardsReceived.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.rewardsReceived = [];
+    }
     return obj;
   },
 
@@ -178,6 +203,8 @@ export const VaultInfo = {
         ? Coin.fromPartial(object.debt)
         : undefined;
     message.collateralizationRatio = object.collateralizationRatio ?? "";
+    message.rewardsReceived =
+      object.rewardsReceived?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
@@ -720,6 +747,121 @@ export const QueryTotalCollateralResponse = {
   },
 };
 
+function createBaseQueryCAssetsMintStatsRequest(): QueryCAssetsMintStatsRequest {
+  return {};
+}
+
+export const QueryCAssetsMintStatsRequest = {
+  encode(
+    _: QueryCAssetsMintStatsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryCAssetsMintStatsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryCAssetsMintStatsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryCAssetsMintStatsRequest {
+    return {};
+  },
+
+  toJSON(_: QueryCAssetsMintStatsRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryCAssetsMintStatsRequest>, I>>(
+    _: I
+  ): QueryCAssetsMintStatsRequest {
+    const message = createBaseQueryCAssetsMintStatsRequest();
+    return message;
+  },
+};
+
+function createBaseQueryCAssetsMintStatsResponse(): QueryCAssetsMintStatsResponse {
+  return { mintStats: [] };
+}
+
+export const QueryCAssetsMintStatsResponse = {
+  encode(
+    message: QueryCAssetsMintStatsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.mintStats) {
+      CAssetsMintStatistics.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryCAssetsMintStatsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryCAssetsMintStatsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.mintStats.push(
+            CAssetsMintStatistics.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryCAssetsMintStatsResponse {
+    return {
+      mintStats: Array.isArray(object?.mintStats)
+        ? object.mintStats.map((e: any) => CAssetsMintStatistics.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: QueryCAssetsMintStatsResponse): unknown {
+    const obj: any = {};
+    if (message.mintStats) {
+      obj.mintStats = message.mintStats.map((e) =>
+        e ? CAssetsMintStatistics.toJSON(e) : undefined
+      );
+    } else {
+      obj.mintStats = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryCAssetsMintStatsResponse>, I>>(
+    object: I
+  ): QueryCAssetsMintStatsResponse {
+    const message = createBaseQueryCAssetsMintStatsResponse();
+    message.mintStats =
+      object.mintStats?.map((e) => CAssetsMintStatistics.fromPartial(e)) || [];
+    return message;
+  },
+};
+
 export interface QueryService {
   QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse>;
   QueryVaults(request: QueryVaultsRequest): Promise<QueryVaultsResponse>;
@@ -729,6 +871,9 @@ export interface QueryService {
   QueryTotalCollaterals(
     request: QueryTotalCollateralRequest
   ): Promise<QueryTotalCollateralResponse>;
+  QueryCAssetMintStatistics(
+    request: QueryCAssetsMintStatsRequest
+  ): Promise<QueryCAssetsMintStatsResponse>;
 }
 
 export class QueryServiceClientImpl implements QueryService {
@@ -739,6 +884,7 @@ export class QueryServiceClientImpl implements QueryService {
     this.QueryVaults = this.QueryVaults.bind(this);
     this.QueryAllVaults = this.QueryAllVaults.bind(this);
     this.QueryTotalCollaterals = this.QueryTotalCollaterals.bind(this);
+    this.QueryCAssetMintStatistics = this.QueryCAssetMintStatistics.bind(this);
   }
   QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse> {
     const data = QueryVaultRequest.encode(request).finish();
@@ -789,6 +935,20 @@ export class QueryServiceClientImpl implements QueryService {
     );
     return promise.then((data) =>
       QueryTotalCollateralResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryCAssetMintStatistics(
+    request: QueryCAssetsMintStatsRequest
+  ): Promise<QueryCAssetsMintStatsResponse> {
+    const data = QueryCAssetsMintStatsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.vault.v1beta1.QueryService",
+      "QueryCAssetMintStatistics",
+      data
+    );
+    return promise.then((data) =>
+      QueryCAssetsMintStatsResponse.decode(new _m0.Reader(data))
     );
   }
 }
