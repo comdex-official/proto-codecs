@@ -6,9 +6,9 @@ import {
   MsgDepositWithinBatch,
   MsgWithdrawWithinBatch,
   MsgSwapWithinBatch,
-} from "../../../tendermint/liquidity/v1beta1/tx";
+} from "./tx";
 
-export const protobufPackage = "tendermint.liquidity.v1beta1";
+export const protobufPackage = "comdex.liquidity.v1beta1";
 
 /** Structure for the pool type to distinguish the characteristics of the reserve pools. */
 export interface PoolType {
@@ -50,6 +50,7 @@ export interface Params {
   unitBatchHeight: number;
   /** Circuit breaker enables or disables transaction messages in liquidity module. */
   circuitBreakerEnabled: boolean;
+  poolUnbondingDuration: string;
 }
 
 /** Pool defines the liquidity pool that contains pool information. */
@@ -153,13 +154,15 @@ export interface SwapMsgState {
   msg?: MsgSwapWithinBatch;
 }
 
-const basePoolType: object = {
-  id: 0,
-  name: "",
-  minReserveCoinNum: 0,
-  maxReserveCoinNum: 0,
-  description: "",
-};
+function createBasePoolType(): PoolType {
+  return {
+    id: 0,
+    name: "",
+    minReserveCoinNum: 0,
+    maxReserveCoinNum: 0,
+    description: "",
+  };
+}
 
 export const PoolType = {
   encode(
@@ -187,7 +190,7 @@ export const PoolType = {
   decode(input: _m0.Reader | Uint8Array, length?: number): PoolType {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePoolType } as PoolType;
+    const message = createBasePoolType();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -215,101 +218,58 @@ export const PoolType = {
   },
 
   fromJSON(object: any): PoolType {
-    const message = { ...basePoolType } as PoolType;
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Number(object.id);
-    } else {
-      message.id = 0;
-    }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = String(object.name);
-    } else {
-      message.name = "";
-    }
-    if (
-      object.minReserveCoinNum !== undefined &&
-      object.minReserveCoinNum !== null
-    ) {
-      message.minReserveCoinNum = Number(object.minReserveCoinNum);
-    } else {
-      message.minReserveCoinNum = 0;
-    }
-    if (
-      object.maxReserveCoinNum !== undefined &&
-      object.maxReserveCoinNum !== null
-    ) {
-      message.maxReserveCoinNum = Number(object.maxReserveCoinNum);
-    } else {
-      message.maxReserveCoinNum = 0;
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = String(object.description);
-    } else {
-      message.description = "";
-    }
-    return message;
+    return {
+      id: isSet(object.id) ? Number(object.id) : 0,
+      name: isSet(object.name) ? String(object.name) : "",
+      minReserveCoinNum: isSet(object.minReserveCoinNum)
+        ? Number(object.minReserveCoinNum)
+        : 0,
+      maxReserveCoinNum: isSet(object.maxReserveCoinNum)
+        ? Number(object.maxReserveCoinNum)
+        : 0,
+      description: isSet(object.description) ? String(object.description) : "",
+    };
   },
 
   toJSON(message: PoolType): unknown {
     const obj: any = {};
-    message.id !== undefined && (obj.id = message.id);
+    message.id !== undefined && (obj.id = Math.round(message.id));
     message.name !== undefined && (obj.name = message.name);
     message.minReserveCoinNum !== undefined &&
-      (obj.minReserveCoinNum = message.minReserveCoinNum);
+      (obj.minReserveCoinNum = Math.round(message.minReserveCoinNum));
     message.maxReserveCoinNum !== undefined &&
-      (obj.maxReserveCoinNum = message.maxReserveCoinNum);
+      (obj.maxReserveCoinNum = Math.round(message.maxReserveCoinNum));
     message.description !== undefined &&
       (obj.description = message.description);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PoolType>): PoolType {
-    const message = { ...basePoolType } as PoolType;
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id;
-    } else {
-      message.id = 0;
-    }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    } else {
-      message.name = "";
-    }
-    if (
-      object.minReserveCoinNum !== undefined &&
-      object.minReserveCoinNum !== null
-    ) {
-      message.minReserveCoinNum = object.minReserveCoinNum;
-    } else {
-      message.minReserveCoinNum = 0;
-    }
-    if (
-      object.maxReserveCoinNum !== undefined &&
-      object.maxReserveCoinNum !== null
-    ) {
-      message.maxReserveCoinNum = object.maxReserveCoinNum;
-    } else {
-      message.maxReserveCoinNum = 0;
-    }
-    if (object.description !== undefined && object.description !== null) {
-      message.description = object.description;
-    } else {
-      message.description = "";
-    }
+  fromPartial<I extends Exact<DeepPartial<PoolType>, I>>(object: I): PoolType {
+    const message = createBasePoolType();
+    message.id = object.id ?? 0;
+    message.name = object.name ?? "";
+    message.minReserveCoinNum = object.minReserveCoinNum ?? 0;
+    message.maxReserveCoinNum = object.maxReserveCoinNum ?? 0;
+    message.description = object.description ?? "";
     return message;
   },
 };
 
-const baseParams: object = {
-  minInitDepositAmount: "",
-  initPoolCoinMintAmount: "",
-  maxReserveCoinAmount: "",
-  swapFeeRate: "",
-  withdrawFeeRate: "",
-  maxOrderAmountRatio: "",
-  unitBatchHeight: 0,
-  circuitBreakerEnabled: false,
-};
+function createBaseParams(): Params {
+  return {
+    poolTypes: [],
+    minInitDepositAmount: "",
+    initPoolCoinMintAmount: "",
+    maxReserveCoinAmount: "",
+    poolCreationFee: [],
+    swapFeeRate: "",
+    withdrawFeeRate: "",
+    maxOrderAmountRatio: "",
+    unitBatchHeight: 0,
+    circuitBreakerEnabled: false,
+    poolUnbondingDuration: "",
+  };
+}
 
 export const Params = {
   encode(
@@ -346,15 +306,16 @@ export const Params = {
     if (message.circuitBreakerEnabled === true) {
       writer.uint32(80).bool(message.circuitBreakerEnabled);
     }
+    if (message.poolUnbondingDuration !== "") {
+      writer.uint32(98).string(message.poolUnbondingDuration);
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseParams } as Params;
-    message.poolTypes = [];
-    message.poolCreationFee = [];
+    const message = createBaseParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -388,6 +349,9 @@ export const Params = {
         case 10:
           message.circuitBreakerEnabled = reader.bool();
           break;
+        case 12:
+          message.poolUnbondingDuration = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -397,84 +361,39 @@ export const Params = {
   },
 
   fromJSON(object: any): Params {
-    const message = { ...baseParams } as Params;
-    message.poolTypes = [];
-    message.poolCreationFee = [];
-    if (object.poolTypes !== undefined && object.poolTypes !== null) {
-      for (const e of object.poolTypes) {
-        message.poolTypes.push(PoolType.fromJSON(e));
-      }
-    }
-    if (
-      object.minInitDepositAmount !== undefined &&
-      object.minInitDepositAmount !== null
-    ) {
-      message.minInitDepositAmount = String(object.minInitDepositAmount);
-    } else {
-      message.minInitDepositAmount = "";
-    }
-    if (
-      object.initPoolCoinMintAmount !== undefined &&
-      object.initPoolCoinMintAmount !== null
-    ) {
-      message.initPoolCoinMintAmount = String(object.initPoolCoinMintAmount);
-    } else {
-      message.initPoolCoinMintAmount = "";
-    }
-    if (
-      object.maxReserveCoinAmount !== undefined &&
-      object.maxReserveCoinAmount !== null
-    ) {
-      message.maxReserveCoinAmount = String(object.maxReserveCoinAmount);
-    } else {
-      message.maxReserveCoinAmount = "";
-    }
-    if (
-      object.poolCreationFee !== undefined &&
-      object.poolCreationFee !== null
-    ) {
-      for (const e of object.poolCreationFee) {
-        message.poolCreationFee.push(Coin.fromJSON(e));
-      }
-    }
-    if (object.swapFeeRate !== undefined && object.swapFeeRate !== null) {
-      message.swapFeeRate = String(object.swapFeeRate);
-    } else {
-      message.swapFeeRate = "";
-    }
-    if (
-      object.withdrawFeeRate !== undefined &&
-      object.withdrawFeeRate !== null
-    ) {
-      message.withdrawFeeRate = String(object.withdrawFeeRate);
-    } else {
-      message.withdrawFeeRate = "";
-    }
-    if (
-      object.maxOrderAmountRatio !== undefined &&
-      object.maxOrderAmountRatio !== null
-    ) {
-      message.maxOrderAmountRatio = String(object.maxOrderAmountRatio);
-    } else {
-      message.maxOrderAmountRatio = "";
-    }
-    if (
-      object.unitBatchHeight !== undefined &&
-      object.unitBatchHeight !== null
-    ) {
-      message.unitBatchHeight = Number(object.unitBatchHeight);
-    } else {
-      message.unitBatchHeight = 0;
-    }
-    if (
-      object.circuitBreakerEnabled !== undefined &&
-      object.circuitBreakerEnabled !== null
-    ) {
-      message.circuitBreakerEnabled = Boolean(object.circuitBreakerEnabled);
-    } else {
-      message.circuitBreakerEnabled = false;
-    }
-    return message;
+    return {
+      poolTypes: Array.isArray(object?.poolTypes)
+        ? object.poolTypes.map((e: any) => PoolType.fromJSON(e))
+        : [],
+      minInitDepositAmount: isSet(object.minInitDepositAmount)
+        ? String(object.minInitDepositAmount)
+        : "",
+      initPoolCoinMintAmount: isSet(object.initPoolCoinMintAmount)
+        ? String(object.initPoolCoinMintAmount)
+        : "",
+      maxReserveCoinAmount: isSet(object.maxReserveCoinAmount)
+        ? String(object.maxReserveCoinAmount)
+        : "",
+      poolCreationFee: Array.isArray(object?.poolCreationFee)
+        ? object.poolCreationFee.map((e: any) => Coin.fromJSON(e))
+        : [],
+      swapFeeRate: isSet(object.swapFeeRate) ? String(object.swapFeeRate) : "",
+      withdrawFeeRate: isSet(object.withdrawFeeRate)
+        ? String(object.withdrawFeeRate)
+        : "",
+      maxOrderAmountRatio: isSet(object.maxOrderAmountRatio)
+        ? String(object.maxOrderAmountRatio)
+        : "",
+      unitBatchHeight: isSet(object.unitBatchHeight)
+        ? Number(object.unitBatchHeight)
+        : 0,
+      circuitBreakerEnabled: isSet(object.circuitBreakerEnabled)
+        ? Boolean(object.circuitBreakerEnabled)
+        : false,
+      poolUnbondingDuration: isSet(object.poolUnbondingDuration)
+        ? String(object.poolUnbondingDuration)
+        : "",
+    };
   },
 
   toJSON(message: Params): unknown {
@@ -506,101 +425,42 @@ export const Params = {
     message.maxOrderAmountRatio !== undefined &&
       (obj.maxOrderAmountRatio = message.maxOrderAmountRatio);
     message.unitBatchHeight !== undefined &&
-      (obj.unitBatchHeight = message.unitBatchHeight);
+      (obj.unitBatchHeight = Math.round(message.unitBatchHeight));
     message.circuitBreakerEnabled !== undefined &&
       (obj.circuitBreakerEnabled = message.circuitBreakerEnabled);
+    message.poolUnbondingDuration !== undefined &&
+      (obj.poolUnbondingDuration = message.poolUnbondingDuration);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Params>): Params {
-    const message = { ...baseParams } as Params;
-    message.poolTypes = [];
-    message.poolCreationFee = [];
-    if (object.poolTypes !== undefined && object.poolTypes !== null) {
-      for (const e of object.poolTypes) {
-        message.poolTypes.push(PoolType.fromPartial(e));
-      }
-    }
-    if (
-      object.minInitDepositAmount !== undefined &&
-      object.minInitDepositAmount !== null
-    ) {
-      message.minInitDepositAmount = object.minInitDepositAmount;
-    } else {
-      message.minInitDepositAmount = "";
-    }
-    if (
-      object.initPoolCoinMintAmount !== undefined &&
-      object.initPoolCoinMintAmount !== null
-    ) {
-      message.initPoolCoinMintAmount = object.initPoolCoinMintAmount;
-    } else {
-      message.initPoolCoinMintAmount = "";
-    }
-    if (
-      object.maxReserveCoinAmount !== undefined &&
-      object.maxReserveCoinAmount !== null
-    ) {
-      message.maxReserveCoinAmount = object.maxReserveCoinAmount;
-    } else {
-      message.maxReserveCoinAmount = "";
-    }
-    if (
-      object.poolCreationFee !== undefined &&
-      object.poolCreationFee !== null
-    ) {
-      for (const e of object.poolCreationFee) {
-        message.poolCreationFee.push(Coin.fromPartial(e));
-      }
-    }
-    if (object.swapFeeRate !== undefined && object.swapFeeRate !== null) {
-      message.swapFeeRate = object.swapFeeRate;
-    } else {
-      message.swapFeeRate = "";
-    }
-    if (
-      object.withdrawFeeRate !== undefined &&
-      object.withdrawFeeRate !== null
-    ) {
-      message.withdrawFeeRate = object.withdrawFeeRate;
-    } else {
-      message.withdrawFeeRate = "";
-    }
-    if (
-      object.maxOrderAmountRatio !== undefined &&
-      object.maxOrderAmountRatio !== null
-    ) {
-      message.maxOrderAmountRatio = object.maxOrderAmountRatio;
-    } else {
-      message.maxOrderAmountRatio = "";
-    }
-    if (
-      object.unitBatchHeight !== undefined &&
-      object.unitBatchHeight !== null
-    ) {
-      message.unitBatchHeight = object.unitBatchHeight;
-    } else {
-      message.unitBatchHeight = 0;
-    }
-    if (
-      object.circuitBreakerEnabled !== undefined &&
-      object.circuitBreakerEnabled !== null
-    ) {
-      message.circuitBreakerEnabled = object.circuitBreakerEnabled;
-    } else {
-      message.circuitBreakerEnabled = false;
-    }
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
+    const message = createBaseParams();
+    message.poolTypes =
+      object.poolTypes?.map((e) => PoolType.fromPartial(e)) || [];
+    message.minInitDepositAmount = object.minInitDepositAmount ?? "";
+    message.initPoolCoinMintAmount = object.initPoolCoinMintAmount ?? "";
+    message.maxReserveCoinAmount = object.maxReserveCoinAmount ?? "";
+    message.poolCreationFee =
+      object.poolCreationFee?.map((e) => Coin.fromPartial(e)) || [];
+    message.swapFeeRate = object.swapFeeRate ?? "";
+    message.withdrawFeeRate = object.withdrawFeeRate ?? "";
+    message.maxOrderAmountRatio = object.maxOrderAmountRatio ?? "";
+    message.unitBatchHeight = object.unitBatchHeight ?? 0;
+    message.circuitBreakerEnabled = object.circuitBreakerEnabled ?? false;
+    message.poolUnbondingDuration = object.poolUnbondingDuration ?? "";
     return message;
   },
 };
 
-const basePool: object = {
-  id: Long.UZERO,
-  typeId: 0,
-  reserveCoinDenoms: "",
-  reserveAccountAddress: "",
-  poolCoinDenom: "",
-};
+function createBasePool(): Pool {
+  return {
+    id: Long.UZERO,
+    typeId: 0,
+    reserveCoinDenoms: [],
+    reserveAccountAddress: "",
+    poolCoinDenom: "",
+  };
+}
 
 export const Pool = {
   encode(message: Pool, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
@@ -625,8 +485,7 @@ export const Pool = {
   decode(input: _m0.Reader | Uint8Array, length?: number): Pool {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePool } as Pool;
-    message.reserveCoinDenoms = [];
+    const message = createBasePool();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -654,47 +513,26 @@ export const Pool = {
   },
 
   fromJSON(object: any): Pool {
-    const message = { ...basePool } as Pool;
-    message.reserveCoinDenoms = [];
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Long.fromString(object.id);
-    } else {
-      message.id = Long.UZERO;
-    }
-    if (object.typeId !== undefined && object.typeId !== null) {
-      message.typeId = Number(object.typeId);
-    } else {
-      message.typeId = 0;
-    }
-    if (
-      object.reserveCoinDenoms !== undefined &&
-      object.reserveCoinDenoms !== null
-    ) {
-      for (const e of object.reserveCoinDenoms) {
-        message.reserveCoinDenoms.push(String(e));
-      }
-    }
-    if (
-      object.reserveAccountAddress !== undefined &&
-      object.reserveAccountAddress !== null
-    ) {
-      message.reserveAccountAddress = String(object.reserveAccountAddress);
-    } else {
-      message.reserveAccountAddress = "";
-    }
-    if (object.poolCoinDenom !== undefined && object.poolCoinDenom !== null) {
-      message.poolCoinDenom = String(object.poolCoinDenom);
-    } else {
-      message.poolCoinDenom = "";
-    }
-    return message;
+    return {
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      typeId: isSet(object.typeId) ? Number(object.typeId) : 0,
+      reserveCoinDenoms: Array.isArray(object?.reserveCoinDenoms)
+        ? object.reserveCoinDenoms.map((e: any) => String(e))
+        : [],
+      reserveAccountAddress: isSet(object.reserveAccountAddress)
+        ? String(object.reserveAccountAddress)
+        : "",
+      poolCoinDenom: isSet(object.poolCoinDenom)
+        ? String(object.poolCoinDenom)
+        : "",
+    };
   },
 
   toJSON(message: Pool): unknown {
     const obj: any = {};
     message.id !== undefined &&
       (obj.id = (message.id || Long.UZERO).toString());
-    message.typeId !== undefined && (obj.typeId = message.typeId);
+    message.typeId !== undefined && (obj.typeId = Math.round(message.typeId));
     if (message.reserveCoinDenoms) {
       obj.reserveCoinDenoms = message.reserveCoinDenoms.map((e) => e);
     } else {
@@ -707,45 +545,27 @@ export const Pool = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<Pool>): Pool {
-    const message = { ...basePool } as Pool;
-    message.reserveCoinDenoms = [];
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id as Long;
-    } else {
-      message.id = Long.UZERO;
-    }
-    if (object.typeId !== undefined && object.typeId !== null) {
-      message.typeId = object.typeId;
-    } else {
-      message.typeId = 0;
-    }
-    if (
-      object.reserveCoinDenoms !== undefined &&
-      object.reserveCoinDenoms !== null
-    ) {
-      for (const e of object.reserveCoinDenoms) {
-        message.reserveCoinDenoms.push(e);
-      }
-    }
-    if (
-      object.reserveAccountAddress !== undefined &&
-      object.reserveAccountAddress !== null
-    ) {
-      message.reserveAccountAddress = object.reserveAccountAddress;
-    } else {
-      message.reserveAccountAddress = "";
-    }
-    if (object.poolCoinDenom !== undefined && object.poolCoinDenom !== null) {
-      message.poolCoinDenom = object.poolCoinDenom;
-    } else {
-      message.poolCoinDenom = "";
-    }
+  fromPartial<I extends Exact<DeepPartial<Pool>, I>>(object: I): Pool {
+    const message = createBasePool();
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO;
+    message.typeId = object.typeId ?? 0;
+    message.reserveCoinDenoms = object.reserveCoinDenoms?.map((e) => e) || [];
+    message.reserveAccountAddress = object.reserveAccountAddress ?? "";
+    message.poolCoinDenom = object.poolCoinDenom ?? "";
     return message;
   },
 };
 
-const basePoolMetadata: object = { poolId: Long.UZERO };
+function createBasePoolMetadata(): PoolMetadata {
+  return {
+    poolId: Long.UZERO,
+    poolCoinTotalSupply: undefined,
+    reserveCoins: [],
+  };
+}
 
 export const PoolMetadata = {
   encode(
@@ -770,8 +590,7 @@ export const PoolMetadata = {
   decode(input: _m0.Reader | Uint8Array, length?: number): PoolMetadata {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePoolMetadata } as PoolMetadata;
-    message.reserveCoins = [];
+    const message = createBasePoolMetadata();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -793,27 +612,17 @@ export const PoolMetadata = {
   },
 
   fromJSON(object: any): PoolMetadata {
-    const message = { ...basePoolMetadata } as PoolMetadata;
-    message.reserveCoins = [];
-    if (object.poolId !== undefined && object.poolId !== null) {
-      message.poolId = Long.fromString(object.poolId);
-    } else {
-      message.poolId = Long.UZERO;
-    }
-    if (
-      object.poolCoinTotalSupply !== undefined &&
-      object.poolCoinTotalSupply !== null
-    ) {
-      message.poolCoinTotalSupply = Coin.fromJSON(object.poolCoinTotalSupply);
-    } else {
-      message.poolCoinTotalSupply = undefined;
-    }
-    if (object.reserveCoins !== undefined && object.reserveCoins !== null) {
-      for (const e of object.reserveCoins) {
-        message.reserveCoins.push(Coin.fromJSON(e));
-      }
-    }
-    return message;
+    return {
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
+      poolCoinTotalSupply: isSet(object.poolCoinTotalSupply)
+        ? Coin.fromJSON(object.poolCoinTotalSupply)
+        : undefined,
+      reserveCoins: Array.isArray(object?.reserveCoins)
+        ? object.reserveCoins.map((e: any) => Coin.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: PoolMetadata): unknown {
@@ -834,42 +643,36 @@ export const PoolMetadata = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PoolMetadata>): PoolMetadata {
-    const message = { ...basePoolMetadata } as PoolMetadata;
-    message.reserveCoins = [];
-    if (object.poolId !== undefined && object.poolId !== null) {
-      message.poolId = object.poolId as Long;
-    } else {
-      message.poolId = Long.UZERO;
-    }
-    if (
+  fromPartial<I extends Exact<DeepPartial<PoolMetadata>, I>>(
+    object: I
+  ): PoolMetadata {
+    const message = createBasePoolMetadata();
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    message.poolCoinTotalSupply =
       object.poolCoinTotalSupply !== undefined &&
       object.poolCoinTotalSupply !== null
-    ) {
-      message.poolCoinTotalSupply = Coin.fromPartial(
-        object.poolCoinTotalSupply
-      );
-    } else {
-      message.poolCoinTotalSupply = undefined;
-    }
-    if (object.reserveCoins !== undefined && object.reserveCoins !== null) {
-      for (const e of object.reserveCoins) {
-        message.reserveCoins.push(Coin.fromPartial(e));
-      }
-    }
+        ? Coin.fromPartial(object.poolCoinTotalSupply)
+        : undefined;
+    message.reserveCoins =
+      object.reserveCoins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
 };
 
-const basePoolBatch: object = {
-  poolId: Long.UZERO,
-  index: Long.UZERO,
-  beginHeight: Long.ZERO,
-  depositMsgIndex: Long.UZERO,
-  withdrawMsgIndex: Long.UZERO,
-  swapMsgIndex: Long.UZERO,
-  executed: false,
-};
+function createBasePoolBatch(): PoolBatch {
+  return {
+    poolId: Long.UZERO,
+    index: Long.UZERO,
+    beginHeight: Long.ZERO,
+    depositMsgIndex: Long.UZERO,
+    withdrawMsgIndex: Long.UZERO,
+    swapMsgIndex: Long.UZERO,
+    executed: false,
+  };
+}
 
 export const PoolBatch = {
   encode(
@@ -903,7 +706,7 @@ export const PoolBatch = {
   decode(input: _m0.Reader | Uint8Array, length?: number): PoolBatch {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...basePoolBatch } as PoolBatch;
+    const message = createBasePoolBatch();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -937,49 +740,25 @@ export const PoolBatch = {
   },
 
   fromJSON(object: any): PoolBatch {
-    const message = { ...basePoolBatch } as PoolBatch;
-    if (object.poolId !== undefined && object.poolId !== null) {
-      message.poolId = Long.fromString(object.poolId);
-    } else {
-      message.poolId = Long.UZERO;
-    }
-    if (object.index !== undefined && object.index !== null) {
-      message.index = Long.fromString(object.index);
-    } else {
-      message.index = Long.UZERO;
-    }
-    if (object.beginHeight !== undefined && object.beginHeight !== null) {
-      message.beginHeight = Long.fromString(object.beginHeight);
-    } else {
-      message.beginHeight = Long.ZERO;
-    }
-    if (
-      object.depositMsgIndex !== undefined &&
-      object.depositMsgIndex !== null
-    ) {
-      message.depositMsgIndex = Long.fromString(object.depositMsgIndex);
-    } else {
-      message.depositMsgIndex = Long.UZERO;
-    }
-    if (
-      object.withdrawMsgIndex !== undefined &&
-      object.withdrawMsgIndex !== null
-    ) {
-      message.withdrawMsgIndex = Long.fromString(object.withdrawMsgIndex);
-    } else {
-      message.withdrawMsgIndex = Long.UZERO;
-    }
-    if (object.swapMsgIndex !== undefined && object.swapMsgIndex !== null) {
-      message.swapMsgIndex = Long.fromString(object.swapMsgIndex);
-    } else {
-      message.swapMsgIndex = Long.UZERO;
-    }
-    if (object.executed !== undefined && object.executed !== null) {
-      message.executed = Boolean(object.executed);
-    } else {
-      message.executed = false;
-    }
-    return message;
+    return {
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
+      index: isSet(object.index) ? Long.fromString(object.index) : Long.UZERO,
+      beginHeight: isSet(object.beginHeight)
+        ? Long.fromString(object.beginHeight)
+        : Long.ZERO,
+      depositMsgIndex: isSet(object.depositMsgIndex)
+        ? Long.fromString(object.depositMsgIndex)
+        : Long.UZERO,
+      withdrawMsgIndex: isSet(object.withdrawMsgIndex)
+        ? Long.fromString(object.withdrawMsgIndex)
+        : Long.UZERO,
+      swapMsgIndex: isSet(object.swapMsgIndex)
+        ? Long.fromString(object.swapMsgIndex)
+        : Long.UZERO,
+      executed: isSet(object.executed) ? Boolean(object.executed) : false,
+    };
   },
 
   toJSON(message: PoolBatch): unknown {
@@ -1004,60 +783,49 @@ export const PoolBatch = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<PoolBatch>): PoolBatch {
-    const message = { ...basePoolBatch } as PoolBatch;
-    if (object.poolId !== undefined && object.poolId !== null) {
-      message.poolId = object.poolId as Long;
-    } else {
-      message.poolId = Long.UZERO;
-    }
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index as Long;
-    } else {
-      message.index = Long.UZERO;
-    }
-    if (object.beginHeight !== undefined && object.beginHeight !== null) {
-      message.beginHeight = object.beginHeight as Long;
-    } else {
-      message.beginHeight = Long.ZERO;
-    }
-    if (
-      object.depositMsgIndex !== undefined &&
-      object.depositMsgIndex !== null
-    ) {
-      message.depositMsgIndex = object.depositMsgIndex as Long;
-    } else {
-      message.depositMsgIndex = Long.UZERO;
-    }
-    if (
-      object.withdrawMsgIndex !== undefined &&
-      object.withdrawMsgIndex !== null
-    ) {
-      message.withdrawMsgIndex = object.withdrawMsgIndex as Long;
-    } else {
-      message.withdrawMsgIndex = Long.UZERO;
-    }
-    if (object.swapMsgIndex !== undefined && object.swapMsgIndex !== null) {
-      message.swapMsgIndex = object.swapMsgIndex as Long;
-    } else {
-      message.swapMsgIndex = Long.UZERO;
-    }
-    if (object.executed !== undefined && object.executed !== null) {
-      message.executed = object.executed;
-    } else {
-      message.executed = false;
-    }
+  fromPartial<I extends Exact<DeepPartial<PoolBatch>, I>>(
+    object: I
+  ): PoolBatch {
+    const message = createBasePoolBatch();
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    message.index =
+      object.index !== undefined && object.index !== null
+        ? Long.fromValue(object.index)
+        : Long.UZERO;
+    message.beginHeight =
+      object.beginHeight !== undefined && object.beginHeight !== null
+        ? Long.fromValue(object.beginHeight)
+        : Long.ZERO;
+    message.depositMsgIndex =
+      object.depositMsgIndex !== undefined && object.depositMsgIndex !== null
+        ? Long.fromValue(object.depositMsgIndex)
+        : Long.UZERO;
+    message.withdrawMsgIndex =
+      object.withdrawMsgIndex !== undefined && object.withdrawMsgIndex !== null
+        ? Long.fromValue(object.withdrawMsgIndex)
+        : Long.UZERO;
+    message.swapMsgIndex =
+      object.swapMsgIndex !== undefined && object.swapMsgIndex !== null
+        ? Long.fromValue(object.swapMsgIndex)
+        : Long.UZERO;
+    message.executed = object.executed ?? false;
     return message;
   },
 };
 
-const baseDepositMsgState: object = {
-  msgHeight: Long.ZERO,
-  msgIndex: Long.UZERO,
-  executed: false,
-  succeeded: false,
-  toBeDeleted: false,
-};
+function createBaseDepositMsgState(): DepositMsgState {
+  return {
+    msgHeight: Long.ZERO,
+    msgIndex: Long.UZERO,
+    executed: false,
+    succeeded: false,
+    toBeDeleted: false,
+    msg: undefined,
+  };
+}
 
 export const DepositMsgState = {
   encode(
@@ -1091,7 +859,7 @@ export const DepositMsgState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): DepositMsgState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseDepositMsgState } as DepositMsgState;
+    const message = createBaseDepositMsgState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1122,38 +890,22 @@ export const DepositMsgState = {
   },
 
   fromJSON(object: any): DepositMsgState {
-    const message = { ...baseDepositMsgState } as DepositMsgState;
-    if (object.msgHeight !== undefined && object.msgHeight !== null) {
-      message.msgHeight = Long.fromString(object.msgHeight);
-    } else {
-      message.msgHeight = Long.ZERO;
-    }
-    if (object.msgIndex !== undefined && object.msgIndex !== null) {
-      message.msgIndex = Long.fromString(object.msgIndex);
-    } else {
-      message.msgIndex = Long.UZERO;
-    }
-    if (object.executed !== undefined && object.executed !== null) {
-      message.executed = Boolean(object.executed);
-    } else {
-      message.executed = false;
-    }
-    if (object.succeeded !== undefined && object.succeeded !== null) {
-      message.succeeded = Boolean(object.succeeded);
-    } else {
-      message.succeeded = false;
-    }
-    if (object.toBeDeleted !== undefined && object.toBeDeleted !== null) {
-      message.toBeDeleted = Boolean(object.toBeDeleted);
-    } else {
-      message.toBeDeleted = false;
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgDepositWithinBatch.fromJSON(object.msg);
-    } else {
-      message.msg = undefined;
-    }
-    return message;
+    return {
+      msgHeight: isSet(object.msgHeight)
+        ? Long.fromString(object.msgHeight)
+        : Long.ZERO,
+      msgIndex: isSet(object.msgIndex)
+        ? Long.fromString(object.msgIndex)
+        : Long.UZERO,
+      executed: isSet(object.executed) ? Boolean(object.executed) : false,
+      succeeded: isSet(object.succeeded) ? Boolean(object.succeeded) : false,
+      toBeDeleted: isSet(object.toBeDeleted)
+        ? Boolean(object.toBeDeleted)
+        : false,
+      msg: isSet(object.msg)
+        ? MsgDepositWithinBatch.fromJSON(object.msg)
+        : undefined,
+    };
   },
 
   toJSON(message: DepositMsgState): unknown {
@@ -1173,49 +925,39 @@ export const DepositMsgState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<DepositMsgState>): DepositMsgState {
-    const message = { ...baseDepositMsgState } as DepositMsgState;
-    if (object.msgHeight !== undefined && object.msgHeight !== null) {
-      message.msgHeight = object.msgHeight as Long;
-    } else {
-      message.msgHeight = Long.ZERO;
-    }
-    if (object.msgIndex !== undefined && object.msgIndex !== null) {
-      message.msgIndex = object.msgIndex as Long;
-    } else {
-      message.msgIndex = Long.UZERO;
-    }
-    if (object.executed !== undefined && object.executed !== null) {
-      message.executed = object.executed;
-    } else {
-      message.executed = false;
-    }
-    if (object.succeeded !== undefined && object.succeeded !== null) {
-      message.succeeded = object.succeeded;
-    } else {
-      message.succeeded = false;
-    }
-    if (object.toBeDeleted !== undefined && object.toBeDeleted !== null) {
-      message.toBeDeleted = object.toBeDeleted;
-    } else {
-      message.toBeDeleted = false;
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgDepositWithinBatch.fromPartial(object.msg);
-    } else {
-      message.msg = undefined;
-    }
+  fromPartial<I extends Exact<DeepPartial<DepositMsgState>, I>>(
+    object: I
+  ): DepositMsgState {
+    const message = createBaseDepositMsgState();
+    message.msgHeight =
+      object.msgHeight !== undefined && object.msgHeight !== null
+        ? Long.fromValue(object.msgHeight)
+        : Long.ZERO;
+    message.msgIndex =
+      object.msgIndex !== undefined && object.msgIndex !== null
+        ? Long.fromValue(object.msgIndex)
+        : Long.UZERO;
+    message.executed = object.executed ?? false;
+    message.succeeded = object.succeeded ?? false;
+    message.toBeDeleted = object.toBeDeleted ?? false;
+    message.msg =
+      object.msg !== undefined && object.msg !== null
+        ? MsgDepositWithinBatch.fromPartial(object.msg)
+        : undefined;
     return message;
   },
 };
 
-const baseWithdrawMsgState: object = {
-  msgHeight: Long.ZERO,
-  msgIndex: Long.UZERO,
-  executed: false,
-  succeeded: false,
-  toBeDeleted: false,
-};
+function createBaseWithdrawMsgState(): WithdrawMsgState {
+  return {
+    msgHeight: Long.ZERO,
+    msgIndex: Long.UZERO,
+    executed: false,
+    succeeded: false,
+    toBeDeleted: false,
+    msg: undefined,
+  };
+}
 
 export const WithdrawMsgState = {
   encode(
@@ -1249,7 +991,7 @@ export const WithdrawMsgState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): WithdrawMsgState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseWithdrawMsgState } as WithdrawMsgState;
+    const message = createBaseWithdrawMsgState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1280,38 +1022,22 @@ export const WithdrawMsgState = {
   },
 
   fromJSON(object: any): WithdrawMsgState {
-    const message = { ...baseWithdrawMsgState } as WithdrawMsgState;
-    if (object.msgHeight !== undefined && object.msgHeight !== null) {
-      message.msgHeight = Long.fromString(object.msgHeight);
-    } else {
-      message.msgHeight = Long.ZERO;
-    }
-    if (object.msgIndex !== undefined && object.msgIndex !== null) {
-      message.msgIndex = Long.fromString(object.msgIndex);
-    } else {
-      message.msgIndex = Long.UZERO;
-    }
-    if (object.executed !== undefined && object.executed !== null) {
-      message.executed = Boolean(object.executed);
-    } else {
-      message.executed = false;
-    }
-    if (object.succeeded !== undefined && object.succeeded !== null) {
-      message.succeeded = Boolean(object.succeeded);
-    } else {
-      message.succeeded = false;
-    }
-    if (object.toBeDeleted !== undefined && object.toBeDeleted !== null) {
-      message.toBeDeleted = Boolean(object.toBeDeleted);
-    } else {
-      message.toBeDeleted = false;
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgWithdrawWithinBatch.fromJSON(object.msg);
-    } else {
-      message.msg = undefined;
-    }
-    return message;
+    return {
+      msgHeight: isSet(object.msgHeight)
+        ? Long.fromString(object.msgHeight)
+        : Long.ZERO,
+      msgIndex: isSet(object.msgIndex)
+        ? Long.fromString(object.msgIndex)
+        : Long.UZERO,
+      executed: isSet(object.executed) ? Boolean(object.executed) : false,
+      succeeded: isSet(object.succeeded) ? Boolean(object.succeeded) : false,
+      toBeDeleted: isSet(object.toBeDeleted)
+        ? Boolean(object.toBeDeleted)
+        : false,
+      msg: isSet(object.msg)
+        ? MsgWithdrawWithinBatch.fromJSON(object.msg)
+        : undefined,
+    };
   },
 
   toJSON(message: WithdrawMsgState): unknown {
@@ -1331,50 +1057,43 @@ export const WithdrawMsgState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<WithdrawMsgState>): WithdrawMsgState {
-    const message = { ...baseWithdrawMsgState } as WithdrawMsgState;
-    if (object.msgHeight !== undefined && object.msgHeight !== null) {
-      message.msgHeight = object.msgHeight as Long;
-    } else {
-      message.msgHeight = Long.ZERO;
-    }
-    if (object.msgIndex !== undefined && object.msgIndex !== null) {
-      message.msgIndex = object.msgIndex as Long;
-    } else {
-      message.msgIndex = Long.UZERO;
-    }
-    if (object.executed !== undefined && object.executed !== null) {
-      message.executed = object.executed;
-    } else {
-      message.executed = false;
-    }
-    if (object.succeeded !== undefined && object.succeeded !== null) {
-      message.succeeded = object.succeeded;
-    } else {
-      message.succeeded = false;
-    }
-    if (object.toBeDeleted !== undefined && object.toBeDeleted !== null) {
-      message.toBeDeleted = object.toBeDeleted;
-    } else {
-      message.toBeDeleted = false;
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgWithdrawWithinBatch.fromPartial(object.msg);
-    } else {
-      message.msg = undefined;
-    }
+  fromPartial<I extends Exact<DeepPartial<WithdrawMsgState>, I>>(
+    object: I
+  ): WithdrawMsgState {
+    const message = createBaseWithdrawMsgState();
+    message.msgHeight =
+      object.msgHeight !== undefined && object.msgHeight !== null
+        ? Long.fromValue(object.msgHeight)
+        : Long.ZERO;
+    message.msgIndex =
+      object.msgIndex !== undefined && object.msgIndex !== null
+        ? Long.fromValue(object.msgIndex)
+        : Long.UZERO;
+    message.executed = object.executed ?? false;
+    message.succeeded = object.succeeded ?? false;
+    message.toBeDeleted = object.toBeDeleted ?? false;
+    message.msg =
+      object.msg !== undefined && object.msg !== null
+        ? MsgWithdrawWithinBatch.fromPartial(object.msg)
+        : undefined;
     return message;
   },
 };
 
-const baseSwapMsgState: object = {
-  msgHeight: Long.ZERO,
-  msgIndex: Long.UZERO,
-  executed: false,
-  succeeded: false,
-  toBeDeleted: false,
-  orderExpiryHeight: Long.ZERO,
-};
+function createBaseSwapMsgState(): SwapMsgState {
+  return {
+    msgHeight: Long.ZERO,
+    msgIndex: Long.UZERO,
+    executed: false,
+    succeeded: false,
+    toBeDeleted: false,
+    orderExpiryHeight: Long.ZERO,
+    exchangedOfferCoin: undefined,
+    remainingOfferCoin: undefined,
+    reservedOfferCoinFee: undefined,
+    msg: undefined,
+  };
+}
 
 export const SwapMsgState = {
   encode(
@@ -1426,7 +1145,7 @@ export const SwapMsgState = {
   decode(input: _m0.Reader | Uint8Array, length?: number): SwapMsgState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSwapMsgState } as SwapMsgState;
+    const message = createBaseSwapMsgState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1469,70 +1188,34 @@ export const SwapMsgState = {
   },
 
   fromJSON(object: any): SwapMsgState {
-    const message = { ...baseSwapMsgState } as SwapMsgState;
-    if (object.msgHeight !== undefined && object.msgHeight !== null) {
-      message.msgHeight = Long.fromString(object.msgHeight);
-    } else {
-      message.msgHeight = Long.ZERO;
-    }
-    if (object.msgIndex !== undefined && object.msgIndex !== null) {
-      message.msgIndex = Long.fromString(object.msgIndex);
-    } else {
-      message.msgIndex = Long.UZERO;
-    }
-    if (object.executed !== undefined && object.executed !== null) {
-      message.executed = Boolean(object.executed);
-    } else {
-      message.executed = false;
-    }
-    if (object.succeeded !== undefined && object.succeeded !== null) {
-      message.succeeded = Boolean(object.succeeded);
-    } else {
-      message.succeeded = false;
-    }
-    if (object.toBeDeleted !== undefined && object.toBeDeleted !== null) {
-      message.toBeDeleted = Boolean(object.toBeDeleted);
-    } else {
-      message.toBeDeleted = false;
-    }
-    if (
-      object.orderExpiryHeight !== undefined &&
-      object.orderExpiryHeight !== null
-    ) {
-      message.orderExpiryHeight = Long.fromString(object.orderExpiryHeight);
-    } else {
-      message.orderExpiryHeight = Long.ZERO;
-    }
-    if (
-      object.exchangedOfferCoin !== undefined &&
-      object.exchangedOfferCoin !== null
-    ) {
-      message.exchangedOfferCoin = Coin.fromJSON(object.exchangedOfferCoin);
-    } else {
-      message.exchangedOfferCoin = undefined;
-    }
-    if (
-      object.remainingOfferCoin !== undefined &&
-      object.remainingOfferCoin !== null
-    ) {
-      message.remainingOfferCoin = Coin.fromJSON(object.remainingOfferCoin);
-    } else {
-      message.remainingOfferCoin = undefined;
-    }
-    if (
-      object.reservedOfferCoinFee !== undefined &&
-      object.reservedOfferCoinFee !== null
-    ) {
-      message.reservedOfferCoinFee = Coin.fromJSON(object.reservedOfferCoinFee);
-    } else {
-      message.reservedOfferCoinFee = undefined;
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgSwapWithinBatch.fromJSON(object.msg);
-    } else {
-      message.msg = undefined;
-    }
-    return message;
+    return {
+      msgHeight: isSet(object.msgHeight)
+        ? Long.fromString(object.msgHeight)
+        : Long.ZERO,
+      msgIndex: isSet(object.msgIndex)
+        ? Long.fromString(object.msgIndex)
+        : Long.UZERO,
+      executed: isSet(object.executed) ? Boolean(object.executed) : false,
+      succeeded: isSet(object.succeeded) ? Boolean(object.succeeded) : false,
+      toBeDeleted: isSet(object.toBeDeleted)
+        ? Boolean(object.toBeDeleted)
+        : false,
+      orderExpiryHeight: isSet(object.orderExpiryHeight)
+        ? Long.fromString(object.orderExpiryHeight)
+        : Long.ZERO,
+      exchangedOfferCoin: isSet(object.exchangedOfferCoin)
+        ? Coin.fromJSON(object.exchangedOfferCoin)
+        : undefined,
+      remainingOfferCoin: isSet(object.remainingOfferCoin)
+        ? Coin.fromJSON(object.remainingOfferCoin)
+        : undefined,
+      reservedOfferCoinFee: isSet(object.reservedOfferCoinFee)
+        ? Coin.fromJSON(object.reservedOfferCoinFee)
+        : undefined,
+      msg: isSet(object.msg)
+        ? MsgSwapWithinBatch.fromJSON(object.msg)
+        : undefined,
+    };
   },
 
   toJSON(message: SwapMsgState): unknown {
@@ -1568,72 +1251,45 @@ export const SwapMsgState = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<SwapMsgState>): SwapMsgState {
-    const message = { ...baseSwapMsgState } as SwapMsgState;
-    if (object.msgHeight !== undefined && object.msgHeight !== null) {
-      message.msgHeight = object.msgHeight as Long;
-    } else {
-      message.msgHeight = Long.ZERO;
-    }
-    if (object.msgIndex !== undefined && object.msgIndex !== null) {
-      message.msgIndex = object.msgIndex as Long;
-    } else {
-      message.msgIndex = Long.UZERO;
-    }
-    if (object.executed !== undefined && object.executed !== null) {
-      message.executed = object.executed;
-    } else {
-      message.executed = false;
-    }
-    if (object.succeeded !== undefined && object.succeeded !== null) {
-      message.succeeded = object.succeeded;
-    } else {
-      message.succeeded = false;
-    }
-    if (object.toBeDeleted !== undefined && object.toBeDeleted !== null) {
-      message.toBeDeleted = object.toBeDeleted;
-    } else {
-      message.toBeDeleted = false;
-    }
-    if (
+  fromPartial<I extends Exact<DeepPartial<SwapMsgState>, I>>(
+    object: I
+  ): SwapMsgState {
+    const message = createBaseSwapMsgState();
+    message.msgHeight =
+      object.msgHeight !== undefined && object.msgHeight !== null
+        ? Long.fromValue(object.msgHeight)
+        : Long.ZERO;
+    message.msgIndex =
+      object.msgIndex !== undefined && object.msgIndex !== null
+        ? Long.fromValue(object.msgIndex)
+        : Long.UZERO;
+    message.executed = object.executed ?? false;
+    message.succeeded = object.succeeded ?? false;
+    message.toBeDeleted = object.toBeDeleted ?? false;
+    message.orderExpiryHeight =
       object.orderExpiryHeight !== undefined &&
       object.orderExpiryHeight !== null
-    ) {
-      message.orderExpiryHeight = object.orderExpiryHeight as Long;
-    } else {
-      message.orderExpiryHeight = Long.ZERO;
-    }
-    if (
+        ? Long.fromValue(object.orderExpiryHeight)
+        : Long.ZERO;
+    message.exchangedOfferCoin =
       object.exchangedOfferCoin !== undefined &&
       object.exchangedOfferCoin !== null
-    ) {
-      message.exchangedOfferCoin = Coin.fromPartial(object.exchangedOfferCoin);
-    } else {
-      message.exchangedOfferCoin = undefined;
-    }
-    if (
+        ? Coin.fromPartial(object.exchangedOfferCoin)
+        : undefined;
+    message.remainingOfferCoin =
       object.remainingOfferCoin !== undefined &&
       object.remainingOfferCoin !== null
-    ) {
-      message.remainingOfferCoin = Coin.fromPartial(object.remainingOfferCoin);
-    } else {
-      message.remainingOfferCoin = undefined;
-    }
-    if (
+        ? Coin.fromPartial(object.remainingOfferCoin)
+        : undefined;
+    message.reservedOfferCoinFee =
       object.reservedOfferCoinFee !== undefined &&
       object.reservedOfferCoinFee !== null
-    ) {
-      message.reservedOfferCoinFee = Coin.fromPartial(
-        object.reservedOfferCoinFee
-      );
-    } else {
-      message.reservedOfferCoinFee = undefined;
-    }
-    if (object.msg !== undefined && object.msg !== null) {
-      message.msg = MsgSwapWithinBatch.fromPartial(object.msg);
-    } else {
-      message.msg = undefined;
-    }
+        ? Coin.fromPartial(object.reservedOfferCoinFee)
+        : undefined;
+    message.msg =
+      object.msg !== undefined && object.msg !== null
+        ? MsgSwapWithinBatch.fromPartial(object.msg)
+        : undefined;
     return message;
   },
 };
@@ -1645,10 +1301,12 @@ type Builtin =
   | string
   | number
   | boolean
-  | undefined
-  | Long;
+  | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
@@ -1657,7 +1315,19 @@ export type DeepPartial<T> = T extends Builtin
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >;
+
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }
