@@ -7,10 +7,12 @@ exports.QueryClientImpl = exports.QueryPoolBatchWithdrawMsgResponse = exports.Qu
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const liquidity_1 = require("../../../tendermint/liquidity/v1beta1/liquidity");
+const liquidity_1 = require("./liquidity");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-exports.protobufPackage = "tendermint.liquidity.v1beta1";
-const baseQueryLiquidityPoolRequest = { poolId: long_1.default.UZERO };
+exports.protobufPackage = "comdex.liquidity.v1beta1";
+function createBaseQueryLiquidityPoolRequest() {
+    return { poolId: long_1.default.UZERO };
+}
 exports.QueryLiquidityPoolRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
@@ -21,9 +23,7 @@ exports.QueryLiquidityPoolRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryLiquidityPoolRequest,
-        };
+        const message = createBaseQueryLiquidityPoolRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -38,16 +38,11 @@ exports.QueryLiquidityPoolRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryLiquidityPoolRequest,
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
         };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = long_1.default.fromString(object.poolId);
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -56,19 +51,17 @@ exports.QueryLiquidityPoolRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryLiquidityPoolRequest,
-        };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = object.poolId;
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
+        const message = createBaseQueryLiquidityPoolRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
         return message;
     },
 };
-const baseQueryLiquidityPoolResponse = {};
+function createBaseQueryLiquidityPoolResponse() {
+    return { pool: undefined };
+}
 exports.QueryLiquidityPoolResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.pool !== undefined) {
@@ -79,9 +72,7 @@ exports.QueryLiquidityPoolResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryLiquidityPoolResponse,
-        };
+        const message = createBaseQueryLiquidityPoolResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -96,16 +87,9 @@ exports.QueryLiquidityPoolResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryLiquidityPoolResponse,
+        return {
+            pool: isSet(object.pool) ? liquidity_1.Pool.fromJSON(object.pool) : undefined,
         };
-        if (object.pool !== undefined && object.pool !== null) {
-            message.pool = liquidity_1.Pool.fromJSON(object.pool);
-        }
-        else {
-            message.pool = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -114,21 +98,17 @@ exports.QueryLiquidityPoolResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryLiquidityPoolResponse,
-        };
-        if (object.pool !== undefined && object.pool !== null) {
-            message.pool = liquidity_1.Pool.fromPartial(object.pool);
-        }
-        else {
-            message.pool = undefined;
-        }
+        const message = createBaseQueryLiquidityPoolResponse();
+        message.pool =
+            object.pool !== undefined && object.pool !== null
+                ? liquidity_1.Pool.fromPartial(object.pool)
+                : undefined;
         return message;
     },
 };
-const baseQueryLiquidityPoolByPoolCoinDenomRequest = {
-    poolCoinDenom: "",
-};
+function createBaseQueryLiquidityPoolByPoolCoinDenomRequest() {
+    return { poolCoinDenom: "" };
+}
 exports.QueryLiquidityPoolByPoolCoinDenomRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.poolCoinDenom !== "") {
@@ -139,9 +119,7 @@ exports.QueryLiquidityPoolByPoolCoinDenomRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryLiquidityPoolByPoolCoinDenomRequest,
-        };
+        const message = createBaseQueryLiquidityPoolByPoolCoinDenomRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -156,16 +134,11 @@ exports.QueryLiquidityPoolByPoolCoinDenomRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryLiquidityPoolByPoolCoinDenomRequest,
+        return {
+            poolCoinDenom: isSet(object.poolCoinDenom)
+                ? String(object.poolCoinDenom)
+                : "",
         };
-        if (object.poolCoinDenom !== undefined && object.poolCoinDenom !== null) {
-            message.poolCoinDenom = String(object.poolCoinDenom);
-        }
-        else {
-            message.poolCoinDenom = "";
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -174,19 +147,15 @@ exports.QueryLiquidityPoolByPoolCoinDenomRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryLiquidityPoolByPoolCoinDenomRequest,
-        };
-        if (object.poolCoinDenom !== undefined && object.poolCoinDenom !== null) {
-            message.poolCoinDenom = object.poolCoinDenom;
-        }
-        else {
-            message.poolCoinDenom = "";
-        }
+        var _a;
+        const message = createBaseQueryLiquidityPoolByPoolCoinDenomRequest();
+        message.poolCoinDenom = (_a = object.poolCoinDenom) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
-const baseQueryLiquidityPoolByReserveAccRequest = { reserveAcc: "" };
+function createBaseQueryLiquidityPoolByReserveAccRequest() {
+    return { reserveAcc: "" };
+}
 exports.QueryLiquidityPoolByReserveAccRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.reserveAcc !== "") {
@@ -197,9 +166,7 @@ exports.QueryLiquidityPoolByReserveAccRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryLiquidityPoolByReserveAccRequest,
-        };
+        const message = createBaseQueryLiquidityPoolByReserveAccRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -214,16 +181,9 @@ exports.QueryLiquidityPoolByReserveAccRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryLiquidityPoolByReserveAccRequest,
+        return {
+            reserveAcc: isSet(object.reserveAcc) ? String(object.reserveAcc) : "",
         };
-        if (object.reserveAcc !== undefined && object.reserveAcc !== null) {
-            message.reserveAcc = String(object.reserveAcc);
-        }
-        else {
-            message.reserveAcc = "";
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -231,19 +191,15 @@ exports.QueryLiquidityPoolByReserveAccRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryLiquidityPoolByReserveAccRequest,
-        };
-        if (object.reserveAcc !== undefined && object.reserveAcc !== null) {
-            message.reserveAcc = object.reserveAcc;
-        }
-        else {
-            message.reserveAcc = "";
-        }
+        var _a;
+        const message = createBaseQueryLiquidityPoolByReserveAccRequest();
+        message.reserveAcc = (_a = object.reserveAcc) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
-const baseQueryLiquidityPoolBatchRequest = { poolId: long_1.default.UZERO };
+function createBaseQueryLiquidityPoolBatchRequest() {
+    return { poolId: long_1.default.UZERO };
+}
 exports.QueryLiquidityPoolBatchRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
@@ -254,9 +210,7 @@ exports.QueryLiquidityPoolBatchRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryLiquidityPoolBatchRequest,
-        };
+        const message = createBaseQueryLiquidityPoolBatchRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -271,16 +225,11 @@ exports.QueryLiquidityPoolBatchRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryLiquidityPoolBatchRequest,
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
         };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = long_1.default.fromString(object.poolId);
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -289,19 +238,17 @@ exports.QueryLiquidityPoolBatchRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryLiquidityPoolBatchRequest,
-        };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = object.poolId;
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
+        const message = createBaseQueryLiquidityPoolBatchRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
         return message;
     },
 };
-const baseQueryLiquidityPoolBatchResponse = {};
+function createBaseQueryLiquidityPoolBatchResponse() {
+    return { batch: undefined };
+}
 exports.QueryLiquidityPoolBatchResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.batch !== undefined) {
@@ -312,9 +259,7 @@ exports.QueryLiquidityPoolBatchResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryLiquidityPoolBatchResponse,
-        };
+        const message = createBaseQueryLiquidityPoolBatchResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -329,16 +274,9 @@ exports.QueryLiquidityPoolBatchResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryLiquidityPoolBatchResponse,
+        return {
+            batch: isSet(object.batch) ? liquidity_1.PoolBatch.fromJSON(object.batch) : undefined,
         };
-        if (object.batch !== undefined && object.batch !== null) {
-            message.batch = liquidity_1.PoolBatch.fromJSON(object.batch);
-        }
-        else {
-            message.batch = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -347,19 +285,17 @@ exports.QueryLiquidityPoolBatchResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryLiquidityPoolBatchResponse,
-        };
-        if (object.batch !== undefined && object.batch !== null) {
-            message.batch = liquidity_1.PoolBatch.fromPartial(object.batch);
-        }
-        else {
-            message.batch = undefined;
-        }
+        const message = createBaseQueryLiquidityPoolBatchResponse();
+        message.batch =
+            object.batch !== undefined && object.batch !== null
+                ? liquidity_1.PoolBatch.fromPartial(object.batch)
+                : undefined;
         return message;
     },
 };
-const baseQueryLiquidityPoolsRequest = {};
+function createBaseQueryLiquidityPoolsRequest() {
+    return { pagination: undefined };
+}
 exports.QueryLiquidityPoolsRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.pagination !== undefined) {
@@ -370,9 +306,7 @@ exports.QueryLiquidityPoolsRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryLiquidityPoolsRequest,
-        };
+        const message = createBaseQueryLiquidityPoolsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -387,16 +321,11 @@ exports.QueryLiquidityPoolsRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryLiquidityPoolsRequest,
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -407,19 +336,17 @@ exports.QueryLiquidityPoolsRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryLiquidityPoolsRequest,
-        };
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        const message = createBaseQueryLiquidityPoolsRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryLiquidityPoolsResponse = {};
+function createBaseQueryLiquidityPoolsResponse() {
+    return { pools: [], pagination: undefined };
+}
 exports.QueryLiquidityPoolsResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.pools) {
@@ -433,10 +360,7 @@ exports.QueryLiquidityPoolsResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryLiquidityPoolsResponse,
-        };
-        message.pools = [];
+        const message = createBaseQueryLiquidityPoolsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -454,22 +378,14 @@ exports.QueryLiquidityPoolsResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryLiquidityPoolsResponse,
+        return {
+            pools: Array.isArray(object === null || object === void 0 ? void 0 : object.pools)
+                ? object.pools.map((e) => liquidity_1.Pool.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
-        message.pools = [];
-        if (object.pools !== undefined && object.pools !== null) {
-            for (const e of object.pools) {
-                message.pools.push(liquidity_1.Pool.fromJSON(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -486,25 +402,19 @@ exports.QueryLiquidityPoolsResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryLiquidityPoolsResponse,
-        };
-        message.pools = [];
-        if (object.pools !== undefined && object.pools !== null) {
-            for (const e of object.pools) {
-                message.pools.push(liquidity_1.Pool.fromPartial(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        var _a;
+        const message = createBaseQueryLiquidityPoolsResponse();
+        message.pools = ((_a = object.pools) === null || _a === void 0 ? void 0 : _a.map((e) => liquidity_1.Pool.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryParamsRequest = {};
+function createBaseQueryParamsRequest() {
+    return {};
+}
 exports.QueryParamsRequest = {
     encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
@@ -512,7 +422,7 @@ exports.QueryParamsRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryParamsRequest };
+        const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -524,19 +434,20 @@ exports.QueryParamsRequest = {
         return message;
     },
     fromJSON(_) {
-        const message = { ...baseQueryParamsRequest };
-        return message;
+        return {};
     },
     toJSON(_) {
         const obj = {};
         return obj;
     },
     fromPartial(_) {
-        const message = { ...baseQueryParamsRequest };
+        const message = createBaseQueryParamsRequest();
         return message;
     },
 };
-const baseQueryParamsResponse = {};
+function createBaseQueryParamsResponse() {
+    return { params: undefined };
+}
 exports.QueryParamsResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
@@ -547,7 +458,7 @@ exports.QueryParamsResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryParamsResponse };
+        const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -562,14 +473,9 @@ exports.QueryParamsResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseQueryParamsResponse };
-        if (object.params !== undefined && object.params !== null) {
-            message.params = liquidity_1.Params.fromJSON(object.params);
-        }
-        else {
-            message.params = undefined;
-        }
-        return message;
+        return {
+            params: isSet(object.params) ? liquidity_1.Params.fromJSON(object.params) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -578,17 +484,17 @@ exports.QueryParamsResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseQueryParamsResponse };
-        if (object.params !== undefined && object.params !== null) {
-            message.params = liquidity_1.Params.fromPartial(object.params);
-        }
-        else {
-            message.params = undefined;
-        }
+        const message = createBaseQueryParamsResponse();
+        message.params =
+            object.params !== undefined && object.params !== null
+                ? liquidity_1.Params.fromPartial(object.params)
+                : undefined;
         return message;
     },
 };
-const baseQueryPoolBatchSwapMsgsRequest = { poolId: long_1.default.UZERO };
+function createBaseQueryPoolBatchSwapMsgsRequest() {
+    return { poolId: long_1.default.UZERO, pagination: undefined };
+}
 exports.QueryPoolBatchSwapMsgsRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
@@ -602,9 +508,7 @@ exports.QueryPoolBatchSwapMsgsRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchSwapMsgsRequest,
-        };
+        const message = createBaseQueryPoolBatchSwapMsgsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -622,22 +526,14 @@ exports.QueryPoolBatchSwapMsgsRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchSwapMsgsRequest,
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = long_1.default.fromString(object.poolId);
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -650,28 +546,21 @@ exports.QueryPoolBatchSwapMsgsRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchSwapMsgsRequest,
-        };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = object.poolId;
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        const message = createBaseQueryPoolBatchSwapMsgsRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryPoolBatchSwapMsgRequest = {
-    poolId: long_1.default.UZERO,
-    msgIndex: long_1.default.UZERO,
-};
+function createBaseQueryPoolBatchSwapMsgRequest() {
+    return { poolId: long_1.default.UZERO, msgIndex: long_1.default.UZERO };
+}
 exports.QueryPoolBatchSwapMsgRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
@@ -685,9 +574,7 @@ exports.QueryPoolBatchSwapMsgRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchSwapMsgRequest,
-        };
+        const message = createBaseQueryPoolBatchSwapMsgRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -705,22 +592,14 @@ exports.QueryPoolBatchSwapMsgRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchSwapMsgRequest,
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            msgIndex: isSet(object.msgIndex)
+                ? long_1.default.fromString(object.msgIndex)
+                : long_1.default.UZERO,
         };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = long_1.default.fromString(object.poolId);
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.msgIndex !== undefined && object.msgIndex !== null) {
-            message.msgIndex = long_1.default.fromString(object.msgIndex);
-        }
-        else {
-            message.msgIndex = long_1.default.UZERO;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -731,25 +610,21 @@ exports.QueryPoolBatchSwapMsgRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchSwapMsgRequest,
-        };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = object.poolId;
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.msgIndex !== undefined && object.msgIndex !== null) {
-            message.msgIndex = object.msgIndex;
-        }
-        else {
-            message.msgIndex = long_1.default.UZERO;
-        }
+        const message = createBaseQueryPoolBatchSwapMsgRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.msgIndex =
+            object.msgIndex !== undefined && object.msgIndex !== null
+                ? long_1.default.fromValue(object.msgIndex)
+                : long_1.default.UZERO;
         return message;
     },
 };
-const baseQueryPoolBatchSwapMsgsResponse = {};
+function createBaseQueryPoolBatchSwapMsgsResponse() {
+    return { swaps: [], pagination: undefined };
+}
 exports.QueryPoolBatchSwapMsgsResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.swaps) {
@@ -763,10 +638,7 @@ exports.QueryPoolBatchSwapMsgsResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchSwapMsgsResponse,
-        };
-        message.swaps = [];
+        const message = createBaseQueryPoolBatchSwapMsgsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -784,22 +656,14 @@ exports.QueryPoolBatchSwapMsgsResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchSwapMsgsResponse,
+        return {
+            swaps: Array.isArray(object === null || object === void 0 ? void 0 : object.swaps)
+                ? object.swaps.map((e) => liquidity_1.SwapMsgState.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
-        message.swaps = [];
-        if (object.swaps !== undefined && object.swaps !== null) {
-            for (const e of object.swaps) {
-                message.swaps.push(liquidity_1.SwapMsgState.fromJSON(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -816,25 +680,19 @@ exports.QueryPoolBatchSwapMsgsResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchSwapMsgsResponse,
-        };
-        message.swaps = [];
-        if (object.swaps !== undefined && object.swaps !== null) {
-            for (const e of object.swaps) {
-                message.swaps.push(liquidity_1.SwapMsgState.fromPartial(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        var _a;
+        const message = createBaseQueryPoolBatchSwapMsgsResponse();
+        message.swaps = ((_a = object.swaps) === null || _a === void 0 ? void 0 : _a.map((e) => liquidity_1.SwapMsgState.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryPoolBatchSwapMsgResponse = {};
+function createBaseQueryPoolBatchSwapMsgResponse() {
+    return { swap: undefined };
+}
 exports.QueryPoolBatchSwapMsgResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.swap !== undefined) {
@@ -845,9 +703,7 @@ exports.QueryPoolBatchSwapMsgResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchSwapMsgResponse,
-        };
+        const message = createBaseQueryPoolBatchSwapMsgResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -862,16 +718,9 @@ exports.QueryPoolBatchSwapMsgResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchSwapMsgResponse,
+        return {
+            swap: isSet(object.swap) ? liquidity_1.SwapMsgState.fromJSON(object.swap) : undefined,
         };
-        if (object.swap !== undefined && object.swap !== null) {
-            message.swap = liquidity_1.SwapMsgState.fromJSON(object.swap);
-        }
-        else {
-            message.swap = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -880,19 +729,17 @@ exports.QueryPoolBatchSwapMsgResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchSwapMsgResponse,
-        };
-        if (object.swap !== undefined && object.swap !== null) {
-            message.swap = liquidity_1.SwapMsgState.fromPartial(object.swap);
-        }
-        else {
-            message.swap = undefined;
-        }
+        const message = createBaseQueryPoolBatchSwapMsgResponse();
+        message.swap =
+            object.swap !== undefined && object.swap !== null
+                ? liquidity_1.SwapMsgState.fromPartial(object.swap)
+                : undefined;
         return message;
     },
 };
-const baseQueryPoolBatchDepositMsgsRequest = { poolId: long_1.default.UZERO };
+function createBaseQueryPoolBatchDepositMsgsRequest() {
+    return { poolId: long_1.default.UZERO, pagination: undefined };
+}
 exports.QueryPoolBatchDepositMsgsRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
@@ -906,9 +753,7 @@ exports.QueryPoolBatchDepositMsgsRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchDepositMsgsRequest,
-        };
+        const message = createBaseQueryPoolBatchDepositMsgsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -926,22 +771,14 @@ exports.QueryPoolBatchDepositMsgsRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchDepositMsgsRequest,
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = long_1.default.fromString(object.poolId);
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -954,28 +791,21 @@ exports.QueryPoolBatchDepositMsgsRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchDepositMsgsRequest,
-        };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = object.poolId;
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        const message = createBaseQueryPoolBatchDepositMsgsRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryPoolBatchDepositMsgRequest = {
-    poolId: long_1.default.UZERO,
-    msgIndex: long_1.default.UZERO,
-};
+function createBaseQueryPoolBatchDepositMsgRequest() {
+    return { poolId: long_1.default.UZERO, msgIndex: long_1.default.UZERO };
+}
 exports.QueryPoolBatchDepositMsgRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
@@ -989,9 +819,7 @@ exports.QueryPoolBatchDepositMsgRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchDepositMsgRequest,
-        };
+        const message = createBaseQueryPoolBatchDepositMsgRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1009,22 +837,14 @@ exports.QueryPoolBatchDepositMsgRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchDepositMsgRequest,
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            msgIndex: isSet(object.msgIndex)
+                ? long_1.default.fromString(object.msgIndex)
+                : long_1.default.UZERO,
         };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = long_1.default.fromString(object.poolId);
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.msgIndex !== undefined && object.msgIndex !== null) {
-            message.msgIndex = long_1.default.fromString(object.msgIndex);
-        }
-        else {
-            message.msgIndex = long_1.default.UZERO;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -1035,25 +855,21 @@ exports.QueryPoolBatchDepositMsgRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchDepositMsgRequest,
-        };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = object.poolId;
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.msgIndex !== undefined && object.msgIndex !== null) {
-            message.msgIndex = object.msgIndex;
-        }
-        else {
-            message.msgIndex = long_1.default.UZERO;
-        }
+        const message = createBaseQueryPoolBatchDepositMsgRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.msgIndex =
+            object.msgIndex !== undefined && object.msgIndex !== null
+                ? long_1.default.fromValue(object.msgIndex)
+                : long_1.default.UZERO;
         return message;
     },
 };
-const baseQueryPoolBatchDepositMsgsResponse = {};
+function createBaseQueryPoolBatchDepositMsgsResponse() {
+    return { deposits: [], pagination: undefined };
+}
 exports.QueryPoolBatchDepositMsgsResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.deposits) {
@@ -1067,10 +883,7 @@ exports.QueryPoolBatchDepositMsgsResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchDepositMsgsResponse,
-        };
-        message.deposits = [];
+        const message = createBaseQueryPoolBatchDepositMsgsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1088,22 +901,14 @@ exports.QueryPoolBatchDepositMsgsResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchDepositMsgsResponse,
+        return {
+            deposits: Array.isArray(object === null || object === void 0 ? void 0 : object.deposits)
+                ? object.deposits.map((e) => liquidity_1.DepositMsgState.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
-        message.deposits = [];
-        if (object.deposits !== undefined && object.deposits !== null) {
-            for (const e of object.deposits) {
-                message.deposits.push(liquidity_1.DepositMsgState.fromJSON(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -1120,25 +925,20 @@ exports.QueryPoolBatchDepositMsgsResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchDepositMsgsResponse,
-        };
-        message.deposits = [];
-        if (object.deposits !== undefined && object.deposits !== null) {
-            for (const e of object.deposits) {
-                message.deposits.push(liquidity_1.DepositMsgState.fromPartial(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        var _a;
+        const message = createBaseQueryPoolBatchDepositMsgsResponse();
+        message.deposits =
+            ((_a = object.deposits) === null || _a === void 0 ? void 0 : _a.map((e) => liquidity_1.DepositMsgState.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryPoolBatchDepositMsgResponse = {};
+function createBaseQueryPoolBatchDepositMsgResponse() {
+    return { deposit: undefined };
+}
 exports.QueryPoolBatchDepositMsgResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.deposit !== undefined) {
@@ -1149,9 +949,7 @@ exports.QueryPoolBatchDepositMsgResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchDepositMsgResponse,
-        };
+        const message = createBaseQueryPoolBatchDepositMsgResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1166,16 +964,11 @@ exports.QueryPoolBatchDepositMsgResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchDepositMsgResponse,
+        return {
+            deposit: isSet(object.deposit)
+                ? liquidity_1.DepositMsgState.fromJSON(object.deposit)
+                : undefined,
         };
-        if (object.deposit !== undefined && object.deposit !== null) {
-            message.deposit = liquidity_1.DepositMsgState.fromJSON(object.deposit);
-        }
-        else {
-            message.deposit = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -1186,19 +979,17 @@ exports.QueryPoolBatchDepositMsgResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchDepositMsgResponse,
-        };
-        if (object.deposit !== undefined && object.deposit !== null) {
-            message.deposit = liquidity_1.DepositMsgState.fromPartial(object.deposit);
-        }
-        else {
-            message.deposit = undefined;
-        }
+        const message = createBaseQueryPoolBatchDepositMsgResponse();
+        message.deposit =
+            object.deposit !== undefined && object.deposit !== null
+                ? liquidity_1.DepositMsgState.fromPartial(object.deposit)
+                : undefined;
         return message;
     },
 };
-const baseQueryPoolBatchWithdrawMsgsRequest = { poolId: long_1.default.UZERO };
+function createBaseQueryPoolBatchWithdrawMsgsRequest() {
+    return { poolId: long_1.default.UZERO, pagination: undefined };
+}
 exports.QueryPoolBatchWithdrawMsgsRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
@@ -1212,9 +1003,7 @@ exports.QueryPoolBatchWithdrawMsgsRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgsRequest,
-        };
+        const message = createBaseQueryPoolBatchWithdrawMsgsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1232,22 +1021,14 @@ exports.QueryPoolBatchWithdrawMsgsRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgsRequest,
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = long_1.default.fromString(object.poolId);
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -1260,28 +1041,21 @@ exports.QueryPoolBatchWithdrawMsgsRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgsRequest,
-        };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = object.poolId;
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        const message = createBaseQueryPoolBatchWithdrawMsgsRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryPoolBatchWithdrawMsgRequest = {
-    poolId: long_1.default.UZERO,
-    msgIndex: long_1.default.UZERO,
-};
+function createBaseQueryPoolBatchWithdrawMsgRequest() {
+    return { poolId: long_1.default.UZERO, msgIndex: long_1.default.UZERO };
+}
 exports.QueryPoolBatchWithdrawMsgRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
@@ -1295,9 +1069,7 @@ exports.QueryPoolBatchWithdrawMsgRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgRequest,
-        };
+        const message = createBaseQueryPoolBatchWithdrawMsgRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1315,22 +1087,14 @@ exports.QueryPoolBatchWithdrawMsgRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgRequest,
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            msgIndex: isSet(object.msgIndex)
+                ? long_1.default.fromString(object.msgIndex)
+                : long_1.default.UZERO,
         };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = long_1.default.fromString(object.poolId);
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.msgIndex !== undefined && object.msgIndex !== null) {
-            message.msgIndex = long_1.default.fromString(object.msgIndex);
-        }
-        else {
-            message.msgIndex = long_1.default.UZERO;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -1341,25 +1105,21 @@ exports.QueryPoolBatchWithdrawMsgRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgRequest,
-        };
-        if (object.poolId !== undefined && object.poolId !== null) {
-            message.poolId = object.poolId;
-        }
-        else {
-            message.poolId = long_1.default.UZERO;
-        }
-        if (object.msgIndex !== undefined && object.msgIndex !== null) {
-            message.msgIndex = object.msgIndex;
-        }
-        else {
-            message.msgIndex = long_1.default.UZERO;
-        }
+        const message = createBaseQueryPoolBatchWithdrawMsgRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.msgIndex =
+            object.msgIndex !== undefined && object.msgIndex !== null
+                ? long_1.default.fromValue(object.msgIndex)
+                : long_1.default.UZERO;
         return message;
     },
 };
-const baseQueryPoolBatchWithdrawMsgsResponse = {};
+function createBaseQueryPoolBatchWithdrawMsgsResponse() {
+    return { withdraws: [], pagination: undefined };
+}
 exports.QueryPoolBatchWithdrawMsgsResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.withdraws) {
@@ -1373,10 +1133,7 @@ exports.QueryPoolBatchWithdrawMsgsResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgsResponse,
-        };
-        message.withdraws = [];
+        const message = createBaseQueryPoolBatchWithdrawMsgsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1394,22 +1151,14 @@ exports.QueryPoolBatchWithdrawMsgsResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgsResponse,
+        return {
+            withdraws: Array.isArray(object === null || object === void 0 ? void 0 : object.withdraws)
+                ? object.withdraws.map((e) => liquidity_1.WithdrawMsgState.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
-        message.withdraws = [];
-        if (object.withdraws !== undefined && object.withdraws !== null) {
-            for (const e of object.withdraws) {
-                message.withdraws.push(liquidity_1.WithdrawMsgState.fromJSON(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -1426,25 +1175,20 @@ exports.QueryPoolBatchWithdrawMsgsResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgsResponse,
-        };
-        message.withdraws = [];
-        if (object.withdraws !== undefined && object.withdraws !== null) {
-            for (const e of object.withdraws) {
-                message.withdraws.push(liquidity_1.WithdrawMsgState.fromPartial(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        var _a;
+        const message = createBaseQueryPoolBatchWithdrawMsgsResponse();
+        message.withdraws =
+            ((_a = object.withdraws) === null || _a === void 0 ? void 0 : _a.map((e) => liquidity_1.WithdrawMsgState.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryPoolBatchWithdrawMsgResponse = {};
+function createBaseQueryPoolBatchWithdrawMsgResponse() {
+    return { withdraw: undefined };
+}
 exports.QueryPoolBatchWithdrawMsgResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.withdraw !== undefined) {
@@ -1455,9 +1199,7 @@ exports.QueryPoolBatchWithdrawMsgResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgResponse,
-        };
+        const message = createBaseQueryPoolBatchWithdrawMsgResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1472,16 +1214,11 @@ exports.QueryPoolBatchWithdrawMsgResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgResponse,
+        return {
+            withdraw: isSet(object.withdraw)
+                ? liquidity_1.WithdrawMsgState.fromJSON(object.withdraw)
+                : undefined,
         };
-        if (object.withdraw !== undefined && object.withdraw !== null) {
-            message.withdraw = liquidity_1.WithdrawMsgState.fromJSON(object.withdraw);
-        }
-        else {
-            message.withdraw = undefined;
-        }
-        return message;
     },
     toJSON(message) {
         const obj = {};
@@ -1492,15 +1229,11 @@ exports.QueryPoolBatchWithdrawMsgResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = {
-            ...baseQueryPoolBatchWithdrawMsgResponse,
-        };
-        if (object.withdraw !== undefined && object.withdraw !== null) {
-            message.withdraw = liquidity_1.WithdrawMsgState.fromPartial(object.withdraw);
-        }
-        else {
-            message.withdraw = undefined;
-        }
+        const message = createBaseQueryPoolBatchWithdrawMsgResponse();
+        message.withdraw =
+            object.withdraw !== undefined && object.withdraw !== null
+                ? liquidity_1.WithdrawMsgState.fromPartial(object.withdraw)
+                : undefined;
         return message;
     },
 };
@@ -1523,62 +1256,62 @@ class QueryClientImpl {
     }
     LiquidityPools(request) {
         const data = exports.QueryLiquidityPoolsRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "LiquidityPools", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "LiquidityPools", data);
         return promise.then((data) => exports.QueryLiquidityPoolsResponse.decode(new minimal_1.default.Reader(data)));
     }
     LiquidityPool(request) {
         const data = exports.QueryLiquidityPoolRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "LiquidityPool", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "LiquidityPool", data);
         return promise.then((data) => exports.QueryLiquidityPoolResponse.decode(new minimal_1.default.Reader(data)));
     }
     LiquidityPoolByPoolCoinDenom(request) {
         const data = exports.QueryLiquidityPoolByPoolCoinDenomRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "LiquidityPoolByPoolCoinDenom", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "LiquidityPoolByPoolCoinDenom", data);
         return promise.then((data) => exports.QueryLiquidityPoolResponse.decode(new minimal_1.default.Reader(data)));
     }
     LiquidityPoolByReserveAcc(request) {
         const data = exports.QueryLiquidityPoolByReserveAccRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "LiquidityPoolByReserveAcc", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "LiquidityPoolByReserveAcc", data);
         return promise.then((data) => exports.QueryLiquidityPoolResponse.decode(new minimal_1.default.Reader(data)));
     }
     LiquidityPoolBatch(request) {
         const data = exports.QueryLiquidityPoolBatchRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "LiquidityPoolBatch", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "LiquidityPoolBatch", data);
         return promise.then((data) => exports.QueryLiquidityPoolBatchResponse.decode(new minimal_1.default.Reader(data)));
     }
     PoolBatchSwapMsgs(request) {
         const data = exports.QueryPoolBatchSwapMsgsRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "PoolBatchSwapMsgs", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolBatchSwapMsgs", data);
         return promise.then((data) => exports.QueryPoolBatchSwapMsgsResponse.decode(new minimal_1.default.Reader(data)));
     }
     PoolBatchSwapMsg(request) {
         const data = exports.QueryPoolBatchSwapMsgRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "PoolBatchSwapMsg", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolBatchSwapMsg", data);
         return promise.then((data) => exports.QueryPoolBatchSwapMsgResponse.decode(new minimal_1.default.Reader(data)));
     }
     PoolBatchDepositMsgs(request) {
         const data = exports.QueryPoolBatchDepositMsgsRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "PoolBatchDepositMsgs", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolBatchDepositMsgs", data);
         return promise.then((data) => exports.QueryPoolBatchDepositMsgsResponse.decode(new minimal_1.default.Reader(data)));
     }
     PoolBatchDepositMsg(request) {
         const data = exports.QueryPoolBatchDepositMsgRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "PoolBatchDepositMsg", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolBatchDepositMsg", data);
         return promise.then((data) => exports.QueryPoolBatchDepositMsgResponse.decode(new minimal_1.default.Reader(data)));
     }
     PoolBatchWithdrawMsgs(request) {
         const data = exports.QueryPoolBatchWithdrawMsgsRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "PoolBatchWithdrawMsgs", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolBatchWithdrawMsgs", data);
         return promise.then((data) => exports.QueryPoolBatchWithdrawMsgsResponse.decode(new minimal_1.default.Reader(data)));
     }
     PoolBatchWithdrawMsg(request) {
         const data = exports.QueryPoolBatchWithdrawMsgRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "PoolBatchWithdrawMsg", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolBatchWithdrawMsg", data);
         return promise.then((data) => exports.QueryPoolBatchWithdrawMsgResponse.decode(new minimal_1.default.Reader(data)));
     }
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
-        const promise = this.rpc.request("tendermint.liquidity.v1beta1.Query", "Params", data);
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Params", data);
         return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
@@ -1586,5 +1319,8 @@ exports.QueryClientImpl = QueryClientImpl;
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=query.js.map
