@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import {
   Pool,
   PoolMetadata,
@@ -9,7 +9,7 @@ import {
   DepositMsgState,
   WithdrawMsgState,
   SwapMsgState,
-} from "./liquidity";
+} from "./comdex/liquidity/v1beta1/liquidity";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 

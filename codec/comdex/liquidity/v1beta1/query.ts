@@ -1,6 +1,11 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
+import { UserPoolsData } from "./comdex/liquidity/v1beta1/userPoolData";
+import {
+  PageRequest,
+  PageResponse,
+} from "./cosmos/base/query/v1beta1/pagination";
 import {
   Pool,
   PoolBatch,
@@ -8,10 +13,26 @@ import {
   SwapMsgState,
   DepositMsgState,
   WithdrawMsgState,
-} from "./liquidity";
-import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+} from "./comdex/liquidity/v1beta1/liquidity";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
+
+export interface QueryUserPoolsContributionMsgRequest {
+  userAddress: string;
+}
+
+export interface QueryUserPoolsContributionMsgResponse {
+  userPoolData?: UserPoolsData;
+}
+
+export interface QueryAllUsersPoolsContributionMsgRequest {
+  pagination?: PageRequest;
+}
+
+export interface QueryAllUsersPoolsContributionMsgResponse {
+  /** cosmos.base.query.v1beta1.PageResponse pagination = 2; */
+  userPoolData: UserPoolsData[];
+}
 
 /** the request type for the QueryLiquidityPool RPC method. requestable specified pool_id. */
 export interface QueryLiquidityPoolRequest {
@@ -149,6 +170,265 @@ export interface QueryPoolBatchWithdrawMsgsResponse {
 export interface QueryPoolBatchWithdrawMsgResponse {
   withdraw?: WithdrawMsgState;
 }
+
+function createBaseQueryUserPoolsContributionMsgRequest(): QueryUserPoolsContributionMsgRequest {
+  return { userAddress: "" };
+}
+
+export const QueryUserPoolsContributionMsgRequest = {
+  encode(
+    message: QueryUserPoolsContributionMsgRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.userAddress !== "") {
+      writer.uint32(10).string(message.userAddress);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryUserPoolsContributionMsgRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryUserPoolsContributionMsgRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.userAddress = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryUserPoolsContributionMsgRequest {
+    return {
+      userAddress: isSet(object.userAddress) ? String(object.userAddress) : "",
+    };
+  },
+
+  toJSON(message: QueryUserPoolsContributionMsgRequest): unknown {
+    const obj: any = {};
+    message.userAddress !== undefined &&
+      (obj.userAddress = message.userAddress);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryUserPoolsContributionMsgRequest>, I>
+  >(object: I): QueryUserPoolsContributionMsgRequest {
+    const message = createBaseQueryUserPoolsContributionMsgRequest();
+    message.userAddress = object.userAddress ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryUserPoolsContributionMsgResponse(): QueryUserPoolsContributionMsgResponse {
+  return { userPoolData: undefined };
+}
+
+export const QueryUserPoolsContributionMsgResponse = {
+  encode(
+    message: QueryUserPoolsContributionMsgResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.userPoolData !== undefined) {
+      UserPoolsData.encode(
+        message.userPoolData,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryUserPoolsContributionMsgResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryUserPoolsContributionMsgResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.userPoolData = UserPoolsData.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryUserPoolsContributionMsgResponse {
+    return {
+      userPoolData: isSet(object.userPoolData)
+        ? UserPoolsData.fromJSON(object.userPoolData)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryUserPoolsContributionMsgResponse): unknown {
+    const obj: any = {};
+    message.userPoolData !== undefined &&
+      (obj.userPoolData = message.userPoolData
+        ? UserPoolsData.toJSON(message.userPoolData)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryUserPoolsContributionMsgResponse>, I>
+  >(object: I): QueryUserPoolsContributionMsgResponse {
+    const message = createBaseQueryUserPoolsContributionMsgResponse();
+    message.userPoolData =
+      object.userPoolData !== undefined && object.userPoolData !== null
+        ? UserPoolsData.fromPartial(object.userPoolData)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllUsersPoolsContributionMsgRequest(): QueryAllUsersPoolsContributionMsgRequest {
+  return { pagination: undefined };
+}
+
+export const QueryAllUsersPoolsContributionMsgRequest = {
+  encode(
+    message: QueryAllUsersPoolsContributionMsgRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAllUsersPoolsContributionMsgRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllUsersPoolsContributionMsgRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllUsersPoolsContributionMsgRequest {
+    return {
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllUsersPoolsContributionMsgRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryAllUsersPoolsContributionMsgRequest>, I>
+  >(object: I): QueryAllUsersPoolsContributionMsgRequest {
+    const message = createBaseQueryAllUsersPoolsContributionMsgRequest();
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllUsersPoolsContributionMsgResponse(): QueryAllUsersPoolsContributionMsgResponse {
+  return { userPoolData: [] };
+}
+
+export const QueryAllUsersPoolsContributionMsgResponse = {
+  encode(
+    message: QueryAllUsersPoolsContributionMsgResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.userPoolData) {
+      UserPoolsData.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAllUsersPoolsContributionMsgResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllUsersPoolsContributionMsgResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.userPoolData.push(
+            UserPoolsData.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllUsersPoolsContributionMsgResponse {
+    return {
+      userPoolData: Array.isArray(object?.userPoolData)
+        ? object.userPoolData.map((e: any) => UserPoolsData.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: QueryAllUsersPoolsContributionMsgResponse): unknown {
+    const obj: any = {};
+    if (message.userPoolData) {
+      obj.userPoolData = message.userPoolData.map((e) =>
+        e ? UserPoolsData.toJSON(e) : undefined
+      );
+    } else {
+      obj.userPoolData = [];
+    }
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryAllUsersPoolsContributionMsgResponse>, I>
+  >(object: I): QueryAllUsersPoolsContributionMsgResponse {
+    const message = createBaseQueryAllUsersPoolsContributionMsgResponse();
+    message.userPoolData =
+      object.userPoolData?.map((e) => UserPoolsData.fromPartial(e)) || [];
+    return message;
+  },
+};
 
 function createBaseQueryLiquidityPoolRequest(): QueryLiquidityPoolRequest {
   return { poolId: Long.UZERO };
@@ -1745,6 +2025,14 @@ export interface Query {
   ): Promise<QueryPoolBatchWithdrawMsgResponse>;
   /** Get all parameters of the liquidity module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+  /** Get the user data regarding contribution in pool */
+  UserPoolsContribution(
+    request: QueryUserPoolsContributionMsgRequest
+  ): Promise<QueryUserPoolsContributionMsgResponse>;
+  /** Get all  users data regarding contribution in pool */
+  AllUserPoolsContribution(
+    request: QueryAllUsersPoolsContributionMsgRequest
+  ): Promise<QueryAllUsersPoolsContributionMsgResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1764,6 +2052,8 @@ export class QueryClientImpl implements Query {
     this.PoolBatchWithdrawMsgs = this.PoolBatchWithdrawMsgs.bind(this);
     this.PoolBatchWithdrawMsg = this.PoolBatchWithdrawMsg.bind(this);
     this.Params = this.Params.bind(this);
+    this.UserPoolsContribution = this.UserPoolsContribution.bind(this);
+    this.AllUserPoolsContribution = this.AllUserPoolsContribution.bind(this);
   }
   LiquidityPools(
     request: QueryLiquidityPoolsRequest
@@ -1929,6 +2219,35 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryParamsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  UserPoolsContribution(
+    request: QueryUserPoolsContributionMsgRequest
+  ): Promise<QueryUserPoolsContributionMsgResponse> {
+    const data = QueryUserPoolsContributionMsgRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Query",
+      "UserPoolsContribution",
+      data
+    );
+    return promise.then((data) =>
+      QueryUserPoolsContributionMsgResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  AllUserPoolsContribution(
+    request: QueryAllUsersPoolsContributionMsgRequest
+  ): Promise<QueryAllUsersPoolsContributionMsgResponse> {
+    const data =
+      QueryAllUsersPoolsContributionMsgRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Query",
+      "AllUserPoolsContribution",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllUsersPoolsContributionMsgResponse.decode(new _m0.Reader(data))
     );
   }
 }
