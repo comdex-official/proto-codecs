@@ -3,13 +3,213 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryPoolBatchWithdrawMsgResponse = exports.QueryPoolBatchWithdrawMsgsResponse = exports.QueryPoolBatchWithdrawMsgRequest = exports.QueryPoolBatchWithdrawMsgsRequest = exports.QueryPoolBatchDepositMsgResponse = exports.QueryPoolBatchDepositMsgsResponse = exports.QueryPoolBatchDepositMsgRequest = exports.QueryPoolBatchDepositMsgsRequest = exports.QueryPoolBatchSwapMsgResponse = exports.QueryPoolBatchSwapMsgsResponse = exports.QueryPoolBatchSwapMsgRequest = exports.QueryPoolBatchSwapMsgsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryLiquidityPoolsResponse = exports.QueryLiquidityPoolsRequest = exports.QueryLiquidityPoolBatchResponse = exports.QueryLiquidityPoolBatchRequest = exports.QueryLiquidityPoolByReserveAccRequest = exports.QueryLiquidityPoolByPoolCoinDenomRequest = exports.QueryLiquidityPoolResponse = exports.QueryLiquidityPoolRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryPoolBatchWithdrawMsgResponse = exports.QueryPoolBatchWithdrawMsgsResponse = exports.QueryPoolBatchWithdrawMsgRequest = exports.QueryPoolBatchWithdrawMsgsRequest = exports.QueryPoolBatchDepositMsgResponse = exports.QueryPoolBatchDepositMsgsResponse = exports.QueryPoolBatchDepositMsgRequest = exports.QueryPoolBatchDepositMsgsRequest = exports.QueryPoolBatchSwapMsgResponse = exports.QueryPoolBatchSwapMsgsResponse = exports.QueryPoolBatchSwapMsgRequest = exports.QueryPoolBatchSwapMsgsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryLiquidityPoolsResponse = exports.QueryLiquidityPoolsRequest = exports.QueryLiquidityPoolBatchResponse = exports.QueryLiquidityPoolBatchRequest = exports.QueryLiquidityPoolByReserveAccRequest = exports.QueryLiquidityPoolByPoolCoinDenomRequest = exports.QueryLiquidityPoolResponse = exports.QueryLiquidityPoolRequest = exports.QueryAllUsersPoolsContributionMsgResponse = exports.QueryAllUsersPoolsContributionMsgRequest = exports.QueryUserPoolsContributionMsgResponse = exports.QueryUserPoolsContributionMsgRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const liquidity_1 = require("./liquidity");
+const userPoolData_1 = require("./userPoolData");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
+const liquidity_1 = require("./liquidity");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
+function createBaseQueryUserPoolsContributionMsgRequest() {
+    return { userAddress: "" };
+}
+exports.QueryUserPoolsContributionMsgRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.userAddress !== "") {
+            writer.uint32(10).string(message.userAddress);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryUserPoolsContributionMsgRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.userAddress = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userAddress: isSet(object.userAddress) ? String(object.userAddress) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.userAddress !== undefined &&
+            (obj.userAddress = message.userAddress);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryUserPoolsContributionMsgRequest();
+        message.userAddress = (_a = object.userAddress) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseQueryUserPoolsContributionMsgResponse() {
+    return { userPoolData: undefined };
+}
+exports.QueryUserPoolsContributionMsgResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.userPoolData !== undefined) {
+            userPoolData_1.UserPoolsData.encode(message.userPoolData, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryUserPoolsContributionMsgResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.userPoolData = userPoolData_1.UserPoolsData.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userPoolData: isSet(object.userPoolData)
+                ? userPoolData_1.UserPoolsData.fromJSON(object.userPoolData)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.userPoolData !== undefined &&
+            (obj.userPoolData = message.userPoolData
+                ? userPoolData_1.UserPoolsData.toJSON(message.userPoolData)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryUserPoolsContributionMsgResponse();
+        message.userPoolData =
+            object.userPoolData !== undefined && object.userPoolData !== null
+                ? userPoolData_1.UserPoolsData.fromPartial(object.userPoolData)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryAllUsersPoolsContributionMsgRequest() {
+    return { pagination: undefined };
+}
+exports.QueryAllUsersPoolsContributionMsgRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllUsersPoolsContributionMsgRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAllUsersPoolsContributionMsgRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryAllUsersPoolsContributionMsgResponse() {
+    return { userPoolData: [] };
+}
+exports.QueryAllUsersPoolsContributionMsgResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        for (const v of message.userPoolData) {
+            userPoolData_1.UserPoolsData.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllUsersPoolsContributionMsgResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.userPoolData.push(userPoolData_1.UserPoolsData.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userPoolData: Array.isArray(object === null || object === void 0 ? void 0 : object.userPoolData)
+                ? object.userPoolData.map((e) => userPoolData_1.UserPoolsData.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.userPoolData) {
+            obj.userPoolData = message.userPoolData.map((e) => e ? userPoolData_1.UserPoolsData.toJSON(e) : undefined);
+        }
+        else {
+            obj.userPoolData = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryAllUsersPoolsContributionMsgResponse();
+        message.userPoolData =
+            ((_a = object.userPoolData) === null || _a === void 0 ? void 0 : _a.map((e) => userPoolData_1.UserPoolsData.fromPartial(e))) || [];
+        return message;
+    },
+};
 function createBaseQueryLiquidityPoolRequest() {
     return { poolId: long_1.default.UZERO };
 }
@@ -1253,6 +1453,8 @@ class QueryClientImpl {
         this.PoolBatchWithdrawMsgs = this.PoolBatchWithdrawMsgs.bind(this);
         this.PoolBatchWithdrawMsg = this.PoolBatchWithdrawMsg.bind(this);
         this.Params = this.Params.bind(this);
+        this.UserPoolsContribution = this.UserPoolsContribution.bind(this);
+        this.AllUserPoolsContribution = this.AllUserPoolsContribution.bind(this);
     }
     LiquidityPools(request) {
         const data = exports.QueryLiquidityPoolsRequest.encode(request).finish();
@@ -1313,6 +1515,16 @@ class QueryClientImpl {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Params", data);
         return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    UserPoolsContribution(request) {
+        const data = exports.QueryUserPoolsContributionMsgRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "UserPoolsContribution", data);
+        return promise.then((data) => exports.QueryUserPoolsContributionMsgResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    AllUserPoolsContribution(request) {
+        const data = exports.QueryAllUsersPoolsContributionMsgRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "AllUserPoolsContribution", data);
+        return promise.then((data) => exports.QueryAllUsersPoolsContributionMsgResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;

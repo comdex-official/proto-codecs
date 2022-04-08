@@ -1,8 +1,22 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Pool, PoolBatch, Params, SwapMsgState, DepositMsgState, WithdrawMsgState } from "./liquidity";
+import { UserPoolsData } from "./userPoolData";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import { Pool, PoolBatch, Params, SwapMsgState, DepositMsgState, WithdrawMsgState } from "./liquidity";
 export declare const protobufPackage = "comdex.liquidity.v1beta1";
+export interface QueryUserPoolsContributionMsgRequest {
+    userAddress: string;
+}
+export interface QueryUserPoolsContributionMsgResponse {
+    userPoolData?: UserPoolsData;
+}
+export interface QueryAllUsersPoolsContributionMsgRequest {
+    pagination?: PageRequest;
+}
+export interface QueryAllUsersPoolsContributionMsgResponse {
+    /** cosmos.base.query.v1beta1.PageResponse pagination = 2; */
+    userPoolData: UserPoolsData[];
+}
 /** the request type for the QueryLiquidityPool RPC method. requestable specified pool_id. */
 export interface QueryLiquidityPoolRequest {
     poolId: Long;
@@ -119,6 +133,470 @@ export interface QueryPoolBatchWithdrawMsgsResponse {
 export interface QueryPoolBatchWithdrawMsgResponse {
     withdraw?: WithdrawMsgState;
 }
+export declare const QueryUserPoolsContributionMsgRequest: {
+    encode(message: QueryUserPoolsContributionMsgRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryUserPoolsContributionMsgRequest;
+    fromJSON(object: any): QueryUserPoolsContributionMsgRequest;
+    toJSON(message: QueryUserPoolsContributionMsgRequest): unknown;
+    fromPartial<I extends {
+        userAddress?: string | undefined;
+    } & {
+        userAddress?: string | undefined;
+    } & Record<Exclude<keyof I, "userAddress">, never>>(object: I): QueryUserPoolsContributionMsgRequest;
+};
+export declare const QueryUserPoolsContributionMsgResponse: {
+    encode(message: QueryUserPoolsContributionMsgResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryUserPoolsContributionMsgResponse;
+    fromJSON(object: any): QueryUserPoolsContributionMsgResponse;
+    toJSON(message: QueryUserPoolsContributionMsgResponse): unknown;
+    fromPartial<I extends {
+        userPoolData?: {
+            userAddress?: string | undefined;
+            userPools?: {
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        } | undefined;
+    } & {
+        userPoolData?: ({
+            userAddress?: string | undefined;
+            userPools?: {
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        } & {
+            userAddress?: string | undefined;
+            userPools?: ({
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            }[] & ({
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            } & {
+                poolId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["userPoolData"]["userPools"][number]["poolId"], keyof Long.Long>, never>) | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: ({
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] & ({
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                } & {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                } & Record<Exclude<keyof I["userPoolData"]["userPools"][number]["unbondingCoins"][number], keyof import("./userPoolData").UserPoolUnbondingTokens>, never>)[] & Record<Exclude<keyof I["userPoolData"]["userPools"][number]["unbondingCoins"], keyof {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[]>, never>) | undefined;
+            } & Record<Exclude<keyof I["userPoolData"]["userPools"][number], keyof import("./userPoolData").UserPools>, never>)[] & Record<Exclude<keyof I["userPoolData"]["userPools"], keyof {
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            }[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["userPoolData"], keyof UserPoolsData>, never>) | undefined;
+    } & Record<Exclude<keyof I, "userPoolData">, never>>(object: I): QueryUserPoolsContributionMsgResponse;
+};
+export declare const QueryAllUsersPoolsContributionMsgRequest: {
+    encode(message: QueryAllUsersPoolsContributionMsgRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllUsersPoolsContributionMsgRequest;
+    fromJSON(object: any): QueryAllUsersPoolsContributionMsgRequest;
+    toJSON(message: QueryAllUsersPoolsContributionMsgRequest): unknown;
+    fromPartial<I extends {
+        pagination?: {
+            key?: Uint8Array | undefined;
+            offset?: string | number | Long.Long | undefined;
+            limit?: string | number | Long.Long | undefined;
+            countTotal?: boolean | undefined;
+            reverse?: boolean | undefined;
+        } | undefined;
+    } & {
+        pagination?: ({
+            key?: Uint8Array | undefined;
+            offset?: string | number | Long.Long | undefined;
+            limit?: string | number | Long.Long | undefined;
+            countTotal?: boolean | undefined;
+            reverse?: boolean | undefined;
+        } & {
+            key?: Uint8Array | undefined;
+            offset?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["pagination"]["offset"], keyof Long.Long>, never>) | undefined;
+            limit?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["pagination"]["limit"], keyof Long.Long>, never>) | undefined;
+            countTotal?: boolean | undefined;
+            reverse?: boolean | undefined;
+        } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
+    } & Record<Exclude<keyof I, "pagination">, never>>(object: I): QueryAllUsersPoolsContributionMsgRequest;
+};
+export declare const QueryAllUsersPoolsContributionMsgResponse: {
+    encode(message: QueryAllUsersPoolsContributionMsgResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllUsersPoolsContributionMsgResponse;
+    fromJSON(object: any): QueryAllUsersPoolsContributionMsgResponse;
+    toJSON(message: QueryAllUsersPoolsContributionMsgResponse): unknown;
+    fromPartial<I extends {
+        userPoolData?: {
+            userAddress?: string | undefined;
+            userPools?: {
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        }[] | undefined;
+    } & {
+        userPoolData?: ({
+            userAddress?: string | undefined;
+            userPools?: {
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        }[] & ({
+            userAddress?: string | undefined;
+            userPools?: {
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        } & {
+            userAddress?: string | undefined;
+            userPools?: ({
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            }[] & ({
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            } & {
+                poolId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["userPoolData"][number]["userPools"][number]["poolId"], keyof Long.Long>, never>) | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: ({
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] & ({
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                } & {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                } & Record<Exclude<keyof I["userPoolData"][number]["userPools"][number]["unbondingCoins"][number], keyof import("./userPoolData").UserPoolUnbondingTokens>, never>)[] & Record<Exclude<keyof I["userPoolData"][number]["userPools"][number]["unbondingCoins"], keyof {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[]>, never>) | undefined;
+            } & Record<Exclude<keyof I["userPoolData"][number]["userPools"][number], keyof import("./userPoolData").UserPools>, never>)[] & Record<Exclude<keyof I["userPoolData"][number]["userPools"], keyof {
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            }[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["userPoolData"][number], keyof UserPoolsData>, never>)[] & Record<Exclude<keyof I["userPoolData"], keyof {
+            userAddress?: string | undefined;
+            userPools?: {
+                poolId?: string | number | Long.Long | undefined;
+                bondedPoolCoin?: string | undefined;
+                unbondedPoolCoin?: string | undefined;
+                unbondingCoins?: {
+                    isUnbondingPoolCoin?: string | undefined;
+                    unbondingStartTime?: Date | undefined;
+                    unbondingEndTime?: Date | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        }[]>, never>) | undefined;
+    } & Record<Exclude<keyof I, "userPoolData">, never>>(object: I): QueryAllUsersPoolsContributionMsgResponse;
+};
 export declare const QueryLiquidityPoolRequest: {
     encode(message: QueryLiquidityPoolRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidityPoolRequest;
@@ -4186,6 +4664,10 @@ export interface Query {
     PoolBatchWithdrawMsg(request: QueryPoolBatchWithdrawMsgRequest): Promise<QueryPoolBatchWithdrawMsgResponse>;
     /** Get all parameters of the liquidity module. */
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+    /** Get the user data regarding contribution in pool */
+    UserPoolsContribution(request: QueryUserPoolsContributionMsgRequest): Promise<QueryUserPoolsContributionMsgResponse>;
+    /** Get all  users data regarding contribution in pool */
+    AllUserPoolsContribution(request: QueryAllUsersPoolsContributionMsgRequest): Promise<QueryAllUsersPoolsContributionMsgResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -4202,6 +4684,8 @@ export declare class QueryClientImpl implements Query {
     PoolBatchWithdrawMsgs(request: QueryPoolBatchWithdrawMsgsRequest): Promise<QueryPoolBatchWithdrawMsgsResponse>;
     PoolBatchWithdrawMsg(request: QueryPoolBatchWithdrawMsgRequest): Promise<QueryPoolBatchWithdrawMsgResponse>;
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+    UserPoolsContribution(request: QueryUserPoolsContributionMsgRequest): Promise<QueryUserPoolsContributionMsgResponse>;
+    AllUserPoolsContribution(request: QueryAllUsersPoolsContributionMsgRequest): Promise<QueryAllUsersPoolsContributionMsgResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
