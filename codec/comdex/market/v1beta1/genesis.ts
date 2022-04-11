@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Market } from "./comdex/market/v1beta1/market";
+import _m0 from "protobufjs/minimal";
+import { Market } from "./market";
 
 export const protobufPackage = "comdex.market.v1beta1";
 

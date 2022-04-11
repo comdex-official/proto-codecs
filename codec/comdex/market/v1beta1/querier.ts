@@ -1,12 +1,12 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import {
   PageRequest,
   PageResponse,
-} from "./cosmos/base/query/v1beta1/pagination";
-import { Market } from "./comdex/market/v1beta1/market";
-import { Params } from "./comdex/market/v1beta1/params";
+} from "../../../cosmos/base/query/v1beta1/pagination";
+import { Market } from "./market";
+import { Params } from "./params";
 
 export const protobufPackage = "comdex.market.v1beta1";
 
