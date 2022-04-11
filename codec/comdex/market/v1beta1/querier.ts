@@ -5,10 +5,10 @@ import {
   PageRequest,
   PageResponse,
 } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Market } from "../../../comdex/oracle/v1beta1/oracle";
-import { Params } from "../../../comdex/oracle/v1beta1/params";
+import { Market } from "./market";
+import { Params } from "./params";
 
-export const protobufPackage = "comdex.oracle.v1beta1";
+export const protobufPackage = "comdex.market.v1beta1";
 
 export interface QueryMarketsRequest {
   pagination?: PageRequest;
@@ -411,7 +411,7 @@ export class QueryServiceClientImpl implements QueryService {
   QueryMarkets(request: QueryMarketsRequest): Promise<QueryMarketsResponse> {
     const data = QueryMarketsRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.oracle.v1beta1.QueryService",
+      "comdex.market.v1beta1.QueryService",
       "QueryMarkets",
       data
     );
@@ -423,7 +423,7 @@ export class QueryServiceClientImpl implements QueryService {
   QueryMarket(request: QueryMarketRequest): Promise<QueryMarketResponse> {
     const data = QueryMarketRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.oracle.v1beta1.QueryService",
+      "comdex.market.v1beta1.QueryService",
       "QueryMarket",
       data
     );
@@ -435,7 +435,7 @@ export class QueryServiceClientImpl implements QueryService {
   QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.oracle.v1beta1.QueryService",
+      "comdex.market.v1beta1.QueryService",
       "QueryParams",
       data
     );

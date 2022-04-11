@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "comdex.oracle.v1beta1";
+export const protobufPackage = "comdex.market.v1beta1";
 
 export interface MsgAddMarketRequest {
   from: string;
@@ -476,7 +476,7 @@ export class MsgServiceClientImpl implements MsgService {
   MsgAddMarket(request: MsgAddMarketRequest): Promise<MsgAddMarketResponse> {
     const data = MsgAddMarketRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.oracle.v1beta1.MsgService",
+      "comdex.market.v1beta1.MsgService",
       "MsgAddMarket",
       data
     );
@@ -490,7 +490,7 @@ export class MsgServiceClientImpl implements MsgService {
   ): Promise<MsgUpdateMarketResponse> {
     const data = MsgUpdateMarketRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.oracle.v1beta1.MsgService",
+      "comdex.market.v1beta1.MsgService",
       "MsgUpdateMarket",
       data
     );
@@ -504,7 +504,7 @@ export class MsgServiceClientImpl implements MsgService {
   ): Promise<MsgRemoveMarketForAssetResponse> {
     const data = MsgRemoveMarketForAssetRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.oracle.v1beta1.MsgService",
+      "comdex.market.v1beta1.MsgService",
       "MsgRemoveMarketForAsset",
       data
     );

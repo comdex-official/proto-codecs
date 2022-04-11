@@ -2,7 +2,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "comdex.oracle.v1beta1";
+export const protobufPackage = "comdex.market.v1beta1";
 
 export interface Market {
   symbol: string;
