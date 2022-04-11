@@ -8,9 +8,9 @@ exports.QueryServiceClientImpl = exports.QueryParamsResponse = exports.QueryPara
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-const oracle_1 = require("../../../comdex/oracle/v1beta1/oracle");
-const params_1 = require("../../../comdex/oracle/v1beta1/params");
-exports.protobufPackage = "comdex.oracle.v1beta1";
+const market_1 = require("./market");
+const params_1 = require("./params");
+exports.protobufPackage = "comdex.market.v1beta1";
 function createBaseQueryMarketsRequest() {
     return { pagination: undefined };
 }
@@ -68,7 +68,7 @@ function createBaseQueryMarketsResponse() {
 exports.QueryMarketsResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.markets) {
-            oracle_1.Market.encode(v, writer.uint32(10).fork()).ldelim();
+            market_1.Market.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
             pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -83,7 +83,7 @@ exports.QueryMarketsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.markets.push(oracle_1.Market.decode(reader, reader.uint32()));
+                    message.markets.push(market_1.Market.decode(reader, reader.uint32()));
                     break;
                 case 2:
                     message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
@@ -98,7 +98,7 @@ exports.QueryMarketsResponse = {
     fromJSON(object) {
         return {
             markets: Array.isArray(object === null || object === void 0 ? void 0 : object.markets)
-                ? object.markets.map((e) => oracle_1.Market.fromJSON(e))
+                ? object.markets.map((e) => market_1.Market.fromJSON(e))
                 : [],
             pagination: isSet(object.pagination)
                 ? pagination_1.PageResponse.fromJSON(object.pagination)
@@ -108,7 +108,7 @@ exports.QueryMarketsResponse = {
     toJSON(message) {
         const obj = {};
         if (message.markets) {
-            obj.markets = message.markets.map((e) => e ? oracle_1.Market.toJSON(e) : undefined);
+            obj.markets = message.markets.map((e) => e ? market_1.Market.toJSON(e) : undefined);
         }
         else {
             obj.markets = [];
@@ -122,7 +122,7 @@ exports.QueryMarketsResponse = {
     fromPartial(object) {
         var _a;
         const message = createBaseQueryMarketsResponse();
-        message.markets = ((_a = object.markets) === null || _a === void 0 ? void 0 : _a.map((e) => oracle_1.Market.fromPartial(e))) || [];
+        message.markets = ((_a = object.markets) === null || _a === void 0 ? void 0 : _a.map((e) => market_1.Market.fromPartial(e))) || [];
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageResponse.fromPartial(object.pagination)
@@ -180,7 +180,7 @@ function createBaseQueryMarketResponse() {
 exports.QueryMarketResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.market !== undefined) {
-            oracle_1.Market.encode(message.market, writer.uint32(10).fork()).ldelim();
+            market_1.Market.encode(message.market, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -192,7 +192,7 @@ exports.QueryMarketResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.market = oracle_1.Market.decode(reader, reader.uint32());
+                    message.market = market_1.Market.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -203,20 +203,20 @@ exports.QueryMarketResponse = {
     },
     fromJSON(object) {
         return {
-            market: isSet(object.market) ? oracle_1.Market.fromJSON(object.market) : undefined,
+            market: isSet(object.market) ? market_1.Market.fromJSON(object.market) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.market !== undefined &&
-            (obj.market = message.market ? oracle_1.Market.toJSON(message.market) : undefined);
+            (obj.market = message.market ? market_1.Market.toJSON(message.market) : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = createBaseQueryMarketResponse();
         message.market =
             object.market !== undefined && object.market !== null
-                ? oracle_1.Market.fromPartial(object.market)
+                ? market_1.Market.fromPartial(object.market)
                 : undefined;
         return message;
     },
@@ -310,17 +310,17 @@ class QueryServiceClientImpl {
     }
     QueryMarkets(request) {
         const data = exports.QueryMarketsRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.oracle.v1beta1.QueryService", "QueryMarkets", data);
+        const promise = this.rpc.request("comdex.market.v1beta1.QueryService", "QueryMarkets", data);
         return promise.then((data) => exports.QueryMarketsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryMarket(request) {
         const data = exports.QueryMarketRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.oracle.v1beta1.QueryService", "QueryMarket", data);
+        const promise = this.rpc.request("comdex.market.v1beta1.QueryService", "QueryMarket", data);
         return promise.then((data) => exports.QueryMarketResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryParams(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.oracle.v1beta1.QueryService", "QueryParams", data);
+        const promise = this.rpc.request("comdex.market.v1beta1.QueryService", "QueryParams", data);
         return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
     }
 }

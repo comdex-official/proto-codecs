@@ -7,15 +7,15 @@ exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const params_1 = require("../../../comdex/oracle/v1beta1/params");
-exports.protobufPackage = "comdex.oracle.v1beta1";
+const market_1 = require("./market");
+exports.protobufPackage = "comdex.market.v1beta1";
 function createBaseGenesisState() {
-    return { params: undefined };
+    return { markets: [] };
 }
 exports.GenesisState = {
     encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.params !== undefined) {
-            params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+        for (const v of message.markets) {
+            market_1.Market.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -27,7 +27,7 @@ exports.GenesisState = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.params = params_1.Params.decode(reader, reader.uint32());
+                    message.markets.push(market_1.Market.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -38,29 +38,30 @@ exports.GenesisState = {
     },
     fromJSON(object) {
         return {
-            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+            markets: Array.isArray(object === null || object === void 0 ? void 0 : object.markets)
+                ? object.markets.map((e) => market_1.Market.fromJSON(e))
+                : [],
         };
     },
     toJSON(message) {
         const obj = {};
-        message.params !== undefined &&
-            (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
+        if (message.markets) {
+            obj.markets = message.markets.map((e) => e ? market_1.Market.toJSON(e) : undefined);
+        }
+        else {
+            obj.markets = [];
+        }
         return obj;
     },
     fromPartial(object) {
+        var _a;
         const message = createBaseGenesisState();
-        message.params =
-            object.params !== undefined && object.params !== null
-                ? params_1.Params.fromPartial(object.params)
-                : undefined;
+        message.markets = ((_a = object.markets) === null || _a === void 0 ? void 0 : _a.map((e) => market_1.Market.fromPartial(e))) || [];
         return message;
     },
 };
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();
-}
-function isSet(value) {
-    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=genesis.js.map

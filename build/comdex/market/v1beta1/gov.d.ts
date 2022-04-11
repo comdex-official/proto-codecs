@@ -1,6 +1,6 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-export declare const protobufPackage = "comdex.oracle.v1beta1";
+export declare const protobufPackage = "comdex.market.v1beta1";
 export interface UpdateAdminProposal {
     title: string;
     description: string;

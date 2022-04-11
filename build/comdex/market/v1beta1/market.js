@@ -7,7 +7,7 @@ exports.Market = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-exports.protobufPackage = "comdex.oracle.v1beta1";
+exports.protobufPackage = "comdex.market.v1beta1";
 function createBaseMarket() {
     return { symbol: "", scriptId: long_1.default.UZERO, rates: long_1.default.UZERO };
 }
@@ -87,4 +87,4 @@ if (minimal_1.default.util.Long !== long_1.default) {
 function isSet(value) {
     return value !== null && value !== undefined;
 }
-//# sourceMappingURL=oracle.js.map
+//# sourceMappingURL=market.js.map
