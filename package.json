@@ -2,6 +2,7 @@
   "name": "comdex-codec",
   "version": "0.1.0",
   "dependencies": {
+    "@cosmjs/amino": "^0.28.4",
     "@vercel/ncc": "^0.29.1",
     "protobufjs": "^6.11.2",
     "ts-proto": "^1.104.0"
