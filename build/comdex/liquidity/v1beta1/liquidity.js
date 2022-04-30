@@ -3,155 +3,275 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SwapMsgState = exports.WithdrawMsgState = exports.DepositMsgState = exports.PoolBatch = exports.PoolMetadata = exports.Pool = exports.Params = exports.PoolType = exports.protobufPackage = void 0;
+exports.Order = exports.WithdrawRequest = exports.DepositRequest = exports.Pool = exports.Pair = exports.Params = exports.addressTypeToJSON = exports.addressTypeFromJSON = exports.AddressType = exports.orderStatusToJSON = exports.orderStatusFromJSON = exports.OrderStatus = exports.requestStatusToJSON = exports.requestStatusFromJSON = exports.RequestStatus = exports.orderDirectionToJSON = exports.orderDirectionFromJSON = exports.OrderDirection = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const duration_1 = require("../../../google/protobuf/duration");
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
-const tx_1 = require("./tx");
+const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
-function createBasePoolType() {
-    return {
-        id: 0,
-        name: "",
-        minReserveCoinNum: 0,
-        maxReserveCoinNum: 0,
-        description: "",
-    };
+/** OrderDirection enumerates order directions. */
+var OrderDirection;
+(function (OrderDirection) {
+    /** ORDER_DIRECTION_UNSPECIFIED - ORDER_DIRECTION_UNSPECIFIED specifies unknown order direction */
+    OrderDirection[OrderDirection["ORDER_DIRECTION_UNSPECIFIED"] = 0] = "ORDER_DIRECTION_UNSPECIFIED";
+    /** ORDER_DIRECTION_BUY - ORDER_DIRECTION_BUY specifies buy(swap quote coin to base coin) order direction */
+    OrderDirection[OrderDirection["ORDER_DIRECTION_BUY"] = 1] = "ORDER_DIRECTION_BUY";
+    /** ORDER_DIRECTION_SELL - ORDER_DIRECTION_SELL specifies sell(swap base coin to quote coin) order direction */
+    OrderDirection[OrderDirection["ORDER_DIRECTION_SELL"] = 2] = "ORDER_DIRECTION_SELL";
+    OrderDirection[OrderDirection["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(OrderDirection = exports.OrderDirection || (exports.OrderDirection = {}));
+function orderDirectionFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "ORDER_DIRECTION_UNSPECIFIED":
+            return OrderDirection.ORDER_DIRECTION_UNSPECIFIED;
+        case 1:
+        case "ORDER_DIRECTION_BUY":
+            return OrderDirection.ORDER_DIRECTION_BUY;
+        case 2:
+        case "ORDER_DIRECTION_SELL":
+            return OrderDirection.ORDER_DIRECTION_SELL;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return OrderDirection.UNRECOGNIZED;
+    }
 }
-exports.PoolType = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.id !== 0) {
-            writer.uint32(8).uint32(message.id);
-        }
-        if (message.name !== "") {
-            writer.uint32(18).string(message.name);
-        }
-        if (message.minReserveCoinNum !== 0) {
-            writer.uint32(24).uint32(message.minReserveCoinNum);
-        }
-        if (message.maxReserveCoinNum !== 0) {
-            writer.uint32(32).uint32(message.maxReserveCoinNum);
-        }
-        if (message.description !== "") {
-            writer.uint32(42).string(message.description);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBasePoolType();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.id = reader.uint32();
-                    break;
-                case 2:
-                    message.name = reader.string();
-                    break;
-                case 3:
-                    message.minReserveCoinNum = reader.uint32();
-                    break;
-                case 4:
-                    message.maxReserveCoinNum = reader.uint32();
-                    break;
-                case 5:
-                    message.description = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            id: isSet(object.id) ? Number(object.id) : 0,
-            name: isSet(object.name) ? String(object.name) : "",
-            minReserveCoinNum: isSet(object.minReserveCoinNum)
-                ? Number(object.minReserveCoinNum)
-                : 0,
-            maxReserveCoinNum: isSet(object.maxReserveCoinNum)
-                ? Number(object.maxReserveCoinNum)
-                : 0,
-            description: isSet(object.description) ? String(object.description) : "",
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.id !== undefined && (obj.id = Math.round(message.id));
-        message.name !== undefined && (obj.name = message.name);
-        message.minReserveCoinNum !== undefined &&
-            (obj.minReserveCoinNum = Math.round(message.minReserveCoinNum));
-        message.maxReserveCoinNum !== undefined &&
-            (obj.maxReserveCoinNum = Math.round(message.maxReserveCoinNum));
-        message.description !== undefined &&
-            (obj.description = message.description);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b, _c, _d, _e;
-        const message = createBasePoolType();
-        message.id = (_a = object.id) !== null && _a !== void 0 ? _a : 0;
-        message.name = (_b = object.name) !== null && _b !== void 0 ? _b : "";
-        message.minReserveCoinNum = (_c = object.minReserveCoinNum) !== null && _c !== void 0 ? _c : 0;
-        message.maxReserveCoinNum = (_d = object.maxReserveCoinNum) !== null && _d !== void 0 ? _d : 0;
-        message.description = (_e = object.description) !== null && _e !== void 0 ? _e : "";
-        return message;
-    },
-};
+exports.orderDirectionFromJSON = orderDirectionFromJSON;
+function orderDirectionToJSON(object) {
+    switch (object) {
+        case OrderDirection.ORDER_DIRECTION_UNSPECIFIED:
+            return "ORDER_DIRECTION_UNSPECIFIED";
+        case OrderDirection.ORDER_DIRECTION_BUY:
+            return "ORDER_DIRECTION_BUY";
+        case OrderDirection.ORDER_DIRECTION_SELL:
+            return "ORDER_DIRECTION_SELL";
+        default:
+            return "UNKNOWN";
+    }
+}
+exports.orderDirectionToJSON = orderDirectionToJSON;
+/** RequestStatus enumerates request statuses. */
+var RequestStatus;
+(function (RequestStatus) {
+    /** REQUEST_STATUS_UNSPECIFIED - REQUEST_STATUS_UNSPECIFIED specifies unknown request status */
+    RequestStatus[RequestStatus["REQUEST_STATUS_UNSPECIFIED"] = 0] = "REQUEST_STATUS_UNSPECIFIED";
+    /** REQUEST_STATUS_NOT_EXECUTED - REQUEST_STATUS_NOT_EXECUTED indicates the request is not executed yet */
+    RequestStatus[RequestStatus["REQUEST_STATUS_NOT_EXECUTED"] = 1] = "REQUEST_STATUS_NOT_EXECUTED";
+    /** REQUEST_STATUS_SUCCEEDED - REQUEST_STATUS_SUCCEEDED indicates the request has been succeeded */
+    RequestStatus[RequestStatus["REQUEST_STATUS_SUCCEEDED"] = 2] = "REQUEST_STATUS_SUCCEEDED";
+    /** REQUEST_STATUS_FAILED - REQUEST_STATUS_FAILED indicates the request is failed */
+    RequestStatus[RequestStatus["REQUEST_STATUS_FAILED"] = 3] = "REQUEST_STATUS_FAILED";
+    RequestStatus[RequestStatus["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(RequestStatus = exports.RequestStatus || (exports.RequestStatus = {}));
+function requestStatusFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "REQUEST_STATUS_UNSPECIFIED":
+            return RequestStatus.REQUEST_STATUS_UNSPECIFIED;
+        case 1:
+        case "REQUEST_STATUS_NOT_EXECUTED":
+            return RequestStatus.REQUEST_STATUS_NOT_EXECUTED;
+        case 2:
+        case "REQUEST_STATUS_SUCCEEDED":
+            return RequestStatus.REQUEST_STATUS_SUCCEEDED;
+        case 3:
+        case "REQUEST_STATUS_FAILED":
+            return RequestStatus.REQUEST_STATUS_FAILED;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return RequestStatus.UNRECOGNIZED;
+    }
+}
+exports.requestStatusFromJSON = requestStatusFromJSON;
+function requestStatusToJSON(object) {
+    switch (object) {
+        case RequestStatus.REQUEST_STATUS_UNSPECIFIED:
+            return "REQUEST_STATUS_UNSPECIFIED";
+        case RequestStatus.REQUEST_STATUS_NOT_EXECUTED:
+            return "REQUEST_STATUS_NOT_EXECUTED";
+        case RequestStatus.REQUEST_STATUS_SUCCEEDED:
+            return "REQUEST_STATUS_SUCCEEDED";
+        case RequestStatus.REQUEST_STATUS_FAILED:
+            return "REQUEST_STATUS_FAILED";
+        default:
+            return "UNKNOWN";
+    }
+}
+exports.requestStatusToJSON = requestStatusToJSON;
+/** OrderStatus enumerates order statuses. */
+var OrderStatus;
+(function (OrderStatus) {
+    /** ORDER_STATUS_UNSPECIFIED - ORDER_STATUS_UNSPECIFIED specifies unknown order status */
+    OrderStatus[OrderStatus["ORDER_STATUS_UNSPECIFIED"] = 0] = "ORDER_STATUS_UNSPECIFIED";
+    /** ORDER_STATUS_NOT_EXECUTED - ORDER_STATUS_NOT_EXECUTED indicates the order has not been executed yet */
+    OrderStatus[OrderStatus["ORDER_STATUS_NOT_EXECUTED"] = 1] = "ORDER_STATUS_NOT_EXECUTED";
+    /** ORDER_STATUS_NOT_MATCHED - ORDER_STATUS_NOT_MATCHED indicates the order has been executed but has no match */
+    OrderStatus[OrderStatus["ORDER_STATUS_NOT_MATCHED"] = 2] = "ORDER_STATUS_NOT_MATCHED";
+    /** ORDER_STATUS_PARTIALLY_MATCHED - ORDER_STATUS_PARTIALLY_MATCHED indicates the order has been partially matched */
+    OrderStatus[OrderStatus["ORDER_STATUS_PARTIALLY_MATCHED"] = 3] = "ORDER_STATUS_PARTIALLY_MATCHED";
+    /** ORDER_STATUS_COMPLETED - ORDER_STATUS_COMPLETED indicates the order has been fully matched and completed */
+    OrderStatus[OrderStatus["ORDER_STATUS_COMPLETED"] = 4] = "ORDER_STATUS_COMPLETED";
+    /** ORDER_STATUS_CANCELED - ORDER_STATUS_CANCELED indicates the order has been canceled */
+    OrderStatus[OrderStatus["ORDER_STATUS_CANCELED"] = 5] = "ORDER_STATUS_CANCELED";
+    /** ORDER_STATUS_EXPIRED - ORDER_STATUS_EXPIRED indicates the order has been expired */
+    OrderStatus[OrderStatus["ORDER_STATUS_EXPIRED"] = 6] = "ORDER_STATUS_EXPIRED";
+    OrderStatus[OrderStatus["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(OrderStatus = exports.OrderStatus || (exports.OrderStatus = {}));
+function orderStatusFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "ORDER_STATUS_UNSPECIFIED":
+            return OrderStatus.ORDER_STATUS_UNSPECIFIED;
+        case 1:
+        case "ORDER_STATUS_NOT_EXECUTED":
+            return OrderStatus.ORDER_STATUS_NOT_EXECUTED;
+        case 2:
+        case "ORDER_STATUS_NOT_MATCHED":
+            return OrderStatus.ORDER_STATUS_NOT_MATCHED;
+        case 3:
+        case "ORDER_STATUS_PARTIALLY_MATCHED":
+            return OrderStatus.ORDER_STATUS_PARTIALLY_MATCHED;
+        case 4:
+        case "ORDER_STATUS_COMPLETED":
+            return OrderStatus.ORDER_STATUS_COMPLETED;
+        case 5:
+        case "ORDER_STATUS_CANCELED":
+            return OrderStatus.ORDER_STATUS_CANCELED;
+        case 6:
+        case "ORDER_STATUS_EXPIRED":
+            return OrderStatus.ORDER_STATUS_EXPIRED;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return OrderStatus.UNRECOGNIZED;
+    }
+}
+exports.orderStatusFromJSON = orderStatusFromJSON;
+function orderStatusToJSON(object) {
+    switch (object) {
+        case OrderStatus.ORDER_STATUS_UNSPECIFIED:
+            return "ORDER_STATUS_UNSPECIFIED";
+        case OrderStatus.ORDER_STATUS_NOT_EXECUTED:
+            return "ORDER_STATUS_NOT_EXECUTED";
+        case OrderStatus.ORDER_STATUS_NOT_MATCHED:
+            return "ORDER_STATUS_NOT_MATCHED";
+        case OrderStatus.ORDER_STATUS_PARTIALLY_MATCHED:
+            return "ORDER_STATUS_PARTIALLY_MATCHED";
+        case OrderStatus.ORDER_STATUS_COMPLETED:
+            return "ORDER_STATUS_COMPLETED";
+        case OrderStatus.ORDER_STATUS_CANCELED:
+            return "ORDER_STATUS_CANCELED";
+        case OrderStatus.ORDER_STATUS_EXPIRED:
+            return "ORDER_STATUS_EXPIRED";
+        default:
+            return "UNKNOWN";
+    }
+}
+exports.orderStatusToJSON = orderStatusToJSON;
+/** AddressType enumerates the available types of a address. */
+var AddressType;
+(function (AddressType) {
+    /** ADDRESS_TYPE_32_BYTES - the 32 bytes length address type of ADR 028. */
+    AddressType[AddressType["ADDRESS_TYPE_32_BYTES"] = 0] = "ADDRESS_TYPE_32_BYTES";
+    /** ADDRESS_TYPE_20_BYTES - the default 20 bytes length address type. */
+    AddressType[AddressType["ADDRESS_TYPE_20_BYTES"] = 1] = "ADDRESS_TYPE_20_BYTES";
+    AddressType[AddressType["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(AddressType = exports.AddressType || (exports.AddressType = {}));
+function addressTypeFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "ADDRESS_TYPE_32_BYTES":
+            return AddressType.ADDRESS_TYPE_32_BYTES;
+        case 1:
+        case "ADDRESS_TYPE_20_BYTES":
+            return AddressType.ADDRESS_TYPE_20_BYTES;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return AddressType.UNRECOGNIZED;
+    }
+}
+exports.addressTypeFromJSON = addressTypeFromJSON;
+function addressTypeToJSON(object) {
+    switch (object) {
+        case AddressType.ADDRESS_TYPE_32_BYTES:
+            return "ADDRESS_TYPE_32_BYTES";
+        case AddressType.ADDRESS_TYPE_20_BYTES:
+            return "ADDRESS_TYPE_20_BYTES";
+        default:
+            return "UNKNOWN";
+    }
+}
+exports.addressTypeToJSON = addressTypeToJSON;
 function createBaseParams() {
     return {
-        poolTypes: [],
-        minInitDepositAmount: "",
-        initPoolCoinMintAmount: "",
-        maxReserveCoinAmount: "",
+        batchSize: 0,
+        tickPrecision: 0,
+        feeCollectorAddress: "",
+        dustCollectorAddress: "",
+        minInitialPoolCoinSupply: "",
+        pairCreationFee: [],
         poolCreationFee: [],
+        minInitialDepositAmount: "",
+        maxPriceLimitRatio: "",
+        maxOrderLifespan: undefined,
         swapFeeRate: "",
         withdrawFeeRate: "",
-        maxOrderAmountRatio: "",
-        unitBatchHeight: 0,
-        circuitBreakerEnabled: false,
-        poolUnbondingDuration: "",
+        depositExtraGas: long_1.default.UZERO,
+        withdrawExtraGas: long_1.default.UZERO,
+        orderExtraGas: long_1.default.UZERO,
     };
 }
 exports.Params = {
     encode(message, writer = minimal_1.default.Writer.create()) {
-        for (const v of message.poolTypes) {
-            exports.PoolType.encode(v, writer.uint32(10).fork()).ldelim();
+        if (message.batchSize !== 0) {
+            writer.uint32(8).uint32(message.batchSize);
         }
-        if (message.minInitDepositAmount !== "") {
-            writer.uint32(18).string(message.minInitDepositAmount);
+        if (message.tickPrecision !== 0) {
+            writer.uint32(16).uint32(message.tickPrecision);
         }
-        if (message.initPoolCoinMintAmount !== "") {
-            writer.uint32(26).string(message.initPoolCoinMintAmount);
+        if (message.feeCollectorAddress !== "") {
+            writer.uint32(26).string(message.feeCollectorAddress);
         }
-        if (message.maxReserveCoinAmount !== "") {
-            writer.uint32(34).string(message.maxReserveCoinAmount);
+        if (message.dustCollectorAddress !== "") {
+            writer.uint32(34).string(message.dustCollectorAddress);
+        }
+        if (message.minInitialPoolCoinSupply !== "") {
+            writer.uint32(42).string(message.minInitialPoolCoinSupply);
+        }
+        for (const v of message.pairCreationFee) {
+            coin_1.Coin.encode(v, writer.uint32(50).fork()).ldelim();
         }
         for (const v of message.poolCreationFee) {
-            coin_1.Coin.encode(v, writer.uint32(42).fork()).ldelim();
+            coin_1.Coin.encode(v, writer.uint32(58).fork()).ldelim();
+        }
+        if (message.minInitialDepositAmount !== "") {
+            writer.uint32(66).string(message.minInitialDepositAmount);
+        }
+        if (message.maxPriceLimitRatio !== "") {
+            writer.uint32(74).string(message.maxPriceLimitRatio);
+        }
+        if (message.maxOrderLifespan !== undefined) {
+            duration_1.Duration.encode(message.maxOrderLifespan, writer.uint32(82).fork()).ldelim();
         }
         if (message.swapFeeRate !== "") {
-            writer.uint32(50).string(message.swapFeeRate);
+            writer.uint32(90).string(message.swapFeeRate);
         }
         if (message.withdrawFeeRate !== "") {
-            writer.uint32(58).string(message.withdrawFeeRate);
+            writer.uint32(98).string(message.withdrawFeeRate);
         }
-        if (message.maxOrderAmountRatio !== "") {
-            writer.uint32(66).string(message.maxOrderAmountRatio);
+        if (!message.depositExtraGas.isZero()) {
+            writer.uint32(104).uint64(message.depositExtraGas);
         }
-        if (message.unitBatchHeight !== 0) {
-            writer.uint32(72).uint32(message.unitBatchHeight);
+        if (!message.withdrawExtraGas.isZero()) {
+            writer.uint32(112).uint64(message.withdrawExtraGas);
         }
-        if (message.circuitBreakerEnabled === true) {
-            writer.uint32(80).bool(message.circuitBreakerEnabled);
-        }
-        if (message.poolUnbondingDuration !== "") {
-            writer.uint32(98).string(message.poolUnbondingDuration);
+        if (!message.orderExtraGas.isZero()) {
+            writer.uint32(120).uint64(message.orderExtraGas);
         }
         return writer;
     },
@@ -163,37 +283,49 @@ exports.Params = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.poolTypes.push(exports.PoolType.decode(reader, reader.uint32()));
+                    message.batchSize = reader.uint32();
                     break;
                 case 2:
-                    message.minInitDepositAmount = reader.string();
+                    message.tickPrecision = reader.uint32();
                     break;
                 case 3:
-                    message.initPoolCoinMintAmount = reader.string();
+                    message.feeCollectorAddress = reader.string();
                     break;
                 case 4:
-                    message.maxReserveCoinAmount = reader.string();
+                    message.dustCollectorAddress = reader.string();
                     break;
                 case 5:
-                    message.poolCreationFee.push(coin_1.Coin.decode(reader, reader.uint32()));
+                    message.minInitialPoolCoinSupply = reader.string();
                     break;
                 case 6:
-                    message.swapFeeRate = reader.string();
+                    message.pairCreationFee.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
                 case 7:
-                    message.withdrawFeeRate = reader.string();
+                    message.poolCreationFee.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
                 case 8:
-                    message.maxOrderAmountRatio = reader.string();
+                    message.minInitialDepositAmount = reader.string();
                     break;
                 case 9:
-                    message.unitBatchHeight = reader.uint32();
+                    message.maxPriceLimitRatio = reader.string();
                     break;
                 case 10:
-                    message.circuitBreakerEnabled = reader.bool();
+                    message.maxOrderLifespan = duration_1.Duration.decode(reader, reader.uint32());
+                    break;
+                case 11:
+                    message.swapFeeRate = reader.string();
                     break;
                 case 12:
-                    message.poolUnbondingDuration = reader.string();
+                    message.withdrawFeeRate = reader.string();
+                    break;
+                case 13:
+                    message.depositExtraGas = reader.uint64();
+                    break;
+                case 14:
+                    message.withdrawExtraGas = reader.uint64();
+                    break;
+                case 15:
+                    message.orderExtraGas = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -204,99 +336,268 @@ exports.Params = {
     },
     fromJSON(object) {
         return {
-            poolTypes: Array.isArray(object === null || object === void 0 ? void 0 : object.poolTypes)
-                ? object.poolTypes.map((e) => exports.PoolType.fromJSON(e))
+            batchSize: isSet(object.batchSize) ? Number(object.batchSize) : 0,
+            tickPrecision: isSet(object.tickPrecision)
+                ? Number(object.tickPrecision)
+                : 0,
+            feeCollectorAddress: isSet(object.feeCollectorAddress)
+                ? String(object.feeCollectorAddress)
+                : "",
+            dustCollectorAddress: isSet(object.dustCollectorAddress)
+                ? String(object.dustCollectorAddress)
+                : "",
+            minInitialPoolCoinSupply: isSet(object.minInitialPoolCoinSupply)
+                ? String(object.minInitialPoolCoinSupply)
+                : "",
+            pairCreationFee: Array.isArray(object === null || object === void 0 ? void 0 : object.pairCreationFee)
+                ? object.pairCreationFee.map((e) => coin_1.Coin.fromJSON(e))
                 : [],
-            minInitDepositAmount: isSet(object.minInitDepositAmount)
-                ? String(object.minInitDepositAmount)
-                : "",
-            initPoolCoinMintAmount: isSet(object.initPoolCoinMintAmount)
-                ? String(object.initPoolCoinMintAmount)
-                : "",
-            maxReserveCoinAmount: isSet(object.maxReserveCoinAmount)
-                ? String(object.maxReserveCoinAmount)
-                : "",
             poolCreationFee: Array.isArray(object === null || object === void 0 ? void 0 : object.poolCreationFee)
                 ? object.poolCreationFee.map((e) => coin_1.Coin.fromJSON(e))
                 : [],
+            minInitialDepositAmount: isSet(object.minInitialDepositAmount)
+                ? String(object.minInitialDepositAmount)
+                : "",
+            maxPriceLimitRatio: isSet(object.maxPriceLimitRatio)
+                ? String(object.maxPriceLimitRatio)
+                : "",
+            maxOrderLifespan: isSet(object.maxOrderLifespan)
+                ? duration_1.Duration.fromJSON(object.maxOrderLifespan)
+                : undefined,
             swapFeeRate: isSet(object.swapFeeRate) ? String(object.swapFeeRate) : "",
             withdrawFeeRate: isSet(object.withdrawFeeRate)
                 ? String(object.withdrawFeeRate)
                 : "",
-            maxOrderAmountRatio: isSet(object.maxOrderAmountRatio)
-                ? String(object.maxOrderAmountRatio)
-                : "",
-            unitBatchHeight: isSet(object.unitBatchHeight)
-                ? Number(object.unitBatchHeight)
-                : 0,
-            circuitBreakerEnabled: isSet(object.circuitBreakerEnabled)
-                ? Boolean(object.circuitBreakerEnabled)
-                : false,
-            poolUnbondingDuration: isSet(object.poolUnbondingDuration)
-                ? String(object.poolUnbondingDuration)
-                : "",
+            depositExtraGas: isSet(object.depositExtraGas)
+                ? long_1.default.fromString(object.depositExtraGas)
+                : long_1.default.UZERO,
+            withdrawExtraGas: isSet(object.withdrawExtraGas)
+                ? long_1.default.fromString(object.withdrawExtraGas)
+                : long_1.default.UZERO,
+            orderExtraGas: isSet(object.orderExtraGas)
+                ? long_1.default.fromString(object.orderExtraGas)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        if (message.poolTypes) {
-            obj.poolTypes = message.poolTypes.map((e) => e ? exports.PoolType.toJSON(e) : undefined);
+        message.batchSize !== undefined &&
+            (obj.batchSize = Math.round(message.batchSize));
+        message.tickPrecision !== undefined &&
+            (obj.tickPrecision = Math.round(message.tickPrecision));
+        message.feeCollectorAddress !== undefined &&
+            (obj.feeCollectorAddress = message.feeCollectorAddress);
+        message.dustCollectorAddress !== undefined &&
+            (obj.dustCollectorAddress = message.dustCollectorAddress);
+        message.minInitialPoolCoinSupply !== undefined &&
+            (obj.minInitialPoolCoinSupply = message.minInitialPoolCoinSupply);
+        if (message.pairCreationFee) {
+            obj.pairCreationFee = message.pairCreationFee.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
         }
         else {
-            obj.poolTypes = [];
+            obj.pairCreationFee = [];
         }
-        message.minInitDepositAmount !== undefined &&
-            (obj.minInitDepositAmount = message.minInitDepositAmount);
-        message.initPoolCoinMintAmount !== undefined &&
-            (obj.initPoolCoinMintAmount = message.initPoolCoinMintAmount);
-        message.maxReserveCoinAmount !== undefined &&
-            (obj.maxReserveCoinAmount = message.maxReserveCoinAmount);
         if (message.poolCreationFee) {
             obj.poolCreationFee = message.poolCreationFee.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
         }
         else {
             obj.poolCreationFee = [];
         }
+        message.minInitialDepositAmount !== undefined &&
+            (obj.minInitialDepositAmount = message.minInitialDepositAmount);
+        message.maxPriceLimitRatio !== undefined &&
+            (obj.maxPriceLimitRatio = message.maxPriceLimitRatio);
+        message.maxOrderLifespan !== undefined &&
+            (obj.maxOrderLifespan = message.maxOrderLifespan
+                ? duration_1.Duration.toJSON(message.maxOrderLifespan)
+                : undefined);
         message.swapFeeRate !== undefined &&
             (obj.swapFeeRate = message.swapFeeRate);
         message.withdrawFeeRate !== undefined &&
             (obj.withdrawFeeRate = message.withdrawFeeRate);
-        message.maxOrderAmountRatio !== undefined &&
-            (obj.maxOrderAmountRatio = message.maxOrderAmountRatio);
-        message.unitBatchHeight !== undefined &&
-            (obj.unitBatchHeight = Math.round(message.unitBatchHeight));
-        message.circuitBreakerEnabled !== undefined &&
-            (obj.circuitBreakerEnabled = message.circuitBreakerEnabled);
-        message.poolUnbondingDuration !== undefined &&
-            (obj.poolUnbondingDuration = message.poolUnbondingDuration);
+        message.depositExtraGas !== undefined &&
+            (obj.depositExtraGas = (message.depositExtraGas || long_1.default.UZERO).toString());
+        message.withdrawExtraGas !== undefined &&
+            (obj.withdrawExtraGas = (message.withdrawExtraGas || long_1.default.UZERO).toString());
+        message.orderExtraGas !== undefined &&
+            (obj.orderExtraGas = (message.orderExtraGas || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
         const message = createBaseParams();
-        message.poolTypes =
-            ((_a = object.poolTypes) === null || _a === void 0 ? void 0 : _a.map((e) => exports.PoolType.fromPartial(e))) || [];
-        message.minInitDepositAmount = (_b = object.minInitDepositAmount) !== null && _b !== void 0 ? _b : "";
-        message.initPoolCoinMintAmount = (_c = object.initPoolCoinMintAmount) !== null && _c !== void 0 ? _c : "";
-        message.maxReserveCoinAmount = (_d = object.maxReserveCoinAmount) !== null && _d !== void 0 ? _d : "";
+        message.batchSize = (_a = object.batchSize) !== null && _a !== void 0 ? _a : 0;
+        message.tickPrecision = (_b = object.tickPrecision) !== null && _b !== void 0 ? _b : 0;
+        message.feeCollectorAddress = (_c = object.feeCollectorAddress) !== null && _c !== void 0 ? _c : "";
+        message.dustCollectorAddress = (_d = object.dustCollectorAddress) !== null && _d !== void 0 ? _d : "";
+        message.minInitialPoolCoinSupply = (_e = object.minInitialPoolCoinSupply) !== null && _e !== void 0 ? _e : "";
+        message.pairCreationFee =
+            ((_f = object.pairCreationFee) === null || _f === void 0 ? void 0 : _f.map((e) => coin_1.Coin.fromPartial(e))) || [];
         message.poolCreationFee =
-            ((_e = object.poolCreationFee) === null || _e === void 0 ? void 0 : _e.map((e) => coin_1.Coin.fromPartial(e))) || [];
-        message.swapFeeRate = (_f = object.swapFeeRate) !== null && _f !== void 0 ? _f : "";
-        message.withdrawFeeRate = (_g = object.withdrawFeeRate) !== null && _g !== void 0 ? _g : "";
-        message.maxOrderAmountRatio = (_h = object.maxOrderAmountRatio) !== null && _h !== void 0 ? _h : "";
-        message.unitBatchHeight = (_j = object.unitBatchHeight) !== null && _j !== void 0 ? _j : 0;
-        message.circuitBreakerEnabled = (_k = object.circuitBreakerEnabled) !== null && _k !== void 0 ? _k : false;
-        message.poolUnbondingDuration = (_l = object.poolUnbondingDuration) !== null && _l !== void 0 ? _l : "";
+            ((_g = object.poolCreationFee) === null || _g === void 0 ? void 0 : _g.map((e) => coin_1.Coin.fromPartial(e))) || [];
+        message.minInitialDepositAmount = (_h = object.minInitialDepositAmount) !== null && _h !== void 0 ? _h : "";
+        message.maxPriceLimitRatio = (_j = object.maxPriceLimitRatio) !== null && _j !== void 0 ? _j : "";
+        message.maxOrderLifespan =
+            object.maxOrderLifespan !== undefined && object.maxOrderLifespan !== null
+                ? duration_1.Duration.fromPartial(object.maxOrderLifespan)
+                : undefined;
+        message.swapFeeRate = (_k = object.swapFeeRate) !== null && _k !== void 0 ? _k : "";
+        message.withdrawFeeRate = (_l = object.withdrawFeeRate) !== null && _l !== void 0 ? _l : "";
+        message.depositExtraGas =
+            object.depositExtraGas !== undefined && object.depositExtraGas !== null
+                ? long_1.default.fromValue(object.depositExtraGas)
+                : long_1.default.UZERO;
+        message.withdrawExtraGas =
+            object.withdrawExtraGas !== undefined && object.withdrawExtraGas !== null
+                ? long_1.default.fromValue(object.withdrawExtraGas)
+                : long_1.default.UZERO;
+        message.orderExtraGas =
+            object.orderExtraGas !== undefined && object.orderExtraGas !== null
+                ? long_1.default.fromValue(object.orderExtraGas)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBasePair() {
+    return {
+        id: long_1.default.UZERO,
+        baseCoinDenom: "",
+        quoteCoinDenom: "",
+        escrowAddress: "",
+        lastOrderId: long_1.default.UZERO,
+        lastPrice: "",
+        currentBatchId: long_1.default.UZERO,
+    };
+}
+exports.Pair = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
+        }
+        if (message.baseCoinDenom !== "") {
+            writer.uint32(18).string(message.baseCoinDenom);
+        }
+        if (message.quoteCoinDenom !== "") {
+            writer.uint32(26).string(message.quoteCoinDenom);
+        }
+        if (message.escrowAddress !== "") {
+            writer.uint32(34).string(message.escrowAddress);
+        }
+        if (!message.lastOrderId.isZero()) {
+            writer.uint32(40).uint64(message.lastOrderId);
+        }
+        if (message.lastPrice !== "") {
+            writer.uint32(50).string(message.lastPrice);
+        }
+        if (!message.currentBatchId.isZero()) {
+            writer.uint32(56).uint64(message.currentBatchId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBasePair();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.uint64();
+                    break;
+                case 2:
+                    message.baseCoinDenom = reader.string();
+                    break;
+                case 3:
+                    message.quoteCoinDenom = reader.string();
+                    break;
+                case 4:
+                    message.escrowAddress = reader.string();
+                    break;
+                case 5:
+                    message.lastOrderId = reader.uint64();
+                    break;
+                case 6:
+                    message.lastPrice = reader.string();
+                    break;
+                case 7:
+                    message.currentBatchId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            baseCoinDenom: isSet(object.baseCoinDenom)
+                ? String(object.baseCoinDenom)
+                : "",
+            quoteCoinDenom: isSet(object.quoteCoinDenom)
+                ? String(object.quoteCoinDenom)
+                : "",
+            escrowAddress: isSet(object.escrowAddress)
+                ? String(object.escrowAddress)
+                : "",
+            lastOrderId: isSet(object.lastOrderId)
+                ? long_1.default.fromString(object.lastOrderId)
+                : long_1.default.UZERO,
+            lastPrice: isSet(object.lastPrice) ? String(object.lastPrice) : "",
+            currentBatchId: isSet(object.currentBatchId)
+                ? long_1.default.fromString(object.currentBatchId)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.baseCoinDenom !== undefined &&
+            (obj.baseCoinDenom = message.baseCoinDenom);
+        message.quoteCoinDenom !== undefined &&
+            (obj.quoteCoinDenom = message.quoteCoinDenom);
+        message.escrowAddress !== undefined &&
+            (obj.escrowAddress = message.escrowAddress);
+        message.lastOrderId !== undefined &&
+            (obj.lastOrderId = (message.lastOrderId || long_1.default.UZERO).toString());
+        message.lastPrice !== undefined && (obj.lastPrice = message.lastPrice);
+        message.currentBatchId !== undefined &&
+            (obj.currentBatchId = (message.currentBatchId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d;
+        const message = createBasePair();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.baseCoinDenom = (_a = object.baseCoinDenom) !== null && _a !== void 0 ? _a : "";
+        message.quoteCoinDenom = (_b = object.quoteCoinDenom) !== null && _b !== void 0 ? _b : "";
+        message.escrowAddress = (_c = object.escrowAddress) !== null && _c !== void 0 ? _c : "";
+        message.lastOrderId =
+            object.lastOrderId !== undefined && object.lastOrderId !== null
+                ? long_1.default.fromValue(object.lastOrderId)
+                : long_1.default.UZERO;
+        message.lastPrice = (_d = object.lastPrice) !== null && _d !== void 0 ? _d : "";
+        message.currentBatchId =
+            object.currentBatchId !== undefined && object.currentBatchId !== null
+                ? long_1.default.fromValue(object.currentBatchId)
+                : long_1.default.UZERO;
         return message;
     },
 };
 function createBasePool() {
     return {
         id: long_1.default.UZERO,
-        typeId: 0,
-        reserveCoinDenoms: [],
-        reserveAccountAddress: "",
+        pairId: long_1.default.UZERO,
+        reserveAddress: "",
         poolCoinDenom: "",
+        lastDepositRequestId: long_1.default.UZERO,
+        lastWithdrawRequestId: long_1.default.UZERO,
+        disabled: false,
     };
 }
 exports.Pool = {
@@ -304,17 +605,23 @@ exports.Pool = {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
-        if (message.typeId !== 0) {
-            writer.uint32(16).uint32(message.typeId);
+        if (!message.pairId.isZero()) {
+            writer.uint32(16).uint64(message.pairId);
         }
-        for (const v of message.reserveCoinDenoms) {
-            writer.uint32(26).string(v);
-        }
-        if (message.reserveAccountAddress !== "") {
-            writer.uint32(34).string(message.reserveAccountAddress);
+        if (message.reserveAddress !== "") {
+            writer.uint32(26).string(message.reserveAddress);
         }
         if (message.poolCoinDenom !== "") {
-            writer.uint32(42).string(message.poolCoinDenom);
+            writer.uint32(34).string(message.poolCoinDenom);
+        }
+        if (!message.lastDepositRequestId.isZero()) {
+            writer.uint32(40).uint64(message.lastDepositRequestId);
+        }
+        if (!message.lastWithdrawRequestId.isZero()) {
+            writer.uint32(48).uint64(message.lastWithdrawRequestId);
+        }
+        if (message.disabled === true) {
+            writer.uint32(56).bool(message.disabled);
         }
         return writer;
     },
@@ -329,16 +636,22 @@ exports.Pool = {
                     message.id = reader.uint64();
                     break;
                 case 2:
-                    message.typeId = reader.uint32();
+                    message.pairId = reader.uint64();
                     break;
                 case 3:
-                    message.reserveCoinDenoms.push(reader.string());
+                    message.reserveAddress = reader.string();
                     break;
                 case 4:
-                    message.reserveAccountAddress = reader.string();
+                    message.poolCoinDenom = reader.string();
                     break;
                 case 5:
-                    message.poolCoinDenom = reader.string();
+                    message.lastDepositRequestId = reader.uint64();
+                    break;
+                case 6:
+                    message.lastWithdrawRequestId = reader.uint64();
+                    break;
+                case 7:
+                    message.disabled = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -350,600 +663,138 @@ exports.Pool = {
     fromJSON(object) {
         return {
             id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            typeId: isSet(object.typeId) ? Number(object.typeId) : 0,
-            reserveCoinDenoms: Array.isArray(object === null || object === void 0 ? void 0 : object.reserveCoinDenoms)
-                ? object.reserveCoinDenoms.map((e) => String(e))
-                : [],
-            reserveAccountAddress: isSet(object.reserveAccountAddress)
-                ? String(object.reserveAccountAddress)
+            pairId: isSet(object.pairId)
+                ? long_1.default.fromString(object.pairId)
+                : long_1.default.UZERO,
+            reserveAddress: isSet(object.reserveAddress)
+                ? String(object.reserveAddress)
                 : "",
             poolCoinDenom: isSet(object.poolCoinDenom)
                 ? String(object.poolCoinDenom)
                 : "",
+            lastDepositRequestId: isSet(object.lastDepositRequestId)
+                ? long_1.default.fromString(object.lastDepositRequestId)
+                : long_1.default.UZERO,
+            lastWithdrawRequestId: isSet(object.lastWithdrawRequestId)
+                ? long_1.default.fromString(object.lastWithdrawRequestId)
+                : long_1.default.UZERO,
+            disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
         };
     },
     toJSON(message) {
         const obj = {};
         message.id !== undefined &&
             (obj.id = (message.id || long_1.default.UZERO).toString());
-        message.typeId !== undefined && (obj.typeId = Math.round(message.typeId));
-        if (message.reserveCoinDenoms) {
-            obj.reserveCoinDenoms = message.reserveCoinDenoms.map((e) => e);
-        }
-        else {
-            obj.reserveCoinDenoms = [];
-        }
-        message.reserveAccountAddress !== undefined &&
-            (obj.reserveAccountAddress = message.reserveAccountAddress);
+        message.pairId !== undefined &&
+            (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
+        message.reserveAddress !== undefined &&
+            (obj.reserveAddress = message.reserveAddress);
         message.poolCoinDenom !== undefined &&
             (obj.poolCoinDenom = message.poolCoinDenom);
+        message.lastDepositRequestId !== undefined &&
+            (obj.lastDepositRequestId = (message.lastDepositRequestId || long_1.default.UZERO).toString());
+        message.lastWithdrawRequestId !== undefined &&
+            (obj.lastWithdrawRequestId = (message.lastWithdrawRequestId || long_1.default.UZERO).toString());
+        message.disabled !== undefined && (obj.disabled = message.disabled);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         const message = createBasePool();
         message.id =
             object.id !== undefined && object.id !== null
                 ? long_1.default.fromValue(object.id)
                 : long_1.default.UZERO;
-        message.typeId = (_a = object.typeId) !== null && _a !== void 0 ? _a : 0;
-        message.reserveCoinDenoms = ((_b = object.reserveCoinDenoms) === null || _b === void 0 ? void 0 : _b.map((e) => e)) || [];
-        message.reserveAccountAddress = (_c = object.reserveAccountAddress) !== null && _c !== void 0 ? _c : "";
-        message.poolCoinDenom = (_d = object.poolCoinDenom) !== null && _d !== void 0 ? _d : "";
+        message.pairId =
+            object.pairId !== undefined && object.pairId !== null
+                ? long_1.default.fromValue(object.pairId)
+                : long_1.default.UZERO;
+        message.reserveAddress = (_a = object.reserveAddress) !== null && _a !== void 0 ? _a : "";
+        message.poolCoinDenom = (_b = object.poolCoinDenom) !== null && _b !== void 0 ? _b : "";
+        message.lastDepositRequestId =
+            object.lastDepositRequestId !== undefined &&
+                object.lastDepositRequestId !== null
+                ? long_1.default.fromValue(object.lastDepositRequestId)
+                : long_1.default.UZERO;
+        message.lastWithdrawRequestId =
+            object.lastWithdrawRequestId !== undefined &&
+                object.lastWithdrawRequestId !== null
+                ? long_1.default.fromValue(object.lastWithdrawRequestId)
+                : long_1.default.UZERO;
+        message.disabled = (_c = object.disabled) !== null && _c !== void 0 ? _c : false;
         return message;
     },
 };
-function createBasePoolMetadata() {
+function createBaseDepositRequest() {
     return {
+        id: long_1.default.UZERO,
         poolId: long_1.default.UZERO,
-        poolCoinTotalSupply: undefined,
-        reserveCoins: [],
+        msgHeight: long_1.default.ZERO,
+        depositor: "",
+        depositCoins: [],
+        acceptedCoins: [],
+        mintedPoolCoin: undefined,
+        status: 0,
     };
 }
-exports.PoolMetadata = {
+exports.DepositRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
+        }
         if (!message.poolId.isZero()) {
-            writer.uint32(8).uint64(message.poolId);
+            writer.uint32(16).uint64(message.poolId);
         }
-        if (message.poolCoinTotalSupply !== undefined) {
-            coin_1.Coin.encode(message.poolCoinTotalSupply, writer.uint32(18).fork()).ldelim();
+        if (!message.msgHeight.isZero()) {
+            writer.uint32(24).int64(message.msgHeight);
         }
-        for (const v of message.reserveCoins) {
-            coin_1.Coin.encode(v, writer.uint32(26).fork()).ldelim();
+        if (message.depositor !== "") {
+            writer.uint32(34).string(message.depositor);
+        }
+        for (const v of message.depositCoins) {
+            coin_1.Coin.encode(v, writer.uint32(42).fork()).ldelim();
+        }
+        for (const v of message.acceptedCoins) {
+            coin_1.Coin.encode(v, writer.uint32(50).fork()).ldelim();
+        }
+        if (message.mintedPoolCoin !== undefined) {
+            coin_1.Coin.encode(message.mintedPoolCoin, writer.uint32(58).fork()).ldelim();
+        }
+        if (message.status !== 0) {
+            writer.uint32(64).int32(message.status);
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBasePoolMetadata();
+        const message = createBaseDepositRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    message.id = reader.uint64();
+                    break;
+                case 2:
                     message.poolId = reader.uint64();
                     break;
-                case 2:
-                    message.poolCoinTotalSupply = coin_1.Coin.decode(reader, reader.uint32());
-                    break;
                 case 3:
-                    message.reserveCoins.push(coin_1.Coin.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
-            poolCoinTotalSupply: isSet(object.poolCoinTotalSupply)
-                ? coin_1.Coin.fromJSON(object.poolCoinTotalSupply)
-                : undefined,
-            reserveCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.reserveCoins)
-                ? object.reserveCoins.map((e) => coin_1.Coin.fromJSON(e))
-                : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.poolId !== undefined &&
-            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
-        message.poolCoinTotalSupply !== undefined &&
-            (obj.poolCoinTotalSupply = message.poolCoinTotalSupply
-                ? coin_1.Coin.toJSON(message.poolCoinTotalSupply)
-                : undefined);
-        if (message.reserveCoins) {
-            obj.reserveCoins = message.reserveCoins.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
-        }
-        else {
-            obj.reserveCoins = [];
-        }
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBasePoolMetadata();
-        message.poolId =
-            object.poolId !== undefined && object.poolId !== null
-                ? long_1.default.fromValue(object.poolId)
-                : long_1.default.UZERO;
-        message.poolCoinTotalSupply =
-            object.poolCoinTotalSupply !== undefined &&
-                object.poolCoinTotalSupply !== null
-                ? coin_1.Coin.fromPartial(object.poolCoinTotalSupply)
-                : undefined;
-        message.reserveCoins =
-            ((_a = object.reserveCoins) === null || _a === void 0 ? void 0 : _a.map((e) => coin_1.Coin.fromPartial(e))) || [];
-        return message;
-    },
-};
-function createBasePoolBatch() {
-    return {
-        poolId: long_1.default.UZERO,
-        index: long_1.default.UZERO,
-        beginHeight: long_1.default.ZERO,
-        depositMsgIndex: long_1.default.UZERO,
-        withdrawMsgIndex: long_1.default.UZERO,
-        swapMsgIndex: long_1.default.UZERO,
-        executed: false,
-    };
-}
-exports.PoolBatch = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.poolId.isZero()) {
-            writer.uint32(8).uint64(message.poolId);
-        }
-        if (!message.index.isZero()) {
-            writer.uint32(16).uint64(message.index);
-        }
-        if (!message.beginHeight.isZero()) {
-            writer.uint32(24).int64(message.beginHeight);
-        }
-        if (!message.depositMsgIndex.isZero()) {
-            writer.uint32(32).uint64(message.depositMsgIndex);
-        }
-        if (!message.withdrawMsgIndex.isZero()) {
-            writer.uint32(40).uint64(message.withdrawMsgIndex);
-        }
-        if (!message.swapMsgIndex.isZero()) {
-            writer.uint32(48).uint64(message.swapMsgIndex);
-        }
-        if (message.executed === true) {
-            writer.uint32(56).bool(message.executed);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBasePoolBatch();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.poolId = reader.uint64();
-                    break;
-                case 2:
-                    message.index = reader.uint64();
-                    break;
-                case 3:
-                    message.beginHeight = reader.int64();
+                    message.msgHeight = reader.int64();
                     break;
                 case 4:
-                    message.depositMsgIndex = reader.uint64();
+                    message.depositor = reader.string();
                     break;
                 case 5:
-                    message.withdrawMsgIndex = reader.uint64();
+                    message.depositCoins.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
                 case 6:
-                    message.swapMsgIndex = reader.uint64();
+                    message.acceptedCoins.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
                 case 7:
-                    message.executed = reader.bool();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
-            index: isSet(object.index) ? long_1.default.fromString(object.index) : long_1.default.UZERO,
-            beginHeight: isSet(object.beginHeight)
-                ? long_1.default.fromString(object.beginHeight)
-                : long_1.default.ZERO,
-            depositMsgIndex: isSet(object.depositMsgIndex)
-                ? long_1.default.fromString(object.depositMsgIndex)
-                : long_1.default.UZERO,
-            withdrawMsgIndex: isSet(object.withdrawMsgIndex)
-                ? long_1.default.fromString(object.withdrawMsgIndex)
-                : long_1.default.UZERO,
-            swapMsgIndex: isSet(object.swapMsgIndex)
-                ? long_1.default.fromString(object.swapMsgIndex)
-                : long_1.default.UZERO,
-            executed: isSet(object.executed) ? Boolean(object.executed) : false,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.poolId !== undefined &&
-            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
-        message.index !== undefined &&
-            (obj.index = (message.index || long_1.default.UZERO).toString());
-        message.beginHeight !== undefined &&
-            (obj.beginHeight = (message.beginHeight || long_1.default.ZERO).toString());
-        message.depositMsgIndex !== undefined &&
-            (obj.depositMsgIndex = (message.depositMsgIndex || long_1.default.UZERO).toString());
-        message.withdrawMsgIndex !== undefined &&
-            (obj.withdrawMsgIndex = (message.withdrawMsgIndex || long_1.default.UZERO).toString());
-        message.swapMsgIndex !== undefined &&
-            (obj.swapMsgIndex = (message.swapMsgIndex || long_1.default.UZERO).toString());
-        message.executed !== undefined && (obj.executed = message.executed);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBasePoolBatch();
-        message.poolId =
-            object.poolId !== undefined && object.poolId !== null
-                ? long_1.default.fromValue(object.poolId)
-                : long_1.default.UZERO;
-        message.index =
-            object.index !== undefined && object.index !== null
-                ? long_1.default.fromValue(object.index)
-                : long_1.default.UZERO;
-        message.beginHeight =
-            object.beginHeight !== undefined && object.beginHeight !== null
-                ? long_1.default.fromValue(object.beginHeight)
-                : long_1.default.ZERO;
-        message.depositMsgIndex =
-            object.depositMsgIndex !== undefined && object.depositMsgIndex !== null
-                ? long_1.default.fromValue(object.depositMsgIndex)
-                : long_1.default.UZERO;
-        message.withdrawMsgIndex =
-            object.withdrawMsgIndex !== undefined && object.withdrawMsgIndex !== null
-                ? long_1.default.fromValue(object.withdrawMsgIndex)
-                : long_1.default.UZERO;
-        message.swapMsgIndex =
-            object.swapMsgIndex !== undefined && object.swapMsgIndex !== null
-                ? long_1.default.fromValue(object.swapMsgIndex)
-                : long_1.default.UZERO;
-        message.executed = (_a = object.executed) !== null && _a !== void 0 ? _a : false;
-        return message;
-    },
-};
-function createBaseDepositMsgState() {
-    return {
-        msgHeight: long_1.default.ZERO,
-        msgIndex: long_1.default.UZERO,
-        executed: false,
-        succeeded: false,
-        toBeDeleted: false,
-        msg: undefined,
-    };
-}
-exports.DepositMsgState = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.msgHeight.isZero()) {
-            writer.uint32(8).int64(message.msgHeight);
-        }
-        if (!message.msgIndex.isZero()) {
-            writer.uint32(16).uint64(message.msgIndex);
-        }
-        if (message.executed === true) {
-            writer.uint32(24).bool(message.executed);
-        }
-        if (message.succeeded === true) {
-            writer.uint32(32).bool(message.succeeded);
-        }
-        if (message.toBeDeleted === true) {
-            writer.uint32(40).bool(message.toBeDeleted);
-        }
-        if (message.msg !== undefined) {
-            tx_1.MsgDepositWithinBatch.encode(message.msg, writer.uint32(50).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseDepositMsgState();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.msgHeight = reader.int64();
-                    break;
-                case 2:
-                    message.msgIndex = reader.uint64();
-                    break;
-                case 3:
-                    message.executed = reader.bool();
-                    break;
-                case 4:
-                    message.succeeded = reader.bool();
-                    break;
-                case 5:
-                    message.toBeDeleted = reader.bool();
-                    break;
-                case 6:
-                    message.msg = tx_1.MsgDepositWithinBatch.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            msgHeight: isSet(object.msgHeight)
-                ? long_1.default.fromString(object.msgHeight)
-                : long_1.default.ZERO,
-            msgIndex: isSet(object.msgIndex)
-                ? long_1.default.fromString(object.msgIndex)
-                : long_1.default.UZERO,
-            executed: isSet(object.executed) ? Boolean(object.executed) : false,
-            succeeded: isSet(object.succeeded) ? Boolean(object.succeeded) : false,
-            toBeDeleted: isSet(object.toBeDeleted)
-                ? Boolean(object.toBeDeleted)
-                : false,
-            msg: isSet(object.msg)
-                ? tx_1.MsgDepositWithinBatch.fromJSON(object.msg)
-                : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.msgHeight !== undefined &&
-            (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
-        message.msgIndex !== undefined &&
-            (obj.msgIndex = (message.msgIndex || long_1.default.UZERO).toString());
-        message.executed !== undefined && (obj.executed = message.executed);
-        message.succeeded !== undefined && (obj.succeeded = message.succeeded);
-        message.toBeDeleted !== undefined &&
-            (obj.toBeDeleted = message.toBeDeleted);
-        message.msg !== undefined &&
-            (obj.msg = message.msg
-                ? tx_1.MsgDepositWithinBatch.toJSON(message.msg)
-                : undefined);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b, _c;
-        const message = createBaseDepositMsgState();
-        message.msgHeight =
-            object.msgHeight !== undefined && object.msgHeight !== null
-                ? long_1.default.fromValue(object.msgHeight)
-                : long_1.default.ZERO;
-        message.msgIndex =
-            object.msgIndex !== undefined && object.msgIndex !== null
-                ? long_1.default.fromValue(object.msgIndex)
-                : long_1.default.UZERO;
-        message.executed = (_a = object.executed) !== null && _a !== void 0 ? _a : false;
-        message.succeeded = (_b = object.succeeded) !== null && _b !== void 0 ? _b : false;
-        message.toBeDeleted = (_c = object.toBeDeleted) !== null && _c !== void 0 ? _c : false;
-        message.msg =
-            object.msg !== undefined && object.msg !== null
-                ? tx_1.MsgDepositWithinBatch.fromPartial(object.msg)
-                : undefined;
-        return message;
-    },
-};
-function createBaseWithdrawMsgState() {
-    return {
-        msgHeight: long_1.default.ZERO,
-        msgIndex: long_1.default.UZERO,
-        executed: false,
-        succeeded: false,
-        toBeDeleted: false,
-        msg: undefined,
-    };
-}
-exports.WithdrawMsgState = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.msgHeight.isZero()) {
-            writer.uint32(8).int64(message.msgHeight);
-        }
-        if (!message.msgIndex.isZero()) {
-            writer.uint32(16).uint64(message.msgIndex);
-        }
-        if (message.executed === true) {
-            writer.uint32(24).bool(message.executed);
-        }
-        if (message.succeeded === true) {
-            writer.uint32(32).bool(message.succeeded);
-        }
-        if (message.toBeDeleted === true) {
-            writer.uint32(40).bool(message.toBeDeleted);
-        }
-        if (message.msg !== undefined) {
-            tx_1.MsgWithdrawWithinBatch.encode(message.msg, writer.uint32(50).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseWithdrawMsgState();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.msgHeight = reader.int64();
-                    break;
-                case 2:
-                    message.msgIndex = reader.uint64();
-                    break;
-                case 3:
-                    message.executed = reader.bool();
-                    break;
-                case 4:
-                    message.succeeded = reader.bool();
-                    break;
-                case 5:
-                    message.toBeDeleted = reader.bool();
-                    break;
-                case 6:
-                    message.msg = tx_1.MsgWithdrawWithinBatch.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            msgHeight: isSet(object.msgHeight)
-                ? long_1.default.fromString(object.msgHeight)
-                : long_1.default.ZERO,
-            msgIndex: isSet(object.msgIndex)
-                ? long_1.default.fromString(object.msgIndex)
-                : long_1.default.UZERO,
-            executed: isSet(object.executed) ? Boolean(object.executed) : false,
-            succeeded: isSet(object.succeeded) ? Boolean(object.succeeded) : false,
-            toBeDeleted: isSet(object.toBeDeleted)
-                ? Boolean(object.toBeDeleted)
-                : false,
-            msg: isSet(object.msg)
-                ? tx_1.MsgWithdrawWithinBatch.fromJSON(object.msg)
-                : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.msgHeight !== undefined &&
-            (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
-        message.msgIndex !== undefined &&
-            (obj.msgIndex = (message.msgIndex || long_1.default.UZERO).toString());
-        message.executed !== undefined && (obj.executed = message.executed);
-        message.succeeded !== undefined && (obj.succeeded = message.succeeded);
-        message.toBeDeleted !== undefined &&
-            (obj.toBeDeleted = message.toBeDeleted);
-        message.msg !== undefined &&
-            (obj.msg = message.msg
-                ? tx_1.MsgWithdrawWithinBatch.toJSON(message.msg)
-                : undefined);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b, _c;
-        const message = createBaseWithdrawMsgState();
-        message.msgHeight =
-            object.msgHeight !== undefined && object.msgHeight !== null
-                ? long_1.default.fromValue(object.msgHeight)
-                : long_1.default.ZERO;
-        message.msgIndex =
-            object.msgIndex !== undefined && object.msgIndex !== null
-                ? long_1.default.fromValue(object.msgIndex)
-                : long_1.default.UZERO;
-        message.executed = (_a = object.executed) !== null && _a !== void 0 ? _a : false;
-        message.succeeded = (_b = object.succeeded) !== null && _b !== void 0 ? _b : false;
-        message.toBeDeleted = (_c = object.toBeDeleted) !== null && _c !== void 0 ? _c : false;
-        message.msg =
-            object.msg !== undefined && object.msg !== null
-                ? tx_1.MsgWithdrawWithinBatch.fromPartial(object.msg)
-                : undefined;
-        return message;
-    },
-};
-function createBaseSwapMsgState() {
-    return {
-        msgHeight: long_1.default.ZERO,
-        msgIndex: long_1.default.UZERO,
-        executed: false,
-        succeeded: false,
-        toBeDeleted: false,
-        orderExpiryHeight: long_1.default.ZERO,
-        exchangedOfferCoin: undefined,
-        remainingOfferCoin: undefined,
-        reservedOfferCoinFee: undefined,
-        msg: undefined,
-    };
-}
-exports.SwapMsgState = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.msgHeight.isZero()) {
-            writer.uint32(8).int64(message.msgHeight);
-        }
-        if (!message.msgIndex.isZero()) {
-            writer.uint32(16).uint64(message.msgIndex);
-        }
-        if (message.executed === true) {
-            writer.uint32(24).bool(message.executed);
-        }
-        if (message.succeeded === true) {
-            writer.uint32(32).bool(message.succeeded);
-        }
-        if (message.toBeDeleted === true) {
-            writer.uint32(40).bool(message.toBeDeleted);
-        }
-        if (!message.orderExpiryHeight.isZero()) {
-            writer.uint32(48).int64(message.orderExpiryHeight);
-        }
-        if (message.exchangedOfferCoin !== undefined) {
-            coin_1.Coin.encode(message.exchangedOfferCoin, writer.uint32(58).fork()).ldelim();
-        }
-        if (message.remainingOfferCoin !== undefined) {
-            coin_1.Coin.encode(message.remainingOfferCoin, writer.uint32(66).fork()).ldelim();
-        }
-        if (message.reservedOfferCoinFee !== undefined) {
-            coin_1.Coin.encode(message.reservedOfferCoinFee, writer.uint32(74).fork()).ldelim();
-        }
-        if (message.msg !== undefined) {
-            tx_1.MsgSwapWithinBatch.encode(message.msg, writer.uint32(82).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseSwapMsgState();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.msgHeight = reader.int64();
-                    break;
-                case 2:
-                    message.msgIndex = reader.uint64();
-                    break;
-                case 3:
-                    message.executed = reader.bool();
-                    break;
-                case 4:
-                    message.succeeded = reader.bool();
-                    break;
-                case 5:
-                    message.toBeDeleted = reader.bool();
-                    break;
-                case 6:
-                    message.orderExpiryHeight = reader.int64();
-                    break;
-                case 7:
-                    message.exchangedOfferCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    message.mintedPoolCoin = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 case 8:
-                    message.remainingOfferCoin = coin_1.Coin.decode(reader, reader.uint32());
-                    break;
-                case 9:
-                    message.reservedOfferCoinFee = coin_1.Coin.decode(reader, reader.uint32());
-                    break;
-                case 10:
-                    message.msg = tx_1.MsgSwapWithinBatch.decode(reader, reader.uint32());
+                    message.status = reader.int32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -954,105 +805,476 @@ exports.SwapMsgState = {
     },
     fromJSON(object) {
         return {
+            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
             msgHeight: isSet(object.msgHeight)
                 ? long_1.default.fromString(object.msgHeight)
                 : long_1.default.ZERO,
-            msgIndex: isSet(object.msgIndex)
-                ? long_1.default.fromString(object.msgIndex)
+            depositor: isSet(object.depositor) ? String(object.depositor) : "",
+            depositCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.depositCoins)
+                ? object.depositCoins.map((e) => coin_1.Coin.fromJSON(e))
+                : [],
+            acceptedCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.acceptedCoins)
+                ? object.acceptedCoins.map((e) => coin_1.Coin.fromJSON(e))
+                : [],
+            mintedPoolCoin: isSet(object.mintedPoolCoin)
+                ? coin_1.Coin.fromJSON(object.mintedPoolCoin)
+                : undefined,
+            status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.msgHeight !== undefined &&
+            (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
+        message.depositor !== undefined && (obj.depositor = message.depositor);
+        if (message.depositCoins) {
+            obj.depositCoins = message.depositCoins.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
+        }
+        else {
+            obj.depositCoins = [];
+        }
+        if (message.acceptedCoins) {
+            obj.acceptedCoins = message.acceptedCoins.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
+        }
+        else {
+            obj.acceptedCoins = [];
+        }
+        message.mintedPoolCoin !== undefined &&
+            (obj.mintedPoolCoin = message.mintedPoolCoin
+                ? coin_1.Coin.toJSON(message.mintedPoolCoin)
+                : undefined);
+        message.status !== undefined &&
+            (obj.status = requestStatusToJSON(message.status));
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d;
+        const message = createBaseDepositRequest();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.msgHeight =
+            object.msgHeight !== undefined && object.msgHeight !== null
+                ? long_1.default.fromValue(object.msgHeight)
+                : long_1.default.ZERO;
+        message.depositor = (_a = object.depositor) !== null && _a !== void 0 ? _a : "";
+        message.depositCoins =
+            ((_b = object.depositCoins) === null || _b === void 0 ? void 0 : _b.map((e) => coin_1.Coin.fromPartial(e))) || [];
+        message.acceptedCoins =
+            ((_c = object.acceptedCoins) === null || _c === void 0 ? void 0 : _c.map((e) => coin_1.Coin.fromPartial(e))) || [];
+        message.mintedPoolCoin =
+            object.mintedPoolCoin !== undefined && object.mintedPoolCoin !== null
+                ? coin_1.Coin.fromPartial(object.mintedPoolCoin)
+                : undefined;
+        message.status = (_d = object.status) !== null && _d !== void 0 ? _d : 0;
+        return message;
+    },
+};
+function createBaseWithdrawRequest() {
+    return {
+        id: long_1.default.UZERO,
+        poolId: long_1.default.UZERO,
+        msgHeight: long_1.default.ZERO,
+        withdrawer: "",
+        poolCoin: undefined,
+        withdrawnCoins: [],
+        status: 0,
+    };
+}
+exports.WithdrawRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        if (!message.msgHeight.isZero()) {
+            writer.uint32(24).int64(message.msgHeight);
+        }
+        if (message.withdrawer !== "") {
+            writer.uint32(34).string(message.withdrawer);
+        }
+        if (message.poolCoin !== undefined) {
+            coin_1.Coin.encode(message.poolCoin, writer.uint32(42).fork()).ldelim();
+        }
+        for (const v of message.withdrawnCoins) {
+            coin_1.Coin.encode(v, writer.uint32(50).fork()).ldelim();
+        }
+        if (message.status !== 0) {
+            writer.uint32(56).int32(message.status);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseWithdrawRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.uint64();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
+                    message.msgHeight = reader.int64();
+                    break;
+                case 4:
+                    message.withdrawer = reader.string();
+                    break;
+                case 5:
+                    message.poolCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 6:
+                    message.withdrawnCoins.push(coin_1.Coin.decode(reader, reader.uint32()));
+                    break;
+                case 7:
+                    message.status = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
                 : long_1.default.UZERO,
-            executed: isSet(object.executed) ? Boolean(object.executed) : false,
-            succeeded: isSet(object.succeeded) ? Boolean(object.succeeded) : false,
-            toBeDeleted: isSet(object.toBeDeleted)
-                ? Boolean(object.toBeDeleted)
-                : false,
-            orderExpiryHeight: isSet(object.orderExpiryHeight)
-                ? long_1.default.fromString(object.orderExpiryHeight)
+            msgHeight: isSet(object.msgHeight)
+                ? long_1.default.fromString(object.msgHeight)
                 : long_1.default.ZERO,
-            exchangedOfferCoin: isSet(object.exchangedOfferCoin)
-                ? coin_1.Coin.fromJSON(object.exchangedOfferCoin)
+            withdrawer: isSet(object.withdrawer) ? String(object.withdrawer) : "",
+            poolCoin: isSet(object.poolCoin)
+                ? coin_1.Coin.fromJSON(object.poolCoin)
+                : undefined,
+            withdrawnCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.withdrawnCoins)
+                ? object.withdrawnCoins.map((e) => coin_1.Coin.fromJSON(e))
+                : [],
+            status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.msgHeight !== undefined &&
+            (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
+        message.withdrawer !== undefined && (obj.withdrawer = message.withdrawer);
+        message.poolCoin !== undefined &&
+            (obj.poolCoin = message.poolCoin
+                ? coin_1.Coin.toJSON(message.poolCoin)
+                : undefined);
+        if (message.withdrawnCoins) {
+            obj.withdrawnCoins = message.withdrawnCoins.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
+        }
+        else {
+            obj.withdrawnCoins = [];
+        }
+        message.status !== undefined &&
+            (obj.status = requestStatusToJSON(message.status));
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseWithdrawRequest();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.msgHeight =
+            object.msgHeight !== undefined && object.msgHeight !== null
+                ? long_1.default.fromValue(object.msgHeight)
+                : long_1.default.ZERO;
+        message.withdrawer = (_a = object.withdrawer) !== null && _a !== void 0 ? _a : "";
+        message.poolCoin =
+            object.poolCoin !== undefined && object.poolCoin !== null
+                ? coin_1.Coin.fromPartial(object.poolCoin)
+                : undefined;
+        message.withdrawnCoins =
+            ((_b = object.withdrawnCoins) === null || _b === void 0 ? void 0 : _b.map((e) => coin_1.Coin.fromPartial(e))) || [];
+        message.status = (_c = object.status) !== null && _c !== void 0 ? _c : 0;
+        return message;
+    },
+};
+function createBaseOrder() {
+    return {
+        id: long_1.default.UZERO,
+        pairId: long_1.default.UZERO,
+        msgHeight: long_1.default.ZERO,
+        orderer: "",
+        direction: 0,
+        offerCoin: undefined,
+        remainingOfferCoin: undefined,
+        receivedCoin: undefined,
+        price: "",
+        amount: "",
+        openAmount: "",
+        batchId: long_1.default.UZERO,
+        expireAt: undefined,
+        status: 0,
+    };
+}
+exports.Order = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
+        }
+        if (!message.pairId.isZero()) {
+            writer.uint32(16).uint64(message.pairId);
+        }
+        if (!message.msgHeight.isZero()) {
+            writer.uint32(24).int64(message.msgHeight);
+        }
+        if (message.orderer !== "") {
+            writer.uint32(34).string(message.orderer);
+        }
+        if (message.direction !== 0) {
+            writer.uint32(40).int32(message.direction);
+        }
+        if (message.offerCoin !== undefined) {
+            coin_1.Coin.encode(message.offerCoin, writer.uint32(50).fork()).ldelim();
+        }
+        if (message.remainingOfferCoin !== undefined) {
+            coin_1.Coin.encode(message.remainingOfferCoin, writer.uint32(58).fork()).ldelim();
+        }
+        if (message.receivedCoin !== undefined) {
+            coin_1.Coin.encode(message.receivedCoin, writer.uint32(66).fork()).ldelim();
+        }
+        if (message.price !== "") {
+            writer.uint32(74).string(message.price);
+        }
+        if (message.amount !== "") {
+            writer.uint32(82).string(message.amount);
+        }
+        if (message.openAmount !== "") {
+            writer.uint32(90).string(message.openAmount);
+        }
+        if (!message.batchId.isZero()) {
+            writer.uint32(96).uint64(message.batchId);
+        }
+        if (message.expireAt !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.expireAt), writer.uint32(106).fork()).ldelim();
+        }
+        if (message.status !== 0) {
+            writer.uint32(112).int32(message.status);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseOrder();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.uint64();
+                    break;
+                case 2:
+                    message.pairId = reader.uint64();
+                    break;
+                case 3:
+                    message.msgHeight = reader.int64();
+                    break;
+                case 4:
+                    message.orderer = reader.string();
+                    break;
+                case 5:
+                    message.direction = reader.int32();
+                    break;
+                case 6:
+                    message.offerCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 7:
+                    message.remainingOfferCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 8:
+                    message.receivedCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 9:
+                    message.price = reader.string();
+                    break;
+                case 10:
+                    message.amount = reader.string();
+                    break;
+                case 11:
+                    message.openAmount = reader.string();
+                    break;
+                case 12:
+                    message.batchId = reader.uint64();
+                    break;
+                case 13:
+                    message.expireAt = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                case 14:
+                    message.status = reader.int32();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            pairId: isSet(object.pairId)
+                ? long_1.default.fromString(object.pairId)
+                : long_1.default.UZERO,
+            msgHeight: isSet(object.msgHeight)
+                ? long_1.default.fromString(object.msgHeight)
+                : long_1.default.ZERO,
+            orderer: isSet(object.orderer) ? String(object.orderer) : "",
+            direction: isSet(object.direction)
+                ? orderDirectionFromJSON(object.direction)
+                : 0,
+            offerCoin: isSet(object.offerCoin)
+                ? coin_1.Coin.fromJSON(object.offerCoin)
                 : undefined,
             remainingOfferCoin: isSet(object.remainingOfferCoin)
                 ? coin_1.Coin.fromJSON(object.remainingOfferCoin)
                 : undefined,
-            reservedOfferCoinFee: isSet(object.reservedOfferCoinFee)
-                ? coin_1.Coin.fromJSON(object.reservedOfferCoinFee)
+            receivedCoin: isSet(object.receivedCoin)
+                ? coin_1.Coin.fromJSON(object.receivedCoin)
                 : undefined,
-            msg: isSet(object.msg)
-                ? tx_1.MsgSwapWithinBatch.fromJSON(object.msg)
+            price: isSet(object.price) ? String(object.price) : "",
+            amount: isSet(object.amount) ? String(object.amount) : "",
+            openAmount: isSet(object.openAmount) ? String(object.openAmount) : "",
+            batchId: isSet(object.batchId)
+                ? long_1.default.fromString(object.batchId)
+                : long_1.default.UZERO,
+            expireAt: isSet(object.expireAt)
+                ? fromJsonTimestamp(object.expireAt)
                 : undefined,
+            status: isSet(object.status) ? orderStatusFromJSON(object.status) : 0,
         };
     },
     toJSON(message) {
         const obj = {};
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.pairId !== undefined &&
+            (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
         message.msgHeight !== undefined &&
             (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
-        message.msgIndex !== undefined &&
-            (obj.msgIndex = (message.msgIndex || long_1.default.UZERO).toString());
-        message.executed !== undefined && (obj.executed = message.executed);
-        message.succeeded !== undefined && (obj.succeeded = message.succeeded);
-        message.toBeDeleted !== undefined &&
-            (obj.toBeDeleted = message.toBeDeleted);
-        message.orderExpiryHeight !== undefined &&
-            (obj.orderExpiryHeight = (message.orderExpiryHeight || long_1.default.ZERO).toString());
-        message.exchangedOfferCoin !== undefined &&
-            (obj.exchangedOfferCoin = message.exchangedOfferCoin
-                ? coin_1.Coin.toJSON(message.exchangedOfferCoin)
+        message.orderer !== undefined && (obj.orderer = message.orderer);
+        message.direction !== undefined &&
+            (obj.direction = orderDirectionToJSON(message.direction));
+        message.offerCoin !== undefined &&
+            (obj.offerCoin = message.offerCoin
+                ? coin_1.Coin.toJSON(message.offerCoin)
                 : undefined);
         message.remainingOfferCoin !== undefined &&
             (obj.remainingOfferCoin = message.remainingOfferCoin
                 ? coin_1.Coin.toJSON(message.remainingOfferCoin)
                 : undefined);
-        message.reservedOfferCoinFee !== undefined &&
-            (obj.reservedOfferCoinFee = message.reservedOfferCoinFee
-                ? coin_1.Coin.toJSON(message.reservedOfferCoinFee)
+        message.receivedCoin !== undefined &&
+            (obj.receivedCoin = message.receivedCoin
+                ? coin_1.Coin.toJSON(message.receivedCoin)
                 : undefined);
-        message.msg !== undefined &&
-            (obj.msg = message.msg
-                ? tx_1.MsgSwapWithinBatch.toJSON(message.msg)
-                : undefined);
+        message.price !== undefined && (obj.price = message.price);
+        message.amount !== undefined && (obj.amount = message.amount);
+        message.openAmount !== undefined && (obj.openAmount = message.openAmount);
+        message.batchId !== undefined &&
+            (obj.batchId = (message.batchId || long_1.default.UZERO).toString());
+        message.expireAt !== undefined &&
+            (obj.expireAt = message.expireAt.toISOString());
+        message.status !== undefined &&
+            (obj.status = orderStatusToJSON(message.status));
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
-        const message = createBaseSwapMsgState();
+        var _a, _b, _c, _d, _e, _f, _g;
+        const message = createBaseOrder();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.pairId =
+            object.pairId !== undefined && object.pairId !== null
+                ? long_1.default.fromValue(object.pairId)
+                : long_1.default.UZERO;
         message.msgHeight =
             object.msgHeight !== undefined && object.msgHeight !== null
                 ? long_1.default.fromValue(object.msgHeight)
                 : long_1.default.ZERO;
-        message.msgIndex =
-            object.msgIndex !== undefined && object.msgIndex !== null
-                ? long_1.default.fromValue(object.msgIndex)
-                : long_1.default.UZERO;
-        message.executed = (_a = object.executed) !== null && _a !== void 0 ? _a : false;
-        message.succeeded = (_b = object.succeeded) !== null && _b !== void 0 ? _b : false;
-        message.toBeDeleted = (_c = object.toBeDeleted) !== null && _c !== void 0 ? _c : false;
-        message.orderExpiryHeight =
-            object.orderExpiryHeight !== undefined &&
-                object.orderExpiryHeight !== null
-                ? long_1.default.fromValue(object.orderExpiryHeight)
-                : long_1.default.ZERO;
-        message.exchangedOfferCoin =
-            object.exchangedOfferCoin !== undefined &&
-                object.exchangedOfferCoin !== null
-                ? coin_1.Coin.fromPartial(object.exchangedOfferCoin)
+        message.orderer = (_a = object.orderer) !== null && _a !== void 0 ? _a : "";
+        message.direction = (_b = object.direction) !== null && _b !== void 0 ? _b : 0;
+        message.offerCoin =
+            object.offerCoin !== undefined && object.offerCoin !== null
+                ? coin_1.Coin.fromPartial(object.offerCoin)
                 : undefined;
         message.remainingOfferCoin =
             object.remainingOfferCoin !== undefined &&
                 object.remainingOfferCoin !== null
                 ? coin_1.Coin.fromPartial(object.remainingOfferCoin)
                 : undefined;
-        message.reservedOfferCoinFee =
-            object.reservedOfferCoinFee !== undefined &&
-                object.reservedOfferCoinFee !== null
-                ? coin_1.Coin.fromPartial(object.reservedOfferCoinFee)
+        message.receivedCoin =
+            object.receivedCoin !== undefined && object.receivedCoin !== null
+                ? coin_1.Coin.fromPartial(object.receivedCoin)
                 : undefined;
-        message.msg =
-            object.msg !== undefined && object.msg !== null
-                ? tx_1.MsgSwapWithinBatch.fromPartial(object.msg)
-                : undefined;
+        message.price = (_c = object.price) !== null && _c !== void 0 ? _c : "";
+        message.amount = (_d = object.amount) !== null && _d !== void 0 ? _d : "";
+        message.openAmount = (_e = object.openAmount) !== null && _e !== void 0 ? _e : "";
+        message.batchId =
+            object.batchId !== undefined && object.batchId !== null
+                ? long_1.default.fromValue(object.batchId)
+                : long_1.default.UZERO;
+        message.expireAt = (_f = object.expireAt) !== null && _f !== void 0 ? _f : undefined;
+        message.status = (_g = object.status) !== null && _g !== void 0 ? _g : 0;
         return message;
     },
 };
+function toTimestamp(date) {
+    const seconds = numberToLong(date.getTime() / 1000);
+    const nanos = (date.getTime() % 1000) * 1000000;
+    return { seconds, nanos };
+}
+function fromTimestamp(t) {
+    let millis = t.seconds.toNumber() * 1000;
+    millis += t.nanos / 1000000;
+    return new Date(millis);
+}
+function fromJsonTimestamp(o) {
+    if (o instanceof Date) {
+        return o;
+    }
+    else if (typeof o === "string") {
+        return new Date(o);
+    }
+    else {
+        return fromTimestamp(timestamp_1.Timestamp.fromJSON(o));
+    }
+}
+function numberToLong(number) {
+    return long_1.default.fromNumber(number);
+}
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();
