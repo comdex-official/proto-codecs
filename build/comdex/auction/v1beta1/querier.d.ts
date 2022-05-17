@@ -134,7 +134,6 @@ export declare const QueryAuctionResponse: {
                 id?: string | number | Long.Long | undefined;
                 assetIn?: string | number | Long.Long | undefined;
                 assetOut?: string | number | Long.Long | undefined;
-                liquidationRatio?: string | undefined;
             } | undefined;
             biddingIds?: (string | number | Long.Long)[] | undefined;
         } | undefined;
@@ -169,7 +168,6 @@ export declare const QueryAuctionResponse: {
                 id?: string | number | Long.Long | undefined;
                 assetIn?: string | number | Long.Long | undefined;
                 assetOut?: string | number | Long.Long | undefined;
-                liquidationRatio?: string | undefined;
             } | undefined;
             biddingIds?: (string | number | Long.Long)[] | undefined;
         } & {
@@ -388,7 +386,6 @@ export declare const QueryAuctionResponse: {
                 id?: string | number | Long.Long | undefined;
                 assetIn?: string | number | Long.Long | undefined;
                 assetOut?: string | number | Long.Long | undefined;
-                liquidationRatio?: string | undefined;
             } & {
                 id?: string | number | (Long.Long & {
                     high: number;
@@ -564,7 +561,6 @@ export declare const QueryAuctionResponse: {
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auction"]["pair"]["assetOut"], keyof Long.Long>, never>) | undefined;
-                liquidationRatio?: string | undefined;
             } & Record<Exclude<keyof I["auction"]["pair"], keyof import("../../asset/v1beta1/pair").Pair>, never>) | undefined;
             biddingIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
                 high: number;
@@ -806,7 +802,6 @@ export declare const QueryAuctionsResponse: {
                 id?: string | number | Long.Long | undefined;
                 assetIn?: string | number | Long.Long | undefined;
                 assetOut?: string | number | Long.Long | undefined;
-                liquidationRatio?: string | undefined;
             } | undefined;
             biddingIds?: (string | number | Long.Long)[] | undefined;
         }[] | undefined;
@@ -845,7 +840,6 @@ export declare const QueryAuctionsResponse: {
                 id?: string | number | Long.Long | undefined;
                 assetIn?: string | number | Long.Long | undefined;
                 assetOut?: string | number | Long.Long | undefined;
-                liquidationRatio?: string | undefined;
             } | undefined;
             biddingIds?: (string | number | Long.Long)[] | undefined;
         }[] & ({
@@ -878,7 +872,6 @@ export declare const QueryAuctionsResponse: {
                 id?: string | number | Long.Long | undefined;
                 assetIn?: string | number | Long.Long | undefined;
                 assetOut?: string | number | Long.Long | undefined;
-                liquidationRatio?: string | undefined;
             } | undefined;
             biddingIds?: (string | number | Long.Long)[] | undefined;
         } & {
@@ -1097,7 +1090,6 @@ export declare const QueryAuctionsResponse: {
                 id?: string | number | Long.Long | undefined;
                 assetIn?: string | number | Long.Long | undefined;
                 assetOut?: string | number | Long.Long | undefined;
-                liquidationRatio?: string | undefined;
             } & {
                 id?: string | number | (Long.Long & {
                     high: number;
@@ -1273,7 +1265,6 @@ export declare const QueryAuctionsResponse: {
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auctions"][number]["pair"]["assetOut"], keyof Long.Long>, never>) | undefined;
-                liquidationRatio?: string | undefined;
             } & Record<Exclude<keyof I["auctions"][number]["pair"], keyof import("../../asset/v1beta1/pair").Pair>, never>) | undefined;
             biddingIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
                 high: number;
@@ -1363,7 +1354,6 @@ export declare const QueryAuctionsResponse: {
                 id?: string | number | Long.Long | undefined;
                 assetIn?: string | number | Long.Long | undefined;
                 assetOut?: string | number | Long.Long | undefined;
-                liquidationRatio?: string | undefined;
             } | undefined;
             biddingIds?: (string | number | Long.Long)[] | undefined;
         }[]>, never>) | undefined;

@@ -1,28 +1,51 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryServiceClientImpl = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.PairInfo = exports.QueryAssetResponse = exports.QueryAssetRequest = exports.QueryAssetsResponse = exports.QueryAssetsRequest = exports.protobufPackage = void 0;
+exports.QueryServiceClientImpl = exports.QueryPairVaultsResponse = exports.QueryPairVaultsRequest = exports.QueryPairVaultResponse = exports.QueryPairVaultRequest = exports.QueryAppsResponse = exports.QueryAppsRequest = exports.QueryAppResponse = exports.QueryAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.PairInfo = exports.QueryAssetResponse = exports.QueryAssetRequest = exports.QueryAssetsResponse = exports.QueryAssetsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-const asset_1 = require("../../../comdex/asset/v1beta1/asset");
-const params_1 = require("../../../comdex/asset/v1beta1/params");
+const asset_1 = require("./comdex/asset/v1beta1/asset");
+const params_1 = require("./comdex/asset/v1beta1/params");
+const appMapping_1 = require("./comdex/asset/v1beta1/appMapping");
+const extendedPairVault_1 = require("./comdex/asset/v1beta1/extendedPairVault");
 exports.protobufPackage = "comdex.asset.v1beta1";
-const baseQueryAssetsRequest = {};
+function createBaseQueryAssetsRequest() {
+    return { pagination: undefined };
+}
 exports.QueryAssetsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryAssetsRequest };
+        const message = createBaseQueryAssetsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -37,14 +60,11 @@ exports.QueryAssetsRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseQueryAssetsRequest };
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -55,19 +75,19 @@ exports.QueryAssetsRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseQueryAssetsRequest };
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        const message = createBaseQueryAssetsRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryAssetsResponse = {};
+function createBaseQueryAssetsResponse() {
+    return { assets: [], pagination: undefined };
+}
 exports.QueryAssetsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.assets) {
             asset_1.Asset.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -77,10 +97,9 @@ exports.QueryAssetsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryAssetsResponse };
-        message.assets = [];
+        const message = createBaseQueryAssetsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -98,20 +117,14 @@ exports.QueryAssetsResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseQueryAssetsResponse };
-        message.assets = [];
-        if (object.assets !== undefined && object.assets !== null) {
-            for (const e of object.assets) {
-                message.assets.push(asset_1.Asset.fromJSON(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
+        return {
+            assets: Array.isArray(object === null || object === void 0 ? void 0 : object.assets)
+                ? object.assets.map((e) => asset_1.Asset.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -128,34 +141,30 @@ exports.QueryAssetsResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseQueryAssetsResponse };
-        message.assets = [];
-        if (object.assets !== undefined && object.assets !== null) {
-            for (const e of object.assets) {
-                message.assets.push(asset_1.Asset.fromPartial(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        var _a;
+        const message = createBaseQueryAssetsResponse();
+        message.assets = ((_a = object.assets) === null || _a === void 0 ? void 0 : _a.map((e) => asset_1.Asset.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryAssetRequest = { id: long_1.default.UZERO };
+function createBaseQueryAssetRequest() {
+    return { id: long_1.default.UZERO };
+}
 exports.QueryAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryAssetRequest };
+        const message = createBaseQueryAssetRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -170,14 +179,9 @@ exports.QueryAssetRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseQueryAssetRequest };
-        if (object.id !== undefined && object.id !== null) {
-            message.id = long_1.default.fromString(object.id);
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        return message;
+        return {
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -186,28 +190,28 @@ exports.QueryAssetRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseQueryAssetRequest };
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
+        const message = createBaseQueryAssetRequest();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
         return message;
     },
 };
-const baseQueryAssetResponse = {};
+function createBaseQueryAssetResponse() {
+    return { asset: undefined };
+}
 exports.QueryAssetResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.asset !== undefined) {
             asset_1.Asset.encode(message.asset, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryAssetResponse };
+        const message = createBaseQueryAssetResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -222,14 +226,9 @@ exports.QueryAssetResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseQueryAssetResponse };
-        if (object.asset !== undefined && object.asset !== null) {
-            message.asset = asset_1.Asset.fromJSON(object.asset);
-        }
-        else {
-            message.asset = undefined;
-        }
-        return message;
+        return {
+            asset: isSet(object.asset) ? asset_1.Asset.fromJSON(object.asset) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -238,26 +237,25 @@ exports.QueryAssetResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseQueryAssetResponse };
-        if (object.asset !== undefined && object.asset !== null) {
-            message.asset = asset_1.Asset.fromPartial(object.asset);
-        }
-        else {
-            message.asset = undefined;
-        }
+        const message = createBaseQueryAssetResponse();
+        message.asset =
+            object.asset !== undefined && object.asset !== null
+                ? asset_1.Asset.fromPartial(object.asset)
+                : undefined;
         return message;
     },
 };
-const basePairInfo = {
-    id: long_1.default.UZERO,
-    assetIn: long_1.default.UZERO,
-    denomIn: "",
-    assetOut: long_1.default.UZERO,
-    denomOut: "",
-    liquidationRatio: "",
-};
+function createBasePairInfo() {
+    return {
+        id: long_1.default.UZERO,
+        assetIn: long_1.default.UZERO,
+        denomIn: "",
+        assetOut: long_1.default.UZERO,
+        denomOut: "",
+    };
+}
 exports.PairInfo = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -273,15 +271,12 @@ exports.PairInfo = {
         if (message.denomOut !== "") {
             writer.uint32(42).string(message.denomOut);
         }
-        if (message.liquidationRatio !== "") {
-            writer.uint32(50).string(message.liquidationRatio);
-        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...basePairInfo };
+        const message = createBasePairInfo();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -300,9 +295,6 @@ exports.PairInfo = {
                 case 5:
                     message.denomOut = reader.string();
                     break;
-                case 6:
-                    message.liquidationRatio = reader.string();
-                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -311,45 +303,17 @@ exports.PairInfo = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...basePairInfo };
-        if (object.id !== undefined && object.id !== null) {
-            message.id = long_1.default.fromString(object.id);
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.assetIn !== undefined && object.assetIn !== null) {
-            message.assetIn = long_1.default.fromString(object.assetIn);
-        }
-        else {
-            message.assetIn = long_1.default.UZERO;
-        }
-        if (object.denomIn !== undefined && object.denomIn !== null) {
-            message.denomIn = String(object.denomIn);
-        }
-        else {
-            message.denomIn = "";
-        }
-        if (object.assetOut !== undefined && object.assetOut !== null) {
-            message.assetOut = long_1.default.fromString(object.assetOut);
-        }
-        else {
-            message.assetOut = long_1.default.UZERO;
-        }
-        if (object.denomOut !== undefined && object.denomOut !== null) {
-            message.denomOut = String(object.denomOut);
-        }
-        else {
-            message.denomOut = "";
-        }
-        if (object.liquidationRatio !== undefined &&
-            object.liquidationRatio !== null) {
-            message.liquidationRatio = String(object.liquidationRatio);
-        }
-        else {
-            message.liquidationRatio = "";
-        }
-        return message;
+        return {
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            assetIn: isSet(object.assetIn)
+                ? long_1.default.fromValue(object.assetIn)
+                : long_1.default.UZERO,
+            denomIn: isSet(object.denomIn) ? String(object.denomIn) : "",
+            assetOut: isSet(object.assetOut)
+                ? long_1.default.fromValue(object.assetOut)
+                : long_1.default.UZERO,
+            denomOut: isSet(object.denomOut) ? String(object.denomOut) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -361,64 +325,42 @@ exports.PairInfo = {
         message.assetOut !== undefined &&
             (obj.assetOut = (message.assetOut || long_1.default.UZERO).toString());
         message.denomOut !== undefined && (obj.denomOut = message.denomOut);
-        message.liquidationRatio !== undefined &&
-            (obj.liquidationRatio = message.liquidationRatio);
         return obj;
     },
     fromPartial(object) {
-        const message = { ...basePairInfo };
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.assetIn !== undefined && object.assetIn !== null) {
-            message.assetIn = object.assetIn;
-        }
-        else {
-            message.assetIn = long_1.default.UZERO;
-        }
-        if (object.denomIn !== undefined && object.denomIn !== null) {
-            message.denomIn = object.denomIn;
-        }
-        else {
-            message.denomIn = "";
-        }
-        if (object.assetOut !== undefined && object.assetOut !== null) {
-            message.assetOut = object.assetOut;
-        }
-        else {
-            message.assetOut = long_1.default.UZERO;
-        }
-        if (object.denomOut !== undefined && object.denomOut !== null) {
-            message.denomOut = object.denomOut;
-        }
-        else {
-            message.denomOut = "";
-        }
-        if (object.liquidationRatio !== undefined &&
-            object.liquidationRatio !== null) {
-            message.liquidationRatio = object.liquidationRatio;
-        }
-        else {
-            message.liquidationRatio = "";
-        }
+        var _a, _b;
+        const message = createBasePairInfo();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.assetIn =
+            object.assetIn !== undefined && object.assetIn !== null
+                ? long_1.default.fromValue(object.assetIn)
+                : long_1.default.UZERO;
+        message.denomIn = (_a = object.denomIn) !== null && _a !== void 0 ? _a : "";
+        message.assetOut =
+            object.assetOut !== undefined && object.assetOut !== null
+                ? long_1.default.fromValue(object.assetOut)
+                : long_1.default.UZERO;
+        message.denomOut = (_b = object.denomOut) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };
-const baseQueryPairsRequest = {};
+function createBaseQueryPairsRequest() {
+    return { pagination: undefined };
+}
 exports.QueryPairsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryPairsRequest };
+        const message = createBaseQueryPairsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -433,14 +375,11 @@ exports.QueryPairsRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseQueryPairsRequest };
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -451,19 +390,19 @@ exports.QueryPairsRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseQueryPairsRequest };
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageRequest.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        const message = createBaseQueryPairsRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryPairsResponse = {};
+function createBaseQueryPairsResponse() {
+    return { pairsInfo: [], pagination: undefined };
+}
 exports.QueryPairsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.pairsInfo) {
             exports.PairInfo.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -473,10 +412,9 @@ exports.QueryPairsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryPairsResponse };
-        message.pairsInfo = [];
+        const message = createBaseQueryPairsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -494,20 +432,14 @@ exports.QueryPairsResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseQueryPairsResponse };
-        message.pairsInfo = [];
-        if (object.pairsInfo !== undefined && object.pairsInfo !== null) {
-            for (const e of object.pairsInfo) {
-                message.pairsInfo.push(exports.PairInfo.fromJSON(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
-        return message;
+        return {
+            pairsInfo: Array.isArray(object === null || object === void 0 ? void 0 : object.pairsInfo)
+                ? object.pairsInfo.map((e) => exports.PairInfo.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -524,34 +456,31 @@ exports.QueryPairsResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseQueryPairsResponse };
-        message.pairsInfo = [];
-        if (object.pairsInfo !== undefined && object.pairsInfo !== null) {
-            for (const e of object.pairsInfo) {
-                message.pairsInfo.push(exports.PairInfo.fromPartial(e));
-            }
-        }
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = pagination_1.PageResponse.fromPartial(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
+        var _a;
+        const message = createBaseQueryPairsResponse();
+        message.pairsInfo =
+            ((_a = object.pairsInfo) === null || _a === void 0 ? void 0 : _a.map((e) => exports.PairInfo.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
-const baseQueryPairRequest = { id: long_1.default.UZERO };
+function createBaseQueryPairRequest() {
+    return { id: long_1.default.UZERO };
+}
 exports.QueryPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryPairRequest };
+        const message = createBaseQueryPairRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -566,14 +495,9 @@ exports.QueryPairRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseQueryPairRequest };
-        if (object.id !== undefined && object.id !== null) {
-            message.id = long_1.default.fromString(object.id);
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        return message;
+        return {
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -582,28 +506,28 @@ exports.QueryPairRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseQueryPairRequest };
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
+        const message = createBaseQueryPairRequest();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
         return message;
     },
 };
-const baseQueryPairResponse = {};
+function createBaseQueryPairResponse() {
+    return { pairInfo: undefined };
+}
 exports.QueryPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pairInfo !== undefined) {
             exports.PairInfo.encode(message.pairInfo, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryPairResponse };
+        const message = createBaseQueryPairResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -618,14 +542,11 @@ exports.QueryPairResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseQueryPairResponse };
-        if (object.pairInfo !== undefined && object.pairInfo !== null) {
-            message.pairInfo = exports.PairInfo.fromJSON(object.pairInfo);
-        }
-        else {
-            message.pairInfo = undefined;
-        }
-        return message;
+        return {
+            pairInfo: isSet(object.pairInfo)
+                ? exports.PairInfo.fromJSON(object.pairInfo)
+                : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -636,25 +557,25 @@ exports.QueryPairResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseQueryPairResponse };
-        if (object.pairInfo !== undefined && object.pairInfo !== null) {
-            message.pairInfo = exports.PairInfo.fromPartial(object.pairInfo);
-        }
-        else {
-            message.pairInfo = undefined;
-        }
+        const message = createBaseQueryPairResponse();
+        message.pairInfo =
+            object.pairInfo !== undefined && object.pairInfo !== null
+                ? exports.PairInfo.fromPartial(object.pairInfo)
+                : undefined;
         return message;
     },
 };
-const baseQueryParamsRequest = {};
+function createBaseQueryParamsRequest() {
+    return {};
+}
 exports.QueryParamsRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryParamsRequest };
+        const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -666,30 +587,31 @@ exports.QueryParamsRequest = {
         return message;
     },
     fromJSON(_) {
-        const message = { ...baseQueryParamsRequest };
-        return message;
+        return {};
     },
     toJSON(_) {
         const obj = {};
         return obj;
     },
     fromPartial(_) {
-        const message = { ...baseQueryParamsRequest };
+        const message = createBaseQueryParamsRequest();
         return message;
     },
 };
-const baseQueryParamsResponse = {};
+function createBaseQueryParamsResponse() {
+    return { params: undefined };
+}
 exports.QueryParamsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseQueryParamsResponse };
+        const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -704,14 +626,9 @@ exports.QueryParamsResponse = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseQueryParamsResponse };
-        if (object.params !== undefined && object.params !== null) {
-            message.params = params_1.Params.fromJSON(object.params);
-        }
-        else {
-            message.params = undefined;
-        }
-        return message;
+        return {
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -720,13 +637,372 @@ exports.QueryParamsResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseQueryParamsResponse };
-        if (object.params !== undefined && object.params !== null) {
-            message.params = params_1.Params.fromPartial(object.params);
+        const message = createBaseQueryParamsResponse();
+        message.params =
+            object.params !== undefined && object.params !== null
+                ? params_1.Params.fromPartial(object.params)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryAppRequest() {
+    return { id: long_1.default.UZERO };
+}
+exports.QueryAppRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAppRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAppRequest();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryAppResponse() {
+    return { app: undefined };
+}
+exports.QueryAppResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.app !== undefined) {
+            appMapping_1.AppMapping.encode(message.app, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAppResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.app = appMapping_1.AppMapping.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            app: isSet(object.app) ? appMapping_1.AppMapping.fromJSON(object.app) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.app !== undefined &&
+            (obj.app = message.app ? appMapping_1.AppMapping.toJSON(message.app) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAppResponse();
+        message.app =
+            object.app !== undefined && object.app !== null
+                ? appMapping_1.AppMapping.fromPartial(object.app)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryAppsRequest() {
+    return {};
+}
+exports.QueryAppsRequest = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAppsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseQueryAppsRequest();
+        return message;
+    },
+};
+function createBaseQueryAppsResponse() {
+    return { apps: [] };
+}
+exports.QueryAppsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.apps) {
+            appMapping_1.AppMapping.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAppsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.apps.push(appMapping_1.AppMapping.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            apps: Array.isArray(object === null || object === void 0 ? void 0 : object.apps)
+                ? object.apps.map((e) => appMapping_1.AppMapping.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.apps) {
+            obj.apps = message.apps.map((e) => e ? appMapping_1.AppMapping.toJSON(e) : undefined);
         }
         else {
-            message.params = undefined;
+            obj.apps = [];
         }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryAppsResponse();
+        message.apps = ((_a = object.apps) === null || _a === void 0 ? void 0 : _a.map((e) => appMapping_1.AppMapping.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseQueryPairVaultRequest() {
+    return { id: long_1.default.UZERO };
+}
+exports.QueryPairVaultRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryPairVaultRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryPairVaultRequest();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryPairVaultResponse() {
+    return { pairVault: undefined };
+}
+exports.QueryPairVaultResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.pairVault !== undefined) {
+            extendedPairVault_1.ExtendedPairVault.encode(message.pairVault, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryPairVaultResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pairVault = extendedPairVault_1.ExtendedPairVault.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            pairVault: isSet(object.pairVault)
+                ? extendedPairVault_1.ExtendedPairVault.fromJSON(object.pairVault)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pairVault !== undefined &&
+            (obj.pairVault = message.pairVault
+                ? extendedPairVault_1.ExtendedPairVault.toJSON(message.pairVault)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryPairVaultResponse();
+        message.pairVault =
+            object.pairVault !== undefined && object.pairVault !== null
+                ? extendedPairVault_1.ExtendedPairVault.fromPartial(object.pairVault)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryPairVaultsRequest() {
+    return {};
+}
+exports.QueryPairVaultsRequest = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryPairVaultsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseQueryPairVaultsRequest();
+        return message;
+    },
+};
+function createBaseQueryPairVaultsResponse() {
+    return { pairVault: [] };
+}
+exports.QueryPairVaultsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.pairVault) {
+            extendedPairVault_1.ExtendedPairVault.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryPairVaultsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pairVault.push(extendedPairVault_1.ExtendedPairVault.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            pairVault: Array.isArray(object === null || object === void 0 ? void 0 : object.pairVault)
+                ? object.pairVault.map((e) => extendedPairVault_1.ExtendedPairVault.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.pairVault) {
+            obj.pairVault = message.pairVault.map((e) => e ? extendedPairVault_1.ExtendedPairVault.toJSON(e) : undefined);
+        }
+        else {
+            obj.pairVault = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryPairVaultsResponse();
+        message.pairVault =
+            ((_a = object.pairVault) === null || _a === void 0 ? void 0 : _a.map((e) => extendedPairVault_1.ExtendedPairVault.fromPartial(e))) || [];
         return message;
     },
 };
@@ -738,36 +1014,63 @@ class QueryServiceClientImpl {
         this.QueryPairs = this.QueryPairs.bind(this);
         this.QueryPair = this.QueryPair.bind(this);
         this.QueryParams = this.QueryParams.bind(this);
+        this.QueryAppsMapings = this.QueryAppsMapings.bind(this);
+        this.QueryAppMapings = this.QueryAppMapings.bind(this);
+        this.QueryPairVault = this.QueryPairVault.bind(this);
+        this.QueryPairVaults = this.QueryPairVaults.bind(this);
     }
     QueryAssets(request) {
         const data = exports.QueryAssetsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryAssets", data);
-        return promise.then((data) => exports.QueryAssetsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAssetsResponse.decode(new _m0.Reader(data)));
     }
     QueryAsset(request) {
         const data = exports.QueryAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryAsset", data);
-        return promise.then((data) => exports.QueryAssetResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAssetResponse.decode(new _m0.Reader(data)));
     }
     QueryPairs(request) {
         const data = exports.QueryPairsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryPairs", data);
-        return promise.then((data) => exports.QueryPairsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPairsResponse.decode(new _m0.Reader(data)));
     }
     QueryPair(request) {
         const data = exports.QueryPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryPair", data);
-        return promise.then((data) => exports.QueryPairResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPairResponse.decode(new _m0.Reader(data)));
     }
     QueryParams(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryParams", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new _m0.Reader(data)));
+    }
+    QueryAppsMapings(request) {
+        const data = exports.QueryAppsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryAppsMapings", data);
+        return promise.then((data) => exports.QueryAppsResponse.decode(new _m0.Reader(data)));
+    }
+    QueryAppMapings(request) {
+        const data = exports.QueryAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryAppMapings", data);
+        return promise.then((data) => exports.QueryAppResponse.decode(new _m0.Reader(data)));
+    }
+    QueryPairVault(request) {
+        const data = exports.QueryPairVaultRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryPairVault", data);
+        return promise.then((data) => exports.QueryPairVaultResponse.decode(new _m0.Reader(data)));
+    }
+    QueryPairVaults(request) {
+        const data = exports.QueryPairVaultsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryPairVaults", data);
+        return promise.then((data) => exports.QueryPairVaultsResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryServiceClientImpl = QueryServiceClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=querier.js.map
