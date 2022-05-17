@@ -4,34 +4,34 @@ import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
-export interface Params {
-  admin: string;
+export interface EventAddPair {
+  id: Long;
 }
 
-function createBaseParams(): Params {
-  return { admin: "" };
+function createBaseEventAddPair(): EventAddPair {
+  return { id: Long.UZERO };
 }
 
-export const Params = {
+export const EventAddPair = {
   encode(
-    message: Params,
+    message: EventAddPair,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.admin !== "") {
-      writer.uint32(10).string(message.admin);
+    if (!message.id.isZero()) {
+      writer.uint32(8).uint64(message.id);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): Params {
+  decode(input: _m0.Reader | Uint8Array, length?: number): EventAddPair {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseParams();
+    const message = createBaseEventAddPair();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.admin = reader.string();
+          message.id = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -41,21 +41,27 @@ export const Params = {
     return message;
   },
 
-  fromJSON(object: any): Params {
+  fromJSON(object: any): EventAddPair {
     return {
-      admin: isSet(object.admin) ? String(object.admin) : "",
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
 
-  toJSON(message: Params): unknown {
+  toJSON(message: EventAddPair): unknown {
     const obj: any = {};
-    message.admin !== undefined && (obj.admin = message.admin);
+    message.id !== undefined &&
+      (obj.id = (message.id || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
-    const message = createBaseParams();
-    message.admin = object.admin ?? "";
+  fromPartial<I extends Exact<DeepPartial<EventAddPair>, I>>(
+    object: I
+  ): EventAddPair {
+    const message = createBaseEventAddPair();
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO;
     return message;
   },
 };

@@ -4,34 +4,37 @@ import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
-export interface Pair {
+export interface AppMapping {
   id: Long;
-  assetIn: Long;
-  assetOut: Long;
+  name: string;
+  shortName: string;
 }
 
-function createBasePair(): Pair {
-  return { id: Long.UZERO, assetIn: Long.UZERO, assetOut: Long.UZERO };
+function createBaseAppMapping(): AppMapping {
+  return { id: Long.UZERO, name: "", shortName: "" };
 }
 
-export const Pair = {
-  encode(message: Pair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const AppMapping = {
+  encode(
+    message: AppMapping,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
-    if (!message.assetIn.isZero()) {
-      writer.uint32(16).uint64(message.assetIn);
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
     }
-    if (!message.assetOut.isZero()) {
-      writer.uint32(24).uint64(message.assetOut);
+    if (message.shortName !== "") {
+      writer.uint32(26).string(message.shortName);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): Pair {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AppMapping {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePair();
+    const message = createBaseAppMapping();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -39,10 +42,10 @@ export const Pair = {
           message.id = reader.uint64() as Long;
           break;
         case 2:
-          message.assetIn = reader.uint64() as Long;
+          message.name = reader.string();
           break;
         case 3:
-          message.assetOut = reader.uint64() as Long;
+          message.shortName = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -52,43 +55,33 @@ export const Pair = {
     return message;
   },
 
-  fromJSON(object: any): Pair {
+  fromJSON(object: any): AppMapping {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      assetIn: isSet(object.assetIn)
-        ? Long.fromValue(object.assetIn)
-        : Long.UZERO,
-      assetOut: isSet(object.assetOut)
-        ? Long.fromValue(object.assetOut)
-        : Long.UZERO,
+      name: isSet(object.name) ? String(object.name) : "",
+      shortName: isSet(object.shortName) ? String(object.shortName) : "",
     };
   },
 
-  toJSON(message: Pair): unknown {
+  toJSON(message: AppMapping): unknown {
     const obj: any = {};
     message.id !== undefined &&
       (obj.id = (message.id || Long.UZERO).toString());
-    message.assetIn !== undefined &&
-      (obj.assetIn = (message.assetIn || Long.UZERO).toString());
-    message.assetOut !== undefined &&
-      (obj.assetOut = (message.assetOut || Long.UZERO).toString());
+    message.name !== undefined && (obj.name = message.name);
+    message.shortName !== undefined && (obj.shortName = message.shortName);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Pair>, I>>(object: I): Pair {
-    const message = createBasePair();
+  fromPartial<I extends Exact<DeepPartial<AppMapping>, I>>(
+    object: I
+  ): AppMapping {
+    const message = createBaseAppMapping();
     message.id =
       object.id !== undefined && object.id !== null
         ? Long.fromValue(object.id)
         : Long.UZERO;
-    message.assetIn =
-      object.assetIn !== undefined && object.assetIn !== null
-        ? Long.fromValue(object.assetIn)
-        : Long.UZERO;
-    message.assetOut =
-      object.assetOut !== undefined && object.assetOut !== null
-        ? Long.fromValue(object.assetOut)
-        : Long.UZERO;
+    message.name = object.name ?? "";
+    message.shortName = object.shortName ?? "";
     return message;
   },
 };
