@@ -15,13 +15,13 @@ export interface ExtendedPairVault {
   liquidationPenalty: string;
   creationFee: string;
   isVaultActive: boolean;
-  debtCieling: string;
+  debtCeiling: string;
   debtFloor: string;
   isPsmPair: boolean;
   minCr: string;
   pairName: string;
   assetOutOraclePrice: boolean;
-  asssetOutPrice: string;
+  asssetOutPrice: Long;
 }
 
 function createBaseExtendedPairVault(): ExtendedPairVault {
@@ -36,13 +36,13 @@ function createBaseExtendedPairVault(): ExtendedPairVault {
     liquidationPenalty: "",
     creationFee: "",
     isVaultActive: false,
-    debtCieling: "",
+    debtCeiling: "",
     debtFloor: "",
     isPsmPair: false,
     minCr: "",
     pairName: "",
     assetOutOraclePrice: false,
-    asssetOutPrice: "",
+    asssetOutPrice: Long.UZERO,
   };
 }
 
@@ -81,8 +81,8 @@ export const ExtendedPairVault = {
     if (message.isVaultActive === true) {
       writer.uint32(80).bool(message.isVaultActive);
     }
-    if (message.debtCieling !== "") {
-      writer.uint32(90).string(message.debtCieling);
+    if (message.debtCeiling !== "") {
+      writer.uint32(90).string(message.debtCeiling);
     }
     if (message.debtFloor !== "") {
       writer.uint32(98).string(message.debtFloor);
@@ -99,8 +99,8 @@ export const ExtendedPairVault = {
     if (message.assetOutOraclePrice === true) {
       writer.uint32(128).bool(message.assetOutOraclePrice);
     }
-    if (message.asssetOutPrice !== "") {
-      writer.uint32(138).string(message.asssetOutPrice);
+    if (!message.asssetOutPrice.isZero()) {
+      writer.uint32(136).uint64(message.asssetOutPrice);
     }
     return writer;
   },
@@ -143,7 +143,7 @@ export const ExtendedPairVault = {
           message.isVaultActive = reader.bool();
           break;
         case 11:
-          message.debtCieling = reader.string();
+          message.debtCeiling = reader.string();
           break;
         case 12:
           message.debtFloor = reader.string();
@@ -161,7 +161,7 @@ export const ExtendedPairVault = {
           message.assetOutOraclePrice = reader.bool();
           break;
         case 17:
-          message.asssetOutPrice = reader.string();
+          message.asssetOutPrice = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -195,7 +195,7 @@ export const ExtendedPairVault = {
       isVaultActive: isSet(object.isVaultActive)
         ? Boolean(object.isVaultActive)
         : false,
-      debtCieling: isSet(object.debtCieling) ? String(object.debtCieling) : "",
+      debtCeiling: isSet(object.debtCeiling) ? String(object.debtCeiling) : "",
       debtFloor: isSet(object.debtFloor) ? String(object.debtFloor) : "",
       isPsmPair: isSet(object.isPsmPair) ? Boolean(object.isPsmPair) : false,
       minCr: isSet(object.minCr) ? String(object.minCr) : "",
@@ -204,8 +204,8 @@ export const ExtendedPairVault = {
         ? Boolean(object.assetOutOraclePrice)
         : false,
       asssetOutPrice: isSet(object.asssetOutPrice)
-        ? String(object.asssetOutPrice)
-        : "",
+        ? Long.fromValue(object.asssetOutPrice)
+        : Long.UZERO,
     };
   },
 
@@ -230,8 +230,8 @@ export const ExtendedPairVault = {
       (obj.creationFee = message.creationFee);
     message.isVaultActive !== undefined &&
       (obj.isVaultActive = message.isVaultActive);
-    message.debtCieling !== undefined &&
-      (obj.debtCieling = message.debtCieling);
+    message.debtCeiling !== undefined &&
+      (obj.debtCeiling = message.debtCeiling);
     message.debtFloor !== undefined && (obj.debtFloor = message.debtFloor);
     message.isPsmPair !== undefined && (obj.isPsmPair = message.isPsmPair);
     message.minCr !== undefined && (obj.minCr = message.minCr);
@@ -239,7 +239,7 @@ export const ExtendedPairVault = {
     message.assetOutOraclePrice !== undefined &&
       (obj.assetOutOraclePrice = message.assetOutOraclePrice);
     message.asssetOutPrice !== undefined &&
-      (obj.asssetOutPrice = message.asssetOutPrice);
+      (obj.asssetOutPrice = (message.asssetOutPrice || Long.UZERO).toString());
     return obj;
   },
 
@@ -266,13 +266,16 @@ export const ExtendedPairVault = {
     message.liquidationPenalty = object.liquidationPenalty ?? "";
     message.creationFee = object.creationFee ?? "";
     message.isVaultActive = object.isVaultActive ?? false;
-    message.debtCieling = object.debtCieling ?? "";
+    message.debtCeiling = object.debtCeiling ?? "";
     message.debtFloor = object.debtFloor ?? "";
     message.isPsmPair = object.isPsmPair ?? false;
     message.minCr = object.minCr ?? "";
     message.pairName = object.pairName ?? "";
     message.assetOutOraclePrice = object.assetOutOraclePrice ?? false;
-    message.asssetOutPrice = object.asssetOutPrice ?? "";
+    message.asssetOutPrice =
+      object.asssetOutPrice !== undefined && object.asssetOutPrice !== null
+        ? Long.fromValue(object.asssetOutPrice)
+        : Long.UZERO;
     return message;
   },
 };
