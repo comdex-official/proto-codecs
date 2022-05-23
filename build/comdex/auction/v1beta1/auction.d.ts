@@ -52,7 +52,6 @@ export declare const CollateralAuction: {
             id?: string | number | Long.Long | undefined;
             assetIn?: string | number | Long.Long | undefined;
             assetOut?: string | number | Long.Long | undefined;
-            liquidationRatio?: string | undefined;
         } | undefined;
         biddingIds?: (string | number | Long.Long)[] | undefined;
     } & {
@@ -271,7 +270,6 @@ export declare const CollateralAuction: {
             id?: string | number | Long.Long | undefined;
             assetIn?: string | number | Long.Long | undefined;
             assetOut?: string | number | Long.Long | undefined;
-            liquidationRatio?: string | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -447,7 +445,6 @@ export declare const CollateralAuction: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pair"]["assetOut"], keyof Long.Long>, never>) | undefined;
-            liquidationRatio?: string | undefined;
         } & Record<Exclude<keyof I["pair"], keyof Pair>, never>) | undefined;
         biddingIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
             high: number;
