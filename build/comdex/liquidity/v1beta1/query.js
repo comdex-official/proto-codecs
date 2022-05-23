@@ -3,13 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.PoolResponse = exports.QueryOrdersByOrdererRequest = exports.QueryOrderResponse = exports.QueryOrderRequest = exports.QueryOrdersResponse = exports.QueryOrdersRequest = exports.QueryWithdrawRequestResponse = exports.QueryWithdrawRequestRequest = exports.QueryWithdrawRequestsResponse = exports.QueryWithdrawRequestsRequest = exports.QueryDepositRequestResponse = exports.QueryDepositRequestRequest = exports.QueryDepositRequestsResponse = exports.QueryDepositRequestsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryPoolByPoolCoinDenomRequest = exports.QueryPoolByReserveAddressRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryPoolIncentivesResponse = exports.PoolIncentive = exports.QueryPoolsIncentivesRequest = exports.QueryDeserializePoolCoinResponse = exports.QueryDeserializePoolCoinRequest = exports.QuerySoftLockResponse = exports.QueuedPoolCoin = exports.QuerySoftLockRequest = exports.PoolResponse = exports.QueryOrdersByOrdererRequest = exports.QueryOrderResponse = exports.QueryOrderRequest = exports.QueryOrdersResponse = exports.QueryOrdersRequest = exports.QueryWithdrawRequestResponse = exports.QueryWithdrawRequestRequest = exports.QueryWithdrawRequestsResponse = exports.QueryWithdrawRequestsRequest = exports.QueryDepositRequestResponse = exports.QueryDepositRequestRequest = exports.QueryDepositRequestsResponse = exports.QueryDepositRequestsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryPoolByPoolCoinDenomRequest = exports.QueryPoolByReserveAddressRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const liquidity_1 = require("./liquidity");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const duration_1 = require("../../../google/protobuf/duration");
+const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
 function createBaseQueryParamsRequest() {
     return {};
@@ -1615,6 +1617,588 @@ exports.PoolResponse = {
         return message;
     },
 };
+function createBaseQuerySoftLockRequest() {
+    return { poolId: long_1.default.UZERO, depositor: "" };
+}
+exports.QuerySoftLockRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.poolId.isZero()) {
+            writer.uint32(8).uint64(message.poolId);
+        }
+        if (message.depositor !== "") {
+            writer.uint32(18).string(message.depositor);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQuerySoftLockRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.poolId = reader.uint64();
+                    break;
+                case 2:
+                    message.depositor = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            depositor: isSet(object.depositor) ? String(object.depositor) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.depositor !== undefined && (obj.depositor = message.depositor);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQuerySoftLockRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.depositor = (_a = object.depositor) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseQueuedPoolCoin() {
+    return { poolCoin: undefined, dequeAt: undefined };
+}
+exports.QueuedPoolCoin = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.poolCoin !== undefined) {
+            coin_1.Coin.encode(message.poolCoin, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.dequeAt !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.dequeAt), writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueuedPoolCoin();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.poolCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 2:
+                    message.dequeAt = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            poolCoin: isSet(object.poolCoin)
+                ? coin_1.Coin.fromJSON(object.poolCoin)
+                : undefined,
+            dequeAt: isSet(object.dequeAt)
+                ? fromJsonTimestamp(object.dequeAt)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.poolCoin !== undefined &&
+            (obj.poolCoin = message.poolCoin
+                ? coin_1.Coin.toJSON(message.poolCoin)
+                : undefined);
+        message.dequeAt !== undefined &&
+            (obj.dequeAt = message.dequeAt.toISOString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueuedPoolCoin();
+        message.poolCoin =
+            object.poolCoin !== undefined && object.poolCoin !== null
+                ? coin_1.Coin.fromPartial(object.poolCoin)
+                : undefined;
+        message.dequeAt = (_a = object.dequeAt) !== null && _a !== void 0 ? _a : undefined;
+        return message;
+    },
+};
+function createBaseQuerySoftLockResponse() {
+    return { activePoolCoin: undefined, queuedPoolCoin: [] };
+}
+exports.QuerySoftLockResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.activePoolCoin !== undefined) {
+            coin_1.Coin.encode(message.activePoolCoin, writer.uint32(10).fork()).ldelim();
+        }
+        for (const v of message.queuedPoolCoin) {
+            exports.QueuedPoolCoin.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQuerySoftLockResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.activePoolCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 2:
+                    message.queuedPoolCoin.push(exports.QueuedPoolCoin.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            activePoolCoin: isSet(object.activePoolCoin)
+                ? coin_1.Coin.fromJSON(object.activePoolCoin)
+                : undefined,
+            queuedPoolCoin: Array.isArray(object === null || object === void 0 ? void 0 : object.queuedPoolCoin)
+                ? object.queuedPoolCoin.map((e) => exports.QueuedPoolCoin.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.activePoolCoin !== undefined &&
+            (obj.activePoolCoin = message.activePoolCoin
+                ? coin_1.Coin.toJSON(message.activePoolCoin)
+                : undefined);
+        if (message.queuedPoolCoin) {
+            obj.queuedPoolCoin = message.queuedPoolCoin.map((e) => e ? exports.QueuedPoolCoin.toJSON(e) : undefined);
+        }
+        else {
+            obj.queuedPoolCoin = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQuerySoftLockResponse();
+        message.activePoolCoin =
+            object.activePoolCoin !== undefined && object.activePoolCoin !== null
+                ? coin_1.Coin.fromPartial(object.activePoolCoin)
+                : undefined;
+        message.queuedPoolCoin =
+            ((_a = object.queuedPoolCoin) === null || _a === void 0 ? void 0 : _a.map((e) => exports.QueuedPoolCoin.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseQueryDeserializePoolCoinRequest() {
+    return { poolId: long_1.default.UZERO, poolCoinAmount: long_1.default.UZERO };
+}
+exports.QueryDeserializePoolCoinRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.poolId.isZero()) {
+            writer.uint32(8).uint64(message.poolId);
+        }
+        if (!message.poolCoinAmount.isZero()) {
+            writer.uint32(16).uint64(message.poolCoinAmount);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryDeserializePoolCoinRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.poolId = reader.uint64();
+                    break;
+                case 2:
+                    message.poolCoinAmount = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            poolCoinAmount: isSet(object.poolCoinAmount)
+                ? long_1.default.fromString(object.poolCoinAmount)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.poolCoinAmount !== undefined &&
+            (obj.poolCoinAmount = (message.poolCoinAmount || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryDeserializePoolCoinRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.poolCoinAmount =
+            object.poolCoinAmount !== undefined && object.poolCoinAmount !== null
+                ? long_1.default.fromValue(object.poolCoinAmount)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryDeserializePoolCoinResponse() {
+    return { coins: [] };
+}
+exports.QueryDeserializePoolCoinResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        for (const v of message.coins) {
+            coin_1.Coin.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryDeserializePoolCoinResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.coins.push(coin_1.Coin.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            coins: Array.isArray(object === null || object === void 0 ? void 0 : object.coins)
+                ? object.coins.map((e) => coin_1.Coin.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.coins) {
+            obj.coins = message.coins.map((e) => (e ? coin_1.Coin.toJSON(e) : undefined));
+        }
+        else {
+            obj.coins = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryDeserializePoolCoinResponse();
+        message.coins = ((_a = object.coins) === null || _a === void 0 ? void 0 : _a.map((e) => coin_1.Coin.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseQueryPoolsIncentivesRequest() {
+    return {};
+}
+exports.QueryPoolsIncentivesRequest = {
+    encode(_, writer = minimal_1.default.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryPoolsIncentivesRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseQueryPoolsIncentivesRequest();
+        return message;
+    },
+};
+function createBasePoolIncentive() {
+    return {
+        poolId: long_1.default.UZERO,
+        masterPool: false,
+        childPoolIds: [],
+        totalRewards: undefined,
+        distributedRewards: undefined,
+        totalEpochs: long_1.default.UZERO,
+        filledEpochs: long_1.default.UZERO,
+        epochDuration: undefined,
+        nextDistribution: undefined,
+    };
+}
+exports.PoolIncentive = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.poolId.isZero()) {
+            writer.uint32(8).uint64(message.poolId);
+        }
+        if (message.masterPool === true) {
+            writer.uint32(16).bool(message.masterPool);
+        }
+        writer.uint32(26).fork();
+        for (const v of message.childPoolIds) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        if (message.totalRewards !== undefined) {
+            coin_1.Coin.encode(message.totalRewards, writer.uint32(34).fork()).ldelim();
+        }
+        if (message.distributedRewards !== undefined) {
+            coin_1.Coin.encode(message.distributedRewards, writer.uint32(42).fork()).ldelim();
+        }
+        if (!message.totalEpochs.isZero()) {
+            writer.uint32(48).uint64(message.totalEpochs);
+        }
+        if (!message.filledEpochs.isZero()) {
+            writer.uint32(56).uint64(message.filledEpochs);
+        }
+        if (message.epochDuration !== undefined) {
+            duration_1.Duration.encode(message.epochDuration, writer.uint32(66).fork()).ldelim();
+        }
+        if (message.nextDistribution !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.nextDistribution), writer.uint32(74).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBasePoolIncentive();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.poolId = reader.uint64();
+                    break;
+                case 2:
+                    message.masterPool = reader.bool();
+                    break;
+                case 3:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.childPoolIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.childPoolIds.push(reader.uint64());
+                    }
+                    break;
+                case 4:
+                    message.totalRewards = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 5:
+                    message.distributedRewards = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 6:
+                    message.totalEpochs = reader.uint64();
+                    break;
+                case 7:
+                    message.filledEpochs = reader.uint64();
+                    break;
+                case 8:
+                    message.epochDuration = duration_1.Duration.decode(reader, reader.uint32());
+                    break;
+                case 9:
+                    message.nextDistribution = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            masterPool: isSet(object.masterPool) ? Boolean(object.masterPool) : false,
+            childPoolIds: Array.isArray(object === null || object === void 0 ? void 0 : object.childPoolIds)
+                ? object.childPoolIds.map((e) => long_1.default.fromString(e))
+                : [],
+            totalRewards: isSet(object.totalRewards)
+                ? coin_1.Coin.fromJSON(object.totalRewards)
+                : undefined,
+            distributedRewards: isSet(object.distributedRewards)
+                ? coin_1.Coin.fromJSON(object.distributedRewards)
+                : undefined,
+            totalEpochs: isSet(object.totalEpochs)
+                ? long_1.default.fromString(object.totalEpochs)
+                : long_1.default.UZERO,
+            filledEpochs: isSet(object.filledEpochs)
+                ? long_1.default.fromString(object.filledEpochs)
+                : long_1.default.UZERO,
+            epochDuration: isSet(object.epochDuration)
+                ? duration_1.Duration.fromJSON(object.epochDuration)
+                : undefined,
+            nextDistribution: isSet(object.nextDistribution)
+                ? fromJsonTimestamp(object.nextDistribution)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.masterPool !== undefined && (obj.masterPool = message.masterPool);
+        if (message.childPoolIds) {
+            obj.childPoolIds = message.childPoolIds.map((e) => (e || long_1.default.UZERO).toString());
+        }
+        else {
+            obj.childPoolIds = [];
+        }
+        message.totalRewards !== undefined &&
+            (obj.totalRewards = message.totalRewards
+                ? coin_1.Coin.toJSON(message.totalRewards)
+                : undefined);
+        message.distributedRewards !== undefined &&
+            (obj.distributedRewards = message.distributedRewards
+                ? coin_1.Coin.toJSON(message.distributedRewards)
+                : undefined);
+        message.totalEpochs !== undefined &&
+            (obj.totalEpochs = (message.totalEpochs || long_1.default.UZERO).toString());
+        message.filledEpochs !== undefined &&
+            (obj.filledEpochs = (message.filledEpochs || long_1.default.UZERO).toString());
+        message.epochDuration !== undefined &&
+            (obj.epochDuration = message.epochDuration
+                ? duration_1.Duration.toJSON(message.epochDuration)
+                : undefined);
+        message.nextDistribution !== undefined &&
+            (obj.nextDistribution = message.nextDistribution.toISOString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBasePoolIncentive();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.masterPool = (_a = object.masterPool) !== null && _a !== void 0 ? _a : false;
+        message.childPoolIds =
+            ((_b = object.childPoolIds) === null || _b === void 0 ? void 0 : _b.map((e) => long_1.default.fromValue(e))) || [];
+        message.totalRewards =
+            object.totalRewards !== undefined && object.totalRewards !== null
+                ? coin_1.Coin.fromPartial(object.totalRewards)
+                : undefined;
+        message.distributedRewards =
+            object.distributedRewards !== undefined &&
+                object.distributedRewards !== null
+                ? coin_1.Coin.fromPartial(object.distributedRewards)
+                : undefined;
+        message.totalEpochs =
+            object.totalEpochs !== undefined && object.totalEpochs !== null
+                ? long_1.default.fromValue(object.totalEpochs)
+                : long_1.default.UZERO;
+        message.filledEpochs =
+            object.filledEpochs !== undefined && object.filledEpochs !== null
+                ? long_1.default.fromValue(object.filledEpochs)
+                : long_1.default.UZERO;
+        message.epochDuration =
+            object.epochDuration !== undefined && object.epochDuration !== null
+                ? duration_1.Duration.fromPartial(object.epochDuration)
+                : undefined;
+        message.nextDistribution = (_c = object.nextDistribution) !== null && _c !== void 0 ? _c : undefined;
+        return message;
+    },
+};
+function createBaseQueryPoolIncentivesResponse() {
+    return { poolIncentives: [] };
+}
+exports.QueryPoolIncentivesResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        for (const v of message.poolIncentives) {
+            exports.PoolIncentive.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryPoolIncentivesResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.poolIncentives.push(exports.PoolIncentive.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            poolIncentives: Array.isArray(object === null || object === void 0 ? void 0 : object.poolIncentives)
+                ? object.poolIncentives.map((e) => exports.PoolIncentive.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.poolIncentives) {
+            obj.poolIncentives = message.poolIncentives.map((e) => e ? exports.PoolIncentive.toJSON(e) : undefined);
+        }
+        else {
+            obj.poolIncentives = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryPoolIncentivesResponse();
+        message.poolIncentives =
+            ((_a = object.poolIncentives) === null || _a === void 0 ? void 0 : _a.map((e) => exports.PoolIncentive.fromPartial(e))) || [];
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1632,6 +2216,9 @@ class QueryClientImpl {
         this.Orders = this.Orders.bind(this);
         this.Order = this.Order.bind(this);
         this.OrdersByOrderer = this.OrdersByOrderer.bind(this);
+        this.SoftLock = this.SoftLock.bind(this);
+        this.DeserializePoolCoin = this.DeserializePoolCoin.bind(this);
+        this.PoolIncentives = this.PoolIncentives.bind(this);
     }
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
@@ -1703,8 +2290,47 @@ class QueryClientImpl {
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "OrdersByOrderer", data);
         return promise.then((data) => exports.QueryOrdersResponse.decode(new minimal_1.default.Reader(data)));
     }
+    SoftLock(request) {
+        const data = exports.QuerySoftLockRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "SoftLock", data);
+        return promise.then((data) => exports.QuerySoftLockResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    DeserializePoolCoin(request) {
+        const data = exports.QueryDeserializePoolCoinRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "DeserializePoolCoin", data);
+        return promise.then((data) => exports.QueryDeserializePoolCoinResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    PoolIncentives(request) {
+        const data = exports.QueryPoolsIncentivesRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolIncentives", data);
+        return promise.then((data) => exports.QueryPoolIncentivesResponse.decode(new minimal_1.default.Reader(data)));
+    }
 }
 exports.QueryClientImpl = QueryClientImpl;
+function toTimestamp(date) {
+    const seconds = numberToLong(date.getTime() / 1000);
+    const nanos = (date.getTime() % 1000) * 1000000;
+    return { seconds, nanos };
+}
+function fromTimestamp(t) {
+    let millis = t.seconds.toNumber() * 1000;
+    millis += t.nanos / 1000000;
+    return new Date(millis);
+}
+function fromJsonTimestamp(o) {
+    if (o instanceof Date) {
+        return o;
+    }
+    else if (typeof o === "string") {
+        return new Date(o);
+    }
+    else {
+        return fromTimestamp(timestamp_1.Timestamp.fromJSON(o));
+    }
+}
+function numberToLong(number) {
+    return long_1.default.fromNumber(number);
+}
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();

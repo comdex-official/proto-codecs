@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgClientImpl = exports.MsgCancelAllOrdersResponse = exports.MsgCancelAllOrders = exports.MsgCancelOrderResponse = exports.MsgCancelOrder = exports.MsgMarketOrderResponse = exports.MsgMarketOrder = exports.MsgLimitOrderResponse = exports.MsgLimitOrder = exports.MsgWithdrawResponse = exports.MsgWithdraw = exports.MsgDepositResponse = exports.MsgDeposit = exports.MsgCreatePoolResponse = exports.MsgCreatePool = exports.MsgCreatePairResponse = exports.MsgCreatePair = exports.protobufPackage = void 0;
+exports.MsgClientImpl = exports.MsgTokensSoftUnlockResponse = exports.MsgTokensSoftUnlock = exports.MsgTokensSoftLockResponse = exports.MsgTokensSoftLock = exports.MsgCancelAllOrdersResponse = exports.MsgCancelAllOrders = exports.MsgCancelOrderResponse = exports.MsgCancelOrder = exports.MsgMarketOrderResponse = exports.MsgMarketOrder = exports.MsgLimitOrderResponse = exports.MsgLimitOrder = exports.MsgWithdrawResponse = exports.MsgWithdraw = exports.MsgDepositResponse = exports.MsgDeposit = exports.MsgCreatePoolResponse = exports.MsgCreatePool = exports.MsgCreatePairResponse = exports.MsgCreatePair = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -993,6 +993,224 @@ exports.MsgCancelAllOrdersResponse = {
         return message;
     },
 };
+function createBaseMsgTokensSoftLock() {
+    return { depositor: "", poolId: long_1.default.UZERO, softLockCoin: undefined };
+}
+exports.MsgTokensSoftLock = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.depositor !== "") {
+            writer.uint32(10).string(message.depositor);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        if (message.softLockCoin !== undefined) {
+            coin_1.Coin.encode(message.softLockCoin, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgTokensSoftLock();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.depositor = reader.string();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
+                    message.softLockCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            depositor: isSet(object.depositor) ? String(object.depositor) : "",
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            softLockCoin: isSet(object.softLockCoin)
+                ? coin_1.Coin.fromJSON(object.softLockCoin)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.depositor !== undefined && (obj.depositor = message.depositor);
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.softLockCoin !== undefined &&
+            (obj.softLockCoin = message.softLockCoin
+                ? coin_1.Coin.toJSON(message.softLockCoin)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseMsgTokensSoftLock();
+        message.depositor = (_a = object.depositor) !== null && _a !== void 0 ? _a : "";
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.softLockCoin =
+            object.softLockCoin !== undefined && object.softLockCoin !== null
+                ? coin_1.Coin.fromPartial(object.softLockCoin)
+                : undefined;
+        return message;
+    },
+};
+function createBaseMsgTokensSoftLockResponse() {
+    return {};
+}
+exports.MsgTokensSoftLockResponse = {
+    encode(_, writer = minimal_1.default.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgTokensSoftLockResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgTokensSoftLockResponse();
+        return message;
+    },
+};
+function createBaseMsgTokensSoftUnlock() {
+    return { depositor: "", poolId: long_1.default.UZERO, softUnlockCoin: undefined };
+}
+exports.MsgTokensSoftUnlock = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.depositor !== "") {
+            writer.uint32(10).string(message.depositor);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        if (message.softUnlockCoin !== undefined) {
+            coin_1.Coin.encode(message.softUnlockCoin, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgTokensSoftUnlock();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.depositor = reader.string();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
+                    message.softUnlockCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            depositor: isSet(object.depositor) ? String(object.depositor) : "",
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+            softUnlockCoin: isSet(object.softUnlockCoin)
+                ? coin_1.Coin.fromJSON(object.softUnlockCoin)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.depositor !== undefined && (obj.depositor = message.depositor);
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.softUnlockCoin !== undefined &&
+            (obj.softUnlockCoin = message.softUnlockCoin
+                ? coin_1.Coin.toJSON(message.softUnlockCoin)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseMsgTokensSoftUnlock();
+        message.depositor = (_a = object.depositor) !== null && _a !== void 0 ? _a : "";
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.softUnlockCoin =
+            object.softUnlockCoin !== undefined && object.softUnlockCoin !== null
+                ? coin_1.Coin.fromPartial(object.softUnlockCoin)
+                : undefined;
+        return message;
+    },
+};
+function createBaseMsgTokensSoftUnlockResponse() {
+    return {};
+}
+exports.MsgTokensSoftUnlockResponse = {
+    encode(_, writer = minimal_1.default.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgTokensSoftUnlockResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgTokensSoftUnlockResponse();
+        return message;
+    },
+};
 class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1004,6 +1222,8 @@ class MsgClientImpl {
         this.MarketOrder = this.MarketOrder.bind(this);
         this.CancelOrder = this.CancelOrder.bind(this);
         this.CancelAllOrders = this.CancelAllOrders.bind(this);
+        this.TokensSoftLock = this.TokensSoftLock.bind(this);
+        this.TokensSoftUnlock = this.TokensSoftUnlock.bind(this);
     }
     CreatePair(request) {
         const data = exports.MsgCreatePair.encode(request).finish();
@@ -1044,6 +1264,16 @@ class MsgClientImpl {
         const data = exports.MsgCancelAllOrders.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "CancelAllOrders", data);
         return promise.then((data) => exports.MsgCancelAllOrdersResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    TokensSoftLock(request) {
+        const data = exports.MsgTokensSoftLock.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "TokensSoftLock", data);
+        return promise.then((data) => exports.MsgTokensSoftLockResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    TokensSoftUnlock(request) {
+        const data = exports.MsgTokensSoftUnlock.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "TokensSoftUnlock", data);
+        return promise.then((data) => exports.MsgTokensSoftUnlockResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
