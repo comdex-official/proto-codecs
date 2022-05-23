@@ -4,7 +4,7 @@ import * as _m0 from "protobufjs/minimal";
 import {
   PageRequest,
   PageResponse,
-} from "./cosmos/base/query/v1beta1/pagination";
+} from "../../../cosmos/base/query/v1beta1/pagination";
 import { Asset } from "./comdex/asset/v1beta1/asset";
 import { Params } from "./comdex/asset/v1beta1/params";
 import { AppMapping } from "./comdex/asset/v1beta1/appMapping";

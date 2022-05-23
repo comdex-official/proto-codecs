@@ -6,7 +6,7 @@ import { Vault, StableMintVault } from "./comdex/vault/v1beta1/vault";
 import {
   PageRequest,
   PageResponse,
-} from "./cosmos/base/query/v1beta1/pagination";
+} from "../../../cosmos/base/query/v1beta1/pagination";
 
 export const protobufPackage = "comdex.vault.v1beta1";
 
