@@ -306,6 +306,28 @@ export interface Order {
   status: OrderStatus;
 }
 
+export interface DepositsMade {
+  coins: Coin[];
+}
+
+export interface QueuedLiquidityProvider {
+  address: string;
+  supplyProvided: Coin[];
+  createdAt?: Date;
+}
+
+export interface PoolLiquidityProvidersData {
+  poolId: Long;
+  bondedLockIds: Long[];
+  liquidityProviders: { [key: string]: DepositsMade };
+  queuedLiquidityProviders: QueuedLiquidityProvider[];
+}
+
+export interface PoolLiquidityProvidersData_LiquidityProvidersEntry {
+  key: string;
+  value?: DepositsMade;
+}
+
 function createBaseParams(): Params {
   return {
     batchSize: 0,
@@ -1417,6 +1439,394 @@ export const Order = {
   },
 };
 
+function createBaseDepositsMade(): DepositsMade {
+  return { coins: [] };
+}
+
+export const DepositsMade = {
+  encode(
+    message: DepositsMade,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.coins) {
+      Coin.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DepositsMade {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDepositsMade();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.coins.push(Coin.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DepositsMade {
+    return {
+      coins: Array.isArray(object?.coins)
+        ? object.coins.map((e: any) => Coin.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: DepositsMade): unknown {
+    const obj: any = {};
+    if (message.coins) {
+      obj.coins = message.coins.map((e) => (e ? Coin.toJSON(e) : undefined));
+    } else {
+      obj.coins = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DepositsMade>, I>>(
+    object: I
+  ): DepositsMade {
+    const message = createBaseDepositsMade();
+    message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseQueuedLiquidityProvider(): QueuedLiquidityProvider {
+  return { address: "", supplyProvided: [], createdAt: undefined };
+}
+
+export const QueuedLiquidityProvider = {
+  encode(
+    message: QueuedLiquidityProvider,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
+    for (const v of message.supplyProvided) {
+      Coin.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.createdAt !== undefined) {
+      Timestamp.encode(
+        toTimestamp(message.createdAt),
+        writer.uint32(26).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueuedLiquidityProvider {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueuedLiquidityProvider();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.address = reader.string();
+          break;
+        case 2:
+          message.supplyProvided.push(Coin.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.createdAt = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueuedLiquidityProvider {
+    return {
+      address: isSet(object.address) ? String(object.address) : "",
+      supplyProvided: Array.isArray(object?.supplyProvided)
+        ? object.supplyProvided.map((e: any) => Coin.fromJSON(e))
+        : [],
+      createdAt: isSet(object.createdAt)
+        ? fromJsonTimestamp(object.createdAt)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueuedLiquidityProvider): unknown {
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+    if (message.supplyProvided) {
+      obj.supplyProvided = message.supplyProvided.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.supplyProvided = [];
+    }
+    message.createdAt !== undefined &&
+      (obj.createdAt = message.createdAt.toISOString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueuedLiquidityProvider>, I>>(
+    object: I
+  ): QueuedLiquidityProvider {
+    const message = createBaseQueuedLiquidityProvider();
+    message.address = object.address ?? "";
+    message.supplyProvided =
+      object.supplyProvided?.map((e) => Coin.fromPartial(e)) || [];
+    message.createdAt = object.createdAt ?? undefined;
+    return message;
+  },
+};
+
+function createBasePoolLiquidityProvidersData(): PoolLiquidityProvidersData {
+  return {
+    poolId: Long.UZERO,
+    bondedLockIds: [],
+    liquidityProviders: {},
+    queuedLiquidityProviders: [],
+  };
+}
+
+export const PoolLiquidityProvidersData = {
+  encode(
+    message: PoolLiquidityProvidersData,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.poolId.isZero()) {
+      writer.uint32(8).uint64(message.poolId);
+    }
+    writer.uint32(18).fork();
+    for (const v of message.bondedLockIds) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    Object.entries(message.liquidityProviders).forEach(([key, value]) => {
+      PoolLiquidityProvidersData_LiquidityProvidersEntry.encode(
+        { key: key as any, value },
+        writer.uint32(26).fork()
+      ).ldelim();
+    });
+    for (const v of message.queuedLiquidityProviders) {
+      QueuedLiquidityProvider.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): PoolLiquidityProvidersData {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePoolLiquidityProvidersData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.poolId = reader.uint64() as Long;
+          break;
+        case 2:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.bondedLockIds.push(reader.uint64() as Long);
+            }
+          } else {
+            message.bondedLockIds.push(reader.uint64() as Long);
+          }
+          break;
+        case 3:
+          const entry3 =
+            PoolLiquidityProvidersData_LiquidityProvidersEntry.decode(
+              reader,
+              reader.uint32()
+            );
+          if (entry3.value !== undefined) {
+            message.liquidityProviders[entry3.key] = entry3.value;
+          }
+          break;
+        case 4:
+          message.queuedLiquidityProviders.push(
+            QueuedLiquidityProvider.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): PoolLiquidityProvidersData {
+    return {
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
+      bondedLockIds: Array.isArray(object?.bondedLockIds)
+        ? object.bondedLockIds.map((e: any) => Long.fromString(e))
+        : [],
+      liquidityProviders: isObject(object.liquidityProviders)
+        ? Object.entries(object.liquidityProviders).reduce<{
+            [key: string]: DepositsMade;
+          }>((acc, [key, value]) => {
+            acc[key] = DepositsMade.fromJSON(value);
+            return acc;
+          }, {})
+        : {},
+      queuedLiquidityProviders: Array.isArray(object?.queuedLiquidityProviders)
+        ? object.queuedLiquidityProviders.map((e: any) =>
+            QueuedLiquidityProvider.fromJSON(e)
+          )
+        : [],
+    };
+  },
+
+  toJSON(message: PoolLiquidityProvidersData): unknown {
+    const obj: any = {};
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    if (message.bondedLockIds) {
+      obj.bondedLockIds = message.bondedLockIds.map((e) =>
+        (e || Long.UZERO).toString()
+      );
+    } else {
+      obj.bondedLockIds = [];
+    }
+    obj.liquidityProviders = {};
+    if (message.liquidityProviders) {
+      Object.entries(message.liquidityProviders).forEach(([k, v]) => {
+        obj.liquidityProviders[k] = DepositsMade.toJSON(v);
+      });
+    }
+    if (message.queuedLiquidityProviders) {
+      obj.queuedLiquidityProviders = message.queuedLiquidityProviders.map((e) =>
+        e ? QueuedLiquidityProvider.toJSON(e) : undefined
+      );
+    } else {
+      obj.queuedLiquidityProviders = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<PoolLiquidityProvidersData>, I>>(
+    object: I
+  ): PoolLiquidityProvidersData {
+    const message = createBasePoolLiquidityProvidersData();
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    message.bondedLockIds =
+      object.bondedLockIds?.map((e) => Long.fromValue(e)) || [];
+    message.liquidityProviders = Object.entries(
+      object.liquidityProviders ?? {}
+    ).reduce<{ [key: string]: DepositsMade }>((acc, [key, value]) => {
+      if (value !== undefined) {
+        acc[key] = DepositsMade.fromPartial(value);
+      }
+      return acc;
+    }, {});
+    message.queuedLiquidityProviders =
+      object.queuedLiquidityProviders?.map((e) =>
+        QueuedLiquidityProvider.fromPartial(e)
+      ) || [];
+    return message;
+  },
+};
+
+function createBasePoolLiquidityProvidersData_LiquidityProvidersEntry(): PoolLiquidityProvidersData_LiquidityProvidersEntry {
+  return { key: "", value: undefined };
+}
+
+export const PoolLiquidityProvidersData_LiquidityProvidersEntry = {
+  encode(
+    message: PoolLiquidityProvidersData_LiquidityProvidersEntry,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.key !== "") {
+      writer.uint32(10).string(message.key);
+    }
+    if (message.value !== undefined) {
+      DepositsMade.encode(message.value, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): PoolLiquidityProvidersData_LiquidityProvidersEntry {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message =
+      createBasePoolLiquidityProvidersData_LiquidityProvidersEntry();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.key = reader.string();
+          break;
+        case 2:
+          message.value = DepositsMade.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): PoolLiquidityProvidersData_LiquidityProvidersEntry {
+    return {
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value)
+        ? DepositsMade.fromJSON(object.value)
+        : undefined,
+    };
+  },
+
+  toJSON(message: PoolLiquidityProvidersData_LiquidityProvidersEntry): unknown {
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
+    message.value !== undefined &&
+      (obj.value = message.value
+        ? DepositsMade.toJSON(message.value)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<
+      DeepPartial<PoolLiquidityProvidersData_LiquidityProvidersEntry>,
+      I
+    >
+  >(object: I): PoolLiquidityProvidersData_LiquidityProvidersEntry {
+    const message =
+      createBasePoolLiquidityProvidersData_LiquidityProvidersEntry();
+    message.key = object.key ?? "";
+    message.value =
+      object.value !== undefined && object.value !== null
+        ? DepositsMade.fromPartial(object.value)
+        : undefined;
+    return message;
+  },
+};
+
 type Builtin =
   | Date
   | Function
@@ -1475,6 +1885,10 @@ function numberToLong(number: number) {
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isObject(value: any): boolean {
+  return typeof value === "object" && value !== null;
 }
 
 function isSet(value: any): boolean {
