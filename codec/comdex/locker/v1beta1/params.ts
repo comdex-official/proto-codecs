@@ -2,24 +2,16 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 
-export const protobufPackage = "comdex.asset.v1beta1";
+export const protobufPackage = "comdex.locker.v1beta1";
 
-export interface Params {
-  admin: string;
-}
+export interface Params {}
 
 function createBaseParams(): Params {
-  return { admin: "" };
+  return {};
 }
 
 export const Params = {
-  encode(
-    message: Params,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.admin !== "") {
-      writer.uint32(10).string(message.admin);
-    }
+  encode(_: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -30,9 +22,6 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.admin = reader.string();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -41,21 +30,17 @@ export const Params = {
     return message;
   },
 
-  fromJSON(object: any): Params {
-    return {
-      admin: isSet(object.admin) ? String(object.admin) : "",
-    };
+  fromJSON(_: any): Params {
+    return {};
   },
 
-  toJSON(message: Params): unknown {
+  toJSON(_: Params): unknown {
     const obj: any = {};
-    message.admin !== undefined && (obj.admin = message.admin);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(_: I): Params {
     const message = createBaseParams();
-    message.admin = object.admin ?? "";
     return message;
   },
 };
@@ -92,8 +77,4 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
 }

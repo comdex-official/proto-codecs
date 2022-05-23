@@ -1,37 +1,38 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
+import { Vault } from "./comdex/vault/v1beta1/vault";
 
-export const protobufPackage = "comdex.asset.v1beta1";
+export const protobufPackage = "comdex.vault.v1beta1";
 
-export interface Params {
-  admin: string;
+export interface GenesisState {
+  vaults: Vault[];
 }
 
-function createBaseParams(): Params {
-  return { admin: "" };
+function createBaseGenesisState(): GenesisState {
+  return { vaults: [] };
 }
 
-export const Params = {
+export const GenesisState = {
   encode(
-    message: Params,
+    message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.admin !== "") {
-      writer.uint32(10).string(message.admin);
+    for (const v of message.vaults) {
+      Vault.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): Params {
+  decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseParams();
+    const message = createBaseGenesisState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.admin = reader.string();
+          message.vaults.push(Vault.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -41,21 +42,29 @@ export const Params = {
     return message;
   },
 
-  fromJSON(object: any): Params {
+  fromJSON(object: any): GenesisState {
     return {
-      admin: isSet(object.admin) ? String(object.admin) : "",
+      vaults: Array.isArray(object?.vaults)
+        ? object.vaults.map((e: any) => Vault.fromJSON(e))
+        : [],
     };
   },
 
-  toJSON(message: Params): unknown {
+  toJSON(message: GenesisState): unknown {
     const obj: any = {};
-    message.admin !== undefined && (obj.admin = message.admin);
+    if (message.vaults) {
+      obj.vaults = message.vaults.map((e) => (e ? Vault.toJSON(e) : undefined));
+    } else {
+      obj.vaults = [];
+    }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
-    const message = createBaseParams();
-    message.admin = object.admin ?? "";
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
+    object: I
+  ): GenesisState {
+    const message = createBaseGenesisState();
+    message.vaults = object.vaults?.map((e) => Vault.fromPartial(e)) || [];
     return message;
   },
 };
@@ -92,8 +101,4 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
 }

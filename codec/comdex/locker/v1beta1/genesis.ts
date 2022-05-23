@@ -1,37 +1,45 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
+import { Params } from "./comdex/locker/v1beta1/params";
 
-export const protobufPackage = "comdex.asset.v1beta1";
+export const protobufPackage = "comdex.locker.v1beta1";
 
-export interface Params {
-  admin: string;
+export interface GenesisState {
+  /**
+   * repeated Locker lockers = 1 [
+   *   (gogoproto.customname) = "Lockers",
+   *   (gogoproto.moretags)   = "yaml:\"lockers\"",
+   *   (gogoproto.nullable)   = false
+   * ];
+   */
+  params?: Params;
 }
 
-function createBaseParams(): Params {
-  return { admin: "" };
+function createBaseGenesisState(): GenesisState {
+  return { params: undefined };
 }
 
-export const Params = {
+export const GenesisState = {
   encode(
-    message: Params,
+    message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.admin !== "") {
-      writer.uint32(10).string(message.admin);
+    if (message.params !== undefined) {
+      Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): Params {
+  decode(input: _m0.Reader | Uint8Array, length?: number): GenesisState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseParams();
+    const message = createBaseGenesisState();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.admin = reader.string();
+          message.params = Params.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -41,21 +49,27 @@ export const Params = {
     return message;
   },
 
-  fromJSON(object: any): Params {
+  fromJSON(object: any): GenesisState {
     return {
-      admin: isSet(object.admin) ? String(object.admin) : "",
+      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
 
-  toJSON(message: Params): unknown {
+  toJSON(message: GenesisState): unknown {
     const obj: any = {};
-    message.admin !== undefined && (obj.admin = message.admin);
+    message.params !== undefined &&
+      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
-    const message = createBaseParams();
-    message.admin = object.admin ?? "";
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
+    object: I
+  ): GenesisState {
+    const message = createBaseGenesisState();
+    message.params =
+      object.params !== undefined && object.params !== null
+        ? Params.fromPartial(object.params)
+        : undefined;
     return message;
   },
 };

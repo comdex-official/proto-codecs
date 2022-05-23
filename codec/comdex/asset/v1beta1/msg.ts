@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -27,25 +27,13 @@ export interface MsgAddPairRequest {
   from: string;
   assetIn: Long;
   assetOut: Long;
-  liquidationRatio: string;
 }
 
 export interface MsgAddPairResponse {}
 
-export interface MsgUpdatePairRequest {
-  from: string;
-  id: Long;
-  liquidationRatio: string;
+function createBaseMsgAddAssetRequest(): MsgAddAssetRequest {
+  return { from: "", name: "", denom: "", decimals: Long.ZERO };
 }
-
-export interface MsgUpdatePairResponse {}
-
-const baseMsgAddAssetRequest: object = {
-  from: "",
-  name: "",
-  denom: "",
-  decimals: Long.ZERO,
-};
 
 export const MsgAddAssetRequest = {
   encode(
@@ -70,7 +58,7 @@ export const MsgAddAssetRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddAssetRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgAddAssetRequest } as MsgAddAssetRequest;
+    const message = createBaseMsgAddAssetRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -95,28 +83,14 @@ export const MsgAddAssetRequest = {
   },
 
   fromJSON(object: any): MsgAddAssetRequest {
-    const message = { ...baseMsgAddAssetRequest } as MsgAddAssetRequest;
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
-    } else {
-      message.from = "";
-    }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = String(object.name);
-    } else {
-      message.name = "";
-    }
-    if (object.denom !== undefined && object.denom !== null) {
-      message.denom = String(object.denom);
-    } else {
-      message.denom = "";
-    }
-    if (object.decimals !== undefined && object.decimals !== null) {
-      message.decimals = Long.fromString(object.decimals);
-    } else {
-      message.decimals = Long.ZERO;
-    }
-    return message;
+    return {
+      from: isSet(object.from) ? String(object.from) : "",
+      name: isSet(object.name) ? String(object.name) : "",
+      denom: isSet(object.denom) ? String(object.denom) : "",
+      decimals: isSet(object.decimals)
+        ? Long.fromValue(object.decimals)
+        : Long.ZERO,
+    };
   },
 
   toJSON(message: MsgAddAssetRequest): unknown {
@@ -129,33 +103,24 @@ export const MsgAddAssetRequest = {
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgAddAssetRequest>): MsgAddAssetRequest {
-    const message = { ...baseMsgAddAssetRequest } as MsgAddAssetRequest;
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
-    } else {
-      message.from = "";
-    }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    } else {
-      message.name = "";
-    }
-    if (object.denom !== undefined && object.denom !== null) {
-      message.denom = object.denom;
-    } else {
-      message.denom = "";
-    }
-    if (object.decimals !== undefined && object.decimals !== null) {
-      message.decimals = object.decimals as Long;
-    } else {
-      message.decimals = Long.ZERO;
-    }
+  fromPartial<I extends Exact<DeepPartial<MsgAddAssetRequest>, I>>(
+    object: I
+  ): MsgAddAssetRequest {
+    const message = createBaseMsgAddAssetRequest();
+    message.from = object.from ?? "";
+    message.name = object.name ?? "";
+    message.denom = object.denom ?? "";
+    message.decimals =
+      object.decimals !== undefined && object.decimals !== null
+        ? Long.fromValue(object.decimals)
+        : Long.ZERO;
     return message;
   },
 };
 
-const baseMsgAddAssetResponse: object = {};
+function createBaseMsgAddAssetResponse(): MsgAddAssetResponse {
+  return {};
+}
 
 export const MsgAddAssetResponse = {
   encode(
@@ -168,7 +133,7 @@ export const MsgAddAssetResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgAddAssetResponse } as MsgAddAssetResponse;
+    const message = createBaseMsgAddAssetResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -181,8 +146,7 @@ export const MsgAddAssetResponse = {
   },
 
   fromJSON(_: any): MsgAddAssetResponse {
-    const message = { ...baseMsgAddAssetResponse } as MsgAddAssetResponse;
-    return message;
+    return {};
   },
 
   toJSON(_: MsgAddAssetResponse): unknown {
@@ -190,19 +154,17 @@ export const MsgAddAssetResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgAddAssetResponse>): MsgAddAssetResponse {
-    const message = { ...baseMsgAddAssetResponse } as MsgAddAssetResponse;
+  fromPartial<I extends Exact<DeepPartial<MsgAddAssetResponse>, I>>(
+    _: I
+  ): MsgAddAssetResponse {
+    const message = createBaseMsgAddAssetResponse();
     return message;
   },
 };
 
-const baseMsgUpdateAssetRequest: object = {
-  from: "",
-  id: Long.UZERO,
-  name: "",
-  denom: "",
-  decimals: Long.ZERO,
-};
+function createBaseMsgUpdateAssetRequest(): MsgUpdateAssetRequest {
+  return { from: "", id: Long.UZERO, name: "", denom: "", decimals: Long.ZERO };
+}
 
 export const MsgUpdateAssetRequest = {
   encode(
@@ -233,7 +195,7 @@ export const MsgUpdateAssetRequest = {
   ): MsgUpdateAssetRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgUpdateAssetRequest } as MsgUpdateAssetRequest;
+    const message = createBaseMsgUpdateAssetRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -261,33 +223,15 @@ export const MsgUpdateAssetRequest = {
   },
 
   fromJSON(object: any): MsgUpdateAssetRequest {
-    const message = { ...baseMsgUpdateAssetRequest } as MsgUpdateAssetRequest;
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
-    } else {
-      message.from = "";
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Long.fromString(object.id);
-    } else {
-      message.id = Long.UZERO;
-    }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = String(object.name);
-    } else {
-      message.name = "";
-    }
-    if (object.denom !== undefined && object.denom !== null) {
-      message.denom = String(object.denom);
-    } else {
-      message.denom = "";
-    }
-    if (object.decimals !== undefined && object.decimals !== null) {
-      message.decimals = Long.fromString(object.decimals);
-    } else {
-      message.decimals = Long.ZERO;
-    }
-    return message;
+    return {
+      from: isSet(object.from) ? String(object.from) : "",
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      name: isSet(object.name) ? String(object.name) : "",
+      denom: isSet(object.denom) ? String(object.denom) : "",
+      decimals: isSet(object.decimals)
+        ? Long.fromValue(object.decimals)
+        : Long.ZERO,
+    };
   },
 
   toJSON(message: MsgUpdateAssetRequest): unknown {
@@ -302,40 +246,28 @@ export const MsgUpdateAssetRequest = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<MsgUpdateAssetRequest>
+  fromPartial<I extends Exact<DeepPartial<MsgUpdateAssetRequest>, I>>(
+    object: I
   ): MsgUpdateAssetRequest {
-    const message = { ...baseMsgUpdateAssetRequest } as MsgUpdateAssetRequest;
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
-    } else {
-      message.from = "";
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id as Long;
-    } else {
-      message.id = Long.UZERO;
-    }
-    if (object.name !== undefined && object.name !== null) {
-      message.name = object.name;
-    } else {
-      message.name = "";
-    }
-    if (object.denom !== undefined && object.denom !== null) {
-      message.denom = object.denom;
-    } else {
-      message.denom = "";
-    }
-    if (object.decimals !== undefined && object.decimals !== null) {
-      message.decimals = object.decimals as Long;
-    } else {
-      message.decimals = Long.ZERO;
-    }
+    const message = createBaseMsgUpdateAssetRequest();
+    message.from = object.from ?? "";
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO;
+    message.name = object.name ?? "";
+    message.denom = object.denom ?? "";
+    message.decimals =
+      object.decimals !== undefined && object.decimals !== null
+        ? Long.fromValue(object.decimals)
+        : Long.ZERO;
     return message;
   },
 };
 
-const baseMsgUpdateAssetResponse: object = {};
+function createBaseMsgUpdateAssetResponse(): MsgUpdateAssetResponse {
+  return {};
+}
 
 export const MsgUpdateAssetResponse = {
   encode(
@@ -351,7 +283,7 @@ export const MsgUpdateAssetResponse = {
   ): MsgUpdateAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgUpdateAssetResponse } as MsgUpdateAssetResponse;
+    const message = createBaseMsgUpdateAssetResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -364,8 +296,7 @@ export const MsgUpdateAssetResponse = {
   },
 
   fromJSON(_: any): MsgUpdateAssetResponse {
-    const message = { ...baseMsgUpdateAssetResponse } as MsgUpdateAssetResponse;
-    return message;
+    return {};
   },
 
   toJSON(_: MsgUpdateAssetResponse): unknown {
@@ -373,18 +304,17 @@ export const MsgUpdateAssetResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgUpdateAssetResponse>): MsgUpdateAssetResponse {
-    const message = { ...baseMsgUpdateAssetResponse } as MsgUpdateAssetResponse;
+  fromPartial<I extends Exact<DeepPartial<MsgUpdateAssetResponse>, I>>(
+    _: I
+  ): MsgUpdateAssetResponse {
+    const message = createBaseMsgUpdateAssetResponse();
     return message;
   },
 };
 
-const baseMsgAddPairRequest: object = {
-  from: "",
-  assetIn: Long.UZERO,
-  assetOut: Long.UZERO,
-  liquidationRatio: "",
-};
+function createBaseMsgAddPairRequest(): MsgAddPairRequest {
+  return { from: "", assetIn: Long.UZERO, assetOut: Long.UZERO };
+}
 
 export const MsgAddPairRequest = {
   encode(
@@ -400,16 +330,13 @@ export const MsgAddPairRequest = {
     if (!message.assetOut.isZero()) {
       writer.uint32(24).uint64(message.assetOut);
     }
-    if (message.liquidationRatio !== "") {
-      writer.uint32(34).string(message.liquidationRatio);
-    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddPairRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgAddPairRequest } as MsgAddPairRequest;
+    const message = createBaseMsgAddPairRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -422,9 +349,6 @@ export const MsgAddPairRequest = {
         case 3:
           message.assetOut = reader.uint64() as Long;
           break;
-        case 4:
-          message.liquidationRatio = reader.string();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -434,31 +358,15 @@ export const MsgAddPairRequest = {
   },
 
   fromJSON(object: any): MsgAddPairRequest {
-    const message = { ...baseMsgAddPairRequest } as MsgAddPairRequest;
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
-    } else {
-      message.from = "";
-    }
-    if (object.assetIn !== undefined && object.assetIn !== null) {
-      message.assetIn = Long.fromString(object.assetIn);
-    } else {
-      message.assetIn = Long.UZERO;
-    }
-    if (object.assetOut !== undefined && object.assetOut !== null) {
-      message.assetOut = Long.fromString(object.assetOut);
-    } else {
-      message.assetOut = Long.UZERO;
-    }
-    if (
-      object.liquidationRatio !== undefined &&
-      object.liquidationRatio !== null
-    ) {
-      message.liquidationRatio = String(object.liquidationRatio);
-    } else {
-      message.liquidationRatio = "";
-    }
-    return message;
+    return {
+      from: isSet(object.from) ? String(object.from) : "",
+      assetIn: isSet(object.assetIn)
+        ? Long.fromValue(object.assetIn)
+        : Long.UZERO,
+      assetOut: isSet(object.assetOut)
+        ? Long.fromValue(object.assetOut)
+        : Long.UZERO,
+    };
   },
 
   toJSON(message: MsgAddPairRequest): unknown {
@@ -468,41 +376,29 @@ export const MsgAddPairRequest = {
       (obj.assetIn = (message.assetIn || Long.UZERO).toString());
     message.assetOut !== undefined &&
       (obj.assetOut = (message.assetOut || Long.UZERO).toString());
-    message.liquidationRatio !== undefined &&
-      (obj.liquidationRatio = message.liquidationRatio);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgAddPairRequest>): MsgAddPairRequest {
-    const message = { ...baseMsgAddPairRequest } as MsgAddPairRequest;
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
-    } else {
-      message.from = "";
-    }
-    if (object.assetIn !== undefined && object.assetIn !== null) {
-      message.assetIn = object.assetIn as Long;
-    } else {
-      message.assetIn = Long.UZERO;
-    }
-    if (object.assetOut !== undefined && object.assetOut !== null) {
-      message.assetOut = object.assetOut as Long;
-    } else {
-      message.assetOut = Long.UZERO;
-    }
-    if (
-      object.liquidationRatio !== undefined &&
-      object.liquidationRatio !== null
-    ) {
-      message.liquidationRatio = object.liquidationRatio;
-    } else {
-      message.liquidationRatio = "";
-    }
+  fromPartial<I extends Exact<DeepPartial<MsgAddPairRequest>, I>>(
+    object: I
+  ): MsgAddPairRequest {
+    const message = createBaseMsgAddPairRequest();
+    message.from = object.from ?? "";
+    message.assetIn =
+      object.assetIn !== undefined && object.assetIn !== null
+        ? Long.fromValue(object.assetIn)
+        : Long.UZERO;
+    message.assetOut =
+      object.assetOut !== undefined && object.assetOut !== null
+        ? Long.fromValue(object.assetOut)
+        : Long.UZERO;
     return message;
   },
 };
 
-const baseMsgAddPairResponse: object = {};
+function createBaseMsgAddPairResponse(): MsgAddPairResponse {
+  return {};
+}
 
 export const MsgAddPairResponse = {
   encode(
@@ -515,7 +411,7 @@ export const MsgAddPairResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddPairResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgAddPairResponse } as MsgAddPairResponse;
+    const message = createBaseMsgAddPairResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -528,8 +424,7 @@ export const MsgAddPairResponse = {
   },
 
   fromJSON(_: any): MsgAddPairResponse {
-    const message = { ...baseMsgAddPairResponse } as MsgAddPairResponse;
-    return message;
+    return {};
   },
 
   toJSON(_: MsgAddPairResponse): unknown {
@@ -537,159 +432,10 @@ export const MsgAddPairResponse = {
     return obj;
   },
 
-  fromPartial(_: DeepPartial<MsgAddPairResponse>): MsgAddPairResponse {
-    const message = { ...baseMsgAddPairResponse } as MsgAddPairResponse;
-    return message;
-  },
-};
-
-const baseMsgUpdatePairRequest: object = {
-  from: "",
-  id: Long.UZERO,
-  liquidationRatio: "",
-};
-
-export const MsgUpdatePairRequest = {
-  encode(
-    message: MsgUpdatePairRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.from !== "") {
-      writer.uint32(10).string(message.from);
-    }
-    if (!message.id.isZero()) {
-      writer.uint32(16).uint64(message.id);
-    }
-    if (message.liquidationRatio !== "") {
-      writer.uint32(26).string(message.liquidationRatio);
-    }
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgUpdatePairRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgUpdatePairRequest } as MsgUpdatePairRequest;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.from = reader.string();
-          break;
-        case 2:
-          message.id = reader.uint64() as Long;
-          break;
-        case 3:
-          message.liquidationRatio = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgUpdatePairRequest {
-    const message = { ...baseMsgUpdatePairRequest } as MsgUpdatePairRequest;
-    if (object.from !== undefined && object.from !== null) {
-      message.from = String(object.from);
-    } else {
-      message.from = "";
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Long.fromString(object.id);
-    } else {
-      message.id = Long.UZERO;
-    }
-    if (
-      object.liquidationRatio !== undefined &&
-      object.liquidationRatio !== null
-    ) {
-      message.liquidationRatio = String(object.liquidationRatio);
-    } else {
-      message.liquidationRatio = "";
-    }
-    return message;
-  },
-
-  toJSON(message: MsgUpdatePairRequest): unknown {
-    const obj: any = {};
-    message.from !== undefined && (obj.from = message.from);
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.liquidationRatio !== undefined &&
-      (obj.liquidationRatio = message.liquidationRatio);
-    return obj;
-  },
-
-  fromPartial(object: DeepPartial<MsgUpdatePairRequest>): MsgUpdatePairRequest {
-    const message = { ...baseMsgUpdatePairRequest } as MsgUpdatePairRequest;
-    if (object.from !== undefined && object.from !== null) {
-      message.from = object.from;
-    } else {
-      message.from = "";
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id as Long;
-    } else {
-      message.id = Long.UZERO;
-    }
-    if (
-      object.liquidationRatio !== undefined &&
-      object.liquidationRatio !== null
-    ) {
-      message.liquidationRatio = object.liquidationRatio;
-    } else {
-      message.liquidationRatio = "";
-    }
-    return message;
-  },
-};
-
-const baseMsgUpdatePairResponse: object = {};
-
-export const MsgUpdatePairResponse = {
-  encode(
-    _: MsgUpdatePairResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgUpdatePairResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgUpdatePairResponse } as MsgUpdatePairResponse;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(_: any): MsgUpdatePairResponse {
-    const message = { ...baseMsgUpdatePairResponse } as MsgUpdatePairResponse;
-    return message;
-  },
-
-  toJSON(_: MsgUpdatePairResponse): unknown {
-    const obj: any = {};
-    return obj;
-  },
-
-  fromPartial(_: DeepPartial<MsgUpdatePairResponse>): MsgUpdatePairResponse {
-    const message = { ...baseMsgUpdatePairResponse } as MsgUpdatePairResponse;
+  fromPartial<I extends Exact<DeepPartial<MsgAddPairResponse>, I>>(
+    _: I
+  ): MsgAddPairResponse {
+    const message = createBaseMsgAddPairResponse();
     return message;
   },
 };
@@ -700,7 +446,6 @@ export interface MsgService {
     request: MsgUpdateAssetRequest
   ): Promise<MsgUpdateAssetResponse>;
   MsgAddPair(request: MsgAddPairRequest): Promise<MsgAddPairResponse>;
-  MsgUpdatePair(request: MsgUpdatePairRequest): Promise<MsgUpdatePairResponse>;
 }
 
 export class MsgServiceClientImpl implements MsgService {
@@ -710,7 +455,6 @@ export class MsgServiceClientImpl implements MsgService {
     this.MsgAddAsset = this.MsgAddAsset.bind(this);
     this.MsgUpdateAsset = this.MsgUpdateAsset.bind(this);
     this.MsgAddPair = this.MsgAddPair.bind(this);
-    this.MsgUpdatePair = this.MsgUpdatePair.bind(this);
   }
   MsgAddAsset(request: MsgAddAssetRequest): Promise<MsgAddAssetResponse> {
     const data = MsgAddAssetRequest.encode(request).finish();
@@ -749,18 +493,6 @@ export class MsgServiceClientImpl implements MsgService {
       MsgAddPairResponse.decode(new _m0.Reader(data))
     );
   }
-
-  MsgUpdatePair(request: MsgUpdatePairRequest): Promise<MsgUpdatePairResponse> {
-    const data = MsgUpdatePairRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.asset.v1beta1.MsgService",
-      "MsgUpdatePair",
-      data
-    );
-    return promise.then((data) =>
-      MsgUpdatePairResponse.decode(new _m0.Reader(data))
-    );
-  }
 }
 
 interface Rpc {
@@ -778,10 +510,12 @@ type Builtin =
   | string
   | number
   | boolean
-  | undefined
-  | Long;
+  | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
+  : T extends Long
+  ? string | number | Long
   : T extends Array<infer U>
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
@@ -790,7 +524,19 @@ export type DeepPartial<T> = T extends Builtin
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
+        Exclude<keyof I, KeysOfUnion<P>>,
+        never
+      >;
+
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }
