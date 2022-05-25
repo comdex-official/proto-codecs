@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryPoolIncentivesResponse = exports.PoolIncentive = exports.QueryPoolsIncentivesRequest = exports.QueryDeserializePoolCoinResponse = exports.QueryDeserializePoolCoinRequest = exports.QuerySoftLockResponse = exports.QueuedPoolCoin = exports.QuerySoftLockRequest = exports.PoolResponse = exports.QueryOrdersByOrdererRequest = exports.QueryOrderResponse = exports.QueryOrderRequest = exports.QueryOrdersResponse = exports.QueryOrdersRequest = exports.QueryWithdrawRequestResponse = exports.QueryWithdrawRequestRequest = exports.QueryWithdrawRequestsResponse = exports.QueryWithdrawRequestsRequest = exports.QueryDepositRequestResponse = exports.QueryDepositRequestRequest = exports.QueryDepositRequestsResponse = exports.QueryDepositRequestsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryPoolByPoolCoinDenomRequest = exports.QueryPoolByReserveAddressRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryFarmedPoolCoinResponse = exports.QueryFarmedPoolCoinRequest = exports.QueryPoolIncentivesResponse = exports.PoolIncentive = exports.QueryPoolsIncentivesRequest = exports.QueryDeserializePoolCoinResponse = exports.QueryDeserializePoolCoinRequest = exports.QuerySoftLockResponse = exports.QueuedPoolCoin = exports.QuerySoftLockRequest = exports.PoolResponse = exports.QueryOrdersByOrdererRequest = exports.QueryOrderResponse = exports.QueryOrderRequest = exports.QueryOrdersResponse = exports.QueryOrdersRequest = exports.QueryWithdrawRequestResponse = exports.QueryWithdrawRequestRequest = exports.QueryWithdrawRequestsResponse = exports.QueryWithdrawRequestsRequest = exports.QueryDepositRequestResponse = exports.QueryDepositRequestRequest = exports.QueryDepositRequestsResponse = exports.QueryDepositRequestsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryPoolByPoolCoinDenomRequest = exports.QueryPoolByReserveAddressRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -2199,6 +2199,102 @@ exports.QueryPoolIncentivesResponse = {
         return message;
     },
 };
+function createBaseQueryFarmedPoolCoinRequest() {
+    return { poolId: long_1.default.UZERO };
+}
+exports.QueryFarmedPoolCoinRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.poolId.isZero()) {
+            writer.uint32(8).uint64(message.poolId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryFarmedPoolCoinRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.poolId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryFarmedPoolCoinRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryFarmedPoolCoinResponse() {
+    return { coin: undefined };
+}
+exports.QueryFarmedPoolCoinResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.coin !== undefined) {
+            coin_1.Coin.encode(message.coin, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryFarmedPoolCoinResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.coin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            coin: isSet(object.coin) ? coin_1.Coin.fromJSON(object.coin) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.coin !== undefined &&
+            (obj.coin = message.coin ? coin_1.Coin.toJSON(message.coin) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryFarmedPoolCoinResponse();
+        message.coin =
+            object.coin !== undefined && object.coin !== null
+                ? coin_1.Coin.fromPartial(object.coin)
+                : undefined;
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2219,6 +2315,7 @@ class QueryClientImpl {
         this.SoftLock = this.SoftLock.bind(this);
         this.DeserializePoolCoin = this.DeserializePoolCoin.bind(this);
         this.PoolIncentives = this.PoolIncentives.bind(this);
+        this.FarmedPoolCoin = this.FarmedPoolCoin.bind(this);
     }
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
@@ -2304,6 +2401,11 @@ class QueryClientImpl {
         const data = exports.QueryPoolsIncentivesRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolIncentives", data);
         return promise.then((data) => exports.QueryPoolIncentivesResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    FarmedPoolCoin(request) {
+        const data = exports.QueryFarmedPoolCoinRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "FarmedPoolCoin", data);
+        return promise.then((data) => exports.QueryFarmedPoolCoinResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
