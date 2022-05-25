@@ -212,7 +212,7 @@ function createBaseParams() {
         batchSize: 0,
         tickPrecision: 0,
         feeCollectorAddress: "",
-        dustCollectorAddress: "",
+        swapFeeCollectorAddress: "",
         minInitialPoolCoinSupply: "",
         pairCreationFee: [],
         poolCreationFee: [],
@@ -237,8 +237,8 @@ exports.Params = {
         if (message.feeCollectorAddress !== "") {
             writer.uint32(26).string(message.feeCollectorAddress);
         }
-        if (message.dustCollectorAddress !== "") {
-            writer.uint32(34).string(message.dustCollectorAddress);
+        if (message.swapFeeCollectorAddress !== "") {
+            writer.uint32(34).string(message.swapFeeCollectorAddress);
         }
         if (message.minInitialPoolCoinSupply !== "") {
             writer.uint32(42).string(message.minInitialPoolCoinSupply);
@@ -292,7 +292,7 @@ exports.Params = {
                     message.feeCollectorAddress = reader.string();
                     break;
                 case 4:
-                    message.dustCollectorAddress = reader.string();
+                    message.swapFeeCollectorAddress = reader.string();
                     break;
                 case 5:
                     message.minInitialPoolCoinSupply = reader.string();
@@ -343,8 +343,8 @@ exports.Params = {
             feeCollectorAddress: isSet(object.feeCollectorAddress)
                 ? String(object.feeCollectorAddress)
                 : "",
-            dustCollectorAddress: isSet(object.dustCollectorAddress)
-                ? String(object.dustCollectorAddress)
+            swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
+                ? String(object.swapFeeCollectorAddress)
                 : "",
             minInitialPoolCoinSupply: isSet(object.minInitialPoolCoinSupply)
                 ? String(object.minInitialPoolCoinSupply)
@@ -387,8 +387,8 @@ exports.Params = {
             (obj.tickPrecision = Math.round(message.tickPrecision));
         message.feeCollectorAddress !== undefined &&
             (obj.feeCollectorAddress = message.feeCollectorAddress);
-        message.dustCollectorAddress !== undefined &&
-            (obj.dustCollectorAddress = message.dustCollectorAddress);
+        message.swapFeeCollectorAddress !== undefined &&
+            (obj.swapFeeCollectorAddress = message.swapFeeCollectorAddress);
         message.minInitialPoolCoinSupply !== undefined &&
             (obj.minInitialPoolCoinSupply = message.minInitialPoolCoinSupply);
         if (message.pairCreationFee) {
@@ -429,7 +429,7 @@ exports.Params = {
         message.batchSize = (_a = object.batchSize) !== null && _a !== void 0 ? _a : 0;
         message.tickPrecision = (_b = object.tickPrecision) !== null && _b !== void 0 ? _b : 0;
         message.feeCollectorAddress = (_c = object.feeCollectorAddress) !== null && _c !== void 0 ? _c : "";
-        message.dustCollectorAddress = (_d = object.dustCollectorAddress) !== null && _d !== void 0 ? _d : "";
+        message.swapFeeCollectorAddress = (_d = object.swapFeeCollectorAddress) !== null && _d !== void 0 ? _d : "";
         message.minInitialPoolCoinSupply = (_e = object.minInitialPoolCoinSupply) !== null && _e !== void 0 ? _e : "";
         message.pairCreationFee =
             ((_f = object.pairCreationFee) === null || _f === void 0 ? void 0 : _f.map((e) => coin_1.Coin.fromPartial(e))) || [];

@@ -64,7 +64,7 @@ export interface Params {
     batchSize: number;
     tickPrecision: number;
     feeCollectorAddress: string;
-    dustCollectorAddress: string;
+    swapFeeCollectorAddress: string;
     minInitialPoolCoinSupply: string;
     pairCreationFee: Coin[];
     poolCreationFee: Coin[];
@@ -185,7 +185,7 @@ export declare const Params: {
         batchSize?: number | undefined;
         tickPrecision?: number | undefined;
         feeCollectorAddress?: string | undefined;
-        dustCollectorAddress?: string | undefined;
+        swapFeeCollectorAddress?: string | undefined;
         minInitialPoolCoinSupply?: string | undefined;
         pairCreationFee?: {
             denom?: string | undefined;
@@ -210,7 +210,7 @@ export declare const Params: {
         batchSize?: number | undefined;
         tickPrecision?: number | undefined;
         feeCollectorAddress?: string | undefined;
-        dustCollectorAddress?: string | undefined;
+        swapFeeCollectorAddress?: string | undefined;
         minInitialPoolCoinSupply?: string | undefined;
         pairCreationFee?: ({
             denom?: string | undefined;

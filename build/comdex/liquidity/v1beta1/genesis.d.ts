@@ -23,7 +23,7 @@ export declare const GenesisState: {
             batchSize?: number | undefined;
             tickPrecision?: number | undefined;
             feeCollectorAddress?: string | undefined;
-            dustCollectorAddress?: string | undefined;
+            swapFeeCollectorAddress?: string | undefined;
             minInitialPoolCoinSupply?: string | undefined;
             pairCreationFee?: {
                 denom?: string | undefined;
@@ -129,7 +129,7 @@ export declare const GenesisState: {
             batchSize?: number | undefined;
             tickPrecision?: number | undefined;
             feeCollectorAddress?: string | undefined;
-            dustCollectorAddress?: string | undefined;
+            swapFeeCollectorAddress?: string | undefined;
             minInitialPoolCoinSupply?: string | undefined;
             pairCreationFee?: {
                 denom?: string | undefined;
@@ -154,7 +154,7 @@ export declare const GenesisState: {
             batchSize?: number | undefined;
             tickPrecision?: number | undefined;
             feeCollectorAddress?: string | undefined;
-            dustCollectorAddress?: string | undefined;
+            swapFeeCollectorAddress?: string | undefined;
             minInitialPoolCoinSupply?: string | undefined;
             pairCreationFee?: ({
                 denom?: string | undefined;
