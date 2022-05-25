@@ -208,7 +208,7 @@ export interface Params {
   batchSize: number;
   tickPrecision: number;
   feeCollectorAddress: string;
-  dustCollectorAddress: string;
+  swapFeeCollectorAddress: string;
   minInitialPoolCoinSupply: string;
   pairCreationFee: Coin[];
   poolCreationFee: Coin[];
@@ -333,7 +333,7 @@ function createBaseParams(): Params {
     batchSize: 0,
     tickPrecision: 0,
     feeCollectorAddress: "",
-    dustCollectorAddress: "",
+    swapFeeCollectorAddress: "",
     minInitialPoolCoinSupply: "",
     pairCreationFee: [],
     poolCreationFee: [],
@@ -362,8 +362,8 @@ export const Params = {
     if (message.feeCollectorAddress !== "") {
       writer.uint32(26).string(message.feeCollectorAddress);
     }
-    if (message.dustCollectorAddress !== "") {
-      writer.uint32(34).string(message.dustCollectorAddress);
+    if (message.swapFeeCollectorAddress !== "") {
+      writer.uint32(34).string(message.swapFeeCollectorAddress);
     }
     if (message.minInitialPoolCoinSupply !== "") {
       writer.uint32(42).string(message.minInitialPoolCoinSupply);
@@ -421,7 +421,7 @@ export const Params = {
           message.feeCollectorAddress = reader.string();
           break;
         case 4:
-          message.dustCollectorAddress = reader.string();
+          message.swapFeeCollectorAddress = reader.string();
           break;
         case 5:
           message.minInitialPoolCoinSupply = reader.string();
@@ -473,8 +473,8 @@ export const Params = {
       feeCollectorAddress: isSet(object.feeCollectorAddress)
         ? String(object.feeCollectorAddress)
         : "",
-      dustCollectorAddress: isSet(object.dustCollectorAddress)
-        ? String(object.dustCollectorAddress)
+      swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
+        ? String(object.swapFeeCollectorAddress)
         : "",
       minInitialPoolCoinSupply: isSet(object.minInitialPoolCoinSupply)
         ? String(object.minInitialPoolCoinSupply)
@@ -518,8 +518,8 @@ export const Params = {
       (obj.tickPrecision = Math.round(message.tickPrecision));
     message.feeCollectorAddress !== undefined &&
       (obj.feeCollectorAddress = message.feeCollectorAddress);
-    message.dustCollectorAddress !== undefined &&
-      (obj.dustCollectorAddress = message.dustCollectorAddress);
+    message.swapFeeCollectorAddress !== undefined &&
+      (obj.swapFeeCollectorAddress = message.swapFeeCollectorAddress);
     message.minInitialPoolCoinSupply !== undefined &&
       (obj.minInitialPoolCoinSupply = message.minInitialPoolCoinSupply);
     if (message.pairCreationFee) {
@@ -566,7 +566,7 @@ export const Params = {
     message.batchSize = object.batchSize ?? 0;
     message.tickPrecision = object.tickPrecision ?? 0;
     message.feeCollectorAddress = object.feeCollectorAddress ?? "";
-    message.dustCollectorAddress = object.dustCollectorAddress ?? "";
+    message.swapFeeCollectorAddress = object.swapFeeCollectorAddress ?? "";
     message.minInitialPoolCoinSupply = object.minInitialPoolCoinSupply ?? "";
     message.pairCreationFee =
       object.pairCreationFee?.map((e) => Coin.fromPartial(e)) || [];

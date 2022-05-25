@@ -213,6 +213,14 @@ export interface QueryPoolIncentivesResponse {
   poolIncentives: PoolIncentive[];
 }
 
+export interface QueryFarmedPoolCoinRequest {
+  poolId: Long;
+}
+
+export interface QueryFarmedPoolCoinResponse {
+  coin?: Coin;
+}
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -2861,6 +2869,130 @@ export const QueryPoolIncentivesResponse = {
   },
 };
 
+function createBaseQueryFarmedPoolCoinRequest(): QueryFarmedPoolCoinRequest {
+  return { poolId: Long.UZERO };
+}
+
+export const QueryFarmedPoolCoinRequest = {
+  encode(
+    message: QueryFarmedPoolCoinRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.poolId.isZero()) {
+      writer.uint32(8).uint64(message.poolId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryFarmedPoolCoinRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFarmedPoolCoinRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.poolId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryFarmedPoolCoinRequest {
+    return {
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryFarmedPoolCoinRequest): unknown {
+    const obj: any = {};
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFarmedPoolCoinRequest>, I>>(
+    object: I
+  ): QueryFarmedPoolCoinRequest {
+    const message = createBaseQueryFarmedPoolCoinRequest();
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryFarmedPoolCoinResponse(): QueryFarmedPoolCoinResponse {
+  return { coin: undefined };
+}
+
+export const QueryFarmedPoolCoinResponse = {
+  encode(
+    message: QueryFarmedPoolCoinResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.coin !== undefined) {
+      Coin.encode(message.coin, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryFarmedPoolCoinResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFarmedPoolCoinResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.coin = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryFarmedPoolCoinResponse {
+    return {
+      coin: isSet(object.coin) ? Coin.fromJSON(object.coin) : undefined,
+    };
+  },
+
+  toJSON(message: QueryFarmedPoolCoinResponse): unknown {
+    const obj: any = {};
+    message.coin !== undefined &&
+      (obj.coin = message.coin ? Coin.toJSON(message.coin) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFarmedPoolCoinResponse>, I>>(
+    object: I
+  ): QueryFarmedPoolCoinResponse {
+    const message = createBaseQueryFarmedPoolCoinResponse();
+    message.coin =
+      object.coin !== undefined && object.coin !== null
+        ? Coin.fromPartial(object.coin)
+        : undefined;
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Params returns parameters of the module. */
@@ -2915,6 +3047,10 @@ export interface Query {
   PoolIncentives(
     request: QueryPoolsIncentivesRequest
   ): Promise<QueryPoolIncentivesResponse>;
+  /** FarmedPoolCoin returns the total coin in the soft-lock. */
+  FarmedPoolCoin(
+    request: QueryFarmedPoolCoinRequest
+  ): Promise<QueryFarmedPoolCoinResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -2938,6 +3074,7 @@ export class QueryClientImpl implements Query {
     this.SoftLock = this.SoftLock.bind(this);
     this.DeserializePoolCoin = this.DeserializePoolCoin.bind(this);
     this.PoolIncentives = this.PoolIncentives.bind(this);
+    this.FarmedPoolCoin = this.FarmedPoolCoin.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -3158,6 +3295,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryPoolIncentivesResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  FarmedPoolCoin(
+    request: QueryFarmedPoolCoinRequest
+  ): Promise<QueryFarmedPoolCoinResponse> {
+    const data = QueryFarmedPoolCoinRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Query",
+      "FarmedPoolCoin",
+      data
+    );
+    return promise.then((data) =>
+      QueryFarmedPoolCoinResponse.decode(new _m0.Reader(data))
     );
   }
 }
