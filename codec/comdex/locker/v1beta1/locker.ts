@@ -61,6 +61,11 @@ export interface LockerProductAssetMapping {
   assetIds: Long[];
 }
 
+export interface LockedDepositedAmountDataMap {
+  assetId: Long;
+  DepositedAmount: string;
+}
+
 function createBaseLocker(): Locker {
   return {
     lockerId: "",
@@ -711,6 +716,81 @@ export const LockerProductAssetMapping = {
         ? Long.fromValue(object.appMappingId)
         : Long.UZERO;
     message.assetIds = object.assetIds?.map((e) => Long.fromValue(e)) || [];
+    return message;
+  },
+};
+
+function createBaseLockedDepositedAmountDataMap(): LockedDepositedAmountDataMap {
+  return { assetId: Long.UZERO, DepositedAmount: "" };
+}
+
+export const LockedDepositedAmountDataMap = {
+  encode(
+    message: LockedDepositedAmountDataMap,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.assetId.isZero()) {
+      writer.uint32(8).uint64(message.assetId);
+    }
+    if (message.DepositedAmount !== "") {
+      writer.uint32(18).string(message.DepositedAmount);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): LockedDepositedAmountDataMap {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLockedDepositedAmountDataMap();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.DepositedAmount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LockedDepositedAmountDataMap {
+    return {
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+      DepositedAmount: isSet(object.DepositedAmount)
+        ? String(object.DepositedAmount)
+        : "",
+    };
+  },
+
+  toJSON(message: LockedDepositedAmountDataMap): unknown {
+    const obj: any = {};
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.DepositedAmount !== undefined &&
+      (obj.DepositedAmount = message.DepositedAmount);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LockedDepositedAmountDataMap>, I>>(
+    object: I
+  ): LockedDepositedAmountDataMap {
+    const message = createBaseLockedDepositedAmountDataMap();
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    message.DepositedAmount = object.DepositedAmount ?? "";
     return message;
   },
 };

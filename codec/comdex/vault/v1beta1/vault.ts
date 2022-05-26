@@ -48,6 +48,11 @@ export interface ExtendedPairVaultMapping {
   collateralLockedAmount: string;
 }
 
+export interface TvlLockedDataMap {
+  assetId: Long;
+  collateralLockedAmount: string;
+}
+
 export interface StableMintVault {
   id: string;
   amountIn: string;
@@ -658,6 +663,78 @@ export const ExtendedPairVaultMapping = {
         : Long.UZERO;
     message.vaultIds = object.vaultIds?.map((e) => e) || [];
     message.tokenMintedAmount = object.tokenMintedAmount ?? "";
+    message.collateralLockedAmount = object.collateralLockedAmount ?? "";
+    return message;
+  },
+};
+
+function createBaseTvlLockedDataMap(): TvlLockedDataMap {
+  return { assetId: Long.UZERO, collateralLockedAmount: "" };
+}
+
+export const TvlLockedDataMap = {
+  encode(
+    message: TvlLockedDataMap,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.assetId.isZero()) {
+      writer.uint32(8).uint64(message.assetId);
+    }
+    if (message.collateralLockedAmount !== "") {
+      writer.uint32(18).string(message.collateralLockedAmount);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): TvlLockedDataMap {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseTvlLockedDataMap();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.collateralLockedAmount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): TvlLockedDataMap {
+    return {
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+      collateralLockedAmount: isSet(object.collateralLockedAmount)
+        ? String(object.collateralLockedAmount)
+        : "",
+    };
+  },
+
+  toJSON(message: TvlLockedDataMap): unknown {
+    const obj: any = {};
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.collateralLockedAmount !== undefined &&
+      (obj.collateralLockedAmount = message.collateralLockedAmount);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<TvlLockedDataMap>, I>>(
+    object: I
+  ): TvlLockedDataMap {
+    const message = createBaseTvlLockedDataMap();
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
     message.collateralLockedAmount = object.collateralLockedAmount ?? "";
     return message;
   },

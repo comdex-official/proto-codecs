@@ -9,10 +9,17 @@ export interface Asset {
   name: string;
   denom: string;
   decimals: Long;
+  isOnchain: boolean;
 }
 
 function createBaseAsset(): Asset {
-  return { id: Long.UZERO, name: "", denom: "", decimals: Long.ZERO };
+  return {
+    id: Long.UZERO,
+    name: "",
+    denom: "",
+    decimals: Long.ZERO,
+    isOnchain: false,
+  };
 }
 
 export const Asset = {
@@ -28,6 +35,9 @@ export const Asset = {
     }
     if (!message.decimals.isZero()) {
       writer.uint32(32).int64(message.decimals);
+    }
+    if (message.isOnchain === true) {
+      writer.uint32(40).bool(message.isOnchain);
     }
     return writer;
   },
@@ -51,6 +61,9 @@ export const Asset = {
         case 4:
           message.decimals = reader.int64() as Long;
           break;
+        case 5:
+          message.isOnchain = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -67,6 +80,7 @@ export const Asset = {
       decimals: isSet(object.decimals)
         ? Long.fromValue(object.decimals)
         : Long.ZERO,
+      isOnchain: isSet(object.isOnchain) ? Boolean(object.isOnchain) : false,
     };
   },
 
@@ -78,6 +92,7 @@ export const Asset = {
     message.denom !== undefined && (obj.denom = message.denom);
     message.decimals !== undefined &&
       (obj.decimals = (message.decimals || Long.ZERO).toString());
+    message.isOnchain !== undefined && (obj.isOnchain = message.isOnchain);
     return obj;
   },
 
@@ -93,6 +108,7 @@ export const Asset = {
       object.decimals !== undefined && object.decimals !== null
         ? Long.fromValue(object.decimals)
         : Long.ZERO;
+    message.isOnchain = object.isOnchain ?? false;
     return message;
   },
 };

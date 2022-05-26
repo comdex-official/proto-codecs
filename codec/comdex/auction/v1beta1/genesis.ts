@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Params } from "../../../comdex/auction/v1beta1/params";
+import * as _m0 from "protobufjs/minimal";
+import { Params } from "./comdex/auction/v1beta1/params";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 

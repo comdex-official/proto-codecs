@@ -1,7 +1,11 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-import { Locker } from "./comdex/locker/v1beta1/locker";
+import {
+  Locker,
+  TokenToLockerMapping,
+  LockedDepositedAmountDataMap,
+} from "./comdex/locker/v1beta1/locker";
 import { Params } from "./comdex/locker/v1beta1/params";
 import { Asset } from "./comdex/asset/v1beta1/asset";
 
@@ -109,6 +113,31 @@ export interface QueryParamsRequest {}
 
 export interface QueryParamsResponse {
   params?: Params;
+}
+
+export interface QueryLockerLookupTableByAppRequest {
+  appId: Long;
+}
+
+export interface QueryLockerLookupTableByAppResponse {
+  tokenToLockerMapping: TokenToLockerMapping[];
+}
+
+export interface QueryLockerLookupTableByAppAndAssetIdRequest {
+  appId: Long;
+  assetId: Long;
+}
+
+export interface QueryLockerLookupTableByAppAndAssetIdResponse {
+  tokenToLockerMapping?: TokenToLockerMapping;
+}
+
+export interface QueryLockerTotalDepositedByAppRequest {
+  appId: Long;
+}
+
+export interface QueryLockerTotalDepositedByAppResponse {
+  lockedDepositedAmountDataMap: LockedDepositedAmountDataMap[];
 }
 
 function createBaseQueryLockerInfoRequest(): QueryLockerInfoRequest {
@@ -1755,6 +1784,432 @@ export const QueryParamsResponse = {
   },
 };
 
+function createBaseQueryLockerLookupTableByAppRequest(): QueryLockerLookupTableByAppRequest {
+  return { appId: Long.UZERO };
+}
+
+export const QueryLockerLookupTableByAppRequest = {
+  encode(
+    message: QueryLockerLookupTableByAppRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryLockerLookupTableByAppRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryLockerLookupTableByAppRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryLockerLookupTableByAppRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryLockerLookupTableByAppRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryLockerLookupTableByAppRequest>, I>
+  >(object: I): QueryLockerLookupTableByAppRequest {
+    const message = createBaseQueryLockerLookupTableByAppRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryLockerLookupTableByAppResponse(): QueryLockerLookupTableByAppResponse {
+  return { tokenToLockerMapping: [] };
+}
+
+export const QueryLockerLookupTableByAppResponse = {
+  encode(
+    message: QueryLockerLookupTableByAppResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.tokenToLockerMapping) {
+      TokenToLockerMapping.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryLockerLookupTableByAppResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryLockerLookupTableByAppResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.tokenToLockerMapping.push(
+            TokenToLockerMapping.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryLockerLookupTableByAppResponse {
+    return {
+      tokenToLockerMapping: Array.isArray(object?.tokenToLockerMapping)
+        ? object.tokenToLockerMapping.map((e: any) =>
+            TokenToLockerMapping.fromJSON(e)
+          )
+        : [],
+    };
+  },
+
+  toJSON(message: QueryLockerLookupTableByAppResponse): unknown {
+    const obj: any = {};
+    if (message.tokenToLockerMapping) {
+      obj.tokenToLockerMapping = message.tokenToLockerMapping.map((e) =>
+        e ? TokenToLockerMapping.toJSON(e) : undefined
+      );
+    } else {
+      obj.tokenToLockerMapping = [];
+    }
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryLockerLookupTableByAppResponse>, I>
+  >(object: I): QueryLockerLookupTableByAppResponse {
+    const message = createBaseQueryLockerLookupTableByAppResponse();
+    message.tokenToLockerMapping =
+      object.tokenToLockerMapping?.map((e) =>
+        TokenToLockerMapping.fromPartial(e)
+      ) || [];
+    return message;
+  },
+};
+
+function createBaseQueryLockerLookupTableByAppAndAssetIdRequest(): QueryLockerLookupTableByAppAndAssetIdRequest {
+  return { appId: Long.UZERO, assetId: Long.UZERO };
+}
+
+export const QueryLockerLookupTableByAppAndAssetIdRequest = {
+  encode(
+    message: QueryLockerLookupTableByAppAndAssetIdRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (!message.assetId.isZero()) {
+      writer.uint32(16).uint64(message.assetId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryLockerLookupTableByAppAndAssetIdRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryLockerLookupTableByAppAndAssetIdRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.assetId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIdRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryLockerLookupTableByAppAndAssetIdRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<
+      DeepPartial<QueryLockerLookupTableByAppAndAssetIdRequest>,
+      I
+    >
+  >(object: I): QueryLockerLookupTableByAppAndAssetIdRequest {
+    const message = createBaseQueryLockerLookupTableByAppAndAssetIdRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryLockerLookupTableByAppAndAssetIdResponse(): QueryLockerLookupTableByAppAndAssetIdResponse {
+  return { tokenToLockerMapping: undefined };
+}
+
+export const QueryLockerLookupTableByAppAndAssetIdResponse = {
+  encode(
+    message: QueryLockerLookupTableByAppAndAssetIdResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.tokenToLockerMapping !== undefined) {
+      TokenToLockerMapping.encode(
+        message.tokenToLockerMapping,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryLockerLookupTableByAppAndAssetIdResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryLockerLookupTableByAppAndAssetIdResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.tokenToLockerMapping = TokenToLockerMapping.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIdResponse {
+    return {
+      tokenToLockerMapping: isSet(object.tokenToLockerMapping)
+        ? TokenToLockerMapping.fromJSON(object.tokenToLockerMapping)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryLockerLookupTableByAppAndAssetIdResponse): unknown {
+    const obj: any = {};
+    message.tokenToLockerMapping !== undefined &&
+      (obj.tokenToLockerMapping = message.tokenToLockerMapping
+        ? TokenToLockerMapping.toJSON(message.tokenToLockerMapping)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<
+      DeepPartial<QueryLockerLookupTableByAppAndAssetIdResponse>,
+      I
+    >
+  >(object: I): QueryLockerLookupTableByAppAndAssetIdResponse {
+    const message = createBaseQueryLockerLookupTableByAppAndAssetIdResponse();
+    message.tokenToLockerMapping =
+      object.tokenToLockerMapping !== undefined &&
+      object.tokenToLockerMapping !== null
+        ? TokenToLockerMapping.fromPartial(object.tokenToLockerMapping)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryLockerTotalDepositedByAppRequest(): QueryLockerTotalDepositedByAppRequest {
+  return { appId: Long.UZERO };
+}
+
+export const QueryLockerTotalDepositedByAppRequest = {
+  encode(
+    message: QueryLockerTotalDepositedByAppRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryLockerTotalDepositedByAppRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryLockerTotalDepositedByAppRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryLockerTotalDepositedByAppRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryLockerTotalDepositedByAppRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryLockerTotalDepositedByAppRequest>, I>
+  >(object: I): QueryLockerTotalDepositedByAppRequest {
+    const message = createBaseQueryLockerTotalDepositedByAppRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryLockerTotalDepositedByAppResponse(): QueryLockerTotalDepositedByAppResponse {
+  return { lockedDepositedAmountDataMap: [] };
+}
+
+export const QueryLockerTotalDepositedByAppResponse = {
+  encode(
+    message: QueryLockerTotalDepositedByAppResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.lockedDepositedAmountDataMap) {
+      LockedDepositedAmountDataMap.encode(
+        v!,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryLockerTotalDepositedByAppResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryLockerTotalDepositedByAppResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.lockedDepositedAmountDataMap.push(
+            LockedDepositedAmountDataMap.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryLockerTotalDepositedByAppResponse {
+    return {
+      lockedDepositedAmountDataMap: Array.isArray(
+        object?.lockedDepositedAmountDataMap
+      )
+        ? object.lockedDepositedAmountDataMap.map((e: any) =>
+            LockedDepositedAmountDataMap.fromJSON(e)
+          )
+        : [],
+    };
+  },
+
+  toJSON(message: QueryLockerTotalDepositedByAppResponse): unknown {
+    const obj: any = {};
+    if (message.lockedDepositedAmountDataMap) {
+      obj.lockedDepositedAmountDataMap =
+        message.lockedDepositedAmountDataMap.map((e) =>
+          e ? LockedDepositedAmountDataMap.toJSON(e) : undefined
+        );
+    } else {
+      obj.lockedDepositedAmountDataMap = [];
+    }
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryLockerTotalDepositedByAppResponse>, I>
+  >(object: I): QueryLockerTotalDepositedByAppResponse {
+    const message = createBaseQueryLockerTotalDepositedByAppResponse();
+    message.lockedDepositedAmountDataMap =
+      object.lockedDepositedAmountDataMap?.map((e) =>
+        LockedDepositedAmountDataMap.fromPartial(e)
+      ) || [];
+    return message;
+  },
+};
+
 export interface QueryService {
   QueryLockerInfo(
     request: QueryLockerInfoRequest
@@ -1790,6 +2245,15 @@ export interface QueryService {
     request: QueryWhiteListedAssetByAllProductRequest
   ): Promise<QueryWhiteListedAssetByAllProductResponse>;
   QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+  QueryLockerLookupTableByApp(
+    request: QueryLockerLookupTableByAppRequest
+  ): Promise<QueryLockerLookupTableByAppResponse>;
+  QueryLockerLookupTableByAppAndAssetId(
+    request: QueryLockerLookupTableByAppAndAssetIdRequest
+  ): Promise<QueryLockerLookupTableByAppAndAssetIdResponse>;
+  QueryLockerTotalDepositedByApp(
+    request: QueryLockerTotalDepositedByAppRequest
+  ): Promise<QueryLockerTotalDepositedByAppResponse>;
 }
 
 export class QueryServiceClientImpl implements QueryService {
@@ -1818,6 +2282,12 @@ export class QueryServiceClientImpl implements QueryService {
     this.QueryWhiteListedAssetByAllProduct =
       this.QueryWhiteListedAssetByAllProduct.bind(this);
     this.QueryParams = this.QueryParams.bind(this);
+    this.QueryLockerLookupTableByApp =
+      this.QueryLockerLookupTableByApp.bind(this);
+    this.QueryLockerLookupTableByAppAndAssetId =
+      this.QueryLockerLookupTableByAppAndAssetId.bind(this);
+    this.QueryLockerTotalDepositedByApp =
+      this.QueryLockerTotalDepositedByApp.bind(this);
   }
   QueryLockerInfo(
     request: QueryLockerInfoRequest
@@ -1987,6 +2457,49 @@ export class QueryServiceClientImpl implements QueryService {
     );
     return promise.then((data) =>
       QueryParamsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryLockerLookupTableByApp(
+    request: QueryLockerLookupTableByAppRequest
+  ): Promise<QueryLockerLookupTableByAppResponse> {
+    const data = QueryLockerLookupTableByAppRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.locker.v1beta1.QueryService",
+      "QueryLockerLookupTableByApp",
+      data
+    );
+    return promise.then((data) =>
+      QueryLockerLookupTableByAppResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryLockerLookupTableByAppAndAssetId(
+    request: QueryLockerLookupTableByAppAndAssetIdRequest
+  ): Promise<QueryLockerLookupTableByAppAndAssetIdResponse> {
+    const data =
+      QueryLockerLookupTableByAppAndAssetIdRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.locker.v1beta1.QueryService",
+      "QueryLockerLookupTableByAppAndAssetId",
+      data
+    );
+    return promise.then((data) =>
+      QueryLockerLookupTableByAppAndAssetIdResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryLockerTotalDepositedByApp(
+    request: QueryLockerTotalDepositedByAppRequest
+  ): Promise<QueryLockerTotalDepositedByAppResponse> {
+    const data = QueryLockerTotalDepositedByAppRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.locker.v1beta1.QueryService",
+      "QueryLockerTotalDepositedByApp",
+      data
+    );
+    return promise.then((data) =>
+      QueryLockerTotalDepositedByAppResponse.decode(new _m0.Reader(data))
     );
   }
 }

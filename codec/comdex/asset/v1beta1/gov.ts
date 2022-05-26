@@ -70,6 +70,12 @@ export interface AddAppMappingProposal {
   app: AppMapping[];
 }
 
+export interface AddAssetMappingProposal {
+  title: string;
+  description: string;
+  app: AppMapping[];
+}
+
 function createBaseAddAssetsProposal(): AddAssetsProposal {
   return { title: "", description: "", assets: [] };
 }
@@ -887,6 +893,88 @@ export const AddAppMappingProposal = {
     object: I
   ): AddAppMappingProposal {
     const message = createBaseAddAppMappingProposal();
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.app = object.app?.map((e) => AppMapping.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseAddAssetMappingProposal(): AddAssetMappingProposal {
+  return { title: "", description: "", app: [] };
+}
+
+export const AddAssetMappingProposal = {
+  encode(
+    message: AddAssetMappingProposal,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    for (const v of message.app) {
+      AppMapping.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): AddAssetMappingProposal {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAddAssetMappingProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+        case 2:
+          message.description = reader.string();
+          break;
+        case 3:
+          message.app.push(AppMapping.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AddAssetMappingProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      app: Array.isArray(object?.app)
+        ? object.app.map((e: any) => AppMapping.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: AddAssetMappingProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    if (message.app) {
+      obj.app = message.app.map((e) => (e ? AppMapping.toJSON(e) : undefined));
+    } else {
+      obj.app = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddAssetMappingProposal>, I>>(
+    object: I
+  ): AddAssetMappingProposal {
+    const message = createBaseAddAssetMappingProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.app = object.app?.map((e) => AppMapping.fromPartial(e)) || [];
