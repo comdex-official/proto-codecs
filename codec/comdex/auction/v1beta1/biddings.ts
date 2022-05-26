@@ -1,8 +1,8 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Timestamp } from "../../../google/protobuf/timestamp";
+import * as _m0 from "protobufjs/minimal";
+import { Coin } from "./cosmos/base/v1beta1/coin";
+import { Timestamp } from "./google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
@@ -13,6 +13,17 @@ export interface Biddings {
   auctionedCollateral?: Coin;
   bidder: string;
   bid?: Coin;
+  biddingTimestamp?: Date;
+  biddingStatus: string;
+}
+
+export interface DutchBiddings {
+  biddingId: Long;
+  auctionId: Long;
+  auctionStatus: string;
+  outflowTokenAmount?: Coin;
+  inflowTokenAmount?: Coin;
+  bidder: string;
   biddingTimestamp?: Date;
   biddingStatus: string;
 }
@@ -117,9 +128,9 @@ export const Biddings = {
 
   fromJSON(object: any): Biddings {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       auctionId: isSet(object.auctionId)
-        ? Long.fromString(object.auctionId)
+        ? Long.fromValue(object.auctionId)
         : Long.UZERO,
       auctionStatus: isSet(object.auctionStatus)
         ? String(object.auctionStatus)
@@ -187,6 +198,179 @@ export const Biddings = {
   },
 };
 
+function createBaseDutchBiddings(): DutchBiddings {
+  return {
+    biddingId: Long.UZERO,
+    auctionId: Long.UZERO,
+    auctionStatus: "",
+    outflowTokenAmount: undefined,
+    inflowTokenAmount: undefined,
+    bidder: "",
+    biddingTimestamp: undefined,
+    biddingStatus: "",
+  };
+}
+
+export const DutchBiddings = {
+  encode(
+    message: DutchBiddings,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.biddingId.isZero()) {
+      writer.uint32(8).uint64(message.biddingId);
+    }
+    if (!message.auctionId.isZero()) {
+      writer.uint32(16).uint64(message.auctionId);
+    }
+    if (message.auctionStatus !== "") {
+      writer.uint32(26).string(message.auctionStatus);
+    }
+    if (message.outflowTokenAmount !== undefined) {
+      Coin.encode(
+        message.outflowTokenAmount,
+        writer.uint32(34).fork()
+      ).ldelim();
+    }
+    if (message.inflowTokenAmount !== undefined) {
+      Coin.encode(message.inflowTokenAmount, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.bidder !== "") {
+      writer.uint32(50).string(message.bidder);
+    }
+    if (message.biddingTimestamp !== undefined) {
+      Timestamp.encode(
+        toTimestamp(message.biddingTimestamp),
+        writer.uint32(58).fork()
+      ).ldelim();
+    }
+    if (message.biddingStatus !== "") {
+      writer.uint32(66).string(message.biddingStatus);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DutchBiddings {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDutchBiddings();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.biddingId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.auctionId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.auctionStatus = reader.string();
+          break;
+        case 4:
+          message.outflowTokenAmount = Coin.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.inflowTokenAmount = Coin.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.bidder = reader.string();
+          break;
+        case 7:
+          message.biddingTimestamp = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32())
+          );
+          break;
+        case 8:
+          message.biddingStatus = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DutchBiddings {
+    return {
+      biddingId: isSet(object.biddingId)
+        ? Long.fromValue(object.biddingId)
+        : Long.UZERO,
+      auctionId: isSet(object.auctionId)
+        ? Long.fromValue(object.auctionId)
+        : Long.UZERO,
+      auctionStatus: isSet(object.auctionStatus)
+        ? String(object.auctionStatus)
+        : "",
+      outflowTokenAmount: isSet(object.outflowTokenAmount)
+        ? Coin.fromJSON(object.outflowTokenAmount)
+        : undefined,
+      inflowTokenAmount: isSet(object.inflowTokenAmount)
+        ? Coin.fromJSON(object.inflowTokenAmount)
+        : undefined,
+      bidder: isSet(object.bidder) ? String(object.bidder) : "",
+      biddingTimestamp: isSet(object.biddingTimestamp)
+        ? fromJsonTimestamp(object.biddingTimestamp)
+        : undefined,
+      biddingStatus: isSet(object.biddingStatus)
+        ? String(object.biddingStatus)
+        : "",
+    };
+  },
+
+  toJSON(message: DutchBiddings): unknown {
+    const obj: any = {};
+    message.biddingId !== undefined &&
+      (obj.biddingId = (message.biddingId || Long.UZERO).toString());
+    message.auctionId !== undefined &&
+      (obj.auctionId = (message.auctionId || Long.UZERO).toString());
+    message.auctionStatus !== undefined &&
+      (obj.auctionStatus = message.auctionStatus);
+    message.outflowTokenAmount !== undefined &&
+      (obj.outflowTokenAmount = message.outflowTokenAmount
+        ? Coin.toJSON(message.outflowTokenAmount)
+        : undefined);
+    message.inflowTokenAmount !== undefined &&
+      (obj.inflowTokenAmount = message.inflowTokenAmount
+        ? Coin.toJSON(message.inflowTokenAmount)
+        : undefined);
+    message.bidder !== undefined && (obj.bidder = message.bidder);
+    message.biddingTimestamp !== undefined &&
+      (obj.biddingTimestamp = message.biddingTimestamp.toISOString());
+    message.biddingStatus !== undefined &&
+      (obj.biddingStatus = message.biddingStatus);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DutchBiddings>, I>>(
+    object: I
+  ): DutchBiddings {
+    const message = createBaseDutchBiddings();
+    message.biddingId =
+      object.biddingId !== undefined && object.biddingId !== null
+        ? Long.fromValue(object.biddingId)
+        : Long.UZERO;
+    message.auctionId =
+      object.auctionId !== undefined && object.auctionId !== null
+        ? Long.fromValue(object.auctionId)
+        : Long.UZERO;
+    message.auctionStatus = object.auctionStatus ?? "";
+    message.outflowTokenAmount =
+      object.outflowTokenAmount !== undefined &&
+      object.outflowTokenAmount !== null
+        ? Coin.fromPartial(object.outflowTokenAmount)
+        : undefined;
+    message.inflowTokenAmount =
+      object.inflowTokenAmount !== undefined &&
+      object.inflowTokenAmount !== null
+        ? Coin.fromPartial(object.inflowTokenAmount)
+        : undefined;
+    message.bidder = object.bidder ?? "";
+    message.biddingTimestamp = object.biddingTimestamp ?? undefined;
+    message.biddingStatus = object.biddingStatus ?? "";
+    return message;
+  },
+};
+
 function createBaseUserBiddings(): UserBiddings {
   return { id: Long.UZERO, bidder: "", biddingIds: [] };
 }
@@ -243,10 +427,10 @@ export const UserBiddings = {
 
   fromJSON(object: any): UserBiddings {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       biddingIds: Array.isArray(object?.biddingIds)
-        ? object.biddingIds.map((e: any) => Long.fromString(e))
+        ? object.biddingIds.map((e: any) => Long.fromValue(e))
         : [],
     };
   },

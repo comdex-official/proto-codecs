@@ -1,25 +1,43 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import * as _m0 from "protobufjs/minimal";
+import { Coin } from "./cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
-export interface MsgPlaceBidRequest {
+export interface MsgPlaceSurplusBidRequest {
   auctionId: Long;
   bidder: string;
   amount?: Coin;
 }
 
-export interface MsgPlaceBidResponse {}
+export interface MsgPlaceSurplusBidResponse {}
 
-function createBaseMsgPlaceBidRequest(): MsgPlaceBidRequest {
+export interface MsgPlaceDebtBidRequest {
+  auctionId: Long;
+  bidder: string;
+  bid?: Coin;
+  expectedUserToken?: Coin;
+}
+
+export interface MsgPlaceDebtBidResponse {}
+
+export interface MsgPlaceDutchBidRequest {
+  auctionId: Long;
+  bidder: string;
+  amount?: Coin;
+  max: string;
+}
+
+export interface MsgPlaceDutchBidResponse {}
+
+function createBaseMsgPlaceSurplusBidRequest(): MsgPlaceSurplusBidRequest {
   return { auctionId: Long.UZERO, bidder: "", amount: undefined };
 }
 
-export const MsgPlaceBidRequest = {
+export const MsgPlaceSurplusBidRequest = {
   encode(
-    message: MsgPlaceBidRequest,
+    message: MsgPlaceSurplusBidRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.auctionId.isZero()) {
@@ -34,10 +52,13 @@ export const MsgPlaceBidRequest = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceBidRequest {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgPlaceSurplusBidRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgPlaceBidRequest();
+    const message = createBaseMsgPlaceSurplusBidRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -58,17 +79,17 @@ export const MsgPlaceBidRequest = {
     return message;
   },
 
-  fromJSON(object: any): MsgPlaceBidRequest {
+  fromJSON(object: any): MsgPlaceSurplusBidRequest {
     return {
       auctionId: isSet(object.auctionId)
-        ? Long.fromString(object.auctionId)
+        ? Long.fromValue(object.auctionId)
         : Long.UZERO,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
     };
   },
 
-  toJSON(message: MsgPlaceBidRequest): unknown {
+  toJSON(message: MsgPlaceSurplusBidRequest): unknown {
     const obj: any = {};
     message.auctionId !== undefined &&
       (obj.auctionId = (message.auctionId || Long.UZERO).toString());
@@ -78,10 +99,10 @@ export const MsgPlaceBidRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgPlaceBidRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgPlaceSurplusBidRequest>, I>>(
     object: I
-  ): MsgPlaceBidRequest {
-    const message = createBaseMsgPlaceBidRequest();
+  ): MsgPlaceSurplusBidRequest {
+    const message = createBaseMsgPlaceSurplusBidRequest();
     message.auctionId =
       object.auctionId !== undefined && object.auctionId !== null
         ? Long.fromValue(object.auctionId)
@@ -95,22 +116,25 @@ export const MsgPlaceBidRequest = {
   },
 };
 
-function createBaseMsgPlaceBidResponse(): MsgPlaceBidResponse {
+function createBaseMsgPlaceSurplusBidResponse(): MsgPlaceSurplusBidResponse {
   return {};
 }
 
-export const MsgPlaceBidResponse = {
+export const MsgPlaceSurplusBidResponse = {
   encode(
-    _: MsgPlaceBidResponse,
+    _: MsgPlaceSurplusBidResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceBidResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgPlaceSurplusBidResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgPlaceBidResponse();
+    const message = createBaseMsgPlaceSurplusBidResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -122,42 +146,378 @@ export const MsgPlaceBidResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgPlaceBidResponse {
+  fromJSON(_: any): MsgPlaceSurplusBidResponse {
     return {};
   },
 
-  toJSON(_: MsgPlaceBidResponse): unknown {
+  toJSON(_: MsgPlaceSurplusBidResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgPlaceBidResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgPlaceSurplusBidResponse>, I>>(
     _: I
-  ): MsgPlaceBidResponse {
-    const message = createBaseMsgPlaceBidResponse();
+  ): MsgPlaceSurplusBidResponse {
+    const message = createBaseMsgPlaceSurplusBidResponse();
+    return message;
+  },
+};
+
+function createBaseMsgPlaceDebtBidRequest(): MsgPlaceDebtBidRequest {
+  return {
+    auctionId: Long.UZERO,
+    bidder: "",
+    bid: undefined,
+    expectedUserToken: undefined,
+  };
+}
+
+export const MsgPlaceDebtBidRequest = {
+  encode(
+    message: MsgPlaceDebtBidRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.auctionId.isZero()) {
+      writer.uint32(8).uint64(message.auctionId);
+    }
+    if (message.bidder !== "") {
+      writer.uint32(18).string(message.bidder);
+    }
+    if (message.bid !== undefined) {
+      Coin.encode(message.bid, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.expectedUserToken !== undefined) {
+      Coin.encode(message.expectedUserToken, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgPlaceDebtBidRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgPlaceDebtBidRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.auctionId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.bidder = reader.string();
+          break;
+        case 3:
+          message.bid = Coin.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.expectedUserToken = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgPlaceDebtBidRequest {
+    return {
+      auctionId: isSet(object.auctionId)
+        ? Long.fromValue(object.auctionId)
+        : Long.UZERO,
+      bidder: isSet(object.bidder) ? String(object.bidder) : "",
+      bid: isSet(object.bid) ? Coin.fromJSON(object.bid) : undefined,
+      expectedUserToken: isSet(object.expectedUserToken)
+        ? Coin.fromJSON(object.expectedUserToken)
+        : undefined,
+    };
+  },
+
+  toJSON(message: MsgPlaceDebtBidRequest): unknown {
+    const obj: any = {};
+    message.auctionId !== undefined &&
+      (obj.auctionId = (message.auctionId || Long.UZERO).toString());
+    message.bidder !== undefined && (obj.bidder = message.bidder);
+    message.bid !== undefined &&
+      (obj.bid = message.bid ? Coin.toJSON(message.bid) : undefined);
+    message.expectedUserToken !== undefined &&
+      (obj.expectedUserToken = message.expectedUserToken
+        ? Coin.toJSON(message.expectedUserToken)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgPlaceDebtBidRequest>, I>>(
+    object: I
+  ): MsgPlaceDebtBidRequest {
+    const message = createBaseMsgPlaceDebtBidRequest();
+    message.auctionId =
+      object.auctionId !== undefined && object.auctionId !== null
+        ? Long.fromValue(object.auctionId)
+        : Long.UZERO;
+    message.bidder = object.bidder ?? "";
+    message.bid =
+      object.bid !== undefined && object.bid !== null
+        ? Coin.fromPartial(object.bid)
+        : undefined;
+    message.expectedUserToken =
+      object.expectedUserToken !== undefined &&
+      object.expectedUserToken !== null
+        ? Coin.fromPartial(object.expectedUserToken)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseMsgPlaceDebtBidResponse(): MsgPlaceDebtBidResponse {
+  return {};
+}
+
+export const MsgPlaceDebtBidResponse = {
+  encode(
+    _: MsgPlaceDebtBidResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgPlaceDebtBidResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgPlaceDebtBidResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgPlaceDebtBidResponse {
+    return {};
+  },
+
+  toJSON(_: MsgPlaceDebtBidResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgPlaceDebtBidResponse>, I>>(
+    _: I
+  ): MsgPlaceDebtBidResponse {
+    const message = createBaseMsgPlaceDebtBidResponse();
+    return message;
+  },
+};
+
+function createBaseMsgPlaceDutchBidRequest(): MsgPlaceDutchBidRequest {
+  return { auctionId: Long.UZERO, bidder: "", amount: undefined, max: "" };
+}
+
+export const MsgPlaceDutchBidRequest = {
+  encode(
+    message: MsgPlaceDutchBidRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.auctionId.isZero()) {
+      writer.uint32(8).uint64(message.auctionId);
+    }
+    if (message.bidder !== "") {
+      writer.uint32(18).string(message.bidder);
+    }
+    if (message.amount !== undefined) {
+      Coin.encode(message.amount, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.max !== "") {
+      writer.uint32(34).string(message.max);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgPlaceDutchBidRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgPlaceDutchBidRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.auctionId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.bidder = reader.string();
+          break;
+        case 3:
+          message.amount = Coin.decode(reader, reader.uint32());
+          break;
+        case 4:
+          message.max = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgPlaceDutchBidRequest {
+    return {
+      auctionId: isSet(object.auctionId)
+        ? Long.fromValue(object.auctionId)
+        : Long.UZERO,
+      bidder: isSet(object.bidder) ? String(object.bidder) : "",
+      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
+      max: isSet(object.max) ? String(object.max) : "",
+    };
+  },
+
+  toJSON(message: MsgPlaceDutchBidRequest): unknown {
+    const obj: any = {};
+    message.auctionId !== undefined &&
+      (obj.auctionId = (message.auctionId || Long.UZERO).toString());
+    message.bidder !== undefined && (obj.bidder = message.bidder);
+    message.amount !== undefined &&
+      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.max !== undefined && (obj.max = message.max);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgPlaceDutchBidRequest>, I>>(
+    object: I
+  ): MsgPlaceDutchBidRequest {
+    const message = createBaseMsgPlaceDutchBidRequest();
+    message.auctionId =
+      object.auctionId !== undefined && object.auctionId !== null
+        ? Long.fromValue(object.auctionId)
+        : Long.UZERO;
+    message.bidder = object.bidder ?? "";
+    message.amount =
+      object.amount !== undefined && object.amount !== null
+        ? Coin.fromPartial(object.amount)
+        : undefined;
+    message.max = object.max ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgPlaceDutchBidResponse(): MsgPlaceDutchBidResponse {
+  return {};
+}
+
+export const MsgPlaceDutchBidResponse = {
+  encode(
+    _: MsgPlaceDutchBidResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgPlaceDutchBidResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgPlaceDutchBidResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgPlaceDutchBidResponse {
+    return {};
+  },
+
+  toJSON(_: MsgPlaceDutchBidResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgPlaceDutchBidResponse>, I>>(
+    _: I
+  ): MsgPlaceDutchBidResponse {
+    const message = createBaseMsgPlaceDutchBidResponse();
     return message;
   },
 };
 
 export interface MsgService {
-  MsgPlaceBid(request: MsgPlaceBidRequest): Promise<MsgPlaceBidResponse>;
+  MsgPlaceSurplusBid(
+    request: MsgPlaceSurplusBidRequest
+  ): Promise<MsgPlaceSurplusBidResponse>;
+  MsgPlaceDebtBid(
+    request: MsgPlaceDebtBidRequest
+  ): Promise<MsgPlaceDebtBidResponse>;
+  MsgPlaceDutchBid(
+    request: MsgPlaceDutchBidRequest
+  ): Promise<MsgPlaceDutchBidResponse>;
 }
 
 export class MsgServiceClientImpl implements MsgService {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
-    this.MsgPlaceBid = this.MsgPlaceBid.bind(this);
+    this.MsgPlaceSurplusBid = this.MsgPlaceSurplusBid.bind(this);
+    this.MsgPlaceDebtBid = this.MsgPlaceDebtBid.bind(this);
+    this.MsgPlaceDutchBid = this.MsgPlaceDutchBid.bind(this);
   }
-  MsgPlaceBid(request: MsgPlaceBidRequest): Promise<MsgPlaceBidResponse> {
-    const data = MsgPlaceBidRequest.encode(request).finish();
+  MsgPlaceSurplusBid(
+    request: MsgPlaceSurplusBidRequest
+  ): Promise<MsgPlaceSurplusBidResponse> {
+    const data = MsgPlaceSurplusBidRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.auction.v1beta1.MsgService",
-      "MsgPlaceBid",
+      "MsgPlaceSurplusBid",
       data
     );
     return promise.then((data) =>
-      MsgPlaceBidResponse.decode(new _m0.Reader(data))
+      MsgPlaceSurplusBidResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  MsgPlaceDebtBid(
+    request: MsgPlaceDebtBidRequest
+  ): Promise<MsgPlaceDebtBidResponse> {
+    const data = MsgPlaceDebtBidRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.auction.v1beta1.MsgService",
+      "MsgPlaceDebtBid",
+      data
+    );
+    return promise.then((data) =>
+      MsgPlaceDebtBidResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  MsgPlaceDutchBid(
+    request: MsgPlaceDutchBidRequest
+  ): Promise<MsgPlaceDutchBidResponse> {
+    const data = MsgPlaceDutchBidRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.auction.v1beta1.MsgService",
+      "MsgPlaceDutchBid",
+      data
+    );
+    return promise.then((data) =>
+      MsgPlaceDutchBidResponse.decode(new _m0.Reader(data))
     );
   }
 }
