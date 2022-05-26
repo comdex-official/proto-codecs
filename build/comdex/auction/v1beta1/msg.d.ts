@@ -1,19 +1,35 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import * as _m0 from "protobufjs/minimal";
+import { Coin } from "./cosmos/base/v1beta1/coin";
 export declare const protobufPackage = "comdex.auction.v1beta1";
-export interface MsgPlaceBidRequest {
+export interface MsgPlaceSurplusBidRequest {
     auctionId: Long;
     bidder: string;
     amount?: Coin;
 }
-export interface MsgPlaceBidResponse {
+export interface MsgPlaceSurplusBidResponse {
 }
-export declare const MsgPlaceBidRequest: {
-    encode(message: MsgPlaceBidRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceBidRequest;
-    fromJSON(object: any): MsgPlaceBidRequest;
-    toJSON(message: MsgPlaceBidRequest): unknown;
+export interface MsgPlaceDebtBidRequest {
+    auctionId: Long;
+    bidder: string;
+    bid?: Coin;
+    expectedUserToken?: Coin;
+}
+export interface MsgPlaceDebtBidResponse {
+}
+export interface MsgPlaceDutchBidRequest {
+    auctionId: Long;
+    bidder: string;
+    amount?: Coin;
+    max: string;
+}
+export interface MsgPlaceDutchBidResponse {
+}
+export declare const MsgPlaceSurplusBidRequest: {
+    encode(message: MsgPlaceSurplusBidRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceSurplusBidRequest;
+    fromJSON(object: any): MsgPlaceSurplusBidRequest;
+    toJSON(message: MsgPlaceSurplusBidRequest): unknown;
     fromPartial<I extends {
         auctionId?: string | number | Long.Long | undefined;
         bidder?: string | undefined;
@@ -88,22 +104,215 @@ export declare const MsgPlaceBidRequest: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & Record<Exclude<keyof I["amount"], keyof Coin>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof MsgPlaceBidRequest>, never>>(object: I): MsgPlaceBidRequest;
+    } & Record<Exclude<keyof I, keyof MsgPlaceSurplusBidRequest>, never>>(object: I): MsgPlaceSurplusBidRequest;
 };
-export declare const MsgPlaceBidResponse: {
-    encode(_: MsgPlaceBidResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceBidResponse;
-    fromJSON(_: any): MsgPlaceBidResponse;
-    toJSON(_: MsgPlaceBidResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgPlaceBidResponse;
+export declare const MsgPlaceSurplusBidResponse: {
+    encode(_: MsgPlaceSurplusBidResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceSurplusBidResponse;
+    fromJSON(_: any): MsgPlaceSurplusBidResponse;
+    toJSON(_: MsgPlaceSurplusBidResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgPlaceSurplusBidResponse;
+};
+export declare const MsgPlaceDebtBidRequest: {
+    encode(message: MsgPlaceDebtBidRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceDebtBidRequest;
+    fromJSON(object: any): MsgPlaceDebtBidRequest;
+    toJSON(message: MsgPlaceDebtBidRequest): unknown;
+    fromPartial<I extends {
+        auctionId?: string | number | Long.Long | undefined;
+        bidder?: string | undefined;
+        bid?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+        expectedUserToken?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
+        auctionId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["auctionId"], keyof Long.Long>, never>) | undefined;
+        bidder?: string | undefined;
+        bid?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["bid"], keyof Coin>, never>) | undefined;
+        expectedUserToken?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["expectedUserToken"], keyof Coin>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgPlaceDebtBidRequest>, never>>(object: I): MsgPlaceDebtBidRequest;
+};
+export declare const MsgPlaceDebtBidResponse: {
+    encode(_: MsgPlaceDebtBidResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceDebtBidResponse;
+    fromJSON(_: any): MsgPlaceDebtBidResponse;
+    toJSON(_: MsgPlaceDebtBidResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgPlaceDebtBidResponse;
+};
+export declare const MsgPlaceDutchBidRequest: {
+    encode(message: MsgPlaceDutchBidRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceDutchBidRequest;
+    fromJSON(object: any): MsgPlaceDutchBidRequest;
+    toJSON(message: MsgPlaceDutchBidRequest): unknown;
+    fromPartial<I extends {
+        auctionId?: string | number | Long.Long | undefined;
+        bidder?: string | undefined;
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+        max?: string | undefined;
+    } & {
+        auctionId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["auctionId"], keyof Long.Long>, never>) | undefined;
+        bidder?: string | undefined;
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["amount"], keyof Coin>, never>) | undefined;
+        max?: string | undefined;
+    } & Record<Exclude<keyof I, keyof MsgPlaceDutchBidRequest>, never>>(object: I): MsgPlaceDutchBidRequest;
+};
+export declare const MsgPlaceDutchBidResponse: {
+    encode(_: MsgPlaceDutchBidResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceDutchBidResponse;
+    fromJSON(_: any): MsgPlaceDutchBidResponse;
+    toJSON(_: MsgPlaceDutchBidResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgPlaceDutchBidResponse;
 };
 export interface MsgService {
-    MsgPlaceBid(request: MsgPlaceBidRequest): Promise<MsgPlaceBidResponse>;
+    MsgPlaceSurplusBid(request: MsgPlaceSurplusBidRequest): Promise<MsgPlaceSurplusBidResponse>;
+    MsgPlaceDebtBid(request: MsgPlaceDebtBidRequest): Promise<MsgPlaceDebtBidResponse>;
+    MsgPlaceDutchBid(request: MsgPlaceDutchBidRequest): Promise<MsgPlaceDutchBidResponse>;
 }
 export declare class MsgServiceClientImpl implements MsgService {
     private readonly rpc;
     constructor(rpc: Rpc);
-    MsgPlaceBid(request: MsgPlaceBidRequest): Promise<MsgPlaceBidResponse>;
+    MsgPlaceSurplusBid(request: MsgPlaceSurplusBidRequest): Promise<MsgPlaceSurplusBidResponse>;
+    MsgPlaceDebtBid(request: MsgPlaceDebtBidRequest): Promise<MsgPlaceDebtBidResponse>;
+    MsgPlaceDutchBid(request: MsgPlaceDutchBidRequest): Promise<MsgPlaceDutchBidResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

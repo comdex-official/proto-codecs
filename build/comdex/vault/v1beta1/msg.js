@@ -1,39 +1,68 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgServiceClientImpl = exports.MsgCloseResponse = exports.MsgCloseRequest = exports.MsgRepayResponse = exports.MsgRepayRequest = exports.MsgDrawResponse = exports.MsgDrawRequest = exports.MsgWithdrawResponse = exports.MsgWithdrawRequest = exports.MsgDepositResponse = exports.MsgDepositRequest = exports.MsgCreateResponse = exports.MsgCreateRequest = exports.protobufPackage = void 0;
+exports.MsgServiceClientImpl = exports.MsgWithdrawStableMintResponse = exports.MsgWithdrawStableMintRequest = exports.MsgDepositStableMintResponse = exports.MsgDepositStableMintRequest = exports.MsgCreateStableMintResponse = exports.MsgCreateStableMintRequest = exports.MsgCloseResponse = exports.MsgCloseRequest = exports.MsgRepayResponse = exports.MsgRepayRequest = exports.MsgDrawResponse = exports.MsgDrawRequest = exports.MsgWithdrawResponse = exports.MsgWithdrawRequest = exports.MsgDepositResponse = exports.MsgDepositRequest = exports.MsgCreateResponse = exports.MsgCreateRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.vault.v1beta1";
-const baseMsgCreateRequest = {
-    from: "",
-    pairId: long_1.default.UZERO,
-    amountIn: "",
-    amountOut: "",
-};
+function createBaseMsgCreateRequest() {
+    return {
+        from: "",
+        appMappingId: long_1.default.UZERO,
+        extendedPairVaultId: long_1.default.UZERO,
+        amountIn: "",
+        amountOut: "",
+    };
+}
 exports.MsgCreateRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
-        if (!message.pairId.isZero()) {
-            writer.uint32(16).uint64(message.pairId);
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(24).uint64(message.extendedPairVaultId);
         }
         if (message.amountIn !== "") {
-            writer.uint32(26).string(message.amountIn);
+            writer.uint32(34).string(message.amountIn);
         }
         if (message.amountOut !== "") {
-            writer.uint32(34).string(message.amountOut);
+            writer.uint32(42).string(message.amountOut);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgCreateRequest };
+        const message = createBaseMsgCreateRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -41,12 +70,15 @@ exports.MsgCreateRequest = {
                     message.from = reader.string();
                     break;
                 case 2:
-                    message.pairId = reader.uint64();
+                    message.appMappingId = reader.uint64();
                     break;
                 case 3:
-                    message.amountIn = reader.string();
+                    message.extendedPairVaultId = reader.uint64();
                     break;
                 case 4:
+                    message.amountIn = reader.string();
+                    break;
+                case 5:
                     message.amountOut = reader.string();
                     break;
                 default:
@@ -57,80 +89,58 @@ exports.MsgCreateRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseMsgCreateRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = String(object.from);
-        }
-        else {
-            message.from = "";
-        }
-        if (object.pairId !== undefined && object.pairId !== null) {
-            message.pairId = long_1.default.fromString(object.pairId);
-        }
-        else {
-            message.pairId = long_1.default.UZERO;
-        }
-        if (object.amountIn !== undefined && object.amountIn !== null) {
-            message.amountIn = String(object.amountIn);
-        }
-        else {
-            message.amountIn = "";
-        }
-        if (object.amountOut !== undefined && object.amountOut !== null) {
-            message.amountOut = String(object.amountOut);
-        }
-        else {
-            message.amountOut = "";
-        }
-        return message;
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
+            amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
+            amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
         message.from !== undefined && (obj.from = message.from);
-        message.pairId !== undefined &&
-            (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
         message.amountIn !== undefined && (obj.amountIn = message.amountIn);
         message.amountOut !== undefined && (obj.amountOut = message.amountOut);
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseMsgCreateRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = object.from;
-        }
-        else {
-            message.from = "";
-        }
-        if (object.pairId !== undefined && object.pairId !== null) {
-            message.pairId = object.pairId;
-        }
-        else {
-            message.pairId = long_1.default.UZERO;
-        }
-        if (object.amountIn !== undefined && object.amountIn !== null) {
-            message.amountIn = object.amountIn;
-        }
-        else {
-            message.amountIn = "";
-        }
-        if (object.amountOut !== undefined && object.amountOut !== null) {
-            message.amountOut = object.amountOut;
-        }
-        else {
-            message.amountOut = "";
-        }
+        var _a, _b, _c;
+        const message = createBaseMsgCreateRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
+        message.amountIn = (_b = object.amountIn) !== null && _b !== void 0 ? _b : "";
+        message.amountOut = (_c = object.amountOut) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
-const baseMsgCreateResponse = {};
+function createBaseMsgCreateResponse() {
+    return {};
+}
 exports.MsgCreateResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgCreateResponse };
+        const message = createBaseMsgCreateResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -142,36 +152,49 @@ exports.MsgCreateResponse = {
         return message;
     },
     fromJSON(_) {
-        const message = { ...baseMsgCreateResponse };
-        return message;
+        return {};
     },
     toJSON(_) {
         const obj = {};
         return obj;
     },
     fromPartial(_) {
-        const message = { ...baseMsgCreateResponse };
+        const message = createBaseMsgCreateResponse();
         return message;
     },
 };
-const baseMsgDepositRequest = { from: "", id: long_1.default.UZERO, amount: "" };
+function createBaseMsgDepositRequest() {
+    return {
+        from: "",
+        appMappingId: long_1.default.UZERO,
+        extendedPairVaultId: long_1.default.UZERO,
+        userVaultid: "",
+        amount: "",
+    };
+}
 exports.MsgDepositRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
-        if (!message.id.isZero()) {
-            writer.uint32(16).uint64(message.id);
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(24).uint64(message.extendedPairVaultId);
+        }
+        if (message.userVaultid !== "") {
+            writer.uint32(34).string(message.userVaultid);
         }
         if (message.amount !== "") {
-            writer.uint32(26).string(message.amount);
+            writer.uint32(42).string(message.amount);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgDepositRequest };
+        const message = createBaseMsgDepositRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -179,9 +202,15 @@ exports.MsgDepositRequest = {
                     message.from = reader.string();
                     break;
                 case 2:
-                    message.id = reader.uint64();
+                    message.appMappingId = reader.uint64();
                     break;
                 case 3:
+                    message.extendedPairVaultId = reader.uint64();
+                    break;
+                case 4:
+                    message.userVaultid = reader.string();
+                    break;
+                case 5:
                     message.amount = reader.string();
                     break;
                 default:
@@ -192,67 +221,59 @@ exports.MsgDepositRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseMsgDepositRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = String(object.from);
-        }
-        else {
-            message.from = "";
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = long_1.default.fromString(object.id);
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.amount !== undefined && object.amount !== null) {
-            message.amount = String(object.amount);
-        }
-        else {
-            message.amount = "";
-        }
-        return message;
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
+            userVaultid: isSet(object.userVaultid) ? String(object.userVaultid) : "",
+            amount: isSet(object.amount) ? String(object.amount) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
         message.from !== undefined && (obj.from = message.from);
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
+        message.userVaultid !== undefined &&
+            (obj.userVaultid = message.userVaultid);
         message.amount !== undefined && (obj.amount = message.amount);
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseMsgDepositRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = object.from;
-        }
-        else {
-            message.from = "";
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.amount !== undefined && object.amount !== null) {
-            message.amount = object.amount;
-        }
-        else {
-            message.amount = "";
-        }
+        var _a, _b, _c;
+        const message = createBaseMsgDepositRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
+        message.userVaultid = (_b = object.userVaultid) !== null && _b !== void 0 ? _b : "";
+        message.amount = (_c = object.amount) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
-const baseMsgDepositResponse = {};
+function createBaseMsgDepositResponse() {
+    return {};
+}
 exports.MsgDepositResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgDepositResponse };
+        const message = createBaseMsgDepositResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -264,36 +285,49 @@ exports.MsgDepositResponse = {
         return message;
     },
     fromJSON(_) {
-        const message = { ...baseMsgDepositResponse };
-        return message;
+        return {};
     },
     toJSON(_) {
         const obj = {};
         return obj;
     },
     fromPartial(_) {
-        const message = { ...baseMsgDepositResponse };
+        const message = createBaseMsgDepositResponse();
         return message;
     },
 };
-const baseMsgWithdrawRequest = { from: "", id: long_1.default.UZERO, amount: "" };
+function createBaseMsgWithdrawRequest() {
+    return {
+        from: "",
+        appMappingId: long_1.default.UZERO,
+        extendedPairVaultId: long_1.default.UZERO,
+        userVaultid: "",
+        amount: "",
+    };
+}
 exports.MsgWithdrawRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
-        if (!message.id.isZero()) {
-            writer.uint32(16).uint64(message.id);
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(24).uint64(message.extendedPairVaultId);
+        }
+        if (message.userVaultid !== "") {
+            writer.uint32(34).string(message.userVaultid);
         }
         if (message.amount !== "") {
-            writer.uint32(26).string(message.amount);
+            writer.uint32(42).string(message.amount);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgWithdrawRequest };
+        const message = createBaseMsgWithdrawRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -301,9 +335,15 @@ exports.MsgWithdrawRequest = {
                     message.from = reader.string();
                     break;
                 case 2:
-                    message.id = reader.uint64();
+                    message.appMappingId = reader.uint64();
                     break;
                 case 3:
+                    message.extendedPairVaultId = reader.uint64();
+                    break;
+                case 4:
+                    message.userVaultid = reader.string();
+                    break;
+                case 5:
                     message.amount = reader.string();
                     break;
                 default:
@@ -314,67 +354,59 @@ exports.MsgWithdrawRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseMsgWithdrawRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = String(object.from);
-        }
-        else {
-            message.from = "";
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = long_1.default.fromString(object.id);
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.amount !== undefined && object.amount !== null) {
-            message.amount = String(object.amount);
-        }
-        else {
-            message.amount = "";
-        }
-        return message;
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
+            userVaultid: isSet(object.userVaultid) ? String(object.userVaultid) : "",
+            amount: isSet(object.amount) ? String(object.amount) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
         message.from !== undefined && (obj.from = message.from);
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
+        message.userVaultid !== undefined &&
+            (obj.userVaultid = message.userVaultid);
         message.amount !== undefined && (obj.amount = message.amount);
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseMsgWithdrawRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = object.from;
-        }
-        else {
-            message.from = "";
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.amount !== undefined && object.amount !== null) {
-            message.amount = object.amount;
-        }
-        else {
-            message.amount = "";
-        }
+        var _a, _b, _c;
+        const message = createBaseMsgWithdrawRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
+        message.userVaultid = (_b = object.userVaultid) !== null && _b !== void 0 ? _b : "";
+        message.amount = (_c = object.amount) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
-const baseMsgWithdrawResponse = {};
+function createBaseMsgWithdrawResponse() {
+    return {};
+}
 exports.MsgWithdrawResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgWithdrawResponse };
+        const message = createBaseMsgWithdrawResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -386,36 +418,49 @@ exports.MsgWithdrawResponse = {
         return message;
     },
     fromJSON(_) {
-        const message = { ...baseMsgWithdrawResponse };
-        return message;
+        return {};
     },
     toJSON(_) {
         const obj = {};
         return obj;
     },
     fromPartial(_) {
-        const message = { ...baseMsgWithdrawResponse };
+        const message = createBaseMsgWithdrawResponse();
         return message;
     },
 };
-const baseMsgDrawRequest = { from: "", id: long_1.default.UZERO, amount: "" };
+function createBaseMsgDrawRequest() {
+    return {
+        from: "",
+        appMappingId: long_1.default.UZERO,
+        extendedPairVaultId: long_1.default.UZERO,
+        userVaultid: "",
+        amount: "",
+    };
+}
 exports.MsgDrawRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
-        if (!message.id.isZero()) {
-            writer.uint32(16).uint64(message.id);
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(24).uint64(message.extendedPairVaultId);
+        }
+        if (message.userVaultid !== "") {
+            writer.uint32(34).string(message.userVaultid);
         }
         if (message.amount !== "") {
-            writer.uint32(26).string(message.amount);
+            writer.uint32(42).string(message.amount);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgDrawRequest };
+        const message = createBaseMsgDrawRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -423,9 +468,15 @@ exports.MsgDrawRequest = {
                     message.from = reader.string();
                     break;
                 case 2:
-                    message.id = reader.uint64();
+                    message.appMappingId = reader.uint64();
                     break;
                 case 3:
+                    message.extendedPairVaultId = reader.uint64();
+                    break;
+                case 4:
+                    message.userVaultid = reader.string();
+                    break;
+                case 5:
                     message.amount = reader.string();
                     break;
                 default:
@@ -436,67 +487,59 @@ exports.MsgDrawRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseMsgDrawRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = String(object.from);
-        }
-        else {
-            message.from = "";
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = long_1.default.fromString(object.id);
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.amount !== undefined && object.amount !== null) {
-            message.amount = String(object.amount);
-        }
-        else {
-            message.amount = "";
-        }
-        return message;
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
+            userVaultid: isSet(object.userVaultid) ? String(object.userVaultid) : "",
+            amount: isSet(object.amount) ? String(object.amount) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
         message.from !== undefined && (obj.from = message.from);
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
+        message.userVaultid !== undefined &&
+            (obj.userVaultid = message.userVaultid);
         message.amount !== undefined && (obj.amount = message.amount);
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseMsgDrawRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = object.from;
-        }
-        else {
-            message.from = "";
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.amount !== undefined && object.amount !== null) {
-            message.amount = object.amount;
-        }
-        else {
-            message.amount = "";
-        }
+        var _a, _b, _c;
+        const message = createBaseMsgDrawRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
+        message.userVaultid = (_b = object.userVaultid) !== null && _b !== void 0 ? _b : "";
+        message.amount = (_c = object.amount) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
-const baseMsgDrawResponse = {};
+function createBaseMsgDrawResponse() {
+    return {};
+}
 exports.MsgDrawResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgDrawResponse };
+        const message = createBaseMsgDrawResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -508,36 +551,49 @@ exports.MsgDrawResponse = {
         return message;
     },
     fromJSON(_) {
-        const message = { ...baseMsgDrawResponse };
-        return message;
+        return {};
     },
     toJSON(_) {
         const obj = {};
         return obj;
     },
     fromPartial(_) {
-        const message = { ...baseMsgDrawResponse };
+        const message = createBaseMsgDrawResponse();
         return message;
     },
 };
-const baseMsgRepayRequest = { from: "", id: long_1.default.UZERO, amount: "" };
+function createBaseMsgRepayRequest() {
+    return {
+        from: "",
+        appMappingId: long_1.default.UZERO,
+        extendedPairVaultId: long_1.default.UZERO,
+        userVaultid: "",
+        amount: "",
+    };
+}
 exports.MsgRepayRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
-        if (!message.id.isZero()) {
-            writer.uint32(16).uint64(message.id);
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(24).uint64(message.extendedPairVaultId);
+        }
+        if (message.userVaultid !== "") {
+            writer.uint32(34).string(message.userVaultid);
         }
         if (message.amount !== "") {
-            writer.uint32(26).string(message.amount);
+            writer.uint32(42).string(message.amount);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgRepayRequest };
+        const message = createBaseMsgRepayRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -545,9 +601,15 @@ exports.MsgRepayRequest = {
                     message.from = reader.string();
                     break;
                 case 2:
-                    message.id = reader.uint64();
+                    message.appMappingId = reader.uint64();
                     break;
                 case 3:
+                    message.extendedPairVaultId = reader.uint64();
+                    break;
+                case 4:
+                    message.userVaultid = reader.string();
+                    break;
+                case 5:
                     message.amount = reader.string();
                     break;
                 default:
@@ -558,67 +620,59 @@ exports.MsgRepayRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseMsgRepayRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = String(object.from);
-        }
-        else {
-            message.from = "";
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = long_1.default.fromString(object.id);
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.amount !== undefined && object.amount !== null) {
-            message.amount = String(object.amount);
-        }
-        else {
-            message.amount = "";
-        }
-        return message;
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
+            userVaultid: isSet(object.userVaultid) ? String(object.userVaultid) : "",
+            amount: isSet(object.amount) ? String(object.amount) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
         message.from !== undefined && (obj.from = message.from);
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
+        message.userVaultid !== undefined &&
+            (obj.userVaultid = message.userVaultid);
         message.amount !== undefined && (obj.amount = message.amount);
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseMsgRepayRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = object.from;
-        }
-        else {
-            message.from = "";
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.amount !== undefined && object.amount !== null) {
-            message.amount = object.amount;
-        }
-        else {
-            message.amount = "";
-        }
+        var _a, _b, _c;
+        const message = createBaseMsgRepayRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
+        message.userVaultid = (_b = object.userVaultid) !== null && _b !== void 0 ? _b : "";
+        message.amount = (_c = object.amount) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
-const baseMsgRepayResponse = {};
+function createBaseMsgRepayResponse() {
+    return {};
+}
 exports.MsgRepayResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgRepayResponse };
+        const message = createBaseMsgRepayResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -630,33 +684,45 @@ exports.MsgRepayResponse = {
         return message;
     },
     fromJSON(_) {
-        const message = { ...baseMsgRepayResponse };
-        return message;
+        return {};
     },
     toJSON(_) {
         const obj = {};
         return obj;
     },
     fromPartial(_) {
-        const message = { ...baseMsgRepayResponse };
+        const message = createBaseMsgRepayResponse();
         return message;
     },
 };
-const baseMsgCloseRequest = { from: "", id: long_1.default.UZERO };
+function createBaseMsgCloseRequest() {
+    return {
+        from: "",
+        appMappingId: long_1.default.UZERO,
+        extendedPairVaultId: long_1.default.UZERO,
+        userVaultid: "",
+    };
+}
 exports.MsgCloseRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
-        if (!message.id.isZero()) {
-            writer.uint32(16).uint64(message.id);
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(24).uint64(message.extendedPairVaultId);
+        }
+        if (message.userVaultid !== "") {
+            writer.uint32(34).string(message.userVaultid);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgCloseRequest };
+        const message = createBaseMsgCloseRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -664,7 +730,13 @@ exports.MsgCloseRequest = {
                     message.from = reader.string();
                     break;
                 case 2:
-                    message.id = reader.uint64();
+                    message.appMappingId = reader.uint64();
+                    break;
+                case 3:
+                    message.extendedPairVaultId = reader.uint64();
+                    break;
+                case 4:
+                    message.userVaultid = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -674,54 +746,56 @@ exports.MsgCloseRequest = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseMsgCloseRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = String(object.from);
-        }
-        else {
-            message.from = "";
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = long_1.default.fromString(object.id);
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        return message;
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
+            userVaultid: isSet(object.userVaultid) ? String(object.userVaultid) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
         message.from !== undefined && (obj.from = message.from);
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
+        message.userVaultid !== undefined &&
+            (obj.userVaultid = message.userVaultid);
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseMsgCloseRequest };
-        if (object.from !== undefined && object.from !== null) {
-            message.from = object.from;
-        }
-        else {
-            message.from = "";
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
+        var _a, _b;
+        const message = createBaseMsgCloseRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
+        message.userVaultid = (_b = object.userVaultid) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };
-const baseMsgCloseResponse = {};
+function createBaseMsgCloseResponse() {
+    return {};
+}
 exports.MsgCloseResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgCloseResponse };
+        const message = createBaseMsgCloseResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -733,15 +807,406 @@ exports.MsgCloseResponse = {
         return message;
     },
     fromJSON(_) {
-        const message = { ...baseMsgCloseResponse };
-        return message;
+        return {};
     },
     toJSON(_) {
         const obj = {};
         return obj;
     },
     fromPartial(_) {
-        const message = { ...baseMsgCloseResponse };
+        const message = createBaseMsgCloseResponse();
+        return message;
+    },
+};
+function createBaseMsgCreateStableMintRequest() {
+    return {
+        from: "",
+        appMappingId: long_1.default.UZERO,
+        extendedPairVaultId: long_1.default.UZERO,
+        amount: "",
+    };
+}
+exports.MsgCreateStableMintRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.from !== "") {
+            writer.uint32(10).string(message.from);
+        }
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(24).uint64(message.extendedPairVaultId);
+        }
+        if (message.amount !== "") {
+            writer.uint32(34).string(message.amount);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgCreateStableMintRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.from = reader.string();
+                    break;
+                case 2:
+                    message.appMappingId = reader.uint64();
+                    break;
+                case 3:
+                    message.extendedPairVaultId = reader.uint64();
+                    break;
+                case 4:
+                    message.amount = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
+            amount: isSet(object.amount) ? String(object.amount) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.from !== undefined && (obj.from = message.from);
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
+        message.amount !== undefined && (obj.amount = message.amount);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseMsgCreateStableMintRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
+        message.amount = (_b = object.amount) !== null && _b !== void 0 ? _b : "";
+        return message;
+    },
+};
+function createBaseMsgCreateStableMintResponse() {
+    return {};
+}
+exports.MsgCreateStableMintResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgCreateStableMintResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgCreateStableMintResponse();
+        return message;
+    },
+};
+function createBaseMsgDepositStableMintRequest() {
+    return {
+        from: "",
+        appMappingId: long_1.default.UZERO,
+        extendedPairVaultId: long_1.default.UZERO,
+        amount: "",
+        stableVaultid: "",
+    };
+}
+exports.MsgDepositStableMintRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.from !== "") {
+            writer.uint32(10).string(message.from);
+        }
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(24).uint64(message.extendedPairVaultId);
+        }
+        if (message.amount !== "") {
+            writer.uint32(34).string(message.amount);
+        }
+        if (message.stableVaultid !== "") {
+            writer.uint32(42).string(message.stableVaultid);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgDepositStableMintRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.from = reader.string();
+                    break;
+                case 2:
+                    message.appMappingId = reader.uint64();
+                    break;
+                case 3:
+                    message.extendedPairVaultId = reader.uint64();
+                    break;
+                case 4:
+                    message.amount = reader.string();
+                    break;
+                case 5:
+                    message.stableVaultid = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
+            amount: isSet(object.amount) ? String(object.amount) : "",
+            stableVaultid: isSet(object.stableVaultid)
+                ? String(object.stableVaultid)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.from !== undefined && (obj.from = message.from);
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
+        message.amount !== undefined && (obj.amount = message.amount);
+        message.stableVaultid !== undefined &&
+            (obj.stableVaultid = message.stableVaultid);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseMsgDepositStableMintRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
+        message.amount = (_b = object.amount) !== null && _b !== void 0 ? _b : "";
+        message.stableVaultid = (_c = object.stableVaultid) !== null && _c !== void 0 ? _c : "";
+        return message;
+    },
+};
+function createBaseMsgDepositStableMintResponse() {
+    return {};
+}
+exports.MsgDepositStableMintResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgDepositStableMintResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgDepositStableMintResponse();
+        return message;
+    },
+};
+function createBaseMsgWithdrawStableMintRequest() {
+    return {
+        from: "",
+        appMappingId: long_1.default.UZERO,
+        extendedPairVaultId: long_1.default.UZERO,
+        amount: "",
+        stableVaultid: "",
+    };
+}
+exports.MsgWithdrawStableMintRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.from !== "") {
+            writer.uint32(10).string(message.from);
+        }
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(24).uint64(message.extendedPairVaultId);
+        }
+        if (message.amount !== "") {
+            writer.uint32(34).string(message.amount);
+        }
+        if (message.stableVaultid !== "") {
+            writer.uint32(42).string(message.stableVaultid);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgWithdrawStableMintRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.from = reader.string();
+                    break;
+                case 2:
+                    message.appMappingId = reader.uint64();
+                    break;
+                case 3:
+                    message.extendedPairVaultId = reader.uint64();
+                    break;
+                case 4:
+                    message.amount = reader.string();
+                    break;
+                case 5:
+                    message.stableVaultid = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
+            amount: isSet(object.amount) ? String(object.amount) : "",
+            stableVaultid: isSet(object.stableVaultid)
+                ? String(object.stableVaultid)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.from !== undefined && (obj.from = message.from);
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
+        message.amount !== undefined && (obj.amount = message.amount);
+        message.stableVaultid !== undefined &&
+            (obj.stableVaultid = message.stableVaultid);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseMsgWithdrawStableMintRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
+        message.amount = (_b = object.amount) !== null && _b !== void 0 ? _b : "";
+        message.stableVaultid = (_c = object.stableVaultid) !== null && _c !== void 0 ? _c : "";
+        return message;
+    },
+};
+function createBaseMsgWithdrawStableMintResponse() {
+    return {};
+}
+exports.MsgWithdrawStableMintResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgWithdrawStableMintResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgWithdrawStableMintResponse();
         return message;
     },
 };
@@ -754,41 +1219,62 @@ class MsgServiceClientImpl {
         this.MsgDraw = this.MsgDraw.bind(this);
         this.MsgRepay = this.MsgRepay.bind(this);
         this.MsgClose = this.MsgClose.bind(this);
+        this.MsgCreateStableMint = this.MsgCreateStableMint.bind(this);
+        this.MsgDepositStableMint = this.MsgDepositStableMint.bind(this);
+        this.MsgWithdrawStableMint = this.MsgWithdrawStableMint.bind(this);
     }
     MsgCreate(request) {
         const data = exports.MsgCreateRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.MsgService", "MsgCreate", data);
-        return promise.then((data) => exports.MsgCreateResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCreateResponse.decode(new _m0.Reader(data)));
     }
     MsgDeposit(request) {
         const data = exports.MsgDepositRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.MsgService", "MsgDeposit", data);
-        return promise.then((data) => exports.MsgDepositResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgDepositResponse.decode(new _m0.Reader(data)));
     }
     MsgWithdraw(request) {
         const data = exports.MsgWithdrawRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.MsgService", "MsgWithdraw", data);
-        return promise.then((data) => exports.MsgWithdrawResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgWithdrawResponse.decode(new _m0.Reader(data)));
     }
     MsgDraw(request) {
         const data = exports.MsgDrawRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.MsgService", "MsgDraw", data);
-        return promise.then((data) => exports.MsgDrawResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgDrawResponse.decode(new _m0.Reader(data)));
     }
     MsgRepay(request) {
         const data = exports.MsgRepayRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.MsgService", "MsgRepay", data);
-        return promise.then((data) => exports.MsgRepayResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgRepayResponse.decode(new _m0.Reader(data)));
     }
     MsgClose(request) {
         const data = exports.MsgCloseRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.MsgService", "MsgClose", data);
-        return promise.then((data) => exports.MsgCloseResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCloseResponse.decode(new _m0.Reader(data)));
+    }
+    MsgCreateStableMint(request) {
+        const data = exports.MsgCreateStableMintRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.MsgService", "MsgCreateStableMint", data);
+        return promise.then((data) => exports.MsgCreateStableMintResponse.decode(new _m0.Reader(data)));
+    }
+    MsgDepositStableMint(request) {
+        const data = exports.MsgDepositStableMintRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.MsgService", "MsgDepositStableMint", data);
+        return promise.then((data) => exports.MsgDepositStableMintResponse.decode(new _m0.Reader(data)));
+    }
+    MsgWithdrawStableMint(request) {
+        const data = exports.MsgWithdrawStableMintRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.MsgService", "MsgWithdrawStableMint", data);
+        return promise.then((data) => exports.MsgWithdrawStableMintResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=msg.js.map
