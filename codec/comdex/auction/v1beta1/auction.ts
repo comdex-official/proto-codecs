@@ -7,7 +7,7 @@ import { Timestamp } from "./google/protobuf/timestamp";
 export const protobufPackage = "comdex.auction.v1beta1";
 
 export interface SurplusAuction {
-  id: Long;
+  auctionId: Long;
   outflowToken?: Coin;
   inflowToken?: Coin;
   activeBiddingId: Long;
@@ -15,10 +15,11 @@ export interface SurplusAuction {
   bid?: Coin;
   endTime?: Date;
   bidFactor: string;
-  biddingIds: Long[];
+  biddingIds: bidOwnerMapping[];
   auctionStatus: Long;
   appId: Long;
   assetId: Long;
+  auctionMappingId: Long;
 }
 
 export interface DebtAuction {
@@ -33,6 +34,8 @@ export interface DebtAuction {
   auctionStatus: Long;
   appId: Long;
   assetId: Long;
+  biddingIds: bidOwnerMapping[];
+  auctionMappingId: Long;
 }
 
 export interface DutchAuction {
@@ -47,14 +50,24 @@ export interface DutchAuction {
   inflowTokenCurrentPrice: string;
   endTime?: Date;
   auctionStatus: Long;
-  inflowTokenAddress: string;
-  outflowTokenAddress: string;
   startTime?: Date;
+  biddingIds: bidOwnerMapping[];
+  auctionMappingId: Long;
+  appId: Long;
+  assetInId: Long;
+  assetOutId: Long;
+  lockedVaultId: Long;
+  vaultOwner: string;
+}
+
+export interface bidOwnerMapping {
+  bidId: Long;
+  bidOwner: string;
 }
 
 function createBaseSurplusAuction(): SurplusAuction {
   return {
-    id: Long.UZERO,
+    auctionId: Long.UZERO,
     outflowToken: undefined,
     inflowToken: undefined,
     activeBiddingId: Long.UZERO,
@@ -66,6 +79,7 @@ function createBaseSurplusAuction(): SurplusAuction {
     auctionStatus: Long.UZERO,
     appId: Long.UZERO,
     assetId: Long.UZERO,
+    auctionMappingId: Long.UZERO,
   };
 }
 
@@ -74,8 +88,8 @@ export const SurplusAuction = {
     message: SurplusAuction,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.id.isZero()) {
-      writer.uint32(8).uint64(message.id);
+    if (!message.auctionId.isZero()) {
+      writer.uint32(8).uint64(message.auctionId);
     }
     if (message.outflowToken !== undefined) {
       Coin.encode(message.outflowToken, writer.uint32(18).fork()).ldelim();
@@ -101,11 +115,9 @@ export const SurplusAuction = {
     if (message.bidFactor !== "") {
       writer.uint32(66).string(message.bidFactor);
     }
-    writer.uint32(74).fork();
     for (const v of message.biddingIds) {
-      writer.uint64(v);
+      bidOwnerMapping.encode(v!, writer.uint32(74).fork()).ldelim();
     }
-    writer.ldelim();
     if (!message.auctionStatus.isZero()) {
       writer.uint32(80).uint64(message.auctionStatus);
     }
@@ -114,6 +126,9 @@ export const SurplusAuction = {
     }
     if (!message.assetId.isZero()) {
       writer.uint32(96).uint64(message.assetId);
+    }
+    if (!message.auctionMappingId.isZero()) {
+      writer.uint32(104).uint64(message.auctionMappingId);
     }
     return writer;
   },
@@ -126,7 +141,7 @@ export const SurplusAuction = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.id = reader.uint64() as Long;
+          message.auctionId = reader.uint64() as Long;
           break;
         case 2:
           message.outflowToken = Coin.decode(reader, reader.uint32());
@@ -152,14 +167,9 @@ export const SurplusAuction = {
           message.bidFactor = reader.string();
           break;
         case 9:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.biddingIds.push(reader.uint64() as Long);
-            }
-          } else {
-            message.biddingIds.push(reader.uint64() as Long);
-          }
+          message.biddingIds.push(
+            bidOwnerMapping.decode(reader, reader.uint32())
+          );
           break;
         case 10:
           message.auctionStatus = reader.uint64() as Long;
@@ -169,6 +179,9 @@ export const SurplusAuction = {
           break;
         case 12:
           message.assetId = reader.uint64() as Long;
+          break;
+        case 13:
+          message.auctionMappingId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -180,7 +193,9 @@ export const SurplusAuction = {
 
   fromJSON(object: any): SurplusAuction {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      auctionId: isSet(object.auctionId)
+        ? Long.fromValue(object.auctionId)
+        : Long.UZERO,
       outflowToken: isSet(object.outflowToken)
         ? Coin.fromJSON(object.outflowToken)
         : undefined,
@@ -197,7 +212,7 @@ export const SurplusAuction = {
         : undefined,
       bidFactor: isSet(object.bidFactor) ? String(object.bidFactor) : "",
       biddingIds: Array.isArray(object?.biddingIds)
-        ? object.biddingIds.map((e: any) => Long.fromValue(e))
+        ? object.biddingIds.map((e: any) => bidOwnerMapping.fromJSON(e))
         : [],
       auctionStatus: isSet(object.auctionStatus)
         ? Long.fromValue(object.auctionStatus)
@@ -206,13 +221,16 @@ export const SurplusAuction = {
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
+      auctionMappingId: isSet(object.auctionMappingId)
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO,
     };
   },
 
   toJSON(message: SurplusAuction): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.auctionId !== undefined &&
+      (obj.auctionId = (message.auctionId || Long.UZERO).toString());
     message.outflowToken !== undefined &&
       (obj.outflowToken = message.outflowToken
         ? Coin.toJSON(message.outflowToken)
@@ -233,7 +251,7 @@ export const SurplusAuction = {
     message.bidFactor !== undefined && (obj.bidFactor = message.bidFactor);
     if (message.biddingIds) {
       obj.biddingIds = message.biddingIds.map((e) =>
-        (e || Long.UZERO).toString()
+        e ? bidOwnerMapping.toJSON(e) : undefined
       );
     } else {
       obj.biddingIds = [];
@@ -244,6 +262,10 @@ export const SurplusAuction = {
       (obj.appId = (message.appId || Long.UZERO).toString());
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.auctionMappingId !== undefined &&
+      (obj.auctionMappingId = (
+        message.auctionMappingId || Long.UZERO
+      ).toString());
     return obj;
   },
 
@@ -251,9 +273,9 @@ export const SurplusAuction = {
     object: I
   ): SurplusAuction {
     const message = createBaseSurplusAuction();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
+    message.auctionId =
+      object.auctionId !== undefined && object.auctionId !== null
+        ? Long.fromValue(object.auctionId)
         : Long.UZERO;
     message.outflowToken =
       object.outflowToken !== undefined && object.outflowToken !== null
@@ -274,7 +296,8 @@ export const SurplusAuction = {
         : undefined;
     message.endTime = object.endTime ?? undefined;
     message.bidFactor = object.bidFactor ?? "";
-    message.biddingIds = object.biddingIds?.map((e) => Long.fromValue(e)) || [];
+    message.biddingIds =
+      object.biddingIds?.map((e) => bidOwnerMapping.fromPartial(e)) || [];
     message.auctionStatus =
       object.auctionStatus !== undefined && object.auctionStatus !== null
         ? Long.fromValue(object.auctionStatus)
@@ -286,6 +309,10 @@ export const SurplusAuction = {
     message.assetId =
       object.assetId !== undefined && object.assetId !== null
         ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    message.auctionMappingId =
+      object.auctionMappingId !== undefined && object.auctionMappingId !== null
+        ? Long.fromValue(object.auctionMappingId)
         : Long.UZERO;
     return message;
   },
@@ -304,6 +331,8 @@ function createBaseDebtAuction(): DebtAuction {
     auctionStatus: Long.UZERO,
     appId: Long.UZERO,
     assetId: Long.UZERO,
+    biddingIds: [],
+    auctionMappingId: Long.UZERO,
   };
 }
 
@@ -351,6 +380,12 @@ export const DebtAuction = {
     if (!message.assetId.isZero()) {
       writer.uint32(88).uint64(message.assetId);
     }
+    for (const v of message.biddingIds) {
+      bidOwnerMapping.encode(v!, writer.uint32(98).fork()).ldelim();
+    }
+    if (!message.auctionMappingId.isZero()) {
+      writer.uint32(104).uint64(message.auctionMappingId);
+    }
     return writer;
   },
 
@@ -396,6 +431,14 @@ export const DebtAuction = {
         case 11:
           message.assetId = reader.uint64() as Long;
           break;
+        case 12:
+          message.biddingIds.push(
+            bidOwnerMapping.decode(reader, reader.uint32())
+          );
+          break;
+        case 13:
+          message.auctionMappingId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -435,6 +478,12 @@ export const DebtAuction = {
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
+      biddingIds: Array.isArray(object?.biddingIds)
+        ? object.biddingIds.map((e: any) => bidOwnerMapping.fromJSON(e))
+        : [],
+      auctionMappingId: isSet(object.auctionMappingId)
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO,
     };
   },
 
@@ -471,6 +520,17 @@ export const DebtAuction = {
       (obj.appId = (message.appId || Long.UZERO).toString());
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
+    if (message.biddingIds) {
+      obj.biddingIds = message.biddingIds.map((e) =>
+        e ? bidOwnerMapping.toJSON(e) : undefined
+      );
+    } else {
+      obj.biddingIds = [];
+    }
+    message.auctionMappingId !== undefined &&
+      (obj.auctionMappingId = (
+        message.auctionMappingId || Long.UZERO
+      ).toString());
     return obj;
   },
 
@@ -518,6 +578,12 @@ export const DebtAuction = {
       object.assetId !== undefined && object.assetId !== null
         ? Long.fromValue(object.assetId)
         : Long.UZERO;
+    message.biddingIds =
+      object.biddingIds?.map((e) => bidOwnerMapping.fromPartial(e)) || [];
+    message.auctionMappingId =
+      object.auctionMappingId !== undefined && object.auctionMappingId !== null
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -535,9 +601,14 @@ function createBaseDutchAuction(): DutchAuction {
     inflowTokenCurrentPrice: "",
     endTime: undefined,
     auctionStatus: Long.UZERO,
-    inflowTokenAddress: "",
-    outflowTokenAddress: "",
     startTime: undefined,
+    biddingIds: [],
+    auctionMappingId: Long.UZERO,
+    appId: Long.UZERO,
+    assetInId: Long.UZERO,
+    assetOutId: Long.UZERO,
+    lockedVaultId: Long.UZERO,
+    vaultOwner: "",
   };
 }
 
@@ -594,17 +665,32 @@ export const DutchAuction = {
     if (!message.auctionStatus.isZero()) {
       writer.uint32(88).uint64(message.auctionStatus);
     }
-    if (message.inflowTokenAddress !== "") {
-      writer.uint32(98).string(message.inflowTokenAddress);
-    }
-    if (message.outflowTokenAddress !== "") {
-      writer.uint32(106).string(message.outflowTokenAddress);
-    }
     if (message.startTime !== undefined) {
       Timestamp.encode(
         toTimestamp(message.startTime),
-        writer.uint32(114).fork()
+        writer.uint32(98).fork()
       ).ldelim();
+    }
+    for (const v of message.biddingIds) {
+      bidOwnerMapping.encode(v!, writer.uint32(106).fork()).ldelim();
+    }
+    if (!message.auctionMappingId.isZero()) {
+      writer.uint32(112).uint64(message.auctionMappingId);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(120).uint64(message.appId);
+    }
+    if (!message.assetInId.isZero()) {
+      writer.uint32(128).uint64(message.assetInId);
+    }
+    if (!message.assetOutId.isZero()) {
+      writer.uint32(136).uint64(message.assetOutId);
+    }
+    if (!message.lockedVaultId.isZero()) {
+      writer.uint32(144).uint64(message.lockedVaultId);
+    }
+    if (message.vaultOwner !== "") {
+      writer.uint32(154).string(message.vaultOwner);
     }
     return writer;
   },
@@ -661,15 +747,32 @@ export const DutchAuction = {
           message.auctionStatus = reader.uint64() as Long;
           break;
         case 12:
-          message.inflowTokenAddress = reader.string();
-          break;
-        case 13:
-          message.outflowTokenAddress = reader.string();
-          break;
-        case 14:
           message.startTime = fromTimestamp(
             Timestamp.decode(reader, reader.uint32())
           );
+          break;
+        case 13:
+          message.biddingIds.push(
+            bidOwnerMapping.decode(reader, reader.uint32())
+          );
+          break;
+        case 14:
+          message.auctionMappingId = reader.uint64() as Long;
+          break;
+        case 15:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 16:
+          message.assetInId = reader.uint64() as Long;
+          break;
+        case 17:
+          message.assetOutId = reader.uint64() as Long;
+          break;
+        case 18:
+          message.lockedVaultId = reader.uint64() as Long;
+          break;
+        case 19:
+          message.vaultOwner = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -714,15 +817,26 @@ export const DutchAuction = {
       auctionStatus: isSet(object.auctionStatus)
         ? Long.fromValue(object.auctionStatus)
         : Long.UZERO,
-      inflowTokenAddress: isSet(object.inflowTokenAddress)
-        ? String(object.inflowTokenAddress)
-        : "",
-      outflowTokenAddress: isSet(object.outflowTokenAddress)
-        ? String(object.outflowTokenAddress)
-        : "",
       startTime: isSet(object.startTime)
         ? fromJsonTimestamp(object.startTime)
         : undefined,
+      biddingIds: Array.isArray(object?.biddingIds)
+        ? object.biddingIds.map((e: any) => bidOwnerMapping.fromJSON(e))
+        : [],
+      auctionMappingId: isSet(object.auctionMappingId)
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      assetInId: isSet(object.assetInId)
+        ? Long.fromValue(object.assetInId)
+        : Long.UZERO,
+      assetOutId: isSet(object.assetOutId)
+        ? Long.fromValue(object.assetOutId)
+        : Long.UZERO,
+      lockedVaultId: isSet(object.lockedVaultId)
+        ? Long.fromValue(object.lockedVaultId)
+        : Long.UZERO,
+      vaultOwner: isSet(object.vaultOwner) ? String(object.vaultOwner) : "",
     };
   },
 
@@ -758,12 +872,28 @@ export const DutchAuction = {
       (obj.endTime = message.endTime.toISOString());
     message.auctionStatus !== undefined &&
       (obj.auctionStatus = (message.auctionStatus || Long.UZERO).toString());
-    message.inflowTokenAddress !== undefined &&
-      (obj.inflowTokenAddress = message.inflowTokenAddress);
-    message.outflowTokenAddress !== undefined &&
-      (obj.outflowTokenAddress = message.outflowTokenAddress);
     message.startTime !== undefined &&
       (obj.startTime = message.startTime.toISOString());
+    if (message.biddingIds) {
+      obj.biddingIds = message.biddingIds.map((e) =>
+        e ? bidOwnerMapping.toJSON(e) : undefined
+      );
+    } else {
+      obj.biddingIds = [];
+    }
+    message.auctionMappingId !== undefined &&
+      (obj.auctionMappingId = (
+        message.auctionMappingId || Long.UZERO
+      ).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetInId !== undefined &&
+      (obj.assetInId = (message.assetInId || Long.UZERO).toString());
+    message.assetOutId !== undefined &&
+      (obj.assetOutId = (message.assetOutId || Long.UZERO).toString());
+    message.lockedVaultId !== undefined &&
+      (obj.lockedVaultId = (message.lockedVaultId || Long.UZERO).toString());
+    message.vaultOwner !== undefined && (obj.vaultOwner = message.vaultOwner);
     return obj;
   },
 
@@ -804,9 +934,97 @@ export const DutchAuction = {
       object.auctionStatus !== undefined && object.auctionStatus !== null
         ? Long.fromValue(object.auctionStatus)
         : Long.UZERO;
-    message.inflowTokenAddress = object.inflowTokenAddress ?? "";
-    message.outflowTokenAddress = object.outflowTokenAddress ?? "";
     message.startTime = object.startTime ?? undefined;
+    message.biddingIds =
+      object.biddingIds?.map((e) => bidOwnerMapping.fromPartial(e)) || [];
+    message.auctionMappingId =
+      object.auctionMappingId !== undefined && object.auctionMappingId !== null
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.assetInId =
+      object.assetInId !== undefined && object.assetInId !== null
+        ? Long.fromValue(object.assetInId)
+        : Long.UZERO;
+    message.assetOutId =
+      object.assetOutId !== undefined && object.assetOutId !== null
+        ? Long.fromValue(object.assetOutId)
+        : Long.UZERO;
+    message.lockedVaultId =
+      object.lockedVaultId !== undefined && object.lockedVaultId !== null
+        ? Long.fromValue(object.lockedVaultId)
+        : Long.UZERO;
+    message.vaultOwner = object.vaultOwner ?? "";
+    return message;
+  },
+};
+
+function createBasebidOwnerMapping(): bidOwnerMapping {
+  return { bidId: Long.UZERO, bidOwner: "" };
+}
+
+export const bidOwnerMapping = {
+  encode(
+    message: bidOwnerMapping,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.bidId.isZero()) {
+      writer.uint32(8).uint64(message.bidId);
+    }
+    if (message.bidOwner !== "") {
+      writer.uint32(18).string(message.bidOwner);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): bidOwnerMapping {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasebidOwnerMapping();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.bidId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.bidOwner = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): bidOwnerMapping {
+    return {
+      bidId: isSet(object.bidId) ? Long.fromValue(object.bidId) : Long.UZERO,
+      bidOwner: isSet(object.bidOwner) ? String(object.bidOwner) : "",
+    };
+  },
+
+  toJSON(message: bidOwnerMapping): unknown {
+    const obj: any = {};
+    message.bidId !== undefined &&
+      (obj.bidId = (message.bidId || Long.UZERO).toString());
+    message.bidOwner !== undefined && (obj.bidOwner = message.bidOwner);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<bidOwnerMapping>, I>>(
+    object: I
+  ): bidOwnerMapping {
+    const message = createBasebidOwnerMapping();
+    message.bidId =
+      object.bidId !== undefined && object.bidId !== null
+        ? Long.fromValue(object.bidId)
+        : Long.UZERO;
+    message.bidOwner = object.bidOwner ?? "";
     return message;
   },
 };

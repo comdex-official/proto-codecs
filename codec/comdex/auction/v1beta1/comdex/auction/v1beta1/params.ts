@@ -16,6 +16,9 @@ export interface Params {
   chost: string;
   step: string;
   priceFunctionType: Long;
+  surplusId: Long;
+  debtId: Long;
+  dutchId: Long;
 }
 
 function createBaseParams(): Params {
@@ -31,6 +34,9 @@ function createBaseParams(): Params {
     chost: "",
     step: "",
     priceFunctionType: Long.UZERO,
+    surplusId: Long.UZERO,
+    debtId: Long.UZERO,
+    dutchId: Long.UZERO,
   };
 }
 
@@ -71,6 +77,15 @@ export const Params = {
     }
     if (!message.priceFunctionType.isZero()) {
       writer.uint32(88).uint64(message.priceFunctionType);
+    }
+    if (!message.surplusId.isZero()) {
+      writer.uint32(96).uint64(message.surplusId);
+    }
+    if (!message.debtId.isZero()) {
+      writer.uint32(104).uint64(message.debtId);
+    }
+    if (!message.dutchId.isZero()) {
+      writer.uint32(112).uint64(message.dutchId);
     }
     return writer;
   },
@@ -115,6 +130,15 @@ export const Params = {
         case 11:
           message.priceFunctionType = reader.uint64() as Long;
           break;
+        case 12:
+          message.surplusId = reader.uint64() as Long;
+          break;
+        case 13:
+          message.debtId = reader.uint64() as Long;
+          break;
+        case 14:
+          message.dutchId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -150,6 +174,13 @@ export const Params = {
       priceFunctionType: isSet(object.priceFunctionType)
         ? Long.fromValue(object.priceFunctionType)
         : Long.UZERO,
+      surplusId: isSet(object.surplusId)
+        ? Long.fromValue(object.surplusId)
+        : Long.UZERO,
+      debtId: isSet(object.debtId) ? Long.fromValue(object.debtId) : Long.UZERO,
+      dutchId: isSet(object.dutchId)
+        ? Long.fromValue(object.dutchId)
+        : Long.UZERO,
     };
   },
 
@@ -177,6 +208,12 @@ export const Params = {
       (obj.priceFunctionType = (
         message.priceFunctionType || Long.UZERO
       ).toString());
+    message.surplusId !== undefined &&
+      (obj.surplusId = (message.surplusId || Long.UZERO).toString());
+    message.debtId !== undefined &&
+      (obj.debtId = (message.debtId || Long.UZERO).toString());
+    message.dutchId !== undefined &&
+      (obj.dutchId = (message.dutchId || Long.UZERO).toString());
     return obj;
   },
 
@@ -201,6 +238,18 @@ export const Params = {
       object.priceFunctionType !== undefined &&
       object.priceFunctionType !== null
         ? Long.fromValue(object.priceFunctionType)
+        : Long.UZERO;
+    message.surplusId =
+      object.surplusId !== undefined && object.surplusId !== null
+        ? Long.fromValue(object.surplusId)
+        : Long.UZERO;
+    message.debtId =
+      object.debtId !== undefined && object.debtId !== null
+        ? Long.fromValue(object.debtId)
+        : Long.UZERO;
+    message.dutchId =
+      object.dutchId !== undefined && object.dutchId !== null
+        ? Long.fromValue(object.dutchId)
         : Long.UZERO;
     return message;
   },
