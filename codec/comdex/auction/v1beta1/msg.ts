@@ -9,6 +9,8 @@ export interface MsgPlaceSurplusBidRequest {
   auctionId: Long;
   bidder: string;
   amount?: Coin;
+  appId: Long;
+  auctionMappingId: Long;
 }
 
 export interface MsgPlaceSurplusBidResponse {}
@@ -18,6 +20,8 @@ export interface MsgPlaceDebtBidRequest {
   bidder: string;
   bid?: Coin;
   expectedUserToken?: Coin;
+  appId: Long;
+  auctionMappingId: Long;
 }
 
 export interface MsgPlaceDebtBidResponse {}
@@ -27,12 +31,20 @@ export interface MsgPlaceDutchBidRequest {
   bidder: string;
   amount?: Coin;
   max: string;
+  appId: Long;
+  auctionMappingId: Long;
 }
 
 export interface MsgPlaceDutchBidResponse {}
 
 function createBaseMsgPlaceSurplusBidRequest(): MsgPlaceSurplusBidRequest {
-  return { auctionId: Long.UZERO, bidder: "", amount: undefined };
+  return {
+    auctionId: Long.UZERO,
+    bidder: "",
+    amount: undefined,
+    appId: Long.UZERO,
+    auctionMappingId: Long.UZERO,
+  };
 }
 
 export const MsgPlaceSurplusBidRequest = {
@@ -48,6 +60,12 @@ export const MsgPlaceSurplusBidRequest = {
     }
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(26).fork()).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(32).uint64(message.appId);
+    }
+    if (!message.auctionMappingId.isZero()) {
+      writer.uint32(40).uint64(message.auctionMappingId);
     }
     return writer;
   },
@@ -71,6 +89,12 @@ export const MsgPlaceSurplusBidRequest = {
         case 3:
           message.amount = Coin.decode(reader, reader.uint32());
           break;
+        case 4:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 5:
+          message.auctionMappingId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -86,6 +110,10 @@ export const MsgPlaceSurplusBidRequest = {
         : Long.UZERO,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      auctionMappingId: isSet(object.auctionMappingId)
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO,
     };
   },
 
@@ -96,6 +124,12 @@ export const MsgPlaceSurplusBidRequest = {
     message.bidder !== undefined && (obj.bidder = message.bidder);
     message.amount !== undefined &&
       (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.auctionMappingId !== undefined &&
+      (obj.auctionMappingId = (
+        message.auctionMappingId || Long.UZERO
+      ).toString());
     return obj;
   },
 
@@ -112,6 +146,14 @@ export const MsgPlaceSurplusBidRequest = {
       object.amount !== undefined && object.amount !== null
         ? Coin.fromPartial(object.amount)
         : undefined;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.auctionMappingId =
+      object.auctionMappingId !== undefined && object.auctionMappingId !== null
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -169,6 +211,8 @@ function createBaseMsgPlaceDebtBidRequest(): MsgPlaceDebtBidRequest {
     bidder: "",
     bid: undefined,
     expectedUserToken: undefined,
+    appId: Long.UZERO,
+    auctionMappingId: Long.UZERO,
   };
 }
 
@@ -188,6 +232,12 @@ export const MsgPlaceDebtBidRequest = {
     }
     if (message.expectedUserToken !== undefined) {
       Coin.encode(message.expectedUserToken, writer.uint32(34).fork()).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(40).uint64(message.appId);
+    }
+    if (!message.auctionMappingId.isZero()) {
+      writer.uint32(48).uint64(message.auctionMappingId);
     }
     return writer;
   },
@@ -214,6 +264,12 @@ export const MsgPlaceDebtBidRequest = {
         case 4:
           message.expectedUserToken = Coin.decode(reader, reader.uint32());
           break;
+        case 5:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 6:
+          message.auctionMappingId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -232,6 +288,10 @@ export const MsgPlaceDebtBidRequest = {
       expectedUserToken: isSet(object.expectedUserToken)
         ? Coin.fromJSON(object.expectedUserToken)
         : undefined,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      auctionMappingId: isSet(object.auctionMappingId)
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO,
     };
   },
 
@@ -246,6 +306,12 @@ export const MsgPlaceDebtBidRequest = {
       (obj.expectedUserToken = message.expectedUserToken
         ? Coin.toJSON(message.expectedUserToken)
         : undefined);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.auctionMappingId !== undefined &&
+      (obj.auctionMappingId = (
+        message.auctionMappingId || Long.UZERO
+      ).toString());
     return obj;
   },
 
@@ -267,6 +333,14 @@ export const MsgPlaceDebtBidRequest = {
       object.expectedUserToken !== null
         ? Coin.fromPartial(object.expectedUserToken)
         : undefined;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.auctionMappingId =
+      object.auctionMappingId !== undefined && object.auctionMappingId !== null
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -319,7 +393,14 @@ export const MsgPlaceDebtBidResponse = {
 };
 
 function createBaseMsgPlaceDutchBidRequest(): MsgPlaceDutchBidRequest {
-  return { auctionId: Long.UZERO, bidder: "", amount: undefined, max: "" };
+  return {
+    auctionId: Long.UZERO,
+    bidder: "",
+    amount: undefined,
+    max: "",
+    appId: Long.UZERO,
+    auctionMappingId: Long.UZERO,
+  };
 }
 
 export const MsgPlaceDutchBidRequest = {
@@ -338,6 +419,12 @@ export const MsgPlaceDutchBidRequest = {
     }
     if (message.max !== "") {
       writer.uint32(34).string(message.max);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(40).uint64(message.appId);
+    }
+    if (!message.auctionMappingId.isZero()) {
+      writer.uint32(48).uint64(message.auctionMappingId);
     }
     return writer;
   },
@@ -364,6 +451,12 @@ export const MsgPlaceDutchBidRequest = {
         case 4:
           message.max = reader.string();
           break;
+        case 5:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 6:
+          message.auctionMappingId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -380,6 +473,10 @@ export const MsgPlaceDutchBidRequest = {
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
       max: isSet(object.max) ? String(object.max) : "",
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      auctionMappingId: isSet(object.auctionMappingId)
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO,
     };
   },
 
@@ -391,6 +488,12 @@ export const MsgPlaceDutchBidRequest = {
     message.amount !== undefined &&
       (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     message.max !== undefined && (obj.max = message.max);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.auctionMappingId !== undefined &&
+      (obj.auctionMappingId = (
+        message.auctionMappingId || Long.UZERO
+      ).toString());
     return obj;
   },
 
@@ -408,6 +511,14 @@ export const MsgPlaceDutchBidRequest = {
         ? Coin.fromPartial(object.amount)
         : undefined;
     message.max = object.max ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.auctionMappingId =
+      object.auctionMappingId !== undefined && object.auctionMappingId !== null
+        ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO;
     return message;
   },
 };
