@@ -36,12 +36,22 @@ const params_1 = require("./comdex/auction/v1beta1/params");
 const biddings_1 = require("./comdex/auction/v1beta1/biddings");
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseQuerySurplusAuctionRequest() {
-    return { id: long_1.default.UZERO };
+    return {
+        appId: long_1.default.UZERO,
+        auctionMappingId: long_1.default.UZERO,
+        auctionId: long_1.default.UZERO,
+    };
 }
 exports.QuerySurplusAuctionRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (!message.id.isZero()) {
-            writer.uint32(8).uint64(message.id);
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        if (!message.auctionMappingId.isZero()) {
+            writer.uint32(16).uint64(message.auctionMappingId);
+        }
+        if (!message.auctionId.isZero()) {
+            writer.uint32(24).uint64(message.auctionId);
         }
         return writer;
     },
@@ -53,7 +63,13 @@ exports.QuerySurplusAuctionRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.uint64();
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
+                    message.auctionMappingId = reader.uint64();
+                    break;
+                case 3:
+                    message.auctionId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -64,20 +80,38 @@ exports.QuerySurplusAuctionRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            auctionMappingId: isSet(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO,
+            auctionId: isSet(object.auctionId)
+                ? long_1.default.fromValue(object.auctionId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.auctionMappingId !== undefined &&
+            (obj.auctionMappingId = (message.auctionMappingId || long_1.default.UZERO).toString());
+        message.auctionId !== undefined &&
+            (obj.auctionId = (message.auctionId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         const message = createBaseQuerySurplusAuctionRequest();
-        message.id =
-            object.id !== undefined && object.id !== null
-                ? long_1.default.fromValue(object.id)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.auctionMappingId =
+            object.auctionMappingId !== undefined && object.auctionMappingId !== null
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO;
+        message.auctionId =
+            object.auctionId !== undefined && object.auctionId !== null
+                ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -134,12 +168,15 @@ exports.QuerySurplusAuctionResponse = {
     },
 };
 function createBaseQuerySurplusAuctionsRequest() {
-    return { pagination: undefined };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QuerySurplusAuctionsRequest = {
     encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
         if (message.pagination !== undefined) {
-            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -151,6 +188,9 @@ exports.QuerySurplusAuctionsRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
@@ -162,6 +202,7 @@ exports.QuerySurplusAuctionsRequest = {
     },
     fromJSON(object) {
         return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -169,6 +210,8 @@ exports.QuerySurplusAuctionsRequest = {
     },
     toJSON(message) {
         const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
@@ -177,6 +220,10 @@ exports.QuerySurplusAuctionsRequest = {
     },
     fromPartial(object) {
         const message = createBaseQuerySurplusAuctionsRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageRequest.fromPartial(object.pagination)
@@ -254,12 +301,15 @@ exports.QuerySurplusAuctionsResponse = {
     },
 };
 function createBaseQuerySurplusBiddingsRequest() {
-    return { bidder: "" };
+    return { bidder: "", appId: long_1.default.UZERO };
 }
 exports.QuerySurplusBiddingsRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.bidder !== "") {
             writer.uint32(10).string(message.bidder);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         return writer;
     },
@@ -273,6 +323,9 @@ exports.QuerySurplusBiddingsRequest = {
                 case 1:
                     message.bidder = reader.string();
                     break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -283,17 +336,24 @@ exports.QuerySurplusBiddingsRequest = {
     fromJSON(object) {
         return {
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.bidder !== undefined && (obj.bidder = message.bidder);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQuerySurplusBiddingsRequest();
         message.bidder = (_a = object.bidder) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -306,7 +366,7 @@ exports.QuerySurplusBiddingsResponse = {
             writer.uint32(10).string(message.bidder);
         }
         for (const v of message.biddings) {
-            biddings_1.Biddings.encode(v, writer.uint32(18).fork()).ldelim();
+            biddings_1.SurplusBiddings.encode(v, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -321,7 +381,7 @@ exports.QuerySurplusBiddingsResponse = {
                     message.bidder = reader.string();
                     break;
                 case 2:
-                    message.biddings.push(biddings_1.Biddings.decode(reader, reader.uint32()));
+                    message.biddings.push(biddings_1.SurplusBiddings.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -334,7 +394,7 @@ exports.QuerySurplusBiddingsResponse = {
         return {
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             biddings: Array.isArray(object === null || object === void 0 ? void 0 : object.biddings)
-                ? object.biddings.map((e) => biddings_1.Biddings.fromJSON(e))
+                ? object.biddings.map((e) => biddings_1.SurplusBiddings.fromJSON(e))
                 : [],
         };
     },
@@ -342,7 +402,7 @@ exports.QuerySurplusBiddingsResponse = {
         const obj = {};
         message.bidder !== undefined && (obj.bidder = message.bidder);
         if (message.biddings) {
-            obj.biddings = message.biddings.map((e) => e ? biddings_1.Biddings.toJSON(e) : undefined);
+            obj.biddings = message.biddings.map((e) => e ? biddings_1.SurplusBiddings.toJSON(e) : undefined);
         }
         else {
             obj.biddings = [];
@@ -354,17 +414,27 @@ exports.QuerySurplusBiddingsResponse = {
         const message = createBaseQuerySurplusBiddingsResponse();
         message.bidder = (_a = object.bidder) !== null && _a !== void 0 ? _a : "";
         message.biddings =
-            ((_b = object.biddings) === null || _b === void 0 ? void 0 : _b.map((e) => biddings_1.Biddings.fromPartial(e))) || [];
+            ((_b = object.biddings) === null || _b === void 0 ? void 0 : _b.map((e) => biddings_1.SurplusBiddings.fromPartial(e))) || [];
         return message;
     },
 };
 function createBaseQueryDebtAuctionRequest() {
-    return { id: long_1.default.UZERO };
+    return {
+        appId: long_1.default.UZERO,
+        auctionMappingId: long_1.default.UZERO,
+        auctionId: long_1.default.UZERO,
+    };
 }
 exports.QueryDebtAuctionRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (!message.id.isZero()) {
-            writer.uint32(8).uint64(message.id);
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        if (!message.auctionMappingId.isZero()) {
+            writer.uint32(16).uint64(message.auctionMappingId);
+        }
+        if (!message.auctionId.isZero()) {
+            writer.uint32(24).uint64(message.auctionId);
         }
         return writer;
     },
@@ -376,7 +446,13 @@ exports.QueryDebtAuctionRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.uint64();
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
+                    message.auctionMappingId = reader.uint64();
+                    break;
+                case 3:
+                    message.auctionId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -387,20 +463,38 @@ exports.QueryDebtAuctionRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            auctionMappingId: isSet(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO,
+            auctionId: isSet(object.auctionId)
+                ? long_1.default.fromValue(object.auctionId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.auctionMappingId !== undefined &&
+            (obj.auctionMappingId = (message.auctionMappingId || long_1.default.UZERO).toString());
+        message.auctionId !== undefined &&
+            (obj.auctionId = (message.auctionId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         const message = createBaseQueryDebtAuctionRequest();
-        message.id =
-            object.id !== undefined && object.id !== null
-                ? long_1.default.fromValue(object.id)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.auctionMappingId =
+            object.auctionMappingId !== undefined && object.auctionMappingId !== null
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO;
+        message.auctionId =
+            object.auctionId !== undefined && object.auctionId !== null
+                ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -457,12 +551,15 @@ exports.QueryDebtAuctionResponse = {
     },
 };
 function createBaseQueryDebtAuctionsRequest() {
-    return { pagination: undefined };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryDebtAuctionsRequest = {
     encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
         if (message.pagination !== undefined) {
-            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -474,6 +571,9 @@ exports.QueryDebtAuctionsRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
@@ -485,6 +585,7 @@ exports.QueryDebtAuctionsRequest = {
     },
     fromJSON(object) {
         return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -492,6 +593,8 @@ exports.QueryDebtAuctionsRequest = {
     },
     toJSON(message) {
         const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
@@ -500,6 +603,10 @@ exports.QueryDebtAuctionsRequest = {
     },
     fromPartial(object) {
         const message = createBaseQueryDebtAuctionsRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageRequest.fromPartial(object.pagination)
@@ -577,12 +684,15 @@ exports.QueryDebtAuctionsResponse = {
     },
 };
 function createBaseQueryDebtBiddingsRequest() {
-    return { bidder: "" };
+    return { bidder: "", appId: long_1.default.UZERO };
 }
 exports.QueryDebtBiddingsRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.bidder !== "") {
             writer.uint32(10).string(message.bidder);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         return writer;
     },
@@ -596,6 +706,9 @@ exports.QueryDebtBiddingsRequest = {
                 case 1:
                     message.bidder = reader.string();
                     break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -606,17 +719,24 @@ exports.QueryDebtBiddingsRequest = {
     fromJSON(object) {
         return {
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.bidder !== undefined && (obj.bidder = message.bidder);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryDebtBiddingsRequest();
         message.bidder = (_a = object.bidder) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -629,7 +749,7 @@ exports.QueryDebtBiddingsResponse = {
             writer.uint32(10).string(message.bidder);
         }
         for (const v of message.biddings) {
-            biddings_1.Biddings.encode(v, writer.uint32(18).fork()).ldelim();
+            biddings_1.DebtBiddings.encode(v, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -644,7 +764,7 @@ exports.QueryDebtBiddingsResponse = {
                     message.bidder = reader.string();
                     break;
                 case 2:
-                    message.biddings.push(biddings_1.Biddings.decode(reader, reader.uint32()));
+                    message.biddings.push(biddings_1.DebtBiddings.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -657,7 +777,7 @@ exports.QueryDebtBiddingsResponse = {
         return {
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             biddings: Array.isArray(object === null || object === void 0 ? void 0 : object.biddings)
-                ? object.biddings.map((e) => biddings_1.Biddings.fromJSON(e))
+                ? object.biddings.map((e) => biddings_1.DebtBiddings.fromJSON(e))
                 : [],
         };
     },
@@ -665,7 +785,7 @@ exports.QueryDebtBiddingsResponse = {
         const obj = {};
         message.bidder !== undefined && (obj.bidder = message.bidder);
         if (message.biddings) {
-            obj.biddings = message.biddings.map((e) => e ? biddings_1.Biddings.toJSON(e) : undefined);
+            obj.biddings = message.biddings.map((e) => e ? biddings_1.DebtBiddings.toJSON(e) : undefined);
         }
         else {
             obj.biddings = [];
@@ -677,17 +797,27 @@ exports.QueryDebtBiddingsResponse = {
         const message = createBaseQueryDebtBiddingsResponse();
         message.bidder = (_a = object.bidder) !== null && _a !== void 0 ? _a : "";
         message.biddings =
-            ((_b = object.biddings) === null || _b === void 0 ? void 0 : _b.map((e) => biddings_1.Biddings.fromPartial(e))) || [];
+            ((_b = object.biddings) === null || _b === void 0 ? void 0 : _b.map((e) => biddings_1.DebtBiddings.fromPartial(e))) || [];
         return message;
     },
 };
 function createBaseQueryDutchAuctionRequest() {
-    return { id: long_1.default.UZERO };
+    return {
+        appId: long_1.default.UZERO,
+        auctionMappingId: long_1.default.UZERO,
+        auctionId: long_1.default.UZERO,
+    };
 }
 exports.QueryDutchAuctionRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (!message.id.isZero()) {
-            writer.uint32(8).uint64(message.id);
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        if (!message.auctionMappingId.isZero()) {
+            writer.uint32(16).uint64(message.auctionMappingId);
+        }
+        if (!message.auctionId.isZero()) {
+            writer.uint32(24).uint64(message.auctionId);
         }
         return writer;
     },
@@ -699,7 +829,13 @@ exports.QueryDutchAuctionRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.uint64();
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
+                    message.auctionMappingId = reader.uint64();
+                    break;
+                case 3:
+                    message.auctionId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -710,20 +846,38 @@ exports.QueryDutchAuctionRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            auctionMappingId: isSet(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO,
+            auctionId: isSet(object.auctionId)
+                ? long_1.default.fromValue(object.auctionId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.auctionMappingId !== undefined &&
+            (obj.auctionMappingId = (message.auctionMappingId || long_1.default.UZERO).toString());
+        message.auctionId !== undefined &&
+            (obj.auctionId = (message.auctionId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         const message = createBaseQueryDutchAuctionRequest();
-        message.id =
-            object.id !== undefined && object.id !== null
-                ? long_1.default.fromValue(object.id)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.auctionMappingId =
+            object.auctionMappingId !== undefined && object.auctionMappingId !== null
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO;
+        message.auctionId =
+            object.auctionId !== undefined && object.auctionId !== null
+                ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -780,12 +934,15 @@ exports.QueryDutchAuctionResponse = {
     },
 };
 function createBaseQueryDutchAuctionsRequest() {
-    return { pagination: undefined };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryDutchAuctionsRequest = {
     encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
         if (message.pagination !== undefined) {
-            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -797,6 +954,9 @@ exports.QueryDutchAuctionsRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
@@ -808,6 +968,7 @@ exports.QueryDutchAuctionsRequest = {
     },
     fromJSON(object) {
         return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -815,6 +976,8 @@ exports.QueryDutchAuctionsRequest = {
     },
     toJSON(message) {
         const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
@@ -823,6 +986,10 @@ exports.QueryDutchAuctionsRequest = {
     },
     fromPartial(object) {
         const message = createBaseQueryDutchAuctionsRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageRequest.fromPartial(object.pagination)
@@ -900,12 +1067,15 @@ exports.QueryDutchAuctionsResponse = {
     },
 };
 function createBaseQueryDutchBiddingsRequest() {
-    return { bidder: "" };
+    return { bidder: "", appId: long_1.default.UZERO };
 }
 exports.QueryDutchBiddingsRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.bidder !== "") {
             writer.uint32(10).string(message.bidder);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         return writer;
     },
@@ -919,6 +1089,9 @@ exports.QueryDutchBiddingsRequest = {
                 case 1:
                     message.bidder = reader.string();
                     break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -929,17 +1102,24 @@ exports.QueryDutchBiddingsRequest = {
     fromJSON(object) {
         return {
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.bidder !== undefined && (obj.bidder = message.bidder);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryDutchBiddingsRequest();
         message.bidder = (_a = object.bidder) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };

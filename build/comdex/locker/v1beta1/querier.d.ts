@@ -26,30 +26,29 @@ export interface QueryLockerInfoByProductIDResponse {
 export interface QueryTotalDepositByProductAssetIDRequest {
     productId: Long;
     assetId: Long;
-    owner: string;
 }
 export interface QueryTotalDepositByProductAssetIDResponse {
     totalDeposit: Long;
 }
-export interface QueryOwnerLockerByProductIDRequest {
+export interface QueryOwnerLockerByProductIDbyOwnerRequest {
     productId: Long;
     owner: string;
 }
-export interface QueryOwnerLockerByProductIDResponse {
+export interface QueryOwnerLockerByProductIDbyOwnerResponse {
     lockerIds: string[];
 }
-export interface QueryOwnerLockerOfAllProductRequest {
+export interface QueryOwnerLockerOfAllProductbyOwnerRequest {
     owner: string;
 }
-export interface QueryOwnerLockerOfAllProductResponse {
+export interface QueryOwnerLockerOfAllProductbyOwnerResponse {
     lockerIds: string[];
 }
-export interface QueryOwnerLockerByProductToAssetIDRequest {
+export interface QueryOwnerLockerByProductToAssetIDbyOwnerRequest {
     productId: Long;
     assetId: Long;
     owner: string;
 }
-export interface QueryOwnerLockerByProductToAssetIDResponse {
+export interface QueryOwnerLockerByProductToAssetIDbyOwnerResponse {
     lockerInfo: Locker[];
 }
 export interface QueryLockerCountByProductIDRequest {
@@ -492,7 +491,6 @@ export declare const QueryTotalDepositByProductAssetIDRequest: {
     fromPartial<I extends {
         productId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
-        owner?: string | undefined;
     } & {
         productId?: string | number | (Long.Long & {
             high: number;
@@ -610,7 +608,6 @@ export declare const QueryTotalDepositByProductAssetIDRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
-        owner?: string | undefined;
     } & Record<Exclude<keyof I, keyof QueryTotalDepositByProductAssetIDRequest>, never>>(object: I): QueryTotalDepositByProductAssetIDRequest;
 };
 export declare const QueryTotalDepositByProductAssetIDResponse: {
@@ -681,11 +678,11 @@ export declare const QueryTotalDepositByProductAssetIDResponse: {
         } & Record<Exclude<keyof I["totalDeposit"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, "totalDeposit">, never>>(object: I): QueryTotalDepositByProductAssetIDResponse;
 };
-export declare const QueryOwnerLockerByProductIDRequest: {
-    encode(message: QueryOwnerLockerByProductIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductIDRequest;
-    fromJSON(object: any): QueryOwnerLockerByProductIDRequest;
-    toJSON(message: QueryOwnerLockerByProductIDRequest): unknown;
+export declare const QueryOwnerLockerByProductIDbyOwnerRequest: {
+    encode(message: QueryOwnerLockerByProductIDbyOwnerRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductIDbyOwnerRequest;
+    fromJSON(object: any): QueryOwnerLockerByProductIDbyOwnerRequest;
+    toJSON(message: QueryOwnerLockerByProductIDbyOwnerRequest): unknown;
     fromPartial<I extends {
         productId?: string | number | Long.Long | undefined;
         owner?: string | undefined;
@@ -749,46 +746,46 @@ export declare const QueryOwnerLockerByProductIDRequest: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
         owner?: string | undefined;
-    } & Record<Exclude<keyof I, keyof QueryOwnerLockerByProductIDRequest>, never>>(object: I): QueryOwnerLockerByProductIDRequest;
+    } & Record<Exclude<keyof I, keyof QueryOwnerLockerByProductIDbyOwnerRequest>, never>>(object: I): QueryOwnerLockerByProductIDbyOwnerRequest;
 };
-export declare const QueryOwnerLockerByProductIDResponse: {
-    encode(message: QueryOwnerLockerByProductIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductIDResponse;
-    fromJSON(object: any): QueryOwnerLockerByProductIDResponse;
-    toJSON(message: QueryOwnerLockerByProductIDResponse): unknown;
+export declare const QueryOwnerLockerByProductIDbyOwnerResponse: {
+    encode(message: QueryOwnerLockerByProductIDbyOwnerResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductIDbyOwnerResponse;
+    fromJSON(object: any): QueryOwnerLockerByProductIDbyOwnerResponse;
+    toJSON(message: QueryOwnerLockerByProductIDbyOwnerResponse): unknown;
     fromPartial<I extends {
         lockerIds?: string[] | undefined;
     } & {
         lockerIds?: (string[] & string[] & Record<Exclude<keyof I["lockerIds"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryOwnerLockerByProductIDResponse;
+    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryOwnerLockerByProductIDbyOwnerResponse;
 };
-export declare const QueryOwnerLockerOfAllProductRequest: {
-    encode(message: QueryOwnerLockerOfAllProductRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerOfAllProductRequest;
-    fromJSON(object: any): QueryOwnerLockerOfAllProductRequest;
-    toJSON(message: QueryOwnerLockerOfAllProductRequest): unknown;
+export declare const QueryOwnerLockerOfAllProductbyOwnerRequest: {
+    encode(message: QueryOwnerLockerOfAllProductbyOwnerRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerOfAllProductbyOwnerRequest;
+    fromJSON(object: any): QueryOwnerLockerOfAllProductbyOwnerRequest;
+    toJSON(message: QueryOwnerLockerOfAllProductbyOwnerRequest): unknown;
     fromPartial<I extends {
         owner?: string | undefined;
     } & {
         owner?: string | undefined;
-    } & Record<Exclude<keyof I, "owner">, never>>(object: I): QueryOwnerLockerOfAllProductRequest;
+    } & Record<Exclude<keyof I, "owner">, never>>(object: I): QueryOwnerLockerOfAllProductbyOwnerRequest;
 };
-export declare const QueryOwnerLockerOfAllProductResponse: {
-    encode(message: QueryOwnerLockerOfAllProductResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerOfAllProductResponse;
-    fromJSON(object: any): QueryOwnerLockerOfAllProductResponse;
-    toJSON(message: QueryOwnerLockerOfAllProductResponse): unknown;
+export declare const QueryOwnerLockerOfAllProductbyOwnerResponse: {
+    encode(message: QueryOwnerLockerOfAllProductbyOwnerResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerOfAllProductbyOwnerResponse;
+    fromJSON(object: any): QueryOwnerLockerOfAllProductbyOwnerResponse;
+    toJSON(message: QueryOwnerLockerOfAllProductbyOwnerResponse): unknown;
     fromPartial<I extends {
         lockerIds?: string[] | undefined;
     } & {
         lockerIds?: (string[] & string[] & Record<Exclude<keyof I["lockerIds"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryOwnerLockerOfAllProductResponse;
+    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryOwnerLockerOfAllProductbyOwnerResponse;
 };
-export declare const QueryOwnerLockerByProductToAssetIDRequest: {
-    encode(message: QueryOwnerLockerByProductToAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductToAssetIDRequest;
-    fromJSON(object: any): QueryOwnerLockerByProductToAssetIDRequest;
-    toJSON(message: QueryOwnerLockerByProductToAssetIDRequest): unknown;
+export declare const QueryOwnerLockerByProductToAssetIDbyOwnerRequest: {
+    encode(message: QueryOwnerLockerByProductToAssetIDbyOwnerRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductToAssetIDbyOwnerRequest;
+    fromJSON(object: any): QueryOwnerLockerByProductToAssetIDbyOwnerRequest;
+    toJSON(message: QueryOwnerLockerByProductToAssetIDbyOwnerRequest): unknown;
     fromPartial<I extends {
         productId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
@@ -911,13 +908,13 @@ export declare const QueryOwnerLockerByProductToAssetIDRequest: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
         owner?: string | undefined;
-    } & Record<Exclude<keyof I, keyof QueryOwnerLockerByProductToAssetIDRequest>, never>>(object: I): QueryOwnerLockerByProductToAssetIDRequest;
+    } & Record<Exclude<keyof I, keyof QueryOwnerLockerByProductToAssetIDbyOwnerRequest>, never>>(object: I): QueryOwnerLockerByProductToAssetIDbyOwnerRequest;
 };
-export declare const QueryOwnerLockerByProductToAssetIDResponse: {
-    encode(message: QueryOwnerLockerByProductToAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductToAssetIDResponse;
-    fromJSON(object: any): QueryOwnerLockerByProductToAssetIDResponse;
-    toJSON(message: QueryOwnerLockerByProductToAssetIDResponse): unknown;
+export declare const QueryOwnerLockerByProductToAssetIDbyOwnerResponse: {
+    encode(message: QueryOwnerLockerByProductToAssetIDbyOwnerResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductToAssetIDbyOwnerResponse;
+    fromJSON(object: any): QueryOwnerLockerByProductToAssetIDbyOwnerResponse;
+    toJSON(message: QueryOwnerLockerByProductToAssetIDbyOwnerResponse): unknown;
     fromPartial<I extends {
         lockerInfo?: {
             lockerId?: string | undefined;
@@ -1081,7 +1078,7 @@ export declare const QueryOwnerLockerByProductToAssetIDResponse: {
             isLocked?: boolean | undefined;
             appMappingId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "lockerInfo">, never>>(object: I): QueryOwnerLockerByProductToAssetIDResponse;
+    } & Record<Exclude<keyof I, "lockerInfo">, never>>(object: I): QueryOwnerLockerByProductToAssetIDbyOwnerResponse;
 };
 export declare const QueryLockerCountByProductIDRequest: {
     encode(message: QueryLockerCountByProductIDRequest, writer?: _m0.Writer): _m0.Writer;
@@ -2553,9 +2550,9 @@ export interface QueryService {
     QueryLockersByProductToAssetID(request: QueryLockersByProductToAssetIDRequest): Promise<QueryLockersByProductToAssetIDResponse>;
     QueryLockerInfoByProductID(request: QueryLockerInfoByProductIDRequest): Promise<QueryLockerInfoByProductIDResponse>;
     QueryTotalDepositByProductAssetID(request: QueryTotalDepositByProductAssetIDRequest): Promise<QueryTotalDepositByProductAssetIDResponse>;
-    QueryOwnerLockerByProductID(request: QueryOwnerLockerByProductIDRequest): Promise<QueryOwnerLockerByProductIDResponse>;
-    QueryOwnerLockerOfAllProduct(request: QueryOwnerLockerOfAllProductRequest): Promise<QueryOwnerLockerOfAllProductResponse>;
-    QueryOwnerLockerByProductToAssetID(request: QueryOwnerLockerByProductToAssetIDRequest): Promise<QueryOwnerLockerByProductToAssetIDResponse>;
+    QueryOwnerLockerByProductIDbyOwner(request: QueryOwnerLockerByProductIDbyOwnerRequest): Promise<QueryOwnerLockerByProductIDbyOwnerResponse>;
+    QueryOwnerLockerOfAllProductbyOwner(request: QueryOwnerLockerOfAllProductbyOwnerRequest): Promise<QueryOwnerLockerOfAllProductbyOwnerResponse>;
+    QueryOwnerLockerByProductToAssetIDbyOwner(request: QueryOwnerLockerByProductToAssetIDbyOwnerRequest): Promise<QueryOwnerLockerByProductToAssetIDbyOwnerResponse>;
     QueryLockerCountByProductID(request: QueryLockerCountByProductIDRequest): Promise<QueryLockerCountByProductIDResponse>;
     QueryLockerCountByProductToAssetID(request: QueryLockerCountByProductToAssetIDRequest): Promise<QueryLockerCountByProductToAssetIDResponse>;
     QueryWhiteListedAssetIDsByProductID(request: QueryWhiteListedAssetIDsByProductIDRequest): Promise<QueryWhiteListedAssetIDsByProductIDResponse>;
@@ -2572,9 +2569,9 @@ export declare class QueryServiceClientImpl implements QueryService {
     QueryLockersByProductToAssetID(request: QueryLockersByProductToAssetIDRequest): Promise<QueryLockersByProductToAssetIDResponse>;
     QueryLockerInfoByProductID(request: QueryLockerInfoByProductIDRequest): Promise<QueryLockerInfoByProductIDResponse>;
     QueryTotalDepositByProductAssetID(request: QueryTotalDepositByProductAssetIDRequest): Promise<QueryTotalDepositByProductAssetIDResponse>;
-    QueryOwnerLockerByProductID(request: QueryOwnerLockerByProductIDRequest): Promise<QueryOwnerLockerByProductIDResponse>;
-    QueryOwnerLockerOfAllProduct(request: QueryOwnerLockerOfAllProductRequest): Promise<QueryOwnerLockerOfAllProductResponse>;
-    QueryOwnerLockerByProductToAssetID(request: QueryOwnerLockerByProductToAssetIDRequest): Promise<QueryOwnerLockerByProductToAssetIDResponse>;
+    QueryOwnerLockerByProductIDbyOwner(request: QueryOwnerLockerByProductIDbyOwnerRequest): Promise<QueryOwnerLockerByProductIDbyOwnerResponse>;
+    QueryOwnerLockerOfAllProductbyOwner(request: QueryOwnerLockerOfAllProductbyOwnerRequest): Promise<QueryOwnerLockerOfAllProductbyOwnerResponse>;
+    QueryOwnerLockerByProductToAssetIDbyOwner(request: QueryOwnerLockerByProductToAssetIDbyOwnerRequest): Promise<QueryOwnerLockerByProductToAssetIDbyOwnerResponse>;
     QueryLockerCountByProductID(request: QueryLockerCountByProductIDRequest): Promise<QueryLockerCountByProductIDResponse>;
     QueryLockerCountByProductToAssetID(request: QueryLockerCountByProductToAssetIDRequest): Promise<QueryLockerCountByProductToAssetIDResponse>;
     QueryWhiteListedAssetIDsByProductID(request: QueryWhiteListedAssetIDsByProductIDRequest): Promise<QueryWhiteListedAssetIDsByProductIDResponse>;

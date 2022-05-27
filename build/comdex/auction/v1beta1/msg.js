@@ -33,7 +33,13 @@ const _m0 = __importStar(require("protobufjs/minimal"));
 const coin_1 = require("./cosmos/base/v1beta1/coin");
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseMsgPlaceSurplusBidRequest() {
-    return { auctionId: long_1.default.UZERO, bidder: "", amount: undefined };
+    return {
+        auctionId: long_1.default.UZERO,
+        bidder: "",
+        amount: undefined,
+        appId: long_1.default.UZERO,
+        auctionMappingId: long_1.default.UZERO,
+    };
 }
 exports.MsgPlaceSurplusBidRequest = {
     encode(message, writer = _m0.Writer.create()) {
@@ -45,6 +51,12 @@ exports.MsgPlaceSurplusBidRequest = {
         }
         if (message.amount !== undefined) {
             coin_1.Coin.encode(message.amount, writer.uint32(26).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
+        }
+        if (!message.auctionMappingId.isZero()) {
+            writer.uint32(40).uint64(message.auctionMappingId);
         }
         return writer;
     },
@@ -64,6 +76,12 @@ exports.MsgPlaceSurplusBidRequest = {
                 case 3:
                     message.amount = coin_1.Coin.decode(reader, reader.uint32());
                     break;
+                case 4:
+                    message.appId = reader.uint64();
+                    break;
+                case 5:
+                    message.auctionMappingId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -78,6 +96,10 @@ exports.MsgPlaceSurplusBidRequest = {
                 : long_1.default.UZERO,
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            auctionMappingId: isSet(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -87,6 +109,10 @@ exports.MsgPlaceSurplusBidRequest = {
         message.bidder !== undefined && (obj.bidder = message.bidder);
         message.amount !== undefined &&
             (obj.amount = message.amount ? coin_1.Coin.toJSON(message.amount) : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.auctionMappingId !== undefined &&
+            (obj.auctionMappingId = (message.auctionMappingId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -101,6 +127,14 @@ exports.MsgPlaceSurplusBidRequest = {
             object.amount !== undefined && object.amount !== null
                 ? coin_1.Coin.fromPartial(object.amount)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.auctionMappingId =
+            object.auctionMappingId !== undefined && object.auctionMappingId !== null
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -143,6 +177,8 @@ function createBaseMsgPlaceDebtBidRequest() {
         bidder: "",
         bid: undefined,
         expectedUserToken: undefined,
+        appId: long_1.default.UZERO,
+        auctionMappingId: long_1.default.UZERO,
     };
 }
 exports.MsgPlaceDebtBidRequest = {
@@ -158,6 +194,12 @@ exports.MsgPlaceDebtBidRequest = {
         }
         if (message.expectedUserToken !== undefined) {
             coin_1.Coin.encode(message.expectedUserToken, writer.uint32(34).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(40).uint64(message.appId);
+        }
+        if (!message.auctionMappingId.isZero()) {
+            writer.uint32(48).uint64(message.auctionMappingId);
         }
         return writer;
     },
@@ -180,6 +222,12 @@ exports.MsgPlaceDebtBidRequest = {
                 case 4:
                     message.expectedUserToken = coin_1.Coin.decode(reader, reader.uint32());
                     break;
+                case 5:
+                    message.appId = reader.uint64();
+                    break;
+                case 6:
+                    message.auctionMappingId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -197,6 +245,10 @@ exports.MsgPlaceDebtBidRequest = {
             expectedUserToken: isSet(object.expectedUserToken)
                 ? coin_1.Coin.fromJSON(object.expectedUserToken)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            auctionMappingId: isSet(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -210,6 +262,10 @@ exports.MsgPlaceDebtBidRequest = {
             (obj.expectedUserToken = message.expectedUserToken
                 ? coin_1.Coin.toJSON(message.expectedUserToken)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.auctionMappingId !== undefined &&
+            (obj.auctionMappingId = (message.auctionMappingId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -229,6 +285,14 @@ exports.MsgPlaceDebtBidRequest = {
                 object.expectedUserToken !== null
                 ? coin_1.Coin.fromPartial(object.expectedUserToken)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.auctionMappingId =
+            object.auctionMappingId !== undefined && object.auctionMappingId !== null
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -266,7 +330,14 @@ exports.MsgPlaceDebtBidResponse = {
     },
 };
 function createBaseMsgPlaceDutchBidRequest() {
-    return { auctionId: long_1.default.UZERO, bidder: "", amount: undefined, max: "" };
+    return {
+        auctionId: long_1.default.UZERO,
+        bidder: "",
+        amount: undefined,
+        max: "",
+        appId: long_1.default.UZERO,
+        auctionMappingId: long_1.default.UZERO,
+    };
 }
 exports.MsgPlaceDutchBidRequest = {
     encode(message, writer = _m0.Writer.create()) {
@@ -281,6 +352,12 @@ exports.MsgPlaceDutchBidRequest = {
         }
         if (message.max !== "") {
             writer.uint32(34).string(message.max);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(40).uint64(message.appId);
+        }
+        if (!message.auctionMappingId.isZero()) {
+            writer.uint32(48).uint64(message.auctionMappingId);
         }
         return writer;
     },
@@ -303,6 +380,12 @@ exports.MsgPlaceDutchBidRequest = {
                 case 4:
                     message.max = reader.string();
                     break;
+                case 5:
+                    message.appId = reader.uint64();
+                    break;
+                case 6:
+                    message.auctionMappingId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -318,6 +401,10 @@ exports.MsgPlaceDutchBidRequest = {
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
             max: isSet(object.max) ? String(object.max) : "",
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            auctionMappingId: isSet(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -328,6 +415,10 @@ exports.MsgPlaceDutchBidRequest = {
         message.amount !== undefined &&
             (obj.amount = message.amount ? coin_1.Coin.toJSON(message.amount) : undefined);
         message.max !== undefined && (obj.max = message.max);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.auctionMappingId !== undefined &&
+            (obj.auctionMappingId = (message.auctionMappingId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -343,6 +434,14 @@ exports.MsgPlaceDutchBidRequest = {
                 ? coin_1.Coin.fromPartial(object.amount)
                 : undefined;
         message.max = (_b = object.max) !== null && _b !== void 0 ? _b : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.auctionMappingId =
+            object.auctionMappingId !== undefined && object.auctionMappingId !== null
+                ? long_1.default.fromValue(object.auctionMappingId)
+                : long_1.default.UZERO;
         return message;
     },
 };

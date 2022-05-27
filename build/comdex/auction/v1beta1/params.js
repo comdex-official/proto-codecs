@@ -44,6 +44,9 @@ function createBaseParams() {
         chost: "",
         step: "",
         priceFunctionType: long_1.default.UZERO,
+        surplusId: long_1.default.UZERO,
+        debtId: long_1.default.UZERO,
+        dutchId: long_1.default.UZERO,
     };
 }
 exports.Params = {
@@ -80,6 +83,15 @@ exports.Params = {
         }
         if (!message.priceFunctionType.isZero()) {
             writer.uint32(88).uint64(message.priceFunctionType);
+        }
+        if (!message.surplusId.isZero()) {
+            writer.uint32(96).uint64(message.surplusId);
+        }
+        if (!message.debtId.isZero()) {
+            writer.uint32(104).uint64(message.debtId);
+        }
+        if (!message.dutchId.isZero()) {
+            writer.uint32(112).uint64(message.dutchId);
         }
         return writer;
     },
@@ -123,6 +135,15 @@ exports.Params = {
                 case 11:
                     message.priceFunctionType = reader.uint64();
                     break;
+                case 12:
+                    message.surplusId = reader.uint64();
+                    break;
+                case 13:
+                    message.debtId = reader.uint64();
+                    break;
+                case 14:
+                    message.dutchId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -155,6 +176,13 @@ exports.Params = {
             priceFunctionType: isSet(object.priceFunctionType)
                 ? long_1.default.fromValue(object.priceFunctionType)
                 : long_1.default.UZERO,
+            surplusId: isSet(object.surplusId)
+                ? long_1.default.fromValue(object.surplusId)
+                : long_1.default.UZERO,
+            debtId: isSet(object.debtId) ? long_1.default.fromValue(object.debtId) : long_1.default.UZERO,
+            dutchId: isSet(object.dutchId)
+                ? long_1.default.fromValue(object.dutchId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -177,6 +205,12 @@ exports.Params = {
         message.step !== undefined && (obj.step = message.step);
         message.priceFunctionType !== undefined &&
             (obj.priceFunctionType = (message.priceFunctionType || long_1.default.UZERO).toString());
+        message.surplusId !== undefined &&
+            (obj.surplusId = (message.surplusId || long_1.default.UZERO).toString());
+        message.debtId !== undefined &&
+            (obj.debtId = (message.debtId || long_1.default.UZERO).toString());
+        message.dutchId !== undefined &&
+            (obj.dutchId = (message.dutchId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -201,6 +235,18 @@ exports.Params = {
             object.priceFunctionType !== undefined &&
                 object.priceFunctionType !== null
                 ? long_1.default.fromValue(object.priceFunctionType)
+                : long_1.default.UZERO;
+        message.surplusId =
+            object.surplusId !== undefined && object.surplusId !== null
+                ? long_1.default.fromValue(object.surplusId)
+                : long_1.default.UZERO;
+        message.debtId =
+            object.debtId !== undefined && object.debtId !== null
+                ? long_1.default.fromValue(object.debtId)
+                : long_1.default.UZERO;
+        message.dutchId =
+            object.dutchId !== undefined && object.dutchId !== null
+                ? long_1.default.fromValue(object.dutchId)
                 : long_1.default.UZERO;
         return message;
     },
