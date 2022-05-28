@@ -1,27 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -29,11 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueryServiceClientImpl = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryDutchBiddingsResponse = exports.QueryDutchBiddingsRequest = exports.QueryDutchAuctionsResponse = exports.QueryDutchAuctionsRequest = exports.QueryDutchAuctionResponse = exports.QueryDutchAuctionRequest = exports.QueryDebtBiddingsResponse = exports.QueryDebtBiddingsRequest = exports.QueryDebtAuctionsResponse = exports.QueryDebtAuctionsRequest = exports.QueryDebtAuctionResponse = exports.QueryDebtAuctionRequest = exports.QuerySurplusBiddingsResponse = exports.QuerySurplusBiddingsRequest = exports.QuerySurplusAuctionsResponse = exports.QuerySurplusAuctionsRequest = exports.QuerySurplusAuctionResponse = exports.QuerySurplusAuctionRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
-const auction_1 = require("./comdex/auction/v1beta1/auction");
-const pagination_1 = require("./cosmos/base/query/v1beta1/pagination");
-const params_1 = require("./comdex/auction/v1beta1/params");
-const biddings_1 = require("./comdex/auction/v1beta1/biddings");
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const auction_1 = require("./auction");
+const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
+const params_1 = require("./params");
+const biddings_1 = require("./biddings");
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseQuerySurplusAuctionRequest() {
     return {
@@ -43,7 +20,7 @@ function createBaseQuerySurplusAuctionRequest() {
     };
 }
 exports.QuerySurplusAuctionRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -56,7 +33,7 @@ exports.QuerySurplusAuctionRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQuerySurplusAuctionRequest();
         while (reader.pos < end) {
@@ -80,12 +57,12 @@ exports.QuerySurplusAuctionRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromValue(object.auctionMappingId)
+                ? long_1.default.fromString(object.auctionMappingId)
                 : long_1.default.UZERO,
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromValue(object.auctionId)
+                ? long_1.default.fromString(object.auctionId)
                 : long_1.default.UZERO,
         };
     },
@@ -120,14 +97,14 @@ function createBaseQuerySurplusAuctionResponse() {
     return { auction: undefined };
 }
 exports.QuerySurplusAuctionResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.auction !== undefined) {
             auction_1.SurplusAuction.encode(message.auction, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQuerySurplusAuctionResponse();
         while (reader.pos < end) {
@@ -171,7 +148,7 @@ function createBaseQuerySurplusAuctionsRequest() {
     return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QuerySurplusAuctionsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -181,7 +158,7 @@ exports.QuerySurplusAuctionsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQuerySurplusAuctionsRequest();
         while (reader.pos < end) {
@@ -202,7 +179,7 @@ exports.QuerySurplusAuctionsRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -235,7 +212,7 @@ function createBaseQuerySurplusAuctionsResponse() {
     return { auctions: [], pagination: undefined };
 }
 exports.QuerySurplusAuctionsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.auctions) {
             auction_1.SurplusAuction.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -245,7 +222,7 @@ exports.QuerySurplusAuctionsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQuerySurplusAuctionsResponse();
         while (reader.pos < end) {
@@ -304,7 +281,7 @@ function createBaseQuerySurplusBiddingsRequest() {
     return { bidder: "", appId: long_1.default.UZERO };
 }
 exports.QuerySurplusBiddingsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.bidder !== "") {
             writer.uint32(10).string(message.bidder);
         }
@@ -314,7 +291,7 @@ exports.QuerySurplusBiddingsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQuerySurplusBiddingsRequest();
         while (reader.pos < end) {
@@ -336,7 +313,7 @@ exports.QuerySurplusBiddingsRequest = {
     fromJSON(object) {
         return {
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -361,7 +338,7 @@ function createBaseQuerySurplusBiddingsResponse() {
     return { bidder: "", biddings: [] };
 }
 exports.QuerySurplusBiddingsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.bidder !== "") {
             writer.uint32(10).string(message.bidder);
         }
@@ -371,7 +348,7 @@ exports.QuerySurplusBiddingsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQuerySurplusBiddingsResponse();
         while (reader.pos < end) {
@@ -426,7 +403,7 @@ function createBaseQueryDebtAuctionRequest() {
     };
 }
 exports.QueryDebtAuctionRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -439,7 +416,7 @@ exports.QueryDebtAuctionRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDebtAuctionRequest();
         while (reader.pos < end) {
@@ -463,12 +440,12 @@ exports.QueryDebtAuctionRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromValue(object.auctionMappingId)
+                ? long_1.default.fromString(object.auctionMappingId)
                 : long_1.default.UZERO,
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromValue(object.auctionId)
+                ? long_1.default.fromString(object.auctionId)
                 : long_1.default.UZERO,
         };
     },
@@ -503,14 +480,14 @@ function createBaseQueryDebtAuctionResponse() {
     return { auction: undefined };
 }
 exports.QueryDebtAuctionResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.auction !== undefined) {
             auction_1.DebtAuction.encode(message.auction, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDebtAuctionResponse();
         while (reader.pos < end) {
@@ -554,7 +531,7 @@ function createBaseQueryDebtAuctionsRequest() {
     return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryDebtAuctionsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -564,7 +541,7 @@ exports.QueryDebtAuctionsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDebtAuctionsRequest();
         while (reader.pos < end) {
@@ -585,7 +562,7 @@ exports.QueryDebtAuctionsRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -618,7 +595,7 @@ function createBaseQueryDebtAuctionsResponse() {
     return { auctions: [], pagination: undefined };
 }
 exports.QueryDebtAuctionsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.auctions) {
             auction_1.DebtAuction.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -628,7 +605,7 @@ exports.QueryDebtAuctionsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDebtAuctionsResponse();
         while (reader.pos < end) {
@@ -687,7 +664,7 @@ function createBaseQueryDebtBiddingsRequest() {
     return { bidder: "", appId: long_1.default.UZERO };
 }
 exports.QueryDebtBiddingsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.bidder !== "") {
             writer.uint32(10).string(message.bidder);
         }
@@ -697,7 +674,7 @@ exports.QueryDebtBiddingsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDebtBiddingsRequest();
         while (reader.pos < end) {
@@ -719,7 +696,7 @@ exports.QueryDebtBiddingsRequest = {
     fromJSON(object) {
         return {
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -744,7 +721,7 @@ function createBaseQueryDebtBiddingsResponse() {
     return { bidder: "", biddings: [] };
 }
 exports.QueryDebtBiddingsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.bidder !== "") {
             writer.uint32(10).string(message.bidder);
         }
@@ -754,7 +731,7 @@ exports.QueryDebtBiddingsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDebtBiddingsResponse();
         while (reader.pos < end) {
@@ -809,7 +786,7 @@ function createBaseQueryDutchAuctionRequest() {
     };
 }
 exports.QueryDutchAuctionRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -822,7 +799,7 @@ exports.QueryDutchAuctionRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDutchAuctionRequest();
         while (reader.pos < end) {
@@ -846,12 +823,12 @@ exports.QueryDutchAuctionRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromValue(object.auctionMappingId)
+                ? long_1.default.fromString(object.auctionMappingId)
                 : long_1.default.UZERO,
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromValue(object.auctionId)
+                ? long_1.default.fromString(object.auctionId)
                 : long_1.default.UZERO,
         };
     },
@@ -886,14 +863,14 @@ function createBaseQueryDutchAuctionResponse() {
     return { auction: undefined };
 }
 exports.QueryDutchAuctionResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.auction !== undefined) {
             auction_1.DutchAuction.encode(message.auction, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDutchAuctionResponse();
         while (reader.pos < end) {
@@ -937,7 +914,7 @@ function createBaseQueryDutchAuctionsRequest() {
     return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryDutchAuctionsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -947,7 +924,7 @@ exports.QueryDutchAuctionsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDutchAuctionsRequest();
         while (reader.pos < end) {
@@ -968,7 +945,7 @@ exports.QueryDutchAuctionsRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -1001,7 +978,7 @@ function createBaseQueryDutchAuctionsResponse() {
     return { auctions: [], pagination: undefined };
 }
 exports.QueryDutchAuctionsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.auctions) {
             auction_1.DutchAuction.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -1011,7 +988,7 @@ exports.QueryDutchAuctionsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDutchAuctionsResponse();
         while (reader.pos < end) {
@@ -1070,7 +1047,7 @@ function createBaseQueryDutchBiddingsRequest() {
     return { bidder: "", appId: long_1.default.UZERO };
 }
 exports.QueryDutchBiddingsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.bidder !== "") {
             writer.uint32(10).string(message.bidder);
         }
@@ -1080,7 +1057,7 @@ exports.QueryDutchBiddingsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDutchBiddingsRequest();
         while (reader.pos < end) {
@@ -1102,7 +1079,7 @@ exports.QueryDutchBiddingsRequest = {
     fromJSON(object) {
         return {
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1127,7 +1104,7 @@ function createBaseQueryDutchBiddingsResponse() {
     return { bidder: "", biddings: [] };
 }
 exports.QueryDutchBiddingsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.bidder !== "") {
             writer.uint32(10).string(message.bidder);
         }
@@ -1137,7 +1114,7 @@ exports.QueryDutchBiddingsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDutchBiddingsResponse();
         while (reader.pos < end) {
@@ -1188,11 +1165,11 @@ function createBaseQueryParamsRequest() {
     return {};
 }
 exports.QueryParamsRequest = {
-    encode(_, writer = _m0.Writer.create()) {
+    encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
@@ -1221,14 +1198,14 @@ function createBaseQueryParamsResponse() {
     return { params: undefined };
 }
 exports.QueryParamsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
@@ -1281,58 +1258,58 @@ class QueryServiceClientImpl {
     QuerySurplusAuction(request) {
         const data = exports.QuerySurplusAuctionRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QuerySurplusAuction", data);
-        return promise.then((data) => exports.QuerySurplusAuctionResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QuerySurplusAuctionResponse.decode(new minimal_1.default.Reader(data)));
     }
     QuerySurplusAuctions(request) {
         const data = exports.QuerySurplusAuctionsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QuerySurplusAuctions", data);
-        return promise.then((data) => exports.QuerySurplusAuctionsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QuerySurplusAuctionsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QuerySurplusBiddings(request) {
         const data = exports.QuerySurplusBiddingsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QuerySurplusBiddings", data);
-        return promise.then((data) => exports.QuerySurplusBiddingsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QuerySurplusBiddingsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryDebtAuction(request) {
         const data = exports.QueryDebtAuctionRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QueryDebtAuction", data);
-        return promise.then((data) => exports.QueryDebtAuctionResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryDebtAuctionResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryDebtAuctions(request) {
         const data = exports.QueryDebtAuctionsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QueryDebtAuctions", data);
-        return promise.then((data) => exports.QueryDebtAuctionsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryDebtAuctionsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryDebtBiddings(request) {
         const data = exports.QueryDebtBiddingsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QueryDebtBiddings", data);
-        return promise.then((data) => exports.QueryDebtBiddingsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryDebtBiddingsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryDutchAuction(request) {
         const data = exports.QueryDutchAuctionRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QueryDutchAuction", data);
-        return promise.then((data) => exports.QueryDutchAuctionResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryDutchAuctionResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryDutchAuctions(request) {
         const data = exports.QueryDutchAuctionsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QueryDutchAuctions", data);
-        return promise.then((data) => exports.QueryDutchAuctionsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryDutchAuctionsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryDutchBiddings(request) {
         const data = exports.QueryDutchBiddingsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QueryDutchBiddings", data);
-        return promise.then((data) => exports.QueryDutchBiddingsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryDutchBiddingsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryParams(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.QueryService", "QueryParams", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.QueryServiceClientImpl = QueryServiceClientImpl;
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
