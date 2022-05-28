@@ -1,21 +1,21 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import {
   SurplusAuction,
   DebtAuction,
   DutchAuction,
-} from "./comdex/auction/v1beta1/auction";
+} from "./auction";
 import {
   PageRequest,
   PageResponse,
-} from "./cosmos/base/query/v1beta1/pagination";
-import { Params } from "./comdex/auction/v1beta1/params";
+} from "../../../cosmos/base/query/v1beta1/pagination";
+import { Params } from "./params";
 import {
   SurplusBiddings,
   DebtBiddings,
   DutchBiddings,
-} from "./comdex/auction/v1beta1/biddings";
+} from "./biddings";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
@@ -169,12 +169,12 @@ export const QuerySurplusAuctionRequest = {
 
   fromJSON(object: any): QuerySurplusAuctionRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
+        ? Long.fromString(object.auctionMappingId)
         : Long.UZERO,
       auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
+        ? Long.fromString(object.auctionId)
         : Long.UZERO,
     };
   },
@@ -321,7 +321,7 @@ export const QuerySurplusAuctionsRequest = {
 
   fromJSON(object: any): QuerySurplusAuctionsRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -486,7 +486,7 @@ export const QuerySurplusBiddingsRequest = {
   fromJSON(object: any): QuerySurplusBiddingsRequest {
     return {
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -642,12 +642,12 @@ export const QueryDebtAuctionRequest = {
 
   fromJSON(object: any): QueryDebtAuctionRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
+        ? Long.fromString(object.auctionMappingId)
         : Long.UZERO,
       auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
+        ? Long.fromString(object.auctionId)
         : Long.UZERO,
     };
   },
@@ -794,7 +794,7 @@ export const QueryDebtAuctionsRequest = {
 
   fromJSON(object: any): QueryDebtAuctionsRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -959,7 +959,7 @@ export const QueryDebtBiddingsRequest = {
   fromJSON(object: any): QueryDebtBiddingsRequest {
     return {
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1113,12 +1113,12 @@ export const QueryDutchAuctionRequest = {
 
   fromJSON(object: any): QueryDutchAuctionRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
+        ? Long.fromString(object.auctionMappingId)
         : Long.UZERO,
       auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
+        ? Long.fromString(object.auctionId)
         : Long.UZERO,
     };
   },
@@ -1265,7 +1265,7 @@ export const QueryDutchAuctionsRequest = {
 
   fromJSON(object: any): QueryDutchAuctionsRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -1430,7 +1430,7 @@ export const QueryDutchBiddingsRequest = {
   fromJSON(object: any): QueryDutchBiddingsRequest {
     return {
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 

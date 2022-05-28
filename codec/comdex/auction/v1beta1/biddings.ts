@@ -1,8 +1,8 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Coin } from "./cosmos/base/v1beta1/coin";
-import { Timestamp } from "./google/protobuf/timestamp";
+import _m0 from "protobufjs/minimal";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
@@ -154,10 +154,10 @@ export const SurplusBiddings = {
   fromJSON(object: any): SurplusBiddings {
     return {
       biddingId: isSet(object.biddingId)
-        ? Long.fromValue(object.biddingId)
+        ? Long.fromString(object.biddingId)
         : Long.UZERO,
       auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
+        ? Long.fromString(object.auctionId)
         : Long.UZERO,
       auctionStatus: isSet(object.auctionStatus)
         ? String(object.auctionStatus)
@@ -174,9 +174,9 @@ export const SurplusBiddings = {
         ? String(object.biddingStatus)
         : "",
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
+        ? Long.fromString(object.auctionMappingId)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -351,10 +351,10 @@ export const DebtBiddings = {
   fromJSON(object: any): DebtBiddings {
     return {
       biddingId: isSet(object.biddingId)
-        ? Long.fromValue(object.biddingId)
+        ? Long.fromString(object.biddingId)
         : Long.UZERO,
       auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
+        ? Long.fromString(object.auctionId)
         : Long.UZERO,
       auctionStatus: isSet(object.auctionStatus)
         ? String(object.auctionStatus)
@@ -371,9 +371,9 @@ export const DebtBiddings = {
         ? String(object.biddingStatus)
         : "",
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
+        ? Long.fromString(object.auctionMappingId)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -550,10 +550,10 @@ export const DutchBiddings = {
   fromJSON(object: any): DutchBiddings {
     return {
       biddingId: isSet(object.biddingId)
-        ? Long.fromValue(object.biddingId)
+        ? Long.fromString(object.biddingId)
         : Long.UZERO,
       auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
+        ? Long.fromString(object.auctionId)
         : Long.UZERO,
       auctionStatus: isSet(object.auctionStatus)
         ? String(object.auctionStatus)
@@ -572,9 +572,9 @@ export const DutchBiddings = {
         ? String(object.biddingStatus)
         : "",
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
+        ? Long.fromString(object.auctionMappingId)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
