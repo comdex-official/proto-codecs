@@ -1,9 +1,9 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { SurplusAuction, DebtAuction, DutchAuction } from "./comdex/auction/v1beta1/auction";
-import { PageRequest, PageResponse } from "./cosmos/base/query/v1beta1/pagination";
-import { Params } from "./comdex/auction/v1beta1/params";
-import { SurplusBiddings, DebtBiddings, DutchBiddings } from "./comdex/auction/v1beta1/biddings";
+import _m0 from "protobufjs/minimal";
+import { SurplusAuction, DebtAuction, DutchAuction } from "./auction";
+import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import { Params } from "./params";
+import { SurplusBiddings, DebtBiddings, DutchBiddings } from "./biddings";
 export declare const protobufPackage = "comdex.auction.v1beta1";
 export interface QuerySurplusAuctionRequest {
     appId: Long;
@@ -300,6 +300,8 @@ export declare const QuerySurplusAuctionResponse: {
             appId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         auction?: ({
@@ -328,6 +330,8 @@ export declare const QuerySurplusAuctionResponse: {
             appId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         } & {
             auctionId?: string | number | (Long.Long & {
                 high: number;
@@ -393,14 +397,14 @@ export declare const QuerySurplusAuctionResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["outflowToken"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["outflowToken"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             inflowToken?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["inflowToken"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["inflowToken"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             activeBiddingId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -466,7 +470,7 @@ export declare const QuerySurplusAuctionResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["bid"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["bid"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             endTime?: Date | undefined;
             bidFactor?: string | undefined;
             biddingIds?: ({
@@ -535,7 +539,7 @@ export declare const QuerySurplusAuctionResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auction"]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("./comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -771,6 +775,122 @@ export declare const QuerySurplusAuctionResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["auction"]["auctionMappingId"], keyof Long.Long>, never>) | undefined;
+            assetInId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["auction"]["assetInId"], keyof Long.Long>, never>) | undefined;
+            assetOutId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["auction"]["assetOutId"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["auction"], keyof SurplusAuction>, never>) | undefined;
     } & Record<Exclude<keyof I, "auction">, never>>(object: I): QuerySurplusAuctionResponse;
 };
@@ -1008,6 +1128,8 @@ export declare const QuerySurplusAuctionsResponse: {
             appId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -1040,6 +1162,8 @@ export declare const QuerySurplusAuctionsResponse: {
             appId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         }[] & ({
             auctionId?: string | number | Long.Long | undefined;
             outflowToken?: {
@@ -1066,6 +1190,8 @@ export declare const QuerySurplusAuctionsResponse: {
             appId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         } & {
             auctionId?: string | number | (Long.Long & {
                 high: number;
@@ -1131,14 +1257,14 @@ export declare const QuerySurplusAuctionsResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["outflowToken"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["outflowToken"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             inflowToken?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["inflowToken"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["inflowToken"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             activeBiddingId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1204,7 +1330,7 @@ export declare const QuerySurplusAuctionsResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["bid"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["bid"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             endTime?: Date | undefined;
             bidFactor?: string | undefined;
             biddingIds?: ({
@@ -1273,7 +1399,7 @@ export declare const QuerySurplusAuctionsResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("./comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -1509,6 +1635,122 @@ export declare const QuerySurplusAuctionsResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["auctions"][number]["auctionMappingId"], keyof Long.Long>, never>) | undefined;
+            assetInId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["auctions"][number]["assetInId"], keyof Long.Long>, never>) | undefined;
+            assetOutId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["auctions"][number]["assetOutId"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["auctions"][number], keyof SurplusAuction>, never>)[] & Record<Exclude<keyof I["auctions"], keyof {
             auctionId?: string | number | Long.Long | undefined;
             outflowToken?: {
@@ -1535,6 +1777,8 @@ export declare const QuerySurplusAuctionsResponse: {
             appId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -1857,7 +2101,7 @@ export declare const QuerySurplusBiddingsResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["biddings"][number]["auctionedCollateral"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["biddings"][number]["auctionedCollateral"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             bidder?: string | undefined;
             bid?: ({
                 denom?: string | undefined;
@@ -1865,7 +2109,7 @@ export declare const QuerySurplusBiddingsResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["biddings"][number]["bid"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["biddings"][number]["bid"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             biddingTimestamp?: Date | undefined;
             biddingStatus?: string | undefined;
             auctionMappingId?: string | number | (Long.Long & {
@@ -2225,6 +2469,9 @@ export declare const QueryDebtAuctionResponse: {
                 bidOwner?: string | undefined;
             }[] | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            bidFactor?: string | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         auction?: ({
@@ -2256,6 +2503,9 @@ export declare const QueryDebtAuctionResponse: {
                 bidOwner?: string | undefined;
             }[] | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            bidFactor?: string | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         } & {
             auctionId?: string | number | (Long.Long & {
                 high: number;
@@ -2321,21 +2571,21 @@ export declare const QueryDebtAuctionResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["auctionedToken"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["auctionedToken"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             expectedUserToken?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["expectedUserToken"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["expectedUserToken"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             expectedMintedToken?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["expectedMintedToken"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["expectedMintedToken"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             endTime?: Date | undefined;
             activeBiddingId?: string | number | (Long.Long & {
                 high: number;
@@ -2402,7 +2652,7 @@ export declare const QueryDebtAuctionResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["currentBidAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["currentBidAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             auctionStatus?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -2643,7 +2893,7 @@ export declare const QueryDebtAuctionResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auction"]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("./comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -2705,6 +2955,123 @@ export declare const QueryDebtAuctionResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["auction"]["auctionMappingId"], keyof Long.Long>, never>) | undefined;
+            bidFactor?: string | undefined;
+            assetInId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["auction"]["assetInId"], keyof Long.Long>, never>) | undefined;
+            assetOutId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["auction"]["assetOutId"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["auction"], keyof DebtAuction>, never>) | undefined;
     } & Record<Exclude<keyof I, "auction">, never>>(object: I): QueryDebtAuctionResponse;
 };
@@ -2945,6 +3312,9 @@ export declare const QueryDebtAuctionsResponse: {
                 bidOwner?: string | undefined;
             }[] | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            bidFactor?: string | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -2980,6 +3350,9 @@ export declare const QueryDebtAuctionsResponse: {
                 bidOwner?: string | undefined;
             }[] | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            bidFactor?: string | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         }[] & ({
             auctionId?: string | number | Long.Long | undefined;
             auctionedToken?: {
@@ -3009,6 +3382,9 @@ export declare const QueryDebtAuctionsResponse: {
                 bidOwner?: string | undefined;
             }[] | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            bidFactor?: string | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         } & {
             auctionId?: string | number | (Long.Long & {
                 high: number;
@@ -3074,21 +3450,21 @@ export declare const QueryDebtAuctionsResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["auctionedToken"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["auctionedToken"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             expectedUserToken?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["expectedUserToken"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["expectedUserToken"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             expectedMintedToken?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["expectedMintedToken"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["expectedMintedToken"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             endTime?: Date | undefined;
             activeBiddingId?: string | number | (Long.Long & {
                 high: number;
@@ -3155,7 +3531,7 @@ export declare const QueryDebtAuctionsResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["currentBidAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["currentBidAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             auctionStatus?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -3396,7 +3772,7 @@ export declare const QueryDebtAuctionsResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("./comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -3458,6 +3834,123 @@ export declare const QueryDebtAuctionsResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["auctions"][number]["auctionMappingId"], keyof Long.Long>, never>) | undefined;
+            bidFactor?: string | undefined;
+            assetInId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["auctions"][number]["assetInId"], keyof Long.Long>, never>) | undefined;
+            assetOutId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["auctions"][number]["assetOutId"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["auctions"][number], keyof DebtAuction>, never>)[] & Record<Exclude<keyof I["auctions"], keyof {
             auctionId?: string | number | Long.Long | undefined;
             auctionedToken?: {
@@ -3487,6 +3980,9 @@ export declare const QueryDebtAuctionsResponse: {
                 bidOwner?: string | undefined;
             }[] | undefined;
             auctionMappingId?: string | number | Long.Long | undefined;
+            bidFactor?: string | undefined;
+            assetInId?: string | number | Long.Long | undefined;
+            assetOutId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -3809,7 +4305,7 @@ export declare const QueryDebtBiddingsResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["biddings"][number]["OutflowTokens"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["biddings"][number]["OutflowTokens"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             bidder?: string | undefined;
             bid?: ({
                 denom?: string | undefined;
@@ -3817,7 +4313,7 @@ export declare const QueryDebtBiddingsResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["biddings"][number]["bid"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["biddings"][number]["bid"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             biddingTimestamp?: Date | undefined;
             biddingStatus?: string | undefined;
             auctionMappingId?: string | number | (Long.Long & {
@@ -4183,6 +4679,7 @@ export declare const QueryDutchAuctionResponse: {
             assetOutId?: string | number | Long.Long | undefined;
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
+            liquidationPenalty?: string | undefined;
         } | undefined;
     } & {
         auction?: ({
@@ -4220,6 +4717,7 @@ export declare const QueryDutchAuctionResponse: {
             assetOutId?: string | number | Long.Long | undefined;
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
+            liquidationPenalty?: string | undefined;
         } & {
             auctionId?: string | number | (Long.Long & {
                 high: number;
@@ -4285,28 +4783,28 @@ export declare const QueryDutchAuctionResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["outflowTokenInitAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["outflowTokenInitAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             outflowTokenCurrentAmount?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["outflowTokenCurrentAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["outflowTokenCurrentAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             inflowTokenTargetAmount?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["inflowTokenTargetAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["inflowTokenTargetAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             inflowTokenCurrentAmount?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["inflowTokenCurrentAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auction"]["inflowTokenCurrentAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             outflowTokenInitialPrice?: string | undefined;
             outflowTokenCurrentPrice?: string | undefined;
             outflowTokenEndPrice?: string | undefined;
@@ -4437,7 +4935,7 @@ export declare const QueryDutchAuctionResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auction"]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("./comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -4732,6 +5230,7 @@ export declare const QueryDutchAuctionResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["auction"]["lockedVaultId"], keyof Long.Long>, never>) | undefined;
             vaultOwner?: string | undefined;
+            liquidationPenalty?: string | undefined;
         } & Record<Exclude<keyof I["auction"], keyof DutchAuction>, never>) | undefined;
     } & Record<Exclude<keyof I, "auction">, never>>(object: I): QueryDutchAuctionResponse;
 };
@@ -4978,6 +5477,7 @@ export declare const QueryDutchAuctionsResponse: {
             assetOutId?: string | number | Long.Long | undefined;
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
+            liquidationPenalty?: string | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -5019,6 +5519,7 @@ export declare const QueryDutchAuctionsResponse: {
             assetOutId?: string | number | Long.Long | undefined;
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
+            liquidationPenalty?: string | undefined;
         }[] & ({
             auctionId?: string | number | Long.Long | undefined;
             outflowTokenInitAmount?: {
@@ -5054,6 +5555,7 @@ export declare const QueryDutchAuctionsResponse: {
             assetOutId?: string | number | Long.Long | undefined;
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
+            liquidationPenalty?: string | undefined;
         } & {
             auctionId?: string | number | (Long.Long & {
                 high: number;
@@ -5119,28 +5621,28 @@ export declare const QueryDutchAuctionsResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["outflowTokenInitAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["outflowTokenInitAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             outflowTokenCurrentAmount?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["outflowTokenCurrentAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["outflowTokenCurrentAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             inflowTokenTargetAmount?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["inflowTokenTargetAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["inflowTokenTargetAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             inflowTokenCurrentAmount?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["inflowTokenCurrentAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctions"][number]["inflowTokenCurrentAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             outflowTokenInitialPrice?: string | undefined;
             outflowTokenCurrentPrice?: string | undefined;
             outflowTokenEndPrice?: string | undefined;
@@ -5271,7 +5773,7 @@ export declare const QueryDutchAuctionsResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("./comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -5566,6 +6068,7 @@ export declare const QueryDutchAuctionsResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["auctions"][number]["lockedVaultId"], keyof Long.Long>, never>) | undefined;
             vaultOwner?: string | undefined;
+            liquidationPenalty?: string | undefined;
         } & Record<Exclude<keyof I["auctions"][number], keyof DutchAuction>, never>)[] & Record<Exclude<keyof I["auctions"], keyof {
             auctionId?: string | number | Long.Long | undefined;
             outflowTokenInitAmount?: {
@@ -5601,6 +6104,7 @@ export declare const QueryDutchAuctionsResponse: {
             assetOutId?: string | number | Long.Long | undefined;
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
+            liquidationPenalty?: string | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -5923,14 +6427,14 @@ export declare const QueryDutchBiddingsResponse: {
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["biddings"][number]["outflowTokenAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["biddings"][number]["outflowTokenAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             inflowTokenAmount?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["biddings"][number]["inflowTokenAmount"], keyof import("./cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["biddings"][number]["inflowTokenAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             bidder?: string | undefined;
             biddingTimestamp?: Date | undefined;
             biddingStatus?: string | undefined;

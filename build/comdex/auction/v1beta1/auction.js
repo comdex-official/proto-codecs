@@ -1,27 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -29,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.bidOwnerMapping = exports.DutchAuction = exports.DebtAuction = exports.SurplusAuction = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
-const coin_1 = require("./cosmos/base/v1beta1/coin");
-const timestamp_1 = require("./google/protobuf/timestamp");
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseSurplusAuction() {
     return {
@@ -48,10 +25,12 @@ function createBaseSurplusAuction() {
         appId: long_1.default.UZERO,
         assetId: long_1.default.UZERO,
         auctionMappingId: long_1.default.UZERO,
+        assetInId: long_1.default.UZERO,
+        assetOutId: long_1.default.UZERO,
     };
 }
 exports.SurplusAuction = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.auctionId.isZero()) {
             writer.uint32(8).uint64(message.auctionId);
         }
@@ -91,10 +70,16 @@ exports.SurplusAuction = {
         if (!message.auctionMappingId.isZero()) {
             writer.uint32(104).uint64(message.auctionMappingId);
         }
+        if (!message.assetInId.isZero()) {
+            writer.uint32(112).uint64(message.assetInId);
+        }
+        if (!message.assetOutId.isZero()) {
+            writer.uint32(120).uint64(message.assetOutId);
+        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseSurplusAuction();
         while (reader.pos < end) {
@@ -139,6 +124,12 @@ exports.SurplusAuction = {
                 case 13:
                     message.auctionMappingId = reader.uint64();
                     break;
+                case 14:
+                    message.assetInId = reader.uint64();
+                    break;
+                case 15:
+                    message.assetOutId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -149,7 +140,7 @@ exports.SurplusAuction = {
     fromJSON(object) {
         return {
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromValue(object.auctionId)
+                ? long_1.default.fromString(object.auctionId)
                 : long_1.default.UZERO,
             outflowToken: isSet(object.outflowToken)
                 ? coin_1.Coin.fromJSON(object.outflowToken)
@@ -158,7 +149,7 @@ exports.SurplusAuction = {
                 ? coin_1.Coin.fromJSON(object.inflowToken)
                 : undefined,
             activeBiddingId: isSet(object.activeBiddingId)
-                ? long_1.default.fromValue(object.activeBiddingId)
+                ? long_1.default.fromString(object.activeBiddingId)
                 : long_1.default.UZERO,
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             bid: isSet(object.bid) ? coin_1.Coin.fromJSON(object.bid) : undefined,
@@ -170,14 +161,20 @@ exports.SurplusAuction = {
                 ? object.biddingIds.map((e) => exports.bidOwnerMapping.fromJSON(e))
                 : [],
             auctionStatus: isSet(object.auctionStatus)
-                ? long_1.default.fromValue(object.auctionStatus)
+                ? long_1.default.fromString(object.auctionStatus)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromValue(object.assetId)
+                ? long_1.default.fromString(object.assetId)
                 : long_1.default.UZERO,
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromValue(object.auctionMappingId)
+                ? long_1.default.fromString(object.auctionMappingId)
+                : long_1.default.UZERO,
+            assetInId: isSet(object.assetInId)
+                ? long_1.default.fromString(object.assetInId)
+                : long_1.default.UZERO,
+            assetOutId: isSet(object.assetOutId)
+                ? long_1.default.fromString(object.assetOutId)
                 : long_1.default.UZERO,
         };
     },
@@ -215,6 +212,10 @@ exports.SurplusAuction = {
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         message.auctionMappingId !== undefined &&
             (obj.auctionMappingId = (message.auctionMappingId || long_1.default.UZERO).toString());
+        message.assetInId !== undefined &&
+            (obj.assetInId = (message.assetInId || long_1.default.UZERO).toString());
+        message.assetOutId !== undefined &&
+            (obj.assetOutId = (message.assetOutId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -261,6 +262,14 @@ exports.SurplusAuction = {
             object.auctionMappingId !== undefined && object.auctionMappingId !== null
                 ? long_1.default.fromValue(object.auctionMappingId)
                 : long_1.default.UZERO;
+        message.assetInId =
+            object.assetInId !== undefined && object.assetInId !== null
+                ? long_1.default.fromValue(object.assetInId)
+                : long_1.default.UZERO;
+        message.assetOutId =
+            object.assetOutId !== undefined && object.assetOutId !== null
+                ? long_1.default.fromValue(object.assetOutId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -279,10 +288,13 @@ function createBaseDebtAuction() {
         assetId: long_1.default.UZERO,
         biddingIds: [],
         auctionMappingId: long_1.default.UZERO,
+        bidFactor: "",
+        assetInId: long_1.default.UZERO,
+        assetOutId: long_1.default.UZERO,
     };
 }
 exports.DebtAuction = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.auctionId.isZero()) {
             writer.uint32(8).uint64(message.auctionId);
         }
@@ -322,10 +334,19 @@ exports.DebtAuction = {
         if (!message.auctionMappingId.isZero()) {
             writer.uint32(104).uint64(message.auctionMappingId);
         }
+        if (message.bidFactor !== "") {
+            writer.uint32(114).string(message.bidFactor);
+        }
+        if (!message.assetInId.isZero()) {
+            writer.uint32(120).uint64(message.assetInId);
+        }
+        if (!message.assetOutId.isZero()) {
+            writer.uint32(128).uint64(message.assetOutId);
+        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseDebtAuction();
         while (reader.pos < end) {
@@ -370,6 +391,15 @@ exports.DebtAuction = {
                 case 13:
                     message.auctionMappingId = reader.uint64();
                     break;
+                case 14:
+                    message.bidFactor = reader.string();
+                    break;
+                case 15:
+                    message.assetInId = reader.uint64();
+                    break;
+                case 16:
+                    message.assetOutId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -380,7 +410,7 @@ exports.DebtAuction = {
     fromJSON(object) {
         return {
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromValue(object.auctionId)
+                ? long_1.default.fromString(object.auctionId)
                 : long_1.default.UZERO,
             auctionedToken: isSet(object.auctionedToken)
                 ? coin_1.Coin.fromJSON(object.auctionedToken)
@@ -395,24 +425,31 @@ exports.DebtAuction = {
                 ? fromJsonTimestamp(object.endTime)
                 : undefined,
             activeBiddingId: isSet(object.activeBiddingId)
-                ? long_1.default.fromValue(object.activeBiddingId)
+                ? long_1.default.fromString(object.activeBiddingId)
                 : long_1.default.UZERO,
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             currentBidAmount: isSet(object.currentBidAmount)
                 ? coin_1.Coin.fromJSON(object.currentBidAmount)
                 : undefined,
             auctionStatus: isSet(object.auctionStatus)
-                ? long_1.default.fromValue(object.auctionStatus)
+                ? long_1.default.fromString(object.auctionStatus)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromValue(object.assetId)
+                ? long_1.default.fromString(object.assetId)
                 : long_1.default.UZERO,
             biddingIds: Array.isArray(object === null || object === void 0 ? void 0 : object.biddingIds)
                 ? object.biddingIds.map((e) => exports.bidOwnerMapping.fromJSON(e))
                 : [],
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromValue(object.auctionMappingId)
+                ? long_1.default.fromString(object.auctionMappingId)
+                : long_1.default.UZERO,
+            bidFactor: isSet(object.bidFactor) ? String(object.bidFactor) : "",
+            assetInId: isSet(object.assetInId)
+                ? long_1.default.fromString(object.assetInId)
+                : long_1.default.UZERO,
+            assetOutId: isSet(object.assetOutId)
+                ? long_1.default.fromString(object.assetOutId)
                 : long_1.default.UZERO,
         };
     },
@@ -455,10 +492,15 @@ exports.DebtAuction = {
         }
         message.auctionMappingId !== undefined &&
             (obj.auctionMappingId = (message.auctionMappingId || long_1.default.UZERO).toString());
+        message.bidFactor !== undefined && (obj.bidFactor = message.bidFactor);
+        message.assetInId !== undefined &&
+            (obj.assetInId = (message.assetInId || long_1.default.UZERO).toString());
+        message.assetOutId !== undefined &&
+            (obj.assetOutId = (message.assetOutId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const message = createBaseDebtAuction();
         message.auctionId =
             object.auctionId !== undefined && object.auctionId !== null
@@ -506,6 +548,15 @@ exports.DebtAuction = {
             object.auctionMappingId !== undefined && object.auctionMappingId !== null
                 ? long_1.default.fromValue(object.auctionMappingId)
                 : long_1.default.UZERO;
+        message.bidFactor = (_d = object.bidFactor) !== null && _d !== void 0 ? _d : "";
+        message.assetInId =
+            object.assetInId !== undefined && object.assetInId !== null
+                ? long_1.default.fromValue(object.assetInId)
+                : long_1.default.UZERO;
+        message.assetOutId =
+            object.assetOutId !== undefined && object.assetOutId !== null
+                ? long_1.default.fromValue(object.assetOutId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -530,10 +581,11 @@ function createBaseDutchAuction() {
         assetOutId: long_1.default.UZERO,
         lockedVaultId: long_1.default.UZERO,
         vaultOwner: "",
+        liquidationPenalty: "",
     };
 }
 exports.DutchAuction = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.auctionId.isZero()) {
             writer.uint32(8).uint64(message.auctionId);
         }
@@ -591,10 +643,13 @@ exports.DutchAuction = {
         if (message.vaultOwner !== "") {
             writer.uint32(154).string(message.vaultOwner);
         }
+        if (message.liquidationPenalty !== "") {
+            writer.uint32(162).string(message.liquidationPenalty);
+        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseDutchAuction();
         while (reader.pos < end) {
@@ -657,6 +712,9 @@ exports.DutchAuction = {
                 case 19:
                     message.vaultOwner = reader.string();
                     break;
+                case 20:
+                    message.liquidationPenalty = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -667,7 +725,7 @@ exports.DutchAuction = {
     fromJSON(object) {
         return {
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromValue(object.auctionId)
+                ? long_1.default.fromString(object.auctionId)
                 : long_1.default.UZERO,
             outflowTokenInitAmount: isSet(object.outflowTokenInitAmount)
                 ? coin_1.Coin.fromJSON(object.outflowTokenInitAmount)
@@ -697,7 +755,7 @@ exports.DutchAuction = {
                 ? fromJsonTimestamp(object.endTime)
                 : undefined,
             auctionStatus: isSet(object.auctionStatus)
-                ? long_1.default.fromValue(object.auctionStatus)
+                ? long_1.default.fromString(object.auctionStatus)
                 : long_1.default.UZERO,
             startTime: isSet(object.startTime)
                 ? fromJsonTimestamp(object.startTime)
@@ -706,19 +764,22 @@ exports.DutchAuction = {
                 ? object.biddingIds.map((e) => exports.bidOwnerMapping.fromJSON(e))
                 : [],
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromValue(object.auctionMappingId)
+                ? long_1.default.fromString(object.auctionMappingId)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             assetInId: isSet(object.assetInId)
-                ? long_1.default.fromValue(object.assetInId)
+                ? long_1.default.fromString(object.assetInId)
                 : long_1.default.UZERO,
             assetOutId: isSet(object.assetOutId)
-                ? long_1.default.fromValue(object.assetOutId)
+                ? long_1.default.fromString(object.assetOutId)
                 : long_1.default.UZERO,
             lockedVaultId: isSet(object.lockedVaultId)
-                ? long_1.default.fromValue(object.lockedVaultId)
+                ? long_1.default.fromString(object.lockedVaultId)
                 : long_1.default.UZERO,
             vaultOwner: isSet(object.vaultOwner) ? String(object.vaultOwner) : "",
+            liquidationPenalty: isSet(object.liquidationPenalty)
+                ? String(object.liquidationPenalty)
+                : "",
         };
     },
     toJSON(message) {
@@ -772,10 +833,12 @@ exports.DutchAuction = {
         message.lockedVaultId !== undefined &&
             (obj.lockedVaultId = (message.lockedVaultId || long_1.default.UZERO).toString());
         message.vaultOwner !== undefined && (obj.vaultOwner = message.vaultOwner);
+        message.liquidationPenalty !== undefined &&
+            (obj.liquidationPenalty = message.liquidationPenalty);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         const message = createBaseDutchAuction();
         message.auctionId =
             object.auctionId !== undefined && object.auctionId !== null
@@ -834,6 +897,7 @@ exports.DutchAuction = {
                 ? long_1.default.fromValue(object.lockedVaultId)
                 : long_1.default.UZERO;
         message.vaultOwner = (_h = object.vaultOwner) !== null && _h !== void 0 ? _h : "";
+        message.liquidationPenalty = (_j = object.liquidationPenalty) !== null && _j !== void 0 ? _j : "";
         return message;
     },
 };
@@ -841,7 +905,7 @@ function createBasebidOwnerMapping() {
     return { bidId: long_1.default.UZERO, bidOwner: "" };
 }
 exports.bidOwnerMapping = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.bidId.isZero()) {
             writer.uint32(8).uint64(message.bidId);
         }
@@ -851,7 +915,7 @@ exports.bidOwnerMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBasebidOwnerMapping();
         while (reader.pos < end) {
@@ -872,7 +936,7 @@ exports.bidOwnerMapping = {
     },
     fromJSON(object) {
         return {
-            bidId: isSet(object.bidId) ? long_1.default.fromValue(object.bidId) : long_1.default.UZERO,
+            bidId: isSet(object.bidId) ? long_1.default.fromString(object.bidId) : long_1.default.UZERO,
             bidOwner: isSet(object.bidOwner) ? String(object.bidOwner) : "",
         };
     },
@@ -918,9 +982,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
