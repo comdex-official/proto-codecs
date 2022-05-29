@@ -68,6 +68,14 @@ export interface QueryAppResponse {
   app?: AppMapping;
 }
 
+export interface QueryTokenGovRequest {
+  appId: Long;
+}
+
+export interface QueryTokenGovResponse {
+  govAssetId: Long;
+}
+
 export interface QueryAppsRequest {}
 
 export interface QueryAppsResponse {
@@ -102,6 +110,14 @@ export interface QueryExtendedPairPsmPairWiseRequest {
 
 export interface QueryExtendedPairPsmPairWiseResponse {
   extendedPairsId: Long[];
+}
+
+export interface QueryExtendedPairDataPsmPairWiseRequest {
+  appId: Long;
+}
+
+export interface QueryExtendedPairDataPsmPairWiseResponse {
+  extendedPair: ExtendedPairVault[];
 }
 
 function createBaseQueryAssetsRequest(): QueryAssetsRequest {
@@ -955,6 +971,130 @@ export const QueryAppResponse = {
   },
 };
 
+function createBaseQueryTokenGovRequest(): QueryTokenGovRequest {
+  return { appId: Long.UZERO };
+}
+
+export const QueryTokenGovRequest = {
+  encode(
+    message: QueryTokenGovRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryTokenGovRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryTokenGovRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryTokenGovRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryTokenGovRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryTokenGovRequest>, I>>(
+    object: I
+  ): QueryTokenGovRequest {
+    const message = createBaseQueryTokenGovRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryTokenGovResponse(): QueryTokenGovResponse {
+  return { govAssetId: Long.UZERO };
+}
+
+export const QueryTokenGovResponse = {
+  encode(
+    message: QueryTokenGovResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.govAssetId.isZero()) {
+      writer.uint32(8).uint64(message.govAssetId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryTokenGovResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryTokenGovResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.govAssetId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryTokenGovResponse {
+    return {
+      govAssetId: isSet(object.govAssetId)
+        ? Long.fromValue(object.govAssetId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryTokenGovResponse): unknown {
+    const obj: any = {};
+    message.govAssetId !== undefined &&
+      (obj.govAssetId = (message.govAssetId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryTokenGovResponse>, I>>(
+    object: I
+  ): QueryTokenGovResponse {
+    const message = createBaseQueryTokenGovResponse();
+    message.govAssetId =
+      object.govAssetId !== undefined && object.govAssetId !== null
+        ? Long.fromValue(object.govAssetId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
 function createBaseQueryAppsRequest(): QueryAppsRequest {
   return {};
 }
@@ -1574,6 +1714,135 @@ export const QueryExtendedPairPsmPairWiseResponse = {
   },
 };
 
+function createBaseQueryExtendedPairDataPsmPairWiseRequest(): QueryExtendedPairDataPsmPairWiseRequest {
+  return { appId: Long.UZERO };
+}
+
+export const QueryExtendedPairDataPsmPairWiseRequest = {
+  encode(
+    message: QueryExtendedPairDataPsmPairWiseRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryExtendedPairDataPsmPairWiseRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryExtendedPairDataPsmPairWiseRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryExtendedPairDataPsmPairWiseRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryExtendedPairDataPsmPairWiseRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryExtendedPairDataPsmPairWiseRequest>, I>
+  >(object: I): QueryExtendedPairDataPsmPairWiseRequest {
+    const message = createBaseQueryExtendedPairDataPsmPairWiseRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryExtendedPairDataPsmPairWiseResponse(): QueryExtendedPairDataPsmPairWiseResponse {
+  return { extendedPair: [] };
+}
+
+export const QueryExtendedPairDataPsmPairWiseResponse = {
+  encode(
+    message: QueryExtendedPairDataPsmPairWiseResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.extendedPair) {
+      ExtendedPairVault.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryExtendedPairDataPsmPairWiseResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryExtendedPairDataPsmPairWiseResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.extendedPair.push(
+            ExtendedPairVault.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryExtendedPairDataPsmPairWiseResponse {
+    return {
+      extendedPair: Array.isArray(object?.extendedPair)
+        ? object.extendedPair.map((e: any) => ExtendedPairVault.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: QueryExtendedPairDataPsmPairWiseResponse): unknown {
+    const obj: any = {};
+    if (message.extendedPair) {
+      obj.extendedPair = message.extendedPair.map((e) =>
+        e ? ExtendedPairVault.toJSON(e) : undefined
+      );
+    } else {
+      obj.extendedPair = [];
+    }
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryExtendedPairDataPsmPairWiseResponse>, I>
+  >(object: I): QueryExtendedPairDataPsmPairWiseResponse {
+    const message = createBaseQueryExtendedPairDataPsmPairWiseResponse();
+    message.extendedPair =
+      object.extendedPair?.map((e) => ExtendedPairVault.fromPartial(e)) || [];
+    return message;
+  },
+};
+
 export interface QueryService {
   QueryAssets(request: QueryAssetsRequest): Promise<QueryAssetsResponse>;
   QueryAsset(request: QueryAssetRequest): Promise<QueryAssetResponse>;
@@ -1594,6 +1863,10 @@ export interface QueryService {
   QueryExtendedPairPsmPairWise(
     request: QueryExtendedPairPsmPairWiseRequest
   ): Promise<QueryExtendedPairPsmPairWiseResponse>;
+  QueryTokenGov(request: QueryTokenGovRequest): Promise<QueryTokenGovResponse>;
+  QueryExtendedPairDataPsmPairWise(
+    request: QueryExtendedPairDataPsmPairWiseRequest
+  ): Promise<QueryExtendedPairDataPsmPairWiseResponse>;
 }
 
 export class QueryServiceClientImpl implements QueryService {
@@ -1613,6 +1886,9 @@ export class QueryServiceClientImpl implements QueryService {
       this.QueryProductToExtendedPair.bind(this);
     this.QueryExtendedPairPsmPairWise =
       this.QueryExtendedPairPsmPairWise.bind(this);
+    this.QueryTokenGov = this.QueryTokenGov.bind(this);
+    this.QueryExtendedPairDataPsmPairWise =
+      this.QueryExtendedPairDataPsmPairWise.bind(this);
   }
   QueryAssets(request: QueryAssetsRequest): Promise<QueryAssetsResponse> {
     const data = QueryAssetsRequest.encode(request).finish();
@@ -1751,6 +2027,33 @@ export class QueryServiceClientImpl implements QueryService {
     );
     return promise.then((data) =>
       QueryExtendedPairPsmPairWiseResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryTokenGov(request: QueryTokenGovRequest): Promise<QueryTokenGovResponse> {
+    const data = QueryTokenGovRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.asset.v1beta1.QueryService",
+      "QueryTokenGov",
+      data
+    );
+    return promise.then((data) =>
+      QueryTokenGovResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryExtendedPairDataPsmPairWise(
+    request: QueryExtendedPairDataPsmPairWiseRequest
+  ): Promise<QueryExtendedPairDataPsmPairWiseResponse> {
+    const data =
+      QueryExtendedPairDataPsmPairWiseRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.asset.v1beta1.QueryService",
+      "QueryExtendedPairDataPsmPairWise",
+      data
+    );
+    return promise.then((data) =>
+      QueryExtendedPairDataPsmPairWiseResponse.decode(new _m0.Reader(data))
     );
   }
 }
