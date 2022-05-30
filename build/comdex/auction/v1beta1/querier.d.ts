@@ -9,12 +9,14 @@ export interface QuerySurplusAuctionRequest {
     appId: Long;
     auctionMappingId: Long;
     auctionId: Long;
+    history: boolean;
 }
 export interface QuerySurplusAuctionResponse {
     auction?: SurplusAuction;
 }
 export interface QuerySurplusAuctionsRequest {
     appId: Long;
+    history: boolean;
     pagination?: PageRequest;
 }
 export interface QuerySurplusAuctionsResponse {
@@ -24,6 +26,7 @@ export interface QuerySurplusAuctionsResponse {
 export interface QuerySurplusBiddingsRequest {
     bidder: string;
     appId: Long;
+    history: boolean;
 }
 export interface QuerySurplusBiddingsResponse {
     bidder: string;
@@ -33,12 +36,14 @@ export interface QueryDebtAuctionRequest {
     appId: Long;
     auctionMappingId: Long;
     auctionId: Long;
+    history: boolean;
 }
 export interface QueryDebtAuctionResponse {
     auction?: DebtAuction;
 }
 export interface QueryDebtAuctionsRequest {
     appId: Long;
+    history: boolean;
     pagination?: PageRequest;
 }
 export interface QueryDebtAuctionsResponse {
@@ -48,6 +53,7 @@ export interface QueryDebtAuctionsResponse {
 export interface QueryDebtBiddingsRequest {
     bidder: string;
     appId: Long;
+    history: boolean;
 }
 export interface QueryDebtBiddingsResponse {
     bidder: string;
@@ -57,12 +63,14 @@ export interface QueryDutchAuctionRequest {
     appId: Long;
     auctionMappingId: Long;
     auctionId: Long;
+    history: boolean;
 }
 export interface QueryDutchAuctionResponse {
     auction?: DutchAuction;
 }
 export interface QueryDutchAuctionsRequest {
     appId: Long;
+    history: boolean;
     pagination?: PageRequest;
 }
 export interface QueryDutchAuctionsResponse {
@@ -72,6 +80,7 @@ export interface QueryDutchAuctionsResponse {
 export interface QueryDutchBiddingsRequest {
     bidder: string;
     appId: Long;
+    history: boolean;
 }
 export interface QueryDutchBiddingsResponse {
     bidder: string;
@@ -91,6 +100,7 @@ export declare const QuerySurplusAuctionRequest: {
         appId?: string | number | Long.Long | undefined;
         auctionMappingId?: string | number | Long.Long | undefined;
         auctionId?: string | number | Long.Long | undefined;
+        history?: boolean | undefined;
     } & {
         appId?: string | number | (Long.Long & {
             high: number;
@@ -266,6 +276,7 @@ export declare const QuerySurplusAuctionRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["auctionId"], keyof Long.Long>, never>) | undefined;
+        history?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof QuerySurplusAuctionRequest>, never>>(object: I): QuerySurplusAuctionRequest;
 };
 export declare const QuerySurplusAuctionResponse: {
@@ -901,6 +912,7 @@ export declare const QuerySurplusAuctionsRequest: {
     toJSON(message: QuerySurplusAuctionsRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
+        history?: boolean | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -967,6 +979,7 @@ export declare const QuerySurplusAuctionsRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        history?: boolean | undefined;
         pagination?: ({
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -1854,6 +1867,7 @@ export declare const QuerySurplusBiddingsRequest: {
     fromPartial<I extends {
         bidder?: string | undefined;
         appId?: string | number | Long.Long | undefined;
+        history?: boolean | undefined;
     } & {
         bidder?: string | undefined;
         appId?: string | number | (Long.Long & {
@@ -1914,6 +1928,7 @@ export declare const QuerySurplusBiddingsRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        history?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof QuerySurplusBiddingsRequest>, never>>(object: I): QuerySurplusBiddingsRequest;
 };
 export declare const QuerySurplusBiddingsResponse: {
@@ -2257,6 +2272,7 @@ export declare const QueryDebtAuctionRequest: {
         appId?: string | number | Long.Long | undefined;
         auctionMappingId?: string | number | Long.Long | undefined;
         auctionId?: string | number | Long.Long | undefined;
+        history?: boolean | undefined;
     } & {
         appId?: string | number | (Long.Long & {
             high: number;
@@ -2432,6 +2448,7 @@ export declare const QueryDebtAuctionRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["auctionId"], keyof Long.Long>, never>) | undefined;
+        history?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof QueryDebtAuctionRequest>, never>>(object: I): QueryDebtAuctionRequest;
 };
 export declare const QueryDebtAuctionResponse: {
@@ -3082,6 +3099,7 @@ export declare const QueryDebtAuctionsRequest: {
     toJSON(message: QueryDebtAuctionsRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
+        history?: boolean | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -3148,6 +3166,7 @@ export declare const QueryDebtAuctionsRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        history?: boolean | undefined;
         pagination?: ({
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -4058,6 +4077,7 @@ export declare const QueryDebtBiddingsRequest: {
     fromPartial<I extends {
         bidder?: string | undefined;
         appId?: string | number | Long.Long | undefined;
+        history?: boolean | undefined;
     } & {
         bidder?: string | undefined;
         appId?: string | number | (Long.Long & {
@@ -4118,6 +4138,7 @@ export declare const QueryDebtBiddingsRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        history?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof QueryDebtBiddingsRequest>, never>>(object: I): QueryDebtBiddingsRequest;
 };
 export declare const QueryDebtBiddingsResponse: {
@@ -4461,6 +4482,7 @@ export declare const QueryDutchAuctionRequest: {
         appId?: string | number | Long.Long | undefined;
         auctionMappingId?: string | number | Long.Long | undefined;
         auctionId?: string | number | Long.Long | undefined;
+        history?: boolean | undefined;
     } & {
         appId?: string | number | (Long.Long & {
             high: number;
@@ -4636,6 +4658,7 @@ export declare const QueryDutchAuctionRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["auctionId"], keyof Long.Long>, never>) | undefined;
+        history?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof QueryDutchAuctionRequest>, never>>(object: I): QueryDutchAuctionRequest;
 };
 export declare const QueryDutchAuctionResponse: {
@@ -5241,6 +5264,7 @@ export declare const QueryDutchAuctionsRequest: {
     toJSON(message: QueryDutchAuctionsRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
+        history?: boolean | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -5307,6 +5331,7 @@ export declare const QueryDutchAuctionsRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        history?: boolean | undefined;
         pagination?: ({
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -6180,6 +6205,7 @@ export declare const QueryDutchBiddingsRequest: {
     fromPartial<I extends {
         bidder?: string | undefined;
         appId?: string | number | Long.Long | undefined;
+        history?: boolean | undefined;
     } & {
         bidder?: string | undefined;
         appId?: string | number | (Long.Long & {
@@ -6240,6 +6266,7 @@ export declare const QueryDutchBiddingsRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        history?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof QueryDutchBiddingsRequest>, never>>(object: I): QueryDutchBiddingsRequest;
 };
 export declare const QueryDutchBiddingsResponse: {
