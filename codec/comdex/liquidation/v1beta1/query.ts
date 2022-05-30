@@ -4,7 +4,7 @@ import _m0 from "protobufjs/minimal";
 import {
   LockedVault,
   WhitelistedAppIds,
-} from "../../../comdex/liquidation/v1beta1/locked_vault";
+} from "./locked_vault";
 import {
   PageRequest,
   PageResponse,
