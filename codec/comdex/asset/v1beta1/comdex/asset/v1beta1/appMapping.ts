@@ -8,6 +8,8 @@ export interface AppMapping {
   id: Long;
   name: string;
   shortName: string;
+  minGovDeposit: string;
+  govTimeInSeconds: number;
   mintGenesisToken: MintGenesisToken[];
 }
 
@@ -19,7 +21,14 @@ export interface MintGenesisToken {
 }
 
 function createBaseAppMapping(): AppMapping {
-  return { id: Long.UZERO, name: "", shortName: "", mintGenesisToken: [] };
+  return {
+    id: Long.UZERO,
+    name: "",
+    shortName: "",
+    minGovDeposit: "",
+    govTimeInSeconds: 0,
+    mintGenesisToken: [],
+  };
 }
 
 export const AppMapping = {
@@ -36,8 +45,14 @@ export const AppMapping = {
     if (message.shortName !== "") {
       writer.uint32(26).string(message.shortName);
     }
+    if (message.minGovDeposit !== "") {
+      writer.uint32(34).string(message.minGovDeposit);
+    }
+    if (message.govTimeInSeconds !== 0) {
+      writer.uint32(41).double(message.govTimeInSeconds);
+    }
     for (const v of message.mintGenesisToken) {
-      MintGenesisToken.encode(v!, writer.uint32(34).fork()).ldelim();
+      MintGenesisToken.encode(v!, writer.uint32(50).fork()).ldelim();
     }
     return writer;
   },
@@ -59,6 +74,12 @@ export const AppMapping = {
           message.shortName = reader.string();
           break;
         case 4:
+          message.minGovDeposit = reader.string();
+          break;
+        case 5:
+          message.govTimeInSeconds = reader.double();
+          break;
+        case 6:
           message.mintGenesisToken.push(
             MintGenesisToken.decode(reader, reader.uint32())
           );
@@ -76,6 +97,12 @@ export const AppMapping = {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       name: isSet(object.name) ? String(object.name) : "",
       shortName: isSet(object.shortName) ? String(object.shortName) : "",
+      minGovDeposit: isSet(object.minGovDeposit)
+        ? String(object.minGovDeposit)
+        : "",
+      govTimeInSeconds: isSet(object.govTimeInSeconds)
+        ? Number(object.govTimeInSeconds)
+        : 0,
       mintGenesisToken: Array.isArray(object?.mintGenesisToken)
         ? object.mintGenesisToken.map((e: any) => MintGenesisToken.fromJSON(e))
         : [],
@@ -88,6 +115,10 @@ export const AppMapping = {
       (obj.id = (message.id || Long.UZERO).toString());
     message.name !== undefined && (obj.name = message.name);
     message.shortName !== undefined && (obj.shortName = message.shortName);
+    message.minGovDeposit !== undefined &&
+      (obj.minGovDeposit = message.minGovDeposit);
+    message.govTimeInSeconds !== undefined &&
+      (obj.govTimeInSeconds = message.govTimeInSeconds);
     if (message.mintGenesisToken) {
       obj.mintGenesisToken = message.mintGenesisToken.map((e) =>
         e ? MintGenesisToken.toJSON(e) : undefined
@@ -108,6 +139,8 @@ export const AppMapping = {
         : Long.UZERO;
     message.name = object.name ?? "";
     message.shortName = object.shortName ?? "";
+    message.minGovDeposit = object.minGovDeposit ?? "";
+    message.govTimeInSeconds = object.govTimeInSeconds ?? 0;
     message.mintGenesisToken =
       object.mintGenesisToken?.map((e) => MintGenesisToken.fromPartial(e)) ||
       [];

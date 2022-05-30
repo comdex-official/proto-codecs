@@ -1,7 +1,6 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-import { Coin } from "./cosmos/base/v1beta1/coin";
 import {
   Vault,
   StableMintVault,
@@ -17,11 +16,11 @@ import {
 export const protobufPackage = "comdex.vault.v1beta1";
 
 export interface VaultInfo {
-  id: Long;
+  id: string;
   pairId: Long;
   owner: string;
-  collateral?: Coin;
-  debt?: Coin;
+  collateral: string;
+  debt: string;
   collateralizationRatio: string;
 }
 
@@ -31,6 +30,14 @@ export interface QueryVaultRequest {
 
 export interface QueryVaultResponse {
   vault?: Vault;
+}
+
+export interface QueryVaultInfoRequest {
+  id: string;
+}
+
+export interface QueryVaultInfoResponse {
+  vaultsInfo?: VaultInfo;
 }
 
 export interface QueryAllVaultsRequest {
@@ -219,11 +226,11 @@ export interface QueryTVLlockedByAppResponse {
 
 function createBaseVaultInfo(): VaultInfo {
   return {
-    id: Long.UZERO,
+    id: "",
     pairId: Long.UZERO,
     owner: "",
-    collateral: undefined,
-    debt: undefined,
+    collateral: "",
+    debt: "",
     collateralizationRatio: "",
   };
 }
@@ -233,8 +240,8 @@ export const VaultInfo = {
     message: VaultInfo,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.id.isZero()) {
-      writer.uint32(8).uint64(message.id);
+    if (message.id !== "") {
+      writer.uint32(10).string(message.id);
     }
     if (!message.pairId.isZero()) {
       writer.uint32(16).uint64(message.pairId);
@@ -242,11 +249,11 @@ export const VaultInfo = {
     if (message.owner !== "") {
       writer.uint32(26).string(message.owner);
     }
-    if (message.collateral !== undefined) {
-      Coin.encode(message.collateral, writer.uint32(34).fork()).ldelim();
+    if (message.collateral !== "") {
+      writer.uint32(34).string(message.collateral);
     }
-    if (message.debt !== undefined) {
-      Coin.encode(message.debt, writer.uint32(42).fork()).ldelim();
+    if (message.debt !== "") {
+      writer.uint32(42).string(message.debt);
     }
     if (message.collateralizationRatio !== "") {
       writer.uint32(50).string(message.collateralizationRatio);
@@ -262,7 +269,7 @@ export const VaultInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.id = reader.uint64() as Long;
+          message.id = reader.string();
           break;
         case 2:
           message.pairId = reader.uint64() as Long;
@@ -271,10 +278,10 @@ export const VaultInfo = {
           message.owner = reader.string();
           break;
         case 4:
-          message.collateral = Coin.decode(reader, reader.uint32());
+          message.collateral = reader.string();
           break;
         case 5:
-          message.debt = Coin.decode(reader, reader.uint32());
+          message.debt = reader.string();
           break;
         case 6:
           message.collateralizationRatio = reader.string();
@@ -289,13 +296,11 @@ export const VaultInfo = {
 
   fromJSON(object: any): VaultInfo {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      id: isSet(object.id) ? String(object.id) : "",
       pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
-      collateral: isSet(object.collateral)
-        ? Coin.fromJSON(object.collateral)
-        : undefined,
-      debt: isSet(object.debt) ? Coin.fromJSON(object.debt) : undefined,
+      collateral: isSet(object.collateral) ? String(object.collateral) : "",
+      debt: isSet(object.debt) ? String(object.debt) : "",
       collateralizationRatio: isSet(object.collateralizationRatio)
         ? String(object.collateralizationRatio)
         : "",
@@ -304,17 +309,12 @@ export const VaultInfo = {
 
   toJSON(message: VaultInfo): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = message.id);
     message.pairId !== undefined &&
       (obj.pairId = (message.pairId || Long.UZERO).toString());
     message.owner !== undefined && (obj.owner = message.owner);
-    message.collateral !== undefined &&
-      (obj.collateral = message.collateral
-        ? Coin.toJSON(message.collateral)
-        : undefined);
-    message.debt !== undefined &&
-      (obj.debt = message.debt ? Coin.toJSON(message.debt) : undefined);
+    message.collateral !== undefined && (obj.collateral = message.collateral);
+    message.debt !== undefined && (obj.debt = message.debt);
     message.collateralizationRatio !== undefined &&
       (obj.collateralizationRatio = message.collateralizationRatio);
     return obj;
@@ -324,23 +324,14 @@ export const VaultInfo = {
     object: I
   ): VaultInfo {
     const message = createBaseVaultInfo();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = object.id ?? "";
     message.pairId =
       object.pairId !== undefined && object.pairId !== null
         ? Long.fromValue(object.pairId)
         : Long.UZERO;
     message.owner = object.owner ?? "";
-    message.collateral =
-      object.collateral !== undefined && object.collateral !== null
-        ? Coin.fromPartial(object.collateral)
-        : undefined;
-    message.debt =
-      object.debt !== undefined && object.debt !== null
-        ? Coin.fromPartial(object.debt)
-        : undefined;
+    message.collateral = object.collateral ?? "";
+    message.debt = object.debt ?? "";
     message.collateralizationRatio = object.collateralizationRatio ?? "";
     return message;
   },
@@ -453,6 +444,128 @@ export const QueryVaultResponse = {
     message.vault =
       object.vault !== undefined && object.vault !== null
         ? Vault.fromPartial(object.vault)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryVaultInfoRequest(): QueryVaultInfoRequest {
+  return { id: "" };
+}
+
+export const QueryVaultInfoRequest = {
+  encode(
+    message: QueryVaultInfoRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.id !== "") {
+      writer.uint32(10).string(message.id);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryVaultInfoRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryVaultInfoRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryVaultInfoRequest {
+    return {
+      id: isSet(object.id) ? String(object.id) : "",
+    };
+  },
+
+  toJSON(message: QueryVaultInfoRequest): unknown {
+    const obj: any = {};
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryVaultInfoRequest>, I>>(
+    object: I
+  ): QueryVaultInfoRequest {
+    const message = createBaseQueryVaultInfoRequest();
+    message.id = object.id ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryVaultInfoResponse(): QueryVaultInfoResponse {
+  return { vaultsInfo: undefined };
+}
+
+export const QueryVaultInfoResponse = {
+  encode(
+    message: QueryVaultInfoResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.vaultsInfo !== undefined) {
+      VaultInfo.encode(message.vaultsInfo, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryVaultInfoResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryVaultInfoResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.vaultsInfo = VaultInfo.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryVaultInfoResponse {
+    return {
+      vaultsInfo: isSet(object.vaultsInfo)
+        ? VaultInfo.fromJSON(object.vaultsInfo)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryVaultInfoResponse): unknown {
+    const obj: any = {};
+    message.vaultsInfo !== undefined &&
+      (obj.vaultsInfo = message.vaultsInfo
+        ? VaultInfo.toJSON(message.vaultsInfo)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryVaultInfoResponse>, I>>(
+    object: I
+  ): QueryVaultInfoResponse {
+    const message = createBaseQueryVaultInfoResponse();
+    message.vaultsInfo =
+      object.vaultsInfo !== undefined && object.vaultsInfo !== null
+        ? VaultInfo.fromPartial(object.vaultsInfo)
         : undefined;
     return message;
   },
@@ -3463,6 +3576,9 @@ export const QueryTVLlockedByAppResponse = {
 
 export interface QueryService {
   QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse>;
+  QueryVaultInfo(
+    request: QueryVaultInfoRequest
+  ): Promise<QueryVaultInfoResponse>;
   QueryAllVaults(
     request: QueryAllVaultsRequest
   ): Promise<QueryAllVaultsResponse>;
@@ -3530,6 +3646,7 @@ export class QueryServiceClientImpl implements QueryService {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.QueryVault = this.QueryVault.bind(this);
+    this.QueryVaultInfo = this.QueryVaultInfo.bind(this);
     this.QueryAllVaults = this.QueryAllVaults.bind(this);
     this.QueryAllVaultsByProduct = this.QueryAllVaultsByProduct.bind(this);
     this.QueryAllVaultsByAppAndExtendedPair =
@@ -3574,6 +3691,20 @@ export class QueryServiceClientImpl implements QueryService {
     );
     return promise.then((data) =>
       QueryVaultResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryVaultInfo(
+    request: QueryVaultInfoRequest
+  ): Promise<QueryVaultInfoResponse> {
+    const data = QueryVaultInfoRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.vault.v1beta1.QueryService",
+      "QueryVaultInfo",
+      data
+    );
+    return promise.then((data) =>
+      QueryVaultInfoResponse.decode(new _m0.Reader(data))
     );
   }
 
