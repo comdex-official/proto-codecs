@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
@@ -156,7 +156,7 @@ export const Params = {
         ? String(object.auctionDiscountPercent)
         : "",
       auctionDurationSeconds: isSet(object.auctionDurationSeconds)
-        ? Long.fromString(object.auctionDurationSeconds)
+        ? Long.fromValue(object.auctionDurationSeconds)
         : Long.UZERO,
       debtMintTokenDecreasePercentage: isSet(
         object.debtMintTokenDecreasePercentage
@@ -172,16 +172,14 @@ export const Params = {
       chost: isSet(object.chost) ? String(object.chost) : "",
       step: isSet(object.step) ? String(object.step) : "",
       priceFunctionType: isSet(object.priceFunctionType)
-        ? Long.fromString(object.priceFunctionType)
+        ? Long.fromValue(object.priceFunctionType)
         : Long.UZERO,
       surplusId: isSet(object.surplusId)
-        ? Long.fromString(object.surplusId)
+        ? Long.fromValue(object.surplusId)
         : Long.UZERO,
-      debtId: isSet(object.debtId)
-        ? Long.fromString(object.debtId)
-        : Long.UZERO,
+      debtId: isSet(object.debtId) ? Long.fromValue(object.debtId) : Long.UZERO,
       dutchId: isSet(object.dutchId)
-        ? Long.fromString(object.dutchId)
+        ? Long.fromValue(object.dutchId)
         : Long.UZERO,
     };
   },

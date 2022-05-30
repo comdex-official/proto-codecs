@@ -7,7 +7,7 @@ import {
   ExtendedPairVaultMapping,
   ExtendedPairToVaultMapping,
   TvlLockedDataMap,
-} from "./comdex/vault/v1beta1/vault";
+} from "../../../comdex/vault/v1beta1/vault";
 import {
   PageRequest,
   PageResponse,

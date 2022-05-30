@@ -5,10 +5,10 @@ import {
   Locker,
   TokenToLockerMapping,
   LockedDepositedAmountDataMap,
-} from "./comdex/locker/v1beta1/locker";
-import { Params } from "./comdex/locker/v1beta1/params";
-import { Coin } from "./cosmos/base/v1beta1/coin";
-import { Asset } from "./comdex/asset/v1beta1/asset";
+} from "./locker";
+import { Params } from "./params";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Asset } from "../../../comdex/asset/v1beta1/asset";
 
 export const protobufPackage = "comdex.locker.v1beta1";
 
