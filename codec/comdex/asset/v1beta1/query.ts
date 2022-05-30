@@ -5,10 +5,10 @@ import {
   PageRequest,
   PageResponse,
 } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Asset } from "./comdex/asset/v1beta1/asset";
-import { Params } from "./comdex/asset/v1beta1/params";
-import { AppMapping } from "./comdex/asset/v1beta1/appMapping";
-import { ExtendedPairVault } from "./comdex/asset/v1beta1/extendedPairVault";
+import { Asset } from "../../../comdex/asset/v1beta1/asset";
+import { Params } from "../../../comdex/asset/v1beta1/params";
+import { AppMapping } from "../../../comdex/asset/v1beta1/appMapping";
+import { ExtendedPairVault } from "../../../comdex/asset/v1beta1/extendedPairVault";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
