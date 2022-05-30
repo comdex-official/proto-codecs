@@ -1725,7 +1725,7 @@ export const QueryParamsResponse = {
   },
 };
 
-export interface QueryService {
+export interface Query {
   QuerySurplusAuction(
     request: QuerySurplusAuctionRequest
   ): Promise<QuerySurplusAuctionResponse>;
@@ -1756,7 +1756,7 @@ export interface QueryService {
   QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
 }
 
-export class QueryServiceClientImpl implements QueryService {
+export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
@@ -1776,7 +1776,7 @@ export class QueryServiceClientImpl implements QueryService {
   ): Promise<QuerySurplusAuctionResponse> {
     const data = QuerySurplusAuctionRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.auction.v1beta1.QueryService",
+      "comdex.auction.v1beta1.Query",
       "QuerySurplusAuction",
       data
     );
@@ -1790,7 +1790,7 @@ export class QueryServiceClientImpl implements QueryService {
   ): Promise<QuerySurplusAuctionsResponse> {
     const data = QuerySurplusAuctionsRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.auction.v1beta1.QueryService",
+      "comdex.auction.v1beta1.Query",
       "QuerySurplusAuctions",
       data
     );
@@ -1804,7 +1804,7 @@ export class QueryServiceClientImpl implements QueryService {
   ): Promise<QuerySurplusBiddingsResponse> {
     const data = QuerySurplusBiddingsRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.auction.v1beta1.QueryService",
+      "comdex.auction.v1beta1.Query",
       "QuerySurplusBiddings",
       data
     );
@@ -1818,7 +1818,7 @@ export class QueryServiceClientImpl implements QueryService {
   ): Promise<QueryDebtAuctionResponse> {
     const data = QueryDebtAuctionRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.auction.v1beta1.QueryService",
+      "comdex.auction.v1beta1.Query",
       "QueryDebtAuction",
       data
     );
@@ -1832,7 +1832,7 @@ export class QueryServiceClientImpl implements QueryService {
   ): Promise<QueryDebtAuctionsResponse> {
     const data = QueryDebtAuctionsRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.auction.v1beta1.QueryService",
+      "comdex.auction.v1beta1.Query",
       "QueryDebtAuctions",
       data
     );
@@ -1846,7 +1846,7 @@ export class QueryServiceClientImpl implements QueryService {
   ): Promise<QueryDebtBiddingsResponse> {
     const data = QueryDebtBiddingsRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.auction.v1beta1.QueryService",
+      "comdex.auction.v1beta1.Query",
       "QueryDebtBiddings",
       data
     );
@@ -1860,7 +1860,7 @@ export class QueryServiceClientImpl implements QueryService {
   ): Promise<QueryDutchAuctionResponse> {
     const data = QueryDutchAuctionRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.auction.v1beta1.QueryService",
+      "comdex.auction.v1beta1.Query",
       "QueryDutchAuction",
       data
     );
@@ -1874,7 +1874,7 @@ export class QueryServiceClientImpl implements QueryService {
   ): Promise<QueryDutchAuctionsResponse> {
     const data = QueryDutchAuctionsRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.auction.v1beta1.QueryService",
+      "comdex.auction.v1beta1.Query",
       "QueryDutchAuctions",
       data
     );
@@ -1888,7 +1888,7 @@ export class QueryServiceClientImpl implements QueryService {
   ): Promise<QueryDutchBiddingsResponse> {
     const data = QueryDutchBiddingsRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.auction.v1beta1.QueryService",
+      "comdex.auction.v1beta1.Query",
       "QueryDutchBiddings",
       data
     );
@@ -1900,7 +1900,7 @@ export class QueryServiceClientImpl implements QueryService {
   QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.auction.v1beta1.QueryService",
+      "comdex.auction.v1beta1.Query",
       "QueryParams",
       data
     );

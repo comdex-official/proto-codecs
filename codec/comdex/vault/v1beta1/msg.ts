@@ -1496,7 +1496,7 @@ export const MsgWithdrawStableMintResponse = {
   },
 };
 
-export interface MsgService {
+export interface Msg {
   MsgCreate(request: MsgCreateRequest): Promise<MsgCreateResponse>;
   MsgDeposit(request: MsgDepositRequest): Promise<MsgDepositResponse>;
   MsgWithdraw(request: MsgWithdrawRequest): Promise<MsgWithdrawResponse>;
@@ -1514,7 +1514,7 @@ export interface MsgService {
   ): Promise<MsgWithdrawStableMintResponse>;
 }
 
-export class MsgServiceClientImpl implements MsgService {
+export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
@@ -1531,7 +1531,7 @@ export class MsgServiceClientImpl implements MsgService {
   MsgCreate(request: MsgCreateRequest): Promise<MsgCreateResponse> {
     const data = MsgCreateRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.vault.v1beta1.MsgService",
+      "comdex.vault.v1beta1.Msg",
       "MsgCreate",
       data
     );
@@ -1543,7 +1543,7 @@ export class MsgServiceClientImpl implements MsgService {
   MsgDeposit(request: MsgDepositRequest): Promise<MsgDepositResponse> {
     const data = MsgDepositRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.vault.v1beta1.MsgService",
+      "comdex.vault.v1beta1.Msg",
       "MsgDeposit",
       data
     );
@@ -1555,7 +1555,7 @@ export class MsgServiceClientImpl implements MsgService {
   MsgWithdraw(request: MsgWithdrawRequest): Promise<MsgWithdrawResponse> {
     const data = MsgWithdrawRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.vault.v1beta1.MsgService",
+      "comdex.vault.v1beta1.Msg",
       "MsgWithdraw",
       data
     );
@@ -1567,7 +1567,7 @@ export class MsgServiceClientImpl implements MsgService {
   MsgDraw(request: MsgDrawRequest): Promise<MsgDrawResponse> {
     const data = MsgDrawRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.vault.v1beta1.MsgService",
+      "comdex.vault.v1beta1.Msg",
       "MsgDraw",
       data
     );
@@ -1577,7 +1577,7 @@ export class MsgServiceClientImpl implements MsgService {
   MsgRepay(request: MsgRepayRequest): Promise<MsgRepayResponse> {
     const data = MsgRepayRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.vault.v1beta1.MsgService",
+      "comdex.vault.v1beta1.Msg",
       "MsgRepay",
       data
     );
@@ -1589,7 +1589,7 @@ export class MsgServiceClientImpl implements MsgService {
   MsgClose(request: MsgCloseRequest): Promise<MsgCloseResponse> {
     const data = MsgCloseRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.vault.v1beta1.MsgService",
+      "comdex.vault.v1beta1.Msg",
       "MsgClose",
       data
     );
@@ -1603,7 +1603,7 @@ export class MsgServiceClientImpl implements MsgService {
   ): Promise<MsgCreateStableMintResponse> {
     const data = MsgCreateStableMintRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.vault.v1beta1.MsgService",
+      "comdex.vault.v1beta1.Msg",
       "MsgCreateStableMint",
       data
     );
@@ -1617,7 +1617,7 @@ export class MsgServiceClientImpl implements MsgService {
   ): Promise<MsgDepositStableMintResponse> {
     const data = MsgDepositStableMintRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.vault.v1beta1.MsgService",
+      "comdex.vault.v1beta1.Msg",
       "MsgDepositStableMint",
       data
     );
@@ -1631,7 +1631,7 @@ export class MsgServiceClientImpl implements MsgService {
   ): Promise<MsgWithdrawStableMintResponse> {
     const data = MsgWithdrawStableMintRequest.encode(request).finish();
     const promise = this.rpc.request(
-      "comdex.vault.v1beta1.MsgService",
+      "comdex.vault.v1beta1.Msg",
       "MsgWithdrawStableMint",
       data
     );
