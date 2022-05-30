@@ -1,10 +1,10 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Asset } from "../../../comdex/asset/v1beta1/asset";
-import { Params } from "../../../comdex/asset/v1beta1/params";
-import { AppMapping } from "../../../comdex/asset/v1beta1/appMapping";
-import { ExtendedPairVault } from "../../../comdex/asset/v1beta1/extendedPairVault";
+import { Asset } from "./asset";
+import { Params } from "./params";
+import { AppMapping } from "./appMapping";
+import { ExtendedPairVault } from "./extendedPairVault";
 export declare const protobufPackage = "comdex.asset.v1beta1";
 export interface QueryAssetsRequest {
     pagination?: PageRequest;
@@ -1807,7 +1807,7 @@ export declare const QueryAppResponse: {
                 genesisSupply?: string | undefined;
                 isgovToken?: boolean | undefined;
                 recipient?: string | undefined;
-            } & Record<Exclude<keyof I["app"]["mintGenesisToken"][number], keyof import("../../../comdex/asset/v1beta1/appMapping").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"]["mintGenesisToken"], keyof {
+            } & Record<Exclude<keyof I["app"]["mintGenesisToken"][number], keyof import("./appMapping").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"]["mintGenesisToken"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
                 isgovToken?: boolean | undefined;
@@ -2138,7 +2138,7 @@ export declare const QueryAppsResponse: {
                 genesisSupply?: string | undefined;
                 isgovToken?: boolean | undefined;
                 recipient?: string | undefined;
-            } & Record<Exclude<keyof I["apps"][number]["mintGenesisToken"][number], keyof import("../../../comdex/asset/v1beta1/appMapping").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["apps"][number]["mintGenesisToken"], keyof {
+            } & Record<Exclude<keyof I["apps"][number]["mintGenesisToken"][number], keyof import("./appMapping").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["apps"][number]["mintGenesisToken"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
                 isgovToken?: boolean | undefined;

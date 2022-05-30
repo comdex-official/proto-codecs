@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -25,21 +6,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
-const vault_1 = require("../../../comdex/vault/v1beta1/vault");
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const vault_1 = require("./vault");
 exports.protobufPackage = "comdex.vault.v1beta1";
 function createBaseGenesisState() {
     return { vaults: [] };
 }
 exports.GenesisState = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.vaults) {
             vault_1.Vault.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseGenesisState();
         while (reader.pos < end) {
@@ -79,8 +60,8 @@ exports.GenesisState = {
         return message;
     },
 };
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 //# sourceMappingURL=genesis.js.map
