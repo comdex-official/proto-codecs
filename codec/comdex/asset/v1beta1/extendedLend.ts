@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -133,8 +133,10 @@ export const ExtendedPairLend = {
 
   fromJSON(object: any): ExtendedPairLend {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
       moduleAcc: isSet(object.moduleAcc) ? String(object.moduleAcc) : "",
       baseBorrowRateAsset1: isSet(object.baseBorrowRateAsset1)
         ? String(object.baseBorrowRateAsset1)
@@ -161,7 +163,7 @@ export const ExtendedPairLend = {
         ? String(object.currentLendRateAsset2)
         : "",
       productMappingId: isSet(object.productMappingId)
-        ? Long.fromValue(object.productMappingId)
+        ? Long.fromString(object.productMappingId)
         : Long.UZERO,
     };
   },

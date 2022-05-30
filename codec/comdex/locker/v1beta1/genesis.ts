@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Params } from "./comdex/locker/v1beta1/params";
+import _m0 from "protobufjs/minimal";
+import { Params } from "./params";
 
 export const protobufPackage = "comdex.locker.v1beta1";
 

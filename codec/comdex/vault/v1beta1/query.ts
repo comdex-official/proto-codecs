@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import {
   Vault,
   StableMintVault,
@@ -297,7 +297,9 @@ export const VaultInfo = {
   fromJSON(object: any): VaultInfo {
     return {
       id: isSet(object.id) ? String(object.id) : "",
-      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
       collateral: isSet(object.collateral) ? String(object.collateral) : "",
       debt: isSet(object.debt) ? String(object.debt) : "",
@@ -757,7 +759,7 @@ export const QueryAllVaultsByProductRequest = {
 
   fromJSON(object: any): QueryAllVaultsByProductRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -917,9 +919,9 @@ export const QueryAllVaultsByAppAndExtendedPairRequest = {
 
   fromJSON(object: any): QueryAllVaultsByAppAndExtendedPairRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
+        ? Long.fromString(object.extendedPairId)
         : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -1105,11 +1107,11 @@ export const QueryVaultOfOwnerByExtendedPairRequest = {
   fromJSON(object: any): QueryVaultOfOwnerByExtendedPairRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromValue(object.productId)
+        ? Long.fromString(object.productId)
         : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
       extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
+        ? Long.fromString(object.extendedPairId)
         : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -1254,7 +1256,7 @@ export const QueryVaultByProductRequest = {
   fromJSON(object: any): QueryVaultByProductRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromValue(object.productId)
+        ? Long.fromString(object.productId)
         : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -1544,10 +1546,10 @@ export const QueryTokenMintedAllProductsByPairRequest = {
   fromJSON(object: any): QueryTokenMintedAllProductsByPairRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromValue(object.productId)
+        ? Long.fromString(object.productId)
         : Long.UZERO,
       extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
+        ? Long.fromString(object.extendedPairId)
         : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -1691,7 +1693,7 @@ export const QueryTokenMintedAllProductsRequest = {
   fromJSON(object: any): QueryTokenMintedAllProductsRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromValue(object.productId)
+        ? Long.fromString(object.productId)
         : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -1829,7 +1831,7 @@ export const QueryVaultCountByProductRequest = {
   fromJSON(object: any): QueryVaultCountByProductRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromValue(object.productId)
+        ? Long.fromString(object.productId)
         : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -1903,7 +1905,7 @@ export const QueryVaultCountByProductResponse = {
   fromJSON(object: any): QueryVaultCountByProductResponse {
     return {
       vaultCount: isSet(object.vaultCount)
-        ? Long.fromValue(object.vaultCount)
+        ? Long.fromString(object.vaultCount)
         : Long.UZERO,
     };
   },
@@ -1982,10 +1984,10 @@ export const QueryVaultCountByProductAndPairRequest = {
   fromJSON(object: any): QueryVaultCountByProductAndPairRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromValue(object.productId)
+        ? Long.fromString(object.productId)
         : Long.UZERO,
       extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
+        ? Long.fromString(object.extendedPairId)
         : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -2065,7 +2067,7 @@ export const QueryVaultCountByProductAndPairResponse = {
   fromJSON(object: any): QueryVaultCountByProductAndPairResponse {
     return {
       vaultCount: isSet(object.vaultCount)
-        ? Long.fromValue(object.vaultCount)
+        ? Long.fromString(object.vaultCount)
         : Long.UZERO,
     };
   },
@@ -2145,10 +2147,10 @@ export const QueryTotalValueLockedByProductExtendedPairRequest = {
   fromJSON(object: any): QueryTotalValueLockedByProductExtendedPairRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromValue(object.productId)
+        ? Long.fromString(object.productId)
         : Long.UZERO,
       extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
+        ? Long.fromString(object.extendedPairId)
         : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -2301,7 +2303,7 @@ export const QueryExtendedPairIDByProductRequest = {
   fromJSON(object: any): QueryExtendedPairIDByProductRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromValue(object.productId)
+        ? Long.fromString(object.productId)
         : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -2384,7 +2386,7 @@ export const QueryExtendedPairIDByProductResponse = {
   fromJSON(object: any): QueryExtendedPairIDByProductResponse {
     return {
       extendedPairIds: Array.isArray(object?.extendedPairIds)
-        ? object.extendedPairIds.map((e: any) => Long.fromValue(e))
+        ? object.extendedPairIds.map((e: any) => Long.fromString(e))
         : [],
     };
   },
@@ -2580,7 +2582,7 @@ export const QueryAllStableVaultsRequest = {
 
   fromJSON(object: any): QueryAllStableVaultsRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -2715,9 +2717,9 @@ export const QueryStableVaultByProductExtendedPairRequest = {
 
   fromJSON(object: any): QueryStableVaultByProductExtendedPairRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
+        ? Long.fromString(object.extendedPairId)
         : Long.UZERO,
     };
   },
@@ -2871,9 +2873,9 @@ export const QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = {
     object: any
   ): QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
+        ? Long.fromString(object.extendedPairId)
         : Long.UZERO,
     };
   },
@@ -3028,7 +3030,7 @@ export const QueryExtendedPairVaultMappingByAppRequest = {
 
   fromJSON(object: any): QueryExtendedPairVaultMappingByAppRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -3169,7 +3171,7 @@ export const QueryExtendedPairVaultMappingByOwnerAndAppRequest = {
   fromJSON(object: any): QueryExtendedPairVaultMappingByOwnerAndAppRequest {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -3333,9 +3335,9 @@ export const QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest 
     ): QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest {
       return {
         owner: isSet(object.owner) ? String(object.owner) : "",
-        appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+        appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
         extendedPair: isSet(object.extendedPair)
-          ? Long.fromValue(object.extendedPair)
+          ? Long.fromString(object.extendedPair)
           : Long.UZERO,
       };
     },
@@ -3483,7 +3485,7 @@ export const QueryTVLlockedByAppRequest = {
 
   fromJSON(object: any): QueryTVLlockedByAppRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
