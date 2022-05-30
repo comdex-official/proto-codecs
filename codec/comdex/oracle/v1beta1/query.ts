@@ -5,8 +5,8 @@ import {
     PageRequest,
     PageResponse,
 } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Market } from "../../../comdex/oracle/v1beta1/oracle";
-import { Params } from "../../../comdex/oracle/v1beta1/params";
+import { Market } from "./oracle";
+import { Params } from "./params";
 
 export const protobufPackage = "comdex.oracle.v1beta1";
 
