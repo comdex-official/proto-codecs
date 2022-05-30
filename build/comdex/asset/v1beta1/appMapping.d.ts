@@ -5,6 +5,8 @@ export interface AppMapping {
     id: Long;
     name: string;
     shortName: string;
+    minGovDeposit: string;
+    govTimeInSeconds: number;
     mintGenesisToken: MintGenesisToken[];
 }
 export interface MintGenesisToken {
@@ -22,6 +24,8 @@ export declare const AppMapping: {
         id?: string | number | Long.Long | undefined;
         name?: string | undefined;
         shortName?: string | undefined;
+        minGovDeposit?: string | undefined;
+        govTimeInSeconds?: number | undefined;
         mintGenesisToken?: {
             assetId?: string | number | Long.Long | undefined;
             genesisSupply?: string | undefined;
@@ -89,6 +93,8 @@ export declare const AppMapping: {
         } & Record<Exclude<keyof I["id"], keyof Long.Long>, never>) | undefined;
         name?: string | undefined;
         shortName?: string | undefined;
+        minGovDeposit?: string | undefined;
+        govTimeInSeconds?: number | undefined;
         mintGenesisToken?: ({
             assetId?: string | number | Long.Long | undefined;
             genesisSupply?: string | undefined;

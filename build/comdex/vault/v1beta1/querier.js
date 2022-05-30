@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -22,28 +26,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryServiceClientImpl = exports.QueryTVLlockedByAppResponse = exports.QueryTVLlockedByAppRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = exports.QueryExtendedPairVaultMappingByAppResponse = exports.QueryExtendedPairVaultMappingByAppRequest = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = exports.QueryStableVaultByProductExtendedPairResponse = exports.QueryStableVaultByProductExtendedPairRequest = exports.QueryAllStableVaultsResponse = exports.QueryAllStableVaultsRequest = exports.QueryStableVaultInfoResponse = exports.QueryStableVaultInfoRequest = exports.QueryExtendedPairIDByProductResponse = exports.QueryExtendedPairIDByProductRequest = exports.QueryTotalValueLockedByProductExtendedPairResponse = exports.QueryTotalValueLockedByProductExtendedPairRequest = exports.QueryVaultCountByProductAndPairResponse = exports.QueryVaultCountByProductAndPairRequest = exports.QueryVaultCountByProductResponse = exports.QueryVaultCountByProductRequest = exports.QueryTokenMintedAllProductsResponse = exports.QueryTokenMintedAllProductsRequest = exports.QueryTokenMintedAllProductsByPairResponse = exports.QueryTokenMintedAllProductsByPairRequest = exports.QueryAllVaultByOwnerResponse = exports.QueryAllVaultByOwnerRequest = exports.QueryVaultByProductResponse = exports.QueryVaultByProductRequest = exports.QueryVaultOfOwnerByExtendedPairResponse = exports.QueryVaultOfOwnerByExtendedPairRequest = exports.QueryAllVaultsByAppAndExtendedPairResponse = exports.QueryAllVaultsByAppAndExtendedPairRequest = exports.QueryAllVaultsByProductResponse = exports.QueryAllVaultsByProductRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
+exports.QueryServiceClientImpl = exports.QueryTVLlockedByAppResponse = exports.QueryTVLlockedByAppRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = exports.QueryExtendedPairVaultMappingByAppResponse = exports.QueryExtendedPairVaultMappingByAppRequest = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = exports.QueryStableVaultByProductExtendedPairResponse = exports.QueryStableVaultByProductExtendedPairRequest = exports.QueryAllStableVaultsResponse = exports.QueryAllStableVaultsRequest = exports.QueryStableVaultInfoResponse = exports.QueryStableVaultInfoRequest = exports.QueryExtendedPairIDByProductResponse = exports.QueryExtendedPairIDByProductRequest = exports.QueryTotalValueLockedByProductExtendedPairResponse = exports.QueryTotalValueLockedByProductExtendedPairRequest = exports.QueryVaultCountByProductAndPairResponse = exports.QueryVaultCountByProductAndPairRequest = exports.QueryVaultCountByProductResponse = exports.QueryVaultCountByProductRequest = exports.QueryTokenMintedAllProductsResponse = exports.QueryTokenMintedAllProductsRequest = exports.QueryTokenMintedAllProductsByPairResponse = exports.QueryTokenMintedAllProductsByPairRequest = exports.QueryAllVaultByOwnerResponse = exports.QueryAllVaultByOwnerRequest = exports.QueryVaultByProductResponse = exports.QueryVaultByProductRequest = exports.QueryVaultOfOwnerByExtendedPairResponse = exports.QueryVaultOfOwnerByExtendedPairRequest = exports.QueryAllVaultsByAppAndExtendedPairResponse = exports.QueryAllVaultsByAppAndExtendedPairRequest = exports.QueryAllVaultsByProductResponse = exports.QueryAllVaultsByProductRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultInfoResponse = exports.QueryVaultInfoRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
-const coin_1 = require("./cosmos/base/v1beta1/coin");
 const vault_1 = require("./comdex/vault/v1beta1/vault");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 exports.protobufPackage = "comdex.vault.v1beta1";
 function createBaseVaultInfo() {
     return {
-        id: long_1.default.UZERO,
+        id: "",
         pairId: long_1.default.UZERO,
         owner: "",
-        collateral: undefined,
-        debt: undefined,
+        collateral: "",
+        debt: "",
         collateralizationRatio: "",
     };
 }
 exports.VaultInfo = {
     encode(message, writer = _m0.Writer.create()) {
-        if (!message.id.isZero()) {
-            writer.uint32(8).uint64(message.id);
+        if (message.id !== "") {
+            writer.uint32(10).string(message.id);
         }
         if (!message.pairId.isZero()) {
             writer.uint32(16).uint64(message.pairId);
@@ -51,11 +54,11 @@ exports.VaultInfo = {
         if (message.owner !== "") {
             writer.uint32(26).string(message.owner);
         }
-        if (message.collateral !== undefined) {
-            coin_1.Coin.encode(message.collateral, writer.uint32(34).fork()).ldelim();
+        if (message.collateral !== "") {
+            writer.uint32(34).string(message.collateral);
         }
-        if (message.debt !== undefined) {
-            coin_1.Coin.encode(message.debt, writer.uint32(42).fork()).ldelim();
+        if (message.debt !== "") {
+            writer.uint32(42).string(message.debt);
         }
         if (message.collateralizationRatio !== "") {
             writer.uint32(50).string(message.collateralizationRatio);
@@ -70,7 +73,7 @@ exports.VaultInfo = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.uint64();
+                    message.id = reader.string();
                     break;
                 case 2:
                     message.pairId = reader.uint64();
@@ -79,10 +82,10 @@ exports.VaultInfo = {
                     message.owner = reader.string();
                     break;
                 case 4:
-                    message.collateral = coin_1.Coin.decode(reader, reader.uint32());
+                    message.collateral = reader.string();
                     break;
                 case 5:
-                    message.debt = coin_1.Coin.decode(reader, reader.uint32());
+                    message.debt = reader.string();
                     break;
                 case 6:
                     message.collateralizationRatio = reader.string();
@@ -96,13 +99,11 @@ exports.VaultInfo = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? String(object.id) : "",
             pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
-            collateral: isSet(object.collateral)
-                ? coin_1.Coin.fromJSON(object.collateral)
-                : undefined,
-            debt: isSet(object.debt) ? coin_1.Coin.fromJSON(object.debt) : undefined,
+            collateral: isSet(object.collateral) ? String(object.collateral) : "",
+            debt: isSet(object.debt) ? String(object.debt) : "",
             collateralizationRatio: isSet(object.collateralizationRatio)
                 ? String(object.collateralizationRatio)
                 : "",
@@ -110,42 +111,28 @@ exports.VaultInfo = {
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.id !== undefined && (obj.id = message.id);
         message.pairId !== undefined &&
             (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
-        message.collateral !== undefined &&
-            (obj.collateral = message.collateral
-                ? coin_1.Coin.toJSON(message.collateral)
-                : undefined);
-        message.debt !== undefined &&
-            (obj.debt = message.debt ? coin_1.Coin.toJSON(message.debt) : undefined);
+        message.collateral !== undefined && (obj.collateral = message.collateral);
+        message.debt !== undefined && (obj.debt = message.debt);
         message.collateralizationRatio !== undefined &&
             (obj.collateralizationRatio = message.collateralizationRatio);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c, _d, _e;
         const message = createBaseVaultInfo();
-        message.id =
-            object.id !== undefined && object.id !== null
-                ? long_1.default.fromValue(object.id)
-                : long_1.default.UZERO;
+        message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
         message.pairId =
             object.pairId !== undefined && object.pairId !== null
                 ? long_1.default.fromValue(object.pairId)
                 : long_1.default.UZERO;
-        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
-        message.collateral =
-            object.collateral !== undefined && object.collateral !== null
-                ? coin_1.Coin.fromPartial(object.collateral)
-                : undefined;
-        message.debt =
-            object.debt !== undefined && object.debt !== null
-                ? coin_1.Coin.fromPartial(object.debt)
-                : undefined;
-        message.collateralizationRatio = (_b = object.collateralizationRatio) !== null && _b !== void 0 ? _b : "";
+        message.owner = (_b = object.owner) !== null && _b !== void 0 ? _b : "";
+        message.collateral = (_c = object.collateral) !== null && _c !== void 0 ? _c : "";
+        message.debt = (_d = object.debt) !== null && _d !== void 0 ? _d : "";
+        message.collateralizationRatio = (_e = object.collateralizationRatio) !== null && _e !== void 0 ? _e : "";
         return message;
     },
 };
@@ -236,6 +223,101 @@ exports.QueryVaultResponse = {
         message.vault =
             object.vault !== undefined && object.vault !== null
                 ? vault_1.Vault.fromPartial(object.vault)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryVaultInfoRequest() {
+    return { id: "" };
+}
+exports.QueryVaultInfoRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.id !== "") {
+            writer.uint32(10).string(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryVaultInfoRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            id: isSet(object.id) ? String(object.id) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryVaultInfoRequest();
+        message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseQueryVaultInfoResponse() {
+    return { vaultsInfo: undefined };
+}
+exports.QueryVaultInfoResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.vaultsInfo !== undefined) {
+            exports.VaultInfo.encode(message.vaultsInfo, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryVaultInfoResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.vaultsInfo = exports.VaultInfo.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            vaultsInfo: isSet(object.vaultsInfo)
+                ? exports.VaultInfo.fromJSON(object.vaultsInfo)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.vaultsInfo !== undefined &&
+            (obj.vaultsInfo = message.vaultsInfo
+                ? exports.VaultInfo.toJSON(message.vaultsInfo)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryVaultInfoResponse();
+        message.vaultsInfo =
+            object.vaultsInfo !== undefined && object.vaultsInfo !== null
+                ? exports.VaultInfo.fromPartial(object.vaultsInfo)
                 : undefined;
         return message;
     },
@@ -2593,6 +2675,7 @@ class QueryServiceClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
         this.QueryVault = this.QueryVault.bind(this);
+        this.QueryVaultInfo = this.QueryVaultInfo.bind(this);
         this.QueryAllVaults = this.QueryAllVaults.bind(this);
         this.QueryAllVaultsByProduct = this.QueryAllVaultsByProduct.bind(this);
         this.QueryAllVaultsByAppAndExtendedPair =
@@ -2630,6 +2713,11 @@ class QueryServiceClientImpl {
         const data = exports.QueryVaultRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.QueryService", "QueryVault", data);
         return promise.then((data) => exports.QueryVaultResponse.decode(new _m0.Reader(data)));
+    }
+    QueryVaultInfo(request) {
+        const data = exports.QueryVaultInfoRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.QueryService", "QueryVaultInfo", data);
+        return promise.then((data) => exports.QueryVaultInfoResponse.decode(new _m0.Reader(data)));
     }
     QueryAllVaults(request) {
         const data = exports.QueryAllVaultsRequest.encode(request).finish();

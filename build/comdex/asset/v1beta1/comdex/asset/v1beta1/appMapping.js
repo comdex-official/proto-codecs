@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -28,7 +32,14 @@ const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseAppMapping() {
-    return { id: long_1.default.UZERO, name: "", shortName: "", mintGenesisToken: [] };
+    return {
+        id: long_1.default.UZERO,
+        name: "",
+        shortName: "",
+        minGovDeposit: "",
+        govTimeInSeconds: 0,
+        mintGenesisToken: [],
+    };
 }
 exports.AppMapping = {
     encode(message, writer = _m0.Writer.create()) {
@@ -41,8 +52,14 @@ exports.AppMapping = {
         if (message.shortName !== "") {
             writer.uint32(26).string(message.shortName);
         }
+        if (message.minGovDeposit !== "") {
+            writer.uint32(34).string(message.minGovDeposit);
+        }
+        if (message.govTimeInSeconds !== 0) {
+            writer.uint32(41).double(message.govTimeInSeconds);
+        }
         for (const v of message.mintGenesisToken) {
-            exports.MintGenesisToken.encode(v, writer.uint32(34).fork()).ldelim();
+            exports.MintGenesisToken.encode(v, writer.uint32(50).fork()).ldelim();
         }
         return writer;
     },
@@ -63,6 +80,12 @@ exports.AppMapping = {
                     message.shortName = reader.string();
                     break;
                 case 4:
+                    message.minGovDeposit = reader.string();
+                    break;
+                case 5:
+                    message.govTimeInSeconds = reader.double();
+                    break;
+                case 6:
                     message.mintGenesisToken.push(exports.MintGenesisToken.decode(reader, reader.uint32()));
                     break;
                 default:
@@ -77,6 +100,12 @@ exports.AppMapping = {
             id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             name: isSet(object.name) ? String(object.name) : "",
             shortName: isSet(object.shortName) ? String(object.shortName) : "",
+            minGovDeposit: isSet(object.minGovDeposit)
+                ? String(object.minGovDeposit)
+                : "",
+            govTimeInSeconds: isSet(object.govTimeInSeconds)
+                ? Number(object.govTimeInSeconds)
+                : 0,
             mintGenesisToken: Array.isArray(object === null || object === void 0 ? void 0 : object.mintGenesisToken)
                 ? object.mintGenesisToken.map((e) => exports.MintGenesisToken.fromJSON(e))
                 : [],
@@ -88,6 +117,10 @@ exports.AppMapping = {
             (obj.id = (message.id || long_1.default.UZERO).toString());
         message.name !== undefined && (obj.name = message.name);
         message.shortName !== undefined && (obj.shortName = message.shortName);
+        message.minGovDeposit !== undefined &&
+            (obj.minGovDeposit = message.minGovDeposit);
+        message.govTimeInSeconds !== undefined &&
+            (obj.govTimeInSeconds = message.govTimeInSeconds);
         if (message.mintGenesisToken) {
             obj.mintGenesisToken = message.mintGenesisToken.map((e) => e ? exports.MintGenesisToken.toJSON(e) : undefined);
         }
@@ -97,7 +130,7 @@ exports.AppMapping = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         const message = createBaseAppMapping();
         message.id =
             object.id !== undefined && object.id !== null
@@ -105,8 +138,10 @@ exports.AppMapping = {
                 : long_1.default.UZERO;
         message.name = (_a = object.name) !== null && _a !== void 0 ? _a : "";
         message.shortName = (_b = object.shortName) !== null && _b !== void 0 ? _b : "";
+        message.minGovDeposit = (_c = object.minGovDeposit) !== null && _c !== void 0 ? _c : "";
+        message.govTimeInSeconds = (_d = object.govTimeInSeconds) !== null && _d !== void 0 ? _d : 0;
         message.mintGenesisToken =
-            ((_c = object.mintGenesisToken) === null || _c === void 0 ? void 0 : _c.map((e) => exports.MintGenesisToken.fromPartial(e))) ||
+            ((_e = object.mintGenesisToken) === null || _e === void 0 ? void 0 : _e.map((e) => exports.MintGenesisToken.fromPartial(e))) ||
                 [];
         return message;
     },

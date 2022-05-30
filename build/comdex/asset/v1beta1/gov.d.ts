@@ -1998,6 +1998,8 @@ export declare const AddAppMappingProposal: {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
+            minGovDeposit?: string | undefined;
+            govTimeInSeconds?: number | undefined;
             mintGenesisToken?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -2012,6 +2014,8 @@ export declare const AddAppMappingProposal: {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
+            minGovDeposit?: string | undefined;
+            govTimeInSeconds?: number | undefined;
             mintGenesisToken?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -2022,6 +2026,8 @@ export declare const AddAppMappingProposal: {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
+            minGovDeposit?: string | undefined;
+            govTimeInSeconds?: number | undefined;
             mintGenesisToken?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -2089,6 +2095,8 @@ export declare const AddAppMappingProposal: {
             } & Record<Exclude<keyof I["app"][number]["id"], keyof Long.Long>, never>) | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
+            minGovDeposit?: string | undefined;
+            govTimeInSeconds?: number | undefined;
             mintGenesisToken?: ({
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -2171,6 +2179,8 @@ export declare const AddAppMappingProposal: {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
+            minGovDeposit?: string | undefined;
+            govTimeInSeconds?: number | undefined;
             mintGenesisToken?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -2192,6 +2202,8 @@ export declare const AddAssetMappingProposal: {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
+            minGovDeposit?: string | undefined;
+            govTimeInSeconds?: number | undefined;
             mintGenesisToken?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -2206,6 +2218,8 @@ export declare const AddAssetMappingProposal: {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
+            minGovDeposit?: string | undefined;
+            govTimeInSeconds?: number | undefined;
             mintGenesisToken?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -2216,6 +2230,8 @@ export declare const AddAssetMappingProposal: {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
+            minGovDeposit?: string | undefined;
+            govTimeInSeconds?: number | undefined;
             mintGenesisToken?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -2283,6 +2299,8 @@ export declare const AddAssetMappingProposal: {
             } & Record<Exclude<keyof I["app"][number]["id"], keyof Long.Long>, never>) | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
+            minGovDeposit?: string | undefined;
+            govTimeInSeconds?: number | undefined;
             mintGenesisToken?: ({
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -2365,6 +2383,8 @@ export declare const AddAssetMappingProposal: {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
+            minGovDeposit?: string | undefined;
+            govTimeInSeconds?: number | undefined;
             mintGenesisToken?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;

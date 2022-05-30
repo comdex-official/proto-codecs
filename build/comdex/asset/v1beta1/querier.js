@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -22,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryServiceClientImpl = exports.QueryExtendedPairPsmPairWiseResponse = exports.QueryExtendedPairPsmPairWiseRequest = exports.QueryProductToExtendedPairResponse = exports.QueryProductToExtendedPairRequest = exports.QueryPairVaultsResponse = exports.QueryPairVaultsRequest = exports.QueryPairVaultResponse = exports.QueryPairVaultRequest = exports.QueryAppsResponse = exports.QueryAppsRequest = exports.QueryAppResponse = exports.QueryAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.PairInfo = exports.QueryAssetResponse = exports.QueryAssetRequest = exports.QueryAssetsResponse = exports.QueryAssetsRequest = exports.protobufPackage = void 0;
+exports.QueryServiceClientImpl = exports.QueryExtendedPairDataPsmPairWiseResponse = exports.QueryExtendedPairDataPsmPairWiseRequest = exports.QueryExtendedPairPsmPairWiseResponse = exports.QueryExtendedPairPsmPairWiseRequest = exports.QueryProductToExtendedPairResponse = exports.QueryProductToExtendedPairRequest = exports.QueryPairVaultsResponse = exports.QueryPairVaultsRequest = exports.QueryPairVaultResponse = exports.QueryPairVaultRequest = exports.QueryAppsResponse = exports.QueryAppsRequest = exports.QueryTokenGovResponse = exports.QueryTokenGovRequest = exports.QueryAppResponse = exports.QueryAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.PairInfo = exports.QueryAssetResponse = exports.QueryAssetRequest = exports.QueryAssetsResponse = exports.QueryAssetsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -739,6 +743,102 @@ exports.QueryAppResponse = {
         return message;
     },
 };
+function createBaseQueryTokenGovRequest() {
+    return { appId: long_1.default.UZERO };
+}
+exports.QueryTokenGovRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryTokenGovRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryTokenGovRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryTokenGovResponse() {
+    return { govAssetId: long_1.default.UZERO };
+}
+exports.QueryTokenGovResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.govAssetId.isZero()) {
+            writer.uint32(8).uint64(message.govAssetId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryTokenGovResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.govAssetId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            govAssetId: isSet(object.govAssetId)
+                ? long_1.default.fromValue(object.govAssetId)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.govAssetId !== undefined &&
+            (obj.govAssetId = (message.govAssetId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryTokenGovResponse();
+        message.govAssetId =
+            object.govAssetId !== undefined && object.govAssetId !== null
+                ? long_1.default.fromValue(object.govAssetId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
 function createBaseQueryAppsRequest() {
     return {};
 }
@@ -1218,6 +1318,105 @@ exports.QueryExtendedPairPsmPairWiseResponse = {
         return message;
     },
 };
+function createBaseQueryExtendedPairDataPsmPairWiseRequest() {
+    return { appId: long_1.default.UZERO };
+}
+exports.QueryExtendedPairDataPsmPairWiseRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryExtendedPairDataPsmPairWiseRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryExtendedPairDataPsmPairWiseRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryExtendedPairDataPsmPairWiseResponse() {
+    return { extendedPair: [] };
+}
+exports.QueryExtendedPairDataPsmPairWiseResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.extendedPair) {
+            extendedPairVault_1.ExtendedPairVault.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryExtendedPairDataPsmPairWiseResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.extendedPair.push(extendedPairVault_1.ExtendedPairVault.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            extendedPair: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPair)
+                ? object.extendedPair.map((e) => extendedPairVault_1.ExtendedPairVault.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.extendedPair) {
+            obj.extendedPair = message.extendedPair.map((e) => e ? extendedPairVault_1.ExtendedPairVault.toJSON(e) : undefined);
+        }
+        else {
+            obj.extendedPair = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryExtendedPairDataPsmPairWiseResponse();
+        message.extendedPair =
+            ((_a = object.extendedPair) === null || _a === void 0 ? void 0 : _a.map((e) => extendedPairVault_1.ExtendedPairVault.fromPartial(e))) || [];
+        return message;
+    },
+};
 class QueryServiceClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1234,6 +1433,9 @@ class QueryServiceClientImpl {
             this.QueryProductToExtendedPair.bind(this);
         this.QueryExtendedPairPsmPairWise =
             this.QueryExtendedPairPsmPairWise.bind(this);
+        this.QueryTokenGov = this.QueryTokenGov.bind(this);
+        this.QueryExtendedPairDataPsmPairWise =
+            this.QueryExtendedPairDataPsmPairWise.bind(this);
     }
     QueryAssets(request) {
         const data = exports.QueryAssetsRequest.encode(request).finish();
@@ -1289,6 +1491,16 @@ class QueryServiceClientImpl {
         const data = exports.QueryExtendedPairPsmPairWiseRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryExtendedPairPsmPairWise", data);
         return promise.then((data) => exports.QueryExtendedPairPsmPairWiseResponse.decode(new _m0.Reader(data)));
+    }
+    QueryTokenGov(request) {
+        const data = exports.QueryTokenGovRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryTokenGov", data);
+        return promise.then((data) => exports.QueryTokenGovResponse.decode(new _m0.Reader(data)));
+    }
+    QueryExtendedPairDataPsmPairWise(request) {
+        const data = exports.QueryExtendedPairDataPsmPairWiseRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.asset.v1beta1.QueryService", "QueryExtendedPairDataPsmPairWise", data);
+        return promise.then((data) => exports.QueryExtendedPairDataPsmPairWiseResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryServiceClientImpl = QueryServiceClientImpl;
