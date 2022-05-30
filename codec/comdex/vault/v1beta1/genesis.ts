@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Vault } from "../../../comdex/vault/v1beta1/vault";
+import _m0 from "protobufjs/minimal";
+import { Vault } from "./vault";
 
 export const protobufPackage = "comdex.vault.v1beta1";
 

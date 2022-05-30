@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -88,7 +88,7 @@ export const MsgAddAssetRequest = {
       name: isSet(object.name) ? String(object.name) : "",
       denom: isSet(object.denom) ? String(object.denom) : "",
       decimals: isSet(object.decimals)
-        ? Long.fromValue(object.decimals)
+        ? Long.fromString(object.decimals)
         : Long.ZERO,
     };
   },
@@ -225,11 +225,11 @@ export const MsgUpdateAssetRequest = {
   fromJSON(object: any): MsgUpdateAssetRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
       name: isSet(object.name) ? String(object.name) : "",
       denom: isSet(object.denom) ? String(object.denom) : "",
       decimals: isSet(object.decimals)
-        ? Long.fromValue(object.decimals)
+        ? Long.fromString(object.decimals)
         : Long.ZERO,
     };
   },
@@ -361,10 +361,10 @@ export const MsgAddPairRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       assetIn: isSet(object.assetIn)
-        ? Long.fromValue(object.assetIn)
+        ? Long.fromString(object.assetIn)
         : Long.UZERO,
       assetOut: isSet(object.assetOut)
-        ? Long.fromValue(object.assetOut)
+        ? Long.fromString(object.assetOut)
         : Long.UZERO,
     };
   },

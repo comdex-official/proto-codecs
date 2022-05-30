@@ -1,5 +1,5 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Locker, TokenToLockerMapping, LockedDepositedAmountDataMap } from "./locker";
 import { Params } from "./params";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";

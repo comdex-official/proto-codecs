@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.locker.v1beta1";
 
@@ -105,10 +105,10 @@ export const MsgCreateLockerRequest = {
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       amount: isSet(object.amount) ? String(object.amount) : "",
       assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
+        ? Long.fromString(object.assetId)
         : Long.UZERO,
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
+        ? Long.fromString(object.appMappingId)
         : Long.UZERO,
     };
   },
@@ -241,10 +241,10 @@ export const MsgAddWhiteListedAssetRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
+        ? Long.fromString(object.appMappingId)
         : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
+        ? Long.fromString(object.assetId)
         : Long.UZERO,
     };
   },
@@ -395,10 +395,10 @@ export const MsgDepositAssetRequest = {
       lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
       amount: isSet(object.amount) ? String(object.amount) : "",
       assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
+        ? Long.fromString(object.assetId)
         : Long.UZERO,
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
+        ? Long.fromString(object.appMappingId)
         : Long.UZERO,
     };
   },
@@ -553,10 +553,10 @@ export const MsgWithdrawAssetRequest = {
       lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
       amount: isSet(object.amount) ? String(object.amount) : "",
       assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
+        ? Long.fromString(object.assetId)
         : Long.UZERO,
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
+        ? Long.fromString(object.appMappingId)
         : Long.UZERO,
     };
   },

@@ -1,5 +1,5 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.locker.v1beta1";
 /** locker_id will be the key which will be derived from the LockerLookUpTable */
 export interface Locker {
