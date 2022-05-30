@@ -20,6 +20,8 @@ export interface SurplusAuction {
   appId: Long;
   assetId: Long;
   auctionMappingId: Long;
+  assetInId: Long;
+  assetOutId: Long;
 }
 
 export interface DebtAuction {
@@ -36,6 +38,9 @@ export interface DebtAuction {
   assetId: Long;
   biddingIds: bidOwnerMapping[];
   auctionMappingId: Long;
+  bidFactor: string;
+  assetInId: Long;
+  assetOutId: Long;
 }
 
 export interface DutchAuction {
@@ -58,6 +63,7 @@ export interface DutchAuction {
   assetOutId: Long;
   lockedVaultId: Long;
   vaultOwner: string;
+  liquidationPenalty: string;
 }
 
 export interface bidOwnerMapping {
@@ -80,6 +86,8 @@ function createBaseSurplusAuction(): SurplusAuction {
     appId: Long.UZERO,
     assetId: Long.UZERO,
     auctionMappingId: Long.UZERO,
+    assetInId: Long.UZERO,
+    assetOutId: Long.UZERO,
   };
 }
 
@@ -129,6 +137,12 @@ export const SurplusAuction = {
     }
     if (!message.auctionMappingId.isZero()) {
       writer.uint32(104).uint64(message.auctionMappingId);
+    }
+    if (!message.assetInId.isZero()) {
+      writer.uint32(112).uint64(message.assetInId);
+    }
+    if (!message.assetOutId.isZero()) {
+      writer.uint32(120).uint64(message.assetOutId);
     }
     return writer;
   },
@@ -183,6 +197,12 @@ export const SurplusAuction = {
         case 13:
           message.auctionMappingId = reader.uint64() as Long;
           break;
+        case 14:
+          message.assetInId = reader.uint64() as Long;
+          break;
+        case 15:
+          message.assetOutId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -223,6 +243,12 @@ export const SurplusAuction = {
         : Long.UZERO,
       auctionMappingId: isSet(object.auctionMappingId)
         ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO,
+      assetInId: isSet(object.assetInId)
+        ? Long.fromValue(object.assetInId)
+        : Long.UZERO,
+      assetOutId: isSet(object.assetOutId)
+        ? Long.fromValue(object.assetOutId)
         : Long.UZERO,
     };
   },
@@ -266,6 +292,10 @@ export const SurplusAuction = {
       (obj.auctionMappingId = (
         message.auctionMappingId || Long.UZERO
       ).toString());
+    message.assetInId !== undefined &&
+      (obj.assetInId = (message.assetInId || Long.UZERO).toString());
+    message.assetOutId !== undefined &&
+      (obj.assetOutId = (message.assetOutId || Long.UZERO).toString());
     return obj;
   },
 
@@ -314,6 +344,14 @@ export const SurplusAuction = {
       object.auctionMappingId !== undefined && object.auctionMappingId !== null
         ? Long.fromValue(object.auctionMappingId)
         : Long.UZERO;
+    message.assetInId =
+      object.assetInId !== undefined && object.assetInId !== null
+        ? Long.fromValue(object.assetInId)
+        : Long.UZERO;
+    message.assetOutId =
+      object.assetOutId !== undefined && object.assetOutId !== null
+        ? Long.fromValue(object.assetOutId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -333,6 +371,9 @@ function createBaseDebtAuction(): DebtAuction {
     assetId: Long.UZERO,
     biddingIds: [],
     auctionMappingId: Long.UZERO,
+    bidFactor: "",
+    assetInId: Long.UZERO,
+    assetOutId: Long.UZERO,
   };
 }
 
@@ -385,6 +426,15 @@ export const DebtAuction = {
     }
     if (!message.auctionMappingId.isZero()) {
       writer.uint32(104).uint64(message.auctionMappingId);
+    }
+    if (message.bidFactor !== "") {
+      writer.uint32(114).string(message.bidFactor);
+    }
+    if (!message.assetInId.isZero()) {
+      writer.uint32(120).uint64(message.assetInId);
+    }
+    if (!message.assetOutId.isZero()) {
+      writer.uint32(128).uint64(message.assetOutId);
     }
     return writer;
   },
@@ -439,6 +489,15 @@ export const DebtAuction = {
         case 13:
           message.auctionMappingId = reader.uint64() as Long;
           break;
+        case 14:
+          message.bidFactor = reader.string();
+          break;
+        case 15:
+          message.assetInId = reader.uint64() as Long;
+          break;
+        case 16:
+          message.assetOutId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -483,6 +542,13 @@ export const DebtAuction = {
         : [],
       auctionMappingId: isSet(object.auctionMappingId)
         ? Long.fromValue(object.auctionMappingId)
+        : Long.UZERO,
+      bidFactor: isSet(object.bidFactor) ? String(object.bidFactor) : "",
+      assetInId: isSet(object.assetInId)
+        ? Long.fromValue(object.assetInId)
+        : Long.UZERO,
+      assetOutId: isSet(object.assetOutId)
+        ? Long.fromValue(object.assetOutId)
         : Long.UZERO,
     };
   },
@@ -531,6 +597,11 @@ export const DebtAuction = {
       (obj.auctionMappingId = (
         message.auctionMappingId || Long.UZERO
       ).toString());
+    message.bidFactor !== undefined && (obj.bidFactor = message.bidFactor);
+    message.assetInId !== undefined &&
+      (obj.assetInId = (message.assetInId || Long.UZERO).toString());
+    message.assetOutId !== undefined &&
+      (obj.assetOutId = (message.assetOutId || Long.UZERO).toString());
     return obj;
   },
 
@@ -584,6 +655,15 @@ export const DebtAuction = {
       object.auctionMappingId !== undefined && object.auctionMappingId !== null
         ? Long.fromValue(object.auctionMappingId)
         : Long.UZERO;
+    message.bidFactor = object.bidFactor ?? "";
+    message.assetInId =
+      object.assetInId !== undefined && object.assetInId !== null
+        ? Long.fromValue(object.assetInId)
+        : Long.UZERO;
+    message.assetOutId =
+      object.assetOutId !== undefined && object.assetOutId !== null
+        ? Long.fromValue(object.assetOutId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -609,6 +689,7 @@ function createBaseDutchAuction(): DutchAuction {
     assetOutId: Long.UZERO,
     lockedVaultId: Long.UZERO,
     vaultOwner: "",
+    liquidationPenalty: "",
   };
 }
 
@@ -692,6 +773,9 @@ export const DutchAuction = {
     if (message.vaultOwner !== "") {
       writer.uint32(154).string(message.vaultOwner);
     }
+    if (message.liquidationPenalty !== "") {
+      writer.uint32(162).string(message.liquidationPenalty);
+    }
     return writer;
   },
 
@@ -774,6 +858,9 @@ export const DutchAuction = {
         case 19:
           message.vaultOwner = reader.string();
           break;
+        case 20:
+          message.liquidationPenalty = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -837,6 +924,9 @@ export const DutchAuction = {
         ? Long.fromValue(object.lockedVaultId)
         : Long.UZERO,
       vaultOwner: isSet(object.vaultOwner) ? String(object.vaultOwner) : "",
+      liquidationPenalty: isSet(object.liquidationPenalty)
+        ? String(object.liquidationPenalty)
+        : "",
     };
   },
 
@@ -894,6 +984,8 @@ export const DutchAuction = {
     message.lockedVaultId !== undefined &&
       (obj.lockedVaultId = (message.lockedVaultId || Long.UZERO).toString());
     message.vaultOwner !== undefined && (obj.vaultOwner = message.vaultOwner);
+    message.liquidationPenalty !== undefined &&
+      (obj.liquidationPenalty = message.liquidationPenalty);
     return obj;
   },
 
@@ -958,6 +1050,7 @@ export const DutchAuction = {
         ? Long.fromValue(object.lockedVaultId)
         : Long.UZERO;
     message.vaultOwner = object.vaultOwner ?? "";
+    message.liquidationPenalty = object.liquidationPenalty ?? "";
     return message;
   },
 };
