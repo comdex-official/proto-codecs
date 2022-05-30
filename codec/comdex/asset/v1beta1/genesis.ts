@@ -1,9 +1,9 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-import { Params } from "./comdex/asset/v1beta1/params";
-import { Asset } from "./comdex/asset/v1beta1/asset";
-import { Pair } from "./comdex/asset/v1beta1/pair";
+import { Params } from "../../../comdex/asset/v1beta1/params";
+import { Asset } from "../../../comdex/asset/v1beta1/asset";
+import { Pair } from "../../../comdex/asset/v1beta1/pair";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 

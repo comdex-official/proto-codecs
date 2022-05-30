@@ -1,12 +1,12 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-import { Asset } from "./comdex/asset/v1beta1/asset";
-import { ExtendedAsset } from "./comdex/asset/v1beta1/extendedAsset";
-import { ExtendedPairLend } from "./comdex/asset/v1beta1/extendedLend";
-import { ExtendedPairVault } from "./comdex/asset/v1beta1/extendedPairVault";
-import { Pair } from "./comdex/asset/v1beta1/pair";
-import { AppMapping } from "./comdex/asset/v1beta1/appMapping";
+import { Asset } from "../../../comdex/asset/v1beta1/asset";
+import { ExtendedAsset } from "../../../comdex/asset/v1beta1/extendedAsset";
+import { ExtendedPairLend } from "../../../comdex/asset/v1beta1/extendedLend";
+import { ExtendedPairVault } from "../../../comdex/asset/v1beta1/extendedPairVault";
+import { Pair } from "../../../comdex/asset/v1beta1/pair";
+import { AppMapping } from "../../../comdex/asset/v1beta1/appMapping";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
