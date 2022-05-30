@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -25,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueryClientImpl = exports.QueryTVLlockedByAppResponse = exports.QueryTVLlockedByAppRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = exports.QueryExtendedPairVaultMappingByAppResponse = exports.QueryExtendedPairVaultMappingByAppRequest = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = exports.QueryStableVaultByProductExtendedPairResponse = exports.QueryStableVaultByProductExtendedPairRequest = exports.QueryAllStableVaultsResponse = exports.QueryAllStableVaultsRequest = exports.QueryStableVaultInfoResponse = exports.QueryStableVaultInfoRequest = exports.QueryExtendedPairIDByProductResponse = exports.QueryExtendedPairIDByProductRequest = exports.QueryTotalValueLockedByProductExtendedPairResponse = exports.QueryTotalValueLockedByProductExtendedPairRequest = exports.QueryVaultCountByProductAndPairResponse = exports.QueryVaultCountByProductAndPairRequest = exports.QueryVaultCountByProductResponse = exports.QueryVaultCountByProductRequest = exports.QueryTokenMintedAllProductsResponse = exports.QueryTokenMintedAllProductsRequest = exports.QueryTokenMintedAllProductsByPairResponse = exports.QueryTokenMintedAllProductsByPairRequest = exports.QueryAllVaultByOwnerResponse = exports.QueryAllVaultByOwnerRequest = exports.QueryVaultByProductResponse = exports.QueryVaultByProductRequest = exports.QueryVaultOfOwnerByExtendedPairResponse = exports.QueryVaultOfOwnerByExtendedPairRequest = exports.QueryAllVaultsByAppAndExtendedPairResponse = exports.QueryAllVaultsByAppAndExtendedPairRequest = exports.QueryAllVaultsByProductResponse = exports.QueryAllVaultsByProductRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultInfoResponse = exports.QueryVaultInfoRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const vault_1 = require("./vault");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 exports.protobufPackage = "comdex.vault.v1beta1";
@@ -40,7 +21,7 @@ function createBaseVaultInfo() {
     };
 }
 exports.VaultInfo = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
         }
@@ -62,7 +43,7 @@ exports.VaultInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseVaultInfo();
         while (reader.pos < end) {
@@ -96,7 +77,9 @@ exports.VaultInfo = {
     fromJSON(object) {
         return {
             id: isSet(object.id) ? String(object.id) : "",
-            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            pairId: isSet(object.pairId)
+                ? long_1.default.fromString(object.pairId)
+                : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
             collateral: isSet(object.collateral) ? String(object.collateral) : "",
             debt: isSet(object.debt) ? String(object.debt) : "",
@@ -136,14 +119,14 @@ function createBaseQueryVaultRequest() {
     return { id: "" };
 }
 exports.QueryVaultRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultRequest();
         while (reader.pos < end) {
@@ -180,14 +163,14 @@ function createBaseQueryVaultResponse() {
     return { vault: undefined };
 }
 exports.QueryVaultResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.vault !== undefined) {
             vault_1.Vault.encode(message.vault, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultResponse();
         while (reader.pos < end) {
@@ -227,14 +210,14 @@ function createBaseQueryVaultInfoRequest() {
     return { id: "" };
 }
 exports.QueryVaultInfoRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultInfoRequest();
         while (reader.pos < end) {
@@ -271,14 +254,14 @@ function createBaseQueryVaultInfoResponse() {
     return { vaultsInfo: undefined };
 }
 exports.QueryVaultInfoResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.vaultsInfo !== undefined) {
             exports.VaultInfo.encode(message.vaultsInfo, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultInfoResponse();
         while (reader.pos < end) {
@@ -322,14 +305,14 @@ function createBaseQueryAllVaultsRequest() {
     return { pagination: undefined };
 }
 exports.QueryAllVaultsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultsRequest();
         while (reader.pos < end) {
@@ -373,7 +356,7 @@ function createBaseQueryAllVaultsResponse() {
     return { vault: [], pagination: undefined };
 }
 exports.QueryAllVaultsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.vault) {
             vault_1.Vault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -383,7 +366,7 @@ exports.QueryAllVaultsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultsResponse();
         while (reader.pos < end) {
@@ -441,14 +424,14 @@ function createBaseQueryAllVaultsByProductRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryAllVaultsByProductRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultsByProductRequest();
         while (reader.pos < end) {
@@ -466,7 +449,7 @@ exports.QueryAllVaultsByProductRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -488,7 +471,7 @@ function createBaseQueryAllVaultsByProductResponse() {
     return { vault: [], pagination: undefined };
 }
 exports.QueryAllVaultsByProductResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.vault) {
             vault_1.Vault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -498,7 +481,7 @@ exports.QueryAllVaultsByProductResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultsByProductResponse();
         while (reader.pos < end) {
@@ -560,7 +543,7 @@ function createBaseQueryAllVaultsByAppAndExtendedPairRequest() {
     };
 }
 exports.QueryAllVaultsByAppAndExtendedPairRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -573,7 +556,7 @@ exports.QueryAllVaultsByAppAndExtendedPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultsByAppAndExtendedPairRequest();
         while (reader.pos < end) {
@@ -597,9 +580,9 @@ exports.QueryAllVaultsByAppAndExtendedPairRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromValue(object.extendedPairId)
+                ? long_1.default.fromString(object.extendedPairId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -639,7 +622,7 @@ function createBaseQueryAllVaultsByAppAndExtendedPairResponse() {
     return { vault: [], pagination: undefined };
 }
 exports.QueryAllVaultsByAppAndExtendedPairResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.vault) {
             vault_1.Vault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -649,7 +632,7 @@ exports.QueryAllVaultsByAppAndExtendedPairResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultsByAppAndExtendedPairResponse();
         while (reader.pos < end) {
@@ -712,7 +695,7 @@ function createBaseQueryVaultOfOwnerByExtendedPairRequest() {
     };
 }
 exports.QueryVaultOfOwnerByExtendedPairRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.productId.isZero()) {
             writer.uint32(8).uint64(message.productId);
         }
@@ -728,7 +711,7 @@ exports.QueryVaultOfOwnerByExtendedPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultOfOwnerByExtendedPairRequest();
         while (reader.pos < end) {
@@ -756,11 +739,11 @@ exports.QueryVaultOfOwnerByExtendedPairRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
+                ? long_1.default.fromString(object.productId)
                 : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromValue(object.extendedPairId)
+                ? long_1.default.fromString(object.extendedPairId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -803,14 +786,14 @@ function createBaseQueryVaultOfOwnerByExtendedPairResponse() {
     return { vaultId: "" };
 }
 exports.QueryVaultOfOwnerByExtendedPairResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.vaultId !== "") {
             writer.uint32(10).string(message.vaultId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultOfOwnerByExtendedPairResponse();
         while (reader.pos < end) {
@@ -847,7 +830,7 @@ function createBaseQueryVaultByProductRequest() {
     return { productId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryVaultByProductRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.productId.isZero()) {
             writer.uint32(8).uint64(message.productId);
         }
@@ -857,7 +840,7 @@ exports.QueryVaultByProductRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultByProductRequest();
         while (reader.pos < end) {
@@ -879,7 +862,7 @@ exports.QueryVaultByProductRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
+                ? long_1.default.fromString(object.productId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -913,14 +896,14 @@ function createBaseQueryVaultByProductResponse() {
     return { vaultIds: [] };
 }
 exports.QueryVaultByProductResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.vaultIds) {
             writer.uint32(10).string(v);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultByProductResponse();
         while (reader.pos < end) {
@@ -964,7 +947,7 @@ function createBaseQueryAllVaultByOwnerRequest() {
     return { owner: "", pagination: undefined };
 }
 exports.QueryAllVaultByOwnerRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.owner !== "") {
             writer.uint32(10).string(message.owner);
         }
@@ -974,7 +957,7 @@ exports.QueryAllVaultByOwnerRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultByOwnerRequest();
         while (reader.pos < end) {
@@ -1025,14 +1008,14 @@ function createBaseQueryAllVaultByOwnerResponse() {
     return { vaultIds: [] };
 }
 exports.QueryAllVaultByOwnerResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.vaultIds) {
             writer.uint32(10).string(v);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultByOwnerResponse();
         while (reader.pos < end) {
@@ -1080,7 +1063,7 @@ function createBaseQueryTokenMintedAllProductsByPairRequest() {
     };
 }
 exports.QueryTokenMintedAllProductsByPairRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.productId.isZero()) {
             writer.uint32(8).uint64(message.productId);
         }
@@ -1093,7 +1076,7 @@ exports.QueryTokenMintedAllProductsByPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTokenMintedAllProductsByPairRequest();
         while (reader.pos < end) {
@@ -1118,10 +1101,10 @@ exports.QueryTokenMintedAllProductsByPairRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
+                ? long_1.default.fromString(object.productId)
                 : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromValue(object.extendedPairId)
+                ? long_1.default.fromString(object.extendedPairId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1161,14 +1144,14 @@ function createBaseQueryTokenMintedAllProductsByPairResponse() {
     return { tokenMinted: "" };
 }
 exports.QueryTokenMintedAllProductsByPairResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.tokenMinted !== "") {
             writer.uint32(10).string(message.tokenMinted);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTokenMintedAllProductsByPairResponse();
         while (reader.pos < end) {
@@ -1206,7 +1189,7 @@ function createBaseQueryTokenMintedAllProductsRequest() {
     return { productId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryTokenMintedAllProductsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.productId.isZero()) {
             writer.uint32(8).uint64(message.productId);
         }
@@ -1216,7 +1199,7 @@ exports.QueryTokenMintedAllProductsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTokenMintedAllProductsRequest();
         while (reader.pos < end) {
@@ -1238,7 +1221,7 @@ exports.QueryTokenMintedAllProductsRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
+                ? long_1.default.fromString(object.productId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1272,14 +1255,14 @@ function createBaseQueryTokenMintedAllProductsResponse() {
     return { tokenMinted: "" };
 }
 exports.QueryTokenMintedAllProductsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.tokenMinted !== "") {
             writer.uint32(10).string(message.tokenMinted);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTokenMintedAllProductsResponse();
         while (reader.pos < end) {
@@ -1317,7 +1300,7 @@ function createBaseQueryVaultCountByProductRequest() {
     return { productId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryVaultCountByProductRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.productId.isZero()) {
             writer.uint32(8).uint64(message.productId);
         }
@@ -1327,7 +1310,7 @@ exports.QueryVaultCountByProductRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultCountByProductRequest();
         while (reader.pos < end) {
@@ -1349,7 +1332,7 @@ exports.QueryVaultCountByProductRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
+                ? long_1.default.fromString(object.productId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1383,14 +1366,14 @@ function createBaseQueryVaultCountByProductResponse() {
     return { vaultCount: long_1.default.UZERO };
 }
 exports.QueryVaultCountByProductResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.vaultCount.isZero()) {
             writer.uint32(8).uint64(message.vaultCount);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultCountByProductResponse();
         while (reader.pos < end) {
@@ -1409,7 +1392,7 @@ exports.QueryVaultCountByProductResponse = {
     fromJSON(object) {
         return {
             vaultCount: isSet(object.vaultCount)
-                ? long_1.default.fromValue(object.vaultCount)
+                ? long_1.default.fromString(object.vaultCount)
                 : long_1.default.UZERO,
         };
     },
@@ -1436,7 +1419,7 @@ function createBaseQueryVaultCountByProductAndPairRequest() {
     };
 }
 exports.QueryVaultCountByProductAndPairRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.productId.isZero()) {
             writer.uint32(8).uint64(message.productId);
         }
@@ -1449,7 +1432,7 @@ exports.QueryVaultCountByProductAndPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultCountByProductAndPairRequest();
         while (reader.pos < end) {
@@ -1474,10 +1457,10 @@ exports.QueryVaultCountByProductAndPairRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
+                ? long_1.default.fromString(object.productId)
                 : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromValue(object.extendedPairId)
+                ? long_1.default.fromString(object.extendedPairId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1517,14 +1500,14 @@ function createBaseQueryVaultCountByProductAndPairResponse() {
     return { vaultCount: long_1.default.UZERO };
 }
 exports.QueryVaultCountByProductAndPairResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.vaultCount.isZero()) {
             writer.uint32(8).uint64(message.vaultCount);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultCountByProductAndPairResponse();
         while (reader.pos < end) {
@@ -1543,7 +1526,7 @@ exports.QueryVaultCountByProductAndPairResponse = {
     fromJSON(object) {
         return {
             vaultCount: isSet(object.vaultCount)
-                ? long_1.default.fromValue(object.vaultCount)
+                ? long_1.default.fromString(object.vaultCount)
                 : long_1.default.UZERO,
         };
     },
@@ -1570,7 +1553,7 @@ function createBaseQueryTotalValueLockedByProductExtendedPairRequest() {
     };
 }
 exports.QueryTotalValueLockedByProductExtendedPairRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.productId.isZero()) {
             writer.uint32(8).uint64(message.productId);
         }
@@ -1583,7 +1566,7 @@ exports.QueryTotalValueLockedByProductExtendedPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTotalValueLockedByProductExtendedPairRequest();
         while (reader.pos < end) {
@@ -1608,10 +1591,10 @@ exports.QueryTotalValueLockedByProductExtendedPairRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
+                ? long_1.default.fromString(object.productId)
                 : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromValue(object.extendedPairId)
+                ? long_1.default.fromString(object.extendedPairId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1651,14 +1634,14 @@ function createBaseQueryTotalValueLockedByProductExtendedPairResponse() {
     return { valueLocked: "" };
 }
 exports.QueryTotalValueLockedByProductExtendedPairResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.valueLocked !== "") {
             writer.uint32(10).string(message.valueLocked);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTotalValueLockedByProductExtendedPairResponse();
         while (reader.pos < end) {
@@ -1696,7 +1679,7 @@ function createBaseQueryExtendedPairIDByProductRequest() {
     return { productId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryExtendedPairIDByProductRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.productId.isZero()) {
             writer.uint32(8).uint64(message.productId);
         }
@@ -1706,7 +1689,7 @@ exports.QueryExtendedPairIDByProductRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairIDByProductRequest();
         while (reader.pos < end) {
@@ -1728,7 +1711,7 @@ exports.QueryExtendedPairIDByProductRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
+                ? long_1.default.fromString(object.productId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1762,7 +1745,7 @@ function createBaseQueryExtendedPairIDByProductResponse() {
     return { extendedPairIds: [] };
 }
 exports.QueryExtendedPairIDByProductResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         writer.uint32(10).fork();
         for (const v of message.extendedPairIds) {
             writer.uint64(v);
@@ -1771,7 +1754,7 @@ exports.QueryExtendedPairIDByProductResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairIDByProductResponse();
         while (reader.pos < end) {
@@ -1798,7 +1781,7 @@ exports.QueryExtendedPairIDByProductResponse = {
     fromJSON(object) {
         return {
             extendedPairIds: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPairIds)
-                ? object.extendedPairIds.map((e) => long_1.default.fromValue(e))
+                ? object.extendedPairIds.map((e) => long_1.default.fromString(e))
                 : [],
         };
     },
@@ -1824,14 +1807,14 @@ function createBaseQueryStableVaultInfoRequest() {
     return { stableVaultId: "" };
 }
 exports.QueryStableVaultInfoRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.stableVaultId !== "") {
             writer.uint32(10).string(message.stableVaultId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryStableVaultInfoRequest();
         while (reader.pos < end) {
@@ -1871,14 +1854,14 @@ function createBaseQueryStableVaultInfoResponse() {
     return { stableMintVault: undefined };
 }
 exports.QueryStableVaultInfoResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.stableMintVault !== undefined) {
             vault_1.StableMintVault.encode(message.stableMintVault, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryStableVaultInfoResponse();
         while (reader.pos < end) {
@@ -1922,14 +1905,14 @@ function createBaseQueryAllStableVaultsRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryAllStableVaultsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllStableVaultsRequest();
         while (reader.pos < end) {
@@ -1947,7 +1930,7 @@ exports.QueryAllStableVaultsRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1969,14 +1952,14 @@ function createBaseQueryAllStableVaultsResponse() {
     return { stableMintVault: [] };
 }
 exports.QueryAllStableVaultsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.stableMintVault) {
             vault_1.StableMintVault.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllStableVaultsResponse();
         while (reader.pos < end) {
@@ -2021,7 +2004,7 @@ function createBaseQueryStableVaultByProductExtendedPairRequest() {
     return { appId: long_1.default.UZERO, extendedPairId: long_1.default.UZERO };
 }
 exports.QueryStableVaultByProductExtendedPairRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -2031,7 +2014,7 @@ exports.QueryStableVaultByProductExtendedPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryStableVaultByProductExtendedPairRequest();
         while (reader.pos < end) {
@@ -2052,9 +2035,9 @@ exports.QueryStableVaultByProductExtendedPairRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromValue(object.extendedPairId)
+                ? long_1.default.fromString(object.extendedPairId)
                 : long_1.default.UZERO,
         };
     },
@@ -2083,14 +2066,14 @@ function createBaseQueryStableVaultByProductExtendedPairResponse() {
     return { stableMintVault: undefined };
 }
 exports.QueryStableVaultByProductExtendedPairResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.stableMintVault !== undefined) {
             vault_1.StableMintVault.encode(message.stableMintVault, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryStableVaultByProductExtendedPairResponse();
         while (reader.pos < end) {
@@ -2134,7 +2117,7 @@ function createBaseQueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest() 
     return { appId: long_1.default.UZERO, extendedPairId: long_1.default.UZERO };
 }
 exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -2144,7 +2127,7 @@ exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest();
         while (reader.pos < end) {
@@ -2165,9 +2148,9 @@ exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromValue(object.extendedPairId)
+                ? long_1.default.fromString(object.extendedPairId)
                 : long_1.default.UZERO,
         };
     },
@@ -2196,14 +2179,14 @@ function createBaseQueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse()
     return { extendedPairVaultMapping: undefined };
 }
 exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.extendedPairVaultMapping !== undefined) {
             vault_1.ExtendedPairVaultMapping.encode(message.extendedPairVaultMapping, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse();
         while (reader.pos < end) {
@@ -2248,14 +2231,14 @@ function createBaseQueryExtendedPairVaultMappingByAppRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryExtendedPairVaultMappingByAppRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByAppRequest();
         while (reader.pos < end) {
@@ -2273,7 +2256,7 @@ exports.QueryExtendedPairVaultMappingByAppRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2295,14 +2278,14 @@ function createBaseQueryExtendedPairVaultMappingByAppResponse() {
     return { extendedPairVaultMapping: [] };
 }
 exports.QueryExtendedPairVaultMappingByAppResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.extendedPairVaultMapping) {
             vault_1.ExtendedPairVaultMapping.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByAppResponse();
         while (reader.pos < end) {
@@ -2347,7 +2330,7 @@ function createBaseQueryExtendedPairVaultMappingByOwnerAndAppRequest() {
     return { owner: "", appId: long_1.default.UZERO };
 }
 exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.owner !== "") {
             writer.uint32(10).string(message.owner);
         }
@@ -2357,7 +2340,7 @@ exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppRequest();
         while (reader.pos < end) {
@@ -2379,7 +2362,7 @@ exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = {
     fromJSON(object) {
         return {
             owner: isSet(object.owner) ? String(object.owner) : "",
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2404,14 +2387,14 @@ function createBaseQueryExtendedPairVaultMappingByOwnerAndAppResponse() {
     return { extendedPairtoVaultMapping: [] };
 }
 exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.extendedPairtoVaultMapping) {
             vault_1.ExtendedPairToVaultMapping.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppResponse();
         while (reader.pos < end) {
@@ -2456,7 +2439,7 @@ function createBaseQueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRe
     return { owner: "", appId: long_1.default.UZERO, extendedPair: long_1.default.UZERO };
 }
 exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.owner !== "") {
             writer.uint32(10).string(message.owner);
         }
@@ -2469,7 +2452,7 @@ exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest();
         while (reader.pos < end) {
@@ -2494,9 +2477,9 @@ exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = {
     fromJSON(object) {
         return {
             owner: isSet(object.owner) ? String(object.owner) : "",
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             extendedPair: isSet(object.extendedPair)
-                ? long_1.default.fromValue(object.extendedPair)
+                ? long_1.default.fromString(object.extendedPair)
                 : long_1.default.UZERO,
         };
     },
@@ -2528,14 +2511,14 @@ function createBaseQueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRe
     return { vaultId: "" };
 }
 exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.vaultId !== "") {
             writer.uint32(10).string(message.vaultId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse();
         while (reader.pos < end) {
@@ -2572,14 +2555,14 @@ function createBaseQueryTVLlockedByAppRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryTVLlockedByAppRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTVLlockedByAppRequest();
         while (reader.pos < end) {
@@ -2597,7 +2580,7 @@ exports.QueryTVLlockedByAppRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2619,14 +2602,14 @@ function createBaseQueryTVLlockedByAppResponse() {
     return { tvldata: [] };
 }
 exports.QueryTVLlockedByAppResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.tvldata) {
             vault_1.TvlLockedDataMap.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTVLlockedByAppResponse();
         while (reader.pos < end) {
@@ -2708,118 +2691,118 @@ class QueryClientImpl {
     QueryVault(request) {
         const data = exports.QueryVaultRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVault", data);
-        return promise.then((data) => exports.QueryVaultResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryVaultResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryVaultInfo(request) {
         const data = exports.QueryVaultInfoRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultInfo", data);
-        return promise.then((data) => exports.QueryVaultInfoResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryVaultInfoResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryAllVaults(request) {
         const data = exports.QueryAllVaultsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllVaults", data);
-        return promise.then((data) => exports.QueryAllVaultsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryAllVaultsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryAllVaultsByProduct(request) {
         const data = exports.QueryAllVaultsByProductRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllVaultsByProduct", data);
-        return promise.then((data) => exports.QueryAllVaultsByProductResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryAllVaultsByProductResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryAllVaultsByAppAndExtendedPair(request) {
         const data = exports.QueryAllVaultsByAppAndExtendedPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllVaultsByAppAndExtendedPair", data);
-        return promise.then((data) => exports.QueryAllVaultsByAppAndExtendedPairResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryAllVaultsByAppAndExtendedPairResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryVaultOfOwnerByExtendedPair(request) {
         const data = exports.QueryVaultOfOwnerByExtendedPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultOfOwnerByExtendedPair", data);
-        return promise.then((data) => exports.QueryVaultOfOwnerByExtendedPairResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryVaultOfOwnerByExtendedPairResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryVaultByProduct(request) {
         const data = exports.QueryVaultByProductRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultByProduct", data);
-        return promise.then((data) => exports.QueryVaultByProductResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryVaultByProductResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryAllVaultByOwner(request) {
         const data = exports.QueryAllVaultByOwnerRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllVaultByOwner", data);
-        return promise.then((data) => exports.QueryAllVaultByOwnerResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryAllVaultByOwnerResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryTokenMintedAllProductsByPair(request) {
         const data = exports.QueryTokenMintedAllProductsByPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTokenMintedAllProductsByPair", data);
-        return promise.then((data) => exports.QueryTokenMintedAllProductsByPairResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryTokenMintedAllProductsByPairResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryTokenMintedAllProducts(request) {
         const data = exports.QueryTokenMintedAllProductsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTokenMintedAllProducts", data);
-        return promise.then((data) => exports.QueryTokenMintedAllProductsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryTokenMintedAllProductsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryVaultCountByProduct(request) {
         const data = exports.QueryVaultCountByProductRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultCountByProduct", data);
-        return promise.then((data) => exports.QueryVaultCountByProductResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryVaultCountByProductResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryVaultCountByProductAndPair(request) {
         const data = exports.QueryVaultCountByProductAndPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultCountByProductAndPair", data);
-        return promise.then((data) => exports.QueryVaultCountByProductAndPairResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryVaultCountByProductAndPairResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryTotalValueLockedByProductExtendedPair(request) {
         const data = exports.QueryTotalValueLockedByProductExtendedPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTotalValueLockedByProductExtendedPair", data);
-        return promise.then((data) => exports.QueryTotalValueLockedByProductExtendedPairResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryTotalValueLockedByProductExtendedPairResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryExtendedPairIDByProduct(request) {
         const data = exports.QueryExtendedPairIDByProductRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairIDByProduct", data);
-        return promise.then((data) => exports.QueryExtendedPairIDByProductResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryExtendedPairIDByProductResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryStableVaultInfo(request) {
         const data = exports.QueryStableVaultInfoRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryStableVaultInfo", data);
-        return promise.then((data) => exports.QueryStableVaultInfoResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryStableVaultInfoResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryAllStableVaults(request) {
         const data = exports.QueryAllStableVaultsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllStableVaults", data);
-        return promise.then((data) => exports.QueryAllStableVaultsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryAllStableVaultsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryStableVaultByProductExtendedPair(request) {
         const data = exports.QueryStableVaultByProductExtendedPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryStableVaultByProductExtendedPair", data);
-        return promise.then((data) => exports.QueryStableVaultByProductExtendedPairResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryStableVaultByProductExtendedPairResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryExtendedPairVaultMappingByAppAndExtendedPairId(request) {
         const data = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairVaultMappingByAppAndExtendedPairId", data);
-        return promise.then((data) => exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryExtendedPairVaultMappingByApp(request) {
         const data = exports.QueryExtendedPairVaultMappingByAppRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairVaultMappingByApp", data);
-        return promise.then((data) => exports.QueryExtendedPairVaultMappingByAppResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryExtendedPairVaultMappingByAppResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryExtendedPairVaultMappingByOwnerAndApp(request) {
         const data = exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairVaultMappingByOwnerAndApp", data);
-        return promise.then((data) => exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID(request) {
         const data = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID", data);
-        return promise.then((data) => exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryTVLlockedByApp(request) {
         const data = exports.QueryTVLlockedByAppRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTVLlockedByApp", data);
-        return promise.then((data) => exports.QueryTVLlockedByAppResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryTVLlockedByAppResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

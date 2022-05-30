@@ -1,6 +1,7 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.bandoracle.v1beta1";
+/** Params defines the parameters for the module. */
 export interface Params {
 }
 export declare const Params: {

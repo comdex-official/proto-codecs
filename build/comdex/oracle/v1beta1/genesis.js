@@ -7,7 +7,7 @@ exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const params_1 = require("../../../comdex/oracle/v1beta1/params");
+const params_1 = require("./params");
 exports.protobufPackage = "comdex.oracle.v1beta1";
 function createBaseGenesisState() {
     return { params: undefined };
