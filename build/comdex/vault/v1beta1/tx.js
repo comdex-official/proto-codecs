@@ -1254,4 +1254,4 @@ if (minimal_1.default.util.Long !== long_1.default) {
 function isSet(value) {
     return value !== null && value !== undefined;
 }
-//# sourceMappingURL=msg.js.map
+//# sourceMappingURL=tx.js.map

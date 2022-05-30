@@ -7,7 +7,7 @@ exports.QueryClientImpl = exports.QueryAppIdsResponse = exports.QueryAppIdsReque
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const locked_vault_1 = require("../../../comdex/liquidation/v1beta1/locked_vault");
+const locked_vault_1 = require("./locked_vault");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 const params_1 = require("./params");
 exports.protobufPackage = "comdex.liquidation.v1beta1";
@@ -974,4 +974,4 @@ if (minimal_1.default.util.Long !== long_1.default) {
 function isSet(value) {
     return value !== null && value !== undefined;
 }
-//# sourceMappingURL=querier.js.map
+//# sourceMappingURL=query.js.map

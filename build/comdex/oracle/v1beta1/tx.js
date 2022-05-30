@@ -7,7 +7,7 @@ exports.MsgServiceClientImpl = exports.MsgRemoveMarketForAssetResponse = exports
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-exports.protobufPackage = "comdex.market.v1beta1";
+exports.protobufPackage = "comdex.oracle.v1beta1";
 function createBaseMsgAddMarketRequest() {
     return {
         from: "",
@@ -363,17 +363,17 @@ class MsgServiceClientImpl {
     }
     MsgAddMarket(request) {
         const data = exports.MsgAddMarketRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.market.v1beta1.MsgService", "MsgAddMarket", data);
+        const promise = this.rpc.request("comdex.oracle.v1beta1.MsgService", "MsgAddMarket", data);
         return promise.then((data) => exports.MsgAddMarketResponse.decode(new minimal_1.default.Reader(data)));
     }
     MsgUpdateMarket(request) {
         const data = exports.MsgUpdateMarketRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.market.v1beta1.MsgService", "MsgUpdateMarket", data);
+        const promise = this.rpc.request("comdex.oracle.v1beta1.MsgService", "MsgUpdateMarket", data);
         return promise.then((data) => exports.MsgUpdateMarketResponse.decode(new minimal_1.default.Reader(data)));
     }
     MsgRemoveMarketForAsset(request) {
         const data = exports.MsgRemoveMarketForAssetRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.market.v1beta1.MsgService", "MsgRemoveMarketForAsset", data);
+        const promise = this.rpc.request("comdex.oracle.v1beta1.MsgService", "MsgRemoveMarketForAsset", data);
         return promise.then((data) => exports.MsgRemoveMarketForAssetResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
@@ -385,4 +385,4 @@ if (minimal_1.default.util.Long !== long_1.default) {
 function isSet(value) {
     return value !== null && value !== undefined;
 }
-//# sourceMappingURL=msg.js.map
+//# sourceMappingURL=tx.js.map
