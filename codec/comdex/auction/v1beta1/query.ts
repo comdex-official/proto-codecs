@@ -5,17 +5,17 @@ import {
   SurplusAuction,
   DebtAuction,
   DutchAuction,
-} from "./comdex/auction/v1beta1/auction";
+} from "../../../comdex/auction/v1beta1/auction";
 import {
   PageRequest,
   PageResponse,
-} from "./cosmos/base/query/v1beta1/pagination";
-import { Params } from "./comdex/auction/v1beta1/params";
+} from "../../../cosmos/base/query/v1beta1/pagination";
+import { Params } from "../../../comdex/auction/v1beta1/params";
 import {
   SurplusBiddings,
   DebtBiddings,
   DutchBiddings,
-} from "./comdex/auction/v1beta1/biddings";
+} from "../../../comdex/auction/v1beta1/biddings";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 

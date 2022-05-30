@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -25,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LockedDepositedAmountDataMap = exports.LockerProductAssetMapping = exports.TokenToLockerMapping = exports.LockerLookupTable = exports.AssetToLockerMapping = exports.LockerToAppMapping = exports.UserLockerAssetMapping = exports.Locker = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.locker.v1beta1";
 function createBaseLocker() {
@@ -41,7 +22,7 @@ function createBaseLocker() {
     };
 }
 exports.Locker = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.lockerId !== "") {
             writer.uint32(10).string(message.lockerId);
         }
@@ -69,7 +50,7 @@ exports.Locker = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseLocker();
         while (reader.pos < end) {
@@ -118,11 +99,11 @@ exports.Locker = {
                 ? fromJsonTimestamp(object.createdAt)
                 : undefined,
             assetDepositId: isSet(object.assetDepositId)
-                ? long_1.default.fromValue(object.assetDepositId)
+                ? long_1.default.fromString(object.assetDepositId)
                 : long_1.default.UZERO,
             isLocked: isSet(object.isLocked) ? Boolean(object.isLocked) : false,
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
+                ? long_1.default.fromString(object.appMappingId)
                 : long_1.default.UZERO,
         };
     },
@@ -166,7 +147,7 @@ function createBaseUserLockerAssetMapping() {
     return { owner: "", lockerAppMapping: [] };
 }
 exports.UserLockerAssetMapping = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.owner !== "") {
             writer.uint32(10).string(message.owner);
         }
@@ -176,7 +157,7 @@ exports.UserLockerAssetMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseUserLockerAssetMapping();
         while (reader.pos < end) {
@@ -228,7 +209,7 @@ function createBaseLockerToAppMapping() {
     return { appMappingId: long_1.default.UZERO, userAssetLocker: [] };
 }
 exports.LockerToAppMapping = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -238,7 +219,7 @@ exports.LockerToAppMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseLockerToAppMapping();
         while (reader.pos < end) {
@@ -260,7 +241,7 @@ exports.LockerToAppMapping = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
+                ? long_1.default.fromString(object.appMappingId)
                 : long_1.default.UZERO,
             userAssetLocker: Array.isArray(object === null || object === void 0 ? void 0 : object.userAssetLocker)
                 ? object.userAssetLocker.map((e) => exports.AssetToLockerMapping.fromJSON(e))
@@ -296,7 +277,7 @@ function createBaseAssetToLockerMapping() {
     return { assetId: long_1.default.UZERO, lockerId: "" };
 }
 exports.AssetToLockerMapping = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
@@ -306,7 +287,7 @@ exports.AssetToLockerMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAssetToLockerMapping();
         while (reader.pos < end) {
@@ -328,7 +309,7 @@ exports.AssetToLockerMapping = {
     fromJSON(object) {
         return {
             assetId: isSet(object.assetId)
-                ? long_1.default.fromValue(object.assetId)
+                ? long_1.default.fromString(object.assetId)
                 : long_1.default.UZERO,
             lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
         };
@@ -355,7 +336,7 @@ function createBaseLockerLookupTable() {
     return { appMappingId: long_1.default.UZERO, lockers: [], counter: long_1.default.UZERO };
 }
 exports.LockerLookupTable = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -368,7 +349,7 @@ exports.LockerLookupTable = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseLockerLookupTable();
         while (reader.pos < end) {
@@ -393,13 +374,13 @@ exports.LockerLookupTable = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
+                ? long_1.default.fromString(object.appMappingId)
                 : long_1.default.UZERO,
             lockers: Array.isArray(object === null || object === void 0 ? void 0 : object.lockers)
                 ? object.lockers.map((e) => exports.TokenToLockerMapping.fromJSON(e))
                 : [],
             counter: isSet(object.counter)
-                ? long_1.default.fromValue(object.counter)
+                ? long_1.default.fromString(object.counter)
                 : long_1.default.UZERO,
         };
     },
@@ -437,7 +418,7 @@ function createBaseTokenToLockerMapping() {
     return { assetId: long_1.default.UZERO, lockerIds: [], depositedAmount: "" };
 }
 exports.TokenToLockerMapping = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
@@ -450,7 +431,7 @@ exports.TokenToLockerMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseTokenToLockerMapping();
         while (reader.pos < end) {
@@ -475,7 +456,7 @@ exports.TokenToLockerMapping = {
     fromJSON(object) {
         return {
             assetId: isSet(object.assetId)
-                ? long_1.default.fromValue(object.assetId)
+                ? long_1.default.fromString(object.assetId)
                 : long_1.default.UZERO,
             lockerIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerIds)
                 ? object.lockerIds.map((e) => String(e))
@@ -515,7 +496,7 @@ function createBaseLockerProductAssetMapping() {
     return { appMappingId: long_1.default.UZERO, assetIds: [] };
 }
 exports.LockerProductAssetMapping = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -527,7 +508,7 @@ exports.LockerProductAssetMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseLockerProductAssetMapping();
         while (reader.pos < end) {
@@ -557,10 +538,10 @@ exports.LockerProductAssetMapping = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
+                ? long_1.default.fromString(object.appMappingId)
                 : long_1.default.UZERO,
             assetIds: Array.isArray(object === null || object === void 0 ? void 0 : object.assetIds)
-                ? object.assetIds.map((e) => long_1.default.fromValue(e))
+                ? object.assetIds.map((e) => long_1.default.fromString(e))
                 : [],
         };
     },
@@ -591,7 +572,7 @@ function createBaseLockedDepositedAmountDataMap() {
     return { assetId: long_1.default.UZERO, DepositedAmount: "" };
 }
 exports.LockedDepositedAmountDataMap = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
@@ -601,7 +582,7 @@ exports.LockedDepositedAmountDataMap = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseLockedDepositedAmountDataMap();
         while (reader.pos < end) {
@@ -623,7 +604,7 @@ exports.LockedDepositedAmountDataMap = {
     fromJSON(object) {
         return {
             assetId: isSet(object.assetId)
-                ? long_1.default.fromValue(object.assetId)
+                ? long_1.default.fromString(object.assetId)
                 : long_1.default.UZERO,
             DepositedAmount: isSet(object.DepositedAmount)
                 ? String(object.DepositedAmount)
@@ -673,9 +654,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

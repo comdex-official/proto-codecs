@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -25,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MsgServiceClientImpl = exports.MsgPlaceDutchBidResponse = exports.MsgPlaceDutchBidRequest = exports.MsgPlaceDebtBidResponse = exports.MsgPlaceDebtBidRequest = exports.MsgPlaceSurplusBidResponse = exports.MsgPlaceSurplusBidRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseMsgPlaceSurplusBidRequest() {
@@ -38,7 +19,7 @@ function createBaseMsgPlaceSurplusBidRequest() {
     };
 }
 exports.MsgPlaceSurplusBidRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.auctionId.isZero()) {
             writer.uint32(8).uint64(message.auctionId);
         }
@@ -57,7 +38,7 @@ exports.MsgPlaceSurplusBidRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgPlaceSurplusBidRequest();
         while (reader.pos < end) {
@@ -138,11 +119,11 @@ function createBaseMsgPlaceSurplusBidResponse() {
     return {};
 }
 exports.MsgPlaceSurplusBidResponse = {
-    encode(_, writer = _m0.Writer.create()) {
+    encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgPlaceSurplusBidResponse();
         while (reader.pos < end) {
@@ -178,7 +159,7 @@ function createBaseMsgPlaceDebtBidRequest() {
     };
 }
 exports.MsgPlaceDebtBidRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.auctionId.isZero()) {
             writer.uint32(8).uint64(message.auctionId);
         }
@@ -200,7 +181,7 @@ exports.MsgPlaceDebtBidRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgPlaceDebtBidRequest();
         while (reader.pos < end) {
@@ -296,11 +277,11 @@ function createBaseMsgPlaceDebtBidResponse() {
     return {};
 }
 exports.MsgPlaceDebtBidResponse = {
-    encode(_, writer = _m0.Writer.create()) {
+    encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgPlaceDebtBidResponse();
         while (reader.pos < end) {
@@ -336,7 +317,7 @@ function createBaseMsgPlaceDutchBidRequest() {
     };
 }
 exports.MsgPlaceDutchBidRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.auctionId.isZero()) {
             writer.uint32(8).uint64(message.auctionId);
         }
@@ -358,7 +339,7 @@ exports.MsgPlaceDutchBidRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgPlaceDutchBidRequest();
         while (reader.pos < end) {
@@ -445,11 +426,11 @@ function createBaseMsgPlaceDutchBidResponse() {
     return {};
 }
 exports.MsgPlaceDutchBidResponse = {
-    encode(_, writer = _m0.Writer.create()) {
+    encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgPlaceDutchBidResponse();
         while (reader.pos < end) {
@@ -484,23 +465,23 @@ class MsgServiceClientImpl {
     MsgPlaceSurplusBid(request) {
         const data = exports.MsgPlaceSurplusBidRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.MsgService", "MsgPlaceSurplusBid", data);
-        return promise.then((data) => exports.MsgPlaceSurplusBidResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.MsgPlaceSurplusBidResponse.decode(new minimal_1.default.Reader(data)));
     }
     MsgPlaceDebtBid(request) {
         const data = exports.MsgPlaceDebtBidRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.MsgService", "MsgPlaceDebtBid", data);
-        return promise.then((data) => exports.MsgPlaceDebtBidResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.MsgPlaceDebtBidResponse.decode(new minimal_1.default.Reader(data)));
     }
     MsgPlaceDutchBid(request) {
         const data = exports.MsgPlaceDutchBidRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.MsgService", "MsgPlaceDutchBid", data);
-        return promise.then((data) => exports.MsgPlaceDutchBidResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.MsgPlaceDutchBidResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.MsgServiceClientImpl = MsgServiceClientImpl;
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
