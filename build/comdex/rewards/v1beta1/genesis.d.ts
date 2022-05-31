@@ -4,7 +4,6 @@ import { Params } from "./params";
 export declare const protobufPackage = "comdex.rewards.v1beta1";
 /** GenesisState defines the rewards module's genesis state. */
 export interface GenesisState {
-    /** this line is used by starport scaffolding # genesis/proto/state */
     params?: Params;
 }
 export declare const GenesisState: {
