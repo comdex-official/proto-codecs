@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.liquidation.v1beta1";
 
@@ -60,7 +60,7 @@ export const WhitelistAppId = {
   fromJSON(object: any): WhitelistAppId {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
     };
@@ -132,7 +132,7 @@ export const RemoveWhitelistAppId = {
   fromJSON(object: any): RemoveWhitelistAppId {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
     };

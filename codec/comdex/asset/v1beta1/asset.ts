@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -74,11 +74,11 @@ export const Asset = {
 
   fromJSON(object: any): Asset {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       name: isSet(object.name) ? String(object.name) : "",
       denom: isSet(object.denom) ? String(object.denom) : "",
       decimals: isSet(object.decimals)
-        ? Long.fromString(object.decimals)
+        ? Long.fromValue(object.decimals)
         : Long.ZERO,
       isOnchain: isSet(object.isOnchain) ? Boolean(object.isOnchain) : false,
     };

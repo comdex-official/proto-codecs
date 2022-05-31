@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.vault.v1beta1";
 
@@ -159,10 +159,10 @@ export const MsgCreateRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
       amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
@@ -314,10 +314,10 @@ export const MsgDepositRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
       amount: isSet(object.amount) ? String(object.amount) : "",
@@ -470,10 +470,10 @@ export const MsgWithdrawRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
       amount: isSet(object.amount) ? String(object.amount) : "",
@@ -626,10 +626,10 @@ export const MsgDrawRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
       amount: isSet(object.amount) ? String(object.amount) : "",
@@ -782,10 +782,10 @@ export const MsgRepayRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
       amount: isSet(object.amount) ? String(object.amount) : "",
@@ -931,10 +931,10 @@ export const MsgCloseRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
     };
@@ -1080,10 +1080,10 @@ export const MsgCreateStableMintRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
     };
@@ -1238,10 +1238,10 @@ export const MsgDepositStableMintRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
       stableVaultId: isSet(object.stableVaultId)
@@ -1402,10 +1402,10 @@ export const MsgWithdrawStableMintRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
       stableVaultId: isSet(object.stableVaultId)

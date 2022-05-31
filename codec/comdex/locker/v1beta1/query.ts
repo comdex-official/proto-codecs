@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 import {
   Locker,
   TokenToLockerMapping,
@@ -8,7 +8,7 @@ import {
 } from "./locker";
 import { Params } from "./params";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Asset } from "../../asset/v1beta1/asset";
+import { Asset } from "../../../comdex/asset/v1beta1/asset";
 
 export const protobufPackage = "comdex.locker.v1beta1";
 
@@ -318,10 +318,10 @@ export const QueryLockersByProductToAssetIDRequest = {
   fromJSON(object: any): QueryLockersByProductToAssetIDRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
     };
   },
@@ -453,7 +453,7 @@ export const QueryLockerInfoByProductIDRequest = {
   fromJSON(object: any): QueryLockerInfoByProductIDRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
     };
   },
@@ -585,10 +585,10 @@ export const QueryTotalDepositByProductAssetIDRequest = {
   fromJSON(object: any): QueryTotalDepositByProductAssetIDRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
     };
   },
@@ -657,7 +657,7 @@ export const QueryTotalDepositByProductAssetIDResponse = {
   fromJSON(object: any): QueryTotalDepositByProductAssetIDResponse {
     return {
       totalDeposit: isSet(object.totalDeposit)
-        ? Long.fromString(object.totalDeposit)
+        ? Long.fromValue(object.totalDeposit)
         : Long.UZERO,
     };
   },
@@ -726,7 +726,7 @@ export const QueryOwnerLockerByProductIDbyOwnerRequest = {
   fromJSON(object: any): QueryOwnerLockerByProductIDbyOwnerRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
     };
@@ -988,10 +988,10 @@ export const QueryOwnerLockerByProductToAssetIDbyOwnerRequest = {
   fromJSON(object: any): QueryOwnerLockerByProductToAssetIDbyOwnerRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
     };
@@ -1138,7 +1138,7 @@ export const QueryLockerCountByProductIDRequest = {
   fromJSON(object: any): QueryLockerCountByProductIDRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
     };
   },
@@ -1201,7 +1201,7 @@ export const QueryLockerCountByProductIDResponse = {
   fromJSON(object: any): QueryLockerCountByProductIDResponse {
     return {
       totalCount: isSet(object.totalCount)
-        ? Long.fromString(object.totalCount)
+        ? Long.fromValue(object.totalCount)
         : Long.UZERO,
     };
   },
@@ -1270,10 +1270,10 @@ export const QueryLockerCountByProductToAssetIDRequest = {
   fromJSON(object: any): QueryLockerCountByProductToAssetIDRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
     };
   },
@@ -1342,7 +1342,7 @@ export const QueryLockerCountByProductToAssetIDResponse = {
   fromJSON(object: any): QueryLockerCountByProductToAssetIDResponse {
     return {
       totalCount: isSet(object.totalCount)
-        ? Long.fromString(object.totalCount)
+        ? Long.fromValue(object.totalCount)
         : Long.UZERO,
     };
   },
@@ -1405,7 +1405,7 @@ export const QueryWhiteListedAssetIDsByProductIDRequest = {
   fromJSON(object: any): QueryWhiteListedAssetIDsByProductIDRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
     };
   },
@@ -1477,7 +1477,7 @@ export const QueryWhiteListedAssetIDsByProductIDResponse = {
   fromJSON(object: any): QueryWhiteListedAssetIDsByProductIDResponse {
     return {
       assetIds: Array.isArray(object?.assetIds)
-        ? object.assetIds.map((e: any) => Long.fromString(e))
+        ? object.assetIds.map((e: any) => Long.fromValue(e))
         : [],
     };
   },
@@ -1661,7 +1661,7 @@ export const ProductToAllAsset = {
   fromJSON(object: any): ProductToAllAsset {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
       assets: Array.isArray(object?.assets)
         ? object.assets.map((e: any) => Asset.fromJSON(e))
@@ -1834,7 +1834,7 @@ export const QueryLockerLookupTableByAppRequest = {
 
   fromJSON(object: any): QueryLockerLookupTableByAppRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1973,9 +1973,9 @@ export const QueryLockerLookupTableByAppAndAssetIdRequest = {
 
   fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIdRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
     };
   },
@@ -2121,7 +2121,7 @@ export const QueryLockerTotalDepositedByAppRequest = {
 
   fromJSON(object: any): QueryLockerTotalDepositedByAppRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
