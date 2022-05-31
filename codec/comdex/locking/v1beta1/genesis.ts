@@ -3,10 +3,11 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Params } from "./params";
 
-export const protobufPackage = "comdex.rewards.v1beta1";
+export const protobufPackage = "comdex.locking.v1beta1";
 
-/** GenesisState defines the rewards module's genesis state. */
+/** GenesisState defines the locking module's genesis state. */
 export interface GenesisState {
+  /** this line is used by starport scaffolding # genesis/proto/state */
   params?: Params;
 }
 
