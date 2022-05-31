@@ -1,74 +1,44 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-export declare const protobufPackage = "comdex.liquidity.v1beta1";
-export interface AllUserAddressesArray {
-    userAddresses: string[];
+import { Duration } from "../../../google/protobuf/duration";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+export declare const protobufPackage = "comdex.locking.v1beta1";
+export interface MsgLockTokens {
+    owner: string;
+    duration?: Duration;
+    coin?: Coin;
 }
-export interface UserPoolsData {
-    userAddress: string;
-    userPools: UserPools[];
+export interface MsgLockTokensResponse {
 }
-export interface UserPools {
-    poolId: Long;
-    bondedPoolCoin: string;
-    unbondedPoolCoin: string;
-    unbondingCoins: UserPoolUnbondingTokens[];
+export interface MsgBeginUnlockingTokens {
+    owner: string;
+    lockId: Long;
+    coin?: Coin;
 }
-export interface UserPoolUnbondingTokens {
-    isUnbondingPoolCoin: string;
-    unbondingStartTime?: Date;
-    unbondingEndTime?: Date;
+export interface MsgBeginUnlockingTokensResponse {
 }
-export declare const AllUserAddressesArray: {
-    encode(message: AllUserAddressesArray, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AllUserAddressesArray;
-    fromJSON(object: any): AllUserAddressesArray;
-    toJSON(message: AllUserAddressesArray): unknown;
+export declare const MsgLockTokens: {
+    encode(message: MsgLockTokens, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLockTokens;
+    fromJSON(object: any): MsgLockTokens;
+    toJSON(message: MsgLockTokens): unknown;
     fromPartial<I extends {
-        userAddresses?: string[] | undefined;
+        owner?: string | undefined;
+        duration?: {
+            seconds?: string | number | Long.Long | undefined;
+            nanos?: number | undefined;
+        } | undefined;
+        coin?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
     } & {
-        userAddresses?: (string[] & string[] & Record<Exclude<keyof I["userAddresses"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "userAddresses">, never>>(object: I): AllUserAddressesArray;
-};
-export declare const UserPoolsData: {
-    encode(message: UserPoolsData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UserPoolsData;
-    fromJSON(object: any): UserPoolsData;
-    toJSON(message: UserPoolsData): unknown;
-    fromPartial<I extends {
-        userAddress?: string | undefined;
-        userPools?: {
-            poolId?: string | number | Long.Long | undefined;
-            bondedPoolCoin?: string | undefined;
-            unbondedPoolCoin?: string | undefined;
-            unbondingCoins?: {
-                isUnbondingPoolCoin?: string | undefined;
-                unbondingStartTime?: Date | undefined;
-                unbondingEndTime?: Date | undefined;
-            }[] | undefined;
-        }[] | undefined;
-    } & {
-        userAddress?: string | undefined;
-        userPools?: ({
-            poolId?: string | number | Long.Long | undefined;
-            bondedPoolCoin?: string | undefined;
-            unbondedPoolCoin?: string | undefined;
-            unbondingCoins?: {
-                isUnbondingPoolCoin?: string | undefined;
-                unbondingStartTime?: Date | undefined;
-                unbondingEndTime?: Date | undefined;
-            }[] | undefined;
-        }[] & ({
-            poolId?: string | number | Long.Long | undefined;
-            bondedPoolCoin?: string | undefined;
-            unbondedPoolCoin?: string | undefined;
-            unbondingCoins?: {
-                isUnbondingPoolCoin?: string | undefined;
-                unbondingStartTime?: Date | undefined;
-                unbondingEndTime?: Date | undefined;
-            }[] | undefined;
+        owner?: string | undefined;
+        duration?: ({
+            seconds?: string | number | Long.Long | undefined;
+            nanos?: number | undefined;
         } & {
-            poolId?: string | number | (Long.Long & {
+            seconds?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -125,54 +95,40 @@ export declare const UserPoolsData: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["userPools"][number]["poolId"], keyof Long.Long>, never>) | undefined;
-            bondedPoolCoin?: string | undefined;
-            unbondedPoolCoin?: string | undefined;
-            unbondingCoins?: ({
-                isUnbondingPoolCoin?: string | undefined;
-                unbondingStartTime?: Date | undefined;
-                unbondingEndTime?: Date | undefined;
-            }[] & ({
-                isUnbondingPoolCoin?: string | undefined;
-                unbondingStartTime?: Date | undefined;
-                unbondingEndTime?: Date | undefined;
-            } & {
-                isUnbondingPoolCoin?: string | undefined;
-                unbondingStartTime?: Date | undefined;
-                unbondingEndTime?: Date | undefined;
-            } & Record<Exclude<keyof I["userPools"][number]["unbondingCoins"][number], keyof UserPoolUnbondingTokens>, never>)[] & Record<Exclude<keyof I["userPools"][number]["unbondingCoins"], keyof {
-                isUnbondingPoolCoin?: string | undefined;
-                unbondingStartTime?: Date | undefined;
-                unbondingEndTime?: Date | undefined;
-            }[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["userPools"][number], keyof UserPools>, never>)[] & Record<Exclude<keyof I["userPools"], keyof {
-            poolId?: string | number | Long.Long | undefined;
-            bondedPoolCoin?: string | undefined;
-            unbondedPoolCoin?: string | undefined;
-            unbondingCoins?: {
-                isUnbondingPoolCoin?: string | undefined;
-                unbondingStartTime?: Date | undefined;
-                unbondingEndTime?: Date | undefined;
-            }[] | undefined;
-        }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof UserPoolsData>, never>>(object: I): UserPoolsData;
+            } & Record<Exclude<keyof I["duration"]["seconds"], keyof Long.Long>, never>) | undefined;
+            nanos?: number | undefined;
+        } & Record<Exclude<keyof I["duration"], keyof Duration>, never>) | undefined;
+        coin?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["coin"], keyof Coin>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgLockTokens>, never>>(object: I): MsgLockTokens;
 };
-export declare const UserPools: {
-    encode(message: UserPools, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UserPools;
-    fromJSON(object: any): UserPools;
-    toJSON(message: UserPools): unknown;
+export declare const MsgLockTokensResponse: {
+    encode(_: MsgLockTokensResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLockTokensResponse;
+    fromJSON(_: any): MsgLockTokensResponse;
+    toJSON(_: MsgLockTokensResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgLockTokensResponse;
+};
+export declare const MsgBeginUnlockingTokens: {
+    encode(message: MsgBeginUnlockingTokens, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBeginUnlockingTokens;
+    fromJSON(object: any): MsgBeginUnlockingTokens;
+    toJSON(message: MsgBeginUnlockingTokens): unknown;
     fromPartial<I extends {
-        poolId?: string | number | Long.Long | undefined;
-        bondedPoolCoin?: string | undefined;
-        unbondedPoolCoin?: string | undefined;
-        unbondingCoins?: {
-            isUnbondingPoolCoin?: string | undefined;
-            unbondingStartTime?: Date | undefined;
-            unbondingEndTime?: Date | undefined;
-        }[] | undefined;
+        owner?: string | undefined;
+        lockId?: string | number | Long.Long | undefined;
+        coin?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
     } & {
-        poolId?: string | number | (Long.Long & {
+        owner?: string | undefined;
+        lockId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -229,43 +185,36 @@ export declare const UserPools: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["poolId"], keyof Long.Long>, never>) | undefined;
-        bondedPoolCoin?: string | undefined;
-        unbondedPoolCoin?: string | undefined;
-        unbondingCoins?: ({
-            isUnbondingPoolCoin?: string | undefined;
-            unbondingStartTime?: Date | undefined;
-            unbondingEndTime?: Date | undefined;
-        }[] & ({
-            isUnbondingPoolCoin?: string | undefined;
-            unbondingStartTime?: Date | undefined;
-            unbondingEndTime?: Date | undefined;
+        } & Record<Exclude<keyof I["lockId"], keyof Long.Long>, never>) | undefined;
+        coin?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
         } & {
-            isUnbondingPoolCoin?: string | undefined;
-            unbondingStartTime?: Date | undefined;
-            unbondingEndTime?: Date | undefined;
-        } & Record<Exclude<keyof I["unbondingCoins"][number], keyof UserPoolUnbondingTokens>, never>)[] & Record<Exclude<keyof I["unbondingCoins"], keyof {
-            isUnbondingPoolCoin?: string | undefined;
-            unbondingStartTime?: Date | undefined;
-            unbondingEndTime?: Date | undefined;
-        }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof UserPools>, never>>(object: I): UserPools;
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["coin"], keyof Coin>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgBeginUnlockingTokens>, never>>(object: I): MsgBeginUnlockingTokens;
 };
-export declare const UserPoolUnbondingTokens: {
-    encode(message: UserPoolUnbondingTokens, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UserPoolUnbondingTokens;
-    fromJSON(object: any): UserPoolUnbondingTokens;
-    toJSON(message: UserPoolUnbondingTokens): unknown;
-    fromPartial<I extends {
-        isUnbondingPoolCoin?: string | undefined;
-        unbondingStartTime?: Date | undefined;
-        unbondingEndTime?: Date | undefined;
-    } & {
-        isUnbondingPoolCoin?: string | undefined;
-        unbondingStartTime?: Date | undefined;
-        unbondingEndTime?: Date | undefined;
-    } & Record<Exclude<keyof I, keyof UserPoolUnbondingTokens>, never>>(object: I): UserPoolUnbondingTokens;
+export declare const MsgBeginUnlockingTokensResponse: {
+    encode(_: MsgBeginUnlockingTokensResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBeginUnlockingTokensResponse;
+    fromJSON(_: any): MsgBeginUnlockingTokensResponse;
+    toJSON(_: MsgBeginUnlockingTokensResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgBeginUnlockingTokensResponse;
 };
+export interface Msg {
+    LockTokens(request: MsgLockTokens): Promise<MsgLockTokensResponse>;
+    BeginUnlockTokens(request: MsgBeginUnlockingTokens): Promise<MsgBeginUnlockingTokensResponse>;
+}
+export declare class MsgClientImpl implements Msg {
+    private readonly rpc;
+    constructor(rpc: Rpc);
+    LockTokens(request: MsgLockTokens): Promise<MsgLockTokensResponse>;
+    BeginUnlockTokens(request: MsgBeginUnlockingTokens): Promise<MsgBeginUnlockingTokensResponse>;
+}
+interface Rpc {
+    request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+}
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
