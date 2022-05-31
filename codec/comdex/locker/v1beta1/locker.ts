@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.locker.v1beta1";
@@ -167,11 +167,11 @@ export const Locker = {
         ? fromJsonTimestamp(object.createdAt)
         : undefined,
       assetDepositId: isSet(object.assetDepositId)
-        ? Long.fromString(object.assetDepositId)
+        ? Long.fromValue(object.assetDepositId)
         : Long.UZERO,
       isLocked: isSet(object.isLocked) ? Boolean(object.isLocked) : false,
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
     };
   },
@@ -337,7 +337,7 @@ export const LockerToAppMapping = {
   fromJSON(object: any): LockerToAppMapping {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       userAssetLocker: Array.isArray(object?.userAssetLocker)
         ? object.userAssetLocker.map((e: any) =>
@@ -421,7 +421,7 @@ export const AssetToLockerMapping = {
   fromJSON(object: any): AssetToLockerMapping {
     return {
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
     };
@@ -498,13 +498,13 @@ export const LockerLookupTable = {
   fromJSON(object: any): LockerLookupTable {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       lockers: Array.isArray(object?.lockers)
         ? object.lockers.map((e: any) => TokenToLockerMapping.fromJSON(e))
         : [],
       counter: isSet(object.counter)
-        ? Long.fromString(object.counter)
+        ? Long.fromValue(object.counter)
         : Long.UZERO,
     };
   },
@@ -594,7 +594,7 @@ export const TokenToLockerMapping = {
   fromJSON(object: any): TokenToLockerMapping {
     return {
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       lockerIds: Array.isArray(object?.lockerIds)
         ? object.lockerIds.map((e: any) => String(e))
@@ -687,10 +687,10 @@ export const LockerProductAssetMapping = {
   fromJSON(object: any): LockerProductAssetMapping {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       assetIds: Array.isArray(object?.assetIds)
-        ? object.assetIds.map((e: any) => Long.fromString(e))
+        ? object.assetIds.map((e: any) => Long.fromValue(e))
         : [],
     };
   },
@@ -765,7 +765,7 @@ export const LockedDepositedAmountDataMap = {
   fromJSON(object: any): LockedDepositedAmountDataMap {
     return {
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       DepositedAmount: isSet(object.DepositedAmount)
         ? String(object.DepositedAmount)

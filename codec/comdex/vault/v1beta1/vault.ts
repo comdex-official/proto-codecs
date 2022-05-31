@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.vault.v1beta1";
@@ -159,10 +159,10 @@ export const Vault = {
     return {
       id: isSet(object.id) ? String(object.id) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
       amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
@@ -343,7 +343,7 @@ export const VaultToAppMapping = {
   fromJSON(object: any): VaultToAppMapping {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       userExtendedPairVault: Array.isArray(object?.userExtendedPairVault)
         ? object.userExtendedPairVault.map((e: any) =>
@@ -428,7 +428,7 @@ export const ExtendedPairToVaultMapping = {
   fromJSON(object: any): ExtendedPairToVaultMapping {
     return {
       extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromString(object.extendedPairId)
+        ? Long.fromValue(object.extendedPairId)
         : Long.UZERO,
       vaultId: isSet(object.vaultId) ? String(object.vaultId) : "",
     };
@@ -512,10 +512,10 @@ export const AppExtendedPairVaultMapping = {
   fromJSON(object: any): AppExtendedPairVaultMapping {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       counter: isSet(object.counter)
-        ? Long.fromString(object.counter)
+        ? Long.fromValue(object.counter)
         : Long.UZERO,
       extendedPairVaults: Array.isArray(object?.extendedPairVaults)
         ? object.extendedPairVaults.map((e: any) =>
@@ -623,7 +623,7 @@ export const ExtendedPairVaultMapping = {
   fromJSON(object: any): ExtendedPairVaultMapping {
     return {
       extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromString(object.extendedPairId)
+        ? Long.fromValue(object.extendedPairId)
         : Long.UZERO,
       vaultIds: Array.isArray(object?.vaultIds)
         ? object.vaultIds.map((e: any) => String(e))
@@ -710,7 +710,7 @@ export const TvlLockedDataMap = {
   fromJSON(object: any): TvlLockedDataMap {
     return {
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       collateralLockedAmount: isSet(object.collateralLockedAmount)
         ? String(object.collateralLockedAmount)
@@ -821,10 +821,10 @@ export const StableMintVault = {
       amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
       amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       createdAt: isSet(object.createdAt)
         ? fromJsonTimestamp(object.createdAt)

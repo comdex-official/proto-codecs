@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
@@ -214,7 +214,7 @@ export const SurplusAuction = {
   fromJSON(object: any): SurplusAuction {
     return {
       auctionId: isSet(object.auctionId)
-        ? Long.fromString(object.auctionId)
+        ? Long.fromValue(object.auctionId)
         : Long.UZERO,
       outflowToken: isSet(object.outflowToken)
         ? Coin.fromJSON(object.outflowToken)
@@ -223,7 +223,7 @@ export const SurplusAuction = {
         ? Coin.fromJSON(object.inflowToken)
         : undefined,
       activeBiddingId: isSet(object.activeBiddingId)
-        ? Long.fromString(object.activeBiddingId)
+        ? Long.fromValue(object.activeBiddingId)
         : Long.UZERO,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       bid: isSet(object.bid) ? Coin.fromJSON(object.bid) : undefined,
@@ -235,20 +235,20 @@ export const SurplusAuction = {
         ? object.biddingIds.map((e: any) => bidOwnerMapping.fromJSON(e))
         : [],
       auctionStatus: isSet(object.auctionStatus)
-        ? Long.fromString(object.auctionStatus)
+        ? Long.fromValue(object.auctionStatus)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromString(object.auctionMappingId)
+        ? Long.fromValue(object.auctionMappingId)
         : Long.UZERO,
       assetInId: isSet(object.assetInId)
-        ? Long.fromString(object.assetInId)
+        ? Long.fromValue(object.assetInId)
         : Long.UZERO,
       assetOutId: isSet(object.assetOutId)
-        ? Long.fromString(object.assetOutId)
+        ? Long.fromValue(object.assetOutId)
         : Long.UZERO,
     };
   },
@@ -509,7 +509,7 @@ export const DebtAuction = {
   fromJSON(object: any): DebtAuction {
     return {
       auctionId: isSet(object.auctionId)
-        ? Long.fromString(object.auctionId)
+        ? Long.fromValue(object.auctionId)
         : Long.UZERO,
       auctionedToken: isSet(object.auctionedToken)
         ? Coin.fromJSON(object.auctionedToken)
@@ -524,31 +524,31 @@ export const DebtAuction = {
         ? fromJsonTimestamp(object.endTime)
         : undefined,
       activeBiddingId: isSet(object.activeBiddingId)
-        ? Long.fromString(object.activeBiddingId)
+        ? Long.fromValue(object.activeBiddingId)
         : Long.UZERO,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       currentBidAmount: isSet(object.currentBidAmount)
         ? Coin.fromJSON(object.currentBidAmount)
         : undefined,
       auctionStatus: isSet(object.auctionStatus)
-        ? Long.fromString(object.auctionStatus)
+        ? Long.fromValue(object.auctionStatus)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       biddingIds: Array.isArray(object?.biddingIds)
         ? object.biddingIds.map((e: any) => bidOwnerMapping.fromJSON(e))
         : [],
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromString(object.auctionMappingId)
+        ? Long.fromValue(object.auctionMappingId)
         : Long.UZERO,
       bidFactor: isSet(object.bidFactor) ? String(object.bidFactor) : "",
       assetInId: isSet(object.assetInId)
-        ? Long.fromString(object.assetInId)
+        ? Long.fromValue(object.assetInId)
         : Long.UZERO,
       assetOutId: isSet(object.assetOutId)
-        ? Long.fromString(object.assetOutId)
+        ? Long.fromValue(object.assetOutId)
         : Long.UZERO,
     };
   },
@@ -872,7 +872,7 @@ export const DutchAuction = {
   fromJSON(object: any): DutchAuction {
     return {
       auctionId: isSet(object.auctionId)
-        ? Long.fromString(object.auctionId)
+        ? Long.fromValue(object.auctionId)
         : Long.UZERO,
       outflowTokenInitAmount: isSet(object.outflowTokenInitAmount)
         ? Coin.fromJSON(object.outflowTokenInitAmount)
@@ -902,7 +902,7 @@ export const DutchAuction = {
         ? fromJsonTimestamp(object.endTime)
         : undefined,
       auctionStatus: isSet(object.auctionStatus)
-        ? Long.fromString(object.auctionStatus)
+        ? Long.fromValue(object.auctionStatus)
         : Long.UZERO,
       startTime: isSet(object.startTime)
         ? fromJsonTimestamp(object.startTime)
@@ -911,17 +911,17 @@ export const DutchAuction = {
         ? object.biddingIds.map((e: any) => bidOwnerMapping.fromJSON(e))
         : [],
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromString(object.auctionMappingId)
+        ? Long.fromValue(object.auctionMappingId)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetInId: isSet(object.assetInId)
-        ? Long.fromString(object.assetInId)
+        ? Long.fromValue(object.assetInId)
         : Long.UZERO,
       assetOutId: isSet(object.assetOutId)
-        ? Long.fromString(object.assetOutId)
+        ? Long.fromValue(object.assetOutId)
         : Long.UZERO,
       lockedVaultId: isSet(object.lockedVaultId)
-        ? Long.fromString(object.lockedVaultId)
+        ? Long.fromValue(object.lockedVaultId)
         : Long.UZERO,
       vaultOwner: isSet(object.vaultOwner) ? String(object.vaultOwner) : "",
       liquidationPenalty: isSet(object.liquidationPenalty)
@@ -1096,7 +1096,7 @@ export const bidOwnerMapping = {
 
   fromJSON(object: any): bidOwnerMapping {
     return {
-      bidId: isSet(object.bidId) ? Long.fromString(object.bidId) : Long.UZERO,
+      bidId: isSet(object.bidId) ? Long.fromValue(object.bidId) : Long.UZERO,
       bidOwner: isSet(object.bidOwner) ? String(object.bidOwner) : "",
     };
   },

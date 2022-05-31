@@ -1,10 +1,10 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import {
   CollectorAuctionLookupTable,
   CollectorLookupTable,
-} from "./collector";
+} from "../../../comdex/collector/v1beta1/collector";
 
 export const protobufPackage = "comdex.collector.v1beta1";
 

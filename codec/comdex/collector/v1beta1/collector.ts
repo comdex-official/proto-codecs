@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.collector.v1beta1";
 
@@ -216,7 +216,7 @@ export const NetFeeCollectedData = {
 
   fromJSON(object: any): NetFeeCollectedData {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetIdToFeeCollected: Array.isArray(object?.assetIdToFeeCollected)
         ? object.assetIdToFeeCollected.map((e: any) =>
             AssetIdToFeeCollected.fromJSON(e)
@@ -300,7 +300,7 @@ export const AssetIdToFeeCollected = {
   fromJSON(object: any): AssetIdToFeeCollected {
     return {
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       netFeesCollected: isSet(object.netFeesCollected)
         ? String(object.netFeesCollected)
@@ -376,7 +376,7 @@ export const AppIdToAssetCollectorMapping = {
 
   fromJSON(object: any): AppIdToAssetCollectorMapping {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetCollector: Array.isArray(object?.assetCollector)
         ? object.assetCollector.map((e: any) =>
             AssetIdCollectorMappping.fromJSON(e)
@@ -463,7 +463,7 @@ export const AssetIdCollectorMappping = {
   fromJSON(object: any): AssetIdCollectorMappping {
     return {
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       collector: isSet(object.collector)
         ? CollectorData.fromJSON(object.collector)
@@ -587,24 +587,24 @@ export const CollectorLookupTable = {
 
   fromJSON(object: any): CollectorLookupTable {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       collectorAssetId: isSet(object.collectorAssetId)
-        ? Long.fromString(object.collectorAssetId)
+        ? Long.fromValue(object.collectorAssetId)
         : Long.UZERO,
       secondaryAssetId: isSet(object.secondaryAssetId)
-        ? Long.fromString(object.secondaryAssetId)
+        ? Long.fromValue(object.secondaryAssetId)
         : Long.UZERO,
       surplusThreshold: isSet(object.surplusThreshold)
-        ? Long.fromString(object.surplusThreshold)
+        ? Long.fromValue(object.surplusThreshold)
         : Long.UZERO,
       debtThreshold: isSet(object.debtThreshold)
-        ? Long.fromString(object.debtThreshold)
+        ? Long.fromValue(object.debtThreshold)
         : Long.UZERO,
       lockerSavingRate: isSet(object.lockerSavingRate)
         ? String(object.lockerSavingRate)
         : "",
       lotSize: isSet(object.lotSize)
-        ? Long.fromString(object.lotSize)
+        ? Long.fromValue(object.lotSize)
         : Long.UZERO,
       bidFactor: isSet(object.bidFactor) ? String(object.bidFactor) : "",
     };
@@ -713,7 +713,7 @@ export const CollectorLookup = {
 
   fromJSON(object: any): CollectorLookup {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetrateInfo: Array.isArray(object?.assetrateInfo)
         ? object.assetrateInfo.map((e: any) => CollectorLookupTable.fromJSON(e))
         : [],
@@ -799,9 +799,9 @@ export const AppToDenomsMapping = {
 
   fromJSON(object: any): AppToDenomsMapping {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetIds: Array.isArray(object?.assetIds)
-        ? object.assetIds.map((e: any) => Long.fromString(e))
+        ? object.assetIds.map((e: any) => Long.fromValue(e))
         : [],
     };
   },
@@ -874,7 +874,7 @@ export const HistoricalAuction = {
 
   fromJSON(object: any): HistoricalAuction {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetToAuction: Array.isArray(object?.assetToAuction)
         ? object.assetToAuction.map((e: any) =>
             AssetToAuctionMapping.fromJSON(e)
@@ -957,7 +957,7 @@ export const AssetToAuctionMapping = {
   fromJSON(object: any): AssetToAuctionMapping {
     return {
       auctionId: isSet(object.auctionId)
-        ? Long.fromString(object.auctionId)
+        ? Long.fromValue(object.auctionId)
         : Long.UZERO,
       assetDenoms: Array.isArray(object?.assetDenoms)
         ? object.assetDenoms.map((e: any) => String(e))
@@ -1036,7 +1036,7 @@ export const CollectorAuctionLookupTable = {
 
   fromJSON(object: any): CollectorAuctionLookupTable {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetIdToAuctionLookup: Array.isArray(object?.assetIdToAuctionLookup)
         ? object.assetIdToAuctionLookup.map((e: any) =>
             AssetIdToAuctionLookupTable.fromJSON(e)
@@ -1137,7 +1137,7 @@ export const AssetIdToAuctionLookupTable = {
   fromJSON(object: any): AssetIdToAuctionLookupTable {
     return {
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       isSurplusAuction: isSet(object.isSurplusAuction)
         ? Boolean(object.isSurplusAuction)

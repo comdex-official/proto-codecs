@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -89,17 +89,15 @@ export const ExtendedPairLiquidity = {
 
   fromJSON(object: any): ExtendedPairLiquidity {
     return {
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       currentBatchId: isSet(object.currentBatchId)
-        ? Long.fromString(object.currentBatchId)
+        ? Long.fromValue(object.currentBatchId)
         : Long.UZERO,
       escrowAddress: isSet(object.escrowAddress)
         ? String(object.escrowAddress)
         : "",
       lastOrderId: isSet(object.lastOrderId)
-        ? Long.fromString(object.lastOrderId)
+        ? Long.fromValue(object.lastOrderId)
         : Long.UZERO,
       lastPrice: isSet(object.lastPrice) ? String(object.lastPrice) : "",
       quoteCoinDenom: isSet(object.quoteCoinDenom)

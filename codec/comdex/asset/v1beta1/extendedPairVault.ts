@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -165,13 +165,11 @@ export const ExtendedPairVault = {
 
   fromJSON(object: any): ExtendedPairVault {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       liquidationRatio: isSet(object.liquidationRatio)
         ? String(object.liquidationRatio)
         : "",
@@ -195,7 +193,7 @@ export const ExtendedPairVault = {
         ? Boolean(object.assetOutOraclePrice)
         : false,
       asssetOutPrice: isSet(object.asssetOutPrice)
-        ? Long.fromString(object.asssetOutPrice)
+        ? Long.fromValue(object.asssetOutPrice)
         : Long.UZERO,
     };
   },

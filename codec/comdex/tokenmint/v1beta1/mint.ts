@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.tokenmint.v1beta1";
@@ -62,7 +62,7 @@ export const TokenMint = {
   fromJSON(object: any): TokenMint {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       mintedTokens: Array.isArray(object?.mintedTokens)
         ? object.mintedTokens.map((e: any) => MintedTokens.fromJSON(e))
@@ -162,7 +162,7 @@ export const MintedTokens = {
   fromJSON(object: any): MintedTokens {
     return {
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       genesisSupply: isSet(object.genesisSupply)
         ? String(object.genesisSupply)

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.tokenmint.v1beta1";
 
@@ -65,10 +65,10 @@ export const MsgMintNewTokensRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
     };
   },
