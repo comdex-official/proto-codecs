@@ -2,199 +2,39 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import {
-  Pool,
-  PoolMetadata,
-  PoolBatch,
   Params,
-  DepositMsgState,
-  WithdrawMsgState,
-  SwapMsgState,
+  Pair,
+  Pool,
+  DepositRequest,
+  WithdrawRequest,
+  Order,
 } from "./liquidity";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 
-/** records the state of each pool after genesis export or import, used to check variables */
-export interface PoolRecord {
-  pool?: Pool;
-  poolMetadata?: PoolMetadata;
-  poolBatch?: PoolBatch;
-  depositMsgStates: DepositMsgState[];
-  withdrawMsgStates: WithdrawMsgState[];
-  swapMsgStates: SwapMsgState[];
-}
-
 /** GenesisState defines the liquidity module's genesis state. */
 export interface GenesisState {
-  /** params defines all the parameters for the liquidity module. */
   params?: Params;
-  poolRecords: PoolRecord[];
+  lastPairId: Long;
+  lastPoolId: Long;
+  pairs: Pair[];
+  pools: Pool[];
+  depositRequests: DepositRequest[];
+  withdrawRequests: WithdrawRequest[];
+  orders: Order[];
 }
-
-function createBasePoolRecord(): PoolRecord {
-  return {
-    pool: undefined,
-    poolMetadata: undefined,
-    poolBatch: undefined,
-    depositMsgStates: [],
-    withdrawMsgStates: [],
-    swapMsgStates: [],
-  };
-}
-
-export const PoolRecord = {
-  encode(
-    message: PoolRecord,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.pool !== undefined) {
-      Pool.encode(message.pool, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.poolMetadata !== undefined) {
-      PoolMetadata.encode(
-        message.poolMetadata,
-        writer.uint32(18).fork()
-      ).ldelim();
-    }
-    if (message.poolBatch !== undefined) {
-      PoolBatch.encode(message.poolBatch, writer.uint32(26).fork()).ldelim();
-    }
-    for (const v of message.depositMsgStates) {
-      DepositMsgState.encode(v!, writer.uint32(34).fork()).ldelim();
-    }
-    for (const v of message.withdrawMsgStates) {
-      WithdrawMsgState.encode(v!, writer.uint32(42).fork()).ldelim();
-    }
-    for (const v of message.swapMsgStates) {
-      SwapMsgState.encode(v!, writer.uint32(50).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): PoolRecord {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePoolRecord();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.pool = Pool.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.poolMetadata = PoolMetadata.decode(reader, reader.uint32());
-          break;
-        case 3:
-          message.poolBatch = PoolBatch.decode(reader, reader.uint32());
-          break;
-        case 4:
-          message.depositMsgStates.push(
-            DepositMsgState.decode(reader, reader.uint32())
-          );
-          break;
-        case 5:
-          message.withdrawMsgStates.push(
-            WithdrawMsgState.decode(reader, reader.uint32())
-          );
-          break;
-        case 6:
-          message.swapMsgStates.push(
-            SwapMsgState.decode(reader, reader.uint32())
-          );
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): PoolRecord {
-    return {
-      pool: isSet(object.pool) ? Pool.fromJSON(object.pool) : undefined,
-      poolMetadata: isSet(object.poolMetadata)
-        ? PoolMetadata.fromJSON(object.poolMetadata)
-        : undefined,
-      poolBatch: isSet(object.poolBatch)
-        ? PoolBatch.fromJSON(object.poolBatch)
-        : undefined,
-      depositMsgStates: Array.isArray(object?.depositMsgStates)
-        ? object.depositMsgStates.map((e: any) => DepositMsgState.fromJSON(e))
-        : [],
-      withdrawMsgStates: Array.isArray(object?.withdrawMsgStates)
-        ? object.withdrawMsgStates.map((e: any) => WithdrawMsgState.fromJSON(e))
-        : [],
-      swapMsgStates: Array.isArray(object?.swapMsgStates)
-        ? object.swapMsgStates.map((e: any) => SwapMsgState.fromJSON(e))
-        : [],
-    };
-  },
-
-  toJSON(message: PoolRecord): unknown {
-    const obj: any = {};
-    message.pool !== undefined &&
-      (obj.pool = message.pool ? Pool.toJSON(message.pool) : undefined);
-    message.poolMetadata !== undefined &&
-      (obj.poolMetadata = message.poolMetadata
-        ? PoolMetadata.toJSON(message.poolMetadata)
-        : undefined);
-    message.poolBatch !== undefined &&
-      (obj.poolBatch = message.poolBatch
-        ? PoolBatch.toJSON(message.poolBatch)
-        : undefined);
-    if (message.depositMsgStates) {
-      obj.depositMsgStates = message.depositMsgStates.map((e) =>
-        e ? DepositMsgState.toJSON(e) : undefined
-      );
-    } else {
-      obj.depositMsgStates = [];
-    }
-    if (message.withdrawMsgStates) {
-      obj.withdrawMsgStates = message.withdrawMsgStates.map((e) =>
-        e ? WithdrawMsgState.toJSON(e) : undefined
-      );
-    } else {
-      obj.withdrawMsgStates = [];
-    }
-    if (message.swapMsgStates) {
-      obj.swapMsgStates = message.swapMsgStates.map((e) =>
-        e ? SwapMsgState.toJSON(e) : undefined
-      );
-    } else {
-      obj.swapMsgStates = [];
-    }
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<PoolRecord>, I>>(
-    object: I
-  ): PoolRecord {
-    const message = createBasePoolRecord();
-    message.pool =
-      object.pool !== undefined && object.pool !== null
-        ? Pool.fromPartial(object.pool)
-        : undefined;
-    message.poolMetadata =
-      object.poolMetadata !== undefined && object.poolMetadata !== null
-        ? PoolMetadata.fromPartial(object.poolMetadata)
-        : undefined;
-    message.poolBatch =
-      object.poolBatch !== undefined && object.poolBatch !== null
-        ? PoolBatch.fromPartial(object.poolBatch)
-        : undefined;
-    message.depositMsgStates =
-      object.depositMsgStates?.map((e) => DepositMsgState.fromPartial(e)) || [];
-    message.withdrawMsgStates =
-      object.withdrawMsgStates?.map((e) => WithdrawMsgState.fromPartial(e)) ||
-      [];
-    message.swapMsgStates =
-      object.swapMsgStates?.map((e) => SwapMsgState.fromPartial(e)) || [];
-    return message;
-  },
-};
 
 function createBaseGenesisState(): GenesisState {
-  return { params: undefined, poolRecords: [] };
+  return {
+    params: undefined,
+    lastPairId: Long.UZERO,
+    lastPoolId: Long.UZERO,
+    pairs: [],
+    pools: [],
+    depositRequests: [],
+    withdrawRequests: [],
+    orders: [],
+  };
 }
 
 export const GenesisState = {
@@ -205,8 +45,26 @@ export const GenesisState = {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
-    for (const v of message.poolRecords) {
-      PoolRecord.encode(v!, writer.uint32(18).fork()).ldelim();
+    if (!message.lastPairId.isZero()) {
+      writer.uint32(16).uint64(message.lastPairId);
+    }
+    if (!message.lastPoolId.isZero()) {
+      writer.uint32(24).uint64(message.lastPoolId);
+    }
+    for (const v of message.pairs) {
+      Pair.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    for (const v of message.pools) {
+      Pool.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
+    for (const v of message.depositRequests) {
+      DepositRequest.encode(v!, writer.uint32(50).fork()).ldelim();
+    }
+    for (const v of message.withdrawRequests) {
+      WithdrawRequest.encode(v!, writer.uint32(58).fork()).ldelim();
+    }
+    for (const v of message.orders) {
+      Order.encode(v!, writer.uint32(66).fork()).ldelim();
     }
     return writer;
   },
@@ -222,7 +80,29 @@ export const GenesisState = {
           message.params = Params.decode(reader, reader.uint32());
           break;
         case 2:
-          message.poolRecords.push(PoolRecord.decode(reader, reader.uint32()));
+          message.lastPairId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.lastPoolId = reader.uint64() as Long;
+          break;
+        case 4:
+          message.pairs.push(Pair.decode(reader, reader.uint32()));
+          break;
+        case 5:
+          message.pools.push(Pool.decode(reader, reader.uint32()));
+          break;
+        case 6:
+          message.depositRequests.push(
+            DepositRequest.decode(reader, reader.uint32())
+          );
+          break;
+        case 7:
+          message.withdrawRequests.push(
+            WithdrawRequest.decode(reader, reader.uint32())
+          );
+          break;
+        case 8:
+          message.orders.push(Order.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -235,8 +115,26 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      poolRecords: Array.isArray(object?.poolRecords)
-        ? object.poolRecords.map((e: any) => PoolRecord.fromJSON(e))
+      lastPairId: isSet(object.lastPairId)
+        ? Long.fromString(object.lastPairId)
+        : Long.UZERO,
+      lastPoolId: isSet(object.lastPoolId)
+        ? Long.fromString(object.lastPoolId)
+        : Long.UZERO,
+      pairs: Array.isArray(object?.pairs)
+        ? object.pairs.map((e: any) => Pair.fromJSON(e))
+        : [],
+      pools: Array.isArray(object?.pools)
+        ? object.pools.map((e: any) => Pool.fromJSON(e))
+        : [],
+      depositRequests: Array.isArray(object?.depositRequests)
+        ? object.depositRequests.map((e: any) => DepositRequest.fromJSON(e))
+        : [],
+      withdrawRequests: Array.isArray(object?.withdrawRequests)
+        ? object.withdrawRequests.map((e: any) => WithdrawRequest.fromJSON(e))
+        : [],
+      orders: Array.isArray(object?.orders)
+        ? object.orders.map((e: any) => Order.fromJSON(e))
         : [],
     };
   },
@@ -245,12 +143,38 @@ export const GenesisState = {
     const obj: any = {};
     message.params !== undefined &&
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    if (message.poolRecords) {
-      obj.poolRecords = message.poolRecords.map((e) =>
-        e ? PoolRecord.toJSON(e) : undefined
+    message.lastPairId !== undefined &&
+      (obj.lastPairId = (message.lastPairId || Long.UZERO).toString());
+    message.lastPoolId !== undefined &&
+      (obj.lastPoolId = (message.lastPoolId || Long.UZERO).toString());
+    if (message.pairs) {
+      obj.pairs = message.pairs.map((e) => (e ? Pair.toJSON(e) : undefined));
+    } else {
+      obj.pairs = [];
+    }
+    if (message.pools) {
+      obj.pools = message.pools.map((e) => (e ? Pool.toJSON(e) : undefined));
+    } else {
+      obj.pools = [];
+    }
+    if (message.depositRequests) {
+      obj.depositRequests = message.depositRequests.map((e) =>
+        e ? DepositRequest.toJSON(e) : undefined
       );
     } else {
-      obj.poolRecords = [];
+      obj.depositRequests = [];
+    }
+    if (message.withdrawRequests) {
+      obj.withdrawRequests = message.withdrawRequests.map((e) =>
+        e ? WithdrawRequest.toJSON(e) : undefined
+      );
+    } else {
+      obj.withdrawRequests = [];
+    }
+    if (message.orders) {
+      obj.orders = message.orders.map((e) => (e ? Order.toJSON(e) : undefined));
+    } else {
+      obj.orders = [];
     }
     return obj;
   },
@@ -263,8 +187,21 @@ export const GenesisState = {
       object.params !== undefined && object.params !== null
         ? Params.fromPartial(object.params)
         : undefined;
-    message.poolRecords =
-      object.poolRecords?.map((e) => PoolRecord.fromPartial(e)) || [];
+    message.lastPairId =
+      object.lastPairId !== undefined && object.lastPairId !== null
+        ? Long.fromValue(object.lastPairId)
+        : Long.UZERO;
+    message.lastPoolId =
+      object.lastPoolId !== undefined && object.lastPoolId !== null
+        ? Long.fromValue(object.lastPoolId)
+        : Long.UZERO;
+    message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
+    message.pools = object.pools?.map((e) => Pool.fromPartial(e)) || [];
+    message.depositRequests =
+      object.depositRequests?.map((e) => DepositRequest.fromPartial(e)) || [];
+    message.withdrawRequests =
+      object.withdrawRequests?.map((e) => WithdrawRequest.fromPartial(e)) || [];
+    message.orders = object.orders?.map((e) => Order.fromPartial(e)) || [];
     return message;
   },
 };
