@@ -1,7 +1,7 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Params } from "./params";
-import { CollectorLookupTable } from "./collector";
+import * as _m0 from "protobufjs/minimal";
+import { Params } from "../../../comdex/collector/v1beta1/params";
+import { CollectorLookupTable } from "../../../comdex/collector/v1beta1/collector";
 export declare const protobufPackage = "comdex.collector.v1beta1";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {

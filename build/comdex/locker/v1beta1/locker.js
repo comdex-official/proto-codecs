@@ -99,11 +99,11 @@ exports.Locker = {
                 ? fromJsonTimestamp(object.createdAt)
                 : undefined,
             assetDepositId: isSet(object.assetDepositId)
-                ? long_1.default.fromString(object.assetDepositId)
+                ? long_1.default.fromValue(object.assetDepositId)
                 : long_1.default.UZERO,
             isLocked: isSet(object.isLocked) ? Boolean(object.isLocked) : false,
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
         };
     },
@@ -241,7 +241,7 @@ exports.LockerToAppMapping = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             userAssetLocker: Array.isArray(object === null || object === void 0 ? void 0 : object.userAssetLocker)
                 ? object.userAssetLocker.map((e) => exports.AssetToLockerMapping.fromJSON(e))
@@ -309,7 +309,7 @@ exports.AssetToLockerMapping = {
     fromJSON(object) {
         return {
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
         };
@@ -374,13 +374,13 @@ exports.LockerLookupTable = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             lockers: Array.isArray(object === null || object === void 0 ? void 0 : object.lockers)
                 ? object.lockers.map((e) => exports.TokenToLockerMapping.fromJSON(e))
                 : [],
             counter: isSet(object.counter)
-                ? long_1.default.fromString(object.counter)
+                ? long_1.default.fromValue(object.counter)
                 : long_1.default.UZERO,
         };
     },
@@ -456,7 +456,7 @@ exports.TokenToLockerMapping = {
     fromJSON(object) {
         return {
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             lockerIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerIds)
                 ? object.lockerIds.map((e) => String(e))
@@ -538,10 +538,10 @@ exports.LockerProductAssetMapping = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             assetIds: Array.isArray(object === null || object === void 0 ? void 0 : object.assetIds)
-                ? object.assetIds.map((e) => long_1.default.fromString(e))
+                ? object.assetIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -604,7 +604,7 @@ exports.LockedDepositedAmountDataMap = {
     fromJSON(object) {
         return {
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             DepositedAmount: isSet(object.DepositedAmount)
                 ? String(object.DepositedAmount)

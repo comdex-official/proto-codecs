@@ -3,7 +3,7 @@ import _m0 from "protobufjs/minimal";
 import { Locker, TokenToLockerMapping, LockedDepositedAmountDataMap } from "./locker";
 import { Params } from "./params";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { Asset } from "../../asset/v1beta1/asset";
+import { Asset } from "../../../comdex/asset/v1beta1/asset";
 export declare const protobufPackage = "comdex.locker.v1beta1";
 export interface QueryLockerInfoRequest {
     id: string;

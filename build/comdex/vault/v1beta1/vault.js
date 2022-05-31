@@ -98,10 +98,10 @@ exports.Vault = {
         return {
             id: isSet(object.id) ? String(object.id) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
             amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
@@ -254,7 +254,7 @@ exports.VaultToAppMapping = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             userExtendedPairVault: Array.isArray(object === null || object === void 0 ? void 0 : object.userExtendedPairVault)
                 ? object.userExtendedPairVault.map((e) => exports.ExtendedPairToVaultMapping.fromJSON(e))
@@ -321,7 +321,7 @@ exports.ExtendedPairToVaultMapping = {
     fromJSON(object) {
         return {
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             vaultId: isSet(object.vaultId) ? String(object.vaultId) : "",
         };
@@ -390,10 +390,10 @@ exports.AppExtendedPairVaultMapping = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             counter: isSet(object.counter)
-                ? long_1.default.fromString(object.counter)
+                ? long_1.default.fromValue(object.counter)
                 : long_1.default.UZERO,
             extendedPairVaults: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPairVaults)
                 ? object.extendedPairVaults.map((e) => exports.ExtendedPairVaultMapping.fromJSON(e))
@@ -483,7 +483,7 @@ exports.ExtendedPairVaultMapping = {
     fromJSON(object) {
         return {
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             vaultIds: Array.isArray(object === null || object === void 0 ? void 0 : object.vaultIds)
                 ? object.vaultIds.map((e) => String(e))
@@ -561,7 +561,7 @@ exports.TvlLockedDataMap = {
     fromJSON(object) {
         return {
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             collateralLockedAmount: isSet(object.collateralLockedAmount)
                 ? String(object.collateralLockedAmount)
@@ -657,10 +657,10 @@ exports.StableMintVault = {
             amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
             amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             createdAt: isSet(object.createdAt)
                 ? fromJsonTimestamp(object.createdAt)

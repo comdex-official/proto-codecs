@@ -1,6 +1,6 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { CollectorAuctionLookupTable, CollectorLookupTable } from "./collector";
+import * as _m0 from "protobufjs/minimal";
+import { CollectorAuctionLookupTable, CollectorLookupTable } from "../../../comdex/collector/v1beta1/collector";
 export declare const protobufPackage = "comdex.collector.v1beta1";
 export interface LookupTableParams {
     title: string;
@@ -573,7 +573,7 @@ export declare const AuctionControlByAppIdProposal: {
                 isSurplusAuction?: boolean | undefined;
                 isDebtAuction?: boolean | undefined;
                 isAuctionActive?: boolean | undefined;
-            } & Record<Exclude<keyof I["collectorAuctionLookupTable"]["assetIdToAuctionLookup"][number], keyof import("./collector").AssetIdToAuctionLookupTable>, never>)[] & Record<Exclude<keyof I["collectorAuctionLookupTable"]["assetIdToAuctionLookup"], keyof {
+            } & Record<Exclude<keyof I["collectorAuctionLookupTable"]["assetIdToAuctionLookup"][number], keyof import("../../../comdex/collector/v1beta1/collector").AssetIdToAuctionLookupTable>, never>)[] & Record<Exclude<keyof I["collectorAuctionLookupTable"]["assetIdToAuctionLookup"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 isSurplusAuction?: boolean | undefined;
                 isDebtAuction?: boolean | undefined;

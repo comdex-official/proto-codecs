@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,19 +29,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueryClientImpl = exports.QueryCollectorLookupByProductAndAssetResponse = exports.QueryCollectorLookupByProductAndAssetRequest = exports.QueryCollectorLookupByProductResponse = exports.QueryCollectorLookupByProductRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const params_1 = require("./params");
-const collector_1 = require("./collector");
+const _m0 = __importStar(require("protobufjs/minimal"));
+const params_1 = require("../../../comdex/collector/v1beta1/params");
+const collector_1 = require("../../../comdex/collector/v1beta1/collector");
 exports.protobufPackage = "comdex.collector.v1beta1";
 function createBaseQueryParamsRequest() {
     return {};
 }
 exports.QueryParamsRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
@@ -47,14 +70,14 @@ function createBaseQueryParamsResponse() {
     return { params: undefined };
 }
 exports.QueryParamsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
@@ -94,14 +117,14 @@ function createBaseQueryCollectorLookupByProductRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryCollectorLookupByProductRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryCollectorLookupByProductRequest();
         while (reader.pos < end) {
@@ -119,7 +142,7 @@ exports.QueryCollectorLookupByProductRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -141,14 +164,14 @@ function createBaseQueryCollectorLookupByProductResponse() {
     return { collectorLookup: [] };
 }
 exports.QueryCollectorLookupByProductResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.collectorLookup) {
             collector_1.CollectorLookupTable.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryCollectorLookupByProductResponse();
         while (reader.pos < end) {
@@ -194,7 +217,7 @@ function createBaseQueryCollectorLookupByProductAndAssetRequest() {
     return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO };
 }
 exports.QueryCollectorLookupByProductAndAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -204,7 +227,7 @@ exports.QueryCollectorLookupByProductAndAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryCollectorLookupByProductAndAssetRequest();
         while (reader.pos < end) {
@@ -225,9 +248,9 @@ exports.QueryCollectorLookupByProductAndAssetRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
         };
     },
@@ -256,14 +279,14 @@ function createBaseQueryCollectorLookupByProductAndAssetResponse() {
     return { collectorLookup: undefined };
 }
 exports.QueryCollectorLookupByProductAndAssetResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.collectorLookup !== undefined) {
             collector_1.CollectorLookupTable.encode(message.collectorLookup, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryCollectorLookupByProductAndAssetResponse();
         while (reader.pos < end) {
@@ -315,23 +338,23 @@ class QueryClientImpl {
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.collector.v1beta1.Query", "Params", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new _m0.Reader(data)));
     }
     QueryCollectorLookupByProduct(request) {
         const data = exports.QueryCollectorLookupByProductRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.collector.v1beta1.Query", "QueryCollectorLookupByProduct", data);
-        return promise.then((data) => exports.QueryCollectorLookupByProductResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryCollectorLookupByProductResponse.decode(new _m0.Reader(data)));
     }
     QueryCollectorLookupByProductAndAsset(request) {
         const data = exports.QueryCollectorLookupByProductAndAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.collector.v1beta1.Query", "QueryCollectorLookupByProductAndAsset", data);
-        return promise.then((data) => exports.QueryCollectorLookupByProductAndAssetResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryCollectorLookupByProductAndAssetResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
