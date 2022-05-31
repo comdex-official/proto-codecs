@@ -7,7 +7,7 @@ exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const vault_1 = require("./vault");
+const vault_1 = require("../../../comdex/vault/v1beta1/vault");
 exports.protobufPackage = "comdex.vault.v1beta1";
 function createBaseGenesisState() {
     return { vaults: [] };

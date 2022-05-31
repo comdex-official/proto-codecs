@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,25 +29,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueryClientImpl = exports.QueryExtendedPairDataPsmPairWiseResponse = exports.QueryExtendedPairDataPsmPairWiseRequest = exports.QueryExtendedPairPsmPairWiseResponse = exports.QueryExtendedPairPsmPairWiseRequest = exports.QueryProductToExtendedPairResponse = exports.QueryProductToExtendedPairRequest = exports.QueryPairVaultsResponse = exports.QueryPairVaultsRequest = exports.QueryPairVaultResponse = exports.QueryPairVaultRequest = exports.QueryAppsResponse = exports.QueryAppsRequest = exports.QueryTokenGovResponse = exports.QueryTokenGovRequest = exports.QueryAppResponse = exports.QueryAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.PairInfo = exports.QueryAssetResponse = exports.QueryAssetRequest = exports.QueryAssetsResponse = exports.QueryAssetsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-const asset_1 = require("./asset");
-const params_1 = require("./params");
-const appMapping_1 = require("./appMapping");
-const extendedPairVault_1 = require("./extendedPairVault");
+const asset_1 = require("../../../comdex/asset/v1beta1/asset");
+const params_1 = require("../../../comdex/asset/v1beta1/params");
+const appMapping_1 = require("../../../comdex/asset/v1beta1/appMapping");
+const extendedPairVault_1 = require("../../../comdex/asset/v1beta1/extendedPairVault");
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseQueryAssetsRequest() {
     return { pagination: undefined };
 }
 exports.QueryAssetsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAssetsRequest();
         while (reader.pos < end) {
@@ -68,7 +91,7 @@ function createBaseQueryAssetsResponse() {
     return { assets: [], pagination: undefined };
 }
 exports.QueryAssetsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.assets) {
             asset_1.Asset.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -78,7 +101,7 @@ exports.QueryAssetsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAssetsResponse();
         while (reader.pos < end) {
@@ -136,14 +159,14 @@ function createBaseQueryAssetRequest() {
     return { id: long_1.default.UZERO };
 }
 exports.QueryAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAssetRequest();
         while (reader.pos < end) {
@@ -161,7 +184,7 @@ exports.QueryAssetRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -183,14 +206,14 @@ function createBaseQueryAssetResponse() {
     return { asset: undefined };
 }
 exports.QueryAssetResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.asset !== undefined) {
             asset_1.Asset.encode(message.asset, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAssetResponse();
         while (reader.pos < end) {
@@ -236,7 +259,7 @@ function createBasePairInfo() {
     };
 }
 exports.PairInfo = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -255,7 +278,7 @@ exports.PairInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBasePairInfo();
         while (reader.pos < end) {
@@ -285,13 +308,13 @@ exports.PairInfo = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             assetIn: isSet(object.assetIn)
-                ? long_1.default.fromString(object.assetIn)
+                ? long_1.default.fromValue(object.assetIn)
                 : long_1.default.UZERO,
             denomIn: isSet(object.denomIn) ? String(object.denomIn) : "",
             assetOut: isSet(object.assetOut)
-                ? long_1.default.fromString(object.assetOut)
+                ? long_1.default.fromValue(object.assetOut)
                 : long_1.default.UZERO,
             denomOut: isSet(object.denomOut) ? String(object.denomOut) : "",
         };
@@ -332,14 +355,14 @@ function createBaseQueryPairsRequest() {
     return { pagination: undefined };
 }
 exports.QueryPairsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairsRequest();
         while (reader.pos < end) {
@@ -383,7 +406,7 @@ function createBaseQueryPairsResponse() {
     return { pairsInfo: [], pagination: undefined };
 }
 exports.QueryPairsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.pairsInfo) {
             exports.PairInfo.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -393,7 +416,7 @@ exports.QueryPairsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairsResponse();
         while (reader.pos < end) {
@@ -452,14 +475,14 @@ function createBaseQueryPairRequest() {
     return { id: long_1.default.UZERO };
 }
 exports.QueryPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairRequest();
         while (reader.pos < end) {
@@ -477,7 +500,7 @@ exports.QueryPairRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -499,14 +522,14 @@ function createBaseQueryPairResponse() {
     return { pairInfo: undefined };
 }
 exports.QueryPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pairInfo !== undefined) {
             exports.PairInfo.encode(message.pairInfo, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairResponse();
         while (reader.pos < end) {
@@ -550,11 +573,11 @@ function createBaseQueryParamsRequest() {
     return {};
 }
 exports.QueryParamsRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
@@ -583,14 +606,14 @@ function createBaseQueryParamsResponse() {
     return { params: undefined };
 }
 exports.QueryParamsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
@@ -630,14 +653,14 @@ function createBaseQueryAppRequest() {
     return { id: long_1.default.UZERO };
 }
 exports.QueryAppRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAppRequest();
         while (reader.pos < end) {
@@ -655,7 +678,7 @@ exports.QueryAppRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -677,14 +700,14 @@ function createBaseQueryAppResponse() {
     return { app: undefined };
 }
 exports.QueryAppResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.app !== undefined) {
             appMapping_1.AppMapping.encode(message.app, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAppResponse();
         while (reader.pos < end) {
@@ -724,14 +747,14 @@ function createBaseQueryTokenGovRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryTokenGovRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTokenGovRequest();
         while (reader.pos < end) {
@@ -749,7 +772,7 @@ exports.QueryTokenGovRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -771,14 +794,14 @@ function createBaseQueryTokenGovResponse() {
     return { govAssetId: long_1.default.UZERO };
 }
 exports.QueryTokenGovResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.govAssetId.isZero()) {
             writer.uint32(8).uint64(message.govAssetId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTokenGovResponse();
         while (reader.pos < end) {
@@ -797,7 +820,7 @@ exports.QueryTokenGovResponse = {
     fromJSON(object) {
         return {
             govAssetId: isSet(object.govAssetId)
-                ? long_1.default.fromString(object.govAssetId)
+                ? long_1.default.fromValue(object.govAssetId)
                 : long_1.default.UZERO,
         };
     },
@@ -820,11 +843,11 @@ function createBaseQueryAppsRequest() {
     return {};
 }
 exports.QueryAppsRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAppsRequest();
         while (reader.pos < end) {
@@ -853,14 +876,14 @@ function createBaseQueryAppsResponse() {
     return { apps: [] };
 }
 exports.QueryAppsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.apps) {
             appMapping_1.AppMapping.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAppsResponse();
         while (reader.pos < end) {
@@ -904,14 +927,14 @@ function createBaseQueryPairVaultRequest() {
     return { id: long_1.default.UZERO };
 }
 exports.QueryPairVaultRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairVaultRequest();
         while (reader.pos < end) {
@@ -929,7 +952,7 @@ exports.QueryPairVaultRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -951,14 +974,14 @@ function createBaseQueryPairVaultResponse() {
     return { pairVault: undefined };
 }
 exports.QueryPairVaultResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pairVault !== undefined) {
             extendedPairVault_1.ExtendedPairVault.encode(message.pairVault, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairVaultResponse();
         while (reader.pos < end) {
@@ -1002,11 +1025,11 @@ function createBaseQueryPairVaultsRequest() {
     return {};
 }
 exports.QueryPairVaultsRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairVaultsRequest();
         while (reader.pos < end) {
@@ -1035,14 +1058,14 @@ function createBaseQueryPairVaultsResponse() {
     return { pairVault: [] };
 }
 exports.QueryPairVaultsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.pairVault) {
             extendedPairVault_1.ExtendedPairVault.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairVaultsResponse();
         while (reader.pos < end) {
@@ -1087,14 +1110,14 @@ function createBaseQueryProductToExtendedPairRequest() {
     return { productId: long_1.default.UZERO };
 }
 exports.QueryProductToExtendedPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.productId.isZero()) {
             writer.uint32(8).uint64(message.productId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryProductToExtendedPairRequest();
         while (reader.pos < end) {
@@ -1113,7 +1136,7 @@ exports.QueryProductToExtendedPairRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
         };
     },
@@ -1136,14 +1159,14 @@ function createBaseQueryProductToExtendedPairResponse() {
     return { extendedPair: [] };
 }
 exports.QueryProductToExtendedPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.extendedPair) {
             extendedPairVault_1.ExtendedPairVault.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryProductToExtendedPairResponse();
         while (reader.pos < end) {
@@ -1188,14 +1211,14 @@ function createBaseQueryExtendedPairPsmPairWiseRequest() {
     return { productId: long_1.default.UZERO };
 }
 exports.QueryExtendedPairPsmPairWiseRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.productId.isZero()) {
             writer.uint32(8).uint64(message.productId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairPsmPairWiseRequest();
         while (reader.pos < end) {
@@ -1214,7 +1237,7 @@ exports.QueryExtendedPairPsmPairWiseRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
         };
     },
@@ -1237,7 +1260,7 @@ function createBaseQueryExtendedPairPsmPairWiseResponse() {
     return { extendedPairsId: [] };
 }
 exports.QueryExtendedPairPsmPairWiseResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         writer.uint32(10).fork();
         for (const v of message.extendedPairsId) {
             writer.uint64(v);
@@ -1246,7 +1269,7 @@ exports.QueryExtendedPairPsmPairWiseResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairPsmPairWiseResponse();
         while (reader.pos < end) {
@@ -1273,7 +1296,7 @@ exports.QueryExtendedPairPsmPairWiseResponse = {
     fromJSON(object) {
         return {
             extendedPairsId: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPairsId)
-                ? object.extendedPairsId.map((e) => long_1.default.fromString(e))
+                ? object.extendedPairsId.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -1299,14 +1322,14 @@ function createBaseQueryExtendedPairDataPsmPairWiseRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryExtendedPairDataPsmPairWiseRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairDataPsmPairWiseRequest();
         while (reader.pos < end) {
@@ -1324,7 +1347,7 @@ exports.QueryExtendedPairDataPsmPairWiseRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1346,14 +1369,14 @@ function createBaseQueryExtendedPairDataPsmPairWiseResponse() {
     return { extendedPair: [] };
 }
 exports.QueryExtendedPairDataPsmPairWiseResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.extendedPair) {
             extendedPairVault_1.ExtendedPairVault.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairDataPsmPairWiseResponse();
         while (reader.pos < end) {
@@ -1417,73 +1440,73 @@ class QueryClientImpl {
     QueryAssets(request) {
         const data = exports.QueryAssetsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryAssets", data);
-        return promise.then((data) => exports.QueryAssetsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAssetsResponse.decode(new _m0.Reader(data)));
     }
     QueryAsset(request) {
         const data = exports.QueryAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryAsset", data);
-        return promise.then((data) => exports.QueryAssetResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAssetResponse.decode(new _m0.Reader(data)));
     }
     QueryPairs(request) {
         const data = exports.QueryPairsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryPairs", data);
-        return promise.then((data) => exports.QueryPairsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPairsResponse.decode(new _m0.Reader(data)));
     }
     QueryPair(request) {
         const data = exports.QueryPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryPair", data);
-        return promise.then((data) => exports.QueryPairResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPairResponse.decode(new _m0.Reader(data)));
     }
     QueryParams(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryParams", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new _m0.Reader(data)));
     }
     QueryAppsMapings(request) {
         const data = exports.QueryAppsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryAppsMapings", data);
-        return promise.then((data) => exports.QueryAppsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAppsResponse.decode(new _m0.Reader(data)));
     }
     QueryAppMapings(request) {
         const data = exports.QueryAppRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryAppMapings", data);
-        return promise.then((data) => exports.QueryAppResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAppResponse.decode(new _m0.Reader(data)));
     }
     QueryPairVault(request) {
         const data = exports.QueryPairVaultRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryPairVault", data);
-        return promise.then((data) => exports.QueryPairVaultResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPairVaultResponse.decode(new _m0.Reader(data)));
     }
     QueryPairVaults(request) {
         const data = exports.QueryPairVaultsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryPairVaults", data);
-        return promise.then((data) => exports.QueryPairVaultsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPairVaultsResponse.decode(new _m0.Reader(data)));
     }
     QueryProductToExtendedPair(request) {
         const data = exports.QueryProductToExtendedPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryProductToExtendedPair", data);
-        return promise.then((data) => exports.QueryProductToExtendedPairResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryProductToExtendedPairResponse.decode(new _m0.Reader(data)));
     }
     QueryExtendedPairPsmPairWise(request) {
         const data = exports.QueryExtendedPairPsmPairWiseRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryExtendedPairPsmPairWise", data);
-        return promise.then((data) => exports.QueryExtendedPairPsmPairWiseResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryExtendedPairPsmPairWiseResponse.decode(new _m0.Reader(data)));
     }
     QueryTokenGov(request) {
         const data = exports.QueryTokenGovRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryTokenGov", data);
-        return promise.then((data) => exports.QueryTokenGovResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryTokenGovResponse.decode(new _m0.Reader(data)));
     }
     QueryExtendedPairDataPsmPairWise(request) {
         const data = exports.QueryExtendedPairDataPsmPairWiseRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryExtendedPairDataPsmPairWise", data);
-        return promise.then((data) => exports.QueryExtendedPairDataPsmPairWiseResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryExtendedPairDataPsmPairWiseResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

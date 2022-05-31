@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Params = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseParams() {
     return {
@@ -27,7 +50,7 @@ function createBaseParams() {
     };
 }
 exports.Params = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.liquidationPenaltyPercent !== "") {
             writer.uint32(10).string(message.liquidationPenaltyPercent);
         }
@@ -73,7 +96,7 @@ exports.Params = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseParams();
         while (reader.pos < end) {
@@ -137,7 +160,7 @@ exports.Params = {
                 ? String(object.auctionDiscountPercent)
                 : "",
             auctionDurationSeconds: isSet(object.auctionDurationSeconds)
-                ? long_1.default.fromString(object.auctionDurationSeconds)
+                ? long_1.default.fromValue(object.auctionDurationSeconds)
                 : long_1.default.UZERO,
             debtMintTokenDecreasePercentage: isSet(object.debtMintTokenDecreasePercentage)
                 ? String(object.debtMintTokenDecreasePercentage)
@@ -151,16 +174,14 @@ exports.Params = {
             chost: isSet(object.chost) ? String(object.chost) : "",
             step: isSet(object.step) ? String(object.step) : "",
             priceFunctionType: isSet(object.priceFunctionType)
-                ? long_1.default.fromString(object.priceFunctionType)
+                ? long_1.default.fromValue(object.priceFunctionType)
                 : long_1.default.UZERO,
             surplusId: isSet(object.surplusId)
-                ? long_1.default.fromString(object.surplusId)
+                ? long_1.default.fromValue(object.surplusId)
                 : long_1.default.UZERO,
-            debtId: isSet(object.debtId)
-                ? long_1.default.fromString(object.debtId)
-                : long_1.default.UZERO,
+            debtId: isSet(object.debtId) ? long_1.default.fromValue(object.debtId) : long_1.default.UZERO,
             dutchId: isSet(object.dutchId)
-                ? long_1.default.fromString(object.dutchId)
+                ? long_1.default.fromValue(object.dutchId)
                 : long_1.default.UZERO,
         };
     },
@@ -230,9 +251,9 @@ exports.Params = {
         return message;
     },
 };
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

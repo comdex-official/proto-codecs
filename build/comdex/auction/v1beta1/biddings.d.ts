@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 export declare const protobufPackage = "comdex.auction.v1beta1";
 export interface SurplusBiddings {
@@ -18,7 +18,7 @@ export interface DebtBiddings {
     biddingId: Long;
     auctionId: Long;
     auctionStatus: string;
-    OutflowTokens?: Coin;
+    outflowTokens?: Coin;
     bidder: string;
     bid?: Coin;
     biddingTimestamp?: Date;
@@ -322,7 +322,7 @@ export declare const DebtBiddings: {
         biddingId?: string | number | Long.Long | undefined;
         auctionId?: string | number | Long.Long | undefined;
         auctionStatus?: string | undefined;
-        OutflowTokens?: {
+        outflowTokens?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
@@ -453,13 +453,13 @@ export declare const DebtBiddings: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["auctionId"], keyof Long.Long>, never>) | undefined;
         auctionStatus?: string | undefined;
-        OutflowTokens?: ({
+        outflowTokens?: ({
             denom?: string | undefined;
             amount?: string | undefined;
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & Record<Exclude<keyof I["OutflowTokens"], keyof Coin>, never>) | undefined;
+        } & Record<Exclude<keyof I["outflowTokens"], keyof Coin>, never>) | undefined;
         bidder?: string | undefined;
         bid?: ({
             denom?: string | undefined;

@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,13 +29,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MsgClientImpl = exports.MsgAddPairResponse = exports.MsgAddPairRequest = exports.MsgUpdateAssetResponse = exports.MsgUpdateAssetRequest = exports.MsgAddAssetResponse = exports.MsgAddAssetRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseMsgAddAssetRequest() {
     return { from: "", name: "", denom: "", decimals: long_1.default.ZERO };
 }
 exports.MsgAddAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
@@ -28,7 +51,7 @@ exports.MsgAddAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgAddAssetRequest();
         while (reader.pos < end) {
@@ -59,7 +82,7 @@ exports.MsgAddAssetRequest = {
             name: isSet(object.name) ? String(object.name) : "",
             denom: isSet(object.denom) ? String(object.denom) : "",
             decimals: isSet(object.decimals)
-                ? long_1.default.fromString(object.decimals)
+                ? long_1.default.fromValue(object.decimals)
                 : long_1.default.ZERO,
         };
     },
@@ -89,11 +112,11 @@ function createBaseMsgAddAssetResponse() {
     return {};
 }
 exports.MsgAddAssetResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgAddAssetResponse();
         while (reader.pos < end) {
@@ -122,7 +145,7 @@ function createBaseMsgUpdateAssetRequest() {
     return { from: "", id: long_1.default.UZERO, name: "", denom: "", decimals: long_1.default.ZERO };
 }
 exports.MsgUpdateAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
@@ -141,7 +164,7 @@ exports.MsgUpdateAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgUpdateAssetRequest();
         while (reader.pos < end) {
@@ -172,11 +195,11 @@ exports.MsgUpdateAssetRequest = {
     fromJSON(object) {
         return {
             from: isSet(object.from) ? String(object.from) : "",
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             name: isSet(object.name) ? String(object.name) : "",
             denom: isSet(object.denom) ? String(object.denom) : "",
             decimals: isSet(object.decimals)
-                ? long_1.default.fromString(object.decimals)
+                ? long_1.default.fromValue(object.decimals)
                 : long_1.default.ZERO,
         };
     },
@@ -212,11 +235,11 @@ function createBaseMsgUpdateAssetResponse() {
     return {};
 }
 exports.MsgUpdateAssetResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgUpdateAssetResponse();
         while (reader.pos < end) {
@@ -245,7 +268,7 @@ function createBaseMsgAddPairRequest() {
     return { from: "", assetIn: long_1.default.UZERO, assetOut: long_1.default.UZERO };
 }
 exports.MsgAddPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
@@ -258,7 +281,7 @@ exports.MsgAddPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgAddPairRequest();
         while (reader.pos < end) {
@@ -284,10 +307,10 @@ exports.MsgAddPairRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             assetIn: isSet(object.assetIn)
-                ? long_1.default.fromString(object.assetIn)
+                ? long_1.default.fromValue(object.assetIn)
                 : long_1.default.UZERO,
             assetOut: isSet(object.assetOut)
-                ? long_1.default.fromString(object.assetOut)
+                ? long_1.default.fromValue(object.assetOut)
                 : long_1.default.UZERO,
         };
     },
@@ -319,11 +342,11 @@ function createBaseMsgAddPairResponse() {
     return {};
 }
 exports.MsgAddPairResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgAddPairResponse();
         while (reader.pos < end) {
@@ -358,23 +381,23 @@ class MsgClientImpl {
     MsgAddAsset(request) {
         const data = exports.MsgAddAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Msg", "MsgAddAsset", data);
-        return promise.then((data) => exports.MsgAddAssetResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgAddAssetResponse.decode(new _m0.Reader(data)));
     }
     MsgUpdateAsset(request) {
         const data = exports.MsgUpdateAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Msg", "MsgUpdateAsset", data);
-        return promise.then((data) => exports.MsgUpdateAssetResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgUpdateAssetResponse.decode(new _m0.Reader(data)));
     }
     MsgAddPair(request) {
         const data = exports.MsgAddPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.asset.v1beta1.Msg", "MsgAddPair", data);
-        return promise.then((data) => exports.MsgAddPairResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgAddPairResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

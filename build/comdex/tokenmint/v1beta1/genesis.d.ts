@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Params } from "./params";
 export declare const protobufPackage = "comdex.tokenmint.v1beta1";
 /** GenesisState defines the tokenmint module's genesis state. */

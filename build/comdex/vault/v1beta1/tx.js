@@ -69,10 +69,10 @@ exports.MsgCreateRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
             amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
@@ -201,10 +201,10 @@ exports.MsgDepositRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
             amount: isSet(object.amount) ? String(object.amount) : "",
@@ -334,10 +334,10 @@ exports.MsgWithdrawRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
             amount: isSet(object.amount) ? String(object.amount) : "",
@@ -467,10 +467,10 @@ exports.MsgDrawRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
             amount: isSet(object.amount) ? String(object.amount) : "",
@@ -600,10 +600,10 @@ exports.MsgRepayRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
             amount: isSet(object.amount) ? String(object.amount) : "",
@@ -726,10 +726,10 @@ exports.MsgCloseRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
         };
@@ -849,10 +849,10 @@ exports.MsgCreateStableMintRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             amount: isSet(object.amount) ? String(object.amount) : "",
         };
@@ -978,10 +978,10 @@ exports.MsgDepositStableMintRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             amount: isSet(object.amount) ? String(object.amount) : "",
             stableVaultId: isSet(object.stableVaultId)
@@ -1113,10 +1113,10 @@ exports.MsgWithdrawStableMintRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             amount: isSet(object.amount) ? String(object.amount) : "",
             stableVaultId: isSet(object.stableVaultId)

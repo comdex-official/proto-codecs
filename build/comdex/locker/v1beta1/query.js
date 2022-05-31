@@ -10,7 +10,7 @@ const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const locker_1 = require("./locker");
 const params_1 = require("./params");
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
-const asset_1 = require("../../asset/v1beta1/asset");
+const asset_1 = require("../../../comdex/asset/v1beta1/asset");
 exports.protobufPackage = "comdex.locker.v1beta1";
 function createBaseQueryLockerInfoRequest() {
     return { id: "" };
@@ -143,10 +143,10 @@ exports.QueryLockersByProductToAssetIDRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
         };
     },
@@ -252,7 +252,7 @@ exports.QueryLockerInfoByProductIDRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
         };
     },
@@ -358,10 +358,10 @@ exports.QueryTotalDepositByProductAssetIDRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
         };
     },
@@ -416,7 +416,7 @@ exports.QueryTotalDepositByProductAssetIDResponse = {
     fromJSON(object) {
         return {
             totalDeposit: isSet(object.totalDeposit)
-                ? long_1.default.fromString(object.totalDeposit)
+                ? long_1.default.fromValue(object.totalDeposit)
                 : long_1.default.UZERO,
         };
     },
@@ -471,7 +471,7 @@ exports.QueryOwnerLockerByProductIDbyOwnerRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
         };
@@ -682,10 +682,10 @@ exports.QueryOwnerLockerByProductToAssetIDbyOwnerRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
         };
@@ -796,7 +796,7 @@ exports.QueryLockerCountByProductIDRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
         };
     },
@@ -845,7 +845,7 @@ exports.QueryLockerCountByProductIDResponse = {
     fromJSON(object) {
         return {
             totalCount: isSet(object.totalCount)
-                ? long_1.default.fromString(object.totalCount)
+                ? long_1.default.fromValue(object.totalCount)
                 : long_1.default.UZERO,
         };
     },
@@ -900,10 +900,10 @@ exports.QueryLockerCountByProductToAssetIDRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
         };
     },
@@ -958,7 +958,7 @@ exports.QueryLockerCountByProductToAssetIDResponse = {
     fromJSON(object) {
         return {
             totalCount: isSet(object.totalCount)
-                ? long_1.default.fromString(object.totalCount)
+                ? long_1.default.fromValue(object.totalCount)
                 : long_1.default.UZERO,
         };
     },
@@ -1007,7 +1007,7 @@ exports.QueryWhiteListedAssetIDsByProductIDRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
         };
     },
@@ -1066,7 +1066,7 @@ exports.QueryWhiteListedAssetIDsByProductIDResponse = {
     fromJSON(object) {
         return {
             assetIds: Array.isArray(object === null || object === void 0 ? void 0 : object.assetIds)
-                ? object.assetIds.map((e) => long_1.default.fromString(e))
+                ? object.assetIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -1209,7 +1209,7 @@ exports.ProductToAllAsset = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             assets: Array.isArray(object === null || object === void 0 ? void 0 : object.assets)
                 ? object.assets.map((e) => asset_1.Asset.fromJSON(e))
@@ -1348,7 +1348,7 @@ exports.QueryLockerLookupTableByAppRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1453,9 +1453,9 @@ exports.QueryLockerLookupTableByAppAndAssetIdRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
         };
     },
@@ -1561,7 +1561,7 @@ exports.QueryLockerTotalDepositedByAppRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {

@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { SurplusAuction, DebtAuction, DutchAuction } from "../../../comdex/auction/v1beta1/auction";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "../../../comdex/auction/v1beta1/params";
@@ -4152,7 +4152,7 @@ export declare const QueryDebtBiddingsResponse: {
             biddingId?: string | number | Long.Long | undefined;
             auctionId?: string | number | Long.Long | undefined;
             auctionStatus?: string | undefined;
-            OutflowTokens?: {
+            outflowTokens?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
@@ -4172,7 +4172,7 @@ export declare const QueryDebtBiddingsResponse: {
             biddingId?: string | number | Long.Long | undefined;
             auctionId?: string | number | Long.Long | undefined;
             auctionStatus?: string | undefined;
-            OutflowTokens?: {
+            outflowTokens?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
@@ -4189,7 +4189,7 @@ export declare const QueryDebtBiddingsResponse: {
             biddingId?: string | number | Long.Long | undefined;
             auctionId?: string | number | Long.Long | undefined;
             auctionStatus?: string | undefined;
-            OutflowTokens?: {
+            outflowTokens?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
@@ -4320,13 +4320,13 @@ export declare const QueryDebtBiddingsResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["biddings"][number]["auctionId"], keyof Long.Long>, never>) | undefined;
             auctionStatus?: string | undefined;
-            OutflowTokens?: ({
+            outflowTokens?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & {
                 denom?: string | undefined;
                 amount?: string | undefined;
-            } & Record<Exclude<keyof I["biddings"][number]["OutflowTokens"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["biddings"][number]["outflowTokens"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             bidder?: string | undefined;
             bid?: ({
                 denom?: string | undefined;
@@ -4457,7 +4457,7 @@ export declare const QueryDebtBiddingsResponse: {
             biddingId?: string | number | Long.Long | undefined;
             auctionId?: string | number | Long.Long | undefined;
             auctionStatus?: string | undefined;
-            OutflowTokens?: {
+            outflowTokens?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;

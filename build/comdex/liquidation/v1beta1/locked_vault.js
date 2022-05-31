@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WhitelistedAppIds = exports.LockedVaultToAppMapping = exports.LockedVault = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.liquidation.v1beta1";
 function createBaseLockedVault() {
@@ -31,7 +54,7 @@ function createBaseLockedVault() {
     };
 }
 exports.LockedVault = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -86,7 +109,7 @@ exports.LockedVault = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseLockedVault();
         while (reader.pos < end) {
@@ -152,9 +175,9 @@ exports.LockedVault = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             appVaultTypeId: isSet(object.appVaultTypeId)
                 ? String(object.appVaultTypeId)
@@ -163,7 +186,7 @@ exports.LockedVault = {
                 ? String(object.originalVaultId)
                 : "",
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
             amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
@@ -272,7 +295,7 @@ function createBaseLockedVaultToAppMapping() {
     return { appMappingId: long_1.default.UZERO, lockedVault: [] };
 }
 exports.LockedVaultToAppMapping = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -282,7 +305,7 @@ exports.LockedVaultToAppMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseLockedVaultToAppMapping();
         while (reader.pos < end) {
@@ -304,7 +327,7 @@ exports.LockedVaultToAppMapping = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             lockedVault: Array.isArray(object === null || object === void 0 ? void 0 : object.lockedVault)
                 ? object.lockedVault.map((e) => exports.LockedVault.fromJSON(e))
@@ -339,7 +362,7 @@ function createBaseWhitelistedAppIds() {
     return { whitelistedAppMappingIds: [] };
 }
 exports.WhitelistedAppIds = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         writer.uint32(10).fork();
         for (const v of message.whitelistedAppMappingIds) {
             writer.uint64(v);
@@ -348,7 +371,7 @@ exports.WhitelistedAppIds = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseWhitelistedAppIds();
         while (reader.pos < end) {
@@ -375,7 +398,7 @@ exports.WhitelistedAppIds = {
     fromJSON(object) {
         return {
             whitelistedAppMappingIds: Array.isArray(object === null || object === void 0 ? void 0 : object.whitelistedAppMappingIds)
-                ? object.whitelistedAppMappingIds.map((e) => long_1.default.fromString(e))
+                ? object.whitelistedAppMappingIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -421,9 +444,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

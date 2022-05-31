@@ -77,9 +77,7 @@ exports.VaultInfo = {
     fromJSON(object) {
         return {
             id: isSet(object.id) ? String(object.id) : "",
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
             collateral: isSet(object.collateral) ? String(object.collateral) : "",
             debt: isSet(object.debt) ? String(object.debt) : "",
@@ -449,7 +447,7 @@ exports.QueryAllVaultsByProductRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -580,9 +578,9 @@ exports.QueryAllVaultsByAppAndExtendedPairRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -739,11 +737,11 @@ exports.QueryVaultOfOwnerByExtendedPairRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -862,7 +860,7 @@ exports.QueryVaultByProductRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1101,10 +1099,10 @@ exports.QueryTokenMintedAllProductsByPairRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1221,7 +1219,7 @@ exports.QueryTokenMintedAllProductsRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1332,7 +1330,7 @@ exports.QueryVaultCountByProductRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1392,7 +1390,7 @@ exports.QueryVaultCountByProductResponse = {
     fromJSON(object) {
         return {
             vaultCount: isSet(object.vaultCount)
-                ? long_1.default.fromString(object.vaultCount)
+                ? long_1.default.fromValue(object.vaultCount)
                 : long_1.default.UZERO,
         };
     },
@@ -1457,10 +1455,10 @@ exports.QueryVaultCountByProductAndPairRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1526,7 +1524,7 @@ exports.QueryVaultCountByProductAndPairResponse = {
     fromJSON(object) {
         return {
             vaultCount: isSet(object.vaultCount)
-                ? long_1.default.fromString(object.vaultCount)
+                ? long_1.default.fromValue(object.vaultCount)
                 : long_1.default.UZERO,
         };
     },
@@ -1591,10 +1589,10 @@ exports.QueryTotalValueLockedByProductExtendedPairRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1711,7 +1709,7 @@ exports.QueryExtendedPairIDByProductRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -1781,7 +1779,7 @@ exports.QueryExtendedPairIDByProductResponse = {
     fromJSON(object) {
         return {
             extendedPairIds: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPairIds)
-                ? object.extendedPairIds.map((e) => long_1.default.fromString(e))
+                ? object.extendedPairIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -1930,7 +1928,7 @@ exports.QueryAllStableVaultsRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2035,9 +2033,9 @@ exports.QueryStableVaultByProductExtendedPairRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
         };
     },
@@ -2148,9 +2146,9 @@ exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
         };
     },
@@ -2256,7 +2254,7 @@ exports.QueryExtendedPairVaultMappingByAppRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2362,7 +2360,7 @@ exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = {
     fromJSON(object) {
         return {
             owner: isSet(object.owner) ? String(object.owner) : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2477,9 +2475,9 @@ exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = {
     fromJSON(object) {
         return {
             owner: isSet(object.owner) ? String(object.owner) : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             extendedPair: isSet(object.extendedPair)
-                ? long_1.default.fromString(object.extendedPair)
+                ? long_1.default.fromValue(object.extendedPair)
                 : long_1.default.UZERO,
         };
     },
@@ -2580,7 +2578,7 @@ exports.QueryTVLlockedByAppRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {

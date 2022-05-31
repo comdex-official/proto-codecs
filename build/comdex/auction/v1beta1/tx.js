@@ -69,13 +69,13 @@ exports.MsgPlaceSurplusBidRequest = {
     fromJSON(object) {
         return {
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromString(object.auctionId)
+                ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO,
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromString(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
                 : long_1.default.UZERO,
         };
     },
@@ -215,16 +215,16 @@ exports.MsgPlaceDebtBidRequest = {
     fromJSON(object) {
         return {
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromString(object.auctionId)
+                ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO,
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             bid: isSet(object.bid) ? coin_1.Coin.fromJSON(object.bid) : undefined,
             expectedUserToken: isSet(object.expectedUserToken)
                 ? coin_1.Coin.fromJSON(object.expectedUserToken)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromString(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
                 : long_1.default.UZERO,
         };
     },
@@ -373,14 +373,14 @@ exports.MsgPlaceDutchBidRequest = {
     fromJSON(object) {
         return {
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromString(object.auctionId)
+                ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO,
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
             max: isSet(object.max) ? String(object.max) : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromString(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
                 : long_1.default.UZERO,
         };
     },
