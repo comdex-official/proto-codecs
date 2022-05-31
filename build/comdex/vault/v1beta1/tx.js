@@ -145,7 +145,7 @@ function createBaseMsgDepositRequest() {
         from: "",
         appMappingId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
-        userVaultid: "",
+        userVaultId: "",
         amount: "",
     };
 }
@@ -160,8 +160,8 @@ exports.MsgDepositRequest = {
         if (!message.extendedPairVaultId.isZero()) {
             writer.uint32(24).uint64(message.extendedPairVaultId);
         }
-        if (message.userVaultid !== "") {
-            writer.uint32(34).string(message.userVaultid);
+        if (message.userVaultId !== "") {
+            writer.uint32(34).string(message.userVaultId);
         }
         if (message.amount !== "") {
             writer.uint32(42).string(message.amount);
@@ -185,7 +185,7 @@ exports.MsgDepositRequest = {
                     message.extendedPairVaultId = reader.uint64();
                     break;
                 case 4:
-                    message.userVaultid = reader.string();
+                    message.userVaultId = reader.string();
                     break;
                 case 5:
                     message.amount = reader.string();
@@ -206,7 +206,7 @@ exports.MsgDepositRequest = {
             extendedPairVaultId: isSet(object.extendedPairVaultId)
                 ? long_1.default.fromString(object.extendedPairVaultId)
                 : long_1.default.UZERO,
-            userVaultid: isSet(object.userVaultid) ? String(object.userVaultid) : "",
+            userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
             amount: isSet(object.amount) ? String(object.amount) : "",
         };
     },
@@ -217,8 +217,8 @@ exports.MsgDepositRequest = {
             (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
         message.extendedPairVaultId !== undefined &&
             (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
-        message.userVaultid !== undefined &&
-            (obj.userVaultid = message.userVaultid);
+        message.userVaultId !== undefined &&
+            (obj.userVaultId = message.userVaultId);
         message.amount !== undefined && (obj.amount = message.amount);
         return obj;
     },
@@ -235,7 +235,7 @@ exports.MsgDepositRequest = {
                 object.extendedPairVaultId !== null
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
-        message.userVaultid = (_b = object.userVaultid) !== null && _b !== void 0 ? _b : "";
+        message.userVaultId = (_b = object.userVaultId) !== null && _b !== void 0 ? _b : "";
         message.amount = (_c = object.amount) !== null && _c !== void 0 ? _c : "";
         return message;
     },
@@ -278,7 +278,7 @@ function createBaseMsgWithdrawRequest() {
         from: "",
         appMappingId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
-        userVaultid: "",
+        userVaultId: "",
         amount: "",
     };
 }
@@ -293,8 +293,8 @@ exports.MsgWithdrawRequest = {
         if (!message.extendedPairVaultId.isZero()) {
             writer.uint32(24).uint64(message.extendedPairVaultId);
         }
-        if (message.userVaultid !== "") {
-            writer.uint32(34).string(message.userVaultid);
+        if (message.userVaultId !== "") {
+            writer.uint32(34).string(message.userVaultId);
         }
         if (message.amount !== "") {
             writer.uint32(42).string(message.amount);
@@ -318,7 +318,7 @@ exports.MsgWithdrawRequest = {
                     message.extendedPairVaultId = reader.uint64();
                     break;
                 case 4:
-                    message.userVaultid = reader.string();
+                    message.userVaultId = reader.string();
                     break;
                 case 5:
                     message.amount = reader.string();
@@ -339,7 +339,7 @@ exports.MsgWithdrawRequest = {
             extendedPairVaultId: isSet(object.extendedPairVaultId)
                 ? long_1.default.fromString(object.extendedPairVaultId)
                 : long_1.default.UZERO,
-            userVaultid: isSet(object.userVaultid) ? String(object.userVaultid) : "",
+            userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
             amount: isSet(object.amount) ? String(object.amount) : "",
         };
     },
@@ -350,8 +350,8 @@ exports.MsgWithdrawRequest = {
             (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
         message.extendedPairVaultId !== undefined &&
             (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
-        message.userVaultid !== undefined &&
-            (obj.userVaultid = message.userVaultid);
+        message.userVaultId !== undefined &&
+            (obj.userVaultId = message.userVaultId);
         message.amount !== undefined && (obj.amount = message.amount);
         return obj;
     },
@@ -368,7 +368,7 @@ exports.MsgWithdrawRequest = {
                 object.extendedPairVaultId !== null
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
-        message.userVaultid = (_b = object.userVaultid) !== null && _b !== void 0 ? _b : "";
+        message.userVaultId = (_b = object.userVaultId) !== null && _b !== void 0 ? _b : "";
         message.amount = (_c = object.amount) !== null && _c !== void 0 ? _c : "";
         return message;
     },
@@ -411,7 +411,7 @@ function createBaseMsgDrawRequest() {
         from: "",
         appMappingId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
-        userVaultid: "",
+        userVaultId: "",
         amount: "",
     };
 }
@@ -426,8 +426,8 @@ exports.MsgDrawRequest = {
         if (!message.extendedPairVaultId.isZero()) {
             writer.uint32(24).uint64(message.extendedPairVaultId);
         }
-        if (message.userVaultid !== "") {
-            writer.uint32(34).string(message.userVaultid);
+        if (message.userVaultId !== "") {
+            writer.uint32(34).string(message.userVaultId);
         }
         if (message.amount !== "") {
             writer.uint32(42).string(message.amount);
@@ -451,7 +451,7 @@ exports.MsgDrawRequest = {
                     message.extendedPairVaultId = reader.uint64();
                     break;
                 case 4:
-                    message.userVaultid = reader.string();
+                    message.userVaultId = reader.string();
                     break;
                 case 5:
                     message.amount = reader.string();
@@ -472,7 +472,7 @@ exports.MsgDrawRequest = {
             extendedPairVaultId: isSet(object.extendedPairVaultId)
                 ? long_1.default.fromString(object.extendedPairVaultId)
                 : long_1.default.UZERO,
-            userVaultid: isSet(object.userVaultid) ? String(object.userVaultid) : "",
+            userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
             amount: isSet(object.amount) ? String(object.amount) : "",
         };
     },
@@ -483,8 +483,8 @@ exports.MsgDrawRequest = {
             (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
         message.extendedPairVaultId !== undefined &&
             (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
-        message.userVaultid !== undefined &&
-            (obj.userVaultid = message.userVaultid);
+        message.userVaultId !== undefined &&
+            (obj.userVaultId = message.userVaultId);
         message.amount !== undefined && (obj.amount = message.amount);
         return obj;
     },
@@ -501,7 +501,7 @@ exports.MsgDrawRequest = {
                 object.extendedPairVaultId !== null
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
-        message.userVaultid = (_b = object.userVaultid) !== null && _b !== void 0 ? _b : "";
+        message.userVaultId = (_b = object.userVaultId) !== null && _b !== void 0 ? _b : "";
         message.amount = (_c = object.amount) !== null && _c !== void 0 ? _c : "";
         return message;
     },
@@ -544,7 +544,7 @@ function createBaseMsgRepayRequest() {
         from: "",
         appMappingId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
-        userVaultid: "",
+        userVaultId: "",
         amount: "",
     };
 }
@@ -559,8 +559,8 @@ exports.MsgRepayRequest = {
         if (!message.extendedPairVaultId.isZero()) {
             writer.uint32(24).uint64(message.extendedPairVaultId);
         }
-        if (message.userVaultid !== "") {
-            writer.uint32(34).string(message.userVaultid);
+        if (message.userVaultId !== "") {
+            writer.uint32(34).string(message.userVaultId);
         }
         if (message.amount !== "") {
             writer.uint32(42).string(message.amount);
@@ -584,7 +584,7 @@ exports.MsgRepayRequest = {
                     message.extendedPairVaultId = reader.uint64();
                     break;
                 case 4:
-                    message.userVaultid = reader.string();
+                    message.userVaultId = reader.string();
                     break;
                 case 5:
                     message.amount = reader.string();
@@ -605,7 +605,7 @@ exports.MsgRepayRequest = {
             extendedPairVaultId: isSet(object.extendedPairVaultId)
                 ? long_1.default.fromString(object.extendedPairVaultId)
                 : long_1.default.UZERO,
-            userVaultid: isSet(object.userVaultid) ? String(object.userVaultid) : "",
+            userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
             amount: isSet(object.amount) ? String(object.amount) : "",
         };
     },
@@ -616,8 +616,8 @@ exports.MsgRepayRequest = {
             (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
         message.extendedPairVaultId !== undefined &&
             (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
-        message.userVaultid !== undefined &&
-            (obj.userVaultid = message.userVaultid);
+        message.userVaultId !== undefined &&
+            (obj.userVaultId = message.userVaultId);
         message.amount !== undefined && (obj.amount = message.amount);
         return obj;
     },
@@ -634,7 +634,7 @@ exports.MsgRepayRequest = {
                 object.extendedPairVaultId !== null
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
-        message.userVaultid = (_b = object.userVaultid) !== null && _b !== void 0 ? _b : "";
+        message.userVaultId = (_b = object.userVaultId) !== null && _b !== void 0 ? _b : "";
         message.amount = (_c = object.amount) !== null && _c !== void 0 ? _c : "";
         return message;
     },
@@ -677,7 +677,7 @@ function createBaseMsgCloseRequest() {
         from: "",
         appMappingId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
-        userVaultid: "",
+        userVaultId: "",
     };
 }
 exports.MsgCloseRequest = {
@@ -691,8 +691,8 @@ exports.MsgCloseRequest = {
         if (!message.extendedPairVaultId.isZero()) {
             writer.uint32(24).uint64(message.extendedPairVaultId);
         }
-        if (message.userVaultid !== "") {
-            writer.uint32(34).string(message.userVaultid);
+        if (message.userVaultId !== "") {
+            writer.uint32(34).string(message.userVaultId);
         }
         return writer;
     },
@@ -713,7 +713,7 @@ exports.MsgCloseRequest = {
                     message.extendedPairVaultId = reader.uint64();
                     break;
                 case 4:
-                    message.userVaultid = reader.string();
+                    message.userVaultId = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -731,7 +731,7 @@ exports.MsgCloseRequest = {
             extendedPairVaultId: isSet(object.extendedPairVaultId)
                 ? long_1.default.fromString(object.extendedPairVaultId)
                 : long_1.default.UZERO,
-            userVaultid: isSet(object.userVaultid) ? String(object.userVaultid) : "",
+            userVaultId: isSet(object.userVaultId) ? String(object.userVaultId) : "",
         };
     },
     toJSON(message) {
@@ -741,8 +741,8 @@ exports.MsgCloseRequest = {
             (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
         message.extendedPairVaultId !== undefined &&
             (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
-        message.userVaultid !== undefined &&
-            (obj.userVaultid = message.userVaultid);
+        message.userVaultId !== undefined &&
+            (obj.userVaultId = message.userVaultId);
         return obj;
     },
     fromPartial(object) {
@@ -758,7 +758,7 @@ exports.MsgCloseRequest = {
                 object.extendedPairVaultId !== null
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
-        message.userVaultid = (_b = object.userVaultid) !== null && _b !== void 0 ? _b : "";
+        message.userVaultId = (_b = object.userVaultId) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };
@@ -923,7 +923,7 @@ function createBaseMsgDepositStableMintRequest() {
         appMappingId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
         amount: "",
-        stableVaultid: "",
+        stableVaultId: "",
     };
 }
 exports.MsgDepositStableMintRequest = {
@@ -940,8 +940,8 @@ exports.MsgDepositStableMintRequest = {
         if (message.amount !== "") {
             writer.uint32(34).string(message.amount);
         }
-        if (message.stableVaultid !== "") {
-            writer.uint32(42).string(message.stableVaultid);
+        if (message.stableVaultId !== "") {
+            writer.uint32(42).string(message.stableVaultId);
         }
         return writer;
     },
@@ -965,7 +965,7 @@ exports.MsgDepositStableMintRequest = {
                     message.amount = reader.string();
                     break;
                 case 5:
-                    message.stableVaultid = reader.string();
+                    message.stableVaultId = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -984,8 +984,8 @@ exports.MsgDepositStableMintRequest = {
                 ? long_1.default.fromString(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             amount: isSet(object.amount) ? String(object.amount) : "",
-            stableVaultid: isSet(object.stableVaultid)
-                ? String(object.stableVaultid)
+            stableVaultId: isSet(object.stableVaultId)
+                ? String(object.stableVaultId)
                 : "",
         };
     },
@@ -997,8 +997,8 @@ exports.MsgDepositStableMintRequest = {
         message.extendedPairVaultId !== undefined &&
             (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
         message.amount !== undefined && (obj.amount = message.amount);
-        message.stableVaultid !== undefined &&
-            (obj.stableVaultid = message.stableVaultid);
+        message.stableVaultId !== undefined &&
+            (obj.stableVaultId = message.stableVaultId);
         return obj;
     },
     fromPartial(object) {
@@ -1015,7 +1015,7 @@ exports.MsgDepositStableMintRequest = {
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
         message.amount = (_b = object.amount) !== null && _b !== void 0 ? _b : "";
-        message.stableVaultid = (_c = object.stableVaultid) !== null && _c !== void 0 ? _c : "";
+        message.stableVaultId = (_c = object.stableVaultId) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -1058,7 +1058,7 @@ function createBaseMsgWithdrawStableMintRequest() {
         appMappingId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
         amount: "",
-        stableVaultid: "",
+        stableVaultId: "",
     };
 }
 exports.MsgWithdrawStableMintRequest = {
@@ -1075,8 +1075,8 @@ exports.MsgWithdrawStableMintRequest = {
         if (message.amount !== "") {
             writer.uint32(34).string(message.amount);
         }
-        if (message.stableVaultid !== "") {
-            writer.uint32(42).string(message.stableVaultid);
+        if (message.stableVaultId !== "") {
+            writer.uint32(42).string(message.stableVaultId);
         }
         return writer;
     },
@@ -1100,7 +1100,7 @@ exports.MsgWithdrawStableMintRequest = {
                     message.amount = reader.string();
                     break;
                 case 5:
-                    message.stableVaultid = reader.string();
+                    message.stableVaultId = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1119,8 +1119,8 @@ exports.MsgWithdrawStableMintRequest = {
                 ? long_1.default.fromString(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             amount: isSet(object.amount) ? String(object.amount) : "",
-            stableVaultid: isSet(object.stableVaultid)
-                ? String(object.stableVaultid)
+            stableVaultId: isSet(object.stableVaultId)
+                ? String(object.stableVaultId)
                 : "",
         };
     },
@@ -1132,8 +1132,8 @@ exports.MsgWithdrawStableMintRequest = {
         message.extendedPairVaultId !== undefined &&
             (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
         message.amount !== undefined && (obj.amount = message.amount);
-        message.stableVaultid !== undefined &&
-            (obj.stableVaultid = message.stableVaultid);
+        message.stableVaultId !== undefined &&
+            (obj.stableVaultId = message.stableVaultId);
         return obj;
     },
     fromPartial(object) {
@@ -1150,7 +1150,7 @@ exports.MsgWithdrawStableMintRequest = {
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
         message.amount = (_b = object.amount) !== null && _b !== void 0 ? _b : "";
-        message.stableVaultid = (_c = object.stableVaultid) !== null && _c !== void 0 ? _c : "";
+        message.stableVaultId = (_c = object.stableVaultId) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };

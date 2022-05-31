@@ -14,7 +14,7 @@ export interface MsgDepositRequest {
     from: string;
     appMappingId: Long;
     extendedPairVaultId: Long;
-    userVaultid: string;
+    userVaultId: string;
     amount: string;
 }
 export interface MsgDepositResponse {
@@ -23,7 +23,7 @@ export interface MsgWithdrawRequest {
     from: string;
     appMappingId: Long;
     extendedPairVaultId: Long;
-    userVaultid: string;
+    userVaultId: string;
     amount: string;
 }
 export interface MsgWithdrawResponse {
@@ -32,7 +32,7 @@ export interface MsgDrawRequest {
     from: string;
     appMappingId: Long;
     extendedPairVaultId: Long;
-    userVaultid: string;
+    userVaultId: string;
     amount: string;
 }
 export interface MsgDrawResponse {
@@ -41,7 +41,7 @@ export interface MsgRepayRequest {
     from: string;
     appMappingId: Long;
     extendedPairVaultId: Long;
-    userVaultid: string;
+    userVaultId: string;
     amount: string;
 }
 export interface MsgRepayResponse {
@@ -50,7 +50,7 @@ export interface MsgCloseRequest {
     from: string;
     appMappingId: Long;
     extendedPairVaultId: Long;
-    userVaultid: string;
+    userVaultId: string;
 }
 export interface MsgCloseResponse {
 }
@@ -67,7 +67,7 @@ export interface MsgDepositStableMintRequest {
     appMappingId: Long;
     extendedPairVaultId: Long;
     amount: string;
-    stableVaultid: string;
+    stableVaultId: string;
 }
 export interface MsgDepositStableMintResponse {
 }
@@ -76,7 +76,7 @@ export interface MsgWithdrawStableMintRequest {
     appMappingId: Long;
     extendedPairVaultId: Long;
     amount: string;
-    stableVaultid: string;
+    stableVaultId: string;
 }
 export interface MsgWithdrawStableMintResponse {
 }
@@ -229,7 +229,7 @@ export declare const MsgDepositRequest: {
         from?: string | undefined;
         appMappingId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
-        userVaultid?: string | undefined;
+        userVaultId?: string | undefined;
         amount?: string | undefined;
     } & {
         from?: string | undefined;
@@ -349,7 +349,7 @@ export declare const MsgDepositRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["extendedPairVaultId"], keyof Long.Long>, never>) | undefined;
-        userVaultid?: string | undefined;
+        userVaultId?: string | undefined;
         amount?: string | undefined;
     } & Record<Exclude<keyof I, keyof MsgDepositRequest>, never>>(object: I): MsgDepositRequest;
 };
@@ -369,7 +369,7 @@ export declare const MsgWithdrawRequest: {
         from?: string | undefined;
         appMappingId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
-        userVaultid?: string | undefined;
+        userVaultId?: string | undefined;
         amount?: string | undefined;
     } & {
         from?: string | undefined;
@@ -489,7 +489,7 @@ export declare const MsgWithdrawRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["extendedPairVaultId"], keyof Long.Long>, never>) | undefined;
-        userVaultid?: string | undefined;
+        userVaultId?: string | undefined;
         amount?: string | undefined;
     } & Record<Exclude<keyof I, keyof MsgWithdrawRequest>, never>>(object: I): MsgWithdrawRequest;
 };
@@ -509,7 +509,7 @@ export declare const MsgDrawRequest: {
         from?: string | undefined;
         appMappingId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
-        userVaultid?: string | undefined;
+        userVaultId?: string | undefined;
         amount?: string | undefined;
     } & {
         from?: string | undefined;
@@ -629,7 +629,7 @@ export declare const MsgDrawRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["extendedPairVaultId"], keyof Long.Long>, never>) | undefined;
-        userVaultid?: string | undefined;
+        userVaultId?: string | undefined;
         amount?: string | undefined;
     } & Record<Exclude<keyof I, keyof MsgDrawRequest>, never>>(object: I): MsgDrawRequest;
 };
@@ -649,7 +649,7 @@ export declare const MsgRepayRequest: {
         from?: string | undefined;
         appMappingId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
-        userVaultid?: string | undefined;
+        userVaultId?: string | undefined;
         amount?: string | undefined;
     } & {
         from?: string | undefined;
@@ -769,7 +769,7 @@ export declare const MsgRepayRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["extendedPairVaultId"], keyof Long.Long>, never>) | undefined;
-        userVaultid?: string | undefined;
+        userVaultId?: string | undefined;
         amount?: string | undefined;
     } & Record<Exclude<keyof I, keyof MsgRepayRequest>, never>>(object: I): MsgRepayRequest;
 };
@@ -789,7 +789,7 @@ export declare const MsgCloseRequest: {
         from?: string | undefined;
         appMappingId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
-        userVaultid?: string | undefined;
+        userVaultId?: string | undefined;
     } & {
         from?: string | undefined;
         appMappingId?: string | number | (Long.Long & {
@@ -908,7 +908,7 @@ export declare const MsgCloseRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["extendedPairVaultId"], keyof Long.Long>, never>) | undefined;
-        userVaultid?: string | undefined;
+        userVaultId?: string | undefined;
     } & Record<Exclude<keyof I, keyof MsgCloseRequest>, never>>(object: I): MsgCloseRequest;
 };
 export declare const MsgCloseResponse: {
@@ -1066,7 +1066,7 @@ export declare const MsgDepositStableMintRequest: {
         appMappingId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         amount?: string | undefined;
-        stableVaultid?: string | undefined;
+        stableVaultId?: string | undefined;
     } & {
         from?: string | undefined;
         appMappingId?: string | number | (Long.Long & {
@@ -1186,7 +1186,7 @@ export declare const MsgDepositStableMintRequest: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["extendedPairVaultId"], keyof Long.Long>, never>) | undefined;
         amount?: string | undefined;
-        stableVaultid?: string | undefined;
+        stableVaultId?: string | undefined;
     } & Record<Exclude<keyof I, keyof MsgDepositStableMintRequest>, never>>(object: I): MsgDepositStableMintRequest;
 };
 export declare const MsgDepositStableMintResponse: {
@@ -1206,7 +1206,7 @@ export declare const MsgWithdrawStableMintRequest: {
         appMappingId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         amount?: string | undefined;
-        stableVaultid?: string | undefined;
+        stableVaultId?: string | undefined;
     } & {
         from?: string | undefined;
         appMappingId?: string | number | (Long.Long & {
@@ -1326,7 +1326,7 @@ export declare const MsgWithdrawStableMintRequest: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["extendedPairVaultId"], keyof Long.Long>, never>) | undefined;
         amount?: string | undefined;
-        stableVaultid?: string | undefined;
+        stableVaultId?: string | undefined;
     } & Record<Exclude<keyof I, keyof MsgWithdrawStableMintRequest>, never>>(object: I): MsgWithdrawStableMintRequest;
 };
 export declare const MsgWithdrawStableMintResponse: {
