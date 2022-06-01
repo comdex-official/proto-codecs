@@ -7,8 +7,8 @@ exports.QueryClientImpl = exports.QueryStateResponse = exports.QueryStateRequest
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const locker_1 = require("./locker");
-const params_1 = require("./params");
+const locker_1 = require("../../../comdex/locker/v1beta1/locker");
+const params_1 = require("../../../comdex/locker/v1beta1/params");
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const asset_1 = require("../../../comdex/asset/v1beta1/asset");
 exports.protobufPackage = "comdex.locker.v1beta1";

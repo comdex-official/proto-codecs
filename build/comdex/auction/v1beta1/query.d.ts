@@ -1,5 +1,5 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { SurplusAuction, DebtAuction, DutchAuction } from "../../../comdex/auction/v1beta1/auction";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "../../../comdex/auction/v1beta1/params";
