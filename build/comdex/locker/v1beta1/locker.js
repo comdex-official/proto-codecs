@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LockedDepositedAmountDataMap = exports.LockerProductAssetMapping = exports.TokenToLockerMapping = exports.LockerLookupTable = exports.AssetToLockerMapping = exports.LockerToAppMapping = exports.UserLockerAssetMapping = exports.Locker = exports.protobufPackage = void 0;
+exports.LockedDepositedAmountDataMap = exports.LockerProductAssetMapping = exports.TokenToLockerMapping = exports.LockerLookupTable = exports.UserTxData = exports.AssetToLockerMapping = exports.LockerToAppMapping = exports.UserLockerAssetMapping = exports.Locker = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -274,7 +274,7 @@ exports.LockerToAppMapping = {
     },
 };
 function createBaseAssetToLockerMapping() {
-    return { assetId: long_1.default.UZERO, lockerId: "" };
+    return { assetId: long_1.default.UZERO, lockerId: "", userTxData: [] };
 }
 exports.AssetToLockerMapping = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -283,6 +283,9 @@ exports.AssetToLockerMapping = {
         }
         if (message.lockerId !== "") {
             writer.uint32(18).string(message.lockerId);
+        }
+        for (const v of message.userTxData) {
+            exports.UserTxData.encode(v, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -299,6 +302,9 @@ exports.AssetToLockerMapping = {
                 case 2:
                     message.lockerId = reader.string();
                     break;
+                case 3:
+                    message.userTxData.push(exports.UserTxData.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -312,6 +318,9 @@ exports.AssetToLockerMapping = {
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
+            userTxData: Array.isArray(object === null || object === void 0 ? void 0 : object.userTxData)
+                ? object.userTxData.map((e) => exports.UserTxData.fromJSON(e))
+                : [],
         };
     },
     toJSON(message) {
@@ -319,16 +328,97 @@ exports.AssetToLockerMapping = {
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         message.lockerId !== undefined && (obj.lockerId = message.lockerId);
+        if (message.userTxData) {
+            obj.userTxData = message.userTxData.map((e) => e ? exports.UserTxData.toJSON(e) : undefined);
+        }
+        else {
+            obj.userTxData = [];
+        }
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseAssetToLockerMapping();
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
         message.lockerId = (_a = object.lockerId) !== null && _a !== void 0 ? _a : "";
+        message.userTxData =
+            ((_b = object.userTxData) === null || _b === void 0 ? void 0 : _b.map((e) => exports.UserTxData.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseUserTxData() {
+    return { txType: "", amount: "", balance: "", txTime: undefined };
+}
+exports.UserTxData = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.txType !== "") {
+            writer.uint32(10).string(message.txType);
+        }
+        if (message.amount !== "") {
+            writer.uint32(18).string(message.amount);
+        }
+        if (message.balance !== "") {
+            writer.uint32(26).string(message.balance);
+        }
+        if (message.txTime !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.txTime), writer.uint32(34).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUserTxData();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.txType = reader.string();
+                    break;
+                case 2:
+                    message.amount = reader.string();
+                    break;
+                case 3:
+                    message.balance = reader.string();
+                    break;
+                case 4:
+                    message.txTime = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            txType: isSet(object.txType) ? String(object.txType) : "",
+            amount: isSet(object.amount) ? String(object.amount) : "",
+            balance: isSet(object.balance) ? String(object.balance) : "",
+            txTime: isSet(object.txTime)
+                ? fromJsonTimestamp(object.txTime)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.txType !== undefined && (obj.txType = message.txType);
+        message.amount !== undefined && (obj.amount = message.amount);
+        message.balance !== undefined && (obj.balance = message.balance);
+        message.txTime !== undefined && (obj.txTime = message.txTime.toISOString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d;
+        const message = createBaseUserTxData();
+        message.txType = (_a = object.txType) !== null && _a !== void 0 ? _a : "";
+        message.amount = (_b = object.amount) !== null && _b !== void 0 ? _b : "";
+        message.balance = (_c = object.balance) !== null && _c !== void 0 ? _c : "";
+        message.txTime = (_d = object.txTime) !== null && _d !== void 0 ? _d : undefined;
         return message;
     },
 };
@@ -569,15 +659,15 @@ exports.LockerProductAssetMapping = {
     },
 };
 function createBaseLockedDepositedAmountDataMap() {
-    return { assetId: long_1.default.UZERO, DepositedAmount: "" };
+    return { assetId: long_1.default.UZERO, depositedAmount: "" };
 }
 exports.LockedDepositedAmountDataMap = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
-        if (message.DepositedAmount !== "") {
-            writer.uint32(18).string(message.DepositedAmount);
+        if (message.depositedAmount !== "") {
+            writer.uint32(18).string(message.depositedAmount);
         }
         return writer;
     },
@@ -592,7 +682,7 @@ exports.LockedDepositedAmountDataMap = {
                     message.assetId = reader.uint64();
                     break;
                 case 2:
-                    message.DepositedAmount = reader.string();
+                    message.depositedAmount = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -606,8 +696,8 @@ exports.LockedDepositedAmountDataMap = {
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
-            DepositedAmount: isSet(object.DepositedAmount)
-                ? String(object.DepositedAmount)
+            depositedAmount: isSet(object.depositedAmount)
+                ? String(object.depositedAmount)
                 : "",
         };
     },
@@ -615,8 +705,8 @@ exports.LockedDepositedAmountDataMap = {
         const obj = {};
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
-        message.DepositedAmount !== undefined &&
-            (obj.DepositedAmount = message.DepositedAmount);
+        message.depositedAmount !== undefined &&
+            (obj.depositedAmount = message.depositedAmount);
         return obj;
     },
     fromPartial(object) {
@@ -626,7 +716,7 @@ exports.LockedDepositedAmountDataMap = {
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
-        message.DepositedAmount = (_a = object.DepositedAmount) !== null && _a !== void 0 ? _a : "";
+        message.depositedAmount = (_a = object.depositedAmount) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
