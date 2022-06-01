@@ -17,7 +17,7 @@ export interface ExtendedPairVault {
     minCr: string;
     pairName: string;
     assetOutOraclePrice: boolean;
-    asssetOutPrice: Long;
+    assetOutPrice: Long;
 }
 export declare const ExtendedPairVault: {
     encode(message: ExtendedPairVault, writer?: _m0.Writer): _m0.Writer;
@@ -40,7 +40,7 @@ export declare const ExtendedPairVault: {
         minCr?: string | undefined;
         pairName?: string | undefined;
         assetOutOraclePrice?: boolean | undefined;
-        asssetOutPrice?: string | number | Long.Long | undefined;
+        assetOutPrice?: string | number | Long.Long | undefined;
     } & {
         id?: string | number | (Long.Long & {
             high: number;
@@ -228,7 +228,7 @@ export declare const ExtendedPairVault: {
         minCr?: string | undefined;
         pairName?: string | undefined;
         assetOutOraclePrice?: boolean | undefined;
-        asssetOutPrice?: string | number | (Long.Long & {
+        assetOutPrice?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -285,7 +285,7 @@ export declare const ExtendedPairVault: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["asssetOutPrice"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["assetOutPrice"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof ExtendedPairVault>, never>>(object: I): ExtendedPairVault;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

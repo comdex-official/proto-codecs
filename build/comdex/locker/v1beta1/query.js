@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryStateResponse = exports.QueryStateRequest = exports.QueryLockerTotalDepositedByAppResponse = exports.QueryLockerTotalDepositedByAppRequest = exports.QueryLockerLookupTableByAppAndAssetIdResponse = exports.QueryLockerLookupTableByAppAndAssetIdRequest = exports.QueryLockerLookupTableByAppResponse = exports.QueryLockerLookupTableByAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.ProductToAllAsset = exports.QueryWhiteListedAssetByAllProductResponse = exports.QueryWhiteListedAssetByAllProductRequest = exports.QueryWhiteListedAssetIDsByProductIDResponse = exports.QueryWhiteListedAssetIDsByProductIDRequest = exports.QueryLockerCountByProductToAssetIDResponse = exports.QueryLockerCountByProductToAssetIDRequest = exports.QueryLockerCountByProductIDResponse = exports.QueryLockerCountByProductIDRequest = exports.QueryOwnerLockerByProductToAssetIDbyOwnerResponse = exports.QueryOwnerLockerByProductToAssetIDbyOwnerRequest = exports.QueryOwnerLockerOfAllProductbyOwnerResponse = exports.QueryOwnerLockerOfAllProductbyOwnerRequest = exports.QueryOwnerLockerByProductIDbyOwnerResponse = exports.QueryOwnerLockerByProductIDbyOwnerRequest = exports.QueryTotalDepositByProductAssetIDResponse = exports.QueryTotalDepositByProductAssetIDRequest = exports.QueryLockerInfoByProductIDResponse = exports.QueryLockerInfoByProductIDRequest = exports.QueryLockersByProductToAssetIDResponse = exports.QueryLockersByProductToAssetIDRequest = exports.QueryLockerInfoResponse = exports.QueryLockerInfoRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryStateResponse = exports.QueryStateRequest = exports.QueryLockerTotalDepositedByAppResponse = exports.QueryLockerTotalDepositedByAppRequest = exports.QueryLockerLookupTableByAppAndAssetIdResponse = exports.QueryLockerLookupTableByAppAndAssetIdRequest = exports.QueryLockerLookupTableByAppResponse = exports.QueryLockerLookupTableByAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.ProductToAllAsset = exports.QueryWhiteListedAssetByAllProductResponse = exports.QueryWhiteListedAssetByAllProductRequest = exports.QueryWhiteListedAssetIDsByProductIDResponse = exports.QueryWhiteListedAssetIDsByProductIDRequest = exports.QueryLockerCountByProductToAssetIDResponse = exports.QueryLockerCountByProductToAssetIDRequest = exports.QueryLockerCountByProductIDResponse = exports.QueryLockerCountByProductIDRequest = exports.QueryLockerByProductByOwnerResponse = exports.QueryLockerByProductByOwnerRequest = exports.QueryOwnerLockerByProductToAssetIDbyOwnerResponse = exports.QueryOwnerLockerByProductToAssetIDbyOwnerRequest = exports.QueryOwnerTxDetailsLockerOfProductByOwnerResponse = exports.QueryOwnerTxDetailsLockerOfProductByOwnerRequest = exports.QueryOwnerLockerOfAllProductByOwnerResponse = exports.QueryOwnerLockerOfAllProductByOwnerRequest = exports.QueryOwnerLockerByProductIDbyOwnerResponse = exports.QueryOwnerLockerByProductIDbyOwnerRequest = exports.QueryTotalDepositByProductAssetIDResponse = exports.QueryTotalDepositByProductAssetIDRequest = exports.QueryLockerInfoByProductIDResponse = exports.QueryLockerInfoByProductIDRequest = exports.QueryLockersByProductToAssetIDResponse = exports.QueryLockersByProductToAssetIDRequest = exports.QueryLockerInfoResponse = exports.QueryLockerInfoRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -545,10 +545,10 @@ exports.QueryOwnerLockerByProductIDbyOwnerResponse = {
         return message;
     },
 };
-function createBaseQueryOwnerLockerOfAllProductbyOwnerRequest() {
+function createBaseQueryOwnerLockerOfAllProductByOwnerRequest() {
     return { owner: "" };
 }
-exports.QueryOwnerLockerOfAllProductbyOwnerRequest = {
+exports.QueryOwnerLockerOfAllProductByOwnerRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.owner !== "") {
             writer.uint32(26).string(message.owner);
@@ -558,7 +558,7 @@ exports.QueryOwnerLockerOfAllProductbyOwnerRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryOwnerLockerOfAllProductbyOwnerRequest();
+        const message = createBaseQueryOwnerLockerOfAllProductByOwnerRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -584,15 +584,15 @@ exports.QueryOwnerLockerOfAllProductbyOwnerRequest = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryOwnerLockerOfAllProductbyOwnerRequest();
+        const message = createBaseQueryOwnerLockerOfAllProductByOwnerRequest();
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
-function createBaseQueryOwnerLockerOfAllProductbyOwnerResponse() {
+function createBaseQueryOwnerLockerOfAllProductByOwnerResponse() {
     return { lockerIds: [] };
 }
-exports.QueryOwnerLockerOfAllProductbyOwnerResponse = {
+exports.QueryOwnerLockerOfAllProductByOwnerResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.lockerIds) {
             writer.uint32(10).string(v);
@@ -602,7 +602,7 @@ exports.QueryOwnerLockerOfAllProductbyOwnerResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryOwnerLockerOfAllProductbyOwnerResponse();
+        const message = createBaseQueryOwnerLockerOfAllProductByOwnerResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -635,8 +635,119 @@ exports.QueryOwnerLockerOfAllProductbyOwnerResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryOwnerLockerOfAllProductbyOwnerResponse();
+        const message = createBaseQueryOwnerLockerOfAllProductByOwnerResponse();
         message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
+        return message;
+    },
+};
+function createBaseQueryOwnerTxDetailsLockerOfProductByOwnerRequest() {
+    return { productId: long_1.default.UZERO, owner: "" };
+}
+exports.QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.productId.isZero()) {
+            writer.uint32(8).uint64(message.productId);
+        }
+        if (message.owner !== "") {
+            writer.uint32(18).string(message.owner);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryOwnerTxDetailsLockerOfProductByOwnerRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.productId = reader.uint64();
+                    break;
+                case 2:
+                    message.owner = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            productId: isSet(object.productId)
+                ? long_1.default.fromValue(object.productId)
+                : long_1.default.UZERO,
+            owner: isSet(object.owner) ? String(object.owner) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.productId !== undefined &&
+            (obj.productId = (message.productId || long_1.default.UZERO).toString());
+        message.owner !== undefined && (obj.owner = message.owner);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryOwnerTxDetailsLockerOfProductByOwnerRequest();
+        message.productId =
+            object.productId !== undefined && object.productId !== null
+                ? long_1.default.fromValue(object.productId)
+                : long_1.default.UZERO;
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseQueryOwnerTxDetailsLockerOfProductByOwnerResponse() {
+    return { userTxData: [] };
+}
+exports.QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        for (const v of message.userTxData) {
+            locker_1.UserTxData.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryOwnerTxDetailsLockerOfProductByOwnerResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.userTxData.push(locker_1.UserTxData.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userTxData: Array.isArray(object === null || object === void 0 ? void 0 : object.userTxData)
+                ? object.userTxData.map((e) => locker_1.UserTxData.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.userTxData) {
+            obj.userTxData = message.userTxData.map((e) => e ? locker_1.UserTxData.toJSON(e) : undefined);
+        }
+        else {
+            obj.userTxData = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryOwnerTxDetailsLockerOfProductByOwnerResponse();
+        message.userTxData =
+            ((_a = object.userTxData) === null || _a === void 0 ? void 0 : _a.map((e) => locker_1.UserTxData.fromPartial(e))) || [];
         return message;
     },
 };
@@ -761,6 +872,117 @@ exports.QueryOwnerLockerByProductToAssetIDbyOwnerResponse = {
     fromPartial(object) {
         var _a;
         const message = createBaseQueryOwnerLockerByProductToAssetIDbyOwnerResponse();
+        message.lockerInfo =
+            ((_a = object.lockerInfo) === null || _a === void 0 ? void 0 : _a.map((e) => locker_1.Locker.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseQueryLockerByProductByOwnerRequest() {
+    return { productId: long_1.default.UZERO, owner: "" };
+}
+exports.QueryLockerByProductByOwnerRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.productId.isZero()) {
+            writer.uint32(8).uint64(message.productId);
+        }
+        if (message.owner !== "") {
+            writer.uint32(18).string(message.owner);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryLockerByProductByOwnerRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.productId = reader.uint64();
+                    break;
+                case 2:
+                    message.owner = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            productId: isSet(object.productId)
+                ? long_1.default.fromValue(object.productId)
+                : long_1.default.UZERO,
+            owner: isSet(object.owner) ? String(object.owner) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.productId !== undefined &&
+            (obj.productId = (message.productId || long_1.default.UZERO).toString());
+        message.owner !== undefined && (obj.owner = message.owner);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryLockerByProductByOwnerRequest();
+        message.productId =
+            object.productId !== undefined && object.productId !== null
+                ? long_1.default.fromValue(object.productId)
+                : long_1.default.UZERO;
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseQueryLockerByProductByOwnerResponse() {
+    return { lockerInfo: [] };
+}
+exports.QueryLockerByProductByOwnerResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        for (const v of message.lockerInfo) {
+            locker_1.Locker.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryLockerByProductByOwnerResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.lockerInfo.push(locker_1.Locker.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            lockerInfo: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerInfo)
+                ? object.lockerInfo.map((e) => locker_1.Locker.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.lockerInfo) {
+            obj.lockerInfo = message.lockerInfo.map((e) => e ? locker_1.Locker.toJSON(e) : undefined);
+        }
+        else {
+            obj.lockerInfo = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryLockerByProductByOwnerResponse();
         message.lockerInfo =
             ((_a = object.lockerInfo) === null || _a === void 0 ? void 0 : _a.map((e) => locker_1.Locker.fromPartial(e))) || [];
         return message;
@@ -1762,10 +1984,14 @@ class QueryClientImpl {
             this.QueryTotalDepositByProductAssetID.bind(this);
         this.QueryOwnerLockerByProductIDbyOwner =
             this.QueryOwnerLockerByProductIDbyOwner.bind(this);
-        this.QueryOwnerLockerOfAllProductbyOwner =
-            this.QueryOwnerLockerOfAllProductbyOwner.bind(this);
+        this.QueryOwnerLockerOfAllProductByOwner =
+            this.QueryOwnerLockerOfAllProductByOwner.bind(this);
+        this.QueryOwnerTxDetailsLockerOfProductByOwner =
+            this.QueryOwnerTxDetailsLockerOfProductByOwner.bind(this);
         this.QueryOwnerLockerByProductToAssetIDbyOwner =
             this.QueryOwnerLockerByProductToAssetIDbyOwner.bind(this);
+        this.QueryLockerByProductByOwner =
+            this.QueryLockerByProductByOwner.bind(this);
         this.QueryLockerCountByProductID =
             this.QueryLockerCountByProductID.bind(this);
         this.QueryLockerCountByProductToAssetID =
@@ -1808,15 +2034,25 @@ class QueryClientImpl {
         const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryOwnerLockerByProductIDbyOwner", data);
         return promise.then((data) => exports.QueryOwnerLockerByProductIDbyOwnerResponse.decode(new minimal_1.default.Reader(data)));
     }
-    QueryOwnerLockerOfAllProductbyOwner(request) {
-        const data = exports.QueryOwnerLockerOfAllProductbyOwnerRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryOwnerLockerOfAllProductbyOwner", data);
-        return promise.then((data) => exports.QueryOwnerLockerOfAllProductbyOwnerResponse.decode(new minimal_1.default.Reader(data)));
+    QueryOwnerLockerOfAllProductByOwner(request) {
+        const data = exports.QueryOwnerLockerOfAllProductByOwnerRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryOwnerLockerOfAllProductByOwner", data);
+        return promise.then((data) => exports.QueryOwnerLockerOfAllProductByOwnerResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    QueryOwnerTxDetailsLockerOfProductByOwner(request) {
+        const data = exports.QueryOwnerTxDetailsLockerOfProductByOwnerRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryOwnerTxDetailsLockerOfProductByOwner", data);
+        return promise.then((data) => exports.QueryOwnerTxDetailsLockerOfProductByOwnerResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryOwnerLockerByProductToAssetIDbyOwner(request) {
         const data = exports.QueryOwnerLockerByProductToAssetIDbyOwnerRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryOwnerLockerByProductToAssetIDbyOwner", data);
         return promise.then((data) => exports.QueryOwnerLockerByProductToAssetIDbyOwnerResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    QueryLockerByProductByOwner(request) {
+        const data = exports.QueryLockerByProductByOwnerRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryLockerByProductByOwner", data);
+        return promise.then((data) => exports.QueryLockerByProductByOwnerResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryLockerCountByProductID(request) {
         const data = exports.QueryLockerCountByProductIDRequest.encode(request).finish();

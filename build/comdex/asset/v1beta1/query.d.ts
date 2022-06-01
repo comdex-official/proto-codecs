@@ -2249,7 +2249,7 @@ export declare const QueryPairVaultResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         pairVault?: ({
@@ -2268,7 +2268,7 @@ export declare const QueryPairVaultResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -2456,7 +2456,7 @@ export declare const QueryPairVaultResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | (Long.Long & {
+            assetOutPrice?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -2513,7 +2513,7 @@ export declare const QueryPairVaultResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pairVault"]["asssetOutPrice"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["pairVault"]["assetOutPrice"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pairVault"], keyof ExtendedPairVault>, never>) | undefined;
     } & Record<Exclude<keyof I, "pairVault">, never>>(object: I): QueryPairVaultResponse;
 };
@@ -2546,7 +2546,7 @@ export declare const QueryPairVaultsResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[] | undefined;
     } & {
         pairVault?: ({
@@ -2565,7 +2565,7 @@ export declare const QueryPairVaultsResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             appMappingId?: string | number | Long.Long | undefined;
@@ -2582,7 +2582,7 @@ export declare const QueryPairVaultsResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -2770,7 +2770,7 @@ export declare const QueryPairVaultsResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | (Long.Long & {
+            assetOutPrice?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -2827,7 +2827,7 @@ export declare const QueryPairVaultsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pairVault"][number]["asssetOutPrice"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["pairVault"][number]["assetOutPrice"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pairVault"][number], keyof ExtendedPairVault>, never>)[] & Record<Exclude<keyof I["pairVault"], keyof {
             id?: string | number | Long.Long | undefined;
             appMappingId?: string | number | Long.Long | undefined;
@@ -2844,7 +2844,7 @@ export declare const QueryPairVaultsResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "pairVault">, never>>(object: I): QueryPairVaultsResponse;
 };
@@ -2938,7 +2938,7 @@ export declare const QueryProductToExtendedPairResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[] | undefined;
     } & {
         extendedPair?: ({
@@ -2957,7 +2957,7 @@ export declare const QueryProductToExtendedPairResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             appMappingId?: string | number | Long.Long | undefined;
@@ -2974,7 +2974,7 @@ export declare const QueryProductToExtendedPairResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -3162,7 +3162,7 @@ export declare const QueryProductToExtendedPairResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | (Long.Long & {
+            assetOutPrice?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -3219,7 +3219,7 @@ export declare const QueryProductToExtendedPairResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["extendedPair"][number]["asssetOutPrice"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["extendedPair"][number]["assetOutPrice"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["extendedPair"][number], keyof ExtendedPairVault>, never>)[] & Record<Exclude<keyof I["extendedPair"], keyof {
             id?: string | number | Long.Long | undefined;
             appMappingId?: string | number | Long.Long | undefined;
@@ -3236,7 +3236,7 @@ export declare const QueryProductToExtendedPairResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "extendedPair">, never>>(object: I): QueryProductToExtendedPairResponse;
 };
@@ -3466,7 +3466,7 @@ export declare const QueryExtendedPairDataPsmPairWiseResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[] | undefined;
     } & {
         extendedPair?: ({
@@ -3485,7 +3485,7 @@ export declare const QueryExtendedPairDataPsmPairWiseResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             appMappingId?: string | number | Long.Long | undefined;
@@ -3502,7 +3502,7 @@ export declare const QueryExtendedPairDataPsmPairWiseResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -3690,7 +3690,7 @@ export declare const QueryExtendedPairDataPsmPairWiseResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | (Long.Long & {
+            assetOutPrice?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -3747,7 +3747,7 @@ export declare const QueryExtendedPairDataPsmPairWiseResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["extendedPair"][number]["asssetOutPrice"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["extendedPair"][number]["assetOutPrice"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["extendedPair"][number], keyof ExtendedPairVault>, never>)[] & Record<Exclude<keyof I["extendedPair"], keyof {
             id?: string | number | Long.Long | undefined;
             appMappingId?: string | number | Long.Long | undefined;
@@ -3764,7 +3764,7 @@ export declare const QueryExtendedPairDataPsmPairWiseResponse: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "extendedPair">, never>>(object: I): QueryExtendedPairDataPsmPairWiseResponse;
 };
