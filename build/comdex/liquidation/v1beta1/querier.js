@@ -1,27 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -29,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueryClientImpl = exports.QueryAppIdsResponse = exports.QueryAppIdsRequest = exports.QueryLockedVaultsPairResponse = exports.QueryLockedVaultsPairRequest = exports.QueryUserLockedVaultsHistoryResponse = exports.QueryUserLockedVaultsHistoryRequest = exports.QueryUserLockedVaultsResponse = exports.QueryUserLockedVaultsRequest = exports.QueryLockedVaultsHistoryResponse = exports.QueryLockedVaultsHistoryRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryLockedVaultsResponse = exports.QueryLockedVaultsRequest = exports.QueryLockedVaultResponse = exports.QueryLockedVaultRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const locked_vault_1 = require("../../../comdex/liquidation/v1beta1/locked_vault");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 const params_1 = require("../../../comdex/liquidation/v1beta1/params");
@@ -38,14 +15,14 @@ function createBaseQueryLockedVaultRequest() {
     return { id: long_1.default.UZERO };
 }
 exports.QueryLockedVaultRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryLockedVaultRequest();
         while (reader.pos < end) {
@@ -85,14 +62,14 @@ function createBaseQueryLockedVaultResponse() {
     return { lockedVault: undefined };
 }
 exports.QueryLockedVaultResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.lockedVault !== undefined) {
             locked_vault_1.LockedVault.encode(message.lockedVault, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryLockedVaultResponse();
         while (reader.pos < end) {
@@ -136,14 +113,14 @@ function createBaseQueryLockedVaultsRequest() {
     return { pagination: undefined };
 }
 exports.QueryLockedVaultsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryLockedVaultsRequest();
         while (reader.pos < end) {
@@ -187,7 +164,7 @@ function createBaseQueryLockedVaultsResponse() {
     return { lockedVaults: [], pagination: undefined };
 }
 exports.QueryLockedVaultsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.lockedVaults) {
             locked_vault_1.LockedVault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -197,7 +174,7 @@ exports.QueryLockedVaultsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryLockedVaultsResponse();
         while (reader.pos < end) {
@@ -256,11 +233,11 @@ function createBaseQueryParamsRequest() {
     return {};
 }
 exports.QueryParamsRequest = {
-    encode(_, writer = _m0.Writer.create()) {
+    encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
@@ -289,14 +266,14 @@ function createBaseQueryParamsResponse() {
     return { params: undefined };
 }
 exports.QueryParamsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
@@ -336,14 +313,14 @@ function createBaseQueryLockedVaultsHistoryRequest() {
     return { pagination: undefined };
 }
 exports.QueryLockedVaultsHistoryRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryLockedVaultsHistoryRequest();
         while (reader.pos < end) {
@@ -387,7 +364,7 @@ function createBaseQueryLockedVaultsHistoryResponse() {
     return { lockedVaultsHistory: [], pagination: undefined };
 }
 exports.QueryLockedVaultsHistoryResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.lockedVaultsHistory) {
             locked_vault_1.LockedVault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -397,7 +374,7 @@ exports.QueryLockedVaultsHistoryResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryLockedVaultsHistoryResponse();
         while (reader.pos < end) {
@@ -456,7 +433,7 @@ function createBaseQueryUserLockedVaultsRequest() {
     return { userAddress: "", pagination: undefined };
 }
 exports.QueryUserLockedVaultsRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.userAddress !== "") {
             writer.uint32(10).string(message.userAddress);
         }
@@ -466,7 +443,7 @@ exports.QueryUserLockedVaultsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryUserLockedVaultsRequest();
         while (reader.pos < end) {
@@ -518,7 +495,7 @@ function createBaseQueryUserLockedVaultsResponse() {
     return { userLockedVaults: [], pagination: undefined };
 }
 exports.QueryUserLockedVaultsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.userLockedVaults) {
             locked_vault_1.LockedVault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -528,7 +505,7 @@ exports.QueryUserLockedVaultsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryUserLockedVaultsResponse();
         while (reader.pos < end) {
@@ -587,7 +564,7 @@ function createBaseQueryUserLockedVaultsHistoryRequest() {
     return { userAddress: "", pagination: undefined };
 }
 exports.QueryUserLockedVaultsHistoryRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.userAddress !== "") {
             writer.uint32(10).string(message.userAddress);
         }
@@ -597,7 +574,7 @@ exports.QueryUserLockedVaultsHistoryRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryUserLockedVaultsHistoryRequest();
         while (reader.pos < end) {
@@ -649,7 +626,7 @@ function createBaseQueryUserLockedVaultsHistoryResponse() {
     return { userLockedVaultsHistory: [], pagination: undefined };
 }
 exports.QueryUserLockedVaultsHistoryResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.userLockedVaultsHistory) {
             locked_vault_1.LockedVault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -659,7 +636,7 @@ exports.QueryUserLockedVaultsHistoryResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryUserLockedVaultsHistoryResponse();
         while (reader.pos < end) {
@@ -719,7 +696,7 @@ function createBaseQueryLockedVaultsPairRequest() {
     return { PairId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryLockedVaultsPairRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.PairId.isZero()) {
             writer.uint32(8).uint64(message.PairId);
         }
@@ -729,7 +706,7 @@ exports.QueryLockedVaultsPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryLockedVaultsPairRequest();
         while (reader.pos < end) {
@@ -783,7 +760,7 @@ function createBaseQueryLockedVaultsPairResponse() {
     return { lockedVaultsPair: [], pagination: undefined };
 }
 exports.QueryLockedVaultsPairResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.lockedVaultsPair) {
             locked_vault_1.LockedVault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -793,7 +770,7 @@ exports.QueryLockedVaultsPairResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryLockedVaultsPairResponse();
         while (reader.pos < end) {
@@ -852,11 +829,11 @@ function createBaseQueryAppIdsRequest() {
     return {};
 }
 exports.QueryAppIdsRequest = {
-    encode(_, writer = _m0.Writer.create()) {
+    encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAppIdsRequest();
         while (reader.pos < end) {
@@ -885,14 +862,14 @@ function createBaseQueryAppIdsResponse() {
     return { WhitelistedAppIds: undefined };
 }
 exports.QueryAppIdsResponse = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.WhitelistedAppIds !== undefined) {
             locked_vault_1.WhitelistedAppIds.encode(message.WhitelistedAppIds, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAppIdsResponse();
         while (reader.pos < end) {
@@ -949,48 +926,48 @@ class QueryClientImpl {
     QueryLockedVault(request) {
         const data = exports.QueryLockedVaultRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidation.v1beta1.Query", "QueryLockedVault", data);
-        return promise.then((data) => exports.QueryLockedVaultResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryLockedVaultResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryLockedVaults(request) {
         const data = exports.QueryLockedVaultsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidation.v1beta1.Query", "QueryLockedVaults", data);
-        return promise.then((data) => exports.QueryLockedVaultsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryLockedVaultsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryParams(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidation.v1beta1.Query", "QueryParams", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryLockedVaultsHistory(request) {
         const data = exports.QueryLockedVaultsHistoryRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidation.v1beta1.Query", "QueryLockedVaultsHistory", data);
-        return promise.then((data) => exports.QueryLockedVaultsHistoryResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryLockedVaultsHistoryResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryUserLockedVaults(request) {
         const data = exports.QueryUserLockedVaultsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidation.v1beta1.Query", "QueryUserLockedVaults", data);
-        return promise.then((data) => exports.QueryUserLockedVaultsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryUserLockedVaultsResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryUserLockedVaultsHistory(request) {
         const data = exports.QueryUserLockedVaultsHistoryRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidation.v1beta1.Query", "QueryUserLockedVaultsHistory", data);
-        return promise.then((data) => exports.QueryUserLockedVaultsHistoryResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryUserLockedVaultsHistoryResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryLockedVaultsPair(request) {
         const data = exports.QueryLockedVaultsPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidation.v1beta1.Query", "QueryLockedVaultsPair", data);
-        return promise.then((data) => exports.QueryLockedVaultsPairResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryLockedVaultsPairResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryAppIds(request) {
         const data = exports.QueryAppIdsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidation.v1beta1.Query", "QueryAppIds", data);
-        return promise.then((data) => exports.QueryAppIdsResponse.decode(new _m0.Reader(data)));
+        return promise.then((data) => exports.QueryAppIdsResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

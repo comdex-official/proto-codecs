@@ -1,5 +1,5 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { LockedVault, WhitelistedAppIds } from "../../../comdex/liquidation/v1beta1/locked_vault";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "../../../comdex/liquidation/v1beta1/params";
