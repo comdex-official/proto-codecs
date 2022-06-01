@@ -49,7 +49,7 @@ export interface ExtendedPairVaultMapping {
 }
 
 export interface TvlLockedDataMap {
-  assetId: Long;
+  assetDenom: string;
   collateralLockedAmount: string;
 }
 
@@ -669,7 +669,7 @@ export const ExtendedPairVaultMapping = {
 };
 
 function createBaseTvlLockedDataMap(): TvlLockedDataMap {
-  return { assetId: Long.UZERO, collateralLockedAmount: "" };
+  return { assetDenom: "", collateralLockedAmount: "" };
 }
 
 export const TvlLockedDataMap = {
@@ -677,8 +677,8 @@ export const TvlLockedDataMap = {
     message: TvlLockedDataMap,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.assetId.isZero()) {
-      writer.uint32(8).uint64(message.assetId);
+    if (message.assetDenom !== "") {
+      writer.uint32(10).string(message.assetDenom);
     }
     if (message.collateralLockedAmount !== "") {
       writer.uint32(18).string(message.collateralLockedAmount);
@@ -694,7 +694,7 @@ export const TvlLockedDataMap = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.assetId = reader.uint64() as Long;
+          message.assetDenom = reader.string();
           break;
         case 2:
           message.collateralLockedAmount = reader.string();
@@ -709,9 +709,7 @@ export const TvlLockedDataMap = {
 
   fromJSON(object: any): TvlLockedDataMap {
     return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetDenom: isSet(object.assetDenom) ? String(object.assetDenom) : "",
       collateralLockedAmount: isSet(object.collateralLockedAmount)
         ? String(object.collateralLockedAmount)
         : "",
@@ -720,8 +718,7 @@ export const TvlLockedDataMap = {
 
   toJSON(message: TvlLockedDataMap): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.assetDenom !== undefined && (obj.assetDenom = message.assetDenom);
     message.collateralLockedAmount !== undefined &&
       (obj.collateralLockedAmount = message.collateralLockedAmount);
     return obj;
@@ -731,10 +728,7 @@ export const TvlLockedDataMap = {
     object: I
   ): TvlLockedDataMap {
     const message = createBaseTvlLockedDataMap();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.assetDenom = object.assetDenom ?? "";
     message.collateralLockedAmount = object.collateralLockedAmount ?? "";
     return message;
   },

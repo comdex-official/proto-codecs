@@ -20,7 +20,7 @@ export interface ExtendedPairVault {
   minCr: string;
   pairName: string;
   assetOutOraclePrice: boolean;
-  asssetOutPrice: Long;
+  assetOutPrice: Long;
 }
 
 function createBaseExtendedPairVault(): ExtendedPairVault {
@@ -40,7 +40,7 @@ function createBaseExtendedPairVault(): ExtendedPairVault {
     minCr: "",
     pairName: "",
     assetOutOraclePrice: false,
-    asssetOutPrice: Long.UZERO,
+    assetOutPrice: Long.UZERO,
   };
 }
 
@@ -94,8 +94,8 @@ export const ExtendedPairVault = {
     if (message.assetOutOraclePrice === true) {
       writer.uint32(120).bool(message.assetOutOraclePrice);
     }
-    if (!message.asssetOutPrice.isZero()) {
-      writer.uint32(128).uint64(message.asssetOutPrice);
+    if (!message.assetOutPrice.isZero()) {
+      writer.uint32(128).uint64(message.assetOutPrice);
     }
     return writer;
   },
@@ -153,7 +153,7 @@ export const ExtendedPairVault = {
           message.assetOutOraclePrice = reader.bool();
           break;
         case 16:
-          message.asssetOutPrice = reader.uint64() as Long;
+          message.assetOutPrice = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -192,8 +192,8 @@ export const ExtendedPairVault = {
       assetOutOraclePrice: isSet(object.assetOutOraclePrice)
         ? Boolean(object.assetOutOraclePrice)
         : false,
-      asssetOutPrice: isSet(object.asssetOutPrice)
-        ? Long.fromValue(object.asssetOutPrice)
+      assetOutPrice: isSet(object.assetOutPrice)
+        ? Long.fromValue(object.assetOutPrice)
         : Long.UZERO,
     };
   },
@@ -225,8 +225,8 @@ export const ExtendedPairVault = {
     message.pairName !== undefined && (obj.pairName = message.pairName);
     message.assetOutOraclePrice !== undefined &&
       (obj.assetOutOraclePrice = message.assetOutOraclePrice);
-    message.asssetOutPrice !== undefined &&
-      (obj.asssetOutPrice = (message.asssetOutPrice || Long.UZERO).toString());
+    message.assetOutPrice !== undefined &&
+      (obj.assetOutPrice = (message.assetOutPrice || Long.UZERO).toString());
     return obj;
   },
 
@@ -258,9 +258,9 @@ export const ExtendedPairVault = {
     message.minCr = object.minCr ?? "";
     message.pairName = object.pairName ?? "";
     message.assetOutOraclePrice = object.assetOutOraclePrice ?? false;
-    message.asssetOutPrice =
-      object.asssetOutPrice !== undefined && object.asssetOutPrice !== null
-        ? Long.fromValue(object.asssetOutPrice)
+    message.assetOutPrice =
+      object.assetOutPrice !== undefined && object.assetOutPrice !== null
+        ? Long.fromValue(object.assetOutPrice)
         : Long.UZERO;
     return message;
   },

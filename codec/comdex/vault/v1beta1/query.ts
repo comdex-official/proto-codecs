@@ -1,16 +1,16 @@
 /* eslint-disable */
 import Long from "long";
-import  _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import {
   Vault,
   StableMintVault,
   ExtendedPairVaultMapping,
   ExtendedPairToVaultMapping,
   TvlLockedDataMap,
-} from "./vault";
+} from "../../../comdex/vault/v1beta1/vault";
 import {
-  PageRequest,
   PageResponse,
+  PageRequest,
 } from "../../../cosmos/base/query/v1beta1/pagination";
 
 export const protobufPackage = "comdex.vault.v1beta1";
@@ -38,6 +38,15 @@ export interface QueryVaultInfoRequest {
 
 export interface QueryVaultInfoResponse {
   vaultsInfo?: VaultInfo;
+}
+
+export interface QueryVaultInfoByOwnerRequest {
+  owner: string;
+}
+
+export interface QueryVaultInfoByOwnerResponse {
+  vaultsInfo: VaultInfo[];
+  pagination?: PageResponse;
 }
 
 export interface QueryAllVaultsRequest {
@@ -566,6 +575,149 @@ export const QueryVaultInfoResponse = {
     message.vaultsInfo =
       object.vaultsInfo !== undefined && object.vaultsInfo !== null
         ? VaultInfo.fromPartial(object.vaultsInfo)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryVaultInfoByOwnerRequest(): QueryVaultInfoByOwnerRequest {
+  return { owner: "" };
+}
+
+export const QueryVaultInfoByOwnerRequest = {
+  encode(
+    message: QueryVaultInfoByOwnerRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.owner !== "") {
+      writer.uint32(10).string(message.owner);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryVaultInfoByOwnerRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryVaultInfoByOwnerRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.owner = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryVaultInfoByOwnerRequest {
+    return {
+      owner: isSet(object.owner) ? String(object.owner) : "",
+    };
+  },
+
+  toJSON(message: QueryVaultInfoByOwnerRequest): unknown {
+    const obj: any = {};
+    message.owner !== undefined && (obj.owner = message.owner);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryVaultInfoByOwnerRequest>, I>>(
+    object: I
+  ): QueryVaultInfoByOwnerRequest {
+    const message = createBaseQueryVaultInfoByOwnerRequest();
+    message.owner = object.owner ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryVaultInfoByOwnerResponse(): QueryVaultInfoByOwnerResponse {
+  return { vaultsInfo: [], pagination: undefined };
+}
+
+export const QueryVaultInfoByOwnerResponse = {
+  encode(
+    message: QueryVaultInfoByOwnerResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.vaultsInfo) {
+      VaultInfo.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryVaultInfoByOwnerResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryVaultInfoByOwnerResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.vaultsInfo.push(VaultInfo.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryVaultInfoByOwnerResponse {
+    return {
+      vaultsInfo: Array.isArray(object?.vaultsInfo)
+        ? object.vaultsInfo.map((e: any) => VaultInfo.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryVaultInfoByOwnerResponse): unknown {
+    const obj: any = {};
+    if (message.vaultsInfo) {
+      obj.vaultsInfo = message.vaultsInfo.map((e) =>
+        e ? VaultInfo.toJSON(e) : undefined
+      );
+    } else {
+      obj.vaultsInfo = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryVaultInfoByOwnerResponse>, I>>(
+    object: I
+  ): QueryVaultInfoByOwnerResponse {
+    const message = createBaseQueryVaultInfoByOwnerResponse();
+    message.vaultsInfo =
+      object.vaultsInfo?.map((e) => VaultInfo.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
         : undefined;
     return message;
   },
@@ -3579,6 +3731,9 @@ export interface Query {
   QueryVaultInfo(
     request: QueryVaultInfoRequest
   ): Promise<QueryVaultInfoResponse>;
+  QueryVaultInfoByOwner(
+    request: QueryVaultInfoByOwnerRequest
+  ): Promise<QueryVaultInfoByOwnerResponse>;
   QueryAllVaults(
     request: QueryAllVaultsRequest
   ): Promise<QueryAllVaultsResponse>;
@@ -3647,6 +3802,7 @@ export class QueryClientImpl implements Query {
     this.rpc = rpc;
     this.QueryVault = this.QueryVault.bind(this);
     this.QueryVaultInfo = this.QueryVaultInfo.bind(this);
+    this.QueryVaultInfoByOwner = this.QueryVaultInfoByOwner.bind(this);
     this.QueryAllVaults = this.QueryAllVaults.bind(this);
     this.QueryAllVaultsByProduct = this.QueryAllVaultsByProduct.bind(this);
     this.QueryAllVaultsByAppAndExtendedPair =
@@ -3705,6 +3861,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryVaultInfoResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryVaultInfoByOwner(
+    request: QueryVaultInfoByOwnerRequest
+  ): Promise<QueryVaultInfoByOwnerResponse> {
+    const data = QueryVaultInfoByOwnerRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.vault.v1beta1.Query",
+      "QueryVaultInfoByOwner",
+      data
+    );
+    return promise.then((data) =>
+      QueryVaultInfoByOwnerResponse.decode(new _m0.Reader(data))
     );
   }
 
