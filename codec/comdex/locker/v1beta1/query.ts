@@ -7,6 +7,10 @@ import {
   UserTxData,
   LockedDepositedAmountDataMap,
 } from "../../../comdex/locker/v1beta1/locker";
+import {
+  PageRequest,
+  PageResponse,
+} from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "../../../comdex/locker/v1beta1/params";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
@@ -67,10 +71,12 @@ export interface QueryOwnerLockerOfAllProductByOwnerResponse {
 export interface QueryOwnerTxDetailsLockerOfProductByOwnerRequest {
   productId: Long;
   owner: string;
+  pagination?: PageRequest;
 }
 
 export interface QueryOwnerTxDetailsLockerOfProductByOwnerResponse {
   userTxData: UserTxData[];
+  pagination?: PageResponse;
 }
 
 export interface QueryOwnerLockerByProductToAssetIDbyOwnerRequest {
@@ -956,7 +962,7 @@ export const QueryOwnerLockerOfAllProductByOwnerResponse = {
 };
 
 function createBaseQueryOwnerTxDetailsLockerOfProductByOwnerRequest(): QueryOwnerTxDetailsLockerOfProductByOwnerRequest {
-  return { productId: Long.UZERO, owner: "" };
+  return { productId: Long.UZERO, owner: "", pagination: undefined };
 }
 
 export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
@@ -969,6 +975,9 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
     }
     if (message.owner !== "") {
       writer.uint32(18).string(message.owner);
+    }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -990,6 +999,9 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
         case 2:
           message.owner = reader.string();
           break;
+        case 3:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1004,6 +1016,9 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
         ? Long.fromValue(object.productId)
         : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     };
   },
 
@@ -1012,6 +1027,10 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
     message.productId !== undefined &&
       (obj.productId = (message.productId || Long.UZERO).toString());
     message.owner !== undefined && (obj.owner = message.owner);
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -1028,12 +1047,16 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
         ? Long.fromValue(object.productId)
         : Long.UZERO;
     message.owner = object.owner ?? "";
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
 
 function createBaseQueryOwnerTxDetailsLockerOfProductByOwnerResponse(): QueryOwnerTxDetailsLockerOfProductByOwnerResponse {
-  return { userTxData: [] };
+  return { userTxData: [], pagination: undefined };
 }
 
 export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
@@ -1043,6 +1066,12 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
   ): _m0.Writer {
     for (const v of message.userTxData) {
       UserTxData.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -1061,6 +1090,9 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
         case 1:
           message.userTxData.push(UserTxData.decode(reader, reader.uint32()));
           break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1074,6 +1106,9 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
       userTxData: Array.isArray(object?.userTxData)
         ? object.userTxData.map((e: any) => UserTxData.fromJSON(e))
         : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     };
   },
 
@@ -1086,6 +1121,10 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
     } else {
       obj.userTxData = [];
     }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -1099,6 +1138,10 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
       createBaseQueryOwnerTxDetailsLockerOfProductByOwnerResponse();
     message.userTxData =
       object.userTxData?.map((e) => UserTxData.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
