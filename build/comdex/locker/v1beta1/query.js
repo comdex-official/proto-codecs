@@ -8,6 +8,7 @@ exports.QueryClientImpl = exports.QueryStateResponse = exports.QueryStateRequest
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const locker_1 = require("../../../comdex/locker/v1beta1/locker");
+const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 const params_1 = require("../../../comdex/locker/v1beta1/params");
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const asset_1 = require("../../../comdex/asset/v1beta1/asset");
@@ -641,7 +642,7 @@ exports.QueryOwnerLockerOfAllProductByOwnerResponse = {
     },
 };
 function createBaseQueryOwnerTxDetailsLockerOfProductByOwnerRequest() {
-    return { productId: long_1.default.UZERO, owner: "" };
+    return { productId: long_1.default.UZERO, owner: "", pagination: undefined };
 }
 exports.QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -650,6 +651,9 @@ exports.QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
         }
         if (message.owner !== "") {
             writer.uint32(18).string(message.owner);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -666,6 +670,9 @@ exports.QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
                 case 2:
                     message.owner = reader.string();
                     break;
+                case 3:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -679,6 +686,9 @@ exports.QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
                 ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -686,6 +696,10 @@ exports.QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
         message.productId !== undefined &&
             (obj.productId = (message.productId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -696,16 +710,23 @@ exports.QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
                 ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO;
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryOwnerTxDetailsLockerOfProductByOwnerResponse() {
-    return { userTxData: [] };
+    return { userTxData: [], pagination: undefined };
 }
 exports.QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.userTxData) {
             locker_1.UserTxData.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -719,6 +740,9 @@ exports.QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
                 case 1:
                     message.userTxData.push(locker_1.UserTxData.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -731,6 +755,9 @@ exports.QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
             userTxData: Array.isArray(object === null || object === void 0 ? void 0 : object.userTxData)
                 ? object.userTxData.map((e) => locker_1.UserTxData.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -741,6 +768,10 @@ exports.QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
         else {
             obj.userTxData = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -748,6 +779,10 @@ exports.QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
         const message = createBaseQueryOwnerTxDetailsLockerOfProductByOwnerResponse();
         message.userTxData =
             ((_a = object.userTxData) === null || _a === void 0 ? void 0 : _a.map((e) => locker_1.UserTxData.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
