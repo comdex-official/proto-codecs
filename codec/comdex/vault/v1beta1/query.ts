@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 import {
   Vault,
   StableMintVault,
@@ -225,12 +225,20 @@ export interface QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResp
   vaultId: string;
 }
 
-export interface QueryTVLlockedByAppRequest {
+export interface QueryTVLLockedByAppOfAllExtendedPairsRequest {
   appId: Long;
 }
 
-export interface QueryTVLlockedByAppResponse {
+export interface QueryTVLLockedByAppOfAllExtendedPairsResponse {
   tvldata: TvlLockedDataMap[];
+}
+
+export interface QueryTotalTVLByAppRequest {
+  appId: Long;
+}
+
+export interface QueryTotalTVLByAppResponse {
+  collateralLocked: Long;
 }
 
 function createBaseVaultInfo(): VaultInfo {
@@ -3597,13 +3605,13 @@ export const QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse
     },
   };
 
-function createBaseQueryTVLlockedByAppRequest(): QueryTVLlockedByAppRequest {
+function createBaseQueryTVLLockedByAppOfAllExtendedPairsRequest(): QueryTVLLockedByAppOfAllExtendedPairsRequest {
   return { appId: Long.UZERO };
 }
 
-export const QueryTVLlockedByAppRequest = {
+export const QueryTVLLockedByAppOfAllExtendedPairsRequest = {
   encode(
-    message: QueryTVLlockedByAppRequest,
+    message: QueryTVLLockedByAppOfAllExtendedPairsRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -3615,10 +3623,10 @@ export const QueryTVLlockedByAppRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryTVLlockedByAppRequest {
+  ): QueryTVLLockedByAppOfAllExtendedPairsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryTVLlockedByAppRequest();
+    const message = createBaseQueryTVLLockedByAppOfAllExtendedPairsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -3633,23 +3641,26 @@ export const QueryTVLlockedByAppRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryTVLlockedByAppRequest {
+  fromJSON(object: any): QueryTVLLockedByAppOfAllExtendedPairsRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryTVLlockedByAppRequest): unknown {
+  toJSON(message: QueryTVLLockedByAppOfAllExtendedPairsRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTVLlockedByAppRequest>, I>>(
-    object: I
-  ): QueryTVLlockedByAppRequest {
-    const message = createBaseQueryTVLlockedByAppRequest();
+  fromPartial<
+    I extends Exact<
+      DeepPartial<QueryTVLLockedByAppOfAllExtendedPairsRequest>,
+      I
+    >
+  >(object: I): QueryTVLLockedByAppOfAllExtendedPairsRequest {
+    const message = createBaseQueryTVLLockedByAppOfAllExtendedPairsRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -3658,13 +3669,13 @@ export const QueryTVLlockedByAppRequest = {
   },
 };
 
-function createBaseQueryTVLlockedByAppResponse(): QueryTVLlockedByAppResponse {
+function createBaseQueryTVLLockedByAppOfAllExtendedPairsResponse(): QueryTVLLockedByAppOfAllExtendedPairsResponse {
   return { tvldata: [] };
 }
 
-export const QueryTVLlockedByAppResponse = {
+export const QueryTVLLockedByAppOfAllExtendedPairsResponse = {
   encode(
-    message: QueryTVLlockedByAppResponse,
+    message: QueryTVLLockedByAppOfAllExtendedPairsResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.tvldata) {
@@ -3676,10 +3687,10 @@ export const QueryTVLlockedByAppResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryTVLlockedByAppResponse {
+  ): QueryTVLLockedByAppOfAllExtendedPairsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryTVLlockedByAppResponse();
+    const message = createBaseQueryTVLLockedByAppOfAllExtendedPairsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -3696,7 +3707,7 @@ export const QueryTVLlockedByAppResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryTVLlockedByAppResponse {
+  fromJSON(object: any): QueryTVLLockedByAppOfAllExtendedPairsResponse {
     return {
       tvldata: Array.isArray(object?.tvldata)
         ? object.tvldata.map((e: any) => TvlLockedDataMap.fromJSON(e))
@@ -3704,7 +3715,7 @@ export const QueryTVLlockedByAppResponse = {
     };
   },
 
-  toJSON(message: QueryTVLlockedByAppResponse): unknown {
+  toJSON(message: QueryTVLLockedByAppOfAllExtendedPairsResponse): unknown {
     const obj: any = {};
     if (message.tvldata) {
       obj.tvldata = message.tvldata.map((e) =>
@@ -3716,12 +3727,141 @@ export const QueryTVLlockedByAppResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTVLlockedByAppResponse>, I>>(
-    object: I
-  ): QueryTVLlockedByAppResponse {
-    const message = createBaseQueryTVLlockedByAppResponse();
+  fromPartial<
+    I extends Exact<
+      DeepPartial<QueryTVLLockedByAppOfAllExtendedPairsResponse>,
+      I
+    >
+  >(object: I): QueryTVLLockedByAppOfAllExtendedPairsResponse {
+    const message = createBaseQueryTVLLockedByAppOfAllExtendedPairsResponse();
     message.tvldata =
       object.tvldata?.map((e) => TvlLockedDataMap.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseQueryTotalTVLByAppRequest(): QueryTotalTVLByAppRequest {
+  return { appId: Long.UZERO };
+}
+
+export const QueryTotalTVLByAppRequest = {
+  encode(
+    message: QueryTotalTVLByAppRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryTotalTVLByAppRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryTotalTVLByAppRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryTotalTVLByAppRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryTotalTVLByAppRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryTotalTVLByAppRequest>, I>>(
+    object: I
+  ): QueryTotalTVLByAppRequest {
+    const message = createBaseQueryTotalTVLByAppRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryTotalTVLByAppResponse(): QueryTotalTVLByAppResponse {
+  return { collateralLocked: Long.UZERO };
+}
+
+export const QueryTotalTVLByAppResponse = {
+  encode(
+    message: QueryTotalTVLByAppResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.collateralLocked.isZero()) {
+      writer.uint32(8).uint64(message.collateralLocked);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryTotalTVLByAppResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryTotalTVLByAppResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.collateralLocked = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryTotalTVLByAppResponse {
+    return {
+      collateralLocked: isSet(object.collateralLocked)
+        ? Long.fromValue(object.collateralLocked)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryTotalTVLByAppResponse): unknown {
+    const obj: any = {};
+    message.collateralLocked !== undefined &&
+      (obj.collateralLocked = (
+        message.collateralLocked || Long.UZERO
+      ).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryTotalTVLByAppResponse>, I>>(
+    object: I
+  ): QueryTotalTVLByAppResponse {
+    const message = createBaseQueryTotalTVLByAppResponse();
+    message.collateralLocked =
+      object.collateralLocked !== undefined && object.collateralLocked !== null
+        ? Long.fromValue(object.collateralLocked)
+        : Long.UZERO;
     return message;
   },
 };
@@ -3791,9 +3931,12 @@ export interface Query {
   QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID(
     request: QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest
   ): Promise<QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse>;
-  QueryTVLlockedByApp(
-    request: QueryTVLlockedByAppRequest
-  ): Promise<QueryTVLlockedByAppResponse>;
+  QueryTVLLockedByAppOfAllExtendedPairs(
+    request: QueryTVLLockedByAppOfAllExtendedPairsRequest
+  ): Promise<QueryTVLLockedByAppOfAllExtendedPairsResponse>;
+  QueryTotalTVLByApp(
+    request: QueryTotalTVLByAppRequest
+  ): Promise<QueryTotalTVLByAppResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3836,7 +3979,9 @@ export class QueryClientImpl implements Query {
       this.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID.bind(
         this
       );
-    this.QueryTVLlockedByApp = this.QueryTVLlockedByApp.bind(this);
+    this.QueryTVLLockedByAppOfAllExtendedPairs =
+      this.QueryTVLLockedByAppOfAllExtendedPairs.bind(this);
+    this.QueryTotalTVLByApp = this.QueryTotalTVLByApp.bind(this);
   }
   QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse> {
     const data = QueryVaultRequest.encode(request).finish();
@@ -4170,17 +4315,32 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryTVLlockedByApp(
-    request: QueryTVLlockedByAppRequest
-  ): Promise<QueryTVLlockedByAppResponse> {
-    const data = QueryTVLlockedByAppRequest.encode(request).finish();
+  QueryTVLLockedByAppOfAllExtendedPairs(
+    request: QueryTVLLockedByAppOfAllExtendedPairsRequest
+  ): Promise<QueryTVLLockedByAppOfAllExtendedPairsResponse> {
+    const data =
+      QueryTVLLockedByAppOfAllExtendedPairsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.vault.v1beta1.Query",
-      "QueryTVLlockedByApp",
+      "QueryTVLLockedByAppOfAllExtendedPairs",
       data
     );
     return promise.then((data) =>
-      QueryTVLlockedByAppResponse.decode(new _m0.Reader(data))
+      QueryTVLLockedByAppOfAllExtendedPairsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryTotalTVLByApp(
+    request: QueryTotalTVLByAppRequest
+  ): Promise<QueryTotalTVLByAppResponse> {
+    const data = QueryTotalTVLByAppRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.vault.v1beta1.Query",
+      "QueryTotalTVLByApp",
+      data
+    );
+    return promise.then((data) =>
+      QueryTotalTVLByAppResponse.decode(new _m0.Reader(data))
     );
   }
 }
