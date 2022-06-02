@@ -3,7 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryTVLlockedByAppResponse = exports.QueryTVLlockedByAppRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = exports.QueryExtendedPairVaultMappingByAppResponse = exports.QueryExtendedPairVaultMappingByAppRequest = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = exports.QueryStableVaultByProductExtendedPairResponse = exports.QueryStableVaultByProductExtendedPairRequest = exports.QueryAllStableVaultsResponse = exports.QueryAllStableVaultsRequest = exports.QueryStableVaultInfoResponse = exports.QueryStableVaultInfoRequest = exports.QueryExtendedPairIDByProductResponse = exports.QueryExtendedPairIDByProductRequest = exports.QueryTotalValueLockedByProductExtendedPairResponse = exports.QueryTotalValueLockedByProductExtendedPairRequest = exports.QueryVaultCountByProductAndPairResponse = exports.QueryVaultCountByProductAndPairRequest = exports.QueryVaultCountByProductResponse = exports.QueryVaultCountByProductRequest = exports.QueryTokenMintedAllProductsResponse = exports.QueryTokenMintedAllProductsRequest = exports.QueryTokenMintedAllProductsByPairResponse = exports.QueryTokenMintedAllProductsByPairRequest = exports.QueryAllVaultByOwnerResponse = exports.QueryAllVaultByOwnerRequest = exports.QueryVaultByProductResponse = exports.QueryVaultByProductRequest = exports.QueryVaultOfOwnerByExtendedPairResponse = exports.QueryVaultOfOwnerByExtendedPairRequest = exports.QueryAllVaultsByAppAndExtendedPairResponse = exports.QueryAllVaultsByAppAndExtendedPairRequest = exports.QueryAllVaultsByProductResponse = exports.QueryAllVaultsByProductRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultInfoByOwnerResponse = exports.QueryVaultInfoByOwnerRequest = exports.QueryVaultInfoResponse = exports.QueryVaultInfoRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
+exports.QueryTotalTVLByAppResponse = exports.QueryTotalTVLByAppRequest = exports.QueryTVLLockedByAppOfAllExtendedPairsResponse = exports.QueryTVLLockedByAppOfAllExtendedPairsRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = exports.QueryExtendedPairVaultMappingByAppResponse = exports.QueryExtendedPairVaultMappingByAppRequest = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = exports.QueryStableVaultByProductExtendedPairResponse = exports.QueryStableVaultByProductExtendedPairRequest = exports.QueryAllStableVaultsResponse = exports.QueryAllStableVaultsRequest = exports.QueryStableVaultInfoResponse = exports.QueryStableVaultInfoRequest = exports.QueryExtendedPairIDByProductResponse = exports.QueryExtendedPairIDByProductRequest = exports.QueryTotalValueLockedByProductExtendedPairResponse = exports.QueryTotalValueLockedByProductExtendedPairRequest = exports.QueryVaultCountByProductAndPairResponse = exports.QueryVaultCountByProductAndPairRequest = exports.QueryVaultCountByProductResponse = exports.QueryVaultCountByProductRequest = exports.QueryTokenMintedAllProductsResponse = exports.QueryTokenMintedAllProductsRequest = exports.QueryTokenMintedAllProductsByPairResponse = exports.QueryTokenMintedAllProductsByPairRequest = exports.QueryAllVaultByOwnerResponse = exports.QueryAllVaultByOwnerRequest = exports.QueryVaultByProductResponse = exports.QueryVaultByProductRequest = exports.QueryVaultOfOwnerByExtendedPairResponse = exports.QueryVaultOfOwnerByExtendedPairRequest = exports.QueryAllVaultsByAppAndExtendedPairResponse = exports.QueryAllVaultsByAppAndExtendedPairRequest = exports.QueryAllVaultsByProductResponse = exports.QueryAllVaultsByProductRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultInfoByOwnerResponse = exports.QueryVaultInfoByOwnerRequest = exports.QueryVaultInfoResponse = exports.QueryVaultInfoRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
+exports.QueryClientImpl = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -2662,10 +2663,10 @@ exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = {
         return message;
     },
 };
-function createBaseQueryTVLlockedByAppRequest() {
+function createBaseQueryTVLLockedByAppOfAllExtendedPairsRequest() {
     return { appId: long_1.default.UZERO };
 }
-exports.QueryTVLlockedByAppRequest = {
+exports.QueryTVLLockedByAppOfAllExtendedPairsRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
@@ -2675,7 +2676,7 @@ exports.QueryTVLlockedByAppRequest = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTVLlockedByAppRequest();
+        const message = createBaseQueryTVLLockedByAppOfAllExtendedPairsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2701,7 +2702,7 @@ exports.QueryTVLlockedByAppRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryTVLlockedByAppRequest();
+        const message = createBaseQueryTVLLockedByAppOfAllExtendedPairsRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -2709,10 +2710,10 @@ exports.QueryTVLlockedByAppRequest = {
         return message;
     },
 };
-function createBaseQueryTVLlockedByAppResponse() {
+function createBaseQueryTVLLockedByAppOfAllExtendedPairsResponse() {
     return { tvldata: [] };
 }
-exports.QueryTVLlockedByAppResponse = {
+exports.QueryTVLLockedByAppOfAllExtendedPairsResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.tvldata) {
             vault_1.TvlLockedDataMap.encode(v, writer.uint32(10).fork()).ldelim();
@@ -2722,7 +2723,7 @@ exports.QueryTVLlockedByAppResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTVLlockedByAppResponse();
+        const message = createBaseQueryTVLLockedByAppOfAllExtendedPairsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2755,9 +2756,105 @@ exports.QueryTVLlockedByAppResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryTVLlockedByAppResponse();
+        const message = createBaseQueryTVLLockedByAppOfAllExtendedPairsResponse();
         message.tvldata =
             ((_a = object.tvldata) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.TvlLockedDataMap.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseQueryTotalTVLByAppRequest() {
+    return { appId: long_1.default.UZERO };
+}
+exports.QueryTotalTVLByAppRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryTotalTVLByAppRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryTotalTVLByAppRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryTotalTVLByAppResponse() {
+    return { collateralLocked: long_1.default.UZERO };
+}
+exports.QueryTotalTVLByAppResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.collateralLocked.isZero()) {
+            writer.uint32(8).uint64(message.collateralLocked);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryTotalTVLByAppResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.collateralLocked = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            collateralLocked: isSet(object.collateralLocked)
+                ? long_1.default.fromValue(object.collateralLocked)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.collateralLocked !== undefined &&
+            (obj.collateralLocked = (message.collateralLocked || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryTotalTVLByAppResponse();
+        message.collateralLocked =
+            object.collateralLocked !== undefined && object.collateralLocked !== null
+                ? long_1.default.fromValue(object.collateralLocked)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -2798,7 +2895,9 @@ class QueryClientImpl {
             this.QueryExtendedPairVaultMappingByOwnerAndApp.bind(this);
         this.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID =
             this.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID.bind(this);
-        this.QueryTVLlockedByApp = this.QueryTVLlockedByApp.bind(this);
+        this.QueryTVLLockedByAppOfAllExtendedPairs =
+            this.QueryTVLLockedByAppOfAllExtendedPairs.bind(this);
+        this.QueryTotalTVLByApp = this.QueryTotalTVLByApp.bind(this);
     }
     QueryVault(request) {
         const data = exports.QueryVaultRequest.encode(request).finish();
@@ -2910,10 +3009,15 @@ class QueryClientImpl {
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID", data);
         return promise.then((data) => exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse.decode(new minimal_1.default.Reader(data)));
     }
-    QueryTVLlockedByApp(request) {
-        const data = exports.QueryTVLlockedByAppRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTVLlockedByApp", data);
-        return promise.then((data) => exports.QueryTVLlockedByAppResponse.decode(new minimal_1.default.Reader(data)));
+    QueryTVLLockedByAppOfAllExtendedPairs(request) {
+        const data = exports.QueryTVLLockedByAppOfAllExtendedPairsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTVLLockedByAppOfAllExtendedPairs", data);
+        return promise.then((data) => exports.QueryTVLLockedByAppOfAllExtendedPairsResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    QueryTotalTVLByApp(request) {
+        const data = exports.QueryTotalTVLByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTotalTVLByApp", data);
+        return promise.then((data) => exports.QueryTotalTVLByAppResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
