@@ -195,7 +195,7 @@ function createBaseDebtBiddings() {
         biddingId: long_1.default.UZERO,
         auctionId: long_1.default.UZERO,
         auctionStatus: "",
-        OutflowTokens: undefined,
+        outflowTokens: undefined,
         bidder: "",
         bid: undefined,
         biddingTimestamp: undefined,
@@ -215,8 +215,8 @@ exports.DebtBiddings = {
         if (message.auctionStatus !== "") {
             writer.uint32(26).string(message.auctionStatus);
         }
-        if (message.OutflowTokens !== undefined) {
-            coin_1.Coin.encode(message.OutflowTokens, writer.uint32(34).fork()).ldelim();
+        if (message.outflowTokens !== undefined) {
+            coin_1.Coin.encode(message.outflowTokens, writer.uint32(34).fork()).ldelim();
         }
         if (message.bidder !== "") {
             writer.uint32(42).string(message.bidder);
@@ -255,7 +255,7 @@ exports.DebtBiddings = {
                     message.auctionStatus = reader.string();
                     break;
                 case 4:
-                    message.OutflowTokens = coin_1.Coin.decode(reader, reader.uint32());
+                    message.outflowTokens = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 case 5:
                     message.bidder = reader.string();
@@ -293,8 +293,8 @@ exports.DebtBiddings = {
             auctionStatus: isSet(object.auctionStatus)
                 ? String(object.auctionStatus)
                 : "",
-            OutflowTokens: isSet(object.OutflowTokens)
-                ? coin_1.Coin.fromJSON(object.OutflowTokens)
+            outflowTokens: isSet(object.outflowTokens)
+                ? coin_1.Coin.fromJSON(object.outflowTokens)
                 : undefined,
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             bid: isSet(object.bid) ? coin_1.Coin.fromJSON(object.bid) : undefined,
@@ -318,9 +318,9 @@ exports.DebtBiddings = {
             (obj.auctionId = (message.auctionId || long_1.default.UZERO).toString());
         message.auctionStatus !== undefined &&
             (obj.auctionStatus = message.auctionStatus);
-        message.OutflowTokens !== undefined &&
-            (obj.OutflowTokens = message.OutflowTokens
-                ? coin_1.Coin.toJSON(message.OutflowTokens)
+        message.outflowTokens !== undefined &&
+            (obj.outflowTokens = message.outflowTokens
+                ? coin_1.Coin.toJSON(message.outflowTokens)
                 : undefined);
         message.bidder !== undefined && (obj.bidder = message.bidder);
         message.bid !== undefined &&
@@ -347,9 +347,9 @@ exports.DebtBiddings = {
                 ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO;
         message.auctionStatus = (_a = object.auctionStatus) !== null && _a !== void 0 ? _a : "";
-        message.OutflowTokens =
-            object.OutflowTokens !== undefined && object.OutflowTokens !== null
-                ? coin_1.Coin.fromPartial(object.OutflowTokens)
+        message.outflowTokens =
+            object.outflowTokens !== undefined && object.outflowTokens !== null
+                ? coin_1.Coin.fromPartial(object.outflowTokens)
                 : undefined;
         message.bidder = (_b = object.bidder) !== null && _b !== void 0 ? _b : "";
         message.bid =

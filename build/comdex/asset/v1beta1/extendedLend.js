@@ -116,10 +116,8 @@ exports.ExtendedPairLend = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             moduleAcc: isSet(object.moduleAcc) ? String(object.moduleAcc) : "",
             baseBorrowRateAsset1: isSet(object.baseBorrowRateAsset1)
                 ? String(object.baseBorrowRateAsset1)
@@ -146,7 +144,7 @@ exports.ExtendedPairLend = {
                 ? String(object.currentLendRateAsset2)
                 : "",
             productMappingId: isSet(object.productMappingId)
-                ? long_1.default.fromString(object.productMappingId)
+                ? long_1.default.fromValue(object.productMappingId)
                 : long_1.default.UZERO,
         };
     },

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.liquidation.v1beta1";
@@ -192,9 +192,9 @@ export const LockedVault = {
 
   fromJSON(object: any): LockedVault {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       appVaultTypeId: isSet(object.appVaultTypeId)
         ? String(object.appVaultTypeId)
@@ -203,7 +203,7 @@ export const LockedVault = {
         ? String(object.originalVaultId)
         : "",
       extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromString(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
       amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
@@ -358,7 +358,7 @@ export const LockedVaultToAppMapping = {
   fromJSON(object: any): LockedVaultToAppMapping {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       lockedVault: Array.isArray(object?.lockedVault)
         ? object.lockedVault.map((e: any) => LockedVault.fromJSON(e))
@@ -439,7 +439,7 @@ export const WhitelistedAppIds = {
   fromJSON(object: any): WhitelistedAppIds {
     return {
       whitelistedAppMappingIds: Array.isArray(object?.whitelistedAppMappingIds)
-        ? object.whitelistedAppMappingIds.map((e: any) => Long.fromString(e))
+        ? object.whitelistedAppMappingIds.map((e: any) => Long.fromValue(e))
         : [],
     };
   },

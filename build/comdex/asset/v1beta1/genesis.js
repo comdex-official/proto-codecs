@@ -7,9 +7,9 @@ exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const params_1 = require("./params");
-const asset_1 = require("./asset");
-const pair_1 = require("./pair");
+const params_1 = require("../../../comdex/asset/v1beta1/params");
+const asset_1 = require("../../../comdex/asset/v1beta1/asset");
+const pair_1 = require("../../../comdex/asset/v1beta1/pair");
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseGenesisState() {
     return { assets: [], pairs: [], params: undefined };

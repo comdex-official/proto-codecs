@@ -74,9 +74,9 @@ exports.ExtendedAsset = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             collateralWeight: isSet(object.collateralWeight)
                 ? String(object.collateralWeight)

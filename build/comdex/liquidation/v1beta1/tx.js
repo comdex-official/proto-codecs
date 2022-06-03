@@ -44,7 +44,7 @@ exports.WhitelistAppId = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             from: isSet(object.from) ? String(object.from) : "",
         };
@@ -103,7 +103,7 @@ exports.RemoveWhitelistAppId = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             from: isSet(object.from) ? String(object.from) : "",
         };

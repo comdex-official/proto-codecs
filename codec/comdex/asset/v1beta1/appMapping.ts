@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -94,7 +94,7 @@ export const AppMapping = {
 
   fromJSON(object: any): AppMapping {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       name: isSet(object.name) ? String(object.name) : "",
       shortName: isSet(object.shortName) ? String(object.shortName) : "",
       minGovDeposit: isSet(object.minGovDeposit)
@@ -207,7 +207,7 @@ export const MintGenesisToken = {
   fromJSON(object: any): MintGenesisToken {
     return {
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       genesisSupply: isSet(object.genesisSupply)
         ? String(object.genesisSupply)

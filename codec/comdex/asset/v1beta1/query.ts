@@ -1,14 +1,14 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 import {
   PageRequest,
   PageResponse,
 } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Asset } from "./asset";
-import { Params } from "./params";
-import { AppMapping } from "./appMapping";
-import { ExtendedPairVault } from "./extendedPairVault";
+import { Asset } from "../../../comdex/asset/v1beta1/asset";
+import { Params } from "../../../comdex/asset/v1beta1/params";
+import { AppMapping } from "../../../comdex/asset/v1beta1/appMapping";
+import { ExtendedPairVault } from "../../../comdex/asset/v1beta1/extendedPairVault";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -297,7 +297,7 @@ export const QueryAssetRequest = {
 
   fromJSON(object: any): QueryAssetRequest {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
 
@@ -443,13 +443,13 @@ export const PairInfo = {
 
   fromJSON(object: any): PairInfo {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       assetIn: isSet(object.assetIn)
-        ? Long.fromString(object.assetIn)
+        ? Long.fromValue(object.assetIn)
         : Long.UZERO,
       denomIn: isSet(object.denomIn) ? String(object.denomIn) : "",
       assetOut: isSet(object.assetOut)
-        ? Long.fromString(object.assetOut)
+        ? Long.fromValue(object.assetOut)
         : Long.UZERO,
       denomOut: isSet(object.denomOut) ? String(object.denomOut) : "",
     };
@@ -668,7 +668,7 @@ export const QueryPairRequest = {
 
   fromJSON(object: any): QueryPairRequest {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
 
@@ -890,7 +890,7 @@ export const QueryAppRequest = {
 
   fromJSON(object: any): QueryAppRequest {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
 
@@ -1009,7 +1009,7 @@ export const QueryTokenGovRequest = {
 
   fromJSON(object: any): QueryTokenGovRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1071,7 +1071,7 @@ export const QueryTokenGovResponse = {
   fromJSON(object: any): QueryTokenGovResponse {
     return {
       govAssetId: isSet(object.govAssetId)
-        ? Long.fromString(object.govAssetId)
+        ? Long.fromValue(object.govAssetId)
         : Long.UZERO,
     };
   },
@@ -1239,7 +1239,7 @@ export const QueryPairVaultRequest = {
 
   fromJSON(object: any): QueryPairVaultRequest {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
 
@@ -1484,7 +1484,7 @@ export const QueryProductToExtendedPairRequest = {
   fromJSON(object: any): QueryProductToExtendedPairRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
     };
   },
@@ -1615,7 +1615,7 @@ export const QueryExtendedPairPsmPairWiseRequest = {
   fromJSON(object: any): QueryExtendedPairPsmPairWiseRequest {
     return {
       productId: isSet(object.productId)
-        ? Long.fromString(object.productId)
+        ? Long.fromValue(object.productId)
         : Long.UZERO,
     };
   },
@@ -1687,7 +1687,7 @@ export const QueryExtendedPairPsmPairWiseResponse = {
   fromJSON(object: any): QueryExtendedPairPsmPairWiseResponse {
     return {
       extendedPairsId: Array.isArray(object?.extendedPairsId)
-        ? object.extendedPairsId.map((e: any) => Long.fromString(e))
+        ? object.extendedPairsId.map((e: any) => Long.fromValue(e))
         : [],
     };
   },
@@ -1752,7 +1752,7 @@ export const QueryExtendedPairDataPsmPairWiseRequest = {
 
   fromJSON(object: any): QueryExtendedPairDataPsmPairWiseRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 

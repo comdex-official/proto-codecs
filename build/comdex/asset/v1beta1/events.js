@@ -37,7 +37,7 @@ exports.EventAddPair = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {

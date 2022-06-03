@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 import {
   LockedVault,
   WhitelistedAppIds,
@@ -9,7 +9,7 @@ import {
   PageRequest,
   PageResponse,
 } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Params } from "./params";
+import { Params } from "../../../comdex/liquidation/v1beta1/params";
 
 export const protobufPackage = "comdex.liquidation.v1beta1";
 
@@ -119,7 +119,7 @@ export const QueryLockedVaultRequest = {
 
   fromJSON(object: any): QueryLockedVaultRequest {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
 
@@ -991,9 +991,7 @@ export const QueryLockedVaultsPairRequest = {
 
   fromJSON(object: any): QueryLockedVaultsPairRequest {
     return {
-      PairId: isSet(object.PairId)
-        ? Long.fromString(object.PairId)
-        : Long.UZERO,
+      PairId: isSet(object.PairId) ? Long.fromValue(object.PairId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,

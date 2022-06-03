@@ -1,127 +1,236 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { OrderDirection } from "./liquidity";
+import { Duration } from "../../../google/protobuf/duration";
 export declare const protobufPackage = "comdex.liquidity.v1beta1";
-/**
- * MsgCreatePool defines an sdk.Msg type that supports submitting a create liquidity pool tx.
- *
- * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
- */
+/** MsgCreatePair defines an SDK message for creating a pair. */
+export interface MsgCreatePair {
+    /** creator specifies the bech32-encoded address that is the pair creator. */
+    creator: string;
+    /** base_coin_denom specifies the base coin denom of the pair. */
+    baseCoinDenom: string;
+    /** quote_coin_denom specifies the quote coin denom of the pair. */
+    quoteCoinDenom: string;
+}
+export interface MsgCreatePairResponse {
+}
+/** MsgCreatePool defines an SDK message for creating a pool. */
 export interface MsgCreatePool {
-    poolCreatorAddress: string;
-    /** id of the target pool type, must match the value in the pool. Only pool-type-id 1 is supported. */
-    poolTypeId: number;
-    /** reserve coin pair of the pool to deposit. */
+    /** creator specifies the bech32-encoded address that is the pool creator */
+    creator: string;
+    /** pair_id specifies the pair id. */
+    pairId: Long;
+    /** deposit_coins specifies the amount of coins to deposit. */
     depositCoins: Coin[];
 }
 /** MsgCreatePoolResponse defines the Msg/CreatePool response type. */
 export interface MsgCreatePoolResponse {
 }
-/**
- * `MsgDepositWithinBatch defines` an `sdk.Msg` type that supports submitting
- * a deposit request to the batch of the liquidity pool.
- * Deposit is submitted to the batch of the Liquidity pool with the specified
- * `pool_id`, `deposit_coins` for reserve.
- * This request is stacked in the batch of the liquidity pool, is not processed
- * immediately, and is processed in the `endblock` at the same time as other requests.
- *
- * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
- */
-export interface MsgDepositWithinBatch {
-    depositorAddress: string;
-    /** id of the target pool */
+/** MsgDeposit defines an SDK message for depositing coins to the pool */
+export interface MsgDeposit {
+    /** depositor specifies the bech32-encoded address that makes a deposit to the pool */
+    depositor: string;
+    /** pool_id specifies the pool id */
     poolId: Long;
+    /** deposit_coins specifies the amount of coins to deposit. */
     depositCoins: Coin[];
 }
-/** MsgDepositWithinBatchResponse defines the Msg/DepositWithinBatch response type. */
-export interface MsgDepositWithinBatchResponse {
+/** MsgDepositResponse defines the Msg/Deposit response type. */
+export interface MsgDepositResponse {
 }
-/**
- * `MsgWithdrawWithinBatch` defines an `sdk.Msg` type that supports submitting
- * a withdraw request to the batch of the liquidity pool.
- * Withdraw is submitted to the batch from the Liquidity pool with the
- * specified `pool_id`, `pool_coin` of the pool.
- * This request is stacked in the batch of the liquidity pool, is not processed
- * immediately, and is processed in the `endblock` at the same time as other requests.
- *
- * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
- */
-export interface MsgWithdrawWithinBatch {
-    withdrawerAddress: string;
-    /** id of the target pool */
+/** MsgWithdraw defines an SDK message for withdrawing pool coin from the pool */
+export interface MsgWithdraw {
+    /** withdrawer specifies the bech32-encoded address that withdraws pool coin from the pool */
+    withdrawer: string;
+    /** pool_id specifies the pool id */
     poolId: Long;
+    /** pool_coin specifies the pool coin that is a proof of liquidity provider for the pool */
     poolCoin?: Coin;
 }
-/** MsgWithdrawWithinBatchResponse defines the Msg/WithdrawWithinBatch response type. */
-export interface MsgWithdrawWithinBatchResponse {
+/** MsgWithdrawResponse defines the Msg/Withdraw response type. */
+export interface MsgWithdrawResponse {
 }
-/**
- * `MsgSwapWithinBatch` defines an sdk.Msg type that supports submitting a swap offer request to the batch of the liquidity pool.
- * Submit swap offer to the liquidity pool batch with the specified the `pool_id`, `swap_type_id`,
- * `demand_coin_denom` with the coin and the price you're offering
- * and `offer_coin_fee` must be half of offer coin amount * current `params.swap_fee_rate` and ceil for reservation to pay fees.
- * This request is stacked in the batch of the liquidity pool, is not processed
- * immediately, and is processed in the `endblock` at the same time as other requests.
- * You must request the same fields as the pool.
- * Only the default `swap_type_id` 1 is supported.
- *
- * See: https://github.com/gravity-devs/liquidity/tree/develop/doc
- * https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
- */
-export interface MsgSwapWithinBatch {
-    /** address of swap requester */
-    swapRequesterAddress: string;
-    /** id of swap type, must match the value in the pool. Only `swap_type_id` 1 is supported. */
-    poolId: Long;
-    /** id of swap type. Must match the value in the pool. */
-    swapTypeId: number;
-    /** offer sdk.coin for the swap request, must match the denom in the pool. */
+/** MsgLimitOrder defines an SDK message for making a limit order */
+export interface MsgLimitOrder {
+    /** orderer specifies the bech32-encoded address that makes an order */
+    orderer: string;
+    /** pair_id specifies the pair id */
+    pairId: Long;
+    /** direction specifies the order direction(buy or sell) */
+    direction: OrderDirection;
+    /** offer_coin specifies the amount of coin the orderer offers */
     offerCoin?: Coin;
-    /** denom of demand coin to be exchanged on the swap request, must match the denom in the pool. */
+    /** demand_coin_denom specifies the demand coin denom */
     demandCoinDenom: string;
-    /** half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees. */
-    offerCoinFee?: Coin;
-    /**
-     * limit order price for the order, the price is the exchange ratio of X/Y
-     * where X is the amount of the first coin and Y is the amount
-     * of the second coin when their denoms are sorted alphabetically.
-     */
-    orderPrice: string;
+    /** price specifies the order price */
+    price: string;
+    /** amount specifies the amount of base coin the orderer wants to buy or sell */
+    amount: string;
+    /** order_lifespan specifies the order lifespan */
+    orderLifespan?: Duration;
 }
-/** MsgSwapWithinBatchResponse defines the Msg/Swap response type. */
-export interface MsgSwapWithinBatchResponse {
+/** MsgLimitOrderResponse defines the Msg/LimitOrder response type. */
+export interface MsgLimitOrderResponse {
 }
-export interface MsgBondPoolTokens {
-    userAddress: string;
-    /** id of the target pool */
+/** MsgMarketOrder defines an SDK message for making a market order */
+export interface MsgMarketOrder {
+    /** orderer specifies the bech32-encoded address that makes an order */
+    orderer: string;
+    /** pair_id specifies the pair id */
+    pairId: Long;
+    /** direction specifies the order direction(buy or sell) */
+    direction: OrderDirection;
+    /** offer_coin specifies the amount of coin the orderer offers */
+    offerCoin?: Coin;
+    /** demand_coin_denom specifies the demand coin denom */
+    demandCoinDenom: string;
+    /** amount specifies the amount of base coin the orderer wants to buy or sell */
+    amount: string;
+    /** order_lifespan specifies the order lifespan */
+    orderLifespan?: Duration;
+}
+/** MsgMarketOrderResponse defines the Msg/MarketOrder response type. */
+export interface MsgMarketOrderResponse {
+}
+/** MsgCancelOrder defines an SDK message for cancelling an order */
+export interface MsgCancelOrder {
+    /** orderer specifies the bech32-encoded address that makes an order */
+    orderer: string;
+    /** pair_id specifies the pair id */
+    pairId: Long;
+    /** order_id specifies the order id */
+    orderId: Long;
+}
+/** MsgCancelOrderResponse defines the Msg/CancelOrder response type. */
+export interface MsgCancelOrderResponse {
+}
+/** MsgCancelAllOrders defines an SDK message for cancelling all orders */
+export interface MsgCancelAllOrders {
+    /** orderer specifies the bech32-encoded address that makes an order */
+    orderer: string;
+    /** pair_ids specifies pair ids to cancel orders */
+    pairIds: Long[];
+}
+/** MsgCancelAllOrdersResponse defines the Msg/CancelAllOrders response type. */
+export interface MsgCancelAllOrdersResponse {
+}
+/** MsgTokensSoftLock defines a SDK message for soft locking coins (i.e without bonding) for incentivisation. */
+export interface MsgTokensSoftLock {
+    /** depositor defines the bech32-encoded address of the farmer */
+    depositor: string;
     poolId: Long;
-    poolCoin?: Coin;
+    /** soft_lock_coin specifies coins to stake */
+    softLockCoin?: Coin;
 }
-export interface MsgUnbondPoolTokens {
-    userAddress: string;
-    /** id of the target pool */
+/** MsgTokensSoftLockResponse  defines the Msg/MsgTokensSoftLockResponse response type. */
+export interface MsgTokensSoftLockResponse {
+}
+/** MsgTokensSoftUnlock defines a SDK message for performing unlocking of the soft locked coins */
+export interface MsgTokensSoftUnlock {
+    /** depositor defines the bech32-encoded address of the farmer */
+    depositor: string;
     poolId: Long;
-    poolCoin?: Coin;
+    /** soft_unlock_coin specifies coins to stake */
+    softUnlockCoin?: Coin;
 }
-export interface MsgBondPoolTokensResponse {
+/** MsgTokensSoftUnlockResponse defines the Msg/MsgTokensSoftUnlockResponse response type. */
+export interface MsgTokensSoftUnlockResponse {
 }
-export interface MsgUnbondPoolTokensResponse {
-}
+export declare const MsgCreatePair: {
+    encode(message: MsgCreatePair, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreatePair;
+    fromJSON(object: any): MsgCreatePair;
+    toJSON(message: MsgCreatePair): unknown;
+    fromPartial<I extends {
+        creator?: string | undefined;
+        baseCoinDenom?: string | undefined;
+        quoteCoinDenom?: string | undefined;
+    } & {
+        creator?: string | undefined;
+        baseCoinDenom?: string | undefined;
+        quoteCoinDenom?: string | undefined;
+    } & Record<Exclude<keyof I, keyof MsgCreatePair>, never>>(object: I): MsgCreatePair;
+};
+export declare const MsgCreatePairResponse: {
+    encode(_: MsgCreatePairResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreatePairResponse;
+    fromJSON(_: any): MsgCreatePairResponse;
+    toJSON(_: MsgCreatePairResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCreatePairResponse;
+};
 export declare const MsgCreatePool: {
     encode(message: MsgCreatePool, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreatePool;
     fromJSON(object: any): MsgCreatePool;
     toJSON(message: MsgCreatePool): unknown;
     fromPartial<I extends {
-        poolCreatorAddress?: string | undefined;
-        poolTypeId?: number | undefined;
+        creator?: string | undefined;
+        pairId?: string | number | Long.Long | undefined;
         depositCoins?: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[] | undefined;
     } & {
-        poolCreatorAddress?: string | undefined;
-        poolTypeId?: number | undefined;
+        creator?: string | undefined;
+        pairId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
         depositCoins?: ({
             denom?: string | undefined;
             amount?: string | undefined;
@@ -144,20 +253,20 @@ export declare const MsgCreatePoolResponse: {
     toJSON(_: MsgCreatePoolResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCreatePoolResponse;
 };
-export declare const MsgDepositWithinBatch: {
-    encode(message: MsgDepositWithinBatch, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositWithinBatch;
-    fromJSON(object: any): MsgDepositWithinBatch;
-    toJSON(message: MsgDepositWithinBatch): unknown;
+export declare const MsgDeposit: {
+    encode(message: MsgDeposit, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDeposit;
+    fromJSON(object: any): MsgDeposit;
+    toJSON(message: MsgDeposit): unknown;
     fromPartial<I extends {
-        depositorAddress?: string | undefined;
+        depositor?: string | undefined;
         poolId?: string | number | Long.Long | undefined;
         depositCoins?: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[] | undefined;
     } & {
-        depositorAddress?: string | undefined;
+        depositor?: string | undefined;
         poolId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -229,29 +338,29 @@ export declare const MsgDepositWithinBatch: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof MsgDepositWithinBatch>, never>>(object: I): MsgDepositWithinBatch;
+    } & Record<Exclude<keyof I, keyof MsgDeposit>, never>>(object: I): MsgDeposit;
 };
-export declare const MsgDepositWithinBatchResponse: {
-    encode(_: MsgDepositWithinBatchResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositWithinBatchResponse;
-    fromJSON(_: any): MsgDepositWithinBatchResponse;
-    toJSON(_: MsgDepositWithinBatchResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgDepositWithinBatchResponse;
+export declare const MsgDepositResponse: {
+    encode(_: MsgDepositResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositResponse;
+    fromJSON(_: any): MsgDepositResponse;
+    toJSON(_: MsgDepositResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgDepositResponse;
 };
-export declare const MsgWithdrawWithinBatch: {
-    encode(message: MsgWithdrawWithinBatch, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawWithinBatch;
-    fromJSON(object: any): MsgWithdrawWithinBatch;
-    toJSON(message: MsgWithdrawWithinBatch): unknown;
+export declare const MsgWithdraw: {
+    encode(message: MsgWithdraw, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdraw;
+    fromJSON(object: any): MsgWithdraw;
+    toJSON(message: MsgWithdraw): unknown;
     fromPartial<I extends {
-        withdrawerAddress?: string | undefined;
+        withdrawer?: string | undefined;
         poolId?: string | number | Long.Long | undefined;
         poolCoin?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
     } & {
-        withdrawerAddress?: string | undefined;
+        withdrawer?: string | undefined;
         poolId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -317,37 +426,38 @@ export declare const MsgWithdrawWithinBatch: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & Record<Exclude<keyof I["poolCoin"], keyof Coin>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof MsgWithdrawWithinBatch>, never>>(object: I): MsgWithdrawWithinBatch;
+    } & Record<Exclude<keyof I, keyof MsgWithdraw>, never>>(object: I): MsgWithdraw;
 };
-export declare const MsgWithdrawWithinBatchResponse: {
-    encode(_: MsgWithdrawWithinBatchResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawWithinBatchResponse;
-    fromJSON(_: any): MsgWithdrawWithinBatchResponse;
-    toJSON(_: MsgWithdrawWithinBatchResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgWithdrawWithinBatchResponse;
+export declare const MsgWithdrawResponse: {
+    encode(_: MsgWithdrawResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawResponse;
+    fromJSON(_: any): MsgWithdrawResponse;
+    toJSON(_: MsgWithdrawResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgWithdrawResponse;
 };
-export declare const MsgSwapWithinBatch: {
-    encode(message: MsgSwapWithinBatch, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgSwapWithinBatch;
-    fromJSON(object: any): MsgSwapWithinBatch;
-    toJSON(message: MsgSwapWithinBatch): unknown;
+export declare const MsgLimitOrder: {
+    encode(message: MsgLimitOrder, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLimitOrder;
+    fromJSON(object: any): MsgLimitOrder;
+    toJSON(message: MsgLimitOrder): unknown;
     fromPartial<I extends {
-        swapRequesterAddress?: string | undefined;
-        poolId?: string | number | Long.Long | undefined;
-        swapTypeId?: number | undefined;
+        orderer?: string | undefined;
+        pairId?: string | number | Long.Long | undefined;
+        direction?: OrderDirection | undefined;
         offerCoin?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
         demandCoinDenom?: string | undefined;
-        offerCoinFee?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
+        price?: string | undefined;
+        amount?: string | undefined;
+        orderLifespan?: {
+            seconds?: string | number | Long.Long | undefined;
+            nanos?: number | undefined;
         } | undefined;
-        orderPrice?: string | undefined;
     } & {
-        swapRequesterAddress?: string | undefined;
-        poolId?: string | number | (Long.Long & {
+        orderer?: string | undefined;
+        pairId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -404,8 +514,8 @@ export declare const MsgSwapWithinBatch: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["poolId"], keyof Long.Long>, never>) | undefined;
-        swapTypeId?: number | undefined;
+        } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
+        direction?: OrderDirection | undefined;
         offerCoin?: ({
             denom?: string | undefined;
             amount?: string | undefined;
@@ -414,37 +524,470 @@ export declare const MsgSwapWithinBatch: {
             amount?: string | undefined;
         } & Record<Exclude<keyof I["offerCoin"], keyof Coin>, never>) | undefined;
         demandCoinDenom?: string | undefined;
-        offerCoinFee?: ({
+        price?: string | undefined;
+        amount?: string | undefined;
+        orderLifespan?: ({
+            seconds?: string | number | Long.Long | undefined;
+            nanos?: number | undefined;
+        } & {
+            seconds?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["orderLifespan"]["seconds"], keyof Long.Long>, never>) | undefined;
+            nanos?: number | undefined;
+        } & Record<Exclude<keyof I["orderLifespan"], keyof Duration>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgLimitOrder>, never>>(object: I): MsgLimitOrder;
+};
+export declare const MsgLimitOrderResponse: {
+    encode(_: MsgLimitOrderResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLimitOrderResponse;
+    fromJSON(_: any): MsgLimitOrderResponse;
+    toJSON(_: MsgLimitOrderResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgLimitOrderResponse;
+};
+export declare const MsgMarketOrder: {
+    encode(message: MsgMarketOrder, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgMarketOrder;
+    fromJSON(object: any): MsgMarketOrder;
+    toJSON(message: MsgMarketOrder): unknown;
+    fromPartial<I extends {
+        orderer?: string | undefined;
+        pairId?: string | number | Long.Long | undefined;
+        direction?: OrderDirection | undefined;
+        offerCoin?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+        demandCoinDenom?: string | undefined;
+        amount?: string | undefined;
+        orderLifespan?: {
+            seconds?: string | number | Long.Long | undefined;
+            nanos?: number | undefined;
+        } | undefined;
+    } & {
+        orderer?: string | undefined;
+        pairId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
+        direction?: OrderDirection | undefined;
+        offerCoin?: ({
             denom?: string | undefined;
             amount?: string | undefined;
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & Record<Exclude<keyof I["offerCoinFee"], keyof Coin>, never>) | undefined;
-        orderPrice?: string | undefined;
-    } & Record<Exclude<keyof I, keyof MsgSwapWithinBatch>, never>>(object: I): MsgSwapWithinBatch;
+        } & Record<Exclude<keyof I["offerCoin"], keyof Coin>, never>) | undefined;
+        demandCoinDenom?: string | undefined;
+        amount?: string | undefined;
+        orderLifespan?: ({
+            seconds?: string | number | Long.Long | undefined;
+            nanos?: number | undefined;
+        } & {
+            seconds?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["orderLifespan"]["seconds"], keyof Long.Long>, never>) | undefined;
+            nanos?: number | undefined;
+        } & Record<Exclude<keyof I["orderLifespan"], keyof Duration>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgMarketOrder>, never>>(object: I): MsgMarketOrder;
 };
-export declare const MsgSwapWithinBatchResponse: {
-    encode(_: MsgSwapWithinBatchResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgSwapWithinBatchResponse;
-    fromJSON(_: any): MsgSwapWithinBatchResponse;
-    toJSON(_: MsgSwapWithinBatchResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgSwapWithinBatchResponse;
+export declare const MsgMarketOrderResponse: {
+    encode(_: MsgMarketOrderResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgMarketOrderResponse;
+    fromJSON(_: any): MsgMarketOrderResponse;
+    toJSON(_: MsgMarketOrderResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgMarketOrderResponse;
 };
-export declare const MsgBondPoolTokens: {
-    encode(message: MsgBondPoolTokens, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBondPoolTokens;
-    fromJSON(object: any): MsgBondPoolTokens;
-    toJSON(message: MsgBondPoolTokens): unknown;
+export declare const MsgCancelOrder: {
+    encode(message: MsgCancelOrder, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelOrder;
+    fromJSON(object: any): MsgCancelOrder;
+    toJSON(message: MsgCancelOrder): unknown;
     fromPartial<I extends {
-        userAddress?: string | undefined;
+        orderer?: string | undefined;
+        pairId?: string | number | Long.Long | undefined;
+        orderId?: string | number | Long.Long | undefined;
+    } & {
+        orderer?: string | undefined;
+        pairId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
+        orderId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["orderId"], keyof Long.Long>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgCancelOrder>, never>>(object: I): MsgCancelOrder;
+};
+export declare const MsgCancelOrderResponse: {
+    encode(_: MsgCancelOrderResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelOrderResponse;
+    fromJSON(_: any): MsgCancelOrderResponse;
+    toJSON(_: MsgCancelOrderResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCancelOrderResponse;
+};
+export declare const MsgCancelAllOrders: {
+    encode(message: MsgCancelAllOrders, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelAllOrders;
+    fromJSON(object: any): MsgCancelAllOrders;
+    toJSON(message: MsgCancelAllOrders): unknown;
+    fromPartial<I extends {
+        orderer?: string | undefined;
+        pairIds?: (string | number | Long.Long)[] | undefined;
+    } & {
+        orderer?: string | undefined;
+        pairIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["pairIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["pairIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgCancelAllOrders>, never>>(object: I): MsgCancelAllOrders;
+};
+export declare const MsgCancelAllOrdersResponse: {
+    encode(_: MsgCancelAllOrdersResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelAllOrdersResponse;
+    fromJSON(_: any): MsgCancelAllOrdersResponse;
+    toJSON(_: MsgCancelAllOrdersResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCancelAllOrdersResponse;
+};
+export declare const MsgTokensSoftLock: {
+    encode(message: MsgTokensSoftLock, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgTokensSoftLock;
+    fromJSON(object: any): MsgTokensSoftLock;
+    toJSON(message: MsgTokensSoftLock): unknown;
+    fromPartial<I extends {
+        depositor?: string | undefined;
         poolId?: string | number | Long.Long | undefined;
-        poolCoin?: {
+        softLockCoin?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
     } & {
-        userAddress?: string | undefined;
+        depositor?: string | undefined;
         poolId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -503,29 +1046,36 @@ export declare const MsgBondPoolTokens: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["poolId"], keyof Long.Long>, never>) | undefined;
-        poolCoin?: ({
+        softLockCoin?: ({
             denom?: string | undefined;
             amount?: string | undefined;
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & Record<Exclude<keyof I["poolCoin"], keyof Coin>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof MsgBondPoolTokens>, never>>(object: I): MsgBondPoolTokens;
+        } & Record<Exclude<keyof I["softLockCoin"], keyof Coin>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgTokensSoftLock>, never>>(object: I): MsgTokensSoftLock;
 };
-export declare const MsgUnbondPoolTokens: {
-    encode(message: MsgUnbondPoolTokens, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUnbondPoolTokens;
-    fromJSON(object: any): MsgUnbondPoolTokens;
-    toJSON(message: MsgUnbondPoolTokens): unknown;
+export declare const MsgTokensSoftLockResponse: {
+    encode(_: MsgTokensSoftLockResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgTokensSoftLockResponse;
+    fromJSON(_: any): MsgTokensSoftLockResponse;
+    toJSON(_: MsgTokensSoftLockResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgTokensSoftLockResponse;
+};
+export declare const MsgTokensSoftUnlock: {
+    encode(message: MsgTokensSoftUnlock, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgTokensSoftUnlock;
+    fromJSON(object: any): MsgTokensSoftUnlock;
+    toJSON(message: MsgTokensSoftUnlock): unknown;
     fromPartial<I extends {
-        userAddress?: string | undefined;
+        depositor?: string | undefined;
         poolId?: string | number | Long.Long | undefined;
-        poolCoin?: {
+        softUnlockCoin?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
     } & {
-        userAddress?: string | undefined;
+        depositor?: string | undefined;
         poolId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -584,51 +1134,58 @@ export declare const MsgUnbondPoolTokens: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["poolId"], keyof Long.Long>, never>) | undefined;
-        poolCoin?: ({
+        softUnlockCoin?: ({
             denom?: string | undefined;
             amount?: string | undefined;
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & Record<Exclude<keyof I["poolCoin"], keyof Coin>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof MsgUnbondPoolTokens>, never>>(object: I): MsgUnbondPoolTokens;
+        } & Record<Exclude<keyof I["softUnlockCoin"], keyof Coin>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgTokensSoftUnlock>, never>>(object: I): MsgTokensSoftUnlock;
 };
-export declare const MsgBondPoolTokensResponse: {
-    encode(_: MsgBondPoolTokensResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBondPoolTokensResponse;
-    fromJSON(_: any): MsgBondPoolTokensResponse;
-    toJSON(_: MsgBondPoolTokensResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgBondPoolTokensResponse;
+export declare const MsgTokensSoftUnlockResponse: {
+    encode(_: MsgTokensSoftUnlockResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgTokensSoftUnlockResponse;
+    fromJSON(_: any): MsgTokensSoftUnlockResponse;
+    toJSON(_: MsgTokensSoftUnlockResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgTokensSoftUnlockResponse;
 };
-export declare const MsgUnbondPoolTokensResponse: {
-    encode(_: MsgUnbondPoolTokensResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUnbondPoolTokensResponse;
-    fromJSON(_: any): MsgUnbondPoolTokensResponse;
-    toJSON(_: MsgUnbondPoolTokensResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgUnbondPoolTokensResponse;
-};
-/** Msg defines the liquidity Msg service. */
+/** Msg defines the Msg service. */
 export interface Msg {
-    /** Submit a create liquidity pool message. */
+    /** CreatePair defines a method for creating a pair */
+    CreatePair(request: MsgCreatePair): Promise<MsgCreatePairResponse>;
+    /** CreatePool defines a method for creating a pool */
     CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse>;
-    /** Submit a deposit to the liquidity pool batch. */
-    DepositWithinBatch(request: MsgDepositWithinBatch): Promise<MsgDepositWithinBatchResponse>;
-    /** Submit a withdraw from the liquidity pool batch. */
-    WithdrawWithinBatch(request: MsgWithdrawWithinBatch): Promise<MsgWithdrawWithinBatchResponse>;
-    /** Submit a swap to the liquidity pool batch. */
-    Swap(request: MsgSwapWithinBatch): Promise<MsgSwapWithinBatchResponse>;
-    BondPoolTokens(request: MsgBondPoolTokens): Promise<MsgBondPoolTokensResponse>;
-    UnbondPoolTokens(request: MsgUnbondPoolTokens): Promise<MsgUnbondPoolTokensResponse>;
+    /** Deposit defines a method for depositing coins to the pool */
+    Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;
+    /** Withdraw defines a method for withdrawing pool coin from the pool */
+    Withdraw(request: MsgWithdraw): Promise<MsgWithdrawResponse>;
+    /** LimitOrder defines a method for making a limit order */
+    LimitOrder(request: MsgLimitOrder): Promise<MsgLimitOrderResponse>;
+    /** MarketOrder defines a method for making a market order */
+    MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse>;
+    /** CancelOrder defines a method for cancelling an order */
+    CancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse>;
+    /** CancelAllOrders defines a method for cancelling all orders */
+    CancelAllOrders(request: MsgCancelAllOrders): Promise<MsgCancelAllOrdersResponse>;
+    /** TokensSoftLock defines a method to soft lock the token, for incentivization */
+    TokensSoftLock(request: MsgTokensSoftLock): Promise<MsgTokensSoftLockResponse>;
+    /** TokensSoftUnlock defines a method to unlock the soft locked token, for incentivization */
+    TokensSoftUnlock(request: MsgTokensSoftUnlock): Promise<MsgTokensSoftUnlockResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
+    CreatePair(request: MsgCreatePair): Promise<MsgCreatePairResponse>;
     CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse>;
-    DepositWithinBatch(request: MsgDepositWithinBatch): Promise<MsgDepositWithinBatchResponse>;
-    WithdrawWithinBatch(request: MsgWithdrawWithinBatch): Promise<MsgWithdrawWithinBatchResponse>;
-    Swap(request: MsgSwapWithinBatch): Promise<MsgSwapWithinBatchResponse>;
-    BondPoolTokens(request: MsgBondPoolTokens): Promise<MsgBondPoolTokensResponse>;
-    UnbondPoolTokens(request: MsgUnbondPoolTokens): Promise<MsgUnbondPoolTokensResponse>;
+    Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;
+    Withdraw(request: MsgWithdraw): Promise<MsgWithdrawResponse>;
+    LimitOrder(request: MsgLimitOrder): Promise<MsgLimitOrderResponse>;
+    MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse>;
+    CancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse>;
+    CancelAllOrders(request: MsgCancelAllOrders): Promise<MsgCancelAllOrdersResponse>;
+    TokensSoftLock(request: MsgTokensSoftLock): Promise<MsgTokensSoftLockResponse>;
+    TokensSoftUnlock(request: MsgTokensSoftUnlock): Promise<MsgTokensSoftUnlockResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

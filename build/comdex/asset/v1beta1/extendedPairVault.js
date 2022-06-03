@@ -25,7 +25,7 @@ function createBaseExtendedPairVault() {
         minCr: "",
         pairName: "",
         assetOutOraclePrice: false,
-        asssetOutPrice: long_1.default.UZERO,
+        assetOutPrice: long_1.default.UZERO,
     };
 }
 exports.ExtendedPairVault = {
@@ -75,8 +75,8 @@ exports.ExtendedPairVault = {
         if (message.assetOutOraclePrice === true) {
             writer.uint32(120).bool(message.assetOutOraclePrice);
         }
-        if (!message.asssetOutPrice.isZero()) {
-            writer.uint32(128).uint64(message.asssetOutPrice);
+        if (!message.assetOutPrice.isZero()) {
+            writer.uint32(128).uint64(message.assetOutPrice);
         }
         return writer;
     },
@@ -133,7 +133,7 @@ exports.ExtendedPairVault = {
                     message.assetOutOraclePrice = reader.bool();
                     break;
                 case 16:
-                    message.asssetOutPrice = reader.uint64();
+                    message.assetOutPrice = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -144,13 +144,11 @@ exports.ExtendedPairVault = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             liquidationRatio: isSet(object.liquidationRatio)
                 ? String(object.liquidationRatio)
                 : "",
@@ -173,8 +171,8 @@ exports.ExtendedPairVault = {
             assetOutOraclePrice: isSet(object.assetOutOraclePrice)
                 ? Boolean(object.assetOutOraclePrice)
                 : false,
-            asssetOutPrice: isSet(object.asssetOutPrice)
-                ? long_1.default.fromString(object.asssetOutPrice)
+            assetOutPrice: isSet(object.assetOutPrice)
+                ? long_1.default.fromValue(object.assetOutPrice)
                 : long_1.default.UZERO,
         };
     },
@@ -205,8 +203,8 @@ exports.ExtendedPairVault = {
         message.pairName !== undefined && (obj.pairName = message.pairName);
         message.assetOutOraclePrice !== undefined &&
             (obj.assetOutOraclePrice = message.assetOutOraclePrice);
-        message.asssetOutPrice !== undefined &&
-            (obj.asssetOutPrice = (message.asssetOutPrice || long_1.default.UZERO).toString());
+        message.assetOutPrice !== undefined &&
+            (obj.assetOutPrice = (message.assetOutPrice || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -236,9 +234,9 @@ exports.ExtendedPairVault = {
         message.minCr = (_k = object.minCr) !== null && _k !== void 0 ? _k : "";
         message.pairName = (_l = object.pairName) !== null && _l !== void 0 ? _l : "";
         message.assetOutOraclePrice = (_m = object.assetOutOraclePrice) !== null && _m !== void 0 ? _m : false;
-        message.asssetOutPrice =
-            object.asssetOutPrice !== undefined && object.asssetOutPrice !== null
-                ? long_1.default.fromValue(object.asssetOutPrice)
+        message.assetOutPrice =
+            object.assetOutPrice !== undefined && object.assetOutPrice !== null
+                ? long_1.default.fromValue(object.assetOutPrice)
                 : long_1.default.UZERO;
         return message;
     },

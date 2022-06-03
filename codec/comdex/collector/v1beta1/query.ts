@@ -1,8 +1,8 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Params } from "./params";
-import { CollectorLookupTable } from "./collector";
+import * as _m0 from "protobufjs/minimal";
+import { Params } from "../../../comdex/collector/v1beta1/params";
+import { CollectorLookupTable } from "../../../comdex/collector/v1beta1/collector";
 
 export const protobufPackage = "comdex.collector.v1beta1";
 
@@ -172,7 +172,7 @@ export const QueryCollectorLookupByProductRequest = {
 
   fromJSON(object: any): QueryCollectorLookupByProductRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -310,9 +310,9 @@ export const QueryCollectorLookupByProductAndAssetRequest = {
 
   fromJSON(object: any): QueryCollectorLookupByProductAndAssetRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
     };
   },

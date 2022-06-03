@@ -8,10 +8,10 @@ exports.QueryClientImpl = exports.QueryExtendedPairDataPsmPairWiseResponse = exp
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-const asset_1 = require("./asset");
-const params_1 = require("./params");
-const appMapping_1 = require("./appMapping");
-const extendedPairVault_1 = require("./extendedPairVault");
+const asset_1 = require("../../../comdex/asset/v1beta1/asset");
+const params_1 = require("../../../comdex/asset/v1beta1/params");
+const appMapping_1 = require("../../../comdex/asset/v1beta1/appMapping");
+const extendedPairVault_1 = require("../../../comdex/asset/v1beta1/extendedPairVault");
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseQueryAssetsRequest() {
     return { pagination: undefined };
@@ -161,7 +161,7 @@ exports.QueryAssetRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -285,13 +285,13 @@ exports.PairInfo = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             assetIn: isSet(object.assetIn)
-                ? long_1.default.fromString(object.assetIn)
+                ? long_1.default.fromValue(object.assetIn)
                 : long_1.default.UZERO,
             denomIn: isSet(object.denomIn) ? String(object.denomIn) : "",
             assetOut: isSet(object.assetOut)
-                ? long_1.default.fromString(object.assetOut)
+                ? long_1.default.fromValue(object.assetOut)
                 : long_1.default.UZERO,
             denomOut: isSet(object.denomOut) ? String(object.denomOut) : "",
         };
@@ -477,7 +477,7 @@ exports.QueryPairRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -655,7 +655,7 @@ exports.QueryAppRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -749,7 +749,7 @@ exports.QueryTokenGovRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -797,7 +797,7 @@ exports.QueryTokenGovResponse = {
     fromJSON(object) {
         return {
             govAssetId: isSet(object.govAssetId)
-                ? long_1.default.fromString(object.govAssetId)
+                ? long_1.default.fromValue(object.govAssetId)
                 : long_1.default.UZERO,
         };
     },
@@ -929,7 +929,7 @@ exports.QueryPairVaultRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1113,7 +1113,7 @@ exports.QueryProductToExtendedPairRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
         };
     },
@@ -1214,7 +1214,7 @@ exports.QueryExtendedPairPsmPairWiseRequest = {
     fromJSON(object) {
         return {
             productId: isSet(object.productId)
-                ? long_1.default.fromString(object.productId)
+                ? long_1.default.fromValue(object.productId)
                 : long_1.default.UZERO,
         };
     },
@@ -1273,7 +1273,7 @@ exports.QueryExtendedPairPsmPairWiseResponse = {
     fromJSON(object) {
         return {
             extendedPairsId: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPairsId)
-                ? object.extendedPairsId.map((e) => long_1.default.fromString(e))
+                ? object.extendedPairsId.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -1324,7 +1324,7 @@ exports.QueryExtendedPairDataPsmPairWiseRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {

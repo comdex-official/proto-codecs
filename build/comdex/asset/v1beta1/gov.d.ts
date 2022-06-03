@@ -1,11 +1,11 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Asset } from "./asset";
-import { ExtendedAsset } from "./extendedAsset";
-import { ExtendedPairLend } from "./extendedLend";
-import { ExtendedPairVault } from "./extendedPairVault";
-import { Pair } from "./pair";
-import { AppMapping } from "./appMapping";
+import { Asset } from "../../../comdex/asset/v1beta1/asset";
+import { ExtendedAsset } from "../../../comdex/asset/v1beta1/extendedAsset";
+import { ExtendedPairLend } from "../../../comdex/asset/v1beta1/extendedLend";
+import { ExtendedPairVault } from "../../../comdex/asset/v1beta1/extendedPairVault";
+import { Pair } from "../../../comdex/asset/v1beta1/pair";
+import { AppMapping } from "../../../comdex/asset/v1beta1/appMapping";
 export declare const protobufPackage = "comdex.asset.v1beta1";
 export interface AddAssetsProposal {
     title: string;
@@ -1388,7 +1388,7 @@ export declare const AddExtendedPairsVaultProposal: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[] | undefined;
     } & {
         title?: string | undefined;
@@ -1409,7 +1409,7 @@ export declare const AddExtendedPairsVaultProposal: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             appMappingId?: string | number | Long.Long | undefined;
@@ -1426,7 +1426,7 @@ export declare const AddExtendedPairsVaultProposal: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -1614,7 +1614,7 @@ export declare const AddExtendedPairsVaultProposal: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | (Long.Long & {
+            assetOutPrice?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -1671,7 +1671,7 @@ export declare const AddExtendedPairsVaultProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pairs"][number]["asssetOutPrice"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["pairs"][number]["assetOutPrice"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pairs"][number], keyof ExtendedPairVault>, never>)[] & Record<Exclude<keyof I["pairs"], keyof {
             id?: string | number | Long.Long | undefined;
             appMappingId?: string | number | Long.Long | undefined;
@@ -1688,7 +1688,7 @@ export declare const AddExtendedPairsVaultProposal: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AddExtendedPairsVaultProposal>, never>>(object: I): AddExtendedPairsVaultProposal;
 };
@@ -1716,7 +1716,7 @@ export declare const UpdateExtendedPairVaultProposal: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         title?: string | undefined;
@@ -1737,7 +1737,7 @@ export declare const UpdateExtendedPairVaultProposal: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | Long.Long | undefined;
+            assetOutPrice?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -1925,7 +1925,7 @@ export declare const UpdateExtendedPairVaultProposal: {
             minCr?: string | undefined;
             pairName?: string | undefined;
             assetOutOraclePrice?: boolean | undefined;
-            asssetOutPrice?: string | number | (Long.Long & {
+            assetOutPrice?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -1982,7 +1982,7 @@ export declare const UpdateExtendedPairVaultProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pair"]["asssetOutPrice"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["pair"]["assetOutPrice"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pair"], keyof ExtendedPairVault>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof UpdateExtendedPairVaultProposal>, never>>(object: I): UpdateExtendedPairVaultProposal;
 };
@@ -2169,7 +2169,7 @@ export declare const AddAppMappingProposal: {
                 genesisSupply?: string | undefined;
                 isgovToken?: boolean | undefined;
                 recipient?: string | undefined;
-            } & Record<Exclude<keyof I["app"][number]["mintGenesisToken"][number], keyof import("./appMapping").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"][number]["mintGenesisToken"], keyof {
+            } & Record<Exclude<keyof I["app"][number]["mintGenesisToken"][number], keyof import("../../../comdex/asset/v1beta1/appMapping").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"][number]["mintGenesisToken"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
                 isgovToken?: boolean | undefined;
@@ -2373,7 +2373,7 @@ export declare const AddAssetMappingProposal: {
                 genesisSupply?: string | undefined;
                 isgovToken?: boolean | undefined;
                 recipient?: string | undefined;
-            } & Record<Exclude<keyof I["app"][number]["mintGenesisToken"][number], keyof import("./appMapping").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"][number]["mintGenesisToken"], keyof {
+            } & Record<Exclude<keyof I["app"][number]["mintGenesisToken"][number], keyof import("../../../comdex/asset/v1beta1/appMapping").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"][number]["mintGenesisToken"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
                 isgovToken?: boolean | undefined;

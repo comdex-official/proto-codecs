@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
@@ -23,7 +23,7 @@ export interface DebtBiddings {
   biddingId: Long;
   auctionId: Long;
   auctionStatus: string;
-  OutflowTokens?: Coin;
+  outflowTokens?: Coin;
   bidder: string;
   bid?: Coin;
   biddingTimestamp?: Date;
@@ -250,7 +250,7 @@ function createBaseDebtBiddings(): DebtBiddings {
     biddingId: Long.UZERO,
     auctionId: Long.UZERO,
     auctionStatus: "",
-    OutflowTokens: undefined,
+    outflowTokens: undefined,
     bidder: "",
     bid: undefined,
     biddingTimestamp: undefined,
@@ -274,8 +274,8 @@ export const DebtBiddings = {
     if (message.auctionStatus !== "") {
       writer.uint32(26).string(message.auctionStatus);
     }
-    if (message.OutflowTokens !== undefined) {
-      Coin.encode(message.OutflowTokens, writer.uint32(34).fork()).ldelim();
+    if (message.outflowTokens !== undefined) {
+      Coin.encode(message.outflowTokens, writer.uint32(34).fork()).ldelim();
     }
     if (message.bidder !== "") {
       writer.uint32(42).string(message.bidder);
@@ -318,7 +318,7 @@ export const DebtBiddings = {
           message.auctionStatus = reader.string();
           break;
         case 4:
-          message.OutflowTokens = Coin.decode(reader, reader.uint32());
+          message.outflowTokens = Coin.decode(reader, reader.uint32());
           break;
         case 5:
           message.bidder = reader.string();
@@ -359,8 +359,8 @@ export const DebtBiddings = {
       auctionStatus: isSet(object.auctionStatus)
         ? String(object.auctionStatus)
         : "",
-      OutflowTokens: isSet(object.OutflowTokens)
-        ? Coin.fromJSON(object.OutflowTokens)
+      outflowTokens: isSet(object.outflowTokens)
+        ? Coin.fromJSON(object.outflowTokens)
         : undefined,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       bid: isSet(object.bid) ? Coin.fromJSON(object.bid) : undefined,
@@ -385,9 +385,9 @@ export const DebtBiddings = {
       (obj.auctionId = (message.auctionId || Long.UZERO).toString());
     message.auctionStatus !== undefined &&
       (obj.auctionStatus = message.auctionStatus);
-    message.OutflowTokens !== undefined &&
-      (obj.OutflowTokens = message.OutflowTokens
-        ? Coin.toJSON(message.OutflowTokens)
+    message.outflowTokens !== undefined &&
+      (obj.outflowTokens = message.outflowTokens
+        ? Coin.toJSON(message.outflowTokens)
         : undefined);
     message.bidder !== undefined && (obj.bidder = message.bidder);
     message.bid !== undefined &&
@@ -418,9 +418,9 @@ export const DebtBiddings = {
         ? Long.fromValue(object.auctionId)
         : Long.UZERO;
     message.auctionStatus = object.auctionStatus ?? "";
-    message.OutflowTokens =
-      object.OutflowTokens !== undefined && object.OutflowTokens !== null
-        ? Coin.fromPartial(object.OutflowTokens)
+    message.outflowTokens =
+      object.outflowTokens !== undefined && object.outflowTokens !== null
+        ? Coin.fromPartial(object.outflowTokens)
         : undefined;
     message.bidder = object.bidder ?? "";
     message.bid =

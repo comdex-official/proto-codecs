@@ -59,7 +59,7 @@ exports.MsgAddAssetRequest = {
             name: isSet(object.name) ? String(object.name) : "",
             denom: isSet(object.denom) ? String(object.denom) : "",
             decimals: isSet(object.decimals)
-                ? long_1.default.fromString(object.decimals)
+                ? long_1.default.fromValue(object.decimals)
                 : long_1.default.ZERO,
         };
     },
@@ -172,11 +172,11 @@ exports.MsgUpdateAssetRequest = {
     fromJSON(object) {
         return {
             from: isSet(object.from) ? String(object.from) : "",
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             name: isSet(object.name) ? String(object.name) : "",
             denom: isSet(object.denom) ? String(object.denom) : "",
             decimals: isSet(object.decimals)
-                ? long_1.default.fromString(object.decimals)
+                ? long_1.default.fromValue(object.decimals)
                 : long_1.default.ZERO,
         };
     },
@@ -284,10 +284,10 @@ exports.MsgAddPairRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             assetIn: isSet(object.assetIn)
-                ? long_1.default.fromString(object.assetIn)
+                ? long_1.default.fromValue(object.assetIn)
                 : long_1.default.UZERO,
             assetOut: isSet(object.assetOut)
-                ? long_1.default.fromString(object.assetOut)
+                ? long_1.default.fromValue(object.assetOut)
                 : long_1.default.UZERO,
         };
     },

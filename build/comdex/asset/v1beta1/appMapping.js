@@ -74,7 +74,7 @@ exports.AppMapping = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             name: isSet(object.name) ? String(object.name) : "",
             shortName: isSet(object.shortName) ? String(object.shortName) : "",
             minGovDeposit: isSet(object.minGovDeposit)
@@ -176,7 +176,7 @@ exports.MintGenesisToken = {
     fromJSON(object) {
         return {
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             genesisSupply: isSet(object.genesisSupply)
                 ? String(object.genesisSupply)

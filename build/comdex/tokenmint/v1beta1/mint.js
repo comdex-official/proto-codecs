@@ -45,7 +45,7 @@ exports.TokenMint = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             mintedTokens: Array.isArray(object === null || object === void 0 ? void 0 : object.mintedTokens)
                 ? object.mintedTokens.map((e) => exports.MintedTokens.fromJSON(e))
@@ -129,7 +129,7 @@ exports.MintedTokens = {
     fromJSON(object) {
         return {
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             genesisSupply: isSet(object.genesisSupply)
                 ? String(object.genesisSupply)

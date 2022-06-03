@@ -51,10 +51,10 @@ exports.MsgMintNewTokensRequest = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
         };
     },

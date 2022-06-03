@@ -152,9 +152,9 @@ exports.LockedVault = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             appVaultTypeId: isSet(object.appVaultTypeId)
                 ? String(object.appVaultTypeId)
@@ -163,7 +163,7 @@ exports.LockedVault = {
                 ? String(object.originalVaultId)
                 : "",
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
             amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
@@ -304,7 +304,7 @@ exports.LockedVaultToAppMapping = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             lockedVault: Array.isArray(object === null || object === void 0 ? void 0 : object.lockedVault)
                 ? object.lockedVault.map((e) => exports.LockedVault.fromJSON(e))
@@ -375,7 +375,7 @@ exports.WhitelistedAppIds = {
     fromJSON(object) {
         return {
             whitelistedAppMappingIds: Array.isArray(object === null || object === void 0 ? void 0 : object.whitelistedAppMappingIds)
-                ? object.whitelistedAppMappingIds.map((e) => long_1.default.fromString(e))
+                ? object.whitelistedAppMappingIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },

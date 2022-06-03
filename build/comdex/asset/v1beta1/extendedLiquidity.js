@@ -74,17 +74,15 @@ exports.ExtendedPairLiquidity = {
     },
     fromJSON(object) {
         return {
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             currentBatchId: isSet(object.currentBatchId)
-                ? long_1.default.fromString(object.currentBatchId)
+                ? long_1.default.fromValue(object.currentBatchId)
                 : long_1.default.UZERO,
             escrowAddress: isSet(object.escrowAddress)
                 ? String(object.escrowAddress)
                 : "",
             lastOrderId: isSet(object.lastOrderId)
-                ? long_1.default.fromString(object.lastOrderId)
+                ? long_1.default.fromValue(object.lastOrderId)
                 : long_1.default.UZERO,
             lastPrice: isSet(object.lastPrice) ? String(object.lastPrice) : "",
             quoteCoinDenom: isSet(object.quoteCoinDenom)

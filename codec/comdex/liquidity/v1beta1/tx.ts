@@ -2,122 +2,285 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import {
+  OrderDirection,
+  orderDirectionFromJSON,
+  orderDirectionToJSON,
+} from "./liquidity";
+import { Duration } from "../../../google/protobuf/duration";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 
-/**
- * MsgCreatePool defines an sdk.Msg type that supports submitting a create liquidity pool tx.
- *
- * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
- */
+/** MsgCreatePair defines an SDK message for creating a pair. */
+export interface MsgCreatePair {
+  /** creator specifies the bech32-encoded address that is the pair creator. */
+  creator: string;
+  /** base_coin_denom specifies the base coin denom of the pair. */
+  baseCoinDenom: string;
+  /** quote_coin_denom specifies the quote coin denom of the pair. */
+  quoteCoinDenom: string;
+}
+
+export interface MsgCreatePairResponse {}
+
+/** MsgCreatePool defines an SDK message for creating a pool. */
 export interface MsgCreatePool {
-  poolCreatorAddress: string;
-  /** id of the target pool type, must match the value in the pool. Only pool-type-id 1 is supported. */
-  poolTypeId: number;
-  /** reserve coin pair of the pool to deposit. */
+  /** creator specifies the bech32-encoded address that is the pool creator */
+  creator: string;
+  /** pair_id specifies the pair id. */
+  pairId: Long;
+  /** deposit_coins specifies the amount of coins to deposit. */
   depositCoins: Coin[];
 }
 
 /** MsgCreatePoolResponse defines the Msg/CreatePool response type. */
 export interface MsgCreatePoolResponse {}
 
-/**
- * `MsgDepositWithinBatch defines` an `sdk.Msg` type that supports submitting
- * a deposit request to the batch of the liquidity pool.
- * Deposit is submitted to the batch of the Liquidity pool with the specified
- * `pool_id`, `deposit_coins` for reserve.
- * This request is stacked in the batch of the liquidity pool, is not processed
- * immediately, and is processed in the `endblock` at the same time as other requests.
- *
- * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
- */
-export interface MsgDepositWithinBatch {
-  depositorAddress: string;
-  /** id of the target pool */
+/** MsgDeposit defines an SDK message for depositing coins to the pool */
+export interface MsgDeposit {
+  /** depositor specifies the bech32-encoded address that makes a deposit to the pool */
+  depositor: string;
+  /** pool_id specifies the pool id */
   poolId: Long;
+  /** deposit_coins specifies the amount of coins to deposit. */
   depositCoins: Coin[];
 }
 
-/** MsgDepositWithinBatchResponse defines the Msg/DepositWithinBatch response type. */
-export interface MsgDepositWithinBatchResponse {}
+/** MsgDepositResponse defines the Msg/Deposit response type. */
+export interface MsgDepositResponse {}
 
-/**
- * `MsgWithdrawWithinBatch` defines an `sdk.Msg` type that supports submitting
- * a withdraw request to the batch of the liquidity pool.
- * Withdraw is submitted to the batch from the Liquidity pool with the
- * specified `pool_id`, `pool_coin` of the pool.
- * This request is stacked in the batch of the liquidity pool, is not processed
- * immediately, and is processed in the `endblock` at the same time as other requests.
- *
- * See: https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
- */
-export interface MsgWithdrawWithinBatch {
-  withdrawerAddress: string;
-  /** id of the target pool */
+/** MsgWithdraw defines an SDK message for withdrawing pool coin from the pool */
+export interface MsgWithdraw {
+  /** withdrawer specifies the bech32-encoded address that withdraws pool coin from the pool */
+  withdrawer: string;
+  /** pool_id specifies the pool id */
   poolId: Long;
+  /** pool_coin specifies the pool coin that is a proof of liquidity provider for the pool */
   poolCoin?: Coin;
 }
 
-/** MsgWithdrawWithinBatchResponse defines the Msg/WithdrawWithinBatch response type. */
-export interface MsgWithdrawWithinBatchResponse {}
+/** MsgWithdrawResponse defines the Msg/Withdraw response type. */
+export interface MsgWithdrawResponse {}
 
-/**
- * `MsgSwapWithinBatch` defines an sdk.Msg type that supports submitting a swap offer request to the batch of the liquidity pool.
- * Submit swap offer to the liquidity pool batch with the specified the `pool_id`, `swap_type_id`,
- * `demand_coin_denom` with the coin and the price you're offering
- * and `offer_coin_fee` must be half of offer coin amount * current `params.swap_fee_rate` and ceil for reservation to pay fees.
- * This request is stacked in the batch of the liquidity pool, is not processed
- * immediately, and is processed in the `endblock` at the same time as other requests.
- * You must request the same fields as the pool.
- * Only the default `swap_type_id` 1 is supported.
- *
- * See: https://github.com/gravity-devs/liquidity/tree/develop/doc
- * https://github.com/gravity-devs/liquidity/blob/develop/x/liquidity/spec/04_messages.md
- */
-export interface MsgSwapWithinBatch {
-  /** address of swap requester */
-  swapRequesterAddress: string;
-  /** id of swap type, must match the value in the pool. Only `swap_type_id` 1 is supported. */
-  poolId: Long;
-  /** id of swap type. Must match the value in the pool. */
-  swapTypeId: number;
-  /** offer sdk.coin for the swap request, must match the denom in the pool. */
+/** MsgLimitOrder defines an SDK message for making a limit order */
+export interface MsgLimitOrder {
+  /** orderer specifies the bech32-encoded address that makes an order */
+  orderer: string;
+  /** pair_id specifies the pair id */
+  pairId: Long;
+  /** direction specifies the order direction(buy or sell) */
+  direction: OrderDirection;
+  /** offer_coin specifies the amount of coin the orderer offers */
   offerCoin?: Coin;
-  /** denom of demand coin to be exchanged on the swap request, must match the denom in the pool. */
+  /** demand_coin_denom specifies the demand coin denom */
   demandCoinDenom: string;
-  /** half of offer coin amount * params.swap_fee_rate and ceil for reservation to pay fees. */
-  offerCoinFee?: Coin;
-  /**
-   * limit order price for the order, the price is the exchange ratio of X/Y
-   * where X is the amount of the first coin and Y is the amount
-   * of the second coin when their denoms are sorted alphabetically.
-   */
-  orderPrice: string;
+  /** price specifies the order price */
+  price: string;
+  /** amount specifies the amount of base coin the orderer wants to buy or sell */
+  amount: string;
+  /** order_lifespan specifies the order lifespan */
+  orderLifespan?: Duration;
 }
 
-/** MsgSwapWithinBatchResponse defines the Msg/Swap response type. */
-export interface MsgSwapWithinBatchResponse {}
+/** MsgLimitOrderResponse defines the Msg/LimitOrder response type. */
+export interface MsgLimitOrderResponse {}
 
-export interface MsgBondPoolTokens {
-  userAddress: string;
-  /** id of the target pool */
+/** MsgMarketOrder defines an SDK message for making a market order */
+export interface MsgMarketOrder {
+  /** orderer specifies the bech32-encoded address that makes an order */
+  orderer: string;
+  /** pair_id specifies the pair id */
+  pairId: Long;
+  /** direction specifies the order direction(buy or sell) */
+  direction: OrderDirection;
+  /** offer_coin specifies the amount of coin the orderer offers */
+  offerCoin?: Coin;
+  /** demand_coin_denom specifies the demand coin denom */
+  demandCoinDenom: string;
+  /** amount specifies the amount of base coin the orderer wants to buy or sell */
+  amount: string;
+  /** order_lifespan specifies the order lifespan */
+  orderLifespan?: Duration;
+}
+
+/** MsgMarketOrderResponse defines the Msg/MarketOrder response type. */
+export interface MsgMarketOrderResponse {}
+
+/** MsgCancelOrder defines an SDK message for cancelling an order */
+export interface MsgCancelOrder {
+  /** orderer specifies the bech32-encoded address that makes an order */
+  orderer: string;
+  /** pair_id specifies the pair id */
+  pairId: Long;
+  /** order_id specifies the order id */
+  orderId: Long;
+}
+
+/** MsgCancelOrderResponse defines the Msg/CancelOrder response type. */
+export interface MsgCancelOrderResponse {}
+
+/** MsgCancelAllOrders defines an SDK message for cancelling all orders */
+export interface MsgCancelAllOrders {
+  /** orderer specifies the bech32-encoded address that makes an order */
+  orderer: string;
+  /** pair_ids specifies pair ids to cancel orders */
+  pairIds: Long[];
+}
+
+/** MsgCancelAllOrdersResponse defines the Msg/CancelAllOrders response type. */
+export interface MsgCancelAllOrdersResponse {}
+
+/** MsgTokensSoftLock defines a SDK message for soft locking coins (i.e without bonding) for incentivisation. */
+export interface MsgTokensSoftLock {
+  /** depositor defines the bech32-encoded address of the farmer */
+  depositor: string;
   poolId: Long;
-  poolCoin?: Coin;
+  /** soft_lock_coin specifies coins to stake */
+  softLockCoin?: Coin;
 }
 
-export interface MsgUnbondPoolTokens {
-  userAddress: string;
-  /** id of the target pool */
+/** MsgTokensSoftLockResponse  defines the Msg/MsgTokensSoftLockResponse response type. */
+export interface MsgTokensSoftLockResponse {}
+
+/** MsgTokensSoftUnlock defines a SDK message for performing unlocking of the soft locked coins */
+export interface MsgTokensSoftUnlock {
+  /** depositor defines the bech32-encoded address of the farmer */
+  depositor: string;
   poolId: Long;
-  poolCoin?: Coin;
+  /** soft_unlock_coin specifies coins to stake */
+  softUnlockCoin?: Coin;
 }
 
-export interface MsgBondPoolTokensResponse {}
+/** MsgTokensSoftUnlockResponse defines the Msg/MsgTokensSoftUnlockResponse response type. */
+export interface MsgTokensSoftUnlockResponse {}
 
-export interface MsgUnbondPoolTokensResponse {}
+function createBaseMsgCreatePair(): MsgCreatePair {
+  return { creator: "", baseCoinDenom: "", quoteCoinDenom: "" };
+}
+
+export const MsgCreatePair = {
+  encode(
+    message: MsgCreatePair,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.baseCoinDenom !== "") {
+      writer.uint32(18).string(message.baseCoinDenom);
+    }
+    if (message.quoteCoinDenom !== "") {
+      writer.uint32(26).string(message.quoteCoinDenom);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePair {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCreatePair();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.baseCoinDenom = reader.string();
+          break;
+        case 3:
+          message.quoteCoinDenom = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreatePair {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      baseCoinDenom: isSet(object.baseCoinDenom)
+        ? String(object.baseCoinDenom)
+        : "",
+      quoteCoinDenom: isSet(object.quoteCoinDenom)
+        ? String(object.quoteCoinDenom)
+        : "",
+    };
+  },
+
+  toJSON(message: MsgCreatePair): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.baseCoinDenom !== undefined &&
+      (obj.baseCoinDenom = message.baseCoinDenom);
+    message.quoteCoinDenom !== undefined &&
+      (obj.quoteCoinDenom = message.quoteCoinDenom);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreatePair>, I>>(
+    object: I
+  ): MsgCreatePair {
+    const message = createBaseMsgCreatePair();
+    message.creator = object.creator ?? "";
+    message.baseCoinDenom = object.baseCoinDenom ?? "";
+    message.quoteCoinDenom = object.quoteCoinDenom ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgCreatePairResponse(): MsgCreatePairResponse {
+  return {};
+}
+
+export const MsgCreatePairResponse = {
+  encode(
+    _: MsgCreatePairResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgCreatePairResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCreatePairResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCreatePairResponse {
+    return {};
+  },
+
+  toJSON(_: MsgCreatePairResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreatePairResponse>, I>>(
+    _: I
+  ): MsgCreatePairResponse {
+    const message = createBaseMsgCreatePairResponse();
+    return message;
+  },
+};
 
 function createBaseMsgCreatePool(): MsgCreatePool {
-  return { poolCreatorAddress: "", poolTypeId: 0, depositCoins: [] };
+  return { creator: "", pairId: Long.UZERO, depositCoins: [] };
 }
 
 export const MsgCreatePool = {
@@ -125,14 +288,14 @@ export const MsgCreatePool = {
     message: MsgCreatePool,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.poolCreatorAddress !== "") {
-      writer.uint32(10).string(message.poolCreatorAddress);
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
     }
-    if (message.poolTypeId !== 0) {
-      writer.uint32(16).uint32(message.poolTypeId);
+    if (!message.pairId.isZero()) {
+      writer.uint32(16).uint64(message.pairId);
     }
     for (const v of message.depositCoins) {
-      Coin.encode(v!, writer.uint32(34).fork()).ldelim();
+      Coin.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -145,12 +308,12 @@ export const MsgCreatePool = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.poolCreatorAddress = reader.string();
+          message.creator = reader.string();
           break;
         case 2:
-          message.poolTypeId = reader.uint32();
+          message.pairId = reader.uint64() as Long;
           break;
-        case 4:
+        case 3:
           message.depositCoins.push(Coin.decode(reader, reader.uint32()));
           break;
         default:
@@ -163,10 +326,10 @@ export const MsgCreatePool = {
 
   fromJSON(object: any): MsgCreatePool {
     return {
-      poolCreatorAddress: isSet(object.poolCreatorAddress)
-        ? String(object.poolCreatorAddress)
-        : "",
-      poolTypeId: isSet(object.poolTypeId) ? Number(object.poolTypeId) : 0,
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
       depositCoins: Array.isArray(object?.depositCoins)
         ? object.depositCoins.map((e: any) => Coin.fromJSON(e))
         : [],
@@ -175,10 +338,9 @@ export const MsgCreatePool = {
 
   toJSON(message: MsgCreatePool): unknown {
     const obj: any = {};
-    message.poolCreatorAddress !== undefined &&
-      (obj.poolCreatorAddress = message.poolCreatorAddress);
-    message.poolTypeId !== undefined &&
-      (obj.poolTypeId = Math.round(message.poolTypeId));
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.pairId !== undefined &&
+      (obj.pairId = (message.pairId || Long.UZERO).toString());
     if (message.depositCoins) {
       obj.depositCoins = message.depositCoins.map((e) =>
         e ? Coin.toJSON(e) : undefined
@@ -193,8 +355,11 @@ export const MsgCreatePool = {
     object: I
   ): MsgCreatePool {
     const message = createBaseMsgCreatePool();
-    message.poolCreatorAddress = object.poolCreatorAddress ?? "";
-    message.poolTypeId = object.poolTypeId ?? 0;
+    message.creator = object.creator ?? "";
+    message.pairId =
+      object.pairId !== undefined && object.pairId !== null
+        ? Long.fromValue(object.pairId)
+        : Long.UZERO;
     message.depositCoins =
       object.depositCoins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
@@ -248,17 +413,17 @@ export const MsgCreatePoolResponse = {
   },
 };
 
-function createBaseMsgDepositWithinBatch(): MsgDepositWithinBatch {
-  return { depositorAddress: "", poolId: Long.UZERO, depositCoins: [] };
+function createBaseMsgDeposit(): MsgDeposit {
+  return { depositor: "", poolId: Long.UZERO, depositCoins: [] };
 }
 
-export const MsgDepositWithinBatch = {
+export const MsgDeposit = {
   encode(
-    message: MsgDepositWithinBatch,
+    message: MsgDeposit,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.depositorAddress !== "") {
-      writer.uint32(10).string(message.depositorAddress);
+    if (message.depositor !== "") {
+      writer.uint32(10).string(message.depositor);
     }
     if (!message.poolId.isZero()) {
       writer.uint32(16).uint64(message.poolId);
@@ -269,18 +434,15 @@ export const MsgDepositWithinBatch = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgDepositWithinBatch {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDeposit {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgDepositWithinBatch();
+    const message = createBaseMsgDeposit();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.depositorAddress = reader.string();
+          message.depositor = reader.string();
           break;
         case 2:
           message.poolId = reader.uint64() as Long;
@@ -296,11 +458,9 @@ export const MsgDepositWithinBatch = {
     return message;
   },
 
-  fromJSON(object: any): MsgDepositWithinBatch {
+  fromJSON(object: any): MsgDeposit {
     return {
-      depositorAddress: isSet(object.depositorAddress)
-        ? String(object.depositorAddress)
-        : "",
+      depositor: isSet(object.depositor) ? String(object.depositor) : "",
       poolId: isSet(object.poolId)
         ? Long.fromString(object.poolId)
         : Long.UZERO,
@@ -310,10 +470,9 @@ export const MsgDepositWithinBatch = {
     };
   },
 
-  toJSON(message: MsgDepositWithinBatch): unknown {
+  toJSON(message: MsgDeposit): unknown {
     const obj: any = {};
-    message.depositorAddress !== undefined &&
-      (obj.depositorAddress = message.depositorAddress);
+    message.depositor !== undefined && (obj.depositor = message.depositor);
     message.poolId !== undefined &&
       (obj.poolId = (message.poolId || Long.UZERO).toString());
     if (message.depositCoins) {
@@ -326,11 +485,11 @@ export const MsgDepositWithinBatch = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositWithinBatch>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgDeposit>, I>>(
     object: I
-  ): MsgDepositWithinBatch {
-    const message = createBaseMsgDepositWithinBatch();
-    message.depositorAddress = object.depositorAddress ?? "";
+  ): MsgDeposit {
+    const message = createBaseMsgDeposit();
+    message.depositor = object.depositor ?? "";
     message.poolId =
       object.poolId !== undefined && object.poolId !== null
         ? Long.fromValue(object.poolId)
@@ -341,25 +500,22 @@ export const MsgDepositWithinBatch = {
   },
 };
 
-function createBaseMsgDepositWithinBatchResponse(): MsgDepositWithinBatchResponse {
+function createBaseMsgDepositResponse(): MsgDepositResponse {
   return {};
 }
 
-export const MsgDepositWithinBatchResponse = {
+export const MsgDepositResponse = {
   encode(
-    _: MsgDepositWithinBatchResponse,
+    _: MsgDepositResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgDepositWithinBatchResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgDepositWithinBatchResponse();
+    const message = createBaseMsgDepositResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -371,34 +527,34 @@ export const MsgDepositWithinBatchResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgDepositWithinBatchResponse {
+  fromJSON(_: any): MsgDepositResponse {
     return {};
   },
 
-  toJSON(_: MsgDepositWithinBatchResponse): unknown {
+  toJSON(_: MsgDepositResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositWithinBatchResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgDepositResponse>, I>>(
     _: I
-  ): MsgDepositWithinBatchResponse {
-    const message = createBaseMsgDepositWithinBatchResponse();
+  ): MsgDepositResponse {
+    const message = createBaseMsgDepositResponse();
     return message;
   },
 };
 
-function createBaseMsgWithdrawWithinBatch(): MsgWithdrawWithinBatch {
-  return { withdrawerAddress: "", poolId: Long.UZERO, poolCoin: undefined };
+function createBaseMsgWithdraw(): MsgWithdraw {
+  return { withdrawer: "", poolId: Long.UZERO, poolCoin: undefined };
 }
 
-export const MsgWithdrawWithinBatch = {
+export const MsgWithdraw = {
   encode(
-    message: MsgWithdrawWithinBatch,
+    message: MsgWithdraw,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.withdrawerAddress !== "") {
-      writer.uint32(10).string(message.withdrawerAddress);
+    if (message.withdrawer !== "") {
+      writer.uint32(10).string(message.withdrawer);
     }
     if (!message.poolId.isZero()) {
       writer.uint32(16).uint64(message.poolId);
@@ -409,18 +565,15 @@ export const MsgWithdrawWithinBatch = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgWithdrawWithinBatch {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdraw {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgWithdrawWithinBatch();
+    const message = createBaseMsgWithdraw();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.withdrawerAddress = reader.string();
+          message.withdrawer = reader.string();
           break;
         case 2:
           message.poolId = reader.uint64() as Long;
@@ -436,11 +589,9 @@ export const MsgWithdrawWithinBatch = {
     return message;
   },
 
-  fromJSON(object: any): MsgWithdrawWithinBatch {
+  fromJSON(object: any): MsgWithdraw {
     return {
-      withdrawerAddress: isSet(object.withdrawerAddress)
-        ? String(object.withdrawerAddress)
-        : "",
+      withdrawer: isSet(object.withdrawer) ? String(object.withdrawer) : "",
       poolId: isSet(object.poolId)
         ? Long.fromString(object.poolId)
         : Long.UZERO,
@@ -450,10 +601,9 @@ export const MsgWithdrawWithinBatch = {
     };
   },
 
-  toJSON(message: MsgWithdrawWithinBatch): unknown {
+  toJSON(message: MsgWithdraw): unknown {
     const obj: any = {};
-    message.withdrawerAddress !== undefined &&
-      (obj.withdrawerAddress = message.withdrawerAddress);
+    message.withdrawer !== undefined && (obj.withdrawer = message.withdrawer);
     message.poolId !== undefined &&
       (obj.poolId = (message.poolId || Long.UZERO).toString());
     message.poolCoin !== undefined &&
@@ -463,11 +613,11 @@ export const MsgWithdrawWithinBatch = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWithdrawWithinBatch>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgWithdraw>, I>>(
     object: I
-  ): MsgWithdrawWithinBatch {
-    const message = createBaseMsgWithdrawWithinBatch();
-    message.withdrawerAddress = object.withdrawerAddress ?? "";
+  ): MsgWithdraw {
+    const message = createBaseMsgWithdraw();
+    message.withdrawer = object.withdrawer ?? "";
     message.poolId =
       object.poolId !== undefined && object.poolId !== null
         ? Long.fromValue(object.poolId)
@@ -480,25 +630,22 @@ export const MsgWithdrawWithinBatch = {
   },
 };
 
-function createBaseMsgWithdrawWithinBatchResponse(): MsgWithdrawWithinBatchResponse {
+function createBaseMsgWithdrawResponse(): MsgWithdrawResponse {
   return {};
 }
 
-export const MsgWithdrawWithinBatchResponse = {
+export const MsgWithdrawResponse = {
   encode(
-    _: MsgWithdrawWithinBatchResponse,
+    _: MsgWithdrawResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgWithdrawWithinBatchResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgWithdrawWithinBatchResponse();
+    const message = createBaseMsgWithdrawResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -510,48 +657,49 @@ export const MsgWithdrawWithinBatchResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgWithdrawWithinBatchResponse {
+  fromJSON(_: any): MsgWithdrawResponse {
     return {};
   },
 
-  toJSON(_: MsgWithdrawWithinBatchResponse): unknown {
+  toJSON(_: MsgWithdrawResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWithdrawWithinBatchResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawResponse>, I>>(
     _: I
-  ): MsgWithdrawWithinBatchResponse {
-    const message = createBaseMsgWithdrawWithinBatchResponse();
+  ): MsgWithdrawResponse {
+    const message = createBaseMsgWithdrawResponse();
     return message;
   },
 };
 
-function createBaseMsgSwapWithinBatch(): MsgSwapWithinBatch {
+function createBaseMsgLimitOrder(): MsgLimitOrder {
   return {
-    swapRequesterAddress: "",
-    poolId: Long.UZERO,
-    swapTypeId: 0,
+    orderer: "",
+    pairId: Long.UZERO,
+    direction: 0,
     offerCoin: undefined,
     demandCoinDenom: "",
-    offerCoinFee: undefined,
-    orderPrice: "",
+    price: "",
+    amount: "",
+    orderLifespan: undefined,
   };
 }
 
-export const MsgSwapWithinBatch = {
+export const MsgLimitOrder = {
   encode(
-    message: MsgSwapWithinBatch,
+    message: MsgLimitOrder,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.swapRequesterAddress !== "") {
-      writer.uint32(10).string(message.swapRequesterAddress);
+    if (message.orderer !== "") {
+      writer.uint32(10).string(message.orderer);
     }
-    if (!message.poolId.isZero()) {
-      writer.uint32(16).uint64(message.poolId);
+    if (!message.pairId.isZero()) {
+      writer.uint32(16).uint64(message.pairId);
     }
-    if (message.swapTypeId !== 0) {
-      writer.uint32(24).uint32(message.swapTypeId);
+    if (message.direction !== 0) {
+      writer.uint32(24).int32(message.direction);
     }
     if (message.offerCoin !== undefined) {
       Coin.encode(message.offerCoin, writer.uint32(34).fork()).ldelim();
@@ -559,30 +707,33 @@ export const MsgSwapWithinBatch = {
     if (message.demandCoinDenom !== "") {
       writer.uint32(42).string(message.demandCoinDenom);
     }
-    if (message.offerCoinFee !== undefined) {
-      Coin.encode(message.offerCoinFee, writer.uint32(50).fork()).ldelim();
+    if (message.price !== "") {
+      writer.uint32(50).string(message.price);
     }
-    if (message.orderPrice !== "") {
-      writer.uint32(58).string(message.orderPrice);
+    if (message.amount !== "") {
+      writer.uint32(58).string(message.amount);
+    }
+    if (message.orderLifespan !== undefined) {
+      Duration.encode(message.orderLifespan, writer.uint32(66).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgSwapWithinBatch {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgLimitOrder {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgSwapWithinBatch();
+    const message = createBaseMsgLimitOrder();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.swapRequesterAddress = reader.string();
+          message.orderer = reader.string();
           break;
         case 2:
-          message.poolId = reader.uint64() as Long;
+          message.pairId = reader.uint64() as Long;
           break;
         case 3:
-          message.swapTypeId = reader.uint32();
+          message.direction = reader.int32() as any;
           break;
         case 4:
           message.offerCoin = Coin.decode(reader, reader.uint32());
@@ -591,10 +742,13 @@ export const MsgSwapWithinBatch = {
           message.demandCoinDenom = reader.string();
           break;
         case 6:
-          message.offerCoinFee = Coin.decode(reader, reader.uint32());
+          message.price = reader.string();
           break;
         case 7:
-          message.orderPrice = reader.string();
+          message.amount = reader.string();
+          break;
+        case 8:
+          message.orderLifespan = Duration.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -604,81 +758,83 @@ export const MsgSwapWithinBatch = {
     return message;
   },
 
-  fromJSON(object: any): MsgSwapWithinBatch {
+  fromJSON(object: any): MsgLimitOrder {
     return {
-      swapRequesterAddress: isSet(object.swapRequesterAddress)
-        ? String(object.swapRequesterAddress)
-        : "",
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
+      orderer: isSet(object.orderer) ? String(object.orderer) : "",
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
         : Long.UZERO,
-      swapTypeId: isSet(object.swapTypeId) ? Number(object.swapTypeId) : 0,
+      direction: isSet(object.direction)
+        ? orderDirectionFromJSON(object.direction)
+        : 0,
       offerCoin: isSet(object.offerCoin)
         ? Coin.fromJSON(object.offerCoin)
         : undefined,
       demandCoinDenom: isSet(object.demandCoinDenom)
         ? String(object.demandCoinDenom)
         : "",
-      offerCoinFee: isSet(object.offerCoinFee)
-        ? Coin.fromJSON(object.offerCoinFee)
+      price: isSet(object.price) ? String(object.price) : "",
+      amount: isSet(object.amount) ? String(object.amount) : "",
+      orderLifespan: isSet(object.orderLifespan)
+        ? Duration.fromJSON(object.orderLifespan)
         : undefined,
-      orderPrice: isSet(object.orderPrice) ? String(object.orderPrice) : "",
     };
   },
 
-  toJSON(message: MsgSwapWithinBatch): unknown {
+  toJSON(message: MsgLimitOrder): unknown {
     const obj: any = {};
-    message.swapRequesterAddress !== undefined &&
-      (obj.swapRequesterAddress = message.swapRequesterAddress);
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.swapTypeId !== undefined &&
-      (obj.swapTypeId = Math.round(message.swapTypeId));
+    message.orderer !== undefined && (obj.orderer = message.orderer);
+    message.pairId !== undefined &&
+      (obj.pairId = (message.pairId || Long.UZERO).toString());
+    message.direction !== undefined &&
+      (obj.direction = orderDirectionToJSON(message.direction));
     message.offerCoin !== undefined &&
       (obj.offerCoin = message.offerCoin
         ? Coin.toJSON(message.offerCoin)
         : undefined);
     message.demandCoinDenom !== undefined &&
       (obj.demandCoinDenom = message.demandCoinDenom);
-    message.offerCoinFee !== undefined &&
-      (obj.offerCoinFee = message.offerCoinFee
-        ? Coin.toJSON(message.offerCoinFee)
+    message.price !== undefined && (obj.price = message.price);
+    message.amount !== undefined && (obj.amount = message.amount);
+    message.orderLifespan !== undefined &&
+      (obj.orderLifespan = message.orderLifespan
+        ? Duration.toJSON(message.orderLifespan)
         : undefined);
-    message.orderPrice !== undefined && (obj.orderPrice = message.orderPrice);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgSwapWithinBatch>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgLimitOrder>, I>>(
     object: I
-  ): MsgSwapWithinBatch {
-    const message = createBaseMsgSwapWithinBatch();
-    message.swapRequesterAddress = object.swapRequesterAddress ?? "";
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
+  ): MsgLimitOrder {
+    const message = createBaseMsgLimitOrder();
+    message.orderer = object.orderer ?? "";
+    message.pairId =
+      object.pairId !== undefined && object.pairId !== null
+        ? Long.fromValue(object.pairId)
         : Long.UZERO;
-    message.swapTypeId = object.swapTypeId ?? 0;
+    message.direction = object.direction ?? 0;
     message.offerCoin =
       object.offerCoin !== undefined && object.offerCoin !== null
         ? Coin.fromPartial(object.offerCoin)
         : undefined;
     message.demandCoinDenom = object.demandCoinDenom ?? "";
-    message.offerCoinFee =
-      object.offerCoinFee !== undefined && object.offerCoinFee !== null
-        ? Coin.fromPartial(object.offerCoinFee)
+    message.price = object.price ?? "";
+    message.amount = object.amount ?? "";
+    message.orderLifespan =
+      object.orderLifespan !== undefined && object.orderLifespan !== null
+        ? Duration.fromPartial(object.orderLifespan)
         : undefined;
-    message.orderPrice = object.orderPrice ?? "";
     return message;
   },
 };
 
-function createBaseMsgSwapWithinBatchResponse(): MsgSwapWithinBatchResponse {
+function createBaseMsgLimitOrderResponse(): MsgLimitOrderResponse {
   return {};
 }
 
-export const MsgSwapWithinBatchResponse = {
+export const MsgLimitOrderResponse = {
   encode(
-    _: MsgSwapWithinBatchResponse,
+    _: MsgLimitOrderResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer;
@@ -687,10 +843,10 @@ export const MsgSwapWithinBatchResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): MsgSwapWithinBatchResponse {
+  ): MsgLimitOrderResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgSwapWithinBatchResponse();
+    const message = createBaseMsgLimitOrderResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -702,59 +858,506 @@ export const MsgSwapWithinBatchResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgSwapWithinBatchResponse {
+  fromJSON(_: any): MsgLimitOrderResponse {
     return {};
   },
 
-  toJSON(_: MsgSwapWithinBatchResponse): unknown {
+  toJSON(_: MsgLimitOrderResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgSwapWithinBatchResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgLimitOrderResponse>, I>>(
     _: I
-  ): MsgSwapWithinBatchResponse {
-    const message = createBaseMsgSwapWithinBatchResponse();
+  ): MsgLimitOrderResponse {
+    const message = createBaseMsgLimitOrderResponse();
     return message;
   },
 };
 
-function createBaseMsgBondPoolTokens(): MsgBondPoolTokens {
-  return { userAddress: "", poolId: Long.UZERO, poolCoin: undefined };
+function createBaseMsgMarketOrder(): MsgMarketOrder {
+  return {
+    orderer: "",
+    pairId: Long.UZERO,
+    direction: 0,
+    offerCoin: undefined,
+    demandCoinDenom: "",
+    amount: "",
+    orderLifespan: undefined,
+  };
 }
 
-export const MsgBondPoolTokens = {
+export const MsgMarketOrder = {
   encode(
-    message: MsgBondPoolTokens,
+    message: MsgMarketOrder,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.userAddress !== "") {
-      writer.uint32(10).string(message.userAddress);
+    if (message.orderer !== "") {
+      writer.uint32(10).string(message.orderer);
     }
-    if (!message.poolId.isZero()) {
-      writer.uint32(16).uint64(message.poolId);
+    if (!message.pairId.isZero()) {
+      writer.uint32(16).uint64(message.pairId);
     }
-    if (message.poolCoin !== undefined) {
-      Coin.encode(message.poolCoin, writer.uint32(26).fork()).ldelim();
+    if (message.direction !== 0) {
+      writer.uint32(24).int32(message.direction);
+    }
+    if (message.offerCoin !== undefined) {
+      Coin.encode(message.offerCoin, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.demandCoinDenom !== "") {
+      writer.uint32(42).string(message.demandCoinDenom);
+    }
+    if (message.amount !== "") {
+      writer.uint32(50).string(message.amount);
+    }
+    if (message.orderLifespan !== undefined) {
+      Duration.encode(message.orderLifespan, writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgBondPoolTokens {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMarketOrder {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgBondPoolTokens();
+    const message = createBaseMsgMarketOrder();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.userAddress = reader.string();
+          message.orderer = reader.string();
+          break;
+        case 2:
+          message.pairId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.direction = reader.int32() as any;
+          break;
+        case 4:
+          message.offerCoin = Coin.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.demandCoinDenom = reader.string();
+          break;
+        case 6:
+          message.amount = reader.string();
+          break;
+        case 7:
+          message.orderLifespan = Duration.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgMarketOrder {
+    return {
+      orderer: isSet(object.orderer) ? String(object.orderer) : "",
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
+      direction: isSet(object.direction)
+        ? orderDirectionFromJSON(object.direction)
+        : 0,
+      offerCoin: isSet(object.offerCoin)
+        ? Coin.fromJSON(object.offerCoin)
+        : undefined,
+      demandCoinDenom: isSet(object.demandCoinDenom)
+        ? String(object.demandCoinDenom)
+        : "",
+      amount: isSet(object.amount) ? String(object.amount) : "",
+      orderLifespan: isSet(object.orderLifespan)
+        ? Duration.fromJSON(object.orderLifespan)
+        : undefined,
+    };
+  },
+
+  toJSON(message: MsgMarketOrder): unknown {
+    const obj: any = {};
+    message.orderer !== undefined && (obj.orderer = message.orderer);
+    message.pairId !== undefined &&
+      (obj.pairId = (message.pairId || Long.UZERO).toString());
+    message.direction !== undefined &&
+      (obj.direction = orderDirectionToJSON(message.direction));
+    message.offerCoin !== undefined &&
+      (obj.offerCoin = message.offerCoin
+        ? Coin.toJSON(message.offerCoin)
+        : undefined);
+    message.demandCoinDenom !== undefined &&
+      (obj.demandCoinDenom = message.demandCoinDenom);
+    message.amount !== undefined && (obj.amount = message.amount);
+    message.orderLifespan !== undefined &&
+      (obj.orderLifespan = message.orderLifespan
+        ? Duration.toJSON(message.orderLifespan)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgMarketOrder>, I>>(
+    object: I
+  ): MsgMarketOrder {
+    const message = createBaseMsgMarketOrder();
+    message.orderer = object.orderer ?? "";
+    message.pairId =
+      object.pairId !== undefined && object.pairId !== null
+        ? Long.fromValue(object.pairId)
+        : Long.UZERO;
+    message.direction = object.direction ?? 0;
+    message.offerCoin =
+      object.offerCoin !== undefined && object.offerCoin !== null
+        ? Coin.fromPartial(object.offerCoin)
+        : undefined;
+    message.demandCoinDenom = object.demandCoinDenom ?? "";
+    message.amount = object.amount ?? "";
+    message.orderLifespan =
+      object.orderLifespan !== undefined && object.orderLifespan !== null
+        ? Duration.fromPartial(object.orderLifespan)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseMsgMarketOrderResponse(): MsgMarketOrderResponse {
+  return {};
+}
+
+export const MsgMarketOrderResponse = {
+  encode(
+    _: MsgMarketOrderResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgMarketOrderResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgMarketOrderResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgMarketOrderResponse {
+    return {};
+  },
+
+  toJSON(_: MsgMarketOrderResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgMarketOrderResponse>, I>>(
+    _: I
+  ): MsgMarketOrderResponse {
+    const message = createBaseMsgMarketOrderResponse();
+    return message;
+  },
+};
+
+function createBaseMsgCancelOrder(): MsgCancelOrder {
+  return { orderer: "", pairId: Long.UZERO, orderId: Long.UZERO };
+}
+
+export const MsgCancelOrder = {
+  encode(
+    message: MsgCancelOrder,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.orderer !== "") {
+      writer.uint32(10).string(message.orderer);
+    }
+    if (!message.pairId.isZero()) {
+      writer.uint32(16).uint64(message.pairId);
+    }
+    if (!message.orderId.isZero()) {
+      writer.uint32(24).uint64(message.orderId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelOrder {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCancelOrder();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.orderer = reader.string();
+          break;
+        case 2:
+          message.pairId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.orderId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCancelOrder {
+    return {
+      orderer: isSet(object.orderer) ? String(object.orderer) : "",
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
+      orderId: isSet(object.orderId)
+        ? Long.fromString(object.orderId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: MsgCancelOrder): unknown {
+    const obj: any = {};
+    message.orderer !== undefined && (obj.orderer = message.orderer);
+    message.pairId !== undefined &&
+      (obj.pairId = (message.pairId || Long.UZERO).toString());
+    message.orderId !== undefined &&
+      (obj.orderId = (message.orderId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCancelOrder>, I>>(
+    object: I
+  ): MsgCancelOrder {
+    const message = createBaseMsgCancelOrder();
+    message.orderer = object.orderer ?? "";
+    message.pairId =
+      object.pairId !== undefined && object.pairId !== null
+        ? Long.fromValue(object.pairId)
+        : Long.UZERO;
+    message.orderId =
+      object.orderId !== undefined && object.orderId !== null
+        ? Long.fromValue(object.orderId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseMsgCancelOrderResponse(): MsgCancelOrderResponse {
+  return {};
+}
+
+export const MsgCancelOrderResponse = {
+  encode(
+    _: MsgCancelOrderResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgCancelOrderResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCancelOrderResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCancelOrderResponse {
+    return {};
+  },
+
+  toJSON(_: MsgCancelOrderResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCancelOrderResponse>, I>>(
+    _: I
+  ): MsgCancelOrderResponse {
+    const message = createBaseMsgCancelOrderResponse();
+    return message;
+  },
+};
+
+function createBaseMsgCancelAllOrders(): MsgCancelAllOrders {
+  return { orderer: "", pairIds: [] };
+}
+
+export const MsgCancelAllOrders = {
+  encode(
+    message: MsgCancelAllOrders,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.orderer !== "") {
+      writer.uint32(10).string(message.orderer);
+    }
+    writer.uint32(18).fork();
+    for (const v of message.pairIds) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelAllOrders {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCancelAllOrders();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.orderer = reader.string();
+          break;
+        case 2:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.pairIds.push(reader.uint64() as Long);
+            }
+          } else {
+            message.pairIds.push(reader.uint64() as Long);
+          }
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCancelAllOrders {
+    return {
+      orderer: isSet(object.orderer) ? String(object.orderer) : "",
+      pairIds: Array.isArray(object?.pairIds)
+        ? object.pairIds.map((e: any) => Long.fromString(e))
+        : [],
+    };
+  },
+
+  toJSON(message: MsgCancelAllOrders): unknown {
+    const obj: any = {};
+    message.orderer !== undefined && (obj.orderer = message.orderer);
+    if (message.pairIds) {
+      obj.pairIds = message.pairIds.map((e) => (e || Long.UZERO).toString());
+    } else {
+      obj.pairIds = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCancelAllOrders>, I>>(
+    object: I
+  ): MsgCancelAllOrders {
+    const message = createBaseMsgCancelAllOrders();
+    message.orderer = object.orderer ?? "";
+    message.pairIds = object.pairIds?.map((e) => Long.fromValue(e)) || [];
+    return message;
+  },
+};
+
+function createBaseMsgCancelAllOrdersResponse(): MsgCancelAllOrdersResponse {
+  return {};
+}
+
+export const MsgCancelAllOrdersResponse = {
+  encode(
+    _: MsgCancelAllOrdersResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgCancelAllOrdersResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCancelAllOrdersResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCancelAllOrdersResponse {
+    return {};
+  },
+
+  toJSON(_: MsgCancelAllOrdersResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCancelAllOrdersResponse>, I>>(
+    _: I
+  ): MsgCancelAllOrdersResponse {
+    const message = createBaseMsgCancelAllOrdersResponse();
+    return message;
+  },
+};
+
+function createBaseMsgTokensSoftLock(): MsgTokensSoftLock {
+  return { depositor: "", poolId: Long.UZERO, softLockCoin: undefined };
+}
+
+export const MsgTokensSoftLock = {
+  encode(
+    message: MsgTokensSoftLock,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.depositor !== "") {
+      writer.uint32(10).string(message.depositor);
+    }
+    if (!message.poolId.isZero()) {
+      writer.uint32(16).uint64(message.poolId);
+    }
+    if (message.softLockCoin !== undefined) {
+      Coin.encode(message.softLockCoin, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgTokensSoftLock {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgTokensSoftLock();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.depositor = reader.string();
           break;
         case 2:
           message.poolId = reader.uint64() as Long;
           break;
         case 3:
-          message.poolCoin = Coin.decode(reader, reader.uint32());
+          message.softLockCoin = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -764,84 +1367,130 @@ export const MsgBondPoolTokens = {
     return message;
   },
 
-  fromJSON(object: any): MsgBondPoolTokens {
+  fromJSON(object: any): MsgTokensSoftLock {
     return {
-      userAddress: isSet(object.userAddress) ? String(object.userAddress) : "",
+      depositor: isSet(object.depositor) ? String(object.depositor) : "",
       poolId: isSet(object.poolId)
         ? Long.fromString(object.poolId)
         : Long.UZERO,
-      poolCoin: isSet(object.poolCoin)
-        ? Coin.fromJSON(object.poolCoin)
+      softLockCoin: isSet(object.softLockCoin)
+        ? Coin.fromJSON(object.softLockCoin)
         : undefined,
     };
   },
 
-  toJSON(message: MsgBondPoolTokens): unknown {
+  toJSON(message: MsgTokensSoftLock): unknown {
     const obj: any = {};
-    message.userAddress !== undefined &&
-      (obj.userAddress = message.userAddress);
+    message.depositor !== undefined && (obj.depositor = message.depositor);
     message.poolId !== undefined &&
       (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.poolCoin !== undefined &&
-      (obj.poolCoin = message.poolCoin
-        ? Coin.toJSON(message.poolCoin)
+    message.softLockCoin !== undefined &&
+      (obj.softLockCoin = message.softLockCoin
+        ? Coin.toJSON(message.softLockCoin)
         : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgBondPoolTokens>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgTokensSoftLock>, I>>(
     object: I
-  ): MsgBondPoolTokens {
-    const message = createBaseMsgBondPoolTokens();
-    message.userAddress = object.userAddress ?? "";
+  ): MsgTokensSoftLock {
+    const message = createBaseMsgTokensSoftLock();
+    message.depositor = object.depositor ?? "";
     message.poolId =
       object.poolId !== undefined && object.poolId !== null
         ? Long.fromValue(object.poolId)
         : Long.UZERO;
-    message.poolCoin =
-      object.poolCoin !== undefined && object.poolCoin !== null
-        ? Coin.fromPartial(object.poolCoin)
+    message.softLockCoin =
+      object.softLockCoin !== undefined && object.softLockCoin !== null
+        ? Coin.fromPartial(object.softLockCoin)
         : undefined;
     return message;
   },
 };
 
-function createBaseMsgUnbondPoolTokens(): MsgUnbondPoolTokens {
-  return { userAddress: "", poolId: Long.UZERO, poolCoin: undefined };
+function createBaseMsgTokensSoftLockResponse(): MsgTokensSoftLockResponse {
+  return {};
 }
 
-export const MsgUnbondPoolTokens = {
+export const MsgTokensSoftLockResponse = {
   encode(
-    message: MsgUnbondPoolTokens,
+    _: MsgTokensSoftLockResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.userAddress !== "") {
-      writer.uint32(10).string(message.userAddress);
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgTokensSoftLockResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgTokensSoftLockResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgTokensSoftLockResponse {
+    return {};
+  },
+
+  toJSON(_: MsgTokensSoftLockResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgTokensSoftLockResponse>, I>>(
+    _: I
+  ): MsgTokensSoftLockResponse {
+    const message = createBaseMsgTokensSoftLockResponse();
+    return message;
+  },
+};
+
+function createBaseMsgTokensSoftUnlock(): MsgTokensSoftUnlock {
+  return { depositor: "", poolId: Long.UZERO, softUnlockCoin: undefined };
+}
+
+export const MsgTokensSoftUnlock = {
+  encode(
+    message: MsgTokensSoftUnlock,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.depositor !== "") {
+      writer.uint32(10).string(message.depositor);
     }
     if (!message.poolId.isZero()) {
       writer.uint32(16).uint64(message.poolId);
     }
-    if (message.poolCoin !== undefined) {
-      Coin.encode(message.poolCoin, writer.uint32(26).fork()).ldelim();
+    if (message.softUnlockCoin !== undefined) {
+      Coin.encode(message.softUnlockCoin, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnbondPoolTokens {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgTokensSoftUnlock {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgUnbondPoolTokens();
+    const message = createBaseMsgTokensSoftUnlock();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.userAddress = reader.string();
+          message.depositor = reader.string();
           break;
         case 2:
           message.poolId = reader.uint64() as Long;
           break;
         case 3:
-          message.poolCoin = Coin.decode(reader, reader.uint32());
+          message.softUnlockCoin = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -851,55 +1500,54 @@ export const MsgUnbondPoolTokens = {
     return message;
   },
 
-  fromJSON(object: any): MsgUnbondPoolTokens {
+  fromJSON(object: any): MsgTokensSoftUnlock {
     return {
-      userAddress: isSet(object.userAddress) ? String(object.userAddress) : "",
+      depositor: isSet(object.depositor) ? String(object.depositor) : "",
       poolId: isSet(object.poolId)
         ? Long.fromString(object.poolId)
         : Long.UZERO,
-      poolCoin: isSet(object.poolCoin)
-        ? Coin.fromJSON(object.poolCoin)
+      softUnlockCoin: isSet(object.softUnlockCoin)
+        ? Coin.fromJSON(object.softUnlockCoin)
         : undefined,
     };
   },
 
-  toJSON(message: MsgUnbondPoolTokens): unknown {
+  toJSON(message: MsgTokensSoftUnlock): unknown {
     const obj: any = {};
-    message.userAddress !== undefined &&
-      (obj.userAddress = message.userAddress);
+    message.depositor !== undefined && (obj.depositor = message.depositor);
     message.poolId !== undefined &&
       (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.poolCoin !== undefined &&
-      (obj.poolCoin = message.poolCoin
-        ? Coin.toJSON(message.poolCoin)
+    message.softUnlockCoin !== undefined &&
+      (obj.softUnlockCoin = message.softUnlockCoin
+        ? Coin.toJSON(message.softUnlockCoin)
         : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgUnbondPoolTokens>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgTokensSoftUnlock>, I>>(
     object: I
-  ): MsgUnbondPoolTokens {
-    const message = createBaseMsgUnbondPoolTokens();
-    message.userAddress = object.userAddress ?? "";
+  ): MsgTokensSoftUnlock {
+    const message = createBaseMsgTokensSoftUnlock();
+    message.depositor = object.depositor ?? "";
     message.poolId =
       object.poolId !== undefined && object.poolId !== null
         ? Long.fromValue(object.poolId)
         : Long.UZERO;
-    message.poolCoin =
-      object.poolCoin !== undefined && object.poolCoin !== null
-        ? Coin.fromPartial(object.poolCoin)
+    message.softUnlockCoin =
+      object.softUnlockCoin !== undefined && object.softUnlockCoin !== null
+        ? Coin.fromPartial(object.softUnlockCoin)
         : undefined;
     return message;
   },
 };
 
-function createBaseMsgBondPoolTokensResponse(): MsgBondPoolTokensResponse {
+function createBaseMsgTokensSoftUnlockResponse(): MsgTokensSoftUnlockResponse {
   return {};
 }
 
-export const MsgBondPoolTokensResponse = {
+export const MsgTokensSoftUnlockResponse = {
   encode(
-    _: MsgBondPoolTokensResponse,
+    _: MsgTokensSoftUnlockResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer;
@@ -908,10 +1556,10 @@ export const MsgBondPoolTokensResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): MsgBondPoolTokensResponse {
+  ): MsgTokensSoftUnlockResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgBondPoolTokensResponse();
+    const message = createBaseMsgTokensSoftUnlockResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -923,103 +1571,80 @@ export const MsgBondPoolTokensResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgBondPoolTokensResponse {
+  fromJSON(_: any): MsgTokensSoftUnlockResponse {
     return {};
   },
 
-  toJSON(_: MsgBondPoolTokensResponse): unknown {
+  toJSON(_: MsgTokensSoftUnlockResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgBondPoolTokensResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgTokensSoftUnlockResponse>, I>>(
     _: I
-  ): MsgBondPoolTokensResponse {
-    const message = createBaseMsgBondPoolTokensResponse();
+  ): MsgTokensSoftUnlockResponse {
+    const message = createBaseMsgTokensSoftUnlockResponse();
     return message;
   },
 };
 
-function createBaseMsgUnbondPoolTokensResponse(): MsgUnbondPoolTokensResponse {
-  return {};
-}
-
-export const MsgUnbondPoolTokensResponse = {
-  encode(
-    _: MsgUnbondPoolTokensResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgUnbondPoolTokensResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgUnbondPoolTokensResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(_: any): MsgUnbondPoolTokensResponse {
-    return {};
-  },
-
-  toJSON(_: MsgUnbondPoolTokensResponse): unknown {
-    const obj: any = {};
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<MsgUnbondPoolTokensResponse>, I>>(
-    _: I
-  ): MsgUnbondPoolTokensResponse {
-    const message = createBaseMsgUnbondPoolTokensResponse();
-    return message;
-  },
-};
-
-/** Msg defines the liquidity Msg service. */
+/** Msg defines the Msg service. */
 export interface Msg {
-  /** Submit a create liquidity pool message. */
+  /** CreatePair defines a method for creating a pair */
+  CreatePair(request: MsgCreatePair): Promise<MsgCreatePairResponse>;
+  /** CreatePool defines a method for creating a pool */
   CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse>;
-  /** Submit a deposit to the liquidity pool batch. */
-  DepositWithinBatch(
-    request: MsgDepositWithinBatch
-  ): Promise<MsgDepositWithinBatchResponse>;
-  /** Submit a withdraw from the liquidity pool batch. */
-  WithdrawWithinBatch(
-    request: MsgWithdrawWithinBatch
-  ): Promise<MsgWithdrawWithinBatchResponse>;
-  /** Submit a swap to the liquidity pool batch. */
-  Swap(request: MsgSwapWithinBatch): Promise<MsgSwapWithinBatchResponse>;
-  BondPoolTokens(
-    request: MsgBondPoolTokens
-  ): Promise<MsgBondPoolTokensResponse>;
-  UnbondPoolTokens(
-    request: MsgUnbondPoolTokens
-  ): Promise<MsgUnbondPoolTokensResponse>;
+  /** Deposit defines a method for depositing coins to the pool */
+  Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;
+  /** Withdraw defines a method for withdrawing pool coin from the pool */
+  Withdraw(request: MsgWithdraw): Promise<MsgWithdrawResponse>;
+  /** LimitOrder defines a method for making a limit order */
+  LimitOrder(request: MsgLimitOrder): Promise<MsgLimitOrderResponse>;
+  /** MarketOrder defines a method for making a market order */
+  MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse>;
+  /** CancelOrder defines a method for cancelling an order */
+  CancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse>;
+  /** CancelAllOrders defines a method for cancelling all orders */
+  CancelAllOrders(
+    request: MsgCancelAllOrders
+  ): Promise<MsgCancelAllOrdersResponse>;
+  /** TokensSoftLock defines a method to soft lock the token, for incentivization */
+  TokensSoftLock(
+    request: MsgTokensSoftLock
+  ): Promise<MsgTokensSoftLockResponse>;
+  /** TokensSoftUnlock defines a method to unlock the soft locked token, for incentivization */
+  TokensSoftUnlock(
+    request: MsgTokensSoftUnlock
+  ): Promise<MsgTokensSoftUnlockResponse>;
 }
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
+    this.CreatePair = this.CreatePair.bind(this);
     this.CreatePool = this.CreatePool.bind(this);
-    this.DepositWithinBatch = this.DepositWithinBatch.bind(this);
-    this.WithdrawWithinBatch = this.WithdrawWithinBatch.bind(this);
-    this.Swap = this.Swap.bind(this);
-    this.BondPoolTokens = this.BondPoolTokens.bind(this);
-    this.UnbondPoolTokens = this.UnbondPoolTokens.bind(this);
+    this.Deposit = this.Deposit.bind(this);
+    this.Withdraw = this.Withdraw.bind(this);
+    this.LimitOrder = this.LimitOrder.bind(this);
+    this.MarketOrder = this.MarketOrder.bind(this);
+    this.CancelOrder = this.CancelOrder.bind(this);
+    this.CancelAllOrders = this.CancelAllOrders.bind(this);
+    this.TokensSoftLock = this.TokensSoftLock.bind(this);
+    this.TokensSoftUnlock = this.TokensSoftUnlock.bind(this);
   }
+  CreatePair(request: MsgCreatePair): Promise<MsgCreatePairResponse> {
+    const data = MsgCreatePair.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Msg",
+      "CreatePair",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreatePairResponse.decode(new _m0.Reader(data))
+    );
+  }
+
   CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse> {
     const data = MsgCreatePool.encode(request).finish();
     const promise = this.rpc.request(
@@ -1032,71 +1657,105 @@ export class MsgClientImpl implements Msg {
     );
   }
 
-  DepositWithinBatch(
-    request: MsgDepositWithinBatch
-  ): Promise<MsgDepositWithinBatchResponse> {
-    const data = MsgDepositWithinBatch.encode(request).finish();
+  Deposit(request: MsgDeposit): Promise<MsgDepositResponse> {
+    const data = MsgDeposit.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.liquidity.v1beta1.Msg",
-      "DepositWithinBatch",
+      "Deposit",
       data
     );
     return promise.then((data) =>
-      MsgDepositWithinBatchResponse.decode(new _m0.Reader(data))
+      MsgDepositResponse.decode(new _m0.Reader(data))
     );
   }
 
-  WithdrawWithinBatch(
-    request: MsgWithdrawWithinBatch
-  ): Promise<MsgWithdrawWithinBatchResponse> {
-    const data = MsgWithdrawWithinBatch.encode(request).finish();
+  Withdraw(request: MsgWithdraw): Promise<MsgWithdrawResponse> {
+    const data = MsgWithdraw.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.liquidity.v1beta1.Msg",
-      "WithdrawWithinBatch",
+      "Withdraw",
       data
     );
     return promise.then((data) =>
-      MsgWithdrawWithinBatchResponse.decode(new _m0.Reader(data))
+      MsgWithdrawResponse.decode(new _m0.Reader(data))
     );
   }
 
-  Swap(request: MsgSwapWithinBatch): Promise<MsgSwapWithinBatchResponse> {
-    const data = MsgSwapWithinBatch.encode(request).finish();
+  LimitOrder(request: MsgLimitOrder): Promise<MsgLimitOrderResponse> {
+    const data = MsgLimitOrder.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.liquidity.v1beta1.Msg",
-      "Swap",
+      "LimitOrder",
       data
     );
     return promise.then((data) =>
-      MsgSwapWithinBatchResponse.decode(new _m0.Reader(data))
+      MsgLimitOrderResponse.decode(new _m0.Reader(data))
     );
   }
 
-  BondPoolTokens(
-    request: MsgBondPoolTokens
-  ): Promise<MsgBondPoolTokensResponse> {
-    const data = MsgBondPoolTokens.encode(request).finish();
+  MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse> {
+    const data = MsgMarketOrder.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.liquidity.v1beta1.Msg",
-      "BondPoolTokens",
+      "MarketOrder",
       data
     );
     return promise.then((data) =>
-      MsgBondPoolTokensResponse.decode(new _m0.Reader(data))
+      MsgMarketOrderResponse.decode(new _m0.Reader(data))
     );
   }
 
-  UnbondPoolTokens(
-    request: MsgUnbondPoolTokens
-  ): Promise<MsgUnbondPoolTokensResponse> {
-    const data = MsgUnbondPoolTokens.encode(request).finish();
+  CancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse> {
+    const data = MsgCancelOrder.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.liquidity.v1beta1.Msg",
-      "UnbondPoolTokens",
+      "CancelOrder",
       data
     );
     return promise.then((data) =>
-      MsgUnbondPoolTokensResponse.decode(new _m0.Reader(data))
+      MsgCancelOrderResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  CancelAllOrders(
+    request: MsgCancelAllOrders
+  ): Promise<MsgCancelAllOrdersResponse> {
+    const data = MsgCancelAllOrders.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Msg",
+      "CancelAllOrders",
+      data
+    );
+    return promise.then((data) =>
+      MsgCancelAllOrdersResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  TokensSoftLock(
+    request: MsgTokensSoftLock
+  ): Promise<MsgTokensSoftLockResponse> {
+    const data = MsgTokensSoftLock.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Msg",
+      "TokensSoftLock",
+      data
+    );
+    return promise.then((data) =>
+      MsgTokensSoftLockResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  TokensSoftUnlock(
+    request: MsgTokensSoftUnlock
+  ): Promise<MsgTokensSoftUnlockResponse> {
+    const data = MsgTokensSoftUnlock.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Msg",
+      "TokensSoftUnlock",
+      data
+    );
+    return promise.then((data) =>
+      MsgTokensSoftUnlockResponse.decode(new _m0.Reader(data))
     );
   }
 }

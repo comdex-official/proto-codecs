@@ -9,7 +9,7 @@ const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const locked_vault_1 = require("../../../comdex/liquidation/v1beta1/locked_vault");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-const params_1 = require("./params");
+const params_1 = require("../../../comdex/liquidation/v1beta1/params");
 exports.protobufPackage = "comdex.liquidation.v1beta1";
 function createBaseQueryLockedVaultRequest() {
     return { id: long_1.default.UZERO };
@@ -40,7 +40,7 @@ exports.QueryLockedVaultRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -727,9 +727,7 @@ exports.QueryLockedVaultsPairRequest = {
     },
     fromJSON(object) {
         return {
-            PairId: isSet(object.PairId)
-                ? long_1.default.fromString(object.PairId)
-                : long_1.default.UZERO,
+            PairId: isSet(object.PairId) ? long_1.default.fromValue(object.PairId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,

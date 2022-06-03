@@ -98,10 +98,10 @@ exports.Vault = {
         return {
             id: isSet(object.id) ? String(object.id) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
             amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
@@ -254,7 +254,7 @@ exports.VaultToAppMapping = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             userExtendedPairVault: Array.isArray(object === null || object === void 0 ? void 0 : object.userExtendedPairVault)
                 ? object.userExtendedPairVault.map((e) => exports.ExtendedPairToVaultMapping.fromJSON(e))
@@ -321,7 +321,7 @@ exports.ExtendedPairToVaultMapping = {
     fromJSON(object) {
         return {
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             vaultId: isSet(object.vaultId) ? String(object.vaultId) : "",
         };
@@ -390,10 +390,10 @@ exports.AppExtendedPairVaultMapping = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             counter: isSet(object.counter)
-                ? long_1.default.fromString(object.counter)
+                ? long_1.default.fromValue(object.counter)
                 : long_1.default.UZERO,
             extendedPairVaults: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPairVaults)
                 ? object.extendedPairVaults.map((e) => exports.ExtendedPairVaultMapping.fromJSON(e))
@@ -483,7 +483,7 @@ exports.ExtendedPairVaultMapping = {
     fromJSON(object) {
         return {
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             vaultIds: Array.isArray(object === null || object === void 0 ? void 0 : object.vaultIds)
                 ? object.vaultIds.map((e) => String(e))
@@ -526,12 +526,12 @@ exports.ExtendedPairVaultMapping = {
     },
 };
 function createBaseTvlLockedDataMap() {
-    return { assetId: long_1.default.UZERO, collateralLockedAmount: "" };
+    return { assetDenom: "", collateralLockedAmount: "" };
 }
 exports.TvlLockedDataMap = {
     encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.assetId.isZero()) {
-            writer.uint32(8).uint64(message.assetId);
+        if (message.assetDenom !== "") {
+            writer.uint32(10).string(message.assetDenom);
         }
         if (message.collateralLockedAmount !== "") {
             writer.uint32(18).string(message.collateralLockedAmount);
@@ -546,7 +546,7 @@ exports.TvlLockedDataMap = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.assetId = reader.uint64();
+                    message.assetDenom = reader.string();
                     break;
                 case 2:
                     message.collateralLockedAmount = reader.string();
@@ -560,9 +560,7 @@ exports.TvlLockedDataMap = {
     },
     fromJSON(object) {
         return {
-            assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
-                : long_1.default.UZERO,
+            assetDenom: isSet(object.assetDenom) ? String(object.assetDenom) : "",
             collateralLockedAmount: isSet(object.collateralLockedAmount)
                 ? String(object.collateralLockedAmount)
                 : "",
@@ -570,20 +568,16 @@ exports.TvlLockedDataMap = {
     },
     toJSON(message) {
         const obj = {};
-        message.assetId !== undefined &&
-            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.assetDenom !== undefined && (obj.assetDenom = message.assetDenom);
         message.collateralLockedAmount !== undefined &&
             (obj.collateralLockedAmount = message.collateralLockedAmount);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseTvlLockedDataMap();
-        message.assetId =
-            object.assetId !== undefined && object.assetId !== null
-                ? long_1.default.fromValue(object.assetId)
-                : long_1.default.UZERO;
-        message.collateralLockedAmount = (_a = object.collateralLockedAmount) !== null && _a !== void 0 ? _a : "";
+        message.assetDenom = (_a = object.assetDenom) !== null && _a !== void 0 ? _a : "";
+        message.collateralLockedAmount = (_b = object.collateralLockedAmount) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };
@@ -657,10 +651,10 @@ exports.StableMintVault = {
             amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
             amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
-                ? long_1.default.fromString(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
             createdAt: isSet(object.createdAt)
                 ? fromJsonTimestamp(object.createdAt)

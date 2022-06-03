@@ -7,12 +7,12 @@ exports.AddAssetMappingProposal = exports.AddAppMappingProposal = exports.Update
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const asset_1 = require("./asset");
-const extendedAsset_1 = require("./extendedAsset");
-const extendedLend_1 = require("./extendedLend");
-const extendedPairVault_1 = require("./extendedPairVault");
-const pair_1 = require("./pair");
-const appMapping_1 = require("./appMapping");
+const asset_1 = require("../../../comdex/asset/v1beta1/asset");
+const extendedAsset_1 = require("../../../comdex/asset/v1beta1/extendedAsset");
+const extendedLend_1 = require("../../../comdex/asset/v1beta1/extendedLend");
+const extendedPairVault_1 = require("../../../comdex/asset/v1beta1/extendedPairVault");
+const pair_1 = require("../../../comdex/asset/v1beta1/pair");
+const appMapping_1 = require("../../../comdex/asset/v1beta1/appMapping");
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseAddAssetsProposal() {
     return { title: "", description: "", assets: [] };

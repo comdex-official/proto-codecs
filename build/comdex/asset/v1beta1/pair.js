@@ -49,12 +49,12 @@ exports.Pair = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             assetIn: isSet(object.assetIn)
-                ? long_1.default.fromString(object.assetIn)
+                ? long_1.default.fromValue(object.assetIn)
                 : long_1.default.UZERO,
             assetOut: isSet(object.assetOut)
-                ? long_1.default.fromString(object.assetOut)
+                ? long_1.default.fromValue(object.assetOut)
                 : long_1.default.UZERO,
         };
     },

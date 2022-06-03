@@ -67,11 +67,11 @@ exports.Asset = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             name: isSet(object.name) ? String(object.name) : "",
             denom: isSet(object.denom) ? String(object.denom) : "",
             decimals: isSet(object.decimals)
-                ? long_1.default.fromString(object.decimals)
+                ? long_1.default.fromValue(object.decimals)
                 : long_1.default.ZERO,
             isOnchain: isSet(object.isOnchain) ? Boolean(object.isOnchain) : false,
         };
