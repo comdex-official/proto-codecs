@@ -137,7 +137,7 @@ exports.Params = {
                 ? String(object.auctionDiscountPercent)
                 : "",
             auctionDurationSeconds: isSet(object.auctionDurationSeconds)
-                ? long_1.default.fromValue(object.auctionDurationSeconds)
+                ? long_1.default.fromString(object.auctionDurationSeconds)
                 : long_1.default.UZERO,
             debtMintTokenDecreasePercentage: isSet(object.debtMintTokenDecreasePercentage)
                 ? String(object.debtMintTokenDecreasePercentage)
@@ -151,14 +151,16 @@ exports.Params = {
             chost: isSet(object.chost) ? String(object.chost) : "",
             step: isSet(object.step) ? String(object.step) : "",
             priceFunctionType: isSet(object.priceFunctionType)
-                ? long_1.default.fromValue(object.priceFunctionType)
+                ? long_1.default.fromString(object.priceFunctionType)
                 : long_1.default.UZERO,
             surplusId: isSet(object.surplusId)
-                ? long_1.default.fromValue(object.surplusId)
+                ? long_1.default.fromString(object.surplusId)
                 : long_1.default.UZERO,
-            debtId: isSet(object.debtId) ? long_1.default.fromValue(object.debtId) : long_1.default.UZERO,
+            debtId: isSet(object.debtId)
+                ? long_1.default.fromString(object.debtId)
+                : long_1.default.UZERO,
             dutchId: isSet(object.dutchId)
-                ? long_1.default.fromValue(object.dutchId)
+                ? long_1.default.fromString(object.dutchId)
                 : long_1.default.UZERO,
         };
     },
