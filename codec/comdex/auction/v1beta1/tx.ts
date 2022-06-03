@@ -106,13 +106,13 @@ export const MsgPlaceSurplusBidRequest = {
   fromJSON(object: any): MsgPlaceSurplusBidRequest {
     return {
       auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
+        ? Long.fromString(object.auctionId)
         : Long.UZERO,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
+        ? Long.fromString(object.auctionMappingId)
         : Long.UZERO,
     };
   },
@@ -281,16 +281,16 @@ export const MsgPlaceDebtBidRequest = {
   fromJSON(object: any): MsgPlaceDebtBidRequest {
     return {
       auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
+        ? Long.fromString(object.auctionId)
         : Long.UZERO,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       bid: isSet(object.bid) ? Coin.fromJSON(object.bid) : undefined,
       expectedUserToken: isSet(object.expectedUserToken)
         ? Coin.fromJSON(object.expectedUserToken)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
+        ? Long.fromString(object.auctionMappingId)
         : Long.UZERO,
     };
   },
@@ -468,14 +468,14 @@ export const MsgPlaceDutchBidRequest = {
   fromJSON(object: any): MsgPlaceDutchBidRequest {
     return {
       auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
+        ? Long.fromString(object.auctionId)
         : Long.UZERO,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
       max: isSet(object.max) ? String(object.max) : "",
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
+        ? Long.fromString(object.auctionMappingId)
         : Long.UZERO,
     };
   },
