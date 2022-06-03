@@ -9,12 +9,7 @@ const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBasePair() {
-    return {
-        id: long_1.default.UZERO,
-        assetIn: long_1.default.UZERO,
-        assetOut: long_1.default.UZERO,
-        liquidationRatio: "",
-    };
+    return { id: long_1.default.UZERO, assetIn: long_1.default.UZERO, assetOut: long_1.default.UZERO };
 }
 exports.Pair = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -26,9 +21,6 @@ exports.Pair = {
         }
         if (!message.assetOut.isZero()) {
             writer.uint32(24).uint64(message.assetOut);
-        }
-        if (message.liquidationRatio !== "") {
-            writer.uint32(34).string(message.liquidationRatio);
         }
         return writer;
     },
@@ -48,9 +40,6 @@ exports.Pair = {
                 case 3:
                     message.assetOut = reader.uint64();
                     break;
-                case 4:
-                    message.liquidationRatio = reader.string();
-                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -60,16 +49,13 @@ exports.Pair = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             assetIn: isSet(object.assetIn)
-                ? long_1.default.fromString(object.assetIn)
+                ? long_1.default.fromValue(object.assetIn)
                 : long_1.default.UZERO,
             assetOut: isSet(object.assetOut)
-                ? long_1.default.fromString(object.assetOut)
+                ? long_1.default.fromValue(object.assetOut)
                 : long_1.default.UZERO,
-            liquidationRatio: isSet(object.liquidationRatio)
-                ? String(object.liquidationRatio)
-                : "",
         };
     },
     toJSON(message) {
@@ -80,12 +66,9 @@ exports.Pair = {
             (obj.assetIn = (message.assetIn || long_1.default.UZERO).toString());
         message.assetOut !== undefined &&
             (obj.assetOut = (message.assetOut || long_1.default.UZERO).toString());
-        message.liquidationRatio !== undefined &&
-            (obj.liquidationRatio = message.liquidationRatio);
         return obj;
     },
     fromPartial(object) {
-        var _a;
         const message = createBasePair();
         message.id =
             object.id !== undefined && object.id !== null
@@ -99,7 +82,6 @@ exports.Pair = {
             object.assetOut !== undefined && object.assetOut !== null
                 ? long_1.default.fromValue(object.assetOut)
                 : long_1.default.UZERO;
-        message.liquidationRatio = (_a = object.liquidationRatio) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };

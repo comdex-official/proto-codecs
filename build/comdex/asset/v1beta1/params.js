@@ -8,7 +8,9 @@ exports.Params = exports.protobufPackage = void 0;
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.asset.v1beta1";
-const baseParams = { admin: "" };
+function createBaseParams() {
+    return { admin: "" };
+}
 exports.Params = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.admin !== "") {
@@ -19,7 +21,7 @@ exports.Params = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseParams };
+        const message = createBaseParams();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -34,14 +36,9 @@ exports.Params = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseParams };
-        if (object.admin !== undefined && object.admin !== null) {
-            message.admin = String(object.admin);
-        }
-        else {
-            message.admin = "";
-        }
-        return message;
+        return {
+            admin: isSet(object.admin) ? String(object.admin) : "",
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -49,18 +46,17 @@ exports.Params = {
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseParams };
-        if (object.admin !== undefined && object.admin !== null) {
-            message.admin = object.admin;
-        }
-        else {
-            message.admin = "";
-        }
+        var _a;
+        const message = createBaseParams();
+        message.admin = (_a = object.admin) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=params.js.map

@@ -8,12 +8,15 @@ exports.Asset = exports.protobufPackage = void 0;
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.asset.v1beta1";
-const baseAsset = {
-    id: long_1.default.UZERO,
-    name: "",
-    denom: "",
-    decimals: long_1.default.ZERO,
-};
+function createBaseAsset() {
+    return {
+        id: long_1.default.UZERO,
+        name: "",
+        denom: "",
+        decimals: long_1.default.ZERO,
+        isOnchain: false,
+    };
+}
 exports.Asset = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.id.isZero()) {
@@ -28,12 +31,15 @@ exports.Asset = {
         if (!message.decimals.isZero()) {
             writer.uint32(32).int64(message.decimals);
         }
+        if (message.isOnchain === true) {
+            writer.uint32(40).bool(message.isOnchain);
+        }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseAsset };
+        const message = createBaseAsset();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -49,6 +55,9 @@ exports.Asset = {
                 case 4:
                     message.decimals = reader.int64();
                     break;
+                case 5:
+                    message.isOnchain = reader.bool();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -57,32 +66,15 @@ exports.Asset = {
         return message;
     },
     fromJSON(object) {
-        const message = { ...baseAsset };
-        if (object.id !== undefined && object.id !== null) {
-            message.id = long_1.default.fromString(object.id);
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.name !== undefined && object.name !== null) {
-            message.name = String(object.name);
-        }
-        else {
-            message.name = "";
-        }
-        if (object.denom !== undefined && object.denom !== null) {
-            message.denom = String(object.denom);
-        }
-        else {
-            message.denom = "";
-        }
-        if (object.decimals !== undefined && object.decimals !== null) {
-            message.decimals = long_1.default.fromString(object.decimals);
-        }
-        else {
-            message.decimals = long_1.default.ZERO;
-        }
-        return message;
+        return {
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            name: isSet(object.name) ? String(object.name) : "",
+            denom: isSet(object.denom) ? String(object.denom) : "",
+            decimals: isSet(object.decimals)
+                ? long_1.default.fromValue(object.decimals)
+                : long_1.default.ZERO,
+            isOnchain: isSet(object.isOnchain) ? Boolean(object.isOnchain) : false,
+        };
     },
     toJSON(message) {
         const obj = {};
@@ -92,39 +84,31 @@ exports.Asset = {
         message.denom !== undefined && (obj.denom = message.denom);
         message.decimals !== undefined &&
             (obj.decimals = (message.decimals || long_1.default.ZERO).toString());
+        message.isOnchain !== undefined && (obj.isOnchain = message.isOnchain);
         return obj;
     },
     fromPartial(object) {
-        const message = { ...baseAsset };
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = long_1.default.UZERO;
-        }
-        if (object.name !== undefined && object.name !== null) {
-            message.name = object.name;
-        }
-        else {
-            message.name = "";
-        }
-        if (object.denom !== undefined && object.denom !== null) {
-            message.denom = object.denom;
-        }
-        else {
-            message.denom = "";
-        }
-        if (object.decimals !== undefined && object.decimals !== null) {
-            message.decimals = object.decimals;
-        }
-        else {
-            message.decimals = long_1.default.ZERO;
-        }
+        var _a, _b, _c;
+        const message = createBaseAsset();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.name = (_a = object.name) !== null && _a !== void 0 ? _a : "";
+        message.denom = (_b = object.denom) !== null && _b !== void 0 ? _b : "";
+        message.decimals =
+            object.decimals !== undefined && object.decimals !== null
+                ? long_1.default.fromValue(object.decimals)
+                : long_1.default.ZERO;
+        message.isOnchain = (_c = object.isOnchain) !== null && _c !== void 0 ? _c : false;
         return message;
     },
 };
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=asset.js.map

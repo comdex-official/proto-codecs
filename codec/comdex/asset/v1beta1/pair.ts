@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -8,16 +8,10 @@ export interface Pair {
   id: Long;
   assetIn: Long;
   assetOut: Long;
-  liquidationRatio: string;
 }
 
 function createBasePair(): Pair {
-  return {
-    id: Long.UZERO,
-    assetIn: Long.UZERO,
-    assetOut: Long.UZERO,
-    liquidationRatio: "",
-  };
+  return { id: Long.UZERO, assetIn: Long.UZERO, assetOut: Long.UZERO };
 }
 
 export const Pair = {
@@ -30,9 +24,6 @@ export const Pair = {
     }
     if (!message.assetOut.isZero()) {
       writer.uint32(24).uint64(message.assetOut);
-    }
-    if (message.liquidationRatio !== "") {
-      writer.uint32(34).string(message.liquidationRatio);
     }
     return writer;
   },
@@ -53,9 +44,6 @@ export const Pair = {
         case 3:
           message.assetOut = reader.uint64() as Long;
           break;
-        case 4:
-          message.liquidationRatio = reader.string();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -66,16 +54,13 @@ export const Pair = {
 
   fromJSON(object: any): Pair {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       assetIn: isSet(object.assetIn)
-        ? Long.fromString(object.assetIn)
+        ? Long.fromValue(object.assetIn)
         : Long.UZERO,
       assetOut: isSet(object.assetOut)
-        ? Long.fromString(object.assetOut)
+        ? Long.fromValue(object.assetOut)
         : Long.UZERO,
-      liquidationRatio: isSet(object.liquidationRatio)
-        ? String(object.liquidationRatio)
-        : "",
     };
   },
 
@@ -87,8 +72,6 @@ export const Pair = {
       (obj.assetIn = (message.assetIn || Long.UZERO).toString());
     message.assetOut !== undefined &&
       (obj.assetOut = (message.assetOut || Long.UZERO).toString());
-    message.liquidationRatio !== undefined &&
-      (obj.liquidationRatio = message.liquidationRatio);
     return obj;
   },
 
@@ -106,7 +89,6 @@ export const Pair = {
       object.assetOut !== undefined && object.assetOut !== null
         ? Long.fromValue(object.assetOut)
         : Long.UZERO;
-    message.liquidationRatio = object.liquidationRatio ?? "";
     return message;
   },
 };

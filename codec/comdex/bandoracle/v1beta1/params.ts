@@ -4,6 +4,7 @@ import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.bandoracle.v1beta1";
 
+/** Params defines the parameters for the module. */
 export interface Params {}
 
 function createBaseParams(): Params {

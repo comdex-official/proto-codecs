@@ -1,20 +1,42 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
 export interface Params {
-  liquidationPaneltyPercent: Long;
-  auctionDiscountPercent: Long;
-  auctionDurationHours: Long;
+  liquidationPenaltyPercent: string;
+  auctionDiscountPercent: string;
+  auctionDurationSeconds: Long;
+  debtMintTokenDecreasePercentage: string;
+  buffer: string;
+  cusp: string;
+  tau: string;
+  dutchDecreasePercentage: string;
+  chost: string;
+  step: string;
+  priceFunctionType: Long;
+  surplusId: Long;
+  debtId: Long;
+  dutchId: Long;
 }
 
 function createBaseParams(): Params {
   return {
-    liquidationPaneltyPercent: Long.UZERO,
-    auctionDiscountPercent: Long.UZERO,
-    auctionDurationHours: Long.UZERO,
+    liquidationPenaltyPercent: "",
+    auctionDiscountPercent: "",
+    auctionDurationSeconds: Long.UZERO,
+    debtMintTokenDecreasePercentage: "",
+    buffer: "",
+    cusp: "",
+    tau: "",
+    dutchDecreasePercentage: "",
+    chost: "",
+    step: "",
+    priceFunctionType: Long.UZERO,
+    surplusId: Long.UZERO,
+    debtId: Long.UZERO,
+    dutchId: Long.UZERO,
   };
 }
 
@@ -23,14 +45,47 @@ export const Params = {
     message: Params,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.liquidationPaneltyPercent.isZero()) {
-      writer.uint32(8).uint64(message.liquidationPaneltyPercent);
+    if (message.liquidationPenaltyPercent !== "") {
+      writer.uint32(10).string(message.liquidationPenaltyPercent);
     }
-    if (!message.auctionDiscountPercent.isZero()) {
-      writer.uint32(16).uint64(message.auctionDiscountPercent);
+    if (message.auctionDiscountPercent !== "") {
+      writer.uint32(18).string(message.auctionDiscountPercent);
     }
-    if (!message.auctionDurationHours.isZero()) {
-      writer.uint32(24).uint64(message.auctionDurationHours);
+    if (!message.auctionDurationSeconds.isZero()) {
+      writer.uint32(24).uint64(message.auctionDurationSeconds);
+    }
+    if (message.debtMintTokenDecreasePercentage !== "") {
+      writer.uint32(34).string(message.debtMintTokenDecreasePercentage);
+    }
+    if (message.buffer !== "") {
+      writer.uint32(42).string(message.buffer);
+    }
+    if (message.cusp !== "") {
+      writer.uint32(50).string(message.cusp);
+    }
+    if (message.tau !== "") {
+      writer.uint32(58).string(message.tau);
+    }
+    if (message.dutchDecreasePercentage !== "") {
+      writer.uint32(66).string(message.dutchDecreasePercentage);
+    }
+    if (message.chost !== "") {
+      writer.uint32(74).string(message.chost);
+    }
+    if (message.step !== "") {
+      writer.uint32(82).string(message.step);
+    }
+    if (!message.priceFunctionType.isZero()) {
+      writer.uint32(88).uint64(message.priceFunctionType);
+    }
+    if (!message.surplusId.isZero()) {
+      writer.uint32(96).uint64(message.surplusId);
+    }
+    if (!message.debtId.isZero()) {
+      writer.uint32(104).uint64(message.debtId);
+    }
+    if (!message.dutchId.isZero()) {
+      writer.uint32(112).uint64(message.dutchId);
     }
     return writer;
   },
@@ -43,13 +98,46 @@ export const Params = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.liquidationPaneltyPercent = reader.uint64() as Long;
+          message.liquidationPenaltyPercent = reader.string();
           break;
         case 2:
-          message.auctionDiscountPercent = reader.uint64() as Long;
+          message.auctionDiscountPercent = reader.string();
           break;
         case 3:
-          message.auctionDurationHours = reader.uint64() as Long;
+          message.auctionDurationSeconds = reader.uint64() as Long;
+          break;
+        case 4:
+          message.debtMintTokenDecreasePercentage = reader.string();
+          break;
+        case 5:
+          message.buffer = reader.string();
+          break;
+        case 6:
+          message.cusp = reader.string();
+          break;
+        case 7:
+          message.tau = reader.string();
+          break;
+        case 8:
+          message.dutchDecreasePercentage = reader.string();
+          break;
+        case 9:
+          message.chost = reader.string();
+          break;
+        case 10:
+          message.step = reader.string();
+          break;
+        case 11:
+          message.priceFunctionType = reader.uint64() as Long;
+          break;
+        case 12:
+          message.surplusId = reader.uint64() as Long;
+          break;
+        case 13:
+          message.debtId = reader.uint64() as Long;
+          break;
+        case 14:
+          message.dutchId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -61,51 +149,109 @@ export const Params = {
 
   fromJSON(object: any): Params {
     return {
-      liquidationPaneltyPercent: isSet(object.liquidationPaneltyPercent)
-        ? Long.fromString(object.liquidationPaneltyPercent)
-        : Long.UZERO,
+      liquidationPenaltyPercent: isSet(object.liquidationPenaltyPercent)
+        ? String(object.liquidationPenaltyPercent)
+        : "",
       auctionDiscountPercent: isSet(object.auctionDiscountPercent)
-        ? Long.fromString(object.auctionDiscountPercent)
+        ? String(object.auctionDiscountPercent)
+        : "",
+      auctionDurationSeconds: isSet(object.auctionDurationSeconds)
+        ? Long.fromString(object.auctionDurationSeconds)
         : Long.UZERO,
-      auctionDurationHours: isSet(object.auctionDurationHours)
-        ? Long.fromString(object.auctionDurationHours)
+      debtMintTokenDecreasePercentage: isSet(
+        object.debtMintTokenDecreasePercentage
+      )
+        ? String(object.debtMintTokenDecreasePercentage)
+        : "",
+      buffer: isSet(object.buffer) ? String(object.buffer) : "",
+      cusp: isSet(object.cusp) ? String(object.cusp) : "",
+      tau: isSet(object.tau) ? String(object.tau) : "",
+      dutchDecreasePercentage: isSet(object.dutchDecreasePercentage)
+        ? String(object.dutchDecreasePercentage)
+        : "",
+      chost: isSet(object.chost) ? String(object.chost) : "",
+      step: isSet(object.step) ? String(object.step) : "",
+      priceFunctionType: isSet(object.priceFunctionType)
+        ? Long.fromString(object.priceFunctionType)
+        : Long.UZERO,
+      surplusId: isSet(object.surplusId)
+        ? Long.fromString(object.surplusId)
+        : Long.UZERO,
+      debtId: isSet(object.debtId)
+        ? Long.fromString(object.debtId)
+        : Long.UZERO,
+      dutchId: isSet(object.dutchId)
+        ? Long.fromString(object.dutchId)
         : Long.UZERO,
     };
   },
 
   toJSON(message: Params): unknown {
     const obj: any = {};
-    message.liquidationPaneltyPercent !== undefined &&
-      (obj.liquidationPaneltyPercent = (
-        message.liquidationPaneltyPercent || Long.UZERO
-      ).toString());
+    message.liquidationPenaltyPercent !== undefined &&
+      (obj.liquidationPenaltyPercent = message.liquidationPenaltyPercent);
     message.auctionDiscountPercent !== undefined &&
-      (obj.auctionDiscountPercent = (
-        message.auctionDiscountPercent || Long.UZERO
+      (obj.auctionDiscountPercent = message.auctionDiscountPercent);
+    message.auctionDurationSeconds !== undefined &&
+      (obj.auctionDurationSeconds = (
+        message.auctionDurationSeconds || Long.UZERO
       ).toString());
-    message.auctionDurationHours !== undefined &&
-      (obj.auctionDurationHours = (
-        message.auctionDurationHours || Long.UZERO
+    message.debtMintTokenDecreasePercentage !== undefined &&
+      (obj.debtMintTokenDecreasePercentage =
+        message.debtMintTokenDecreasePercentage);
+    message.buffer !== undefined && (obj.buffer = message.buffer);
+    message.cusp !== undefined && (obj.cusp = message.cusp);
+    message.tau !== undefined && (obj.tau = message.tau);
+    message.dutchDecreasePercentage !== undefined &&
+      (obj.dutchDecreasePercentage = message.dutchDecreasePercentage);
+    message.chost !== undefined && (obj.chost = message.chost);
+    message.step !== undefined && (obj.step = message.step);
+    message.priceFunctionType !== undefined &&
+      (obj.priceFunctionType = (
+        message.priceFunctionType || Long.UZERO
       ).toString());
+    message.surplusId !== undefined &&
+      (obj.surplusId = (message.surplusId || Long.UZERO).toString());
+    message.debtId !== undefined &&
+      (obj.debtId = (message.debtId || Long.UZERO).toString());
+    message.dutchId !== undefined &&
+      (obj.dutchId = (message.dutchId || Long.UZERO).toString());
     return obj;
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
-    message.liquidationPaneltyPercent =
-      object.liquidationPaneltyPercent !== undefined &&
-      object.liquidationPaneltyPercent !== null
-        ? Long.fromValue(object.liquidationPaneltyPercent)
+    message.liquidationPenaltyPercent = object.liquidationPenaltyPercent ?? "";
+    message.auctionDiscountPercent = object.auctionDiscountPercent ?? "";
+    message.auctionDurationSeconds =
+      object.auctionDurationSeconds !== undefined &&
+      object.auctionDurationSeconds !== null
+        ? Long.fromValue(object.auctionDurationSeconds)
         : Long.UZERO;
-    message.auctionDiscountPercent =
-      object.auctionDiscountPercent !== undefined &&
-      object.auctionDiscountPercent !== null
-        ? Long.fromValue(object.auctionDiscountPercent)
+    message.debtMintTokenDecreasePercentage =
+      object.debtMintTokenDecreasePercentage ?? "";
+    message.buffer = object.buffer ?? "";
+    message.cusp = object.cusp ?? "";
+    message.tau = object.tau ?? "";
+    message.dutchDecreasePercentage = object.dutchDecreasePercentage ?? "";
+    message.chost = object.chost ?? "";
+    message.step = object.step ?? "";
+    message.priceFunctionType =
+      object.priceFunctionType !== undefined &&
+      object.priceFunctionType !== null
+        ? Long.fromValue(object.priceFunctionType)
         : Long.UZERO;
-    message.auctionDurationHours =
-      object.auctionDurationHours !== undefined &&
-      object.auctionDurationHours !== null
-        ? Long.fromValue(object.auctionDurationHours)
+    message.surplusId =
+      object.surplusId !== undefined && object.surplusId !== null
+        ? Long.fromValue(object.surplusId)
+        : Long.UZERO;
+    message.debtId =
+      object.debtId !== undefined && object.debtId !== null
+        ? Long.fromValue(object.debtId)
+        : Long.UZERO;
+    message.dutchId =
+      object.dutchId !== undefined && object.dutchId !== null
+        ? Long.fromValue(object.dutchId)
         : Long.UZERO;
     return message;
   },

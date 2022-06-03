@@ -1,16 +1,19 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Params } from "../../../comdex/bandoracle/v1beta1/params";
+import { Params } from "./params";
+import { Market } from "./fetch_price";
 
 export const protobufPackage = "comdex.bandoracle.v1beta1";
 
 export interface GenesisState {
   params?: Params;
+  portId: string;
+  markets: Market[];
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { params: undefined };
+  return { params: undefined, portId: "", markets: [] };
 }
 
 export const GenesisState = {
@@ -20,6 +23,12 @@ export const GenesisState = {
   ): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.portId !== "") {
+      writer.uint32(18).string(message.portId);
+    }
+    for (const v of message.markets) {
+      Market.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -34,6 +43,12 @@ export const GenesisState = {
         case 1:
           message.params = Params.decode(reader, reader.uint32());
           break;
+        case 2:
+          message.portId = reader.string();
+          break;
+        case 3:
+          message.markets.push(Market.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -45,6 +60,10 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+      portId: isSet(object.portId) ? String(object.portId) : "",
+      markets: Array.isArray(object?.markets)
+        ? object.markets.map((e: any) => Market.fromJSON(e))
+        : [],
     };
   },
 
@@ -52,6 +71,14 @@ export const GenesisState = {
     const obj: any = {};
     message.params !== undefined &&
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    message.portId !== undefined && (obj.portId = message.portId);
+    if (message.markets) {
+      obj.markets = message.markets.map((e) =>
+        e ? Market.toJSON(e) : undefined
+      );
+    } else {
+      obj.markets = [];
+    }
     return obj;
   },
 
@@ -63,6 +90,8 @@ export const GenesisState = {
       object.params !== undefined && object.params !== null
         ? Params.fromPartial(object.params)
         : undefined;
+    message.portId = object.portId ?? "";
+    message.markets = object.markets?.map((e) => Market.fromPartial(e)) || [];
     return message;
   },
 };

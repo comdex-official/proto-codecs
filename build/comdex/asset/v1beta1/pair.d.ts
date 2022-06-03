@@ -5,7 +5,6 @@ export interface Pair {
     id: Long;
     assetIn: Long;
     assetOut: Long;
-    liquidationRatio: string;
 }
 export declare const Pair: {
     encode(message: Pair, writer?: _m0.Writer): _m0.Writer;
@@ -16,7 +15,6 @@ export declare const Pair: {
         id?: string | number | Long.Long | undefined;
         assetIn?: string | number | Long.Long | undefined;
         assetOut?: string | number | Long.Long | undefined;
-        liquidationRatio?: string | undefined;
     } & {
         id?: string | number | (Long.Long & {
             high: number;
@@ -192,7 +190,6 @@ export declare const Pair: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetOut"], keyof Long.Long>, never>) | undefined;
-        liquidationRatio?: string | undefined;
     } & Record<Exclude<keyof I, keyof Pair>, never>>(object: I): Pair;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
