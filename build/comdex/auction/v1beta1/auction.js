@@ -140,7 +140,7 @@ exports.SurplusAuction = {
     fromJSON(object) {
         return {
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromValue(object.auctionId)
+                ? long_1.default.fromString(object.auctionId)
                 : long_1.default.UZERO,
             outflowToken: isSet(object.outflowToken)
                 ? coin_1.Coin.fromJSON(object.outflowToken)
@@ -149,7 +149,7 @@ exports.SurplusAuction = {
                 ? coin_1.Coin.fromJSON(object.inflowToken)
                 : undefined,
             activeBiddingId: isSet(object.activeBiddingId)
-                ? long_1.default.fromValue(object.activeBiddingId)
+                ? long_1.default.fromString(object.activeBiddingId)
                 : long_1.default.UZERO,
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             bid: isSet(object.bid) ? coin_1.Coin.fromJSON(object.bid) : undefined,
@@ -161,20 +161,20 @@ exports.SurplusAuction = {
                 ? object.biddingIds.map((e) => exports.bidOwnerMapping.fromJSON(e))
                 : [],
             auctionStatus: isSet(object.auctionStatus)
-                ? long_1.default.fromValue(object.auctionStatus)
+                ? long_1.default.fromString(object.auctionStatus)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromValue(object.assetId)
+                ? long_1.default.fromString(object.assetId)
                 : long_1.default.UZERO,
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromValue(object.auctionMappingId)
+                ? long_1.default.fromString(object.auctionMappingId)
                 : long_1.default.UZERO,
             assetInId: isSet(object.assetInId)
-                ? long_1.default.fromValue(object.assetInId)
+                ? long_1.default.fromString(object.assetInId)
                 : long_1.default.UZERO,
             assetOutId: isSet(object.assetOutId)
-                ? long_1.default.fromValue(object.assetOutId)
+                ? long_1.default.fromString(object.assetOutId)
                 : long_1.default.UZERO,
         };
     },
@@ -410,7 +410,7 @@ exports.DebtAuction = {
     fromJSON(object) {
         return {
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromValue(object.auctionId)
+                ? long_1.default.fromString(object.auctionId)
                 : long_1.default.UZERO,
             auctionedToken: isSet(object.auctionedToken)
                 ? coin_1.Coin.fromJSON(object.auctionedToken)
@@ -425,31 +425,31 @@ exports.DebtAuction = {
                 ? fromJsonTimestamp(object.endTime)
                 : undefined,
             activeBiddingId: isSet(object.activeBiddingId)
-                ? long_1.default.fromValue(object.activeBiddingId)
+                ? long_1.default.fromString(object.activeBiddingId)
                 : long_1.default.UZERO,
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
             currentBidAmount: isSet(object.currentBidAmount)
                 ? coin_1.Coin.fromJSON(object.currentBidAmount)
                 : undefined,
             auctionStatus: isSet(object.auctionStatus)
-                ? long_1.default.fromValue(object.auctionStatus)
+                ? long_1.default.fromString(object.auctionStatus)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromValue(object.assetId)
+                ? long_1.default.fromString(object.assetId)
                 : long_1.default.UZERO,
             biddingIds: Array.isArray(object === null || object === void 0 ? void 0 : object.biddingIds)
                 ? object.biddingIds.map((e) => exports.bidOwnerMapping.fromJSON(e))
                 : [],
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromValue(object.auctionMappingId)
+                ? long_1.default.fromString(object.auctionMappingId)
                 : long_1.default.UZERO,
             bidFactor: isSet(object.bidFactor) ? String(object.bidFactor) : "",
             assetInId: isSet(object.assetInId)
-                ? long_1.default.fromValue(object.assetInId)
+                ? long_1.default.fromString(object.assetInId)
                 : long_1.default.UZERO,
             assetOutId: isSet(object.assetOutId)
-                ? long_1.default.fromValue(object.assetOutId)
+                ? long_1.default.fromString(object.assetOutId)
                 : long_1.default.UZERO,
         };
     },
@@ -725,7 +725,7 @@ exports.DutchAuction = {
     fromJSON(object) {
         return {
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromValue(object.auctionId)
+                ? long_1.default.fromString(object.auctionId)
                 : long_1.default.UZERO,
             outflowTokenInitAmount: isSet(object.outflowTokenInitAmount)
                 ? coin_1.Coin.fromJSON(object.outflowTokenInitAmount)
@@ -755,7 +755,7 @@ exports.DutchAuction = {
                 ? fromJsonTimestamp(object.endTime)
                 : undefined,
             auctionStatus: isSet(object.auctionStatus)
-                ? long_1.default.fromValue(object.auctionStatus)
+                ? long_1.default.fromString(object.auctionStatus)
                 : long_1.default.UZERO,
             startTime: isSet(object.startTime)
                 ? fromJsonTimestamp(object.startTime)
@@ -764,17 +764,17 @@ exports.DutchAuction = {
                 ? object.biddingIds.map((e) => exports.bidOwnerMapping.fromJSON(e))
                 : [],
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromValue(object.auctionMappingId)
+                ? long_1.default.fromString(object.auctionMappingId)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             assetInId: isSet(object.assetInId)
-                ? long_1.default.fromValue(object.assetInId)
+                ? long_1.default.fromString(object.assetInId)
                 : long_1.default.UZERO,
             assetOutId: isSet(object.assetOutId)
-                ? long_1.default.fromValue(object.assetOutId)
+                ? long_1.default.fromString(object.assetOutId)
                 : long_1.default.UZERO,
             lockedVaultId: isSet(object.lockedVaultId)
-                ? long_1.default.fromValue(object.lockedVaultId)
+                ? long_1.default.fromString(object.lockedVaultId)
                 : long_1.default.UZERO,
             vaultOwner: isSet(object.vaultOwner) ? String(object.vaultOwner) : "",
             liquidationPenalty: isSet(object.liquidationPenalty)
@@ -936,7 +936,7 @@ exports.bidOwnerMapping = {
     },
     fromJSON(object) {
         return {
-            bidId: isSet(object.bidId) ? long_1.default.fromValue(object.bidId) : long_1.default.UZERO,
+            bidId: isSet(object.bidId) ? long_1.default.fromString(object.bidId) : long_1.default.UZERO,
             bidOwner: isSet(object.bidOwner) ? String(object.bidOwner) : "",
         };
     },
