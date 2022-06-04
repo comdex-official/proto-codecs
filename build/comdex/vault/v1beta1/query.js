@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryTotalTVLByAppResponse = exports.QueryTotalTVLByAppRequest = exports.QueryTVLLockedByAppOfAllExtendedPairsResponse = exports.QueryTVLLockedByAppOfAllExtendedPairsRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = exports.QueryExtendedPairVaultMappingByAppResponse = exports.QueryExtendedPairVaultMappingByAppRequest = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = exports.QueryStableVaultByProductExtendedPairResponse = exports.QueryStableVaultByProductExtendedPairRequest = exports.QueryAllStableVaultsResponse = exports.QueryAllStableVaultsRequest = exports.QueryStableVaultInfoResponse = exports.QueryStableVaultInfoRequest = exports.QueryExtendedPairIDByProductResponse = exports.QueryExtendedPairIDByProductRequest = exports.QueryTotalValueLockedByProductExtendedPairResponse = exports.QueryTotalValueLockedByProductExtendedPairRequest = exports.QueryVaultCountByProductAndPairResponse = exports.QueryVaultCountByProductAndPairRequest = exports.QueryVaultCountByProductResponse = exports.QueryVaultCountByProductRequest = exports.QueryTokenMintedAllProductsResponse = exports.QueryTokenMintedAllProductsRequest = exports.QueryTokenMintedAllProductsByPairResponse = exports.QueryTokenMintedAllProductsByPairRequest = exports.QueryAllVaultByOwnerResponse = exports.QueryAllVaultByOwnerRequest = exports.QueryVaultByProductResponse = exports.QueryVaultByProductRequest = exports.QueryVaultOfOwnerByExtendedPairResponse = exports.QueryVaultOfOwnerByExtendedPairRequest = exports.QueryAllVaultsByAppAndExtendedPairResponse = exports.QueryAllVaultsByAppAndExtendedPairRequest = exports.QueryAllVaultsByProductResponse = exports.QueryAllVaultsByProductRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultInfoByOwnerResponse = exports.QueryVaultInfoByOwnerRequest = exports.QueryVaultInfoResponse = exports.QueryVaultInfoRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
-exports.QueryClientImpl = void 0;
+exports.QueryTotalTVLByAppResponse = exports.QueryTotalTVLByAppRequest = exports.QueryTVLLockedByAppOfAllExtendedPairsResponse = exports.QueryTVLLockedByAppOfAllExtendedPairsRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = exports.QueryExtendedPairVaultMappingByAppResponse = exports.QueryExtendedPairVaultMappingByAppRequest = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = exports.QueryStableVaultByProductExtendedPairResponse = exports.QueryStableVaultByProductExtendedPairRequest = exports.QueryAllStableVaultsResponse = exports.QueryAllStableVaultsRequest = exports.QueryStableVaultInfoResponse = exports.QueryStableVaultInfoRequest = exports.QueryExtendedPairIDByProductResponse = exports.QueryExtendedPairIDByProductRequest = exports.QueryTotalValueLockedByProductExtendedPairResponse = exports.QueryTotalValueLockedByProductExtendedPairRequest = exports.QueryVaultCountByProductAndPairResponse = exports.QueryVaultCountByProductAndPairRequest = exports.QueryVaultCountByProductResponse = exports.QueryVaultCountByProductRequest = exports.QueryTokenMintedAllProductsResponse = exports.QueryTokenMintedAllProductsRequest = exports.QueryTokenMintedAllProductsByPairResponse = exports.QueryTokenMintedAllProductsByPairRequest = exports.QueryAllVaultByOwnerResponse = exports.QueryAllVaultByOwnerRequest = exports.QueryVaultByProductResponse = exports.QueryVaultByProductRequest = exports.QueryVaultOfOwnerByExtendedPairResponse = exports.QueryVaultOfOwnerByExtendedPairRequest = exports.QueryAllVaultsByAppAndExtendedPairResponse = exports.QueryAllVaultsByAppAndExtendedPairRequest = exports.QueryAllVaultsByProductResponse = exports.QueryAllVaultsByProductRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultInfoByAppByOwnerResponse = exports.QueryVaultInfoByAppByOwnerRequest = exports.QueryVaultInfoResponse = exports.QueryVaultInfoRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryUserMyPositionByAppResponse = exports.QueryUserMyPositionByAppRequest = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -14,11 +14,16 @@ exports.protobufPackage = "comdex.vault.v1beta1";
 function createBaseVaultInfo() {
     return {
         id: "",
-        pairId: long_1.default.UZERO,
+        extendedPairId: long_1.default.UZERO,
         owner: "",
         collateral: "",
         debt: "",
         collateralizationRatio: "",
+        extendedPairName: "",
+        interestRate: "",
+        assetInDenom: "",
+        assetOutDenom: "",
+        minCr: "",
     };
 }
 exports.VaultInfo = {
@@ -26,8 +31,8 @@ exports.VaultInfo = {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
         }
-        if (!message.pairId.isZero()) {
-            writer.uint32(16).uint64(message.pairId);
+        if (!message.extendedPairId.isZero()) {
+            writer.uint32(16).uint64(message.extendedPairId);
         }
         if (message.owner !== "") {
             writer.uint32(26).string(message.owner);
@@ -40,6 +45,21 @@ exports.VaultInfo = {
         }
         if (message.collateralizationRatio !== "") {
             writer.uint32(50).string(message.collateralizationRatio);
+        }
+        if (message.extendedPairName !== "") {
+            writer.uint32(58).string(message.extendedPairName);
+        }
+        if (message.interestRate !== "") {
+            writer.uint32(66).string(message.interestRate);
+        }
+        if (message.assetInDenom !== "") {
+            writer.uint32(74).string(message.assetInDenom);
+        }
+        if (message.assetOutDenom !== "") {
+            writer.uint32(82).string(message.assetOutDenom);
+        }
+        if (message.minCr !== "") {
+            writer.uint32(90).string(message.minCr);
         }
         return writer;
     },
@@ -54,7 +74,7 @@ exports.VaultInfo = {
                     message.id = reader.string();
                     break;
                 case 2:
-                    message.pairId = reader.uint64();
+                    message.extendedPairId = reader.uint64();
                     break;
                 case 3:
                     message.owner = reader.string();
@@ -68,6 +88,21 @@ exports.VaultInfo = {
                 case 6:
                     message.collateralizationRatio = reader.string();
                     break;
+                case 7:
+                    message.extendedPairName = reader.string();
+                    break;
+                case 8:
+                    message.interestRate = reader.string();
+                    break;
+                case 9:
+                    message.assetInDenom = reader.string();
+                    break;
+                case 10:
+                    message.assetOutDenom = reader.string();
+                    break;
+                case 11:
+                    message.minCr = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -78,39 +113,68 @@ exports.VaultInfo = {
     fromJSON(object) {
         return {
             id: isSet(object.id) ? String(object.id) : "",
-            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            extendedPairId: isSet(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
+                : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
             collateral: isSet(object.collateral) ? String(object.collateral) : "",
             debt: isSet(object.debt) ? String(object.debt) : "",
             collateralizationRatio: isSet(object.collateralizationRatio)
                 ? String(object.collateralizationRatio)
                 : "",
+            extendedPairName: isSet(object.extendedPairName)
+                ? String(object.extendedPairName)
+                : "",
+            interestRate: isSet(object.interestRate)
+                ? String(object.interestRate)
+                : "",
+            assetInDenom: isSet(object.assetInDenom)
+                ? String(object.assetInDenom)
+                : "",
+            assetOutDenom: isSet(object.assetOutDenom)
+                ? String(object.assetOutDenom)
+                : "",
+            minCr: isSet(object.minCr) ? String(object.minCr) : "",
         };
     },
     toJSON(message) {
         const obj = {};
         message.id !== undefined && (obj.id = message.id);
-        message.pairId !== undefined &&
-            (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
+        message.extendedPairId !== undefined &&
+            (obj.extendedPairId = (message.extendedPairId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
         message.collateral !== undefined && (obj.collateral = message.collateral);
         message.debt !== undefined && (obj.debt = message.debt);
         message.collateralizationRatio !== undefined &&
             (obj.collateralizationRatio = message.collateralizationRatio);
+        message.extendedPairName !== undefined &&
+            (obj.extendedPairName = message.extendedPairName);
+        message.interestRate !== undefined &&
+            (obj.interestRate = message.interestRate);
+        message.assetInDenom !== undefined &&
+            (obj.assetInDenom = message.assetInDenom);
+        message.assetOutDenom !== undefined &&
+            (obj.assetOutDenom = message.assetOutDenom);
+        message.minCr !== undefined && (obj.minCr = message.minCr);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         const message = createBaseVaultInfo();
         message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
-        message.pairId =
-            object.pairId !== undefined && object.pairId !== null
-                ? long_1.default.fromValue(object.pairId)
+        message.extendedPairId =
+            object.extendedPairId !== undefined && object.extendedPairId !== null
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO;
         message.owner = (_b = object.owner) !== null && _b !== void 0 ? _b : "";
         message.collateral = (_c = object.collateral) !== null && _c !== void 0 ? _c : "";
         message.debt = (_d = object.debt) !== null && _d !== void 0 ? _d : "";
         message.collateralizationRatio = (_e = object.collateralizationRatio) !== null && _e !== void 0 ? _e : "";
+        message.extendedPairName = (_f = object.extendedPairName) !== null && _f !== void 0 ? _f : "";
+        message.interestRate = (_g = object.interestRate) !== null && _g !== void 0 ? _g : "";
+        message.assetInDenom = (_h = object.assetInDenom) !== null && _h !== void 0 ? _h : "";
+        message.assetOutDenom = (_j = object.assetOutDenom) !== null && _j !== void 0 ? _j : "";
+        message.minCr = (_k = object.minCr) !== null && _k !== void 0 ? _k : "";
         return message;
     },
 };
@@ -300,24 +364,30 @@ exports.QueryVaultInfoResponse = {
         return message;
     },
 };
-function createBaseQueryVaultInfoByOwnerRequest() {
-    return { owner: "" };
+function createBaseQueryVaultInfoByAppByOwnerRequest() {
+    return { appId: long_1.default.UZERO, owner: "" };
 }
-exports.QueryVaultInfoByOwnerRequest = {
+exports.QueryVaultInfoByAppByOwnerRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
         if (message.owner !== "") {
-            writer.uint32(10).string(message.owner);
+            writer.uint32(18).string(message.owner);
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultInfoByOwnerRequest();
+        const message = createBaseQueryVaultInfoByAppByOwnerRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
                     message.owner = reader.string();
                     break;
                 default:
@@ -329,25 +399,32 @@ exports.QueryVaultInfoByOwnerRequest = {
     },
     fromJSON(object) {
         return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
         };
     },
     toJSON(message) {
         const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
         return obj;
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryVaultInfoByOwnerRequest();
+        const message = createBaseQueryVaultInfoByAppByOwnerRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
-function createBaseQueryVaultInfoByOwnerResponse() {
+function createBaseQueryVaultInfoByAppByOwnerResponse() {
     return { vaultsInfo: [], pagination: undefined };
 }
-exports.QueryVaultInfoByOwnerResponse = {
+exports.QueryVaultInfoByAppByOwnerResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.vaultsInfo) {
             exports.VaultInfo.encode(v, writer.uint32(10).fork()).ldelim();
@@ -360,7 +437,7 @@ exports.QueryVaultInfoByOwnerResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultInfoByOwnerResponse();
+        const message = createBaseQueryVaultInfoByAppByOwnerResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -403,7 +480,7 @@ exports.QueryVaultInfoByOwnerResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryVaultInfoByOwnerResponse();
+        const message = createBaseQueryVaultInfoByAppByOwnerResponse();
         message.vaultsInfo =
             ((_a = object.vaultsInfo) === null || _a === void 0 ? void 0 : _a.map((e) => exports.VaultInfo.fromPartial(e))) || [];
         message.pagination =
@@ -2858,12 +2935,164 @@ exports.QueryTotalTVLByAppResponse = {
         return message;
     },
 };
+function createBaseQueryUserMyPositionByAppRequest() {
+    return { appId: long_1.default.UZERO, owner: "" };
+}
+exports.QueryUserMyPositionByAppRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        if (message.owner !== "") {
+            writer.uint32(18).string(message.owner);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryUserMyPositionByAppRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
+                    message.owner = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            owner: isSet(object.owner) ? String(object.owner) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.owner !== undefined && (obj.owner = message.owner);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryUserMyPositionByAppRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseQueryUserMyPositionByAppResponse() {
+    return {
+        collateralLocked: long_1.default.UZERO,
+        totalDue: long_1.default.UZERO,
+        availableToBorrow: "",
+        averageCrRatio: "",
+    };
+}
+exports.QueryUserMyPositionByAppResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.collateralLocked.isZero()) {
+            writer.uint32(8).uint64(message.collateralLocked);
+        }
+        if (!message.totalDue.isZero()) {
+            writer.uint32(16).uint64(message.totalDue);
+        }
+        if (message.availableToBorrow !== "") {
+            writer.uint32(26).string(message.availableToBorrow);
+        }
+        if (message.averageCrRatio !== "") {
+            writer.uint32(34).string(message.averageCrRatio);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryUserMyPositionByAppResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.collateralLocked = reader.uint64();
+                    break;
+                case 2:
+                    message.totalDue = reader.uint64();
+                    break;
+                case 3:
+                    message.availableToBorrow = reader.string();
+                    break;
+                case 4:
+                    message.averageCrRatio = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            collateralLocked: isSet(object.collateralLocked)
+                ? long_1.default.fromValue(object.collateralLocked)
+                : long_1.default.UZERO,
+            totalDue: isSet(object.totalDue)
+                ? long_1.default.fromValue(object.totalDue)
+                : long_1.default.UZERO,
+            availableToBorrow: isSet(object.availableToBorrow)
+                ? String(object.availableToBorrow)
+                : "",
+            averageCrRatio: isSet(object.averageCrRatio)
+                ? String(object.averageCrRatio)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.collateralLocked !== undefined &&
+            (obj.collateralLocked = (message.collateralLocked || long_1.default.UZERO).toString());
+        message.totalDue !== undefined &&
+            (obj.totalDue = (message.totalDue || long_1.default.UZERO).toString());
+        message.availableToBorrow !== undefined &&
+            (obj.availableToBorrow = message.availableToBorrow);
+        message.averageCrRatio !== undefined &&
+            (obj.averageCrRatio = message.averageCrRatio);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseQueryUserMyPositionByAppResponse();
+        message.collateralLocked =
+            object.collateralLocked !== undefined && object.collateralLocked !== null
+                ? long_1.default.fromValue(object.collateralLocked)
+                : long_1.default.UZERO;
+        message.totalDue =
+            object.totalDue !== undefined && object.totalDue !== null
+                ? long_1.default.fromValue(object.totalDue)
+                : long_1.default.UZERO;
+        message.availableToBorrow = (_a = object.availableToBorrow) !== null && _a !== void 0 ? _a : "";
+        message.averageCrRatio = (_b = object.averageCrRatio) !== null && _b !== void 0 ? _b : "";
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
         this.QueryVault = this.QueryVault.bind(this);
         this.QueryVaultInfo = this.QueryVaultInfo.bind(this);
-        this.QueryVaultInfoByOwner = this.QueryVaultInfoByOwner.bind(this);
+        this.QueryVaultInfoByAppByOwner =
+            this.QueryVaultInfoByAppByOwner.bind(this);
         this.QueryAllVaults = this.QueryAllVaults.bind(this);
         this.QueryAllVaultsByProduct = this.QueryAllVaultsByProduct.bind(this);
         this.QueryAllVaultsByAppAndExtendedPair =
@@ -2898,6 +3127,7 @@ class QueryClientImpl {
         this.QueryTVLLockedByAppOfAllExtendedPairs =
             this.QueryTVLLockedByAppOfAllExtendedPairs.bind(this);
         this.QueryTotalTVLByApp = this.QueryTotalTVLByApp.bind(this);
+        this.QueryUserMyPositionByApp = this.QueryUserMyPositionByApp.bind(this);
     }
     QueryVault(request) {
         const data = exports.QueryVaultRequest.encode(request).finish();
@@ -2909,10 +3139,10 @@ class QueryClientImpl {
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultInfo", data);
         return promise.then((data) => exports.QueryVaultInfoResponse.decode(new minimal_1.default.Reader(data)));
     }
-    QueryVaultInfoByOwner(request) {
-        const data = exports.QueryVaultInfoByOwnerRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultInfoByOwner", data);
-        return promise.then((data) => exports.QueryVaultInfoByOwnerResponse.decode(new minimal_1.default.Reader(data)));
+    QueryVaultInfoByAppByOwner(request) {
+        const data = exports.QueryVaultInfoByAppByOwnerRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultInfoByAppByOwner", data);
+        return promise.then((data) => exports.QueryVaultInfoByAppByOwnerResponse.decode(new minimal_1.default.Reader(data)));
     }
     QueryAllVaults(request) {
         const data = exports.QueryAllVaultsRequest.encode(request).finish();
@@ -3018,6 +3248,11 @@ class QueryClientImpl {
         const data = exports.QueryTotalTVLByAppRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTotalTVLByApp", data);
         return promise.then((data) => exports.QueryTotalTVLByAppResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    QueryUserMyPositionByApp(request) {
+        const data = exports.QueryUserMyPositionByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryUserMyPositionByApp", data);
+        return promise.then((data) => exports.QueryUserMyPositionByAppResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;

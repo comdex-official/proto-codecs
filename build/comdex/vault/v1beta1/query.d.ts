@@ -5,11 +5,16 @@ import { PageResponse, PageRequest } from "../../../cosmos/base/query/v1beta1/pa
 export declare const protobufPackage = "comdex.vault.v1beta1";
 export interface VaultInfo {
     id: string;
-    pairId: Long;
+    extendedPairId: Long;
     owner: string;
     collateral: string;
     debt: string;
     collateralizationRatio: string;
+    extendedPairName: string;
+    interestRate: string;
+    assetInDenom: string;
+    assetOutDenom: string;
+    minCr: string;
 }
 export interface QueryVaultRequest {
     id: string;
@@ -23,10 +28,11 @@ export interface QueryVaultInfoRequest {
 export interface QueryVaultInfoResponse {
     vaultsInfo?: VaultInfo;
 }
-export interface QueryVaultInfoByOwnerRequest {
+export interface QueryVaultInfoByAppByOwnerRequest {
+    appId: Long;
     owner: string;
 }
-export interface QueryVaultInfoByOwnerResponse {
+export interface QueryVaultInfoByAppByOwnerResponse {
     vaultsInfo: VaultInfo[];
     pagination?: PageResponse;
 }
@@ -180,6 +186,16 @@ export interface QueryTotalTVLByAppRequest {
 export interface QueryTotalTVLByAppResponse {
     collateralLocked: Long;
 }
+export interface QueryUserMyPositionByAppRequest {
+    appId: Long;
+    owner: string;
+}
+export interface QueryUserMyPositionByAppResponse {
+    collateralLocked: Long;
+    totalDue: Long;
+    availableToBorrow: string;
+    averageCrRatio: string;
+}
 export declare const VaultInfo: {
     encode(message: VaultInfo, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): VaultInfo;
@@ -187,14 +203,19 @@ export declare const VaultInfo: {
     toJSON(message: VaultInfo): unknown;
     fromPartial<I extends {
         id?: string | undefined;
-        pairId?: string | number | Long.Long | undefined;
+        extendedPairId?: string | number | Long.Long | undefined;
         owner?: string | undefined;
         collateral?: string | undefined;
         debt?: string | undefined;
         collateralizationRatio?: string | undefined;
+        extendedPairName?: string | undefined;
+        interestRate?: string | undefined;
+        assetInDenom?: string | undefined;
+        assetOutDenom?: string | undefined;
+        minCr?: string | undefined;
     } & {
         id?: string | undefined;
-        pairId?: string | number | (Long.Long & {
+        extendedPairId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -251,11 +272,16 @@ export declare const VaultInfo: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["extendedPairId"], keyof Long.Long>, never>) | undefined;
         owner?: string | undefined;
         collateral?: string | undefined;
         debt?: string | undefined;
         collateralizationRatio?: string | undefined;
+        extendedPairName?: string | undefined;
+        interestRate?: string | undefined;
+        assetInDenom?: string | undefined;
+        assetOutDenom?: string | undefined;
+        minCr?: string | undefined;
     } & Record<Exclude<keyof I, keyof VaultInfo>, never>>(object: I): VaultInfo;
 };
 export declare const QueryVaultRequest: {
@@ -443,23 +469,33 @@ export declare const QueryVaultInfoResponse: {
     fromPartial<I extends {
         vaultsInfo?: {
             id?: string | undefined;
-            pairId?: string | number | Long.Long | undefined;
+            extendedPairId?: string | number | Long.Long | undefined;
             owner?: string | undefined;
             collateral?: string | undefined;
             debt?: string | undefined;
             collateralizationRatio?: string | undefined;
+            extendedPairName?: string | undefined;
+            interestRate?: string | undefined;
+            assetInDenom?: string | undefined;
+            assetOutDenom?: string | undefined;
+            minCr?: string | undefined;
         } | undefined;
     } & {
         vaultsInfo?: ({
             id?: string | undefined;
-            pairId?: string | number | Long.Long | undefined;
+            extendedPairId?: string | number | Long.Long | undefined;
             owner?: string | undefined;
             collateral?: string | undefined;
             debt?: string | undefined;
             collateralizationRatio?: string | undefined;
+            extendedPairName?: string | undefined;
+            interestRate?: string | undefined;
+            assetInDenom?: string | undefined;
+            assetOutDenom?: string | undefined;
+            minCr?: string | undefined;
         } & {
             id?: string | undefined;
-            pairId?: string | number | (Long.Long & {
+            extendedPairId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -516,38 +552,107 @@ export declare const QueryVaultInfoResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["vaultsInfo"]["pairId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["vaultsInfo"]["extendedPairId"], keyof Long.Long>, never>) | undefined;
             owner?: string | undefined;
             collateral?: string | undefined;
             debt?: string | undefined;
             collateralizationRatio?: string | undefined;
+            extendedPairName?: string | undefined;
+            interestRate?: string | undefined;
+            assetInDenom?: string | undefined;
+            assetOutDenom?: string | undefined;
+            minCr?: string | undefined;
         } & Record<Exclude<keyof I["vaultsInfo"], keyof VaultInfo>, never>) | undefined;
     } & Record<Exclude<keyof I, "vaultsInfo">, never>>(object: I): QueryVaultInfoResponse;
 };
-export declare const QueryVaultInfoByOwnerRequest: {
-    encode(message: QueryVaultInfoByOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoByOwnerRequest;
-    fromJSON(object: any): QueryVaultInfoByOwnerRequest;
-    toJSON(message: QueryVaultInfoByOwnerRequest): unknown;
+export declare const QueryVaultInfoByAppByOwnerRequest: {
+    encode(message: QueryVaultInfoByAppByOwnerRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoByAppByOwnerRequest;
+    fromJSON(object: any): QueryVaultInfoByAppByOwnerRequest;
+    toJSON(message: QueryVaultInfoByAppByOwnerRequest): unknown;
     fromPartial<I extends {
+        appId?: string | number | Long.Long | undefined;
         owner?: string | undefined;
     } & {
+        appId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         owner?: string | undefined;
-    } & Record<Exclude<keyof I, "owner">, never>>(object: I): QueryVaultInfoByOwnerRequest;
+    } & Record<Exclude<keyof I, keyof QueryVaultInfoByAppByOwnerRequest>, never>>(object: I): QueryVaultInfoByAppByOwnerRequest;
 };
-export declare const QueryVaultInfoByOwnerResponse: {
-    encode(message: QueryVaultInfoByOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoByOwnerResponse;
-    fromJSON(object: any): QueryVaultInfoByOwnerResponse;
-    toJSON(message: QueryVaultInfoByOwnerResponse): unknown;
+export declare const QueryVaultInfoByAppByOwnerResponse: {
+    encode(message: QueryVaultInfoByAppByOwnerResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoByAppByOwnerResponse;
+    fromJSON(object: any): QueryVaultInfoByAppByOwnerResponse;
+    toJSON(message: QueryVaultInfoByAppByOwnerResponse): unknown;
     fromPartial<I extends {
         vaultsInfo?: {
             id?: string | undefined;
-            pairId?: string | number | Long.Long | undefined;
+            extendedPairId?: string | number | Long.Long | undefined;
             owner?: string | undefined;
             collateral?: string | undefined;
             debt?: string | undefined;
             collateralizationRatio?: string | undefined;
+            extendedPairName?: string | undefined;
+            interestRate?: string | undefined;
+            assetInDenom?: string | undefined;
+            assetOutDenom?: string | undefined;
+            minCr?: string | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -556,21 +661,31 @@ export declare const QueryVaultInfoByOwnerResponse: {
     } & {
         vaultsInfo?: ({
             id?: string | undefined;
-            pairId?: string | number | Long.Long | undefined;
+            extendedPairId?: string | number | Long.Long | undefined;
             owner?: string | undefined;
             collateral?: string | undefined;
             debt?: string | undefined;
             collateralizationRatio?: string | undefined;
+            extendedPairName?: string | undefined;
+            interestRate?: string | undefined;
+            assetInDenom?: string | undefined;
+            assetOutDenom?: string | undefined;
+            minCr?: string | undefined;
         }[] & ({
             id?: string | undefined;
-            pairId?: string | number | Long.Long | undefined;
+            extendedPairId?: string | number | Long.Long | undefined;
             owner?: string | undefined;
             collateral?: string | undefined;
             debt?: string | undefined;
             collateralizationRatio?: string | undefined;
+            extendedPairName?: string | undefined;
+            interestRate?: string | undefined;
+            assetInDenom?: string | undefined;
+            assetOutDenom?: string | undefined;
+            minCr?: string | undefined;
         } & {
             id?: string | undefined;
-            pairId?: string | number | (Long.Long & {
+            extendedPairId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -627,18 +742,28 @@ export declare const QueryVaultInfoByOwnerResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["vaultsInfo"][number]["pairId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["vaultsInfo"][number]["extendedPairId"], keyof Long.Long>, never>) | undefined;
             owner?: string | undefined;
             collateral?: string | undefined;
             debt?: string | undefined;
             collateralizationRatio?: string | undefined;
+            extendedPairName?: string | undefined;
+            interestRate?: string | undefined;
+            assetInDenom?: string | undefined;
+            assetOutDenom?: string | undefined;
+            minCr?: string | undefined;
         } & Record<Exclude<keyof I["vaultsInfo"][number], keyof VaultInfo>, never>)[] & Record<Exclude<keyof I["vaultsInfo"], keyof {
             id?: string | undefined;
-            pairId?: string | number | Long.Long | undefined;
+            extendedPairId?: string | number | Long.Long | undefined;
             owner?: string | undefined;
             collateral?: string | undefined;
             debt?: string | undefined;
             collateralizationRatio?: string | undefined;
+            extendedPairName?: string | undefined;
+            interestRate?: string | undefined;
+            assetInDenom?: string | undefined;
+            assetOutDenom?: string | undefined;
+            minCr?: string | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -704,7 +829,7 @@ export declare const QueryVaultInfoByOwnerResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pagination"]["total"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryVaultInfoByOwnerResponse>, never>>(object: I): QueryVaultInfoByOwnerResponse;
+    } & Record<Exclude<keyof I, keyof QueryVaultInfoByAppByOwnerResponse>, never>>(object: I): QueryVaultInfoByAppByOwnerResponse;
 };
 export declare const QueryAllVaultsRequest: {
     encode(message: QueryAllVaultsRequest, writer?: _m0.Writer): _m0.Writer;
@@ -5728,10 +5853,211 @@ export declare const QueryTotalTVLByAppResponse: {
         } & Record<Exclude<keyof I["collateralLocked"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, "collateralLocked">, never>>(object: I): QueryTotalTVLByAppResponse;
 };
+export declare const QueryUserMyPositionByAppRequest: {
+    encode(message: QueryUserMyPositionByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryUserMyPositionByAppRequest;
+    fromJSON(object: any): QueryUserMyPositionByAppRequest;
+    toJSON(message: QueryUserMyPositionByAppRequest): unknown;
+    fromPartial<I extends {
+        appId?: string | number | Long.Long | undefined;
+        owner?: string | undefined;
+    } & {
+        appId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        owner?: string | undefined;
+    } & Record<Exclude<keyof I, keyof QueryUserMyPositionByAppRequest>, never>>(object: I): QueryUserMyPositionByAppRequest;
+};
+export declare const QueryUserMyPositionByAppResponse: {
+    encode(message: QueryUserMyPositionByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryUserMyPositionByAppResponse;
+    fromJSON(object: any): QueryUserMyPositionByAppResponse;
+    toJSON(message: QueryUserMyPositionByAppResponse): unknown;
+    fromPartial<I extends {
+        collateralLocked?: string | number | Long.Long | undefined;
+        totalDue?: string | number | Long.Long | undefined;
+        availableToBorrow?: string | undefined;
+        averageCrRatio?: string | undefined;
+    } & {
+        collateralLocked?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["collateralLocked"], keyof Long.Long>, never>) | undefined;
+        totalDue?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["totalDue"], keyof Long.Long>, never>) | undefined;
+        availableToBorrow?: string | undefined;
+        averageCrRatio?: string | undefined;
+    } & Record<Exclude<keyof I, keyof QueryUserMyPositionByAppResponse>, never>>(object: I): QueryUserMyPositionByAppResponse;
+};
 export interface Query {
     QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse>;
     QueryVaultInfo(request: QueryVaultInfoRequest): Promise<QueryVaultInfoResponse>;
-    QueryVaultInfoByOwner(request: QueryVaultInfoByOwnerRequest): Promise<QueryVaultInfoByOwnerResponse>;
+    QueryVaultInfoByAppByOwner(request: QueryVaultInfoByAppByOwnerRequest): Promise<QueryVaultInfoByAppByOwnerResponse>;
     QueryAllVaults(request: QueryAllVaultsRequest): Promise<QueryAllVaultsResponse>;
     QueryAllVaultsByProduct(request: QueryAllVaultsByProductRequest): Promise<QueryAllVaultsByProductResponse>;
     QueryAllVaultsByAppAndExtendedPair(request: QueryAllVaultsByAppAndExtendedPairRequest): Promise<QueryAllVaultsByAppAndExtendedPairResponse>;
@@ -5753,13 +6079,14 @@ export interface Query {
     QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID(request: QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest): Promise<QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse>;
     QueryTVLLockedByAppOfAllExtendedPairs(request: QueryTVLLockedByAppOfAllExtendedPairsRequest): Promise<QueryTVLLockedByAppOfAllExtendedPairsResponse>;
     QueryTotalTVLByApp(request: QueryTotalTVLByAppRequest): Promise<QueryTotalTVLByAppResponse>;
+    QueryUserMyPositionByApp(request: QueryUserMyPositionByAppRequest): Promise<QueryUserMyPositionByAppResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
     QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse>;
     QueryVaultInfo(request: QueryVaultInfoRequest): Promise<QueryVaultInfoResponse>;
-    QueryVaultInfoByOwner(request: QueryVaultInfoByOwnerRequest): Promise<QueryVaultInfoByOwnerResponse>;
+    QueryVaultInfoByAppByOwner(request: QueryVaultInfoByAppByOwnerRequest): Promise<QueryVaultInfoByAppByOwnerResponse>;
     QueryAllVaults(request: QueryAllVaultsRequest): Promise<QueryAllVaultsResponse>;
     QueryAllVaultsByProduct(request: QueryAllVaultsByProductRequest): Promise<QueryAllVaultsByProductResponse>;
     QueryAllVaultsByAppAndExtendedPair(request: QueryAllVaultsByAppAndExtendedPairRequest): Promise<QueryAllVaultsByAppAndExtendedPairResponse>;
@@ -5781,6 +6108,7 @@ export declare class QueryClientImpl implements Query {
     QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID(request: QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest): Promise<QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse>;
     QueryTVLLockedByAppOfAllExtendedPairs(request: QueryTVLLockedByAppOfAllExtendedPairsRequest): Promise<QueryTVLLockedByAppOfAllExtendedPairsResponse>;
     QueryTotalTVLByApp(request: QueryTotalTVLByAppRequest): Promise<QueryTotalTVLByAppResponse>;
+    QueryUserMyPositionByApp(request: QueryUserMyPositionByAppRequest): Promise<QueryUserMyPositionByAppResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
