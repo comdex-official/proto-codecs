@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import  _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import {
   Vault,
   StableMintVault,
@@ -17,11 +17,16 @@ export const protobufPackage = "comdex.vault.v1beta1";
 
 export interface VaultInfo {
   id: string;
-  pairId: Long;
+  extendedPairId: Long;
   owner: string;
   collateral: string;
   debt: string;
   collateralizationRatio: string;
+  extendedPairName: string;
+  interestRate: string;
+  assetInDenom: string;
+  assetOutDenom: string;
+  minCr: string;
 }
 
 export interface QueryVaultRequest {
@@ -40,11 +45,12 @@ export interface QueryVaultInfoResponse {
   vaultsInfo?: VaultInfo;
 }
 
-export interface QueryVaultInfoByOwnerRequest {
+export interface QueryVaultInfoByAppByOwnerRequest {
+  appId: Long;
   owner: string;
 }
 
-export interface QueryVaultInfoByOwnerResponse {
+export interface QueryVaultInfoByAppByOwnerResponse {
   vaultsInfo: VaultInfo[];
   pagination?: PageResponse;
 }
@@ -241,14 +247,31 @@ export interface QueryTotalTVLByAppResponse {
   collateralLocked: Long;
 }
 
+export interface QueryUserMyPositionByAppRequest {
+  appId: Long;
+  owner: string;
+}
+
+export interface QueryUserMyPositionByAppResponse {
+  collateralLocked: Long;
+  totalDue: Long;
+  availableToBorrow: string;
+  averageCrRatio: string;
+}
+
 function createBaseVaultInfo(): VaultInfo {
   return {
     id: "",
-    pairId: Long.UZERO,
+    extendedPairId: Long.UZERO,
     owner: "",
     collateral: "",
     debt: "",
     collateralizationRatio: "",
+    extendedPairName: "",
+    interestRate: "",
+    assetInDenom: "",
+    assetOutDenom: "",
+    minCr: "",
   };
 }
 
@@ -260,8 +283,8 @@ export const VaultInfo = {
     if (message.id !== "") {
       writer.uint32(10).string(message.id);
     }
-    if (!message.pairId.isZero()) {
-      writer.uint32(16).uint64(message.pairId);
+    if (!message.extendedPairId.isZero()) {
+      writer.uint32(16).uint64(message.extendedPairId);
     }
     if (message.owner !== "") {
       writer.uint32(26).string(message.owner);
@@ -274,6 +297,21 @@ export const VaultInfo = {
     }
     if (message.collateralizationRatio !== "") {
       writer.uint32(50).string(message.collateralizationRatio);
+    }
+    if (message.extendedPairName !== "") {
+      writer.uint32(58).string(message.extendedPairName);
+    }
+    if (message.interestRate !== "") {
+      writer.uint32(66).string(message.interestRate);
+    }
+    if (message.assetInDenom !== "") {
+      writer.uint32(74).string(message.assetInDenom);
+    }
+    if (message.assetOutDenom !== "") {
+      writer.uint32(82).string(message.assetOutDenom);
+    }
+    if (message.minCr !== "") {
+      writer.uint32(90).string(message.minCr);
     }
     return writer;
   },
@@ -289,7 +327,7 @@ export const VaultInfo = {
           message.id = reader.string();
           break;
         case 2:
-          message.pairId = reader.uint64() as Long;
+          message.extendedPairId = reader.uint64() as Long;
           break;
         case 3:
           message.owner = reader.string();
@@ -303,6 +341,21 @@ export const VaultInfo = {
         case 6:
           message.collateralizationRatio = reader.string();
           break;
+        case 7:
+          message.extendedPairName = reader.string();
+          break;
+        case 8:
+          message.interestRate = reader.string();
+          break;
+        case 9:
+          message.assetInDenom = reader.string();
+          break;
+        case 10:
+          message.assetOutDenom = reader.string();
+          break;
+        case 11:
+          message.minCr = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -314,26 +367,50 @@ export const VaultInfo = {
   fromJSON(object: any): VaultInfo {
     return {
       id: isSet(object.id) ? String(object.id) : "",
-      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      extendedPairId: isSet(object.extendedPairId)
+        ? Long.fromValue(object.extendedPairId)
+        : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
       collateral: isSet(object.collateral) ? String(object.collateral) : "",
       debt: isSet(object.debt) ? String(object.debt) : "",
       collateralizationRatio: isSet(object.collateralizationRatio)
         ? String(object.collateralizationRatio)
         : "",
+      extendedPairName: isSet(object.extendedPairName)
+        ? String(object.extendedPairName)
+        : "",
+      interestRate: isSet(object.interestRate)
+        ? String(object.interestRate)
+        : "",
+      assetInDenom: isSet(object.assetInDenom)
+        ? String(object.assetInDenom)
+        : "",
+      assetOutDenom: isSet(object.assetOutDenom)
+        ? String(object.assetOutDenom)
+        : "",
+      minCr: isSet(object.minCr) ? String(object.minCr) : "",
     };
   },
 
   toJSON(message: VaultInfo): unknown {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
-    message.pairId !== undefined &&
-      (obj.pairId = (message.pairId || Long.UZERO).toString());
+    message.extendedPairId !== undefined &&
+      (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
     message.owner !== undefined && (obj.owner = message.owner);
     message.collateral !== undefined && (obj.collateral = message.collateral);
     message.debt !== undefined && (obj.debt = message.debt);
     message.collateralizationRatio !== undefined &&
       (obj.collateralizationRatio = message.collateralizationRatio);
+    message.extendedPairName !== undefined &&
+      (obj.extendedPairName = message.extendedPairName);
+    message.interestRate !== undefined &&
+      (obj.interestRate = message.interestRate);
+    message.assetInDenom !== undefined &&
+      (obj.assetInDenom = message.assetInDenom);
+    message.assetOutDenom !== undefined &&
+      (obj.assetOutDenom = message.assetOutDenom);
+    message.minCr !== undefined && (obj.minCr = message.minCr);
     return obj;
   },
 
@@ -342,14 +419,19 @@ export const VaultInfo = {
   ): VaultInfo {
     const message = createBaseVaultInfo();
     message.id = object.id ?? "";
-    message.pairId =
-      object.pairId !== undefined && object.pairId !== null
-        ? Long.fromValue(object.pairId)
+    message.extendedPairId =
+      object.extendedPairId !== undefined && object.extendedPairId !== null
+        ? Long.fromValue(object.extendedPairId)
         : Long.UZERO;
     message.owner = object.owner ?? "";
     message.collateral = object.collateral ?? "";
     message.debt = object.debt ?? "";
     message.collateralizationRatio = object.collateralizationRatio ?? "";
+    message.extendedPairName = object.extendedPairName ?? "";
+    message.interestRate = object.interestRate ?? "";
+    message.assetInDenom = object.assetInDenom ?? "";
+    message.assetOutDenom = object.assetOutDenom ?? "";
+    message.minCr = object.minCr ?? "";
     return message;
   },
 };
@@ -588,17 +670,20 @@ export const QueryVaultInfoResponse = {
   },
 };
 
-function createBaseQueryVaultInfoByOwnerRequest(): QueryVaultInfoByOwnerRequest {
-  return { owner: "" };
+function createBaseQueryVaultInfoByAppByOwnerRequest(): QueryVaultInfoByAppByOwnerRequest {
+  return { appId: Long.UZERO, owner: "" };
 }
 
-export const QueryVaultInfoByOwnerRequest = {
+export const QueryVaultInfoByAppByOwnerRequest = {
   encode(
-    message: QueryVaultInfoByOwnerRequest,
+    message: QueryVaultInfoByAppByOwnerRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
     if (message.owner !== "") {
-      writer.uint32(10).string(message.owner);
+      writer.uint32(18).string(message.owner);
     }
     return writer;
   },
@@ -606,14 +691,17 @@ export const QueryVaultInfoByOwnerRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryVaultInfoByOwnerRequest {
+  ): QueryVaultInfoByAppByOwnerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryVaultInfoByOwnerRequest();
+    const message = createBaseQueryVaultInfoByAppByOwnerRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
           message.owner = reader.string();
           break;
         default:
@@ -624,34 +712,41 @@ export const QueryVaultInfoByOwnerRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryVaultInfoByOwnerRequest {
+  fromJSON(object: any): QueryVaultInfoByAppByOwnerRequest {
     return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
     };
   },
 
-  toJSON(message: QueryVaultInfoByOwnerRequest): unknown {
+  toJSON(message: QueryVaultInfoByAppByOwnerRequest): unknown {
     const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.owner !== undefined && (obj.owner = message.owner);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVaultInfoByOwnerRequest>, I>>(
-    object: I
-  ): QueryVaultInfoByOwnerRequest {
-    const message = createBaseQueryVaultInfoByOwnerRequest();
+  fromPartial<
+    I extends Exact<DeepPartial<QueryVaultInfoByAppByOwnerRequest>, I>
+  >(object: I): QueryVaultInfoByAppByOwnerRequest {
+    const message = createBaseQueryVaultInfoByAppByOwnerRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     message.owner = object.owner ?? "";
     return message;
   },
 };
 
-function createBaseQueryVaultInfoByOwnerResponse(): QueryVaultInfoByOwnerResponse {
+function createBaseQueryVaultInfoByAppByOwnerResponse(): QueryVaultInfoByAppByOwnerResponse {
   return { vaultsInfo: [], pagination: undefined };
 }
 
-export const QueryVaultInfoByOwnerResponse = {
+export const QueryVaultInfoByAppByOwnerResponse = {
   encode(
-    message: QueryVaultInfoByOwnerResponse,
+    message: QueryVaultInfoByAppByOwnerResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.vaultsInfo) {
@@ -669,10 +764,10 @@ export const QueryVaultInfoByOwnerResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryVaultInfoByOwnerResponse {
+  ): QueryVaultInfoByAppByOwnerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryVaultInfoByOwnerResponse();
+    const message = createBaseQueryVaultInfoByAppByOwnerResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -690,7 +785,7 @@ export const QueryVaultInfoByOwnerResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryVaultInfoByOwnerResponse {
+  fromJSON(object: any): QueryVaultInfoByAppByOwnerResponse {
     return {
       vaultsInfo: Array.isArray(object?.vaultsInfo)
         ? object.vaultsInfo.map((e: any) => VaultInfo.fromJSON(e))
@@ -701,7 +796,7 @@ export const QueryVaultInfoByOwnerResponse = {
     };
   },
 
-  toJSON(message: QueryVaultInfoByOwnerResponse): unknown {
+  toJSON(message: QueryVaultInfoByAppByOwnerResponse): unknown {
     const obj: any = {};
     if (message.vaultsInfo) {
       obj.vaultsInfo = message.vaultsInfo.map((e) =>
@@ -717,10 +812,10 @@ export const QueryVaultInfoByOwnerResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVaultInfoByOwnerResponse>, I>>(
-    object: I
-  ): QueryVaultInfoByOwnerResponse {
-    const message = createBaseQueryVaultInfoByOwnerResponse();
+  fromPartial<
+    I extends Exact<DeepPartial<QueryVaultInfoByAppByOwnerResponse>, I>
+  >(object: I): QueryVaultInfoByAppByOwnerResponse {
+    const message = createBaseQueryVaultInfoByAppByOwnerResponse();
     message.vaultsInfo =
       object.vaultsInfo?.map((e) => VaultInfo.fromPartial(e)) || [];
     message.pagination =
@@ -3866,14 +3961,193 @@ export const QueryTotalTVLByAppResponse = {
   },
 };
 
+function createBaseQueryUserMyPositionByAppRequest(): QueryUserMyPositionByAppRequest {
+  return { appId: Long.UZERO, owner: "" };
+}
+
+export const QueryUserMyPositionByAppRequest = {
+  encode(
+    message: QueryUserMyPositionByAppRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (message.owner !== "") {
+      writer.uint32(18).string(message.owner);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryUserMyPositionByAppRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryUserMyPositionByAppRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.owner = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryUserMyPositionByAppRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      owner: isSet(object.owner) ? String(object.owner) : "",
+    };
+  },
+
+  toJSON(message: QueryUserMyPositionByAppRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.owner !== undefined && (obj.owner = message.owner);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryUserMyPositionByAppRequest>, I>>(
+    object: I
+  ): QueryUserMyPositionByAppRequest {
+    const message = createBaseQueryUserMyPositionByAppRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.owner = object.owner ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryUserMyPositionByAppResponse(): QueryUserMyPositionByAppResponse {
+  return {
+    collateralLocked: Long.UZERO,
+    totalDue: Long.UZERO,
+    availableToBorrow: "",
+    averageCrRatio: "",
+  };
+}
+
+export const QueryUserMyPositionByAppResponse = {
+  encode(
+    message: QueryUserMyPositionByAppResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.collateralLocked.isZero()) {
+      writer.uint32(8).uint64(message.collateralLocked);
+    }
+    if (!message.totalDue.isZero()) {
+      writer.uint32(16).uint64(message.totalDue);
+    }
+    if (message.availableToBorrow !== "") {
+      writer.uint32(26).string(message.availableToBorrow);
+    }
+    if (message.averageCrRatio !== "") {
+      writer.uint32(34).string(message.averageCrRatio);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryUserMyPositionByAppResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryUserMyPositionByAppResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.collateralLocked = reader.uint64() as Long;
+          break;
+        case 2:
+          message.totalDue = reader.uint64() as Long;
+          break;
+        case 3:
+          message.availableToBorrow = reader.string();
+          break;
+        case 4:
+          message.averageCrRatio = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryUserMyPositionByAppResponse {
+    return {
+      collateralLocked: isSet(object.collateralLocked)
+        ? Long.fromValue(object.collateralLocked)
+        : Long.UZERO,
+      totalDue: isSet(object.totalDue)
+        ? Long.fromValue(object.totalDue)
+        : Long.UZERO,
+      availableToBorrow: isSet(object.availableToBorrow)
+        ? String(object.availableToBorrow)
+        : "",
+      averageCrRatio: isSet(object.averageCrRatio)
+        ? String(object.averageCrRatio)
+        : "",
+    };
+  },
+
+  toJSON(message: QueryUserMyPositionByAppResponse): unknown {
+    const obj: any = {};
+    message.collateralLocked !== undefined &&
+      (obj.collateralLocked = (
+        message.collateralLocked || Long.UZERO
+      ).toString());
+    message.totalDue !== undefined &&
+      (obj.totalDue = (message.totalDue || Long.UZERO).toString());
+    message.availableToBorrow !== undefined &&
+      (obj.availableToBorrow = message.availableToBorrow);
+    message.averageCrRatio !== undefined &&
+      (obj.averageCrRatio = message.averageCrRatio);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryUserMyPositionByAppResponse>, I>
+  >(object: I): QueryUserMyPositionByAppResponse {
+    const message = createBaseQueryUserMyPositionByAppResponse();
+    message.collateralLocked =
+      object.collateralLocked !== undefined && object.collateralLocked !== null
+        ? Long.fromValue(object.collateralLocked)
+        : Long.UZERO;
+    message.totalDue =
+      object.totalDue !== undefined && object.totalDue !== null
+        ? Long.fromValue(object.totalDue)
+        : Long.UZERO;
+    message.availableToBorrow = object.availableToBorrow ?? "";
+    message.averageCrRatio = object.averageCrRatio ?? "";
+    return message;
+  },
+};
+
 export interface Query {
   QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse>;
   QueryVaultInfo(
     request: QueryVaultInfoRequest
   ): Promise<QueryVaultInfoResponse>;
-  QueryVaultInfoByOwner(
-    request: QueryVaultInfoByOwnerRequest
-  ): Promise<QueryVaultInfoByOwnerResponse>;
+  QueryVaultInfoByAppByOwner(
+    request: QueryVaultInfoByAppByOwnerRequest
+  ): Promise<QueryVaultInfoByAppByOwnerResponse>;
   QueryAllVaults(
     request: QueryAllVaultsRequest
   ): Promise<QueryAllVaultsResponse>;
@@ -3937,6 +4211,9 @@ export interface Query {
   QueryTotalTVLByApp(
     request: QueryTotalTVLByAppRequest
   ): Promise<QueryTotalTVLByAppResponse>;
+  QueryUserMyPositionByApp(
+    request: QueryUserMyPositionByAppRequest
+  ): Promise<QueryUserMyPositionByAppResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3945,7 +4222,8 @@ export class QueryClientImpl implements Query {
     this.rpc = rpc;
     this.QueryVault = this.QueryVault.bind(this);
     this.QueryVaultInfo = this.QueryVaultInfo.bind(this);
-    this.QueryVaultInfoByOwner = this.QueryVaultInfoByOwner.bind(this);
+    this.QueryVaultInfoByAppByOwner =
+      this.QueryVaultInfoByAppByOwner.bind(this);
     this.QueryAllVaults = this.QueryAllVaults.bind(this);
     this.QueryAllVaultsByProduct = this.QueryAllVaultsByProduct.bind(this);
     this.QueryAllVaultsByAppAndExtendedPair =
@@ -3982,6 +4260,7 @@ export class QueryClientImpl implements Query {
     this.QueryTVLLockedByAppOfAllExtendedPairs =
       this.QueryTVLLockedByAppOfAllExtendedPairs.bind(this);
     this.QueryTotalTVLByApp = this.QueryTotalTVLByApp.bind(this);
+    this.QueryUserMyPositionByApp = this.QueryUserMyPositionByApp.bind(this);
   }
   QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse> {
     const data = QueryVaultRequest.encode(request).finish();
@@ -4009,17 +4288,17 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryVaultInfoByOwner(
-    request: QueryVaultInfoByOwnerRequest
-  ): Promise<QueryVaultInfoByOwnerResponse> {
-    const data = QueryVaultInfoByOwnerRequest.encode(request).finish();
+  QueryVaultInfoByAppByOwner(
+    request: QueryVaultInfoByAppByOwnerRequest
+  ): Promise<QueryVaultInfoByAppByOwnerResponse> {
+    const data = QueryVaultInfoByAppByOwnerRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.vault.v1beta1.Query",
-      "QueryVaultInfoByOwner",
+      "QueryVaultInfoByAppByOwner",
       data
     );
     return promise.then((data) =>
-      QueryVaultInfoByOwnerResponse.decode(new _m0.Reader(data))
+      QueryVaultInfoByAppByOwnerResponse.decode(new _m0.Reader(data))
     );
   }
 
@@ -4341,6 +4620,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryTotalTVLByAppResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryUserMyPositionByApp(
+    request: QueryUserMyPositionByAppRequest
+  ): Promise<QueryUserMyPositionByAppResponse> {
+    const data = QueryUserMyPositionByAppRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.vault.v1beta1.Query",
+      "QueryUserMyPositionByApp",
+      data
+    );
+    return promise.then((data) =>
+      QueryUserMyPositionByAppResponse.decode(new _m0.Reader(data))
     );
   }
 }
