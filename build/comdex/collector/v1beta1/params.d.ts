@@ -1,5 +1,5 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.collector.v1beta1";
 /** Params defines the parameters for the module. */
 export interface Params {

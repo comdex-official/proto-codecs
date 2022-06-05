@@ -1,5 +1,5 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.collector.v1beta1";
 export interface CollectorData {
     collectedStabilityFee: string;
@@ -49,6 +49,7 @@ export interface AssetToAuctionMapping {
     auctionId: Long;
     assetDenoms: string[];
 }
+/** key app id -> assets  traverse this one */
 export interface CollectorAuctionLookupTable {
     appId: Long;
     assetIdToAuctionLookup: AssetIdToAuctionLookupTable[];
