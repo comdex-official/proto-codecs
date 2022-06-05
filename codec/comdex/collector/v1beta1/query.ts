@@ -1,8 +1,13 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/collector/v1beta1/params";
-import { CollectorLookupTable } from "../../../comdex/collector/v1beta1/collector";
+import {
+  CollectorLookupTable,
+  CollectorData,
+  AssetIdToAuctionLookupTable,
+  AssetIdToFeeCollected,
+} from "../../../comdex/collector/v1beta1/collector";
 
 export const protobufPackage = "comdex.collector.v1beta1";
 
@@ -30,6 +35,33 @@ export interface QueryCollectorLookupByProductAndAssetRequest {
 
 export interface QueryCollectorLookupByProductAndAssetResponse {
   collectorLookup?: CollectorLookupTable;
+}
+
+export interface QueryCollectorDataByProductAndAssetRequest {
+  appId: Long;
+  assetId: Long;
+}
+
+export interface QueryCollectorDataByProductAndAssetResponse {
+  collectorData?: CollectorData;
+}
+
+export interface QueryAuctionMappingForAppAndAssetRequest {
+  appId: Long;
+  assetId: Long;
+}
+
+export interface QueryAuctionMappingForAppAndAssetResponse {
+  assetIdToAuctionLookupTable?: AssetIdToAuctionLookupTable;
+}
+
+export interface QueryNetFeeCollectedForAppAndAssetRequest {
+  appId: Long;
+  assetId: Long;
+}
+
+export interface QueryNetFeeCollectedForAppAndAssetResponse {
+  assetIdToFeeCollected?: AssetIdToFeeCollected;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -419,6 +451,450 @@ export const QueryCollectorLookupByProductAndAssetResponse = {
   },
 };
 
+function createBaseQueryCollectorDataByProductAndAssetRequest(): QueryCollectorDataByProductAndAssetRequest {
+  return { appId: Long.UZERO, assetId: Long.UZERO };
+}
+
+export const QueryCollectorDataByProductAndAssetRequest = {
+  encode(
+    message: QueryCollectorDataByProductAndAssetRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (!message.assetId.isZero()) {
+      writer.uint32(16).uint64(message.assetId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryCollectorDataByProductAndAssetRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryCollectorDataByProductAndAssetRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.assetId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryCollectorDataByProductAndAssetRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryCollectorDataByProductAndAssetRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryCollectorDataByProductAndAssetRequest>, I>
+  >(object: I): QueryCollectorDataByProductAndAssetRequest {
+    const message = createBaseQueryCollectorDataByProductAndAssetRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryCollectorDataByProductAndAssetResponse(): QueryCollectorDataByProductAndAssetResponse {
+  return { collectorData: undefined };
+}
+
+export const QueryCollectorDataByProductAndAssetResponse = {
+  encode(
+    message: QueryCollectorDataByProductAndAssetResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.collectorData !== undefined) {
+      CollectorData.encode(
+        message.collectorData,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryCollectorDataByProductAndAssetResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryCollectorDataByProductAndAssetResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.collectorData = CollectorData.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryCollectorDataByProductAndAssetResponse {
+    return {
+      collectorData: isSet(object.collectorData)
+        ? CollectorData.fromJSON(object.collectorData)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryCollectorDataByProductAndAssetResponse): unknown {
+    const obj: any = {};
+    message.collectorData !== undefined &&
+      (obj.collectorData = message.collectorData
+        ? CollectorData.toJSON(message.collectorData)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryCollectorDataByProductAndAssetResponse>, I>
+  >(object: I): QueryCollectorDataByProductAndAssetResponse {
+    const message = createBaseQueryCollectorDataByProductAndAssetResponse();
+    message.collectorData =
+      object.collectorData !== undefined && object.collectorData !== null
+        ? CollectorData.fromPartial(object.collectorData)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAuctionMappingForAppAndAssetRequest(): QueryAuctionMappingForAppAndAssetRequest {
+  return { appId: Long.UZERO, assetId: Long.UZERO };
+}
+
+export const QueryAuctionMappingForAppAndAssetRequest = {
+  encode(
+    message: QueryAuctionMappingForAppAndAssetRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (!message.assetId.isZero()) {
+      writer.uint32(16).uint64(message.assetId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAuctionMappingForAppAndAssetRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAuctionMappingForAppAndAssetRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.assetId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAuctionMappingForAppAndAssetRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryAuctionMappingForAppAndAssetRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryAuctionMappingForAppAndAssetRequest>, I>
+  >(object: I): QueryAuctionMappingForAppAndAssetRequest {
+    const message = createBaseQueryAuctionMappingForAppAndAssetRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryAuctionMappingForAppAndAssetResponse(): QueryAuctionMappingForAppAndAssetResponse {
+  return { assetIdToAuctionLookupTable: undefined };
+}
+
+export const QueryAuctionMappingForAppAndAssetResponse = {
+  encode(
+    message: QueryAuctionMappingForAppAndAssetResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.assetIdToAuctionLookupTable !== undefined) {
+      AssetIdToAuctionLookupTable.encode(
+        message.assetIdToAuctionLookupTable,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAuctionMappingForAppAndAssetResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAuctionMappingForAppAndAssetResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetIdToAuctionLookupTable =
+            AssetIdToAuctionLookupTable.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAuctionMappingForAppAndAssetResponse {
+    return {
+      assetIdToAuctionLookupTable: isSet(object.assetIdToAuctionLookupTable)
+        ? AssetIdToAuctionLookupTable.fromJSON(
+            object.assetIdToAuctionLookupTable
+          )
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryAuctionMappingForAppAndAssetResponse): unknown {
+    const obj: any = {};
+    message.assetIdToAuctionLookupTable !== undefined &&
+      (obj.assetIdToAuctionLookupTable = message.assetIdToAuctionLookupTable
+        ? AssetIdToAuctionLookupTable.toJSON(
+            message.assetIdToAuctionLookupTable
+          )
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryAuctionMappingForAppAndAssetResponse>, I>
+  >(object: I): QueryAuctionMappingForAppAndAssetResponse {
+    const message = createBaseQueryAuctionMappingForAppAndAssetResponse();
+    message.assetIdToAuctionLookupTable =
+      object.assetIdToAuctionLookupTable !== undefined &&
+      object.assetIdToAuctionLookupTable !== null
+        ? AssetIdToAuctionLookupTable.fromPartial(
+            object.assetIdToAuctionLookupTable
+          )
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryNetFeeCollectedForAppAndAssetRequest(): QueryNetFeeCollectedForAppAndAssetRequest {
+  return { appId: Long.UZERO, assetId: Long.UZERO };
+}
+
+export const QueryNetFeeCollectedForAppAndAssetRequest = {
+  encode(
+    message: QueryNetFeeCollectedForAppAndAssetRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (!message.assetId.isZero()) {
+      writer.uint32(16).uint64(message.assetId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryNetFeeCollectedForAppAndAssetRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryNetFeeCollectedForAppAndAssetRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.assetId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryNetFeeCollectedForAppAndAssetRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryNetFeeCollectedForAppAndAssetRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryNetFeeCollectedForAppAndAssetRequest>, I>
+  >(object: I): QueryNetFeeCollectedForAppAndAssetRequest {
+    const message = createBaseQueryNetFeeCollectedForAppAndAssetRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryNetFeeCollectedForAppAndAssetResponse(): QueryNetFeeCollectedForAppAndAssetResponse {
+  return { assetIdToFeeCollected: undefined };
+}
+
+export const QueryNetFeeCollectedForAppAndAssetResponse = {
+  encode(
+    message: QueryNetFeeCollectedForAppAndAssetResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.assetIdToFeeCollected !== undefined) {
+      AssetIdToFeeCollected.encode(
+        message.assetIdToFeeCollected,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryNetFeeCollectedForAppAndAssetResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryNetFeeCollectedForAppAndAssetResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetIdToFeeCollected = AssetIdToFeeCollected.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryNetFeeCollectedForAppAndAssetResponse {
+    return {
+      assetIdToFeeCollected: isSet(object.assetIdToFeeCollected)
+        ? AssetIdToFeeCollected.fromJSON(object.assetIdToFeeCollected)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryNetFeeCollectedForAppAndAssetResponse): unknown {
+    const obj: any = {};
+    message.assetIdToFeeCollected !== undefined &&
+      (obj.assetIdToFeeCollected = message.assetIdToFeeCollected
+        ? AssetIdToFeeCollected.toJSON(message.assetIdToFeeCollected)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryNetFeeCollectedForAppAndAssetResponse>, I>
+  >(object: I): QueryNetFeeCollectedForAppAndAssetResponse {
+    const message = createBaseQueryNetFeeCollectedForAppAndAssetResponse();
+    message.assetIdToFeeCollected =
+      object.assetIdToFeeCollected !== undefined &&
+      object.assetIdToFeeCollected !== null
+        ? AssetIdToFeeCollected.fromPartial(object.assetIdToFeeCollected)
+        : undefined;
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -429,6 +905,15 @@ export interface Query {
   QueryCollectorLookupByProductAndAsset(
     request: QueryCollectorLookupByProductAndAssetRequest
   ): Promise<QueryCollectorLookupByProductAndAssetResponse>;
+  QueryCollectorDataByProductAndAsset(
+    request: QueryCollectorDataByProductAndAssetRequest
+  ): Promise<QueryCollectorDataByProductAndAssetResponse>;
+  QueryAuctionMappingForAppAndAsset(
+    request: QueryAuctionMappingForAppAndAssetRequest
+  ): Promise<QueryAuctionMappingForAppAndAssetResponse>;
+  QueryNetFeeCollectedForAppAndAsset(
+    request: QueryNetFeeCollectedForAppAndAssetRequest
+  ): Promise<QueryNetFeeCollectedForAppAndAssetResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -440,6 +925,12 @@ export class QueryClientImpl implements Query {
       this.QueryCollectorLookupByProduct.bind(this);
     this.QueryCollectorLookupByProductAndAsset =
       this.QueryCollectorLookupByProductAndAsset.bind(this);
+    this.QueryCollectorDataByProductAndAsset =
+      this.QueryCollectorDataByProductAndAsset.bind(this);
+    this.QueryAuctionMappingForAppAndAsset =
+      this.QueryAuctionMappingForAppAndAsset.bind(this);
+    this.QueryNetFeeCollectedForAppAndAsset =
+      this.QueryNetFeeCollectedForAppAndAsset.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -479,6 +970,51 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryCollectorLookupByProductAndAssetResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryCollectorDataByProductAndAsset(
+    request: QueryCollectorDataByProductAndAssetRequest
+  ): Promise<QueryCollectorDataByProductAndAssetResponse> {
+    const data =
+      QueryCollectorDataByProductAndAssetRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.collector.v1beta1.Query",
+      "QueryCollectorDataByProductAndAsset",
+      data
+    );
+    return promise.then((data) =>
+      QueryCollectorDataByProductAndAssetResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryAuctionMappingForAppAndAsset(
+    request: QueryAuctionMappingForAppAndAssetRequest
+  ): Promise<QueryAuctionMappingForAppAndAssetResponse> {
+    const data =
+      QueryAuctionMappingForAppAndAssetRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.collector.v1beta1.Query",
+      "QueryAuctionMappingForAppAndAsset",
+      data
+    );
+    return promise.then((data) =>
+      QueryAuctionMappingForAppAndAssetResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryNetFeeCollectedForAppAndAsset(
+    request: QueryNetFeeCollectedForAppAndAssetRequest
+  ): Promise<QueryNetFeeCollectedForAppAndAssetResponse> {
+    const data =
+      QueryNetFeeCollectedForAppAndAssetRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.collector.v1beta1.Query",
+      "QueryNetFeeCollectedForAppAndAsset",
+      data
+    );
+    return promise.then((data) =>
+      QueryNetFeeCollectedForAppAndAssetResponse.decode(new _m0.Reader(data))
     );
   }
 }

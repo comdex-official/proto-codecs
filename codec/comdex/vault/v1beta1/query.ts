@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import {
   Vault,
   StableMintVault,
@@ -253,8 +253,8 @@ export interface QueryUserMyPositionByAppRequest {
 }
 
 export interface QueryUserMyPositionByAppResponse {
-  collateralLocked: Long;
-  totalDue: Long;
+  collateralLocked: string;
+  totalDue: string;
   availableToBorrow: string;
   averageCrRatio: string;
 }
@@ -4033,8 +4033,8 @@ export const QueryUserMyPositionByAppRequest = {
 
 function createBaseQueryUserMyPositionByAppResponse(): QueryUserMyPositionByAppResponse {
   return {
-    collateralLocked: Long.UZERO,
-    totalDue: Long.UZERO,
+    collateralLocked: "",
+    totalDue: "",
     availableToBorrow: "",
     averageCrRatio: "",
   };
@@ -4045,11 +4045,11 @@ export const QueryUserMyPositionByAppResponse = {
     message: QueryUserMyPositionByAppResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.collateralLocked.isZero()) {
-      writer.uint32(8).uint64(message.collateralLocked);
+    if (message.collateralLocked !== "") {
+      writer.uint32(10).string(message.collateralLocked);
     }
-    if (!message.totalDue.isZero()) {
-      writer.uint32(16).uint64(message.totalDue);
+    if (message.totalDue !== "") {
+      writer.uint32(18).string(message.totalDue);
     }
     if (message.availableToBorrow !== "") {
       writer.uint32(26).string(message.availableToBorrow);
@@ -4071,10 +4071,10 @@ export const QueryUserMyPositionByAppResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.collateralLocked = reader.uint64() as Long;
+          message.collateralLocked = reader.string();
           break;
         case 2:
-          message.totalDue = reader.uint64() as Long;
+          message.totalDue = reader.string();
           break;
         case 3:
           message.availableToBorrow = reader.string();
@@ -4093,11 +4093,9 @@ export const QueryUserMyPositionByAppResponse = {
   fromJSON(object: any): QueryUserMyPositionByAppResponse {
     return {
       collateralLocked: isSet(object.collateralLocked)
-        ? Long.fromValue(object.collateralLocked)
-        : Long.UZERO,
-      totalDue: isSet(object.totalDue)
-        ? Long.fromValue(object.totalDue)
-        : Long.UZERO,
+        ? String(object.collateralLocked)
+        : "",
+      totalDue: isSet(object.totalDue) ? String(object.totalDue) : "",
       availableToBorrow: isSet(object.availableToBorrow)
         ? String(object.availableToBorrow)
         : "",
@@ -4110,11 +4108,8 @@ export const QueryUserMyPositionByAppResponse = {
   toJSON(message: QueryUserMyPositionByAppResponse): unknown {
     const obj: any = {};
     message.collateralLocked !== undefined &&
-      (obj.collateralLocked = (
-        message.collateralLocked || Long.UZERO
-      ).toString());
-    message.totalDue !== undefined &&
-      (obj.totalDue = (message.totalDue || Long.UZERO).toString());
+      (obj.collateralLocked = message.collateralLocked);
+    message.totalDue !== undefined && (obj.totalDue = message.totalDue);
     message.availableToBorrow !== undefined &&
       (obj.availableToBorrow = message.availableToBorrow);
     message.averageCrRatio !== undefined &&
@@ -4126,14 +4121,8 @@ export const QueryUserMyPositionByAppResponse = {
     I extends Exact<DeepPartial<QueryUserMyPositionByAppResponse>, I>
   >(object: I): QueryUserMyPositionByAppResponse {
     const message = createBaseQueryUserMyPositionByAppResponse();
-    message.collateralLocked =
-      object.collateralLocked !== undefined && object.collateralLocked !== null
-        ? Long.fromValue(object.collateralLocked)
-        : Long.UZERO;
-    message.totalDue =
-      object.totalDue !== undefined && object.totalDue !== null
-        ? Long.fromValue(object.totalDue)
-        : Long.UZERO;
+    message.collateralLocked = object.collateralLocked ?? "";
+    message.totalDue = object.totalDue ?? "";
     message.availableToBorrow = object.availableToBorrow ?? "";
     message.averageCrRatio = object.averageCrRatio ?? "";
     return message;
