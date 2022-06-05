@@ -1,5 +1,5 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { CollectorAuctionLookupTable, CollectorLookupTable } from "../../../comdex/collector/v1beta1/collector";
 export declare const protobufPackage = "comdex.collector.v1beta1";
 export interface LookupTableParams {

@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -25,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetIdToAuctionLookupTable = exports.CollectorAuctionLookupTable = exports.AssetToAuctionMapping = exports.HistoricalAuction = exports.AppToDenomsMapping = exports.CollectorLookup = exports.CollectorLookupTable = exports.AssetIdCollectorMapping = exports.AppIdToAssetCollectorMapping = exports.AssetIdToFeeCollected = exports.NetFeeCollectedData = exports.CollectorData = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.collector.v1beta1";
 function createBaseCollectorData() {
     return {
@@ -36,7 +17,7 @@ function createBaseCollectorData() {
     };
 }
 exports.CollectorData = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.collectedStabilityFee !== "") {
             writer.uint32(10).string(message.collectedStabilityFee);
         }
@@ -52,7 +33,7 @@ exports.CollectorData = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseCollectorData();
         while (reader.pos < end) {
@@ -120,7 +101,7 @@ function createBaseNetFeeCollectedData() {
     return { appId: long_1.default.UZERO, assetIdToFeeCollected: [] };
 }
 exports.NetFeeCollectedData = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -130,7 +111,7 @@ exports.NetFeeCollectedData = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseNetFeeCollectedData();
         while (reader.pos < end) {
@@ -185,7 +166,7 @@ function createBaseAssetIdToFeeCollected() {
     return { assetId: long_1.default.UZERO, netFeesCollected: "" };
 }
 exports.AssetIdToFeeCollected = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
@@ -195,7 +176,7 @@ exports.AssetIdToFeeCollected = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAssetIdToFeeCollected();
         while (reader.pos < end) {
@@ -247,7 +228,7 @@ function createBaseAppIdToAssetCollectorMapping() {
     return { appId: long_1.default.UZERO, assetCollector: [] };
 }
 exports.AppIdToAssetCollectorMapping = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -257,7 +238,7 @@ exports.AppIdToAssetCollectorMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAppIdToAssetCollectorMapping();
         while (reader.pos < end) {
@@ -312,7 +293,7 @@ function createBaseAssetIdCollectorMapping() {
     return { assetId: long_1.default.UZERO, collector: undefined };
 }
 exports.AssetIdCollectorMapping = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
@@ -322,7 +303,7 @@ exports.AssetIdCollectorMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAssetIdCollectorMapping();
         while (reader.pos < end) {
@@ -387,7 +368,7 @@ function createBaseCollectorLookupTable() {
     };
 }
 exports.CollectorLookupTable = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -415,7 +396,7 @@ exports.CollectorLookupTable = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseCollectorLookupTable();
         while (reader.pos < end) {
@@ -531,7 +512,7 @@ function createBaseCollectorLookup() {
     return { appId: long_1.default.UZERO, assetRateInfo: [] };
 }
 exports.CollectorLookup = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -541,7 +522,7 @@ exports.CollectorLookup = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseCollectorLookup();
         while (reader.pos < end) {
@@ -597,7 +578,7 @@ function createBaseAppToDenomsMapping() {
     return { appId: long_1.default.UZERO, assetIds: [] };
 }
 exports.AppToDenomsMapping = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -609,7 +590,7 @@ exports.AppToDenomsMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAppToDenomsMapping();
         while (reader.pos < end) {
@@ -671,7 +652,7 @@ function createBaseHistoricalAuction() {
     return { appId: long_1.default.UZERO, assetToAuction: [] };
 }
 exports.HistoricalAuction = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -681,7 +662,7 @@ exports.HistoricalAuction = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseHistoricalAuction();
         while (reader.pos < end) {
@@ -737,7 +718,7 @@ function createBaseAssetToAuctionMapping() {
     return { auctionId: long_1.default.UZERO, assetDenoms: [] };
 }
 exports.AssetToAuctionMapping = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.auctionId.isZero()) {
             writer.uint32(8).uint64(message.auctionId);
         }
@@ -747,7 +728,7 @@ exports.AssetToAuctionMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAssetToAuctionMapping();
         while (reader.pos < end) {
@@ -803,7 +784,7 @@ function createBaseCollectorAuctionLookupTable() {
     return { appId: long_1.default.UZERO, assetIdToAuctionLookup: [] };
 }
 exports.CollectorAuctionLookupTable = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -813,7 +794,7 @@ exports.CollectorAuctionLookupTable = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseCollectorAuctionLookupTable();
         while (reader.pos < end) {
@@ -875,7 +856,7 @@ function createBaseAssetIdToAuctionLookupTable() {
     };
 }
 exports.AssetIdToAuctionLookupTable = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
@@ -897,7 +878,7 @@ exports.AssetIdToAuctionLookupTable = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAssetIdToAuctionLookupTable();
         while (reader.pos < end) {
@@ -984,9 +965,9 @@ exports.AssetIdToAuctionLookupTable = {
         return message;
     },
 };
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

@@ -1,5 +1,5 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/collector/v1beta1/params";
 export declare const protobufPackage = "comdex.collector.v1beta1";
 /** GenesisState defines the collector module's genesis state. */
