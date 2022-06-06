@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import {
   Vault,
   StableMintVault,
@@ -244,7 +244,7 @@ export interface QueryTotalTVLByAppRequest {
 }
 
 export interface QueryTotalTVLByAppResponse {
-  collateralLocked: Long;
+  collateralLocked: string;
 }
 
 export interface QueryUserMyPositionByAppRequest {
@@ -3897,7 +3897,7 @@ export const QueryTotalTVLByAppRequest = {
 };
 
 function createBaseQueryTotalTVLByAppResponse(): QueryTotalTVLByAppResponse {
-  return { collateralLocked: Long.UZERO };
+  return { collateralLocked: "" };
 }
 
 export const QueryTotalTVLByAppResponse = {
@@ -3905,8 +3905,8 @@ export const QueryTotalTVLByAppResponse = {
     message: QueryTotalTVLByAppResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.collateralLocked.isZero()) {
-      writer.uint32(8).uint64(message.collateralLocked);
+    if (message.collateralLocked !== "") {
+      writer.uint32(10).string(message.collateralLocked);
     }
     return writer;
   },
@@ -3922,7 +3922,7 @@ export const QueryTotalTVLByAppResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.collateralLocked = reader.uint64() as Long;
+          message.collateralLocked = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3935,17 +3935,15 @@ export const QueryTotalTVLByAppResponse = {
   fromJSON(object: any): QueryTotalTVLByAppResponse {
     return {
       collateralLocked: isSet(object.collateralLocked)
-        ? Long.fromValue(object.collateralLocked)
-        : Long.UZERO,
+        ? String(object.collateralLocked)
+        : "",
     };
   },
 
   toJSON(message: QueryTotalTVLByAppResponse): unknown {
     const obj: any = {};
     message.collateralLocked !== undefined &&
-      (obj.collateralLocked = (
-        message.collateralLocked || Long.UZERO
-      ).toString());
+      (obj.collateralLocked = message.collateralLocked);
     return obj;
   },
 
@@ -3953,10 +3951,7 @@ export const QueryTotalTVLByAppResponse = {
     object: I
   ): QueryTotalTVLByAppResponse {
     const message = createBaseQueryTotalTVLByAppResponse();
-    message.collateralLocked =
-      object.collateralLocked !== undefined && object.collateralLocked !== null
-        ? Long.fromValue(object.collateralLocked)
-        : Long.UZERO;
+    message.collateralLocked = object.collateralLocked ?? "";
     return message;
   },
 };
