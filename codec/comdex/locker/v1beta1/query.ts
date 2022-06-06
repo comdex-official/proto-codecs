@@ -68,13 +68,14 @@ export interface QueryOwnerLockerOfAllProductByOwnerResponse {
   lockerIds: string[];
 }
 
-export interface QueryOwnerTxDetailsLockerOfProductByOwnerRequest {
+export interface QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest {
   productId: Long;
   owner: string;
+  assetId: Long;
   pagination?: PageRequest;
 }
 
-export interface QueryOwnerTxDetailsLockerOfProductByOwnerResponse {
+export interface QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse {
   userTxData: UserTxData[];
   pagination?: PageResponse;
 }
@@ -961,13 +962,18 @@ export const QueryOwnerLockerOfAllProductByOwnerResponse = {
   },
 };
 
-function createBaseQueryOwnerTxDetailsLockerOfProductByOwnerRequest(): QueryOwnerTxDetailsLockerOfProductByOwnerRequest {
-  return { productId: Long.UZERO, owner: "", pagination: undefined };
+function createBaseQueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest(): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest {
+  return {
+    productId: Long.UZERO,
+    owner: "",
+    assetId: Long.UZERO,
+    pagination: undefined,
+  };
 }
 
-export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
+export const QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest = {
   encode(
-    message: QueryOwnerTxDetailsLockerOfProductByOwnerRequest,
+    message: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.productId.isZero()) {
@@ -976,8 +982,11 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
     if (message.owner !== "") {
       writer.uint32(18).string(message.owner);
     }
+    if (!message.assetId.isZero()) {
+      writer.uint32(24).uint64(message.assetId);
+    }
     if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+      PageRequest.encode(message.pagination, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -985,11 +994,11 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryOwnerTxDetailsLockerOfProductByOwnerRequest {
+  ): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message =
-      createBaseQueryOwnerTxDetailsLockerOfProductByOwnerRequest();
+      createBaseQueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1000,6 +1009,9 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
           message.owner = reader.string();
           break;
         case 3:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 4:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
         default:
@@ -1010,23 +1022,32 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryOwnerTxDetailsLockerOfProductByOwnerRequest {
+  fromJSON(
+    object: any
+  ): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest {
     return {
       productId: isSet(object.productId)
         ? Long.fromValue(object.productId)
         : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
     };
   },
 
-  toJSON(message: QueryOwnerTxDetailsLockerOfProductByOwnerRequest): unknown {
+  toJSON(
+    message: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest
+  ): unknown {
     const obj: any = {};
     message.productId !== undefined &&
       (obj.productId = (message.productId || Long.UZERO).toString());
     message.owner !== undefined && (obj.owner = message.owner);
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
         ? PageRequest.toJSON(message.pagination)
@@ -1036,17 +1057,21 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
 
   fromPartial<
     I extends Exact<
-      DeepPartial<QueryOwnerTxDetailsLockerOfProductByOwnerRequest>,
+      DeepPartial<QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest>,
       I
     >
-  >(object: I): QueryOwnerTxDetailsLockerOfProductByOwnerRequest {
+  >(object: I): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest {
     const message =
-      createBaseQueryOwnerTxDetailsLockerOfProductByOwnerRequest();
+      createBaseQueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest();
     message.productId =
       object.productId !== undefined && object.productId !== null
         ? Long.fromValue(object.productId)
         : Long.UZERO;
     message.owner = object.owner ?? "";
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -1055,13 +1080,13 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerRequest = {
   },
 };
 
-function createBaseQueryOwnerTxDetailsLockerOfProductByOwnerResponse(): QueryOwnerTxDetailsLockerOfProductByOwnerResponse {
+function createBaseQueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse(): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse {
   return { userTxData: [], pagination: undefined };
 }
 
-export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
+export const QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse = {
   encode(
-    message: QueryOwnerTxDetailsLockerOfProductByOwnerResponse,
+    message: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.userTxData) {
@@ -1079,11 +1104,11 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryOwnerTxDetailsLockerOfProductByOwnerResponse {
+  ): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message =
-      createBaseQueryOwnerTxDetailsLockerOfProductByOwnerResponse();
+      createBaseQueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1101,7 +1126,9 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryOwnerTxDetailsLockerOfProductByOwnerResponse {
+  fromJSON(
+    object: any
+  ): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse {
     return {
       userTxData: Array.isArray(object?.userTxData)
         ? object.userTxData.map((e: any) => UserTxData.fromJSON(e))
@@ -1112,7 +1139,9 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
     };
   },
 
-  toJSON(message: QueryOwnerTxDetailsLockerOfProductByOwnerResponse): unknown {
+  toJSON(
+    message: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse
+  ): unknown {
     const obj: any = {};
     if (message.userTxData) {
       obj.userTxData = message.userTxData.map((e) =>
@@ -1130,12 +1159,12 @@ export const QueryOwnerTxDetailsLockerOfProductByOwnerResponse = {
 
   fromPartial<
     I extends Exact<
-      DeepPartial<QueryOwnerTxDetailsLockerOfProductByOwnerResponse>,
+      DeepPartial<QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse>,
       I
     >
-  >(object: I): QueryOwnerTxDetailsLockerOfProductByOwnerResponse {
+  >(object: I): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse {
     const message =
-      createBaseQueryOwnerTxDetailsLockerOfProductByOwnerResponse();
+      createBaseQueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse();
     message.userTxData =
       object.userTxData?.map((e) => UserTxData.fromPartial(e)) || [];
     message.pagination =
@@ -2728,9 +2757,9 @@ export interface Query {
   QueryOwnerLockerOfAllProductByOwner(
     request: QueryOwnerLockerOfAllProductByOwnerRequest
   ): Promise<QueryOwnerLockerOfAllProductByOwnerResponse>;
-  QueryOwnerTxDetailsLockerOfProductByOwner(
-    request: QueryOwnerTxDetailsLockerOfProductByOwnerRequest
-  ): Promise<QueryOwnerTxDetailsLockerOfProductByOwnerResponse>;
+  QueryOwnerTxDetailsLockerOfProductByOwnerByAsset(
+    request: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest
+  ): Promise<QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse>;
   QueryOwnerLockerByProductToAssetIDbyOwner(
     request: QueryOwnerLockerByProductToAssetIDbyOwnerRequest
   ): Promise<QueryOwnerLockerByProductToAssetIDbyOwnerResponse>;
@@ -2777,8 +2806,8 @@ export class QueryClientImpl implements Query {
       this.QueryOwnerLockerByProductIDbyOwner.bind(this);
     this.QueryOwnerLockerOfAllProductByOwner =
       this.QueryOwnerLockerOfAllProductByOwner.bind(this);
-    this.QueryOwnerTxDetailsLockerOfProductByOwner =
-      this.QueryOwnerTxDetailsLockerOfProductByOwner.bind(this);
+    this.QueryOwnerTxDetailsLockerOfProductByOwnerByAsset =
+      this.QueryOwnerTxDetailsLockerOfProductByOwnerByAsset.bind(this);
     this.QueryOwnerLockerByProductToAssetIDbyOwner =
       this.QueryOwnerLockerByProductToAssetIDbyOwner.bind(this);
     this.QueryLockerByProductByOwner =
@@ -2887,18 +2916,20 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryOwnerTxDetailsLockerOfProductByOwner(
-    request: QueryOwnerTxDetailsLockerOfProductByOwnerRequest
-  ): Promise<QueryOwnerTxDetailsLockerOfProductByOwnerResponse> {
+  QueryOwnerTxDetailsLockerOfProductByOwnerByAsset(
+    request: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest
+  ): Promise<QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse> {
     const data =
-      QueryOwnerTxDetailsLockerOfProductByOwnerRequest.encode(request).finish();
+      QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest.encode(
+        request
+      ).finish();
     const promise = this.rpc.request(
       "comdex.locker.v1beta1.Query",
-      "QueryOwnerTxDetailsLockerOfProductByOwner",
+      "QueryOwnerTxDetailsLockerOfProductByOwnerByAsset",
       data
     );
     return promise.then((data) =>
-      QueryOwnerTxDetailsLockerOfProductByOwnerResponse.decode(
+      QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse.decode(
         new _m0.Reader(data)
       )
     );

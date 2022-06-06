@@ -40,7 +40,7 @@ export interface LockerToAppMapping {
 export interface AssetToLockerMapping {
   assetId: Long;
   lockerId: string;
-  userTxData: UserTxData[];
+  userData: UserTxData[];
 }
 
 export interface UserTxData {
@@ -385,7 +385,7 @@ export const LockerToAppMapping = {
 };
 
 function createBaseAssetToLockerMapping(): AssetToLockerMapping {
-  return { assetId: Long.UZERO, lockerId: "", userTxData: [] };
+  return { assetId: Long.UZERO, lockerId: "", userData: [] };
 }
 
 export const AssetToLockerMapping = {
@@ -399,7 +399,7 @@ export const AssetToLockerMapping = {
     if (message.lockerId !== "") {
       writer.uint32(18).string(message.lockerId);
     }
-    for (const v of message.userTxData) {
+    for (const v of message.userData) {
       UserTxData.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
@@ -422,7 +422,7 @@ export const AssetToLockerMapping = {
           message.lockerId = reader.string();
           break;
         case 3:
-          message.userTxData.push(UserTxData.decode(reader, reader.uint32()));
+          message.userData.push(UserTxData.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -438,8 +438,8 @@ export const AssetToLockerMapping = {
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
       lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
-      userTxData: Array.isArray(object?.userTxData)
-        ? object.userTxData.map((e: any) => UserTxData.fromJSON(e))
+      userData: Array.isArray(object?.userData)
+        ? object.userData.map((e: any) => UserTxData.fromJSON(e))
         : [],
     };
   },
@@ -449,12 +449,12 @@ export const AssetToLockerMapping = {
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.lockerId !== undefined && (obj.lockerId = message.lockerId);
-    if (message.userTxData) {
-      obj.userTxData = message.userTxData.map((e) =>
+    if (message.userData) {
+      obj.userData = message.userData.map((e) =>
         e ? UserTxData.toJSON(e) : undefined
       );
     } else {
-      obj.userTxData = [];
+      obj.userData = [];
     }
     return obj;
   },
@@ -468,8 +468,8 @@ export const AssetToLockerMapping = {
         ? Long.fromValue(object.assetId)
         : Long.UZERO;
     message.lockerId = object.lockerId ?? "";
-    message.userTxData =
-      object.userTxData?.map((e) => UserTxData.fromPartial(e)) || [];
+    message.userData =
+      object.userData?.map((e) => UserTxData.fromPartial(e)) || [];
     return message;
   },
 };
