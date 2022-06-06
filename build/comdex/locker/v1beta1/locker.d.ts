@@ -33,7 +33,7 @@ export interface LockerToAppMapping {
 export interface AssetToLockerMapping {
     assetId: Long;
     lockerId: string;
-    userTxData: UserTxData[];
+    userData: UserTxData[];
 }
 export interface UserTxData {
     txType: string;
@@ -212,7 +212,7 @@ export declare const UserLockerAssetMapping: {
             userAssetLocker?: {
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
-                userTxData?: {
+                userData?: {
                     txType?: string | undefined;
                     amount?: string | undefined;
                     balance?: string | undefined;
@@ -227,7 +227,7 @@ export declare const UserLockerAssetMapping: {
             userAssetLocker?: {
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
-                userTxData?: {
+                userData?: {
                     txType?: string | undefined;
                     amount?: string | undefined;
                     balance?: string | undefined;
@@ -239,7 +239,7 @@ export declare const UserLockerAssetMapping: {
             userAssetLocker?: {
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
-                userTxData?: {
+                userData?: {
                     txType?: string | undefined;
                     amount?: string | undefined;
                     balance?: string | undefined;
@@ -308,7 +308,7 @@ export declare const UserLockerAssetMapping: {
             userAssetLocker?: ({
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
-                userTxData?: {
+                userData?: {
                     txType?: string | undefined;
                     amount?: string | undefined;
                     balance?: string | undefined;
@@ -317,7 +317,7 @@ export declare const UserLockerAssetMapping: {
             }[] & ({
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
-                userTxData?: {
+                userData?: {
                     txType?: string | undefined;
                     amount?: string | undefined;
                     balance?: string | undefined;
@@ -383,7 +383,7 @@ export declare const UserLockerAssetMapping: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["lockerAppMapping"][number]["userAssetLocker"][number]["assetId"], keyof Long.Long>, never>) | undefined;
                 lockerId?: string | undefined;
-                userTxData?: ({
+                userData?: ({
                     txType?: string | undefined;
                     amount?: string | undefined;
                     balance?: string | undefined;
@@ -398,7 +398,7 @@ export declare const UserLockerAssetMapping: {
                     amount?: string | undefined;
                     balance?: string | undefined;
                     txTime?: Date | undefined;
-                } & Record<Exclude<keyof I["lockerAppMapping"][number]["userAssetLocker"][number]["userTxData"][number], keyof UserTxData>, never>)[] & Record<Exclude<keyof I["lockerAppMapping"][number]["userAssetLocker"][number]["userTxData"], keyof {
+                } & Record<Exclude<keyof I["lockerAppMapping"][number]["userAssetLocker"][number]["userData"][number], keyof UserTxData>, never>)[] & Record<Exclude<keyof I["lockerAppMapping"][number]["userAssetLocker"][number]["userData"], keyof {
                     txType?: string | undefined;
                     amount?: string | undefined;
                     balance?: string | undefined;
@@ -407,7 +407,7 @@ export declare const UserLockerAssetMapping: {
             } & Record<Exclude<keyof I["lockerAppMapping"][number]["userAssetLocker"][number], keyof AssetToLockerMapping>, never>)[] & Record<Exclude<keyof I["lockerAppMapping"][number]["userAssetLocker"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
-                userTxData?: {
+                userData?: {
                     txType?: string | undefined;
                     amount?: string | undefined;
                     balance?: string | undefined;
@@ -419,7 +419,7 @@ export declare const UserLockerAssetMapping: {
             userAssetLocker?: {
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
-                userTxData?: {
+                userData?: {
                     txType?: string | undefined;
                     amount?: string | undefined;
                     balance?: string | undefined;
@@ -439,7 +439,7 @@ export declare const LockerToAppMapping: {
         userAssetLocker?: {
             assetId?: string | number | Long.Long | undefined;
             lockerId?: string | undefined;
-            userTxData?: {
+            userData?: {
                 txType?: string | undefined;
                 amount?: string | undefined;
                 balance?: string | undefined;
@@ -508,7 +508,7 @@ export declare const LockerToAppMapping: {
         userAssetLocker?: ({
             assetId?: string | number | Long.Long | undefined;
             lockerId?: string | undefined;
-            userTxData?: {
+            userData?: {
                 txType?: string | undefined;
                 amount?: string | undefined;
                 balance?: string | undefined;
@@ -517,7 +517,7 @@ export declare const LockerToAppMapping: {
         }[] & ({
             assetId?: string | number | Long.Long | undefined;
             lockerId?: string | undefined;
-            userTxData?: {
+            userData?: {
                 txType?: string | undefined;
                 amount?: string | undefined;
                 balance?: string | undefined;
@@ -583,7 +583,7 @@ export declare const LockerToAppMapping: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["userAssetLocker"][number]["assetId"], keyof Long.Long>, never>) | undefined;
             lockerId?: string | undefined;
-            userTxData?: ({
+            userData?: ({
                 txType?: string | undefined;
                 amount?: string | undefined;
                 balance?: string | undefined;
@@ -598,7 +598,7 @@ export declare const LockerToAppMapping: {
                 amount?: string | undefined;
                 balance?: string | undefined;
                 txTime?: Date | undefined;
-            } & Record<Exclude<keyof I["userAssetLocker"][number]["userTxData"][number], keyof UserTxData>, never>)[] & Record<Exclude<keyof I["userAssetLocker"][number]["userTxData"], keyof {
+            } & Record<Exclude<keyof I["userAssetLocker"][number]["userData"][number], keyof UserTxData>, never>)[] & Record<Exclude<keyof I["userAssetLocker"][number]["userData"], keyof {
                 txType?: string | undefined;
                 amount?: string | undefined;
                 balance?: string | undefined;
@@ -607,7 +607,7 @@ export declare const LockerToAppMapping: {
         } & Record<Exclude<keyof I["userAssetLocker"][number], keyof AssetToLockerMapping>, never>)[] & Record<Exclude<keyof I["userAssetLocker"], keyof {
             assetId?: string | number | Long.Long | undefined;
             lockerId?: string | undefined;
-            userTxData?: {
+            userData?: {
                 txType?: string | undefined;
                 amount?: string | undefined;
                 balance?: string | undefined;
@@ -624,7 +624,7 @@ export declare const AssetToLockerMapping: {
     fromPartial<I extends {
         assetId?: string | number | Long.Long | undefined;
         lockerId?: string | undefined;
-        userTxData?: {
+        userData?: {
             txType?: string | undefined;
             amount?: string | undefined;
             balance?: string | undefined;
@@ -690,7 +690,7 @@ export declare const AssetToLockerMapping: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
         lockerId?: string | undefined;
-        userTxData?: ({
+        userData?: ({
             txType?: string | undefined;
             amount?: string | undefined;
             balance?: string | undefined;
@@ -705,7 +705,7 @@ export declare const AssetToLockerMapping: {
             amount?: string | undefined;
             balance?: string | undefined;
             txTime?: Date | undefined;
-        } & Record<Exclude<keyof I["userTxData"][number], keyof UserTxData>, never>)[] & Record<Exclude<keyof I["userTxData"], keyof {
+        } & Record<Exclude<keyof I["userData"][number], keyof UserTxData>, never>)[] & Record<Exclude<keyof I["userData"], keyof {
             txType?: string | undefined;
             amount?: string | undefined;
             balance?: string | undefined;
