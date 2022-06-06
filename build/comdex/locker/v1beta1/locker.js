@@ -274,7 +274,7 @@ exports.LockerToAppMapping = {
     },
 };
 function createBaseAssetToLockerMapping() {
-    return { assetId: long_1.default.UZERO, lockerId: "", userTxData: [] };
+    return { assetId: long_1.default.UZERO, lockerId: "", userData: [] };
 }
 exports.AssetToLockerMapping = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -284,7 +284,7 @@ exports.AssetToLockerMapping = {
         if (message.lockerId !== "") {
             writer.uint32(18).string(message.lockerId);
         }
-        for (const v of message.userTxData) {
+        for (const v of message.userData) {
             exports.UserTxData.encode(v, writer.uint32(26).fork()).ldelim();
         }
         return writer;
@@ -303,7 +303,7 @@ exports.AssetToLockerMapping = {
                     message.lockerId = reader.string();
                     break;
                 case 3:
-                    message.userTxData.push(exports.UserTxData.decode(reader, reader.uint32()));
+                    message.userData.push(exports.UserTxData.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -318,8 +318,8 @@ exports.AssetToLockerMapping = {
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
-            userTxData: Array.isArray(object === null || object === void 0 ? void 0 : object.userTxData)
-                ? object.userTxData.map((e) => exports.UserTxData.fromJSON(e))
+            userData: Array.isArray(object === null || object === void 0 ? void 0 : object.userData)
+                ? object.userData.map((e) => exports.UserTxData.fromJSON(e))
                 : [],
         };
     },
@@ -328,11 +328,11 @@ exports.AssetToLockerMapping = {
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         message.lockerId !== undefined && (obj.lockerId = message.lockerId);
-        if (message.userTxData) {
-            obj.userTxData = message.userTxData.map((e) => e ? exports.UserTxData.toJSON(e) : undefined);
+        if (message.userData) {
+            obj.userData = message.userData.map((e) => e ? exports.UserTxData.toJSON(e) : undefined);
         }
         else {
-            obj.userTxData = [];
+            obj.userData = [];
         }
         return obj;
     },
@@ -344,8 +344,8 @@ exports.AssetToLockerMapping = {
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
         message.lockerId = (_a = object.lockerId) !== null && _a !== void 0 ? _a : "";
-        message.userTxData =
-            ((_b = object.userTxData) === null || _b === void 0 ? void 0 : _b.map((e) => exports.UserTxData.fromPartial(e))) || [];
+        message.userData =
+            ((_b = object.userData) === null || _b === void 0 ? void 0 : _b.map((e) => exports.UserTxData.fromPartial(e))) || [];
         return message;
     },
 };

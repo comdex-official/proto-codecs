@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.StableMintVault = exports.TvlLockedDataMap = exports.ExtendedPairVaultMapping = exports.AppExtendedPairVaultMapping = exports.ExtendedPairToVaultMapping = exports.VaultToAppMapping = exports.UserVaultAssetMapping = exports.Vault = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.vault.v1beta1";
 function createBaseVault() {
@@ -23,7 +42,7 @@ function createBaseVault() {
     };
 }
 exports.Vault = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
         }
@@ -54,7 +73,7 @@ exports.Vault = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseVault();
         while (reader.pos < end) {
@@ -161,7 +180,7 @@ function createBaseUserVaultAssetMapping() {
     return { owner: "", userVaultApp: [] };
 }
 exports.UserVaultAssetMapping = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.owner !== "") {
             writer.uint32(10).string(message.owner);
         }
@@ -171,7 +190,7 @@ exports.UserVaultAssetMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseUserVaultAssetMapping();
         while (reader.pos < end) {
@@ -222,7 +241,7 @@ function createBaseVaultToAppMapping() {
     return { appMappingId: long_1.default.UZERO, userExtendedPairVault: [] };
 }
 exports.VaultToAppMapping = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -232,7 +251,7 @@ exports.VaultToAppMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseVaultToAppMapping();
         while (reader.pos < end) {
@@ -289,7 +308,7 @@ function createBaseExtendedPairToVaultMapping() {
     return { extendedPairId: long_1.default.UZERO, vaultId: "" };
 }
 exports.ExtendedPairToVaultMapping = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.extendedPairId.isZero()) {
             writer.uint32(8).uint64(message.extendedPairId);
         }
@@ -299,7 +318,7 @@ exports.ExtendedPairToVaultMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseExtendedPairToVaultMapping();
         while (reader.pos < end) {
@@ -352,7 +371,7 @@ function createBaseAppExtendedPairVaultMapping() {
     };
 }
 exports.AppExtendedPairVaultMapping = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -365,7 +384,7 @@ exports.AppExtendedPairVaultMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAppExtendedPairVaultMapping();
         while (reader.pos < end) {
@@ -439,7 +458,7 @@ function createBaseExtendedPairVaultMapping() {
     };
 }
 exports.ExtendedPairVaultMapping = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.extendedPairId.isZero()) {
             writer.uint32(8).uint64(message.extendedPairId);
         }
@@ -455,7 +474,7 @@ exports.ExtendedPairVaultMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseExtendedPairVaultMapping();
         while (reader.pos < end) {
@@ -529,7 +548,7 @@ function createBaseTvlLockedDataMap() {
     return { assetDenom: "", collateralLockedAmount: "" };
 }
 exports.TvlLockedDataMap = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.assetDenom !== "") {
             writer.uint32(10).string(message.assetDenom);
         }
@@ -539,7 +558,7 @@ exports.TvlLockedDataMap = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseTvlLockedDataMap();
         while (reader.pos < end) {
@@ -592,7 +611,7 @@ function createBaseStableMintVault() {
     };
 }
 exports.StableMintVault = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
         }
@@ -614,7 +633,7 @@ exports.StableMintVault = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseStableMintVault();
         while (reader.pos < end) {
@@ -717,9 +736,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

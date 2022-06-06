@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.vault.v1beta1";
 /** app_vault_type_id will be the key for  the KVStore for this value. */
 export interface Vault {

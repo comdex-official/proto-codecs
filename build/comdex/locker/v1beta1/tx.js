@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MsgClientImpl = exports.MsgWithdrawAssetResponse = exports.MsgWithdrawAssetRequest = exports.MsgDepositAssetResponse = exports.MsgDepositAssetRequest = exports.MsgAddWhiteListedAssetResponse = exports.MsgAddWhiteListedAssetRequest = exports.MsgCreateLockerResponse = exports.MsgCreateLockerRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.locker.v1beta1";
 function createBaseMsgCreateLockerRequest() {
     return {
@@ -17,7 +36,7 @@ function createBaseMsgCreateLockerRequest() {
     };
 }
 exports.MsgCreateLockerRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.depositor !== "") {
             writer.uint32(10).string(message.depositor);
         }
@@ -33,7 +52,7 @@ exports.MsgCreateLockerRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCreateLockerRequest();
         while (reader.pos < end) {
@@ -100,11 +119,11 @@ function createBaseMsgCreateLockerResponse() {
     return {};
 }
 exports.MsgCreateLockerResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCreateLockerResponse();
         while (reader.pos < end) {
@@ -133,7 +152,7 @@ function createBaseMsgAddWhiteListedAssetRequest() {
     return { from: "", appMappingId: long_1.default.UZERO, assetId: long_1.default.UZERO };
 }
 exports.MsgAddWhiteListedAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
@@ -146,7 +165,7 @@ exports.MsgAddWhiteListedAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgAddWhiteListedAssetRequest();
         while (reader.pos < end) {
@@ -207,11 +226,11 @@ function createBaseMsgAddWhiteListedAssetResponse() {
     return {};
 }
 exports.MsgAddWhiteListedAssetResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgAddWhiteListedAssetResponse();
         while (reader.pos < end) {
@@ -246,7 +265,7 @@ function createBaseMsgDepositAssetRequest() {
     };
 }
 exports.MsgDepositAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.depositor !== "") {
             writer.uint32(10).string(message.depositor);
         }
@@ -265,7 +284,7 @@ exports.MsgDepositAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgDepositAssetRequest();
         while (reader.pos < end) {
@@ -338,11 +357,11 @@ function createBaseMsgDepositAssetResponse() {
     return {};
 }
 exports.MsgDepositAssetResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgDepositAssetResponse();
         while (reader.pos < end) {
@@ -377,7 +396,7 @@ function createBaseMsgWithdrawAssetRequest() {
     };
 }
 exports.MsgWithdrawAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.depositor !== "") {
             writer.uint32(10).string(message.depositor);
         }
@@ -396,7 +415,7 @@ exports.MsgWithdrawAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWithdrawAssetRequest();
         while (reader.pos < end) {
@@ -469,11 +488,11 @@ function createBaseMsgWithdrawAssetResponse() {
     return {};
 }
 exports.MsgWithdrawAssetResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWithdrawAssetResponse();
         while (reader.pos < end) {
@@ -509,28 +528,28 @@ class MsgClientImpl {
     MsgAddWhiteListedAsset(request) {
         const data = exports.MsgAddWhiteListedAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.locker.v1beta1.Msg", "MsgAddWhiteListedAsset", data);
-        return promise.then((data) => exports.MsgAddWhiteListedAssetResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgAddWhiteListedAssetResponse.decode(new _m0.Reader(data)));
     }
     MsgCreateLocker(request) {
         const data = exports.MsgCreateLockerRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.locker.v1beta1.Msg", "MsgCreateLocker", data);
-        return promise.then((data) => exports.MsgCreateLockerResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCreateLockerResponse.decode(new _m0.Reader(data)));
     }
     MsgDepositAsset(request) {
         const data = exports.MsgDepositAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.locker.v1beta1.Msg", "MsgDepositAsset", data);
-        return promise.then((data) => exports.MsgDepositAssetResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgDepositAssetResponse.decode(new _m0.Reader(data)));
     }
     MsgWithdrawAsset(request) {
         const data = exports.MsgWithdrawAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.locker.v1beta1.Msg", "MsgWithdrawAsset", data);
-        return promise.then((data) => exports.MsgWithdrawAssetResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgWithdrawAssetResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
