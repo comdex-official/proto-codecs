@@ -5,17 +5,18 @@ import {
   SurplusAuction,
   DebtAuction,
   DutchAuction,
+  ProtocolStatistics,
 } from "./auction";
 import {
   PageRequest,
   PageResponse,
-} from "../../../cosmos/base/query/v1beta1/pagination";
+} from "./cosmos/base/query/v1beta1/pagination";
 import { Params } from "./params";
 import {
   SurplusBiddings,
   DebtBiddings,
   DutchBiddings,
-} from "./biddings";
+} from "./comdex/auction/v1beta1/biddings";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
@@ -127,6 +128,16 @@ export interface QueryBiddingsForSurplusAuctionRequest {
 
 export interface QueryBiddingsForSurplusAuctionResponse {
   biddings: SurplusBiddings[];
+  pagination?: PageResponse;
+}
+
+export interface QueryProtocolStatisticsRequest {
+  appId: Long;
+  pagination?: PageRequest;
+}
+
+export interface QueryProtocolStatisticsResponse {
+  stats: ProtocolStatistics[];
   pagination?: PageResponse;
 }
 
@@ -1830,6 +1841,172 @@ export const QueryBiddingsForSurplusAuctionResponse = {
   },
 };
 
+function createBaseQueryProtocolStatisticsRequest(): QueryProtocolStatisticsRequest {
+  return { appId: Long.UZERO, pagination: undefined };
+}
+
+export const QueryProtocolStatisticsRequest = {
+  encode(
+    message: QueryProtocolStatisticsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryProtocolStatisticsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryProtocolStatisticsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryProtocolStatisticsRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryProtocolStatisticsRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryProtocolStatisticsRequest>, I>>(
+    object: I
+  ): QueryProtocolStatisticsRequest {
+    const message = createBaseQueryProtocolStatisticsRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryProtocolStatisticsResponse(): QueryProtocolStatisticsResponse {
+  return { stats: [], pagination: undefined };
+}
+
+export const QueryProtocolStatisticsResponse = {
+  encode(
+    message: QueryProtocolStatisticsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.stats) {
+      ProtocolStatistics.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryProtocolStatisticsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryProtocolStatisticsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.stats.push(
+            ProtocolStatistics.decode(reader, reader.uint32())
+          );
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryProtocolStatisticsResponse {
+    return {
+      stats: Array.isArray(object?.stats)
+        ? object.stats.map((e: any) => ProtocolStatistics.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryProtocolStatisticsResponse): unknown {
+    const obj: any = {};
+    if (message.stats) {
+      obj.stats = message.stats.map((e) =>
+        e ? ProtocolStatistics.toJSON(e) : undefined
+      );
+    } else {
+      obj.stats = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryProtocolStatisticsResponse>, I>>(
+    object: I
+  ): QueryProtocolStatisticsResponse {
+    const message = createBaseQueryProtocolStatisticsResponse();
+    message.stats =
+      object.stats?.map((e) => ProtocolStatistics.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -1961,6 +2138,9 @@ export interface Query {
     request: QueryDutchBiddingsRequest
   ): Promise<QueryDutchBiddingsResponse>;
   QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
+  QueryProtocolStatistics(
+    request: QueryProtocolStatisticsRequest
+  ): Promise<QueryProtocolStatisticsResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1977,6 +2157,7 @@ export class QueryClientImpl implements Query {
     this.QueryDutchAuctions = this.QueryDutchAuctions.bind(this);
     this.QueryDutchBiddings = this.QueryDutchBiddings.bind(this);
     this.QueryParams = this.QueryParams.bind(this);
+    this.QueryProtocolStatistics = this.QueryProtocolStatistics.bind(this);
   }
   QuerySurplusAuction(
     request: QuerySurplusAuctionRequest
@@ -2113,6 +2294,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryParamsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryProtocolStatistics(
+    request: QueryProtocolStatisticsRequest
+  ): Promise<QueryProtocolStatisticsResponse> {
+    const data = QueryProtocolStatisticsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.auction.v1beta1.Query",
+      "QueryProtocolStatistics",
+      data
+    );
+    return promise.then((data) =>
+      QueryProtocolStatisticsResponse.decode(new _m0.Reader(data))
     );
   }
 }

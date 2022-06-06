@@ -64,11 +64,18 @@ export interface DutchAuction {
   lockedVaultId: Long;
   vaultOwner: string;
   liquidationPenalty: string;
+  isLockedVaultAmountInZero: boolean;
 }
 
 export interface bidOwnerMapping {
   bidId: Long;
   bidOwner: string;
+}
+
+export interface ProtocolStatistics {
+  appId: Long;
+  assetId: Long;
+  loss: string;
 }
 
 function createBaseSurplusAuction(): SurplusAuction {
@@ -690,6 +697,7 @@ function createBaseDutchAuction(): DutchAuction {
     lockedVaultId: Long.UZERO,
     vaultOwner: "",
     liquidationPenalty: "",
+    isLockedVaultAmountInZero: false,
   };
 }
 
@@ -776,6 +784,9 @@ export const DutchAuction = {
     if (message.liquidationPenalty !== "") {
       writer.uint32(162).string(message.liquidationPenalty);
     }
+    if (message.isLockedVaultAmountInZero === true) {
+      writer.uint32(168).bool(message.isLockedVaultAmountInZero);
+    }
     return writer;
   },
 
@@ -861,6 +872,9 @@ export const DutchAuction = {
         case 20:
           message.liquidationPenalty = reader.string();
           break;
+        case 21:
+          message.isLockedVaultAmountInZero = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -927,6 +941,9 @@ export const DutchAuction = {
       liquidationPenalty: isSet(object.liquidationPenalty)
         ? String(object.liquidationPenalty)
         : "",
+      isLockedVaultAmountInZero: isSet(object.isLockedVaultAmountInZero)
+        ? Boolean(object.isLockedVaultAmountInZero)
+        : false,
     };
   },
 
@@ -986,6 +1003,8 @@ export const DutchAuction = {
     message.vaultOwner !== undefined && (obj.vaultOwner = message.vaultOwner);
     message.liquidationPenalty !== undefined &&
       (obj.liquidationPenalty = message.liquidationPenalty);
+    message.isLockedVaultAmountInZero !== undefined &&
+      (obj.isLockedVaultAmountInZero = message.isLockedVaultAmountInZero);
     return obj;
   },
 
@@ -1051,6 +1070,8 @@ export const DutchAuction = {
         : Long.UZERO;
     message.vaultOwner = object.vaultOwner ?? "";
     message.liquidationPenalty = object.liquidationPenalty ?? "";
+    message.isLockedVaultAmountInZero =
+      object.isLockedVaultAmountInZero ?? false;
     return message;
   },
 };
@@ -1118,6 +1139,88 @@ export const bidOwnerMapping = {
         ? Long.fromValue(object.bidId)
         : Long.UZERO;
     message.bidOwner = object.bidOwner ?? "";
+    return message;
+  },
+};
+
+function createBaseProtocolStatistics(): ProtocolStatistics {
+  return { appId: Long.UZERO, assetId: Long.UZERO, loss: "" };
+}
+
+export const ProtocolStatistics = {
+  encode(
+    message: ProtocolStatistics,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (!message.assetId.isZero()) {
+      writer.uint32(16).uint64(message.assetId);
+    }
+    if (message.loss !== "") {
+      writer.uint32(26).string(message.loss);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ProtocolStatistics {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseProtocolStatistics();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.loss = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ProtocolStatistics {
+    return {
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      assetId: isSet(object.assetId)
+        ? Long.fromString(object.assetId)
+        : Long.UZERO,
+      loss: isSet(object.loss) ? String(object.loss) : "",
+    };
+  },
+
+  toJSON(message: ProtocolStatistics): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.loss !== undefined && (obj.loss = message.loss);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ProtocolStatistics>, I>>(
+    object: I
+  ): ProtocolStatistics {
+    const message = createBaseProtocolStatistics();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    message.loss = object.loss ?? "";
     return message;
   },
 };
