@@ -208,7 +208,7 @@ export interface Params {
   batchSize: number;
   tickPrecision: number;
   feeCollectorAddress: string;
-  swapFeeCollectorAddress: string;
+  dustCollectorAddress: string;
   minInitialPoolCoinSupply: string;
   pairCreationFee: Coin[];
   poolCreationFee: Coin[];
@@ -220,6 +220,8 @@ export interface Params {
   depositExtraGas: Long;
   withdrawExtraGas: Long;
   orderExtraGas: Long;
+  swapFeeDistrDenom: string;
+  swapFeeBurnRate: string;
 }
 
 /** Pair defines a coin pair. */
@@ -231,6 +233,7 @@ export interface Pair {
   lastOrderId: Long;
   lastPrice: string;
   currentBatchId: Long;
+  swapFeeCollectorAddress: string;
 }
 
 /** Pool defines a basic liquidity pool with no min-price and max-price. */
@@ -333,7 +336,7 @@ function createBaseParams(): Params {
     batchSize: 0,
     tickPrecision: 0,
     feeCollectorAddress: "",
-    swapFeeCollectorAddress: "",
+    dustCollectorAddress: "",
     minInitialPoolCoinSupply: "",
     pairCreationFee: [],
     poolCreationFee: [],
@@ -345,6 +348,8 @@ function createBaseParams(): Params {
     depositExtraGas: Long.UZERO,
     withdrawExtraGas: Long.UZERO,
     orderExtraGas: Long.UZERO,
+    swapFeeDistrDenom: "",
+    swapFeeBurnRate: "",
   };
 }
 
@@ -362,8 +367,8 @@ export const Params = {
     if (message.feeCollectorAddress !== "") {
       writer.uint32(26).string(message.feeCollectorAddress);
     }
-    if (message.swapFeeCollectorAddress !== "") {
-      writer.uint32(34).string(message.swapFeeCollectorAddress);
+    if (message.dustCollectorAddress !== "") {
+      writer.uint32(34).string(message.dustCollectorAddress);
     }
     if (message.minInitialPoolCoinSupply !== "") {
       writer.uint32(42).string(message.minInitialPoolCoinSupply);
@@ -401,6 +406,12 @@ export const Params = {
     if (!message.orderExtraGas.isZero()) {
       writer.uint32(120).uint64(message.orderExtraGas);
     }
+    if (message.swapFeeDistrDenom !== "") {
+      writer.uint32(130).string(message.swapFeeDistrDenom);
+    }
+    if (message.swapFeeBurnRate !== "") {
+      writer.uint32(138).string(message.swapFeeBurnRate);
+    }
     return writer;
   },
 
@@ -421,7 +432,7 @@ export const Params = {
           message.feeCollectorAddress = reader.string();
           break;
         case 4:
-          message.swapFeeCollectorAddress = reader.string();
+          message.dustCollectorAddress = reader.string();
           break;
         case 5:
           message.minInitialPoolCoinSupply = reader.string();
@@ -456,6 +467,12 @@ export const Params = {
         case 15:
           message.orderExtraGas = reader.uint64() as Long;
           break;
+        case 16:
+          message.swapFeeDistrDenom = reader.string();
+          break;
+        case 17:
+          message.swapFeeBurnRate = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -473,8 +490,8 @@ export const Params = {
       feeCollectorAddress: isSet(object.feeCollectorAddress)
         ? String(object.feeCollectorAddress)
         : "",
-      swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
-        ? String(object.swapFeeCollectorAddress)
+      dustCollectorAddress: isSet(object.dustCollectorAddress)
+        ? String(object.dustCollectorAddress)
         : "",
       minInitialPoolCoinSupply: isSet(object.minInitialPoolCoinSupply)
         ? String(object.minInitialPoolCoinSupply)
@@ -507,6 +524,12 @@ export const Params = {
       orderExtraGas: isSet(object.orderExtraGas)
         ? Long.fromString(object.orderExtraGas)
         : Long.UZERO,
+      swapFeeDistrDenom: isSet(object.swapFeeDistrDenom)
+        ? String(object.swapFeeDistrDenom)
+        : "",
+      swapFeeBurnRate: isSet(object.swapFeeBurnRate)
+        ? String(object.swapFeeBurnRate)
+        : "",
     };
   },
 
@@ -518,8 +541,8 @@ export const Params = {
       (obj.tickPrecision = Math.round(message.tickPrecision));
     message.feeCollectorAddress !== undefined &&
       (obj.feeCollectorAddress = message.feeCollectorAddress);
-    message.swapFeeCollectorAddress !== undefined &&
-      (obj.swapFeeCollectorAddress = message.swapFeeCollectorAddress);
+    message.dustCollectorAddress !== undefined &&
+      (obj.dustCollectorAddress = message.dustCollectorAddress);
     message.minInitialPoolCoinSupply !== undefined &&
       (obj.minInitialPoolCoinSupply = message.minInitialPoolCoinSupply);
     if (message.pairCreationFee) {
@@ -558,6 +581,10 @@ export const Params = {
       ).toString());
     message.orderExtraGas !== undefined &&
       (obj.orderExtraGas = (message.orderExtraGas || Long.UZERO).toString());
+    message.swapFeeDistrDenom !== undefined &&
+      (obj.swapFeeDistrDenom = message.swapFeeDistrDenom);
+    message.swapFeeBurnRate !== undefined &&
+      (obj.swapFeeBurnRate = message.swapFeeBurnRate);
     return obj;
   },
 
@@ -566,7 +593,7 @@ export const Params = {
     message.batchSize = object.batchSize ?? 0;
     message.tickPrecision = object.tickPrecision ?? 0;
     message.feeCollectorAddress = object.feeCollectorAddress ?? "";
-    message.swapFeeCollectorAddress = object.swapFeeCollectorAddress ?? "";
+    message.dustCollectorAddress = object.dustCollectorAddress ?? "";
     message.minInitialPoolCoinSupply = object.minInitialPoolCoinSupply ?? "";
     message.pairCreationFee =
       object.pairCreationFee?.map((e) => Coin.fromPartial(e)) || [];
@@ -592,6 +619,8 @@ export const Params = {
       object.orderExtraGas !== undefined && object.orderExtraGas !== null
         ? Long.fromValue(object.orderExtraGas)
         : Long.UZERO;
+    message.swapFeeDistrDenom = object.swapFeeDistrDenom ?? "";
+    message.swapFeeBurnRate = object.swapFeeBurnRate ?? "";
     return message;
   },
 };
@@ -605,6 +634,7 @@ function createBasePair(): Pair {
     lastOrderId: Long.UZERO,
     lastPrice: "",
     currentBatchId: Long.UZERO,
+    swapFeeCollectorAddress: "",
   };
 }
 
@@ -630,6 +660,9 @@ export const Pair = {
     }
     if (!message.currentBatchId.isZero()) {
       writer.uint32(56).uint64(message.currentBatchId);
+    }
+    if (message.swapFeeCollectorAddress !== "") {
+      writer.uint32(66).string(message.swapFeeCollectorAddress);
     }
     return writer;
   },
@@ -662,6 +695,9 @@ export const Pair = {
         case 7:
           message.currentBatchId = reader.uint64() as Long;
           break;
+        case 8:
+          message.swapFeeCollectorAddress = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -689,6 +725,9 @@ export const Pair = {
       currentBatchId: isSet(object.currentBatchId)
         ? Long.fromString(object.currentBatchId)
         : Long.UZERO,
+      swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
+        ? String(object.swapFeeCollectorAddress)
+        : "",
     };
   },
 
@@ -707,6 +746,8 @@ export const Pair = {
     message.lastPrice !== undefined && (obj.lastPrice = message.lastPrice);
     message.currentBatchId !== undefined &&
       (obj.currentBatchId = (message.currentBatchId || Long.UZERO).toString());
+    message.swapFeeCollectorAddress !== undefined &&
+      (obj.swapFeeCollectorAddress = message.swapFeeCollectorAddress);
     return obj;
   },
 
@@ -728,6 +769,7 @@ export const Pair = {
       object.currentBatchId !== undefined && object.currentBatchId !== null
         ? Long.fromValue(object.currentBatchId)
         : Long.UZERO;
+    message.swapFeeCollectorAddress = object.swapFeeCollectorAddress ?? "";
     return message;
   },
 };

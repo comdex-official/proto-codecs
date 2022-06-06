@@ -11,7 +11,6 @@ export interface LiquidtyGaugeMetaData {
   poolId: Long;
   isMasterPool: boolean;
   childPoolIds: Long[];
-  lockDuration?: Duration;
 }
 
 export interface Gauge {
@@ -26,6 +25,7 @@ export interface Gauge {
   triggeredCount: Long;
   distributedAmount?: Coin;
   isActive: boolean;
+  forSwapFee: boolean;
   liquidityMetaData?: LiquidtyGaugeMetaData | undefined;
 }
 
@@ -35,12 +35,7 @@ export interface GaugeByTriggerDuration {
 }
 
 function createBaseLiquidtyGaugeMetaData(): LiquidtyGaugeMetaData {
-  return {
-    poolId: Long.UZERO,
-    isMasterPool: false,
-    childPoolIds: [],
-    lockDuration: undefined,
-  };
+  return { poolId: Long.UZERO, isMasterPool: false, childPoolIds: [] };
 }
 
 export const LiquidtyGaugeMetaData = {
@@ -59,9 +54,6 @@ export const LiquidtyGaugeMetaData = {
       writer.uint64(v);
     }
     writer.ldelim();
-    if (message.lockDuration !== undefined) {
-      Duration.encode(message.lockDuration, writer.uint32(42).fork()).ldelim();
-    }
     return writer;
   },
 
@@ -91,9 +83,6 @@ export const LiquidtyGaugeMetaData = {
             message.childPoolIds.push(reader.uint64() as Long);
           }
           break;
-        case 5:
-          message.lockDuration = Duration.decode(reader, reader.uint32());
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -113,9 +102,6 @@ export const LiquidtyGaugeMetaData = {
       childPoolIds: Array.isArray(object?.childPoolIds)
         ? object.childPoolIds.map((e: any) => Long.fromString(e))
         : [],
-      lockDuration: isSet(object.lockDuration)
-        ? Duration.fromJSON(object.lockDuration)
-        : undefined,
     };
   },
 
@@ -132,10 +118,6 @@ export const LiquidtyGaugeMetaData = {
     } else {
       obj.childPoolIds = [];
     }
-    message.lockDuration !== undefined &&
-      (obj.lockDuration = message.lockDuration
-        ? Duration.toJSON(message.lockDuration)
-        : undefined);
     return obj;
   },
 
@@ -150,10 +132,6 @@ export const LiquidtyGaugeMetaData = {
     message.isMasterPool = object.isMasterPool ?? false;
     message.childPoolIds =
       object.childPoolIds?.map((e) => Long.fromValue(e)) || [];
-    message.lockDuration =
-      object.lockDuration !== undefined && object.lockDuration !== null
-        ? Duration.fromPartial(object.lockDuration)
-        : undefined;
     return message;
   },
 };
@@ -171,6 +149,7 @@ function createBaseGauge(): Gauge {
     triggeredCount: Long.UZERO,
     distributedAmount: undefined,
     isActive: false,
+    forSwapFee: false,
     liquidityMetaData: undefined,
   };
 }
@@ -219,10 +198,13 @@ export const Gauge = {
     if (message.isActive === true) {
       writer.uint32(88).bool(message.isActive);
     }
+    if (message.forSwapFee === true) {
+      writer.uint32(96).bool(message.forSwapFee);
+    }
     if (message.liquidityMetaData !== undefined) {
       LiquidtyGaugeMetaData.encode(
         message.liquidityMetaData,
-        writer.uint32(98).fork()
+        writer.uint32(106).fork()
       ).ldelim();
     }
     return writer;
@@ -273,6 +255,9 @@ export const Gauge = {
           message.isActive = reader.bool();
           break;
         case 12:
+          message.forSwapFee = reader.bool();
+          break;
+        case 13:
           message.liquidityMetaData = LiquidtyGaugeMetaData.decode(
             reader,
             reader.uint32()
@@ -315,6 +300,7 @@ export const Gauge = {
         ? Coin.fromJSON(object.distributedAmount)
         : undefined,
       isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
+      forSwapFee: isSet(object.forSwapFee) ? Boolean(object.forSwapFee) : false,
       liquidityMetaData: isSet(object.liquidityMetaData)
         ? LiquidtyGaugeMetaData.fromJSON(object.liquidityMetaData)
         : undefined,
@@ -349,6 +335,7 @@ export const Gauge = {
         ? Coin.toJSON(message.distributedAmount)
         : undefined);
     message.isActive !== undefined && (obj.isActive = message.isActive);
+    message.forSwapFee !== undefined && (obj.forSwapFee = message.forSwapFee);
     message.liquidityMetaData !== undefined &&
       (obj.liquidityMetaData = message.liquidityMetaData
         ? LiquidtyGaugeMetaData.toJSON(message.liquidityMetaData)
@@ -391,6 +378,7 @@ export const Gauge = {
         ? Coin.fromPartial(object.distributedAmount)
         : undefined;
     message.isActive = object.isActive ?? false;
+    message.forSwapFee = object.forSwapFee ?? false;
     message.liquidityMetaData =
       object.liquidityMetaData !== undefined &&
       object.liquidityMetaData !== null
