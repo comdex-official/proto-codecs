@@ -206,6 +206,7 @@ export interface PoolIncentive {
   filledEpochs: Long;
   epochDuration?: Duration;
   nextDistribution?: Date;
+  isSwapFee: boolean;
 }
 
 /** QueryPoolIncentivesResponse is response type for the Query/PoolsIncentives RPC method. */
@@ -2604,6 +2605,7 @@ function createBasePoolIncentive(): PoolIncentive {
     filledEpochs: Long.UZERO,
     epochDuration: undefined,
     nextDistribution: undefined,
+    isSwapFee: false,
   };
 }
 
@@ -2646,6 +2648,9 @@ export const PoolIncentive = {
         toTimestamp(message.nextDistribution),
         writer.uint32(74).fork()
       ).ldelim();
+    }
+    if (message.isSwapFee === true) {
+      writer.uint32(80).bool(message.isSwapFee);
     }
     return writer;
   },
@@ -2693,6 +2698,9 @@ export const PoolIncentive = {
             Timestamp.decode(reader, reader.uint32())
           );
           break;
+        case 10:
+          message.isSwapFee = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2728,6 +2736,7 @@ export const PoolIncentive = {
       nextDistribution: isSet(object.nextDistribution)
         ? fromJsonTimestamp(object.nextDistribution)
         : undefined,
+      isSwapFee: isSet(object.isSwapFee) ? Boolean(object.isSwapFee) : false,
     };
   },
 
@@ -2761,6 +2770,7 @@ export const PoolIncentive = {
         : undefined);
     message.nextDistribution !== undefined &&
       (obj.nextDistribution = message.nextDistribution.toISOString());
+    message.isSwapFee !== undefined && (obj.isSwapFee = message.isSwapFee);
     return obj;
   },
 
@@ -2797,6 +2807,7 @@ export const PoolIncentive = {
         ? Duration.fromPartial(object.epochDuration)
         : undefined;
     message.nextDistribution = object.nextDistribution ?? undefined;
+    message.isSwapFee = object.isSwapFee ?? false;
     return message;
   },
 };
