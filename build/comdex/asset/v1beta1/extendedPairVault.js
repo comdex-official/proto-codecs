@@ -26,6 +26,7 @@ function createBaseExtendedPairVault() {
         pairName: "",
         assetOutOraclePrice: false,
         assetOutPrice: long_1.default.UZERO,
+        minUsdValueLeft: long_1.default.UZERO,
     };
 }
 exports.ExtendedPairVault = {
@@ -77,6 +78,9 @@ exports.ExtendedPairVault = {
         }
         if (!message.assetOutPrice.isZero()) {
             writer.uint32(128).uint64(message.assetOutPrice);
+        }
+        if (!message.minUsdValueLeft.isZero()) {
+            writer.uint32(136).uint64(message.minUsdValueLeft);
         }
         return writer;
     },
@@ -135,6 +139,9 @@ exports.ExtendedPairVault = {
                 case 16:
                     message.assetOutPrice = reader.uint64();
                     break;
+                case 17:
+                    message.minUsdValueLeft = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -174,6 +181,9 @@ exports.ExtendedPairVault = {
             assetOutPrice: isSet(object.assetOutPrice)
                 ? long_1.default.fromValue(object.assetOutPrice)
                 : long_1.default.UZERO,
+            minUsdValueLeft: isSet(object.minUsdValueLeft)
+                ? long_1.default.fromValue(object.minUsdValueLeft)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -205,6 +215,8 @@ exports.ExtendedPairVault = {
             (obj.assetOutOraclePrice = message.assetOutOraclePrice);
         message.assetOutPrice !== undefined &&
             (obj.assetOutPrice = (message.assetOutPrice || long_1.default.UZERO).toString());
+        message.minUsdValueLeft !== undefined &&
+            (obj.minUsdValueLeft = (message.minUsdValueLeft || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -237,6 +249,10 @@ exports.ExtendedPairVault = {
         message.assetOutPrice =
             object.assetOutPrice !== undefined && object.assetOutPrice !== null
                 ? long_1.default.fromValue(object.assetOutPrice)
+                : long_1.default.UZERO;
+        message.minUsdValueLeft =
+            object.minUsdValueLeft !== undefined && object.minUsdValueLeft !== null
+                ? long_1.default.fromValue(object.minUsdValueLeft)
                 : long_1.default.UZERO;
         return message;
     },

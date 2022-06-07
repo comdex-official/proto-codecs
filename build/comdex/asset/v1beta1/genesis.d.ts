@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/asset/v1beta1/params";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
 import { Pair } from "../../../comdex/asset/v1beta1/pair";
@@ -27,9 +27,7 @@ export declare const GenesisState: {
             assetIn?: string | number | Long.Long | undefined;
             assetOut?: string | number | Long.Long | undefined;
         }[] | undefined;
-        params?: {
-            admin?: string | undefined;
-        } | undefined;
+        params?: {} | undefined;
     } & {
         assets?: ({
             id?: string | number | Long.Long | undefined;
@@ -358,11 +356,7 @@ export declare const GenesisState: {
             assetIn?: string | number | Long.Long | undefined;
             assetOut?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
-        params?: ({
-            admin?: string | undefined;
-        } & {
-            admin?: string | undefined;
-        } & Record<Exclude<keyof I["params"], "admin">, never>) | undefined;
+        params?: ({} & {} & Record<Exclude<keyof I["params"], never>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof GenesisState>, never>>(object: I): GenesisState;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

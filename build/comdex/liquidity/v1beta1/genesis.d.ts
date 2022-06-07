@@ -23,7 +23,7 @@ export declare const GenesisState: {
             batchSize?: number | undefined;
             tickPrecision?: number | undefined;
             feeCollectorAddress?: string | undefined;
-            swapFeeCollectorAddress?: string | undefined;
+            dustCollectorAddress?: string | undefined;
             minInitialPoolCoinSupply?: string | undefined;
             pairCreationFee?: {
                 denom?: string | undefined;
@@ -44,6 +44,8 @@ export declare const GenesisState: {
             depositExtraGas?: string | number | Long.Long | undefined;
             withdrawExtraGas?: string | number | Long.Long | undefined;
             orderExtraGas?: string | number | Long.Long | undefined;
+            swapFeeDistrDenom?: string | undefined;
+            swapFeeBurnRate?: string | undefined;
         } | undefined;
         lastPairId?: string | number | Long.Long | undefined;
         lastPoolId?: string | number | Long.Long | undefined;
@@ -55,6 +57,7 @@ export declare const GenesisState: {
             lastOrderId?: string | number | Long.Long | undefined;
             lastPrice?: string | undefined;
             currentBatchId?: string | number | Long.Long | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         }[] | undefined;
         pools?: {
             id?: string | number | Long.Long | undefined;
@@ -129,7 +132,7 @@ export declare const GenesisState: {
             batchSize?: number | undefined;
             tickPrecision?: number | undefined;
             feeCollectorAddress?: string | undefined;
-            swapFeeCollectorAddress?: string | undefined;
+            dustCollectorAddress?: string | undefined;
             minInitialPoolCoinSupply?: string | undefined;
             pairCreationFee?: {
                 denom?: string | undefined;
@@ -150,11 +153,13 @@ export declare const GenesisState: {
             depositExtraGas?: string | number | Long.Long | undefined;
             withdrawExtraGas?: string | number | Long.Long | undefined;
             orderExtraGas?: string | number | Long.Long | undefined;
+            swapFeeDistrDenom?: string | undefined;
+            swapFeeBurnRate?: string | undefined;
         } & {
             batchSize?: number | undefined;
             tickPrecision?: number | undefined;
             feeCollectorAddress?: string | undefined;
-            swapFeeCollectorAddress?: string | undefined;
+            dustCollectorAddress?: string | undefined;
             minInitialPoolCoinSupply?: string | undefined;
             pairCreationFee?: ({
                 denom?: string | undefined;
@@ -424,6 +429,8 @@ export declare const GenesisState: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["params"]["orderExtraGas"], keyof Long.Long>, never>) | undefined;
+            swapFeeDistrDenom?: string | undefined;
+            swapFeeBurnRate?: string | undefined;
         } & Record<Exclude<keyof I["params"], keyof Params>, never>) | undefined;
         lastPairId?: string | number | (Long.Long & {
             high: number;
@@ -549,6 +556,7 @@ export declare const GenesisState: {
             lastOrderId?: string | number | Long.Long | undefined;
             lastPrice?: string | undefined;
             currentBatchId?: string | number | Long.Long | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             baseCoinDenom?: string | undefined;
@@ -557,6 +565,7 @@ export declare const GenesisState: {
             lastOrderId?: string | number | Long.Long | undefined;
             lastPrice?: string | undefined;
             currentBatchId?: string | number | Long.Long | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -736,6 +745,7 @@ export declare const GenesisState: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pairs"][number]["currentBatchId"], keyof Long.Long>, never>) | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         } & Record<Exclude<keyof I["pairs"][number], keyof Pair>, never>)[] & Record<Exclude<keyof I["pairs"], keyof {
             id?: string | number | Long.Long | undefined;
             baseCoinDenom?: string | undefined;
@@ -744,6 +754,7 @@ export declare const GenesisState: {
             lastOrderId?: string | number | Long.Long | undefined;
             lastPrice?: string | undefined;
             currentBatchId?: string | number | Long.Long | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         }[]>, never>) | undefined;
         pools?: ({
             id?: string | number | Long.Long | undefined;

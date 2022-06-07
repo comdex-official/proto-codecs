@@ -1968,6 +1968,7 @@ function createBasePoolIncentive() {
         filledEpochs: long_1.default.UZERO,
         epochDuration: undefined,
         nextDistribution: undefined,
+        isSwapFee: false,
     };
 }
 exports.PoolIncentive = {
@@ -2000,6 +2001,9 @@ exports.PoolIncentive = {
         }
         if (message.nextDistribution !== undefined) {
             timestamp_1.Timestamp.encode(toTimestamp(message.nextDistribution), writer.uint32(74).fork()).ldelim();
+        }
+        if (message.isSwapFee === true) {
+            writer.uint32(80).bool(message.isSwapFee);
         }
         return writer;
     },
@@ -2045,6 +2049,9 @@ exports.PoolIncentive = {
                 case 9:
                     message.nextDistribution = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
                     break;
+                case 10:
+                    message.isSwapFee = reader.bool();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2079,6 +2086,7 @@ exports.PoolIncentive = {
             nextDistribution: isSet(object.nextDistribution)
                 ? fromJsonTimestamp(object.nextDistribution)
                 : undefined,
+            isSwapFee: isSet(object.isSwapFee) ? Boolean(object.isSwapFee) : false,
         };
     },
     toJSON(message) {
@@ -2110,10 +2118,11 @@ exports.PoolIncentive = {
                 : undefined);
         message.nextDistribution !== undefined &&
             (obj.nextDistribution = message.nextDistribution.toISOString());
+        message.isSwapFee !== undefined && (obj.isSwapFee = message.isSwapFee);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const message = createBasePoolIncentive();
         message.poolId =
             object.poolId !== undefined && object.poolId !== null
@@ -2144,6 +2153,7 @@ exports.PoolIncentive = {
                 ? duration_1.Duration.fromPartial(object.epochDuration)
                 : undefined;
         message.nextDistribution = (_c = object.nextDistribution) !== null && _c !== void 0 ? _c : undefined;
+        message.isSwapFee = (_d = object.isSwapFee) !== null && _d !== void 0 ? _d : false;
         return message;
     },
 };
