@@ -10,13 +10,13 @@ import {
 import {
   PageRequest,
   PageResponse,
-} from "./cosmos/base/query/v1beta1/pagination";
+} from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "./params";
 import {
   SurplusBiddings,
   DebtBiddings,
   DutchBiddings,
-} from "./comdex/auction/v1beta1/biddings";
+} from "../../../comdex/auction/v1beta1/biddings";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
