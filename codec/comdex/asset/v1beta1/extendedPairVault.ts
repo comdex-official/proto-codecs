@@ -21,6 +21,7 @@ export interface ExtendedPairVault {
   pairName: string;
   assetOutOraclePrice: boolean;
   assetOutPrice: Long;
+  minUsdValueLeft: Long;
 }
 
 function createBaseExtendedPairVault(): ExtendedPairVault {
@@ -41,6 +42,7 @@ function createBaseExtendedPairVault(): ExtendedPairVault {
     pairName: "",
     assetOutOraclePrice: false,
     assetOutPrice: Long.UZERO,
+    minUsdValueLeft: Long.UZERO,
   };
 }
 
@@ -96,6 +98,9 @@ export const ExtendedPairVault = {
     }
     if (!message.assetOutPrice.isZero()) {
       writer.uint32(128).uint64(message.assetOutPrice);
+    }
+    if (!message.minUsdValueLeft.isZero()) {
+      writer.uint32(136).uint64(message.minUsdValueLeft);
     }
     return writer;
   },
@@ -155,6 +160,9 @@ export const ExtendedPairVault = {
         case 16:
           message.assetOutPrice = reader.uint64() as Long;
           break;
+        case 17:
+          message.minUsdValueLeft = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -195,6 +203,9 @@ export const ExtendedPairVault = {
       assetOutPrice: isSet(object.assetOutPrice)
         ? Long.fromValue(object.assetOutPrice)
         : Long.UZERO,
+      minUsdValueLeft: isSet(object.minUsdValueLeft)
+        ? Long.fromValue(object.minUsdValueLeft)
+        : Long.UZERO,
     };
   },
 
@@ -227,6 +238,10 @@ export const ExtendedPairVault = {
       (obj.assetOutOraclePrice = message.assetOutOraclePrice);
     message.assetOutPrice !== undefined &&
       (obj.assetOutPrice = (message.assetOutPrice || Long.UZERO).toString());
+    message.minUsdValueLeft !== undefined &&
+      (obj.minUsdValueLeft = (
+        message.minUsdValueLeft || Long.UZERO
+      ).toString());
     return obj;
   },
 
@@ -261,6 +276,10 @@ export const ExtendedPairVault = {
     message.assetOutPrice =
       object.assetOutPrice !== undefined && object.assetOutPrice !== null
         ? Long.fromValue(object.assetOutPrice)
+        : Long.UZERO;
+    message.minUsdValueLeft =
+      object.minUsdValueLeft !== undefined && object.minUsdValueLeft !== null
+        ? Long.fromValue(object.minUsdValueLeft)
         : Long.UZERO;
     return message;
   },

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import  _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -10,7 +10,7 @@ export interface AppMapping {
   shortName: string;
   minGovDeposit: string;
   govTimeInSeconds: number;
-  mintGenesisToken: MintGenesisToken[];
+  genesisToken: MintGenesisToken[];
 }
 
 export interface MintGenesisToken {
@@ -27,7 +27,7 @@ function createBaseAppMapping(): AppMapping {
     shortName: "",
     minGovDeposit: "",
     govTimeInSeconds: 0,
-    mintGenesisToken: [],
+    genesisToken: [],
   };
 }
 
@@ -51,7 +51,7 @@ export const AppMapping = {
     if (message.govTimeInSeconds !== 0) {
       writer.uint32(41).double(message.govTimeInSeconds);
     }
-    for (const v of message.mintGenesisToken) {
+    for (const v of message.genesisToken) {
       MintGenesisToken.encode(v!, writer.uint32(50).fork()).ldelim();
     }
     return writer;
@@ -80,7 +80,7 @@ export const AppMapping = {
           message.govTimeInSeconds = reader.double();
           break;
         case 6:
-          message.mintGenesisToken.push(
+          message.genesisToken.push(
             MintGenesisToken.decode(reader, reader.uint32())
           );
           break;
@@ -103,8 +103,8 @@ export const AppMapping = {
       govTimeInSeconds: isSet(object.govTimeInSeconds)
         ? Number(object.govTimeInSeconds)
         : 0,
-      mintGenesisToken: Array.isArray(object?.mintGenesisToken)
-        ? object.mintGenesisToken.map((e: any) => MintGenesisToken.fromJSON(e))
+      genesisToken: Array.isArray(object?.genesisToken)
+        ? object.genesisToken.map((e: any) => MintGenesisToken.fromJSON(e))
         : [],
     };
   },
@@ -119,12 +119,12 @@ export const AppMapping = {
       (obj.minGovDeposit = message.minGovDeposit);
     message.govTimeInSeconds !== undefined &&
       (obj.govTimeInSeconds = message.govTimeInSeconds);
-    if (message.mintGenesisToken) {
-      obj.mintGenesisToken = message.mintGenesisToken.map((e) =>
+    if (message.genesisToken) {
+      obj.genesisToken = message.genesisToken.map((e) =>
         e ? MintGenesisToken.toJSON(e) : undefined
       );
     } else {
-      obj.mintGenesisToken = [];
+      obj.genesisToken = [];
     }
     return obj;
   },
@@ -141,9 +141,8 @@ export const AppMapping = {
     message.shortName = object.shortName ?? "";
     message.minGovDeposit = object.minGovDeposit ?? "";
     message.govTimeInSeconds = object.govTimeInSeconds ?? 0;
-    message.mintGenesisToken =
-      object.mintGenesisToken?.map((e) => MintGenesisToken.fromPartial(e)) ||
-      [];
+    message.genesisToken =
+      object.genesisToken?.map((e) => MintGenesisToken.fromPartial(e)) || [];
     return message;
   },
 };
