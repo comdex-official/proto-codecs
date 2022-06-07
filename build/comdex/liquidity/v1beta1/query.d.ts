@@ -166,6 +166,7 @@ export interface PoolIncentive {
     filledEpochs: Long;
     epochDuration?: Duration;
     nextDistribution?: Date;
+    isSwapFee: boolean;
 }
 /** QueryPoolIncentivesResponse is response type for the Query/PoolsIncentives RPC method. */
 export interface QueryPoolIncentivesResponse {
@@ -194,7 +195,7 @@ export declare const QueryParamsResponse: {
             batchSize?: number | undefined;
             tickPrecision?: number | undefined;
             feeCollectorAddress?: string | undefined;
-            swapFeeCollectorAddress?: string | undefined;
+            dustCollectorAddress?: string | undefined;
             minInitialPoolCoinSupply?: string | undefined;
             pairCreationFee?: {
                 denom?: string | undefined;
@@ -215,13 +216,15 @@ export declare const QueryParamsResponse: {
             depositExtraGas?: string | number | Long.Long | undefined;
             withdrawExtraGas?: string | number | Long.Long | undefined;
             orderExtraGas?: string | number | Long.Long | undefined;
+            swapFeeDistrDenom?: string | undefined;
+            swapFeeBurnRate?: string | undefined;
         } | undefined;
     } & {
         params?: ({
             batchSize?: number | undefined;
             tickPrecision?: number | undefined;
             feeCollectorAddress?: string | undefined;
-            swapFeeCollectorAddress?: string | undefined;
+            dustCollectorAddress?: string | undefined;
             minInitialPoolCoinSupply?: string | undefined;
             pairCreationFee?: {
                 denom?: string | undefined;
@@ -242,11 +245,13 @@ export declare const QueryParamsResponse: {
             depositExtraGas?: string | number | Long.Long | undefined;
             withdrawExtraGas?: string | number | Long.Long | undefined;
             orderExtraGas?: string | number | Long.Long | undefined;
+            swapFeeDistrDenom?: string | undefined;
+            swapFeeBurnRate?: string | undefined;
         } & {
             batchSize?: number | undefined;
             tickPrecision?: number | undefined;
             feeCollectorAddress?: string | undefined;
-            swapFeeCollectorAddress?: string | undefined;
+            dustCollectorAddress?: string | undefined;
             minInitialPoolCoinSupply?: string | undefined;
             pairCreationFee?: ({
                 denom?: string | undefined;
@@ -516,6 +521,8 @@ export declare const QueryParamsResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["params"]["orderExtraGas"], keyof Long.Long>, never>) | undefined;
+            swapFeeDistrDenom?: string | undefined;
+            swapFeeBurnRate?: string | undefined;
         } & Record<Exclude<keyof I["params"], keyof Params>, never>) | undefined;
     } & Record<Exclude<keyof I, "params">, never>>(object: I): QueryParamsResponse;
 };
@@ -1624,6 +1631,7 @@ export declare const QueryPairsResponse: {
             lastOrderId?: string | number | Long.Long | undefined;
             lastPrice?: string | undefined;
             currentBatchId?: string | number | Long.Long | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -1638,6 +1646,7 @@ export declare const QueryPairsResponse: {
             lastOrderId?: string | number | Long.Long | undefined;
             lastPrice?: string | undefined;
             currentBatchId?: string | number | Long.Long | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             baseCoinDenom?: string | undefined;
@@ -1646,6 +1655,7 @@ export declare const QueryPairsResponse: {
             lastOrderId?: string | number | Long.Long | undefined;
             lastPrice?: string | undefined;
             currentBatchId?: string | number | Long.Long | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -1825,6 +1835,7 @@ export declare const QueryPairsResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pairs"][number]["currentBatchId"], keyof Long.Long>, never>) | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         } & Record<Exclude<keyof I["pairs"][number], keyof Pair>, never>)[] & Record<Exclude<keyof I["pairs"], keyof {
             id?: string | number | Long.Long | undefined;
             baseCoinDenom?: string | undefined;
@@ -1833,6 +1844,7 @@ export declare const QueryPairsResponse: {
             lastOrderId?: string | number | Long.Long | undefined;
             lastPrice?: string | undefined;
             currentBatchId?: string | number | Long.Long | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -1982,6 +1994,7 @@ export declare const QueryPairResponse: {
             lastOrderId?: string | number | Long.Long | undefined;
             lastPrice?: string | undefined;
             currentBatchId?: string | number | Long.Long | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         } | undefined;
     } & {
         pair?: ({
@@ -1992,6 +2005,7 @@ export declare const QueryPairResponse: {
             lastOrderId?: string | number | Long.Long | undefined;
             lastPrice?: string | undefined;
             currentBatchId?: string | number | Long.Long | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -2171,6 +2185,7 @@ export declare const QueryPairResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pair"]["currentBatchId"], keyof Long.Long>, never>) | undefined;
+            swapFeeCollectorAddress?: string | undefined;
         } & Record<Exclude<keyof I["pair"], keyof Pair>, never>) | undefined;
     } & Record<Exclude<keyof I, "pair">, never>>(object: I): QueryPairResponse;
 };
@@ -5904,6 +5919,7 @@ export declare const PoolIncentive: {
             nanos?: number | undefined;
         } | undefined;
         nextDistribution?: Date | undefined;
+        isSwapFee?: boolean | undefined;
     } & {
         poolId?: string | number | (Long.Long & {
             high: number;
@@ -6217,6 +6233,7 @@ export declare const PoolIncentive: {
             nanos?: number | undefined;
         } & Record<Exclude<keyof I["epochDuration"], keyof Duration>, never>) | undefined;
         nextDistribution?: Date | undefined;
+        isSwapFee?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof PoolIncentive>, never>>(object: I): PoolIncentive;
 };
 export declare const QueryPoolIncentivesResponse: {
@@ -6244,6 +6261,7 @@ export declare const QueryPoolIncentivesResponse: {
                 nanos?: number | undefined;
             } | undefined;
             nextDistribution?: Date | undefined;
+            isSwapFee?: boolean | undefined;
         }[] | undefined;
     } & {
         poolIncentives?: ({
@@ -6265,6 +6283,7 @@ export declare const QueryPoolIncentivesResponse: {
                 nanos?: number | undefined;
             } | undefined;
             nextDistribution?: Date | undefined;
+            isSwapFee?: boolean | undefined;
         }[] & ({
             poolId?: string | number | Long.Long | undefined;
             masterPool?: boolean | undefined;
@@ -6284,6 +6303,7 @@ export declare const QueryPoolIncentivesResponse: {
                 nanos?: number | undefined;
             } | undefined;
             nextDistribution?: Date | undefined;
+            isSwapFee?: boolean | undefined;
         } & {
             poolId?: string | number | (Long.Long & {
                 high: number;
@@ -6597,6 +6617,7 @@ export declare const QueryPoolIncentivesResponse: {
                 nanos?: number | undefined;
             } & Record<Exclude<keyof I["poolIncentives"][number]["epochDuration"], keyof Duration>, never>) | undefined;
             nextDistribution?: Date | undefined;
+            isSwapFee?: boolean | undefined;
         } & Record<Exclude<keyof I["poolIncentives"][number], keyof PoolIncentive>, never>)[] & Record<Exclude<keyof I["poolIncentives"], keyof {
             poolId?: string | number | Long.Long | undefined;
             masterPool?: boolean | undefined;
@@ -6616,6 +6637,7 @@ export declare const QueryPoolIncentivesResponse: {
                 nanos?: number | undefined;
             } | undefined;
             nextDistribution?: Date | undefined;
+            isSwapFee?: boolean | undefined;
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "poolIncentives">, never>>(object: I): QueryPoolIncentivesResponse;
 };

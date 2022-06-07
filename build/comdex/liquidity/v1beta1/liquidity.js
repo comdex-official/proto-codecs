@@ -212,7 +212,7 @@ function createBaseParams() {
         batchSize: 0,
         tickPrecision: 0,
         feeCollectorAddress: "",
-        swapFeeCollectorAddress: "",
+        dustCollectorAddress: "",
         minInitialPoolCoinSupply: "",
         pairCreationFee: [],
         poolCreationFee: [],
@@ -224,6 +224,8 @@ function createBaseParams() {
         depositExtraGas: long_1.default.UZERO,
         withdrawExtraGas: long_1.default.UZERO,
         orderExtraGas: long_1.default.UZERO,
+        swapFeeDistrDenom: "",
+        swapFeeBurnRate: "",
     };
 }
 exports.Params = {
@@ -237,8 +239,8 @@ exports.Params = {
         if (message.feeCollectorAddress !== "") {
             writer.uint32(26).string(message.feeCollectorAddress);
         }
-        if (message.swapFeeCollectorAddress !== "") {
-            writer.uint32(34).string(message.swapFeeCollectorAddress);
+        if (message.dustCollectorAddress !== "") {
+            writer.uint32(34).string(message.dustCollectorAddress);
         }
         if (message.minInitialPoolCoinSupply !== "") {
             writer.uint32(42).string(message.minInitialPoolCoinSupply);
@@ -273,6 +275,12 @@ exports.Params = {
         if (!message.orderExtraGas.isZero()) {
             writer.uint32(120).uint64(message.orderExtraGas);
         }
+        if (message.swapFeeDistrDenom !== "") {
+            writer.uint32(130).string(message.swapFeeDistrDenom);
+        }
+        if (message.swapFeeBurnRate !== "") {
+            writer.uint32(138).string(message.swapFeeBurnRate);
+        }
         return writer;
     },
     decode(input, length) {
@@ -292,7 +300,7 @@ exports.Params = {
                     message.feeCollectorAddress = reader.string();
                     break;
                 case 4:
-                    message.swapFeeCollectorAddress = reader.string();
+                    message.dustCollectorAddress = reader.string();
                     break;
                 case 5:
                     message.minInitialPoolCoinSupply = reader.string();
@@ -327,6 +335,12 @@ exports.Params = {
                 case 15:
                     message.orderExtraGas = reader.uint64();
                     break;
+                case 16:
+                    message.swapFeeDistrDenom = reader.string();
+                    break;
+                case 17:
+                    message.swapFeeBurnRate = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -343,8 +357,8 @@ exports.Params = {
             feeCollectorAddress: isSet(object.feeCollectorAddress)
                 ? String(object.feeCollectorAddress)
                 : "",
-            swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
-                ? String(object.swapFeeCollectorAddress)
+            dustCollectorAddress: isSet(object.dustCollectorAddress)
+                ? String(object.dustCollectorAddress)
                 : "",
             minInitialPoolCoinSupply: isSet(object.minInitialPoolCoinSupply)
                 ? String(object.minInitialPoolCoinSupply)
@@ -377,6 +391,12 @@ exports.Params = {
             orderExtraGas: isSet(object.orderExtraGas)
                 ? long_1.default.fromString(object.orderExtraGas)
                 : long_1.default.UZERO,
+            swapFeeDistrDenom: isSet(object.swapFeeDistrDenom)
+                ? String(object.swapFeeDistrDenom)
+                : "",
+            swapFeeBurnRate: isSet(object.swapFeeBurnRate)
+                ? String(object.swapFeeBurnRate)
+                : "",
         };
     },
     toJSON(message) {
@@ -387,8 +407,8 @@ exports.Params = {
             (obj.tickPrecision = Math.round(message.tickPrecision));
         message.feeCollectorAddress !== undefined &&
             (obj.feeCollectorAddress = message.feeCollectorAddress);
-        message.swapFeeCollectorAddress !== undefined &&
-            (obj.swapFeeCollectorAddress = message.swapFeeCollectorAddress);
+        message.dustCollectorAddress !== undefined &&
+            (obj.dustCollectorAddress = message.dustCollectorAddress);
         message.minInitialPoolCoinSupply !== undefined &&
             (obj.minInitialPoolCoinSupply = message.minInitialPoolCoinSupply);
         if (message.pairCreationFee) {
@@ -421,15 +441,19 @@ exports.Params = {
             (obj.withdrawExtraGas = (message.withdrawExtraGas || long_1.default.UZERO).toString());
         message.orderExtraGas !== undefined &&
             (obj.orderExtraGas = (message.orderExtraGas || long_1.default.UZERO).toString());
+        message.swapFeeDistrDenom !== undefined &&
+            (obj.swapFeeDistrDenom = message.swapFeeDistrDenom);
+        message.swapFeeBurnRate !== undefined &&
+            (obj.swapFeeBurnRate = message.swapFeeBurnRate);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
         const message = createBaseParams();
         message.batchSize = (_a = object.batchSize) !== null && _a !== void 0 ? _a : 0;
         message.tickPrecision = (_b = object.tickPrecision) !== null && _b !== void 0 ? _b : 0;
         message.feeCollectorAddress = (_c = object.feeCollectorAddress) !== null && _c !== void 0 ? _c : "";
-        message.swapFeeCollectorAddress = (_d = object.swapFeeCollectorAddress) !== null && _d !== void 0 ? _d : "";
+        message.dustCollectorAddress = (_d = object.dustCollectorAddress) !== null && _d !== void 0 ? _d : "";
         message.minInitialPoolCoinSupply = (_e = object.minInitialPoolCoinSupply) !== null && _e !== void 0 ? _e : "";
         message.pairCreationFee =
             ((_f = object.pairCreationFee) === null || _f === void 0 ? void 0 : _f.map((e) => coin_1.Coin.fromPartial(e))) || [];
@@ -455,6 +479,8 @@ exports.Params = {
             object.orderExtraGas !== undefined && object.orderExtraGas !== null
                 ? long_1.default.fromValue(object.orderExtraGas)
                 : long_1.default.UZERO;
+        message.swapFeeDistrDenom = (_m = object.swapFeeDistrDenom) !== null && _m !== void 0 ? _m : "";
+        message.swapFeeBurnRate = (_o = object.swapFeeBurnRate) !== null && _o !== void 0 ? _o : "";
         return message;
     },
 };
@@ -467,6 +493,7 @@ function createBasePair() {
         lastOrderId: long_1.default.UZERO,
         lastPrice: "",
         currentBatchId: long_1.default.UZERO,
+        swapFeeCollectorAddress: "",
     };
 }
 exports.Pair = {
@@ -491,6 +518,9 @@ exports.Pair = {
         }
         if (!message.currentBatchId.isZero()) {
             writer.uint32(56).uint64(message.currentBatchId);
+        }
+        if (message.swapFeeCollectorAddress !== "") {
+            writer.uint32(66).string(message.swapFeeCollectorAddress);
         }
         return writer;
     },
@@ -522,6 +552,9 @@ exports.Pair = {
                 case 7:
                     message.currentBatchId = reader.uint64();
                     break;
+                case 8:
+                    message.swapFeeCollectorAddress = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -548,6 +581,9 @@ exports.Pair = {
             currentBatchId: isSet(object.currentBatchId)
                 ? long_1.default.fromString(object.currentBatchId)
                 : long_1.default.UZERO,
+            swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
+                ? String(object.swapFeeCollectorAddress)
+                : "",
         };
     },
     toJSON(message) {
@@ -565,10 +601,12 @@ exports.Pair = {
         message.lastPrice !== undefined && (obj.lastPrice = message.lastPrice);
         message.currentBatchId !== undefined &&
             (obj.currentBatchId = (message.currentBatchId || long_1.default.UZERO).toString());
+        message.swapFeeCollectorAddress !== undefined &&
+            (obj.swapFeeCollectorAddress = message.swapFeeCollectorAddress);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         const message = createBasePair();
         message.id =
             object.id !== undefined && object.id !== null
@@ -586,6 +624,7 @@ exports.Pair = {
             object.currentBatchId !== undefined && object.currentBatchId !== null
                 ? long_1.default.fromValue(object.currentBatchId)
                 : long_1.default.UZERO;
+        message.swapFeeCollectorAddress = (_e = object.swapFeeCollectorAddress) !== null && _e !== void 0 ? _e : "";
         return message;
     },
 };

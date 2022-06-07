@@ -64,7 +64,7 @@ export interface Params {
     batchSize: number;
     tickPrecision: number;
     feeCollectorAddress: string;
-    swapFeeCollectorAddress: string;
+    dustCollectorAddress: string;
     minInitialPoolCoinSupply: string;
     pairCreationFee: Coin[];
     poolCreationFee: Coin[];
@@ -76,6 +76,8 @@ export interface Params {
     depositExtraGas: Long;
     withdrawExtraGas: Long;
     orderExtraGas: Long;
+    swapFeeDistrDenom: string;
+    swapFeeBurnRate: string;
 }
 /** Pair defines a coin pair. */
 export interface Pair {
@@ -86,6 +88,7 @@ export interface Pair {
     lastOrderId: Long;
     lastPrice: string;
     currentBatchId: Long;
+    swapFeeCollectorAddress: string;
 }
 /** Pool defines a basic liquidity pool with no min-price and max-price. */
 export interface Pool {
@@ -185,7 +188,7 @@ export declare const Params: {
         batchSize?: number | undefined;
         tickPrecision?: number | undefined;
         feeCollectorAddress?: string | undefined;
-        swapFeeCollectorAddress?: string | undefined;
+        dustCollectorAddress?: string | undefined;
         minInitialPoolCoinSupply?: string | undefined;
         pairCreationFee?: {
             denom?: string | undefined;
@@ -206,11 +209,13 @@ export declare const Params: {
         depositExtraGas?: string | number | Long.Long | undefined;
         withdrawExtraGas?: string | number | Long.Long | undefined;
         orderExtraGas?: string | number | Long.Long | undefined;
+        swapFeeDistrDenom?: string | undefined;
+        swapFeeBurnRate?: string | undefined;
     } & {
         batchSize?: number | undefined;
         tickPrecision?: number | undefined;
         feeCollectorAddress?: string | undefined;
-        swapFeeCollectorAddress?: string | undefined;
+        dustCollectorAddress?: string | undefined;
         minInitialPoolCoinSupply?: string | undefined;
         pairCreationFee?: ({
             denom?: string | undefined;
@@ -480,6 +485,8 @@ export declare const Params: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["orderExtraGas"], keyof Long.Long>, never>) | undefined;
+        swapFeeDistrDenom?: string | undefined;
+        swapFeeBurnRate?: string | undefined;
     } & Record<Exclude<keyof I, keyof Params>, never>>(object: I): Params;
 };
 export declare const Pair: {
@@ -495,6 +502,7 @@ export declare const Pair: {
         lastOrderId?: string | number | Long.Long | undefined;
         lastPrice?: string | undefined;
         currentBatchId?: string | number | Long.Long | undefined;
+        swapFeeCollectorAddress?: string | undefined;
     } & {
         id?: string | number | (Long.Long & {
             high: number;
@@ -674,6 +682,7 @@ export declare const Pair: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["currentBatchId"], keyof Long.Long>, never>) | undefined;
+        swapFeeCollectorAddress?: string | undefined;
     } & Record<Exclude<keyof I, keyof Pair>, never>>(object: I): Pair;
 };
 export declare const Pool: {

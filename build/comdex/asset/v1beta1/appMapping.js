@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MintGenesisToken = exports.AppMapping = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseAppMapping() {
     return {
@@ -15,11 +34,11 @@ function createBaseAppMapping() {
         shortName: "",
         minGovDeposit: "",
         govTimeInSeconds: 0,
-        mintGenesisToken: [],
+        genesisToken: [],
     };
 }
 exports.AppMapping = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -35,13 +54,13 @@ exports.AppMapping = {
         if (message.govTimeInSeconds !== 0) {
             writer.uint32(41).double(message.govTimeInSeconds);
         }
-        for (const v of message.mintGenesisToken) {
+        for (const v of message.genesisToken) {
             exports.MintGenesisToken.encode(v, writer.uint32(50).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAppMapping();
         while (reader.pos < end) {
@@ -63,7 +82,7 @@ exports.AppMapping = {
                     message.govTimeInSeconds = reader.double();
                     break;
                 case 6:
-                    message.mintGenesisToken.push(exports.MintGenesisToken.decode(reader, reader.uint32()));
+                    message.genesisToken.push(exports.MintGenesisToken.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -83,8 +102,8 @@ exports.AppMapping = {
             govTimeInSeconds: isSet(object.govTimeInSeconds)
                 ? Number(object.govTimeInSeconds)
                 : 0,
-            mintGenesisToken: Array.isArray(object === null || object === void 0 ? void 0 : object.mintGenesisToken)
-                ? object.mintGenesisToken.map((e) => exports.MintGenesisToken.fromJSON(e))
+            genesisToken: Array.isArray(object === null || object === void 0 ? void 0 : object.genesisToken)
+                ? object.genesisToken.map((e) => exports.MintGenesisToken.fromJSON(e))
                 : [],
         };
     },
@@ -98,11 +117,11 @@ exports.AppMapping = {
             (obj.minGovDeposit = message.minGovDeposit);
         message.govTimeInSeconds !== undefined &&
             (obj.govTimeInSeconds = message.govTimeInSeconds);
-        if (message.mintGenesisToken) {
-            obj.mintGenesisToken = message.mintGenesisToken.map((e) => e ? exports.MintGenesisToken.toJSON(e) : undefined);
+        if (message.genesisToken) {
+            obj.genesisToken = message.genesisToken.map((e) => e ? exports.MintGenesisToken.toJSON(e) : undefined);
         }
         else {
-            obj.mintGenesisToken = [];
+            obj.genesisToken = [];
         }
         return obj;
     },
@@ -117,9 +136,8 @@ exports.AppMapping = {
         message.shortName = (_b = object.shortName) !== null && _b !== void 0 ? _b : "";
         message.minGovDeposit = (_c = object.minGovDeposit) !== null && _c !== void 0 ? _c : "";
         message.govTimeInSeconds = (_d = object.govTimeInSeconds) !== null && _d !== void 0 ? _d : 0;
-        message.mintGenesisToken =
-            ((_e = object.mintGenesisToken) === null || _e === void 0 ? void 0 : _e.map((e) => exports.MintGenesisToken.fromPartial(e))) ||
-                [];
+        message.genesisToken =
+            ((_e = object.genesisToken) === null || _e === void 0 ? void 0 : _e.map((e) => exports.MintGenesisToken.fromPartial(e))) || [];
         return message;
     },
 };
@@ -132,7 +150,7 @@ function createBaseMintGenesisToken() {
     };
 }
 exports.MintGenesisToken = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
@@ -148,7 +166,7 @@ exports.MintGenesisToken = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMintGenesisToken();
         while (reader.pos < end) {
@@ -208,9 +226,9 @@ exports.MintGenesisToken = {
         return message;
     },
 };
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

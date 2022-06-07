@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bidOwnerMapping = exports.DutchAuction = exports.DebtAuction = exports.SurplusAuction = exports.protobufPackage = void 0;
+exports.ProtocolStatistics = exports.bidOwnerMapping = exports.DutchAuction = exports.DebtAuction = exports.SurplusAuction = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -582,6 +582,7 @@ function createBaseDutchAuction() {
         lockedVaultId: long_1.default.UZERO,
         vaultOwner: "",
         liquidationPenalty: "",
+        isLockedVaultAmountInZero: false,
     };
 }
 exports.DutchAuction = {
@@ -645,6 +646,9 @@ exports.DutchAuction = {
         }
         if (message.liquidationPenalty !== "") {
             writer.uint32(162).string(message.liquidationPenalty);
+        }
+        if (message.isLockedVaultAmountInZero === true) {
+            writer.uint32(168).bool(message.isLockedVaultAmountInZero);
         }
         return writer;
     },
@@ -715,6 +719,9 @@ exports.DutchAuction = {
                 case 20:
                     message.liquidationPenalty = reader.string();
                     break;
+                case 21:
+                    message.isLockedVaultAmountInZero = reader.bool();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -780,6 +787,9 @@ exports.DutchAuction = {
             liquidationPenalty: isSet(object.liquidationPenalty)
                 ? String(object.liquidationPenalty)
                 : "",
+            isLockedVaultAmountInZero: isSet(object.isLockedVaultAmountInZero)
+                ? Boolean(object.isLockedVaultAmountInZero)
+                : false,
         };
     },
     toJSON(message) {
@@ -835,10 +845,12 @@ exports.DutchAuction = {
         message.vaultOwner !== undefined && (obj.vaultOwner = message.vaultOwner);
         message.liquidationPenalty !== undefined &&
             (obj.liquidationPenalty = message.liquidationPenalty);
+        message.isLockedVaultAmountInZero !== undefined &&
+            (obj.isLockedVaultAmountInZero = message.isLockedVaultAmountInZero);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         const message = createBaseDutchAuction();
         message.auctionId =
             object.auctionId !== undefined && object.auctionId !== null
@@ -898,6 +910,8 @@ exports.DutchAuction = {
                 : long_1.default.UZERO;
         message.vaultOwner = (_h = object.vaultOwner) !== null && _h !== void 0 ? _h : "";
         message.liquidationPenalty = (_j = object.liquidationPenalty) !== null && _j !== void 0 ? _j : "";
+        message.isLockedVaultAmountInZero =
+            (_k = object.isLockedVaultAmountInZero) !== null && _k !== void 0 ? _k : false;
         return message;
     },
 };
@@ -955,6 +969,78 @@ exports.bidOwnerMapping = {
                 ? long_1.default.fromValue(object.bidId)
                 : long_1.default.UZERO;
         message.bidOwner = (_a = object.bidOwner) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseProtocolStatistics() {
+    return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO, loss: "" };
+}
+exports.ProtocolStatistics = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        if (!message.assetId.isZero()) {
+            writer.uint32(16).uint64(message.assetId);
+        }
+        if (message.loss !== "") {
+            writer.uint32(26).string(message.loss);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseProtocolStatistics();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
+                    message.assetId = reader.uint64();
+                    break;
+                case 3:
+                    message.loss = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromString(object.assetId)
+                : long_1.default.UZERO,
+            loss: isSet(object.loss) ? String(object.loss) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.loss !== undefined && (obj.loss = message.loss);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseProtocolStatistics();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
+        message.loss = (_a = object.loss) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };

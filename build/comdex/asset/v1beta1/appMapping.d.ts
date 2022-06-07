@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.asset.v1beta1";
 export interface AppMapping {
     id: Long;
@@ -7,7 +7,7 @@ export interface AppMapping {
     shortName: string;
     minGovDeposit: string;
     govTimeInSeconds: number;
-    mintGenesisToken: MintGenesisToken[];
+    genesisToken: MintGenesisToken[];
 }
 export interface MintGenesisToken {
     assetId: Long;
@@ -26,7 +26,7 @@ export declare const AppMapping: {
         shortName?: string | undefined;
         minGovDeposit?: string | undefined;
         govTimeInSeconds?: number | undefined;
-        mintGenesisToken?: {
+        genesisToken?: {
             assetId?: string | number | Long.Long | undefined;
             genesisSupply?: string | undefined;
             isgovToken?: boolean | undefined;
@@ -95,7 +95,7 @@ export declare const AppMapping: {
         shortName?: string | undefined;
         minGovDeposit?: string | undefined;
         govTimeInSeconds?: number | undefined;
-        mintGenesisToken?: ({
+        genesisToken?: ({
             assetId?: string | number | Long.Long | undefined;
             genesisSupply?: string | undefined;
             isgovToken?: boolean | undefined;
@@ -163,11 +163,11 @@ export declare const AppMapping: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["mintGenesisToken"][number]["assetId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["genesisToken"][number]["assetId"], keyof Long.Long>, never>) | undefined;
             genesisSupply?: string | undefined;
             isgovToken?: boolean | undefined;
             recipient?: string | undefined;
-        } & Record<Exclude<keyof I["mintGenesisToken"][number], keyof MintGenesisToken>, never>)[] & Record<Exclude<keyof I["mintGenesisToken"], keyof {
+        } & Record<Exclude<keyof I["genesisToken"][number], keyof MintGenesisToken>, never>)[] & Record<Exclude<keyof I["genesisToken"], keyof {
             assetId?: string | number | Long.Long | undefined;
             genesisSupply?: string | undefined;
             isgovToken?: boolean | undefined;

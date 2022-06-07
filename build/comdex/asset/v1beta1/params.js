@@ -9,13 +9,10 @@ const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseParams() {
-    return { admin: "" };
+    return {};
 }
 exports.Params = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.admin !== "") {
-            writer.uint32(10).string(message.admin);
-        }
+    encode(_, writer = minimal_1.default.Writer.create()) {
         return writer;
     },
     decode(input, length) {
@@ -25,9 +22,6 @@ exports.Params = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                case 1:
-                    message.admin = reader.string();
-                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -35,28 +29,20 @@ exports.Params = {
         }
         return message;
     },
-    fromJSON(object) {
-        return {
-            admin: isSet(object.admin) ? String(object.admin) : "",
-        };
+    fromJSON(_) {
+        return {};
     },
-    toJSON(message) {
+    toJSON(_) {
         const obj = {};
-        message.admin !== undefined && (obj.admin = message.admin);
         return obj;
     },
-    fromPartial(object) {
-        var _a;
+    fromPartial(_) {
         const message = createBaseParams();
-        message.admin = (_a = object.admin) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();
-}
-function isSet(value) {
-    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=params.js.map
