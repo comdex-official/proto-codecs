@@ -4,89 +4,14 @@ import  _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
-export interface Params {
-  liquidationPenaltyPercent: string;
-  auctionDiscountPercent: string;
-  auctionDurationSeconds: Long;
-  debtMintTokenDecreasePercentage: string;
-  buffer: string;
-  cusp: string;
-  tau: string;
-  dutchDecreasePercentage: string;
-  chost: string;
-  step: string;
-  priceFunctionType: Long;
-  surplusId: Long;
-  debtId: Long;
-  dutchId: Long;
-}
+export interface Params {}
 
 function createBaseParams(): Params {
-  return {
-    liquidationPenaltyPercent: "",
-    auctionDiscountPercent: "",
-    auctionDurationSeconds: Long.UZERO,
-    debtMintTokenDecreasePercentage: "",
-    buffer: "",
-    cusp: "",
-    tau: "",
-    dutchDecreasePercentage: "",
-    chost: "",
-    step: "",
-    priceFunctionType: Long.UZERO,
-    surplusId: Long.UZERO,
-    debtId: Long.UZERO,
-    dutchId: Long.UZERO,
-  };
+  return {};
 }
 
 export const Params = {
-  encode(
-    message: Params,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.liquidationPenaltyPercent !== "") {
-      writer.uint32(10).string(message.liquidationPenaltyPercent);
-    }
-    if (message.auctionDiscountPercent !== "") {
-      writer.uint32(18).string(message.auctionDiscountPercent);
-    }
-    if (!message.auctionDurationSeconds.isZero()) {
-      writer.uint32(24).uint64(message.auctionDurationSeconds);
-    }
-    if (message.debtMintTokenDecreasePercentage !== "") {
-      writer.uint32(34).string(message.debtMintTokenDecreasePercentage);
-    }
-    if (message.buffer !== "") {
-      writer.uint32(42).string(message.buffer);
-    }
-    if (message.cusp !== "") {
-      writer.uint32(50).string(message.cusp);
-    }
-    if (message.tau !== "") {
-      writer.uint32(58).string(message.tau);
-    }
-    if (message.dutchDecreasePercentage !== "") {
-      writer.uint32(66).string(message.dutchDecreasePercentage);
-    }
-    if (message.chost !== "") {
-      writer.uint32(74).string(message.chost);
-    }
-    if (message.step !== "") {
-      writer.uint32(82).string(message.step);
-    }
-    if (!message.priceFunctionType.isZero()) {
-      writer.uint32(88).uint64(message.priceFunctionType);
-    }
-    if (!message.surplusId.isZero()) {
-      writer.uint32(96).uint64(message.surplusId);
-    }
-    if (!message.debtId.isZero()) {
-      writer.uint32(104).uint64(message.debtId);
-    }
-    if (!message.dutchId.isZero()) {
-      writer.uint32(112).uint64(message.dutchId);
-    }
+  encode(_: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -97,48 +22,6 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.liquidationPenaltyPercent = reader.string();
-          break;
-        case 2:
-          message.auctionDiscountPercent = reader.string();
-          break;
-        case 3:
-          message.auctionDurationSeconds = reader.uint64() as Long;
-          break;
-        case 4:
-          message.debtMintTokenDecreasePercentage = reader.string();
-          break;
-        case 5:
-          message.buffer = reader.string();
-          break;
-        case 6:
-          message.cusp = reader.string();
-          break;
-        case 7:
-          message.tau = reader.string();
-          break;
-        case 8:
-          message.dutchDecreasePercentage = reader.string();
-          break;
-        case 9:
-          message.chost = reader.string();
-          break;
-        case 10:
-          message.step = reader.string();
-          break;
-        case 11:
-          message.priceFunctionType = reader.uint64() as Long;
-          break;
-        case 12:
-          message.surplusId = reader.uint64() as Long;
-          break;
-        case 13:
-          message.debtId = reader.uint64() as Long;
-          break;
-        case 14:
-          message.dutchId = reader.uint64() as Long;
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -147,112 +30,17 @@ export const Params = {
     return message;
   },
 
-  fromJSON(object: any): Params {
-    return {
-      liquidationPenaltyPercent: isSet(object.liquidationPenaltyPercent)
-        ? String(object.liquidationPenaltyPercent)
-        : "",
-      auctionDiscountPercent: isSet(object.auctionDiscountPercent)
-        ? String(object.auctionDiscountPercent)
-        : "",
-      auctionDurationSeconds: isSet(object.auctionDurationSeconds)
-        ? Long.fromString(object.auctionDurationSeconds)
-        : Long.UZERO,
-      debtMintTokenDecreasePercentage: isSet(
-        object.debtMintTokenDecreasePercentage
-      )
-        ? String(object.debtMintTokenDecreasePercentage)
-        : "",
-      buffer: isSet(object.buffer) ? String(object.buffer) : "",
-      cusp: isSet(object.cusp) ? String(object.cusp) : "",
-      tau: isSet(object.tau) ? String(object.tau) : "",
-      dutchDecreasePercentage: isSet(object.dutchDecreasePercentage)
-        ? String(object.dutchDecreasePercentage)
-        : "",
-      chost: isSet(object.chost) ? String(object.chost) : "",
-      step: isSet(object.step) ? String(object.step) : "",
-      priceFunctionType: isSet(object.priceFunctionType)
-        ? Long.fromString(object.priceFunctionType)
-        : Long.UZERO,
-      surplusId: isSet(object.surplusId)
-        ? Long.fromString(object.surplusId)
-        : Long.UZERO,
-      debtId: isSet(object.debtId)
-        ? Long.fromString(object.debtId)
-        : Long.UZERO,
-      dutchId: isSet(object.dutchId)
-        ? Long.fromString(object.dutchId)
-        : Long.UZERO,
-    };
+  fromJSON(_: any): Params {
+    return {};
   },
 
-  toJSON(message: Params): unknown {
+  toJSON(_: Params): unknown {
     const obj: any = {};
-    message.liquidationPenaltyPercent !== undefined &&
-      (obj.liquidationPenaltyPercent = message.liquidationPenaltyPercent);
-    message.auctionDiscountPercent !== undefined &&
-      (obj.auctionDiscountPercent = message.auctionDiscountPercent);
-    message.auctionDurationSeconds !== undefined &&
-      (obj.auctionDurationSeconds = (
-        message.auctionDurationSeconds || Long.UZERO
-      ).toString());
-    message.debtMintTokenDecreasePercentage !== undefined &&
-      (obj.debtMintTokenDecreasePercentage =
-        message.debtMintTokenDecreasePercentage);
-    message.buffer !== undefined && (obj.buffer = message.buffer);
-    message.cusp !== undefined && (obj.cusp = message.cusp);
-    message.tau !== undefined && (obj.tau = message.tau);
-    message.dutchDecreasePercentage !== undefined &&
-      (obj.dutchDecreasePercentage = message.dutchDecreasePercentage);
-    message.chost !== undefined && (obj.chost = message.chost);
-    message.step !== undefined && (obj.step = message.step);
-    message.priceFunctionType !== undefined &&
-      (obj.priceFunctionType = (
-        message.priceFunctionType || Long.UZERO
-      ).toString());
-    message.surplusId !== undefined &&
-      (obj.surplusId = (message.surplusId || Long.UZERO).toString());
-    message.debtId !== undefined &&
-      (obj.debtId = (message.debtId || Long.UZERO).toString());
-    message.dutchId !== undefined &&
-      (obj.dutchId = (message.dutchId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(_: I): Params {
     const message = createBaseParams();
-    message.liquidationPenaltyPercent = object.liquidationPenaltyPercent ?? "";
-    message.auctionDiscountPercent = object.auctionDiscountPercent ?? "";
-    message.auctionDurationSeconds =
-      object.auctionDurationSeconds !== undefined &&
-      object.auctionDurationSeconds !== null
-        ? Long.fromValue(object.auctionDurationSeconds)
-        : Long.UZERO;
-    message.debtMintTokenDecreasePercentage =
-      object.debtMintTokenDecreasePercentage ?? "";
-    message.buffer = object.buffer ?? "";
-    message.cusp = object.cusp ?? "";
-    message.tau = object.tau ?? "";
-    message.dutchDecreasePercentage = object.dutchDecreasePercentage ?? "";
-    message.chost = object.chost ?? "";
-    message.step = object.step ?? "";
-    message.priceFunctionType =
-      object.priceFunctionType !== undefined &&
-      object.priceFunctionType !== null
-        ? Long.fromValue(object.priceFunctionType)
-        : Long.UZERO;
-    message.surplusId =
-      object.surplusId !== undefined && object.surplusId !== null
-        ? Long.fromValue(object.surplusId)
-        : Long.UZERO;
-    message.debtId =
-      object.debtId !== undefined && object.debtId !== null
-        ? Long.fromValue(object.debtId)
-        : Long.UZERO;
-    message.dutchId =
-      object.dutchId !== undefined && object.dutchId !== null
-        ? Long.fromValue(object.dutchId)
-        : Long.UZERO;
     return message;
   },
 };
@@ -289,8 +77,4 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
 }

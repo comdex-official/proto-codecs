@@ -78,6 +78,18 @@ export interface ProtocolStatistics {
   loss: string;
 }
 
+export interface AuctionParams {
+  appId: Long;
+  auctionDurationSeconds: Long;
+  buffer: string;
+  cusp: string;
+  step: string;
+  priceFunctionType: Long;
+  surplusId: Long;
+  debtId: Long;
+  dutchId: Long;
+}
+
 function createBaseSurplusAuction(): SurplusAuction {
   return {
     auctionId: Long.UZERO,
@@ -1221,6 +1233,182 @@ export const ProtocolStatistics = {
         ? Long.fromValue(object.assetId)
         : Long.UZERO;
     message.loss = object.loss ?? "";
+    return message;
+  },
+};
+
+function createBaseAuctionParams(): AuctionParams {
+  return {
+    appId: Long.UZERO,
+    auctionDurationSeconds: Long.UZERO,
+    buffer: "",
+    cusp: "",
+    step: "",
+    priceFunctionType: Long.UZERO,
+    surplusId: Long.UZERO,
+    debtId: Long.UZERO,
+    dutchId: Long.UZERO,
+  };
+}
+
+export const AuctionParams = {
+  encode(
+    message: AuctionParams,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (!message.auctionDurationSeconds.isZero()) {
+      writer.uint32(16).uint64(message.auctionDurationSeconds);
+    }
+    if (message.buffer !== "") {
+      writer.uint32(26).string(message.buffer);
+    }
+    if (message.cusp !== "") {
+      writer.uint32(34).string(message.cusp);
+    }
+    if (message.step !== "") {
+      writer.uint32(42).string(message.step);
+    }
+    if (!message.priceFunctionType.isZero()) {
+      writer.uint32(48).uint64(message.priceFunctionType);
+    }
+    if (!message.surplusId.isZero()) {
+      writer.uint32(56).uint64(message.surplusId);
+    }
+    if (!message.debtId.isZero()) {
+      writer.uint32(64).uint64(message.debtId);
+    }
+    if (!message.dutchId.isZero()) {
+      writer.uint32(72).uint64(message.dutchId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): AuctionParams {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAuctionParams();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.auctionDurationSeconds = reader.uint64() as Long;
+          break;
+        case 3:
+          message.buffer = reader.string();
+          break;
+        case 4:
+          message.cusp = reader.string();
+          break;
+        case 5:
+          message.step = reader.string();
+          break;
+        case 6:
+          message.priceFunctionType = reader.uint64() as Long;
+          break;
+        case 7:
+          message.surplusId = reader.uint64() as Long;
+          break;
+        case 8:
+          message.debtId = reader.uint64() as Long;
+          break;
+        case 9:
+          message.dutchId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AuctionParams {
+    return {
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      auctionDurationSeconds: isSet(object.auctionDurationSeconds)
+        ? Long.fromString(object.auctionDurationSeconds)
+        : Long.UZERO,
+      buffer: isSet(object.buffer) ? String(object.buffer) : "",
+      cusp: isSet(object.cusp) ? String(object.cusp) : "",
+      step: isSet(object.step) ? String(object.step) : "",
+      priceFunctionType: isSet(object.priceFunctionType)
+        ? Long.fromString(object.priceFunctionType)
+        : Long.UZERO,
+      surplusId: isSet(object.surplusId)
+        ? Long.fromString(object.surplusId)
+        : Long.UZERO,
+      debtId: isSet(object.debtId)
+        ? Long.fromString(object.debtId)
+        : Long.UZERO,
+      dutchId: isSet(object.dutchId)
+        ? Long.fromString(object.dutchId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: AuctionParams): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.auctionDurationSeconds !== undefined &&
+      (obj.auctionDurationSeconds = (
+        message.auctionDurationSeconds || Long.UZERO
+      ).toString());
+    message.buffer !== undefined && (obj.buffer = message.buffer);
+    message.cusp !== undefined && (obj.cusp = message.cusp);
+    message.step !== undefined && (obj.step = message.step);
+    message.priceFunctionType !== undefined &&
+      (obj.priceFunctionType = (
+        message.priceFunctionType || Long.UZERO
+      ).toString());
+    message.surplusId !== undefined &&
+      (obj.surplusId = (message.surplusId || Long.UZERO).toString());
+    message.debtId !== undefined &&
+      (obj.debtId = (message.debtId || Long.UZERO).toString());
+    message.dutchId !== undefined &&
+      (obj.dutchId = (message.dutchId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AuctionParams>, I>>(
+    object: I
+  ): AuctionParams {
+    const message = createBaseAuctionParams();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.auctionDurationSeconds =
+      object.auctionDurationSeconds !== undefined &&
+      object.auctionDurationSeconds !== null
+        ? Long.fromValue(object.auctionDurationSeconds)
+        : Long.UZERO;
+    message.buffer = object.buffer ?? "";
+    message.cusp = object.cusp ?? "";
+    message.step = object.step ?? "";
+    message.priceFunctionType =
+      object.priceFunctionType !== undefined &&
+      object.priceFunctionType !== null
+        ? Long.fromValue(object.priceFunctionType)
+        : Long.UZERO;
+    message.surplusId =
+      object.surplusId !== undefined && object.surplusId !== null
+        ? Long.fromValue(object.surplusId)
+        : Long.UZERO;
+    message.debtId =
+      object.debtId !== undefined && object.debtId !== null
+        ? Long.fromValue(object.debtId)
+        : Long.UZERO;
+    message.dutchId =
+      object.dutchId !== undefined && object.dutchId !== null
+        ? Long.fromValue(object.dutchId)
+        : Long.UZERO;
     return message;
   },
 };
