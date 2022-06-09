@@ -1,9 +1,9 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { SurplusAuction, DebtAuction, DutchAuction, ProtocolStatistics } from "./auction";
+import { SurplusAuction, DebtAuction, DutchAuction, AuctionParams, ProtocolStatistics } from "./auction";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "./params";
-import { SurplusBiddings, DebtBiddings, DutchBiddings } from "../../../comdex/auction/v1beta1/biddings";
+import { SurplusBiddings, DebtBiddings, DutchBiddings } from "./biddings";
 export declare const protobufPackage = "comdex.auction.v1beta1";
 export interface QuerySurplusAuctionRequest {
     appId: Long;
@@ -108,6 +108,12 @@ export interface QueryParamsRequest {
 }
 export interface QueryParamsResponse {
     params?: Params;
+}
+export interface QueryAuctionParamRequest {
+    appId: Long;
+}
+export interface QueryAuctionParamResponse {
+    auctionParams?: AuctionParams;
 }
 export declare const QuerySurplusAuctionRequest: {
     encode(message: QuerySurplusAuctionRequest, writer?: _m0.Writer): _m0.Writer;
@@ -7641,16 +7647,90 @@ export declare const QueryParamsResponse: {
     fromJSON(object: any): QueryParamsResponse;
     toJSON(message: QueryParamsResponse): unknown;
     fromPartial<I extends {
-        params?: {
-            liquidationPenaltyPercent?: string | undefined;
-            auctionDiscountPercent?: string | undefined;
+        params?: {} | undefined;
+    } & {
+        params?: ({} & {} & Record<Exclude<keyof I["params"], never>, never>) | undefined;
+    } & Record<Exclude<keyof I, "params">, never>>(object: I): QueryParamsResponse;
+};
+export declare const QueryAuctionParamRequest: {
+    encode(message: QueryAuctionParamRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionParamRequest;
+    fromJSON(object: any): QueryAuctionParamRequest;
+    toJSON(message: QueryAuctionParamRequest): unknown;
+    fromPartial<I extends {
+        appId?: string | number | Long.Long | undefined;
+    } & {
+        appId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryAuctionParamRequest;
+};
+export declare const QueryAuctionParamResponse: {
+    encode(message: QueryAuctionParamResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionParamResponse;
+    fromJSON(object: any): QueryAuctionParamResponse;
+    toJSON(message: QueryAuctionParamResponse): unknown;
+    fromPartial<I extends {
+        auctionParams?: {
+            appId?: string | number | Long.Long | undefined;
             auctionDurationSeconds?: string | number | Long.Long | undefined;
-            debtMintTokenDecreasePercentage?: string | undefined;
             buffer?: string | undefined;
             cusp?: string | undefined;
-            tau?: string | undefined;
-            dutchDecreasePercentage?: string | undefined;
-            chost?: string | undefined;
             step?: string | undefined;
             priceFunctionType?: string | number | Long.Long | undefined;
             surplusId?: string | number | Long.Long | undefined;
@@ -7658,24 +7738,75 @@ export declare const QueryParamsResponse: {
             dutchId?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
-        params?: ({
-            liquidationPenaltyPercent?: string | undefined;
-            auctionDiscountPercent?: string | undefined;
+        auctionParams?: ({
+            appId?: string | number | Long.Long | undefined;
             auctionDurationSeconds?: string | number | Long.Long | undefined;
-            debtMintTokenDecreasePercentage?: string | undefined;
             buffer?: string | undefined;
             cusp?: string | undefined;
-            tau?: string | undefined;
-            dutchDecreasePercentage?: string | undefined;
-            chost?: string | undefined;
             step?: string | undefined;
             priceFunctionType?: string | number | Long.Long | undefined;
             surplusId?: string | number | Long.Long | undefined;
             debtId?: string | number | Long.Long | undefined;
             dutchId?: string | number | Long.Long | undefined;
         } & {
-            liquidationPenaltyPercent?: string | undefined;
-            auctionDiscountPercent?: string | undefined;
+            appId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["auctionParams"]["appId"], keyof Long.Long>, never>) | undefined;
             auctionDurationSeconds?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -7733,13 +7864,9 @@ export declare const QueryParamsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["params"]["auctionDurationSeconds"], keyof Long.Long>, never>) | undefined;
-            debtMintTokenDecreasePercentage?: string | undefined;
+            } & Record<Exclude<keyof I["auctionParams"]["auctionDurationSeconds"], keyof Long.Long>, never>) | undefined;
             buffer?: string | undefined;
             cusp?: string | undefined;
-            tau?: string | undefined;
-            dutchDecreasePercentage?: string | undefined;
-            chost?: string | undefined;
             step?: string | undefined;
             priceFunctionType?: string | number | (Long.Long & {
                 high: number;
@@ -7798,7 +7925,7 @@ export declare const QueryParamsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["params"]["priceFunctionType"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctionParams"]["priceFunctionType"], keyof Long.Long>, never>) | undefined;
             surplusId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -7856,7 +7983,7 @@ export declare const QueryParamsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["params"]["surplusId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctionParams"]["surplusId"], keyof Long.Long>, never>) | undefined;
             debtId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -7914,7 +8041,7 @@ export declare const QueryParamsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["params"]["debtId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["auctionParams"]["debtId"], keyof Long.Long>, never>) | undefined;
             dutchId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -7972,9 +8099,9 @@ export declare const QueryParamsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["params"]["dutchId"], keyof Long.Long>, never>) | undefined;
-        } & Record<Exclude<keyof I["params"], keyof Params>, never>) | undefined;
-    } & Record<Exclude<keyof I, "params">, never>>(object: I): QueryParamsResponse;
+            } & Record<Exclude<keyof I["auctionParams"]["dutchId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["auctionParams"], keyof AuctionParams>, never>) | undefined;
+    } & Record<Exclude<keyof I, "auctionParams">, never>>(object: I): QueryAuctionParamResponse;
 };
 export interface Query {
     QuerySurplusAuction(request: QuerySurplusAuctionRequest): Promise<QuerySurplusAuctionResponse>;
@@ -7988,6 +8115,7 @@ export interface Query {
     QueryDutchBiddings(request: QueryDutchBiddingsRequest): Promise<QueryDutchBiddingsResponse>;
     QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     QueryProtocolStatistics(request: QueryProtocolStatisticsRequest): Promise<QueryProtocolStatisticsResponse>;
+    QueryAuctionParams(request: QueryAuctionParamRequest): Promise<QueryAuctionParamResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -8003,6 +8131,7 @@ export declare class QueryClientImpl implements Query {
     QueryDutchBiddings(request: QueryDutchBiddingsRequest): Promise<QueryDutchBiddingsResponse>;
     QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     QueryProtocolStatistics(request: QueryProtocolStatisticsRequest): Promise<QueryProtocolStatisticsResponse>;
+    QueryAuctionParams(request: QueryAuctionParamRequest): Promise<QueryAuctionParamResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

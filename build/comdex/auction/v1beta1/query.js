@@ -3,14 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryProtocolStatisticsResponse = exports.QueryProtocolStatisticsRequest = exports.QueryBiddingsForSurplusAuctionResponse = exports.QueryBiddingsForSurplusAuctionRequest = exports.QueryDutchBiddingsResponse = exports.QueryDutchBiddingsRequest = exports.QueryDutchAuctionsResponse = exports.QueryDutchAuctionsRequest = exports.QueryDutchAuctionResponse = exports.QueryDutchAuctionRequest = exports.QueryDebtBiddingsResponse = exports.QueryDebtBiddingsRequest = exports.QueryDebtAuctionsResponse = exports.QueryDebtAuctionsRequest = exports.QueryDebtAuctionResponse = exports.QueryDebtAuctionRequest = exports.QuerySurplusBiddingsResponse = exports.QuerySurplusBiddingsRequest = exports.QuerySurplusAuctionsResponse = exports.QuerySurplusAuctionsRequest = exports.QuerySurplusAuctionResponse = exports.QuerySurplusAuctionRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryAuctionParamResponse = exports.QueryAuctionParamRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryProtocolStatisticsResponse = exports.QueryProtocolStatisticsRequest = exports.QueryBiddingsForSurplusAuctionResponse = exports.QueryBiddingsForSurplusAuctionRequest = exports.QueryDutchBiddingsResponse = exports.QueryDutchBiddingsRequest = exports.QueryDutchAuctionsResponse = exports.QueryDutchAuctionsRequest = exports.QueryDutchAuctionResponse = exports.QueryDutchAuctionRequest = exports.QueryDebtBiddingsResponse = exports.QueryDebtBiddingsRequest = exports.QueryDebtAuctionsResponse = exports.QueryDebtAuctionsRequest = exports.QueryDebtAuctionResponse = exports.QueryDebtAuctionRequest = exports.QuerySurplusBiddingsResponse = exports.QuerySurplusBiddingsRequest = exports.QuerySurplusAuctionsResponse = exports.QuerySurplusAuctionsRequest = exports.QuerySurplusAuctionResponse = exports.QuerySurplusAuctionRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const auction_1 = require("./auction");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 const params_1 = require("./params");
-const biddings_1 = require("../../../comdex/auction/v1beta1/biddings");
+const biddings_1 = require("./biddings");
 exports.protobufPackage = "comdex.auction.v1beta1";
 function createBaseQuerySurplusAuctionRequest() {
     return {
@@ -1625,6 +1625,104 @@ exports.QueryParamsResponse = {
         return message;
     },
 };
+function createBaseQueryAuctionParamRequest() {
+    return { appId: long_1.default.UZERO };
+}
+exports.QueryAuctionParamRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAuctionParamRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAuctionParamRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryAuctionParamResponse() {
+    return { auctionParams: undefined };
+}
+exports.QueryAuctionParamResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.auctionParams !== undefined) {
+            auction_1.AuctionParams.encode(message.auctionParams, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAuctionParamResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.auctionParams = auction_1.AuctionParams.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            auctionParams: isSet(object.auctionParams)
+                ? auction_1.AuctionParams.fromJSON(object.auctionParams)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.auctionParams !== undefined &&
+            (obj.auctionParams = message.auctionParams
+                ? auction_1.AuctionParams.toJSON(message.auctionParams)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAuctionParamResponse();
+        message.auctionParams =
+            object.auctionParams !== undefined && object.auctionParams !== null
+                ? auction_1.AuctionParams.fromPartial(object.auctionParams)
+                : undefined;
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1639,6 +1737,7 @@ class QueryClientImpl {
         this.QueryDutchBiddings = this.QueryDutchBiddings.bind(this);
         this.QueryParams = this.QueryParams.bind(this);
         this.QueryProtocolStatistics = this.QueryProtocolStatistics.bind(this);
+        this.QueryAuctionParams = this.QueryAuctionParams.bind(this);
     }
     QuerySurplusAuction(request) {
         const data = exports.QuerySurplusAuctionRequest.encode(request).finish();
@@ -1694,6 +1793,11 @@ class QueryClientImpl {
         const data = exports.QueryProtocolStatisticsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.auction.v1beta1.Query", "QueryProtocolStatistics", data);
         return promise.then((data) => exports.QueryProtocolStatisticsResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    QueryAuctionParams(request) {
+        const data = exports.QueryAuctionParamRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.auction.v1beta1.Query", "QueryAuctionParams", data);
+        return promise.then((data) => exports.QueryAuctionParamResponse.decode(new minimal_1.default.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
