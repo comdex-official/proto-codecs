@@ -149,7 +149,7 @@ export interface QueryParamsResponse {
 }
 
 export interface QueryAuctionParamRequest {
-  id: Long;
+  appId: Long;
 }
 
 export interface QueryAuctionParamResponse {
@@ -2119,7 +2119,7 @@ export const QueryParamsResponse = {
 };
 
 function createBaseQueryAuctionParamRequest(): QueryAuctionParamRequest {
-  return { id: Long.UZERO };
+  return { appId: Long.UZERO };
 }
 
 export const QueryAuctionParamRequest = {
@@ -2127,8 +2127,8 @@ export const QueryAuctionParamRequest = {
     message: QueryAuctionParamRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.id.isZero()) {
-      writer.uint32(8).uint64(message.id);
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
     }
     return writer;
   },
@@ -2144,7 +2144,7 @@ export const QueryAuctionParamRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.id = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -2156,14 +2156,14 @@ export const QueryAuctionParamRequest = {
 
   fromJSON(object: any): QueryAuctionParamRequest {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
   toJSON(message: QueryAuctionParamRequest): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -2171,9 +2171,9 @@ export const QueryAuctionParamRequest = {
     object: I
   ): QueryAuctionParamRequest {
     const message = createBaseQueryAuctionParamRequest();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     return message;
   },
