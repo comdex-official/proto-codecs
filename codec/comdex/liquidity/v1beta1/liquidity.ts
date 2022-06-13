@@ -1,7 +1,6 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Duration } from "../../../google/protobuf/duration";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
@@ -203,27 +202,6 @@ export function addressTypeToJSON(object: AddressType): string {
   }
 }
 
-/** Params defines the parameters for the liquidity module. */
-export interface Params {
-  batchSize: number;
-  tickPrecision: number;
-  feeCollectorAddress: string;
-  dustCollectorAddress: string;
-  minInitialPoolCoinSupply: string;
-  pairCreationFee: Coin[];
-  poolCreationFee: Coin[];
-  minInitialDepositAmount: string;
-  maxPriceLimitRatio: string;
-  maxOrderLifespan?: Duration;
-  swapFeeRate: string;
-  withdrawFeeRate: string;
-  depositExtraGas: Long;
-  withdrawExtraGas: Long;
-  orderExtraGas: Long;
-  swapFeeDistrDenom: string;
-  swapFeeBurnRate: string;
-}
-
 /** Pair defines a coin pair. */
 export interface Pair {
   id: Long;
@@ -234,6 +212,7 @@ export interface Pair {
   lastPrice: string;
   currentBatchId: Long;
   swapFeeCollectorAddress: string;
+  appId: Long;
 }
 
 /** Pool defines a basic liquidity pool with no min-price and max-price. */
@@ -245,6 +224,7 @@ export interface Pool {
   lastDepositRequestId: Long;
   lastWithdrawRequestId: Long;
   disabled: boolean;
+  appId: Long;
 }
 
 /** DepositRequest defines a deposit request. */
@@ -263,6 +243,7 @@ export interface DepositRequest {
   acceptedCoins: Coin[];
   mintedPoolCoin?: Coin;
   status: RequestStatus;
+  appId: Long;
 }
 
 /** WithdrawRequest defines a withdraw request. */
@@ -280,6 +261,7 @@ export interface WithdrawRequest {
   /** withdrawn_coins specifies the amount of coins that are withdrawn. */
   withdrawnCoins: Coin[];
   status: RequestStatus;
+  appId: Long;
 }
 
 /** Order defines an order. */
@@ -307,6 +289,7 @@ export interface Order {
   batchId: Long;
   expireAt?: Date;
   status: OrderStatus;
+  appId: Long;
 }
 
 export interface DepositsMade {
@@ -324,306 +307,13 @@ export interface PoolLiquidityProvidersData {
   bondedLockIds: Long[];
   liquidityProviders: { [key: string]: DepositsMade };
   queuedLiquidityProviders: QueuedLiquidityProvider[];
+  appId: Long;
 }
 
 export interface PoolLiquidityProvidersData_LiquidityProvidersEntry {
   key: string;
   value?: DepositsMade;
 }
-
-function createBaseParams(): Params {
-  return {
-    batchSize: 0,
-    tickPrecision: 0,
-    feeCollectorAddress: "",
-    dustCollectorAddress: "",
-    minInitialPoolCoinSupply: "",
-    pairCreationFee: [],
-    poolCreationFee: [],
-    minInitialDepositAmount: "",
-    maxPriceLimitRatio: "",
-    maxOrderLifespan: undefined,
-    swapFeeRate: "",
-    withdrawFeeRate: "",
-    depositExtraGas: Long.UZERO,
-    withdrawExtraGas: Long.UZERO,
-    orderExtraGas: Long.UZERO,
-    swapFeeDistrDenom: "",
-    swapFeeBurnRate: "",
-  };
-}
-
-export const Params = {
-  encode(
-    message: Params,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.batchSize !== 0) {
-      writer.uint32(8).uint32(message.batchSize);
-    }
-    if (message.tickPrecision !== 0) {
-      writer.uint32(16).uint32(message.tickPrecision);
-    }
-    if (message.feeCollectorAddress !== "") {
-      writer.uint32(26).string(message.feeCollectorAddress);
-    }
-    if (message.dustCollectorAddress !== "") {
-      writer.uint32(34).string(message.dustCollectorAddress);
-    }
-    if (message.minInitialPoolCoinSupply !== "") {
-      writer.uint32(42).string(message.minInitialPoolCoinSupply);
-    }
-    for (const v of message.pairCreationFee) {
-      Coin.encode(v!, writer.uint32(50).fork()).ldelim();
-    }
-    for (const v of message.poolCreationFee) {
-      Coin.encode(v!, writer.uint32(58).fork()).ldelim();
-    }
-    if (message.minInitialDepositAmount !== "") {
-      writer.uint32(66).string(message.minInitialDepositAmount);
-    }
-    if (message.maxPriceLimitRatio !== "") {
-      writer.uint32(74).string(message.maxPriceLimitRatio);
-    }
-    if (message.maxOrderLifespan !== undefined) {
-      Duration.encode(
-        message.maxOrderLifespan,
-        writer.uint32(82).fork()
-      ).ldelim();
-    }
-    if (message.swapFeeRate !== "") {
-      writer.uint32(90).string(message.swapFeeRate);
-    }
-    if (message.withdrawFeeRate !== "") {
-      writer.uint32(98).string(message.withdrawFeeRate);
-    }
-    if (!message.depositExtraGas.isZero()) {
-      writer.uint32(104).uint64(message.depositExtraGas);
-    }
-    if (!message.withdrawExtraGas.isZero()) {
-      writer.uint32(112).uint64(message.withdrawExtraGas);
-    }
-    if (!message.orderExtraGas.isZero()) {
-      writer.uint32(120).uint64(message.orderExtraGas);
-    }
-    if (message.swapFeeDistrDenom !== "") {
-      writer.uint32(130).string(message.swapFeeDistrDenom);
-    }
-    if (message.swapFeeBurnRate !== "") {
-      writer.uint32(138).string(message.swapFeeBurnRate);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseParams();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.batchSize = reader.uint32();
-          break;
-        case 2:
-          message.tickPrecision = reader.uint32();
-          break;
-        case 3:
-          message.feeCollectorAddress = reader.string();
-          break;
-        case 4:
-          message.dustCollectorAddress = reader.string();
-          break;
-        case 5:
-          message.minInitialPoolCoinSupply = reader.string();
-          break;
-        case 6:
-          message.pairCreationFee.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 7:
-          message.poolCreationFee.push(Coin.decode(reader, reader.uint32()));
-          break;
-        case 8:
-          message.minInitialDepositAmount = reader.string();
-          break;
-        case 9:
-          message.maxPriceLimitRatio = reader.string();
-          break;
-        case 10:
-          message.maxOrderLifespan = Duration.decode(reader, reader.uint32());
-          break;
-        case 11:
-          message.swapFeeRate = reader.string();
-          break;
-        case 12:
-          message.withdrawFeeRate = reader.string();
-          break;
-        case 13:
-          message.depositExtraGas = reader.uint64() as Long;
-          break;
-        case 14:
-          message.withdrawExtraGas = reader.uint64() as Long;
-          break;
-        case 15:
-          message.orderExtraGas = reader.uint64() as Long;
-          break;
-        case 16:
-          message.swapFeeDistrDenom = reader.string();
-          break;
-        case 17:
-          message.swapFeeBurnRate = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): Params {
-    return {
-      batchSize: isSet(object.batchSize) ? Number(object.batchSize) : 0,
-      tickPrecision: isSet(object.tickPrecision)
-        ? Number(object.tickPrecision)
-        : 0,
-      feeCollectorAddress: isSet(object.feeCollectorAddress)
-        ? String(object.feeCollectorAddress)
-        : "",
-      dustCollectorAddress: isSet(object.dustCollectorAddress)
-        ? String(object.dustCollectorAddress)
-        : "",
-      minInitialPoolCoinSupply: isSet(object.minInitialPoolCoinSupply)
-        ? String(object.minInitialPoolCoinSupply)
-        : "",
-      pairCreationFee: Array.isArray(object?.pairCreationFee)
-        ? object.pairCreationFee.map((e: any) => Coin.fromJSON(e))
-        : [],
-      poolCreationFee: Array.isArray(object?.poolCreationFee)
-        ? object.poolCreationFee.map((e: any) => Coin.fromJSON(e))
-        : [],
-      minInitialDepositAmount: isSet(object.minInitialDepositAmount)
-        ? String(object.minInitialDepositAmount)
-        : "",
-      maxPriceLimitRatio: isSet(object.maxPriceLimitRatio)
-        ? String(object.maxPriceLimitRatio)
-        : "",
-      maxOrderLifespan: isSet(object.maxOrderLifespan)
-        ? Duration.fromJSON(object.maxOrderLifespan)
-        : undefined,
-      swapFeeRate: isSet(object.swapFeeRate) ? String(object.swapFeeRate) : "",
-      withdrawFeeRate: isSet(object.withdrawFeeRate)
-        ? String(object.withdrawFeeRate)
-        : "",
-      depositExtraGas: isSet(object.depositExtraGas)
-        ? Long.fromString(object.depositExtraGas)
-        : Long.UZERO,
-      withdrawExtraGas: isSet(object.withdrawExtraGas)
-        ? Long.fromString(object.withdrawExtraGas)
-        : Long.UZERO,
-      orderExtraGas: isSet(object.orderExtraGas)
-        ? Long.fromString(object.orderExtraGas)
-        : Long.UZERO,
-      swapFeeDistrDenom: isSet(object.swapFeeDistrDenom)
-        ? String(object.swapFeeDistrDenom)
-        : "",
-      swapFeeBurnRate: isSet(object.swapFeeBurnRate)
-        ? String(object.swapFeeBurnRate)
-        : "",
-    };
-  },
-
-  toJSON(message: Params): unknown {
-    const obj: any = {};
-    message.batchSize !== undefined &&
-      (obj.batchSize = Math.round(message.batchSize));
-    message.tickPrecision !== undefined &&
-      (obj.tickPrecision = Math.round(message.tickPrecision));
-    message.feeCollectorAddress !== undefined &&
-      (obj.feeCollectorAddress = message.feeCollectorAddress);
-    message.dustCollectorAddress !== undefined &&
-      (obj.dustCollectorAddress = message.dustCollectorAddress);
-    message.minInitialPoolCoinSupply !== undefined &&
-      (obj.minInitialPoolCoinSupply = message.minInitialPoolCoinSupply);
-    if (message.pairCreationFee) {
-      obj.pairCreationFee = message.pairCreationFee.map((e) =>
-        e ? Coin.toJSON(e) : undefined
-      );
-    } else {
-      obj.pairCreationFee = [];
-    }
-    if (message.poolCreationFee) {
-      obj.poolCreationFee = message.poolCreationFee.map((e) =>
-        e ? Coin.toJSON(e) : undefined
-      );
-    } else {
-      obj.poolCreationFee = [];
-    }
-    message.minInitialDepositAmount !== undefined &&
-      (obj.minInitialDepositAmount = message.minInitialDepositAmount);
-    message.maxPriceLimitRatio !== undefined &&
-      (obj.maxPriceLimitRatio = message.maxPriceLimitRatio);
-    message.maxOrderLifespan !== undefined &&
-      (obj.maxOrderLifespan = message.maxOrderLifespan
-        ? Duration.toJSON(message.maxOrderLifespan)
-        : undefined);
-    message.swapFeeRate !== undefined &&
-      (obj.swapFeeRate = message.swapFeeRate);
-    message.withdrawFeeRate !== undefined &&
-      (obj.withdrawFeeRate = message.withdrawFeeRate);
-    message.depositExtraGas !== undefined &&
-      (obj.depositExtraGas = (
-        message.depositExtraGas || Long.UZERO
-      ).toString());
-    message.withdrawExtraGas !== undefined &&
-      (obj.withdrawExtraGas = (
-        message.withdrawExtraGas || Long.UZERO
-      ).toString());
-    message.orderExtraGas !== undefined &&
-      (obj.orderExtraGas = (message.orderExtraGas || Long.UZERO).toString());
-    message.swapFeeDistrDenom !== undefined &&
-      (obj.swapFeeDistrDenom = message.swapFeeDistrDenom);
-    message.swapFeeBurnRate !== undefined &&
-      (obj.swapFeeBurnRate = message.swapFeeBurnRate);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
-    const message = createBaseParams();
-    message.batchSize = object.batchSize ?? 0;
-    message.tickPrecision = object.tickPrecision ?? 0;
-    message.feeCollectorAddress = object.feeCollectorAddress ?? "";
-    message.dustCollectorAddress = object.dustCollectorAddress ?? "";
-    message.minInitialPoolCoinSupply = object.minInitialPoolCoinSupply ?? "";
-    message.pairCreationFee =
-      object.pairCreationFee?.map((e) => Coin.fromPartial(e)) || [];
-    message.poolCreationFee =
-      object.poolCreationFee?.map((e) => Coin.fromPartial(e)) || [];
-    message.minInitialDepositAmount = object.minInitialDepositAmount ?? "";
-    message.maxPriceLimitRatio = object.maxPriceLimitRatio ?? "";
-    message.maxOrderLifespan =
-      object.maxOrderLifespan !== undefined && object.maxOrderLifespan !== null
-        ? Duration.fromPartial(object.maxOrderLifespan)
-        : undefined;
-    message.swapFeeRate = object.swapFeeRate ?? "";
-    message.withdrawFeeRate = object.withdrawFeeRate ?? "";
-    message.depositExtraGas =
-      object.depositExtraGas !== undefined && object.depositExtraGas !== null
-        ? Long.fromValue(object.depositExtraGas)
-        : Long.UZERO;
-    message.withdrawExtraGas =
-      object.withdrawExtraGas !== undefined && object.withdrawExtraGas !== null
-        ? Long.fromValue(object.withdrawExtraGas)
-        : Long.UZERO;
-    message.orderExtraGas =
-      object.orderExtraGas !== undefined && object.orderExtraGas !== null
-        ? Long.fromValue(object.orderExtraGas)
-        : Long.UZERO;
-    message.swapFeeDistrDenom = object.swapFeeDistrDenom ?? "";
-    message.swapFeeBurnRate = object.swapFeeBurnRate ?? "";
-    return message;
-  },
-};
 
 function createBasePair(): Pair {
   return {
@@ -635,6 +325,7 @@ function createBasePair(): Pair {
     lastPrice: "",
     currentBatchId: Long.UZERO,
     swapFeeCollectorAddress: "",
+    appId: Long.UZERO,
   };
 }
 
@@ -663,6 +354,9 @@ export const Pair = {
     }
     if (message.swapFeeCollectorAddress !== "") {
       writer.uint32(66).string(message.swapFeeCollectorAddress);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(72).uint64(message.appId);
     }
     return writer;
   },
@@ -698,6 +392,9 @@ export const Pair = {
         case 8:
           message.swapFeeCollectorAddress = reader.string();
           break;
+        case 9:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -728,6 +425,7 @@ export const Pair = {
       swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
         ? String(object.swapFeeCollectorAddress)
         : "",
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -748,6 +446,8 @@ export const Pair = {
       (obj.currentBatchId = (message.currentBatchId || Long.UZERO).toString());
     message.swapFeeCollectorAddress !== undefined &&
       (obj.swapFeeCollectorAddress = message.swapFeeCollectorAddress);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -770,6 +470,10 @@ export const Pair = {
         ? Long.fromValue(object.currentBatchId)
         : Long.UZERO;
     message.swapFeeCollectorAddress = object.swapFeeCollectorAddress ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -783,6 +487,7 @@ function createBasePool(): Pool {
     lastDepositRequestId: Long.UZERO,
     lastWithdrawRequestId: Long.UZERO,
     disabled: false,
+    appId: Long.UZERO,
   };
 }
 
@@ -808,6 +513,9 @@ export const Pool = {
     }
     if (message.disabled === true) {
       writer.uint32(56).bool(message.disabled);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(64).uint64(message.appId);
     }
     return writer;
   },
@@ -840,6 +548,9 @@ export const Pool = {
         case 7:
           message.disabled = reader.bool();
           break;
+        case 8:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -867,6 +578,7 @@ export const Pool = {
         ? Long.fromString(object.lastWithdrawRequestId)
         : Long.UZERO,
       disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -889,6 +601,8 @@ export const Pool = {
         message.lastWithdrawRequestId || Long.UZERO
       ).toString());
     message.disabled !== undefined && (obj.disabled = message.disabled);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -915,6 +629,10 @@ export const Pool = {
         ? Long.fromValue(object.lastWithdrawRequestId)
         : Long.UZERO;
     message.disabled = object.disabled ?? false;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -929,6 +647,7 @@ function createBaseDepositRequest(): DepositRequest {
     acceptedCoins: [],
     mintedPoolCoin: undefined,
     status: 0,
+    appId: Long.UZERO,
   };
 }
 
@@ -960,6 +679,9 @@ export const DepositRequest = {
     }
     if (message.status !== 0) {
       writer.uint32(64).int32(message.status);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(72).uint64(message.appId);
     }
     return writer;
   },
@@ -995,6 +717,9 @@ export const DepositRequest = {
         case 8:
           message.status = reader.int32() as any;
           break;
+        case 9:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1023,6 +748,7 @@ export const DepositRequest = {
         ? Coin.fromJSON(object.mintedPoolCoin)
         : undefined,
       status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1055,6 +781,8 @@ export const DepositRequest = {
         : undefined);
     message.status !== undefined &&
       (obj.status = requestStatusToJSON(message.status));
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -1084,6 +812,10 @@ export const DepositRequest = {
         ? Coin.fromPartial(object.mintedPoolCoin)
         : undefined;
     message.status = object.status ?? 0;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1097,6 +829,7 @@ function createBaseWithdrawRequest(): WithdrawRequest {
     poolCoin: undefined,
     withdrawnCoins: [],
     status: 0,
+    appId: Long.UZERO,
   };
 }
 
@@ -1125,6 +858,9 @@ export const WithdrawRequest = {
     }
     if (message.status !== 0) {
       writer.uint32(56).int32(message.status);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(64).uint64(message.appId);
     }
     return writer;
   },
@@ -1157,6 +893,9 @@ export const WithdrawRequest = {
         case 7:
           message.status = reader.int32() as any;
           break;
+        case 8:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1182,6 +921,7 @@ export const WithdrawRequest = {
         ? object.withdrawnCoins.map((e: any) => Coin.fromJSON(e))
         : [],
       status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1207,6 +947,8 @@ export const WithdrawRequest = {
     }
     message.status !== undefined &&
       (obj.status = requestStatusToJSON(message.status));
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -1234,6 +976,10 @@ export const WithdrawRequest = {
     message.withdrawnCoins =
       object.withdrawnCoins?.map((e) => Coin.fromPartial(e)) || [];
     message.status = object.status ?? 0;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1254,6 +1000,7 @@ function createBaseOrder(): Order {
     batchId: Long.UZERO,
     expireAt: undefined,
     status: 0,
+    appId: Long.UZERO,
   };
 }
 
@@ -1306,6 +1053,9 @@ export const Order = {
     }
     if (message.status !== 0) {
       writer.uint32(112).int32(message.status);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(120).uint64(message.appId);
     }
     return writer;
   },
@@ -1361,6 +1111,9 @@ export const Order = {
         case 14:
           message.status = reader.int32() as any;
           break;
+        case 15:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1401,6 +1154,7 @@ export const Order = {
         ? fromJsonTimestamp(object.expireAt)
         : undefined,
       status: isSet(object.status) ? orderStatusFromJSON(object.status) : 0,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1436,6 +1190,8 @@ export const Order = {
       (obj.expireAt = message.expireAt.toISOString());
     message.status !== undefined &&
       (obj.status = orderStatusToJSON(message.status));
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -1477,6 +1233,10 @@ export const Order = {
         : Long.UZERO;
     message.expireAt = object.expireAt ?? undefined;
     message.status = object.status ?? 0;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1639,6 +1399,7 @@ function createBasePoolLiquidityProvidersData(): PoolLiquidityProvidersData {
     bondedLockIds: [],
     liquidityProviders: {},
     queuedLiquidityProviders: [],
+    appId: Long.UZERO,
   };
 }
 
@@ -1663,6 +1424,9 @@ export const PoolLiquidityProvidersData = {
     });
     for (const v of message.queuedLiquidityProviders) {
       QueuedLiquidityProvider.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(40).uint64(message.appId);
     }
     return writer;
   },
@@ -1705,6 +1469,9 @@ export const PoolLiquidityProvidersData = {
             QueuedLiquidityProvider.decode(reader, reader.uint32())
           );
           break;
+        case 5:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1734,6 +1501,7 @@ export const PoolLiquidityProvidersData = {
             QueuedLiquidityProvider.fromJSON(e)
           )
         : [],
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1761,6 +1529,8 @@ export const PoolLiquidityProvidersData = {
     } else {
       obj.queuedLiquidityProviders = [];
     }
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -1786,6 +1556,10 @@ export const PoolLiquidityProvidersData = {
       object.queuedLiquidityProviders?.map((e) =>
         QueuedLiquidityProvider.fromPartial(e)
       ) || [];
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };

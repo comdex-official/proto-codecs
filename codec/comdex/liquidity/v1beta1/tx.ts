@@ -19,6 +19,7 @@ export interface MsgCreatePair {
   baseCoinDenom: string;
   /** quote_coin_denom specifies the quote coin denom of the pair. */
   quoteCoinDenom: string;
+  appId: Long;
 }
 
 export interface MsgCreatePairResponse {}
@@ -31,6 +32,7 @@ export interface MsgCreatePool {
   pairId: Long;
   /** deposit_coins specifies the amount of coins to deposit. */
   depositCoins: Coin[];
+  appId: Long;
 }
 
 /** MsgCreatePoolResponse defines the Msg/CreatePool response type. */
@@ -44,6 +46,7 @@ export interface MsgDeposit {
   poolId: Long;
   /** deposit_coins specifies the amount of coins to deposit. */
   depositCoins: Coin[];
+  appId: Long;
 }
 
 /** MsgDepositResponse defines the Msg/Deposit response type. */
@@ -57,6 +60,7 @@ export interface MsgWithdraw {
   poolId: Long;
   /** pool_coin specifies the pool coin that is a proof of liquidity provider for the pool */
   poolCoin?: Coin;
+  appId: Long;
 }
 
 /** MsgWithdrawResponse defines the Msg/Withdraw response type. */
@@ -80,6 +84,7 @@ export interface MsgLimitOrder {
   amount: string;
   /** order_lifespan specifies the order lifespan */
   orderLifespan?: Duration;
+  appId: Long;
 }
 
 /** MsgLimitOrderResponse defines the Msg/LimitOrder response type. */
@@ -101,6 +106,7 @@ export interface MsgMarketOrder {
   amount: string;
   /** order_lifespan specifies the order lifespan */
   orderLifespan?: Duration;
+  appId: Long;
 }
 
 /** MsgMarketOrderResponse defines the Msg/MarketOrder response type. */
@@ -114,6 +120,7 @@ export interface MsgCancelOrder {
   pairId: Long;
   /** order_id specifies the order id */
   orderId: Long;
+  appId: Long;
 }
 
 /** MsgCancelOrderResponse defines the Msg/CancelOrder response type. */
@@ -125,6 +132,7 @@ export interface MsgCancelAllOrders {
   orderer: string;
   /** pair_ids specifies pair ids to cancel orders */
   pairIds: Long[];
+  appId: Long;
 }
 
 /** MsgCancelAllOrdersResponse defines the Msg/CancelAllOrders response type. */
@@ -137,6 +145,7 @@ export interface MsgTokensSoftLock {
   poolId: Long;
   /** soft_lock_coin specifies coins to stake */
   softLockCoin?: Coin;
+  appId: Long;
 }
 
 /** MsgTokensSoftLockResponse  defines the Msg/MsgTokensSoftLockResponse response type. */
@@ -149,13 +158,19 @@ export interface MsgTokensSoftUnlock {
   poolId: Long;
   /** soft_unlock_coin specifies coins to stake */
   softUnlockCoin?: Coin;
+  appId: Long;
 }
 
 /** MsgTokensSoftUnlockResponse defines the Msg/MsgTokensSoftUnlockResponse response type. */
 export interface MsgTokensSoftUnlockResponse {}
 
 function createBaseMsgCreatePair(): MsgCreatePair {
-  return { creator: "", baseCoinDenom: "", quoteCoinDenom: "" };
+  return {
+    creator: "",
+    baseCoinDenom: "",
+    quoteCoinDenom: "",
+    appId: Long.UZERO,
+  };
 }
 
 export const MsgCreatePair = {
@@ -171,6 +186,9 @@ export const MsgCreatePair = {
     }
     if (message.quoteCoinDenom !== "") {
       writer.uint32(26).string(message.quoteCoinDenom);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(32).uint64(message.appId);
     }
     return writer;
   },
@@ -191,6 +209,9 @@ export const MsgCreatePair = {
         case 3:
           message.quoteCoinDenom = reader.string();
           break;
+        case 4:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -208,6 +229,7 @@ export const MsgCreatePair = {
       quoteCoinDenom: isSet(object.quoteCoinDenom)
         ? String(object.quoteCoinDenom)
         : "",
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -218,6 +240,8 @@ export const MsgCreatePair = {
       (obj.baseCoinDenom = message.baseCoinDenom);
     message.quoteCoinDenom !== undefined &&
       (obj.quoteCoinDenom = message.quoteCoinDenom);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -228,6 +252,10 @@ export const MsgCreatePair = {
     message.creator = object.creator ?? "";
     message.baseCoinDenom = object.baseCoinDenom ?? "";
     message.quoteCoinDenom = object.quoteCoinDenom ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -280,7 +308,12 @@ export const MsgCreatePairResponse = {
 };
 
 function createBaseMsgCreatePool(): MsgCreatePool {
-  return { creator: "", pairId: Long.UZERO, depositCoins: [] };
+  return {
+    creator: "",
+    pairId: Long.UZERO,
+    depositCoins: [],
+    appId: Long.UZERO,
+  };
 }
 
 export const MsgCreatePool = {
@@ -296,6 +329,9 @@ export const MsgCreatePool = {
     }
     for (const v of message.depositCoins) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(32).uint64(message.appId);
     }
     return writer;
   },
@@ -316,6 +352,9 @@ export const MsgCreatePool = {
         case 3:
           message.depositCoins.push(Coin.decode(reader, reader.uint32()));
           break;
+        case 4:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -333,6 +372,7 @@ export const MsgCreatePool = {
       depositCoins: Array.isArray(object?.depositCoins)
         ? object.depositCoins.map((e: any) => Coin.fromJSON(e))
         : [],
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -348,6 +388,8 @@ export const MsgCreatePool = {
     } else {
       obj.depositCoins = [];
     }
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -362,6 +404,10 @@ export const MsgCreatePool = {
         : Long.UZERO;
     message.depositCoins =
       object.depositCoins?.map((e) => Coin.fromPartial(e)) || [];
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -414,7 +460,12 @@ export const MsgCreatePoolResponse = {
 };
 
 function createBaseMsgDeposit(): MsgDeposit {
-  return { depositor: "", poolId: Long.UZERO, depositCoins: [] };
+  return {
+    depositor: "",
+    poolId: Long.UZERO,
+    depositCoins: [],
+    appId: Long.UZERO,
+  };
 }
 
 export const MsgDeposit = {
@@ -430,6 +481,9 @@ export const MsgDeposit = {
     }
     for (const v of message.depositCoins) {
       Coin.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(32).uint64(message.appId);
     }
     return writer;
   },
@@ -450,6 +504,9 @@ export const MsgDeposit = {
         case 3:
           message.depositCoins.push(Coin.decode(reader, reader.uint32()));
           break;
+        case 4:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -467,6 +524,7 @@ export const MsgDeposit = {
       depositCoins: Array.isArray(object?.depositCoins)
         ? object.depositCoins.map((e: any) => Coin.fromJSON(e))
         : [],
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -482,6 +540,8 @@ export const MsgDeposit = {
     } else {
       obj.depositCoins = [];
     }
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -496,6 +556,10 @@ export const MsgDeposit = {
         : Long.UZERO;
     message.depositCoins =
       object.depositCoins?.map((e) => Coin.fromPartial(e)) || [];
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -545,7 +609,12 @@ export const MsgDepositResponse = {
 };
 
 function createBaseMsgWithdraw(): MsgWithdraw {
-  return { withdrawer: "", poolId: Long.UZERO, poolCoin: undefined };
+  return {
+    withdrawer: "",
+    poolId: Long.UZERO,
+    poolCoin: undefined,
+    appId: Long.UZERO,
+  };
 }
 
 export const MsgWithdraw = {
@@ -561,6 +630,9 @@ export const MsgWithdraw = {
     }
     if (message.poolCoin !== undefined) {
       Coin.encode(message.poolCoin, writer.uint32(26).fork()).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(32).uint64(message.appId);
     }
     return writer;
   },
@@ -581,6 +653,9 @@ export const MsgWithdraw = {
         case 3:
           message.poolCoin = Coin.decode(reader, reader.uint32());
           break;
+        case 4:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -598,6 +673,7 @@ export const MsgWithdraw = {
       poolCoin: isSet(object.poolCoin)
         ? Coin.fromJSON(object.poolCoin)
         : undefined,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -610,6 +686,8 @@ export const MsgWithdraw = {
       (obj.poolCoin = message.poolCoin
         ? Coin.toJSON(message.poolCoin)
         : undefined);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -626,6 +704,10 @@ export const MsgWithdraw = {
       object.poolCoin !== undefined && object.poolCoin !== null
         ? Coin.fromPartial(object.poolCoin)
         : undefined;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -684,6 +766,7 @@ function createBaseMsgLimitOrder(): MsgLimitOrder {
     price: "",
     amount: "",
     orderLifespan: undefined,
+    appId: Long.UZERO,
   };
 }
 
@@ -715,6 +798,9 @@ export const MsgLimitOrder = {
     }
     if (message.orderLifespan !== undefined) {
       Duration.encode(message.orderLifespan, writer.uint32(66).fork()).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(72).uint64(message.appId);
     }
     return writer;
   },
@@ -750,6 +836,9 @@ export const MsgLimitOrder = {
         case 8:
           message.orderLifespan = Duration.decode(reader, reader.uint32());
           break;
+        case 9:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -778,6 +867,7 @@ export const MsgLimitOrder = {
       orderLifespan: isSet(object.orderLifespan)
         ? Duration.fromJSON(object.orderLifespan)
         : undefined,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -800,6 +890,8 @@ export const MsgLimitOrder = {
       (obj.orderLifespan = message.orderLifespan
         ? Duration.toJSON(message.orderLifespan)
         : undefined);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -824,6 +916,10 @@ export const MsgLimitOrder = {
       object.orderLifespan !== undefined && object.orderLifespan !== null
         ? Duration.fromPartial(object.orderLifespan)
         : undefined;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -884,6 +980,7 @@ function createBaseMsgMarketOrder(): MsgMarketOrder {
     demandCoinDenom: "",
     amount: "",
     orderLifespan: undefined,
+    appId: Long.UZERO,
   };
 }
 
@@ -912,6 +1009,9 @@ export const MsgMarketOrder = {
     }
     if (message.orderLifespan !== undefined) {
       Duration.encode(message.orderLifespan, writer.uint32(58).fork()).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(64).uint64(message.appId);
     }
     return writer;
   },
@@ -944,6 +1044,9 @@ export const MsgMarketOrder = {
         case 7:
           message.orderLifespan = Duration.decode(reader, reader.uint32());
           break;
+        case 8:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -971,6 +1074,7 @@ export const MsgMarketOrder = {
       orderLifespan: isSet(object.orderLifespan)
         ? Duration.fromJSON(object.orderLifespan)
         : undefined,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -992,6 +1096,8 @@ export const MsgMarketOrder = {
       (obj.orderLifespan = message.orderLifespan
         ? Duration.toJSON(message.orderLifespan)
         : undefined);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -1015,6 +1121,10 @@ export const MsgMarketOrder = {
       object.orderLifespan !== undefined && object.orderLifespan !== null
         ? Duration.fromPartial(object.orderLifespan)
         : undefined;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1067,7 +1177,12 @@ export const MsgMarketOrderResponse = {
 };
 
 function createBaseMsgCancelOrder(): MsgCancelOrder {
-  return { orderer: "", pairId: Long.UZERO, orderId: Long.UZERO };
+  return {
+    orderer: "",
+    pairId: Long.UZERO,
+    orderId: Long.UZERO,
+    appId: Long.UZERO,
+  };
 }
 
 export const MsgCancelOrder = {
@@ -1083,6 +1198,9 @@ export const MsgCancelOrder = {
     }
     if (!message.orderId.isZero()) {
       writer.uint32(24).uint64(message.orderId);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(32).uint64(message.appId);
     }
     return writer;
   },
@@ -1103,6 +1221,9 @@ export const MsgCancelOrder = {
         case 3:
           message.orderId = reader.uint64() as Long;
           break;
+        case 4:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1120,6 +1241,7 @@ export const MsgCancelOrder = {
       orderId: isSet(object.orderId)
         ? Long.fromString(object.orderId)
         : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1130,6 +1252,8 @@ export const MsgCancelOrder = {
       (obj.pairId = (message.pairId || Long.UZERO).toString());
     message.orderId !== undefined &&
       (obj.orderId = (message.orderId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -1145,6 +1269,10 @@ export const MsgCancelOrder = {
     message.orderId =
       object.orderId !== undefined && object.orderId !== null
         ? Long.fromValue(object.orderId)
+        : Long.UZERO;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     return message;
   },
@@ -1198,7 +1326,7 @@ export const MsgCancelOrderResponse = {
 };
 
 function createBaseMsgCancelAllOrders(): MsgCancelAllOrders {
-  return { orderer: "", pairIds: [] };
+  return { orderer: "", pairIds: [], appId: Long.UZERO };
 }
 
 export const MsgCancelAllOrders = {
@@ -1214,6 +1342,9 @@ export const MsgCancelAllOrders = {
       writer.uint64(v);
     }
     writer.ldelim();
+    if (!message.appId.isZero()) {
+      writer.uint32(24).uint64(message.appId);
+    }
     return writer;
   },
 
@@ -1237,6 +1368,9 @@ export const MsgCancelAllOrders = {
             message.pairIds.push(reader.uint64() as Long);
           }
           break;
+        case 3:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1251,6 +1385,7 @@ export const MsgCancelAllOrders = {
       pairIds: Array.isArray(object?.pairIds)
         ? object.pairIds.map((e: any) => Long.fromString(e))
         : [],
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1262,6 +1397,8 @@ export const MsgCancelAllOrders = {
     } else {
       obj.pairIds = [];
     }
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -1271,6 +1408,10 @@ export const MsgCancelAllOrders = {
     const message = createBaseMsgCancelAllOrders();
     message.orderer = object.orderer ?? "";
     message.pairIds = object.pairIds?.map((e) => Long.fromValue(e)) || [];
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1323,7 +1464,12 @@ export const MsgCancelAllOrdersResponse = {
 };
 
 function createBaseMsgTokensSoftLock(): MsgTokensSoftLock {
-  return { depositor: "", poolId: Long.UZERO, softLockCoin: undefined };
+  return {
+    depositor: "",
+    poolId: Long.UZERO,
+    softLockCoin: undefined,
+    appId: Long.UZERO,
+  };
 }
 
 export const MsgTokensSoftLock = {
@@ -1339,6 +1485,9 @@ export const MsgTokensSoftLock = {
     }
     if (message.softLockCoin !== undefined) {
       Coin.encode(message.softLockCoin, writer.uint32(26).fork()).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(32).uint64(message.appId);
     }
     return writer;
   },
@@ -1359,6 +1508,9 @@ export const MsgTokensSoftLock = {
         case 3:
           message.softLockCoin = Coin.decode(reader, reader.uint32());
           break;
+        case 4:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1376,6 +1528,7 @@ export const MsgTokensSoftLock = {
       softLockCoin: isSet(object.softLockCoin)
         ? Coin.fromJSON(object.softLockCoin)
         : undefined,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1388,6 +1541,8 @@ export const MsgTokensSoftLock = {
       (obj.softLockCoin = message.softLockCoin
         ? Coin.toJSON(message.softLockCoin)
         : undefined);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -1404,6 +1559,10 @@ export const MsgTokensSoftLock = {
       object.softLockCoin !== undefined && object.softLockCoin !== null
         ? Coin.fromPartial(object.softLockCoin)
         : undefined;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -1456,7 +1615,12 @@ export const MsgTokensSoftLockResponse = {
 };
 
 function createBaseMsgTokensSoftUnlock(): MsgTokensSoftUnlock {
-  return { depositor: "", poolId: Long.UZERO, softUnlockCoin: undefined };
+  return {
+    depositor: "",
+    poolId: Long.UZERO,
+    softUnlockCoin: undefined,
+    appId: Long.UZERO,
+  };
 }
 
 export const MsgTokensSoftUnlock = {
@@ -1472,6 +1636,9 @@ export const MsgTokensSoftUnlock = {
     }
     if (message.softUnlockCoin !== undefined) {
       Coin.encode(message.softUnlockCoin, writer.uint32(26).fork()).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(32).uint64(message.appId);
     }
     return writer;
   },
@@ -1492,6 +1659,9 @@ export const MsgTokensSoftUnlock = {
         case 3:
           message.softUnlockCoin = Coin.decode(reader, reader.uint32());
           break;
+        case 4:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1509,6 +1679,7 @@ export const MsgTokensSoftUnlock = {
       softUnlockCoin: isSet(object.softUnlockCoin)
         ? Coin.fromJSON(object.softUnlockCoin)
         : undefined,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1521,6 +1692,8 @@ export const MsgTokensSoftUnlock = {
       (obj.softUnlockCoin = message.softUnlockCoin
         ? Coin.toJSON(message.softUnlockCoin)
         : undefined);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -1537,6 +1710,10 @@ export const MsgTokensSoftUnlock = {
       object.softUnlockCoin !== undefined && object.softUnlockCoin !== null
         ? Coin.fromPartial(object.softUnlockCoin)
         : undefined;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
