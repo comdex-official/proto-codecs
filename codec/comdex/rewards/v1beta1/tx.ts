@@ -16,6 +16,7 @@ export interface MsgCreateGauge {
   totalTriggers: Long;
   startTime?: Date;
   liquidityMetaData?: LiquidtyGaugeMetaData | undefined;
+  appId: Long;
 }
 
 export interface MsgCreateGaugeResponse {}
@@ -81,6 +82,7 @@ function createBaseMsgCreateGauge(): MsgCreateGauge {
     totalTriggers: Long.UZERO,
     startTime: undefined,
     liquidityMetaData: undefined,
+    appId: Long.UZERO,
   };
 }
 
@@ -119,6 +121,9 @@ export const MsgCreateGauge = {
         writer.uint32(58).fork()
       ).ldelim();
     }
+    if (!message.appId.isZero()) {
+      writer.uint32(64).uint64(message.appId);
+    }
     return writer;
   },
 
@@ -155,6 +160,9 @@ export const MsgCreateGauge = {
             reader.uint32()
           );
           break;
+        case 8:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -184,6 +192,7 @@ export const MsgCreateGauge = {
       liquidityMetaData: isSet(object.liquidityMetaData)
         ? LiquidtyGaugeMetaData.fromJSON(object.liquidityMetaData)
         : undefined,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -208,6 +217,8 @@ export const MsgCreateGauge = {
       (obj.liquidityMetaData = message.liquidityMetaData
         ? LiquidtyGaugeMetaData.toJSON(message.liquidityMetaData)
         : undefined);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -238,6 +249,10 @@ export const MsgCreateGauge = {
       object.liquidityMetaData !== null
         ? LiquidtyGaugeMetaData.fromPartial(object.liquidityMetaData)
         : undefined;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };

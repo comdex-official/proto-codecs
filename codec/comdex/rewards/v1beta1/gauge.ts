@@ -27,6 +27,7 @@ export interface Gauge {
   isActive: boolean;
   forSwapFee: boolean;
   liquidityMetaData?: LiquidtyGaugeMetaData | undefined;
+  appId: Long;
 }
 
 export interface GaugeByTriggerDuration {
@@ -151,6 +152,7 @@ function createBaseGauge(): Gauge {
     isActive: false,
     forSwapFee: false,
     liquidityMetaData: undefined,
+    appId: Long.UZERO,
   };
 }
 
@@ -206,6 +208,9 @@ export const Gauge = {
         message.liquidityMetaData,
         writer.uint32(106).fork()
       ).ldelim();
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(112).uint64(message.appId);
     }
     return writer;
   },
@@ -263,6 +268,9 @@ export const Gauge = {
             reader.uint32()
           );
           break;
+        case 14:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -304,6 +312,7 @@ export const Gauge = {
       liquidityMetaData: isSet(object.liquidityMetaData)
         ? LiquidtyGaugeMetaData.fromJSON(object.liquidityMetaData)
         : undefined,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -340,6 +349,8 @@ export const Gauge = {
       (obj.liquidityMetaData = message.liquidityMetaData
         ? LiquidtyGaugeMetaData.toJSON(message.liquidityMetaData)
         : undefined);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -384,6 +395,10 @@ export const Gauge = {
       object.liquidityMetaData !== null
         ? LiquidtyGaugeMetaData.fromPartial(object.liquidityMetaData)
         : undefined;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
