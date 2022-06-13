@@ -115,6 +115,7 @@ function createBaseGauge() {
         isActive: false,
         forSwapFee: false,
         liquidityMetaData: undefined,
+        appId: long_1.default.UZERO,
     };
 }
 exports.Gauge = {
@@ -157,6 +158,9 @@ exports.Gauge = {
         }
         if (message.liquidityMetaData !== undefined) {
             exports.LiquidtyGaugeMetaData.encode(message.liquidityMetaData, writer.uint32(106).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(112).uint64(message.appId);
         }
         return writer;
     },
@@ -206,6 +210,9 @@ exports.Gauge = {
                 case 13:
                     message.liquidityMetaData = exports.LiquidtyGaugeMetaData.decode(reader, reader.uint32());
                     break;
+                case 14:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -246,6 +253,7 @@ exports.Gauge = {
             liquidityMetaData: isSet(object.liquidityMetaData)
                 ? exports.LiquidtyGaugeMetaData.fromJSON(object.liquidityMetaData)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -281,6 +289,8 @@ exports.Gauge = {
             (obj.liquidityMetaData = message.liquidityMetaData
                 ? exports.LiquidtyGaugeMetaData.toJSON(message.liquidityMetaData)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -325,6 +335,10 @@ exports.Gauge = {
                 object.liquidityMetaData !== null
                 ? exports.LiquidtyGaugeMetaData.fromPartial(object.liquidityMetaData)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };

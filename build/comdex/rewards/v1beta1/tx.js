@@ -21,6 +21,7 @@ function createBaseMsgCreateGauge() {
         totalTriggers: long_1.default.UZERO,
         startTime: undefined,
         liquidityMetaData: undefined,
+        appId: long_1.default.UZERO,
     };
 }
 exports.MsgCreateGauge = {
@@ -45,6 +46,9 @@ exports.MsgCreateGauge = {
         }
         if (message.liquidityMetaData !== undefined) {
             gauge_1.LiquidtyGaugeMetaData.encode(message.liquidityMetaData, writer.uint32(58).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(64).uint64(message.appId);
         }
         return writer;
     },
@@ -76,6 +80,9 @@ exports.MsgCreateGauge = {
                 case 7:
                     message.liquidityMetaData = gauge_1.LiquidtyGaugeMetaData.decode(reader, reader.uint32());
                     break;
+                case 8:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -104,6 +111,7 @@ exports.MsgCreateGauge = {
             liquidityMetaData: isSet(object.liquidityMetaData)
                 ? gauge_1.LiquidtyGaugeMetaData.fromJSON(object.liquidityMetaData)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -127,6 +135,8 @@ exports.MsgCreateGauge = {
             (obj.liquidityMetaData = message.liquidityMetaData
                 ? gauge_1.LiquidtyGaugeMetaData.toJSON(message.liquidityMetaData)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -155,6 +165,10 @@ exports.MsgCreateGauge = {
                 object.liquidityMetaData !== null
                 ? gauge_1.LiquidtyGaugeMetaData.fromPartial(object.liquidityMetaData)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };

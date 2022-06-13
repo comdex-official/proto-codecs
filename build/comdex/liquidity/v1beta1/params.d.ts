@@ -1,197 +1,74 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
-export declare const protobufPackage = "comdex.rewards.v1beta1";
-export interface LiquidtyGaugeMetaData {
-    poolId: Long;
-    isMasterPool: boolean;
-    childPoolIds: Long[];
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+export declare const protobufPackage = "comdex.liquidity.v1beta1";
+/** Params defines the parameters for the liquidity module. */
+export interface Params {
 }
-export interface Gauge {
-    id: Long;
-    from: string;
-    createdAt?: Date;
-    startTime?: Date;
-    gaugeTypeId: Long;
-    triggerDuration?: Duration;
-    depositAmount?: Coin;
-    totalTriggers: Long;
-    triggeredCount: Long;
-    distributedAmount?: Coin;
-    isActive: boolean;
-    forSwapFee: boolean;
-    liquidityMetaData?: LiquidtyGaugeMetaData | undefined;
+/** Params defines the parameters for the liquidity module. */
+export interface GenericParams {
+    batchSize: Long;
+    tickPrecision: Long;
+    feeCollectorAddress: string;
+    dustCollectorAddress: string;
+    minInitialPoolCoinSupply: string;
+    pairCreationFee: Coin[];
+    poolCreationFee: Coin[];
+    minInitialDepositAmount: string;
+    maxPriceLimitRatio: string;
+    maxOrderLifespan?: Duration;
+    swapFeeRate: string;
+    withdrawFeeRate: string;
+    depositExtraGas: Long;
+    withdrawExtraGas: Long;
+    orderExtraGas: Long;
+    swapFeeDistrDenom: string;
+    swapFeeBurnRate: string;
     appId: Long;
 }
-export interface GaugeByTriggerDuration {
-    triggerDuration?: Duration;
-    gaugeIds: Long[];
-}
-export declare const LiquidtyGaugeMetaData: {
-    encode(message: LiquidtyGaugeMetaData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LiquidtyGaugeMetaData;
-    fromJSON(object: any): LiquidtyGaugeMetaData;
-    toJSON(message: LiquidtyGaugeMetaData): unknown;
-    fromPartial<I extends {
-        poolId?: string | number | Long.Long | undefined;
-        isMasterPool?: boolean | undefined;
-        childPoolIds?: (string | number | Long.Long)[] | undefined;
-    } & {
-        poolId?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["poolId"], keyof Long.Long>, never>) | undefined;
-        isMasterPool?: boolean | undefined;
-        childPoolIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["childPoolIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["childPoolIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof LiquidtyGaugeMetaData>, never>>(object: I): LiquidtyGaugeMetaData;
+export declare const Params: {
+    encode(_: Params, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Params;
+    fromJSON(_: any): Params;
+    toJSON(_: Params): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): Params;
 };
-export declare const Gauge: {
-    encode(message: Gauge, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Gauge;
-    fromJSON(object: any): Gauge;
-    toJSON(message: Gauge): unknown;
+export declare const GenericParams: {
+    encode(message: GenericParams, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): GenericParams;
+    fromJSON(object: any): GenericParams;
+    toJSON(message: GenericParams): unknown;
     fromPartial<I extends {
-        id?: string | number | Long.Long | undefined;
-        from?: string | undefined;
-        createdAt?: Date | undefined;
-        startTime?: Date | undefined;
-        gaugeTypeId?: string | number | Long.Long | undefined;
-        triggerDuration?: {
+        batchSize?: string | number | Long.Long | undefined;
+        tickPrecision?: string | number | Long.Long | undefined;
+        feeCollectorAddress?: string | undefined;
+        dustCollectorAddress?: string | undefined;
+        minInitialPoolCoinSupply?: string | undefined;
+        pairCreationFee?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+        poolCreationFee?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+        minInitialDepositAmount?: string | undefined;
+        maxPriceLimitRatio?: string | undefined;
+        maxOrderLifespan?: {
             seconds?: string | number | Long.Long | undefined;
             nanos?: number | undefined;
         } | undefined;
-        depositAmount?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
-        totalTriggers?: string | number | Long.Long | undefined;
-        triggeredCount?: string | number | Long.Long | undefined;
-        distributedAmount?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
-        isActive?: boolean | undefined;
-        forSwapFee?: boolean | undefined;
-        liquidityMetaData?: {
-            poolId?: string | number | Long.Long | undefined;
-            isMasterPool?: boolean | undefined;
-            childPoolIds?: (string | number | Long.Long)[] | undefined;
-        } | undefined;
+        swapFeeRate?: string | undefined;
+        withdrawFeeRate?: string | undefined;
+        depositExtraGas?: string | number | Long.Long | undefined;
+        withdrawExtraGas?: string | number | Long.Long | undefined;
+        orderExtraGas?: string | number | Long.Long | undefined;
+        swapFeeDistrDenom?: string | undefined;
+        swapFeeBurnRate?: string | undefined;
         appId?: string | number | Long.Long | undefined;
     } & {
-        id?: string | number | (Long.Long & {
+        batchSize?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -248,11 +125,8 @@ export declare const Gauge: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["id"], keyof Long.Long>, never>) | undefined;
-        from?: string | undefined;
-        createdAt?: Date | undefined;
-        startTime?: Date | undefined;
-        gaugeTypeId?: string | number | (Long.Long & {
+        } & Record<Exclude<keyof I["batchSize"], keyof Long.Long>, never>) | undefined;
+        tickPrecision?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -309,8 +183,39 @@ export declare const Gauge: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["gaugeTypeId"], keyof Long.Long>, never>) | undefined;
-        triggerDuration?: ({
+        } & Record<Exclude<keyof I["tickPrecision"], keyof Long.Long>, never>) | undefined;
+        feeCollectorAddress?: string | undefined;
+        dustCollectorAddress?: string | undefined;
+        minInitialPoolCoinSupply?: string | undefined;
+        pairCreationFee?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["pairCreationFee"][number], keyof Coin>, never>)[] & Record<Exclude<keyof I["pairCreationFee"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>, never>) | undefined;
+        poolCreationFee?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["poolCreationFee"][number], keyof Coin>, never>)[] & Record<Exclude<keyof I["poolCreationFee"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>, never>) | undefined;
+        minInitialDepositAmount?: string | undefined;
+        maxPriceLimitRatio?: string | undefined;
+        maxOrderLifespan?: ({
             seconds?: string | number | Long.Long | undefined;
             nanos?: number | undefined;
         } & {
@@ -371,17 +276,12 @@ export declare const Gauge: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["triggerDuration"]["seconds"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["maxOrderLifespan"]["seconds"], keyof Long.Long>, never>) | undefined;
             nanos?: number | undefined;
-        } & Record<Exclude<keyof I["triggerDuration"], keyof Duration>, never>) | undefined;
-        depositAmount?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & Record<Exclude<keyof I["depositAmount"], keyof Coin>, never>) | undefined;
-        totalTriggers?: string | number | (Long.Long & {
+        } & Record<Exclude<keyof I["maxOrderLifespan"], keyof Duration>, never>) | undefined;
+        swapFeeRate?: string | undefined;
+        withdrawFeeRate?: string | undefined;
+        depositExtraGas?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -438,8 +338,8 @@ export declare const Gauge: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["totalTriggers"], keyof Long.Long>, never>) | undefined;
-        triggeredCount?: string | number | (Long.Long & {
+        } & Record<Exclude<keyof I["depositExtraGas"], keyof Long.Long>, never>) | undefined;
+        withdrawExtraGas?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -496,139 +396,67 @@ export declare const Gauge: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["triggeredCount"], keyof Long.Long>, never>) | undefined;
-        distributedAmount?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & Record<Exclude<keyof I["distributedAmount"], keyof Coin>, never>) | undefined;
-        isActive?: boolean | undefined;
-        forSwapFee?: boolean | undefined;
-        liquidityMetaData?: ({
-            poolId?: string | number | Long.Long | undefined;
-            isMasterPool?: boolean | undefined;
-            childPoolIds?: (string | number | Long.Long)[] | undefined;
-        } & {
-            poolId?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["liquidityMetaData"]["poolId"], keyof Long.Long>, never>) | undefined;
-            isMasterPool?: boolean | undefined;
-            childPoolIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["liquidityMetaData"]["childPoolIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["liquidityMetaData"]["childPoolIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["liquidityMetaData"], keyof LiquidtyGaugeMetaData>, never>) | undefined;
+        } & Record<Exclude<keyof I["withdrawExtraGas"], keyof Long.Long>, never>) | undefined;
+        orderExtraGas?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["orderExtraGas"], keyof Long.Long>, never>) | undefined;
+        swapFeeDistrDenom?: string | undefined;
+        swapFeeBurnRate?: string | undefined;
         appId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -687,143 +515,7 @@ export declare const Gauge: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof Gauge>, never>>(object: I): Gauge;
-};
-export declare const GaugeByTriggerDuration: {
-    encode(message: GaugeByTriggerDuration, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): GaugeByTriggerDuration;
-    fromJSON(object: any): GaugeByTriggerDuration;
-    toJSON(message: GaugeByTriggerDuration): unknown;
-    fromPartial<I extends {
-        triggerDuration?: {
-            seconds?: string | number | Long.Long | undefined;
-            nanos?: number | undefined;
-        } | undefined;
-        gaugeIds?: (string | number | Long.Long)[] | undefined;
-    } & {
-        triggerDuration?: ({
-            seconds?: string | number | Long.Long | undefined;
-            nanos?: number | undefined;
-        } & {
-            seconds?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["triggerDuration"]["seconds"], keyof Long.Long>, never>) | undefined;
-            nanos?: number | undefined;
-        } & Record<Exclude<keyof I["triggerDuration"], keyof Duration>, never>) | undefined;
-        gaugeIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["gaugeIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["gaugeIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof GaugeByTriggerDuration>, never>>(object: I): GaugeByTriggerDuration;
+    } & Record<Exclude<keyof I, keyof GenericParams>, never>>(object: I): GenericParams;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

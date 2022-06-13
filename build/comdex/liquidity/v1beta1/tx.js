@@ -12,7 +12,12 @@ const liquidity_1 = require("./liquidity");
 const duration_1 = require("../../../google/protobuf/duration");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
 function createBaseMsgCreatePair() {
-    return { creator: "", baseCoinDenom: "", quoteCoinDenom: "" };
+    return {
+        creator: "",
+        baseCoinDenom: "",
+        quoteCoinDenom: "",
+        appId: long_1.default.UZERO,
+    };
 }
 exports.MsgCreatePair = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -24,6 +29,9 @@ exports.MsgCreatePair = {
         }
         if (message.quoteCoinDenom !== "") {
             writer.uint32(26).string(message.quoteCoinDenom);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         return writer;
     },
@@ -43,6 +51,9 @@ exports.MsgCreatePair = {
                 case 3:
                     message.quoteCoinDenom = reader.string();
                     break;
+                case 4:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -59,6 +70,7 @@ exports.MsgCreatePair = {
             quoteCoinDenom: isSet(object.quoteCoinDenom)
                 ? String(object.quoteCoinDenom)
                 : "",
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -68,6 +80,8 @@ exports.MsgCreatePair = {
             (obj.baseCoinDenom = message.baseCoinDenom);
         message.quoteCoinDenom !== undefined &&
             (obj.quoteCoinDenom = message.quoteCoinDenom);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -76,6 +90,10 @@ exports.MsgCreatePair = {
         message.creator = (_a = object.creator) !== null && _a !== void 0 ? _a : "";
         message.baseCoinDenom = (_b = object.baseCoinDenom) !== null && _b !== void 0 ? _b : "";
         message.quoteCoinDenom = (_c = object.quoteCoinDenom) !== null && _c !== void 0 ? _c : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -113,7 +131,12 @@ exports.MsgCreatePairResponse = {
     },
 };
 function createBaseMsgCreatePool() {
-    return { creator: "", pairId: long_1.default.UZERO, depositCoins: [] };
+    return {
+        creator: "",
+        pairId: long_1.default.UZERO,
+        depositCoins: [],
+        appId: long_1.default.UZERO,
+    };
 }
 exports.MsgCreatePool = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -125,6 +148,9 @@ exports.MsgCreatePool = {
         }
         for (const v of message.depositCoins) {
             coin_1.Coin.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         return writer;
     },
@@ -144,6 +170,9 @@ exports.MsgCreatePool = {
                 case 3:
                     message.depositCoins.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
+                case 4:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -160,6 +189,7 @@ exports.MsgCreatePool = {
             depositCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.depositCoins)
                 ? object.depositCoins.map((e) => coin_1.Coin.fromJSON(e))
                 : [],
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -173,6 +203,8 @@ exports.MsgCreatePool = {
         else {
             obj.depositCoins = [];
         }
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -185,6 +217,10 @@ exports.MsgCreatePool = {
                 : long_1.default.UZERO;
         message.depositCoins =
             ((_b = object.depositCoins) === null || _b === void 0 ? void 0 : _b.map((e) => coin_1.Coin.fromPartial(e))) || [];
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -222,7 +258,12 @@ exports.MsgCreatePoolResponse = {
     },
 };
 function createBaseMsgDeposit() {
-    return { depositor: "", poolId: long_1.default.UZERO, depositCoins: [] };
+    return {
+        depositor: "",
+        poolId: long_1.default.UZERO,
+        depositCoins: [],
+        appId: long_1.default.UZERO,
+    };
 }
 exports.MsgDeposit = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -234,6 +275,9 @@ exports.MsgDeposit = {
         }
         for (const v of message.depositCoins) {
             coin_1.Coin.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         return writer;
     },
@@ -253,6 +297,9 @@ exports.MsgDeposit = {
                 case 3:
                     message.depositCoins.push(coin_1.Coin.decode(reader, reader.uint32()));
                     break;
+                case 4:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -269,6 +316,7 @@ exports.MsgDeposit = {
             depositCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.depositCoins)
                 ? object.depositCoins.map((e) => coin_1.Coin.fromJSON(e))
                 : [],
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -282,6 +330,8 @@ exports.MsgDeposit = {
         else {
             obj.depositCoins = [];
         }
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -294,6 +344,10 @@ exports.MsgDeposit = {
                 : long_1.default.UZERO;
         message.depositCoins =
             ((_b = object.depositCoins) === null || _b === void 0 ? void 0 : _b.map((e) => coin_1.Coin.fromPartial(e))) || [];
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -331,7 +385,12 @@ exports.MsgDepositResponse = {
     },
 };
 function createBaseMsgWithdraw() {
-    return { withdrawer: "", poolId: long_1.default.UZERO, poolCoin: undefined };
+    return {
+        withdrawer: "",
+        poolId: long_1.default.UZERO,
+        poolCoin: undefined,
+        appId: long_1.default.UZERO,
+    };
 }
 exports.MsgWithdraw = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -343,6 +402,9 @@ exports.MsgWithdraw = {
         }
         if (message.poolCoin !== undefined) {
             coin_1.Coin.encode(message.poolCoin, writer.uint32(26).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         return writer;
     },
@@ -362,6 +424,9 @@ exports.MsgWithdraw = {
                 case 3:
                     message.poolCoin = coin_1.Coin.decode(reader, reader.uint32());
                     break;
+                case 4:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -378,6 +443,7 @@ exports.MsgWithdraw = {
             poolCoin: isSet(object.poolCoin)
                 ? coin_1.Coin.fromJSON(object.poolCoin)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -389,6 +455,8 @@ exports.MsgWithdraw = {
             (obj.poolCoin = message.poolCoin
                 ? coin_1.Coin.toJSON(message.poolCoin)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -403,6 +471,10 @@ exports.MsgWithdraw = {
             object.poolCoin !== undefined && object.poolCoin !== null
                 ? coin_1.Coin.fromPartial(object.poolCoin)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -449,6 +521,7 @@ function createBaseMsgLimitOrder() {
         price: "",
         amount: "",
         orderLifespan: undefined,
+        appId: long_1.default.UZERO,
     };
 }
 exports.MsgLimitOrder = {
@@ -476,6 +549,9 @@ exports.MsgLimitOrder = {
         }
         if (message.orderLifespan !== undefined) {
             duration_1.Duration.encode(message.orderLifespan, writer.uint32(66).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(72).uint64(message.appId);
         }
         return writer;
     },
@@ -510,6 +586,9 @@ exports.MsgLimitOrder = {
                 case 8:
                     message.orderLifespan = duration_1.Duration.decode(reader, reader.uint32());
                     break;
+                case 9:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -537,6 +616,7 @@ exports.MsgLimitOrder = {
             orderLifespan: isSet(object.orderLifespan)
                 ? duration_1.Duration.fromJSON(object.orderLifespan)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -558,6 +638,8 @@ exports.MsgLimitOrder = {
             (obj.orderLifespan = message.orderLifespan
                 ? duration_1.Duration.toJSON(message.orderLifespan)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -580,6 +662,10 @@ exports.MsgLimitOrder = {
             object.orderLifespan !== undefined && object.orderLifespan !== null
                 ? duration_1.Duration.fromPartial(object.orderLifespan)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -625,6 +711,7 @@ function createBaseMsgMarketOrder() {
         demandCoinDenom: "",
         amount: "",
         orderLifespan: undefined,
+        appId: long_1.default.UZERO,
     };
 }
 exports.MsgMarketOrder = {
@@ -649,6 +736,9 @@ exports.MsgMarketOrder = {
         }
         if (message.orderLifespan !== undefined) {
             duration_1.Duration.encode(message.orderLifespan, writer.uint32(58).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(64).uint64(message.appId);
         }
         return writer;
     },
@@ -680,6 +770,9 @@ exports.MsgMarketOrder = {
                 case 7:
                     message.orderLifespan = duration_1.Duration.decode(reader, reader.uint32());
                     break;
+                case 8:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -706,6 +799,7 @@ exports.MsgMarketOrder = {
             orderLifespan: isSet(object.orderLifespan)
                 ? duration_1.Duration.fromJSON(object.orderLifespan)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -726,6 +820,8 @@ exports.MsgMarketOrder = {
             (obj.orderLifespan = message.orderLifespan
                 ? duration_1.Duration.toJSON(message.orderLifespan)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -747,6 +843,10 @@ exports.MsgMarketOrder = {
             object.orderLifespan !== undefined && object.orderLifespan !== null
                 ? duration_1.Duration.fromPartial(object.orderLifespan)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -784,7 +884,12 @@ exports.MsgMarketOrderResponse = {
     },
 };
 function createBaseMsgCancelOrder() {
-    return { orderer: "", pairId: long_1.default.UZERO, orderId: long_1.default.UZERO };
+    return {
+        orderer: "",
+        pairId: long_1.default.UZERO,
+        orderId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
+    };
 }
 exports.MsgCancelOrder = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -796,6 +901,9 @@ exports.MsgCancelOrder = {
         }
         if (!message.orderId.isZero()) {
             writer.uint32(24).uint64(message.orderId);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         return writer;
     },
@@ -815,6 +923,9 @@ exports.MsgCancelOrder = {
                 case 3:
                     message.orderId = reader.uint64();
                     break;
+                case 4:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -831,6 +942,7 @@ exports.MsgCancelOrder = {
             orderId: isSet(object.orderId)
                 ? long_1.default.fromString(object.orderId)
                 : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -840,6 +952,8 @@ exports.MsgCancelOrder = {
             (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
         message.orderId !== undefined &&
             (obj.orderId = (message.orderId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -853,6 +967,10 @@ exports.MsgCancelOrder = {
         message.orderId =
             object.orderId !== undefined && object.orderId !== null
                 ? long_1.default.fromValue(object.orderId)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -891,7 +1009,7 @@ exports.MsgCancelOrderResponse = {
     },
 };
 function createBaseMsgCancelAllOrders() {
-    return { orderer: "", pairIds: [] };
+    return { orderer: "", pairIds: [], appId: long_1.default.UZERO };
 }
 exports.MsgCancelAllOrders = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -903,6 +1021,9 @@ exports.MsgCancelAllOrders = {
             writer.uint64(v);
         }
         writer.ldelim();
+        if (!message.appId.isZero()) {
+            writer.uint32(24).uint64(message.appId);
+        }
         return writer;
     },
     decode(input, length) {
@@ -926,6 +1047,9 @@ exports.MsgCancelAllOrders = {
                         message.pairIds.push(reader.uint64());
                     }
                     break;
+                case 3:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -939,6 +1063,7 @@ exports.MsgCancelAllOrders = {
             pairIds: Array.isArray(object === null || object === void 0 ? void 0 : object.pairIds)
                 ? object.pairIds.map((e) => long_1.default.fromString(e))
                 : [],
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -950,6 +1075,8 @@ exports.MsgCancelAllOrders = {
         else {
             obj.pairIds = [];
         }
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -957,6 +1084,10 @@ exports.MsgCancelAllOrders = {
         const message = createBaseMsgCancelAllOrders();
         message.orderer = (_a = object.orderer) !== null && _a !== void 0 ? _a : "";
         message.pairIds = ((_b = object.pairIds) === null || _b === void 0 ? void 0 : _b.map((e) => long_1.default.fromValue(e))) || [];
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -994,7 +1125,12 @@ exports.MsgCancelAllOrdersResponse = {
     },
 };
 function createBaseMsgTokensSoftLock() {
-    return { depositor: "", poolId: long_1.default.UZERO, softLockCoin: undefined };
+    return {
+        depositor: "",
+        poolId: long_1.default.UZERO,
+        softLockCoin: undefined,
+        appId: long_1.default.UZERO,
+    };
 }
 exports.MsgTokensSoftLock = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -1006,6 +1142,9 @@ exports.MsgTokensSoftLock = {
         }
         if (message.softLockCoin !== undefined) {
             coin_1.Coin.encode(message.softLockCoin, writer.uint32(26).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         return writer;
     },
@@ -1025,6 +1164,9 @@ exports.MsgTokensSoftLock = {
                 case 3:
                     message.softLockCoin = coin_1.Coin.decode(reader, reader.uint32());
                     break;
+                case 4:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1041,6 +1183,7 @@ exports.MsgTokensSoftLock = {
             softLockCoin: isSet(object.softLockCoin)
                 ? coin_1.Coin.fromJSON(object.softLockCoin)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1052,6 +1195,8 @@ exports.MsgTokensSoftLock = {
             (obj.softLockCoin = message.softLockCoin
                 ? coin_1.Coin.toJSON(message.softLockCoin)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1066,6 +1211,10 @@ exports.MsgTokensSoftLock = {
             object.softLockCoin !== undefined && object.softLockCoin !== null
                 ? coin_1.Coin.fromPartial(object.softLockCoin)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -1103,7 +1252,12 @@ exports.MsgTokensSoftLockResponse = {
     },
 };
 function createBaseMsgTokensSoftUnlock() {
-    return { depositor: "", poolId: long_1.default.UZERO, softUnlockCoin: undefined };
+    return {
+        depositor: "",
+        poolId: long_1.default.UZERO,
+        softUnlockCoin: undefined,
+        appId: long_1.default.UZERO,
+    };
 }
 exports.MsgTokensSoftUnlock = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -1115,6 +1269,9 @@ exports.MsgTokensSoftUnlock = {
         }
         if (message.softUnlockCoin !== undefined) {
             coin_1.Coin.encode(message.softUnlockCoin, writer.uint32(26).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         return writer;
     },
@@ -1134,6 +1291,9 @@ exports.MsgTokensSoftUnlock = {
                 case 3:
                     message.softUnlockCoin = coin_1.Coin.decode(reader, reader.uint32());
                     break;
+                case 4:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1150,6 +1310,7 @@ exports.MsgTokensSoftUnlock = {
             softUnlockCoin: isSet(object.softUnlockCoin)
                 ? coin_1.Coin.fromJSON(object.softUnlockCoin)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1161,6 +1322,8 @@ exports.MsgTokensSoftUnlock = {
             (obj.softUnlockCoin = message.softUnlockCoin
                 ? coin_1.Coin.toJSON(message.softUnlockCoin)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1175,6 +1338,10 @@ exports.MsgTokensSoftUnlock = {
             object.softUnlockCoin !== undefined && object.softUnlockCoin !== null
                 ? coin_1.Coin.fromPartial(object.softUnlockCoin)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
