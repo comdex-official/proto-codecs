@@ -3,10 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryFarmedPoolCoinResponse = exports.QueryFarmedPoolCoinRequest = exports.QueryPoolIncentivesResponse = exports.PoolIncentive = exports.QueryPoolsIncentivesRequest = exports.QueryDeserializePoolCoinResponse = exports.QueryDeserializePoolCoinRequest = exports.QuerySoftLockResponse = exports.QueuedPoolCoin = exports.QuerySoftLockRequest = exports.PoolResponse = exports.QueryOrdersByOrdererRequest = exports.QueryOrderResponse = exports.QueryOrderRequest = exports.QueryOrdersResponse = exports.QueryOrdersRequest = exports.QueryWithdrawRequestResponse = exports.QueryWithdrawRequestRequest = exports.QueryWithdrawRequestsResponse = exports.QueryWithdrawRequestsRequest = exports.QueryDepositRequestResponse = exports.QueryDepositRequestRequest = exports.QueryDepositRequestsResponse = exports.QueryDepositRequestsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryPoolByPoolCoinDenomRequest = exports.QueryPoolByReserveAddressRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryFarmedPoolCoinResponse = exports.QueryFarmedPoolCoinRequest = exports.QueryPoolIncentivesResponse = exports.PoolIncentive = exports.QueryPoolsIncentivesRequest = exports.QueryDeserializePoolCoinResponse = exports.QueryDeserializePoolCoinRequest = exports.QuerySoftLockResponse = exports.QueuedPoolCoin = exports.QuerySoftLockRequest = exports.PoolResponse = exports.QueryOrdersByOrdererRequest = exports.QueryOrderResponse = exports.QueryOrderRequest = exports.QueryOrdersResponse = exports.QueryOrdersRequest = exports.QueryWithdrawRequestResponse = exports.QueryWithdrawRequestRequest = exports.QueryWithdrawRequestsResponse = exports.QueryWithdrawRequestsRequest = exports.QueryDepositRequestResponse = exports.QueryDepositRequestRequest = exports.QueryDepositRequestsResponse = exports.QueryDepositRequestsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryPoolByPoolCoinDenomRequest = exports.QueryPoolByReserveAddressRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryGenericParamsResponse = exports.QueryGenericParamsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const params_1 = require("./params");
 const liquidity_1 = require("./liquidity");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
@@ -52,7 +53,7 @@ function createBaseQueryParamsResponse() {
 exports.QueryParamsResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
-            liquidity_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+            params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -64,7 +65,7 @@ exports.QueryParamsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.params = liquidity_1.Params.decode(reader, reader.uint32());
+                    message.params = params_1.Params.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -75,26 +76,129 @@ exports.QueryParamsResponse = {
     },
     fromJSON(object) {
         return {
-            params: isSet(object.params) ? liquidity_1.Params.fromJSON(object.params) : undefined,
+            params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.params !== undefined &&
-            (obj.params = message.params ? liquidity_1.Params.toJSON(message.params) : undefined);
+            (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = createBaseQueryParamsResponse();
         message.params =
             object.params !== undefined && object.params !== null
-                ? liquidity_1.Params.fromPartial(object.params)
+                ? params_1.Params.fromPartial(object.params)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryGenericParamsRequest() {
+    return { appId: long_1.default.UZERO };
+}
+exports.QueryGenericParamsRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryGenericParamsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryGenericParamsRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryGenericParamsResponse() {
+    return { params: undefined };
+}
+exports.QueryGenericParamsResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.params !== undefined) {
+            params_1.GenericParams.encode(message.params, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryGenericParamsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.params = params_1.GenericParams.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            params: isSet(object.params)
+                ? params_1.GenericParams.fromJSON(object.params)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.params !== undefined &&
+            (obj.params = message.params
+                ? params_1.GenericParams.toJSON(message.params)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryGenericParamsResponse();
+        message.params =
+            object.params !== undefined && object.params !== null
+                ? params_1.GenericParams.fromPartial(object.params)
                 : undefined;
         return message;
     },
 };
 function createBaseQueryPoolsRequest() {
-    return { pairId: long_1.default.UZERO, disabled: "", pagination: undefined };
+    return {
+        pairId: long_1.default.UZERO,
+        disabled: "",
+        pagination: undefined,
+        appId: long_1.default.UZERO,
+    };
 }
 exports.QueryPoolsRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -106,6 +210,9 @@ exports.QueryPoolsRequest = {
         }
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         return writer;
     },
@@ -125,6 +232,9 @@ exports.QueryPoolsRequest = {
                 case 3:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
+                case 4:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -141,6 +251,7 @@ exports.QueryPoolsRequest = {
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -152,6 +263,8 @@ exports.QueryPoolsRequest = {
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -166,6 +279,10 @@ exports.QueryPoolsRequest = {
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageRequest.fromPartial(object.pagination)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -238,12 +355,15 @@ exports.QueryPoolsResponse = {
     },
 };
 function createBaseQueryPoolRequest() {
-    return { poolId: long_1.default.UZERO };
+    return { poolId: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryPoolRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         return writer;
     },
@@ -257,6 +377,9 @@ exports.QueryPoolRequest = {
                 case 1:
                     message.poolId = reader.uint64();
                     break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -269,12 +392,15 @@ exports.QueryPoolRequest = {
             poolId: isSet(object.poolId)
                 ? long_1.default.fromString(object.poolId)
                 : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.poolId !== undefined &&
             (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -282,6 +408,10 @@ exports.QueryPoolRequest = {
         message.poolId =
             object.poolId !== undefined && object.poolId !== null
                 ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -334,12 +464,15 @@ exports.QueryPoolResponse = {
     },
 };
 function createBaseQueryPoolByReserveAddressRequest() {
-    return { reserveAddress: "" };
+    return { reserveAddress: "", appId: long_1.default.UZERO };
 }
 exports.QueryPoolByReserveAddressRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.reserveAddress !== "") {
             writer.uint32(10).string(message.reserveAddress);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         return writer;
     },
@@ -353,6 +486,9 @@ exports.QueryPoolByReserveAddressRequest = {
                 case 1:
                     message.reserveAddress = reader.string();
                     break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -365,28 +501,38 @@ exports.QueryPoolByReserveAddressRequest = {
             reserveAddress: isSet(object.reserveAddress)
                 ? String(object.reserveAddress)
                 : "",
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.reserveAddress !== undefined &&
             (obj.reserveAddress = message.reserveAddress);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryPoolByReserveAddressRequest();
         message.reserveAddress = (_a = object.reserveAddress) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
 function createBaseQueryPoolByPoolCoinDenomRequest() {
-    return { poolCoinDenom: "" };
+    return { poolCoinDenom: "", appId: long_1.default.UZERO };
 }
 exports.QueryPoolByPoolCoinDenomRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.poolCoinDenom !== "") {
             writer.uint32(10).string(message.poolCoinDenom);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         return writer;
     },
@@ -400,6 +546,9 @@ exports.QueryPoolByPoolCoinDenomRequest = {
                 case 1:
                     message.poolCoinDenom = reader.string();
                     break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -412,23 +561,30 @@ exports.QueryPoolByPoolCoinDenomRequest = {
             poolCoinDenom: isSet(object.poolCoinDenom)
                 ? String(object.poolCoinDenom)
                 : "",
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.poolCoinDenom !== undefined &&
             (obj.poolCoinDenom = message.poolCoinDenom);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryPoolByPoolCoinDenomRequest();
         message.poolCoinDenom = (_a = object.poolCoinDenom) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
 function createBaseQueryPairsRequest() {
-    return { denoms: [], pagination: undefined };
+    return { denoms: [], pagination: undefined, appId: long_1.default.UZERO };
 }
 exports.QueryPairsRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -437,6 +593,9 @@ exports.QueryPairsRequest = {
         }
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(24).uint64(message.appId);
         }
         return writer;
     },
@@ -453,6 +612,9 @@ exports.QueryPairsRequest = {
                 case 2:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
+                case 3:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -468,6 +630,7 @@ exports.QueryPairsRequest = {
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -482,6 +645,8 @@ exports.QueryPairsRequest = {
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -492,6 +657,10 @@ exports.QueryPairsRequest = {
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageRequest.fromPartial(object.pagination)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -564,12 +733,15 @@ exports.QueryPairsResponse = {
     },
 };
 function createBaseQueryPairRequest() {
-    return { pairId: long_1.default.UZERO };
+    return { pairId: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryPairRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.pairId.isZero()) {
             writer.uint32(8).uint64(message.pairId);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         return writer;
     },
@@ -583,6 +755,9 @@ exports.QueryPairRequest = {
                 case 1:
                     message.pairId = reader.uint64();
                     break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -595,12 +770,15 @@ exports.QueryPairRequest = {
             pairId: isSet(object.pairId)
                 ? long_1.default.fromString(object.pairId)
                 : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.pairId !== undefined &&
             (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -608,6 +786,10 @@ exports.QueryPairRequest = {
         message.pairId =
             object.pairId !== undefined && object.pairId !== null
                 ? long_1.default.fromValue(object.pairId)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -660,15 +842,18 @@ exports.QueryPairResponse = {
     },
 };
 function createBaseQueryDepositRequestsRequest() {
-    return { poolId: long_1.default.UZERO, pagination: undefined };
+    return { poolId: long_1.default.UZERO, appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryDepositRequestsRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
+        }
         if (message.pagination !== undefined) {
-            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -683,6 +868,9 @@ exports.QueryDepositRequestsRequest = {
                     message.poolId = reader.uint64();
                     break;
                 case 2:
+                    message.appId = reader.uint64();
+                    break;
+                case 3:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
@@ -697,6 +885,7 @@ exports.QueryDepositRequestsRequest = {
             poolId: isSet(object.poolId)
                 ? long_1.default.fromString(object.poolId)
                 : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -706,6 +895,8 @@ exports.QueryDepositRequestsRequest = {
         const obj = {};
         message.poolId !== undefined &&
             (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
@@ -717,6 +908,10 @@ exports.QueryDepositRequestsRequest = {
         message.poolId =
             object.poolId !== undefined && object.poolId !== null
                 ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
@@ -795,7 +990,7 @@ exports.QueryDepositRequestsResponse = {
     },
 };
 function createBaseQueryDepositRequestRequest() {
-    return { poolId: long_1.default.UZERO, id: long_1.default.UZERO };
+    return { poolId: long_1.default.UZERO, id: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryDepositRequestRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -804,6 +999,9 @@ exports.QueryDepositRequestRequest = {
         }
         if (!message.id.isZero()) {
             writer.uint32(16).uint64(message.id);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(24).uint64(message.appId);
         }
         return writer;
     },
@@ -820,6 +1018,9 @@ exports.QueryDepositRequestRequest = {
                 case 2:
                     message.id = reader.uint64();
                     break;
+                case 3:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -833,6 +1034,7 @@ exports.QueryDepositRequestRequest = {
                 ? long_1.default.fromString(object.poolId)
                 : long_1.default.UZERO,
             id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -841,6 +1043,8 @@ exports.QueryDepositRequestRequest = {
             (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
         message.id !== undefined &&
             (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -852,6 +1056,10 @@ exports.QueryDepositRequestRequest = {
         message.id =
             object.id !== undefined && object.id !== null
                 ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -908,7 +1116,7 @@ exports.QueryDepositRequestResponse = {
     },
 };
 function createBaseQueryWithdrawRequestsRequest() {
-    return { poolId: long_1.default.UZERO, pagination: undefined };
+    return { poolId: long_1.default.UZERO, pagination: undefined, appId: long_1.default.UZERO };
 }
 exports.QueryWithdrawRequestsRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -917,6 +1125,9 @@ exports.QueryWithdrawRequestsRequest = {
         }
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(24).uint64(message.appId);
         }
         return writer;
     },
@@ -933,6 +1144,9 @@ exports.QueryWithdrawRequestsRequest = {
                 case 2:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
+                case 3:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -948,6 +1162,7 @@ exports.QueryWithdrawRequestsRequest = {
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -958,6 +1173,8 @@ exports.QueryWithdrawRequestsRequest = {
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -970,6 +1187,10 @@ exports.QueryWithdrawRequestsRequest = {
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageRequest.fromPartial(object.pagination)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -1043,7 +1264,7 @@ exports.QueryWithdrawRequestsResponse = {
     },
 };
 function createBaseQueryWithdrawRequestRequest() {
-    return { poolId: long_1.default.UZERO, id: long_1.default.UZERO };
+    return { poolId: long_1.default.UZERO, id: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryWithdrawRequestRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -1052,6 +1273,9 @@ exports.QueryWithdrawRequestRequest = {
         }
         if (!message.id.isZero()) {
             writer.uint32(16).uint64(message.id);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(24).uint64(message.appId);
         }
         return writer;
     },
@@ -1068,6 +1292,9 @@ exports.QueryWithdrawRequestRequest = {
                 case 2:
                     message.id = reader.uint64();
                     break;
+                case 3:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1081,6 +1308,7 @@ exports.QueryWithdrawRequestRequest = {
                 ? long_1.default.fromString(object.poolId)
                 : long_1.default.UZERO,
             id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1089,6 +1317,8 @@ exports.QueryWithdrawRequestRequest = {
             (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
         message.id !== undefined &&
             (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1100,6 +1330,10 @@ exports.QueryWithdrawRequestRequest = {
         message.id =
             object.id !== undefined && object.id !== null
                 ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -1156,7 +1390,7 @@ exports.QueryWithdrawRequestResponse = {
     },
 };
 function createBaseQueryOrdersRequest() {
-    return { pairId: long_1.default.UZERO, pagination: undefined };
+    return { pairId: long_1.default.UZERO, pagination: undefined, appId: long_1.default.UZERO };
 }
 exports.QueryOrdersRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -1165,6 +1399,9 @@ exports.QueryOrdersRequest = {
         }
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(24).uint64(message.appId);
         }
         return writer;
     },
@@ -1181,6 +1418,9 @@ exports.QueryOrdersRequest = {
                 case 2:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
+                case 3:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1196,6 +1436,7 @@ exports.QueryOrdersRequest = {
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1206,6 +1447,8 @@ exports.QueryOrdersRequest = {
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1218,6 +1461,10 @@ exports.QueryOrdersRequest = {
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageRequest.fromPartial(object.pagination)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -1290,7 +1537,7 @@ exports.QueryOrdersResponse = {
     },
 };
 function createBaseQueryOrderRequest() {
-    return { pairId: long_1.default.UZERO, id: long_1.default.UZERO };
+    return { pairId: long_1.default.UZERO, id: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryOrderRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -1299,6 +1546,9 @@ exports.QueryOrderRequest = {
         }
         if (!message.id.isZero()) {
             writer.uint32(16).uint64(message.id);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(24).uint64(message.appId);
         }
         return writer;
     },
@@ -1315,6 +1565,9 @@ exports.QueryOrderRequest = {
                 case 2:
                     message.id = reader.uint64();
                     break;
+                case 3:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1328,6 +1581,7 @@ exports.QueryOrderRequest = {
                 ? long_1.default.fromString(object.pairId)
                 : long_1.default.UZERO,
             id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1336,6 +1590,8 @@ exports.QueryOrderRequest = {
             (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
         message.id !== undefined &&
             (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1347,6 +1603,10 @@ exports.QueryOrderRequest = {
         message.id =
             object.id !== undefined && object.id !== null
                 ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -1399,7 +1659,12 @@ exports.QueryOrderResponse = {
     },
 };
 function createBaseQueryOrdersByOrdererRequest() {
-    return { orderer: "", pairId: long_1.default.UZERO, pagination: undefined };
+    return {
+        orderer: "",
+        pairId: long_1.default.UZERO,
+        pagination: undefined,
+        appId: long_1.default.UZERO,
+    };
 }
 exports.QueryOrdersByOrdererRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -1411,6 +1676,9 @@ exports.QueryOrdersByOrdererRequest = {
         }
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         return writer;
     },
@@ -1430,6 +1698,9 @@ exports.QueryOrdersByOrdererRequest = {
                 case 3:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
+                case 4:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1446,6 +1717,7 @@ exports.QueryOrdersByOrdererRequest = {
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1457,6 +1729,8 @@ exports.QueryOrdersByOrdererRequest = {
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
                 : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1471,6 +1745,10 @@ exports.QueryOrdersByOrdererRequest = {
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageRequest.fromPartial(object.pagination)
                 : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -1483,6 +1761,7 @@ function createBasePoolResponse() {
         balances: [],
         lastDepositRequestId: long_1.default.UZERO,
         lastWithdrawRequestId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
     };
 }
 exports.PoolResponse = {
@@ -1507,6 +1786,9 @@ exports.PoolResponse = {
         }
         if (!message.lastWithdrawRequestId.isZero()) {
             writer.uint32(56).uint64(message.lastWithdrawRequestId);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(64).uint64(message.appId);
         }
         return writer;
     },
@@ -1538,6 +1820,9 @@ exports.PoolResponse = {
                 case 7:
                     message.lastWithdrawRequestId = reader.uint64();
                     break;
+                case 8:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1566,6 +1851,7 @@ exports.PoolResponse = {
             lastWithdrawRequestId: isSet(object.lastWithdrawRequestId)
                 ? long_1.default.fromString(object.lastWithdrawRequestId)
                 : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1588,6 +1874,8 @@ exports.PoolResponse = {
             (obj.lastDepositRequestId = (message.lastDepositRequestId || long_1.default.UZERO).toString());
         message.lastWithdrawRequestId !== undefined &&
             (obj.lastWithdrawRequestId = (message.lastWithdrawRequestId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1614,11 +1902,15 @@ exports.PoolResponse = {
                 object.lastWithdrawRequestId !== null
                 ? long_1.default.fromValue(object.lastWithdrawRequestId)
                 : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
 function createBaseQuerySoftLockRequest() {
-    return { poolId: long_1.default.UZERO, depositor: "" };
+    return { poolId: long_1.default.UZERO, depositor: "", appId: long_1.default.UZERO };
 }
 exports.QuerySoftLockRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -1627,6 +1919,9 @@ exports.QuerySoftLockRequest = {
         }
         if (message.depositor !== "") {
             writer.uint32(18).string(message.depositor);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(24).uint64(message.appId);
         }
         return writer;
     },
@@ -1643,6 +1938,9 @@ exports.QuerySoftLockRequest = {
                 case 2:
                     message.depositor = reader.string();
                     break;
+                case 3:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1656,6 +1954,7 @@ exports.QuerySoftLockRequest = {
                 ? long_1.default.fromString(object.poolId)
                 : long_1.default.UZERO,
             depositor: isSet(object.depositor) ? String(object.depositor) : "",
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1663,6 +1962,8 @@ exports.QuerySoftLockRequest = {
         message.poolId !== undefined &&
             (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
         message.depositor !== undefined && (obj.depositor = message.depositor);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1673,6 +1974,10 @@ exports.QuerySoftLockRequest = {
                 ? long_1.default.fromValue(object.poolId)
                 : long_1.default.UZERO;
         message.depositor = (_a = object.depositor) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -1810,7 +2115,7 @@ exports.QuerySoftLockResponse = {
     },
 };
 function createBaseQueryDeserializePoolCoinRequest() {
-    return { poolId: long_1.default.UZERO, poolCoinAmount: long_1.default.UZERO };
+    return { poolId: long_1.default.UZERO, poolCoinAmount: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryDeserializePoolCoinRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -1819,6 +2124,9 @@ exports.QueryDeserializePoolCoinRequest = {
         }
         if (!message.poolCoinAmount.isZero()) {
             writer.uint32(16).uint64(message.poolCoinAmount);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(24).uint64(message.appId);
         }
         return writer;
     },
@@ -1835,6 +2143,9 @@ exports.QueryDeserializePoolCoinRequest = {
                 case 2:
                     message.poolCoinAmount = reader.uint64();
                     break;
+                case 3:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1850,6 +2161,7 @@ exports.QueryDeserializePoolCoinRequest = {
             poolCoinAmount: isSet(object.poolCoinAmount)
                 ? long_1.default.fromString(object.poolCoinAmount)
                 : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1858,6 +2170,8 @@ exports.QueryDeserializePoolCoinRequest = {
             (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
         message.poolCoinAmount !== undefined &&
             (obj.poolCoinAmount = (message.poolCoinAmount || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1869,6 +2183,10 @@ exports.QueryDeserializePoolCoinRequest = {
         message.poolCoinAmount =
             object.poolCoinAmount !== undefined && object.poolCoinAmount !== null
                 ? long_1.default.fromValue(object.poolCoinAmount)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -1925,10 +2243,13 @@ exports.QueryDeserializePoolCoinResponse = {
     },
 };
 function createBaseQueryPoolsIncentivesRequest() {
-    return {};
+    return { appId: long_1.default.UZERO };
 }
 exports.QueryPoolsIncentivesRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
         return writer;
     },
     decode(input, length) {
@@ -1938,6 +2259,9 @@ exports.QueryPoolsIncentivesRequest = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1945,15 +2269,23 @@ exports.QueryPoolsIncentivesRequest = {
         }
         return message;
     },
-    fromJSON(_) {
-        return {};
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+        };
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = createBaseQueryPoolsIncentivesRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -1969,6 +2301,7 @@ function createBasePoolIncentive() {
         epochDuration: undefined,
         nextDistribution: undefined,
         isSwapFee: false,
+        appId: long_1.default.UZERO,
     };
 }
 exports.PoolIncentive = {
@@ -2004,6 +2337,9 @@ exports.PoolIncentive = {
         }
         if (message.isSwapFee === true) {
             writer.uint32(80).bool(message.isSwapFee);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(88).uint64(message.appId);
         }
         return writer;
     },
@@ -2052,6 +2388,9 @@ exports.PoolIncentive = {
                 case 10:
                     message.isSwapFee = reader.bool();
                     break;
+                case 11:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2087,6 +2426,7 @@ exports.PoolIncentive = {
                 ? fromJsonTimestamp(object.nextDistribution)
                 : undefined,
             isSwapFee: isSet(object.isSwapFee) ? Boolean(object.isSwapFee) : false,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2119,6 +2459,8 @@ exports.PoolIncentive = {
         message.nextDistribution !== undefined &&
             (obj.nextDistribution = message.nextDistribution.toISOString());
         message.isSwapFee !== undefined && (obj.isSwapFee = message.isSwapFee);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -2154,6 +2496,10 @@ exports.PoolIncentive = {
                 : undefined;
         message.nextDistribution = (_c = object.nextDistribution) !== null && _c !== void 0 ? _c : undefined;
         message.isSwapFee = (_d = object.isSwapFee) !== null && _d !== void 0 ? _d : false;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -2210,12 +2556,15 @@ exports.QueryPoolIncentivesResponse = {
     },
 };
 function createBaseQueryFarmedPoolCoinRequest() {
-    return { poolId: long_1.default.UZERO };
+    return { poolId: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryFarmedPoolCoinRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         return writer;
     },
@@ -2229,6 +2578,9 @@ exports.QueryFarmedPoolCoinRequest = {
                 case 1:
                     message.poolId = reader.uint64();
                     break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2241,12 +2593,15 @@ exports.QueryFarmedPoolCoinRequest = {
             poolId: isSet(object.poolId)
                 ? long_1.default.fromString(object.poolId)
                 : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.poolId !== undefined &&
             (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -2254,6 +2609,10 @@ exports.QueryFarmedPoolCoinRequest = {
         message.poolId =
             object.poolId !== undefined && object.poolId !== null
                 ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -2309,6 +2668,7 @@ class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
         this.Params = this.Params.bind(this);
+        this.GenericParams = this.GenericParams.bind(this);
         this.Pools = this.Pools.bind(this);
         this.Pool = this.Pool.bind(this);
         this.PoolByReserveAddress = this.PoolByReserveAddress.bind(this);
@@ -2331,6 +2691,11 @@ class QueryClientImpl {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Params", data);
         return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+    }
+    GenericParams(request) {
+        const data = exports.QueryGenericParamsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "GenericParams", data);
+        return promise.then((data) => exports.QueryGenericParamsResponse.decode(new minimal_1.default.Reader(data)));
     }
     Pools(request) {
         const data = exports.QueryPoolsRequest.encode(request).finish();

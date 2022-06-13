@@ -3,11 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PoolLiquidityProvidersData_LiquidityProvidersEntry = exports.PoolLiquidityProvidersData = exports.QueuedLiquidityProvider = exports.DepositsMade = exports.Order = exports.WithdrawRequest = exports.DepositRequest = exports.Pool = exports.Pair = exports.Params = exports.addressTypeToJSON = exports.addressTypeFromJSON = exports.AddressType = exports.orderStatusToJSON = exports.orderStatusFromJSON = exports.OrderStatus = exports.requestStatusToJSON = exports.requestStatusFromJSON = exports.RequestStatus = exports.orderDirectionToJSON = exports.orderDirectionFromJSON = exports.OrderDirection = exports.protobufPackage = void 0;
+exports.PoolLiquidityProvidersData_LiquidityProvidersEntry = exports.PoolLiquidityProvidersData = exports.QueuedLiquidityProvider = exports.DepositsMade = exports.Order = exports.WithdrawRequest = exports.DepositRequest = exports.Pool = exports.Pair = exports.addressTypeToJSON = exports.addressTypeFromJSON = exports.AddressType = exports.orderStatusToJSON = exports.orderStatusFromJSON = exports.OrderStatus = exports.requestStatusToJSON = exports.requestStatusFromJSON = exports.RequestStatus = exports.orderDirectionToJSON = exports.orderDirectionFromJSON = exports.OrderDirection = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const duration_1 = require("../../../google/protobuf/duration");
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
@@ -207,283 +206,6 @@ function addressTypeToJSON(object) {
     }
 }
 exports.addressTypeToJSON = addressTypeToJSON;
-function createBaseParams() {
-    return {
-        batchSize: 0,
-        tickPrecision: 0,
-        feeCollectorAddress: "",
-        dustCollectorAddress: "",
-        minInitialPoolCoinSupply: "",
-        pairCreationFee: [],
-        poolCreationFee: [],
-        minInitialDepositAmount: "",
-        maxPriceLimitRatio: "",
-        maxOrderLifespan: undefined,
-        swapFeeRate: "",
-        withdrawFeeRate: "",
-        depositExtraGas: long_1.default.UZERO,
-        withdrawExtraGas: long_1.default.UZERO,
-        orderExtraGas: long_1.default.UZERO,
-        swapFeeDistrDenom: "",
-        swapFeeBurnRate: "",
-    };
-}
-exports.Params = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.batchSize !== 0) {
-            writer.uint32(8).uint32(message.batchSize);
-        }
-        if (message.tickPrecision !== 0) {
-            writer.uint32(16).uint32(message.tickPrecision);
-        }
-        if (message.feeCollectorAddress !== "") {
-            writer.uint32(26).string(message.feeCollectorAddress);
-        }
-        if (message.dustCollectorAddress !== "") {
-            writer.uint32(34).string(message.dustCollectorAddress);
-        }
-        if (message.minInitialPoolCoinSupply !== "") {
-            writer.uint32(42).string(message.minInitialPoolCoinSupply);
-        }
-        for (const v of message.pairCreationFee) {
-            coin_1.Coin.encode(v, writer.uint32(50).fork()).ldelim();
-        }
-        for (const v of message.poolCreationFee) {
-            coin_1.Coin.encode(v, writer.uint32(58).fork()).ldelim();
-        }
-        if (message.minInitialDepositAmount !== "") {
-            writer.uint32(66).string(message.minInitialDepositAmount);
-        }
-        if (message.maxPriceLimitRatio !== "") {
-            writer.uint32(74).string(message.maxPriceLimitRatio);
-        }
-        if (message.maxOrderLifespan !== undefined) {
-            duration_1.Duration.encode(message.maxOrderLifespan, writer.uint32(82).fork()).ldelim();
-        }
-        if (message.swapFeeRate !== "") {
-            writer.uint32(90).string(message.swapFeeRate);
-        }
-        if (message.withdrawFeeRate !== "") {
-            writer.uint32(98).string(message.withdrawFeeRate);
-        }
-        if (!message.depositExtraGas.isZero()) {
-            writer.uint32(104).uint64(message.depositExtraGas);
-        }
-        if (!message.withdrawExtraGas.isZero()) {
-            writer.uint32(112).uint64(message.withdrawExtraGas);
-        }
-        if (!message.orderExtraGas.isZero()) {
-            writer.uint32(120).uint64(message.orderExtraGas);
-        }
-        if (message.swapFeeDistrDenom !== "") {
-            writer.uint32(130).string(message.swapFeeDistrDenom);
-        }
-        if (message.swapFeeBurnRate !== "") {
-            writer.uint32(138).string(message.swapFeeBurnRate);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseParams();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.batchSize = reader.uint32();
-                    break;
-                case 2:
-                    message.tickPrecision = reader.uint32();
-                    break;
-                case 3:
-                    message.feeCollectorAddress = reader.string();
-                    break;
-                case 4:
-                    message.dustCollectorAddress = reader.string();
-                    break;
-                case 5:
-                    message.minInitialPoolCoinSupply = reader.string();
-                    break;
-                case 6:
-                    message.pairCreationFee.push(coin_1.Coin.decode(reader, reader.uint32()));
-                    break;
-                case 7:
-                    message.poolCreationFee.push(coin_1.Coin.decode(reader, reader.uint32()));
-                    break;
-                case 8:
-                    message.minInitialDepositAmount = reader.string();
-                    break;
-                case 9:
-                    message.maxPriceLimitRatio = reader.string();
-                    break;
-                case 10:
-                    message.maxOrderLifespan = duration_1.Duration.decode(reader, reader.uint32());
-                    break;
-                case 11:
-                    message.swapFeeRate = reader.string();
-                    break;
-                case 12:
-                    message.withdrawFeeRate = reader.string();
-                    break;
-                case 13:
-                    message.depositExtraGas = reader.uint64();
-                    break;
-                case 14:
-                    message.withdrawExtraGas = reader.uint64();
-                    break;
-                case 15:
-                    message.orderExtraGas = reader.uint64();
-                    break;
-                case 16:
-                    message.swapFeeDistrDenom = reader.string();
-                    break;
-                case 17:
-                    message.swapFeeBurnRate = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            batchSize: isSet(object.batchSize) ? Number(object.batchSize) : 0,
-            tickPrecision: isSet(object.tickPrecision)
-                ? Number(object.tickPrecision)
-                : 0,
-            feeCollectorAddress: isSet(object.feeCollectorAddress)
-                ? String(object.feeCollectorAddress)
-                : "",
-            dustCollectorAddress: isSet(object.dustCollectorAddress)
-                ? String(object.dustCollectorAddress)
-                : "",
-            minInitialPoolCoinSupply: isSet(object.minInitialPoolCoinSupply)
-                ? String(object.minInitialPoolCoinSupply)
-                : "",
-            pairCreationFee: Array.isArray(object === null || object === void 0 ? void 0 : object.pairCreationFee)
-                ? object.pairCreationFee.map((e) => coin_1.Coin.fromJSON(e))
-                : [],
-            poolCreationFee: Array.isArray(object === null || object === void 0 ? void 0 : object.poolCreationFee)
-                ? object.poolCreationFee.map((e) => coin_1.Coin.fromJSON(e))
-                : [],
-            minInitialDepositAmount: isSet(object.minInitialDepositAmount)
-                ? String(object.minInitialDepositAmount)
-                : "",
-            maxPriceLimitRatio: isSet(object.maxPriceLimitRatio)
-                ? String(object.maxPriceLimitRatio)
-                : "",
-            maxOrderLifespan: isSet(object.maxOrderLifespan)
-                ? duration_1.Duration.fromJSON(object.maxOrderLifespan)
-                : undefined,
-            swapFeeRate: isSet(object.swapFeeRate) ? String(object.swapFeeRate) : "",
-            withdrawFeeRate: isSet(object.withdrawFeeRate)
-                ? String(object.withdrawFeeRate)
-                : "",
-            depositExtraGas: isSet(object.depositExtraGas)
-                ? long_1.default.fromString(object.depositExtraGas)
-                : long_1.default.UZERO,
-            withdrawExtraGas: isSet(object.withdrawExtraGas)
-                ? long_1.default.fromString(object.withdrawExtraGas)
-                : long_1.default.UZERO,
-            orderExtraGas: isSet(object.orderExtraGas)
-                ? long_1.default.fromString(object.orderExtraGas)
-                : long_1.default.UZERO,
-            swapFeeDistrDenom: isSet(object.swapFeeDistrDenom)
-                ? String(object.swapFeeDistrDenom)
-                : "",
-            swapFeeBurnRate: isSet(object.swapFeeBurnRate)
-                ? String(object.swapFeeBurnRate)
-                : "",
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.batchSize !== undefined &&
-            (obj.batchSize = Math.round(message.batchSize));
-        message.tickPrecision !== undefined &&
-            (obj.tickPrecision = Math.round(message.tickPrecision));
-        message.feeCollectorAddress !== undefined &&
-            (obj.feeCollectorAddress = message.feeCollectorAddress);
-        message.dustCollectorAddress !== undefined &&
-            (obj.dustCollectorAddress = message.dustCollectorAddress);
-        message.minInitialPoolCoinSupply !== undefined &&
-            (obj.minInitialPoolCoinSupply = message.minInitialPoolCoinSupply);
-        if (message.pairCreationFee) {
-            obj.pairCreationFee = message.pairCreationFee.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
-        }
-        else {
-            obj.pairCreationFee = [];
-        }
-        if (message.poolCreationFee) {
-            obj.poolCreationFee = message.poolCreationFee.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
-        }
-        else {
-            obj.poolCreationFee = [];
-        }
-        message.minInitialDepositAmount !== undefined &&
-            (obj.minInitialDepositAmount = message.minInitialDepositAmount);
-        message.maxPriceLimitRatio !== undefined &&
-            (obj.maxPriceLimitRatio = message.maxPriceLimitRatio);
-        message.maxOrderLifespan !== undefined &&
-            (obj.maxOrderLifespan = message.maxOrderLifespan
-                ? duration_1.Duration.toJSON(message.maxOrderLifespan)
-                : undefined);
-        message.swapFeeRate !== undefined &&
-            (obj.swapFeeRate = message.swapFeeRate);
-        message.withdrawFeeRate !== undefined &&
-            (obj.withdrawFeeRate = message.withdrawFeeRate);
-        message.depositExtraGas !== undefined &&
-            (obj.depositExtraGas = (message.depositExtraGas || long_1.default.UZERO).toString());
-        message.withdrawExtraGas !== undefined &&
-            (obj.withdrawExtraGas = (message.withdrawExtraGas || long_1.default.UZERO).toString());
-        message.orderExtraGas !== undefined &&
-            (obj.orderExtraGas = (message.orderExtraGas || long_1.default.UZERO).toString());
-        message.swapFeeDistrDenom !== undefined &&
-            (obj.swapFeeDistrDenom = message.swapFeeDistrDenom);
-        message.swapFeeBurnRate !== undefined &&
-            (obj.swapFeeBurnRate = message.swapFeeBurnRate);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
-        const message = createBaseParams();
-        message.batchSize = (_a = object.batchSize) !== null && _a !== void 0 ? _a : 0;
-        message.tickPrecision = (_b = object.tickPrecision) !== null && _b !== void 0 ? _b : 0;
-        message.feeCollectorAddress = (_c = object.feeCollectorAddress) !== null && _c !== void 0 ? _c : "";
-        message.dustCollectorAddress = (_d = object.dustCollectorAddress) !== null && _d !== void 0 ? _d : "";
-        message.minInitialPoolCoinSupply = (_e = object.minInitialPoolCoinSupply) !== null && _e !== void 0 ? _e : "";
-        message.pairCreationFee =
-            ((_f = object.pairCreationFee) === null || _f === void 0 ? void 0 : _f.map((e) => coin_1.Coin.fromPartial(e))) || [];
-        message.poolCreationFee =
-            ((_g = object.poolCreationFee) === null || _g === void 0 ? void 0 : _g.map((e) => coin_1.Coin.fromPartial(e))) || [];
-        message.minInitialDepositAmount = (_h = object.minInitialDepositAmount) !== null && _h !== void 0 ? _h : "";
-        message.maxPriceLimitRatio = (_j = object.maxPriceLimitRatio) !== null && _j !== void 0 ? _j : "";
-        message.maxOrderLifespan =
-            object.maxOrderLifespan !== undefined && object.maxOrderLifespan !== null
-                ? duration_1.Duration.fromPartial(object.maxOrderLifespan)
-                : undefined;
-        message.swapFeeRate = (_k = object.swapFeeRate) !== null && _k !== void 0 ? _k : "";
-        message.withdrawFeeRate = (_l = object.withdrawFeeRate) !== null && _l !== void 0 ? _l : "";
-        message.depositExtraGas =
-            object.depositExtraGas !== undefined && object.depositExtraGas !== null
-                ? long_1.default.fromValue(object.depositExtraGas)
-                : long_1.default.UZERO;
-        message.withdrawExtraGas =
-            object.withdrawExtraGas !== undefined && object.withdrawExtraGas !== null
-                ? long_1.default.fromValue(object.withdrawExtraGas)
-                : long_1.default.UZERO;
-        message.orderExtraGas =
-            object.orderExtraGas !== undefined && object.orderExtraGas !== null
-                ? long_1.default.fromValue(object.orderExtraGas)
-                : long_1.default.UZERO;
-        message.swapFeeDistrDenom = (_m = object.swapFeeDistrDenom) !== null && _m !== void 0 ? _m : "";
-        message.swapFeeBurnRate = (_o = object.swapFeeBurnRate) !== null && _o !== void 0 ? _o : "";
-        return message;
-    },
-};
 function createBasePair() {
     return {
         id: long_1.default.UZERO,
@@ -494,6 +216,7 @@ function createBasePair() {
         lastPrice: "",
         currentBatchId: long_1.default.UZERO,
         swapFeeCollectorAddress: "",
+        appId: long_1.default.UZERO,
     };
 }
 exports.Pair = {
@@ -521,6 +244,9 @@ exports.Pair = {
         }
         if (message.swapFeeCollectorAddress !== "") {
             writer.uint32(66).string(message.swapFeeCollectorAddress);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(72).uint64(message.appId);
         }
         return writer;
     },
@@ -555,6 +281,9 @@ exports.Pair = {
                 case 8:
                     message.swapFeeCollectorAddress = reader.string();
                     break;
+                case 9:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -584,6 +313,7 @@ exports.Pair = {
             swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
                 ? String(object.swapFeeCollectorAddress)
                 : "",
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -603,6 +333,8 @@ exports.Pair = {
             (obj.currentBatchId = (message.currentBatchId || long_1.default.UZERO).toString());
         message.swapFeeCollectorAddress !== undefined &&
             (obj.swapFeeCollectorAddress = message.swapFeeCollectorAddress);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -625,6 +357,10 @@ exports.Pair = {
                 ? long_1.default.fromValue(object.currentBatchId)
                 : long_1.default.UZERO;
         message.swapFeeCollectorAddress = (_e = object.swapFeeCollectorAddress) !== null && _e !== void 0 ? _e : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -637,6 +373,7 @@ function createBasePool() {
         lastDepositRequestId: long_1.default.UZERO,
         lastWithdrawRequestId: long_1.default.UZERO,
         disabled: false,
+        appId: long_1.default.UZERO,
     };
 }
 exports.Pool = {
@@ -661,6 +398,9 @@ exports.Pool = {
         }
         if (message.disabled === true) {
             writer.uint32(56).bool(message.disabled);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(64).uint64(message.appId);
         }
         return writer;
     },
@@ -692,6 +432,9 @@ exports.Pool = {
                 case 7:
                     message.disabled = reader.bool();
                     break;
+                case 8:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -718,6 +461,7 @@ exports.Pool = {
                 ? long_1.default.fromString(object.lastWithdrawRequestId)
                 : long_1.default.UZERO,
             disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -735,6 +479,8 @@ exports.Pool = {
         message.lastWithdrawRequestId !== undefined &&
             (obj.lastWithdrawRequestId = (message.lastWithdrawRequestId || long_1.default.UZERO).toString());
         message.disabled !== undefined && (obj.disabled = message.disabled);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -761,6 +507,10 @@ exports.Pool = {
                 ? long_1.default.fromValue(object.lastWithdrawRequestId)
                 : long_1.default.UZERO;
         message.disabled = (_c = object.disabled) !== null && _c !== void 0 ? _c : false;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -774,6 +524,7 @@ function createBaseDepositRequest() {
         acceptedCoins: [],
         mintedPoolCoin: undefined,
         status: 0,
+        appId: long_1.default.UZERO,
     };
 }
 exports.DepositRequest = {
@@ -801,6 +552,9 @@ exports.DepositRequest = {
         }
         if (message.status !== 0) {
             writer.uint32(64).int32(message.status);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(72).uint64(message.appId);
         }
         return writer;
     },
@@ -835,6 +589,9 @@ exports.DepositRequest = {
                 case 8:
                     message.status = reader.int32();
                     break;
+                case 9:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -862,6 +619,7 @@ exports.DepositRequest = {
                 ? coin_1.Coin.fromJSON(object.mintedPoolCoin)
                 : undefined,
             status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -891,6 +649,8 @@ exports.DepositRequest = {
                 : undefined);
         message.status !== undefined &&
             (obj.status = requestStatusToJSON(message.status));
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -918,6 +678,10 @@ exports.DepositRequest = {
                 ? coin_1.Coin.fromPartial(object.mintedPoolCoin)
                 : undefined;
         message.status = (_d = object.status) !== null && _d !== void 0 ? _d : 0;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -930,6 +694,7 @@ function createBaseWithdrawRequest() {
         poolCoin: undefined,
         withdrawnCoins: [],
         status: 0,
+        appId: long_1.default.UZERO,
     };
 }
 exports.WithdrawRequest = {
@@ -954,6 +719,9 @@ exports.WithdrawRequest = {
         }
         if (message.status !== 0) {
             writer.uint32(56).int32(message.status);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(64).uint64(message.appId);
         }
         return writer;
     },
@@ -985,6 +753,9 @@ exports.WithdrawRequest = {
                 case 7:
                     message.status = reader.int32();
                     break;
+                case 8:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1009,6 +780,7 @@ exports.WithdrawRequest = {
                 ? object.withdrawnCoins.map((e) => coin_1.Coin.fromJSON(e))
                 : [],
             status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1032,6 +804,8 @@ exports.WithdrawRequest = {
         }
         message.status !== undefined &&
             (obj.status = requestStatusToJSON(message.status));
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1057,6 +831,10 @@ exports.WithdrawRequest = {
         message.withdrawnCoins =
             ((_b = object.withdrawnCoins) === null || _b === void 0 ? void 0 : _b.map((e) => coin_1.Coin.fromPartial(e))) || [];
         message.status = (_c = object.status) !== null && _c !== void 0 ? _c : 0;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -1076,6 +854,7 @@ function createBaseOrder() {
         batchId: long_1.default.UZERO,
         expireAt: undefined,
         status: 0,
+        appId: long_1.default.UZERO,
     };
 }
 exports.Order = {
@@ -1121,6 +900,9 @@ exports.Order = {
         }
         if (message.status !== 0) {
             writer.uint32(112).int32(message.status);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(120).uint64(message.appId);
         }
         return writer;
     },
@@ -1173,6 +955,9 @@ exports.Order = {
                 case 14:
                     message.status = reader.int32();
                     break;
+                case 15:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1212,6 +997,7 @@ exports.Order = {
                 ? fromJsonTimestamp(object.expireAt)
                 : undefined,
             status: isSet(object.status) ? orderStatusFromJSON(object.status) : 0,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1246,6 +1032,8 @@ exports.Order = {
             (obj.expireAt = message.expireAt.toISOString());
         message.status !== undefined &&
             (obj.status = orderStatusToJSON(message.status));
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1287,6 +1075,10 @@ exports.Order = {
                 : long_1.default.UZERO;
         message.expireAt = (_f = object.expireAt) !== null && _f !== void 0 ? _f : undefined;
         message.status = (_g = object.status) !== null && _g !== void 0 ? _g : 0;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -1420,6 +1212,7 @@ function createBasePoolLiquidityProvidersData() {
         bondedLockIds: [],
         liquidityProviders: {},
         queuedLiquidityProviders: [],
+        appId: long_1.default.UZERO,
     };
 }
 exports.PoolLiquidityProvidersData = {
@@ -1437,6 +1230,9 @@ exports.PoolLiquidityProvidersData = {
         });
         for (const v of message.queuedLiquidityProviders) {
             exports.QueuedLiquidityProvider.encode(v, writer.uint32(34).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(40).uint64(message.appId);
         }
         return writer;
     },
@@ -1470,6 +1266,9 @@ exports.PoolLiquidityProvidersData = {
                 case 4:
                     message.queuedLiquidityProviders.push(exports.QueuedLiquidityProvider.decode(reader, reader.uint32()));
                     break;
+                case 5:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1494,6 +1293,7 @@ exports.PoolLiquidityProvidersData = {
             queuedLiquidityProviders: Array.isArray(object === null || object === void 0 ? void 0 : object.queuedLiquidityProviders)
                 ? object.queuedLiquidityProviders.map((e) => exports.QueuedLiquidityProvider.fromJSON(e))
                 : [],
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1518,6 +1318,8 @@ exports.PoolLiquidityProvidersData = {
         else {
             obj.queuedLiquidityProviders = [];
         }
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1537,6 +1339,10 @@ exports.PoolLiquidityProvidersData = {
         }, {});
         message.queuedLiquidityProviders =
             ((_c = object.queuedLiquidityProviders) === null || _c === void 0 ? void 0 : _c.map((e) => exports.QueuedLiquidityProvider.fromPartial(e))) || [];
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         return message;
     },
 };
