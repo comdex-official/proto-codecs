@@ -4,8 +4,8 @@ import { Coin } from "../../../cosmos/base/v1beta1/coin";
 export declare const protobufPackage = "comdex.auction.v1beta1";
 export interface SurplusAuction {
     auctionId: Long;
-    outflowToken?: Coin;
-    inflowToken?: Coin;
+    sellToken?: Coin;
+    buyToken?: Coin;
     activeBiddingId: Long;
     bidder: string;
     bid?: Coin;
@@ -18,6 +18,7 @@ export interface SurplusAuction {
     auctionMappingId: Long;
     assetInId: Long;
     assetOutId: Long;
+    bidEndTime?: Date;
 }
 export interface DebtAuction {
     auctionId: Long;
@@ -36,6 +37,7 @@ export interface DebtAuction {
     bidFactor: string;
     assetInId: Long;
     assetOutId: Long;
+    bidEndTime?: Date;
 }
 export interface DutchAuction {
     auctionId: Long;
@@ -43,6 +45,7 @@ export interface DutchAuction {
     outflowTokenCurrentAmount?: Coin;
     inflowTokenTargetAmount?: Coin;
     inflowTokenCurrentAmount?: Coin;
+    toBurnAmount?: Coin;
     outflowTokenInitialPrice: string;
     outflowTokenCurrentPrice: string;
     outflowTokenEndPrice: string;
@@ -79,6 +82,7 @@ export interface AuctionParams {
     surplusId: Long;
     debtId: Long;
     dutchId: Long;
+    bidDurationSeconds: Long;
 }
 export declare const SurplusAuction: {
     encode(message: SurplusAuction, writer?: _m0.Writer): _m0.Writer;
@@ -87,11 +91,11 @@ export declare const SurplusAuction: {
     toJSON(message: SurplusAuction): unknown;
     fromPartial<I extends {
         auctionId?: string | number | Long.Long | undefined;
-        outflowToken?: {
+        sellToken?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
-        inflowToken?: {
+        buyToken?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
@@ -113,6 +117,7 @@ export declare const SurplusAuction: {
         auctionMappingId?: string | number | Long.Long | undefined;
         assetInId?: string | number | Long.Long | undefined;
         assetOutId?: string | number | Long.Long | undefined;
+        bidEndTime?: Date | undefined;
     } & {
         auctionId?: string | number | (Long.Long & {
             high: number;
@@ -172,20 +177,20 @@ export declare const SurplusAuction: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["auctionId"], keyof Long.Long>, never>) | undefined;
-        outflowToken?: ({
+        sellToken?: ({
             denom?: string | undefined;
             amount?: string | undefined;
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & Record<Exclude<keyof I["outflowToken"], keyof Coin>, never>) | undefined;
-        inflowToken?: ({
+        } & Record<Exclude<keyof I["sellToken"], keyof Coin>, never>) | undefined;
+        buyToken?: ({
             denom?: string | undefined;
             amount?: string | undefined;
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & Record<Exclude<keyof I["inflowToken"], keyof Coin>, never>) | undefined;
+        } & Record<Exclude<keyof I["buyToken"], keyof Coin>, never>) | undefined;
         activeBiddingId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -672,6 +677,7 @@ export declare const SurplusAuction: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetOutId"], keyof Long.Long>, never>) | undefined;
+        bidEndTime?: Date | undefined;
     } & Record<Exclude<keyof I, keyof SurplusAuction>, never>>(object: I): SurplusAuction;
 };
 export declare const DebtAuction: {
@@ -711,6 +717,7 @@ export declare const DebtAuction: {
         bidFactor?: string | undefined;
         assetInId?: string | number | Long.Long | undefined;
         assetOutId?: string | number | Long.Long | undefined;
+        bidEndTime?: Date | undefined;
     } & {
         auctionId?: string | number | (Long.Long & {
             high: number;
@@ -1277,6 +1284,7 @@ export declare const DebtAuction: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetOutId"], keyof Long.Long>, never>) | undefined;
+        bidEndTime?: Date | undefined;
     } & Record<Exclude<keyof I, keyof DebtAuction>, never>>(object: I): DebtAuction;
 };
 export declare const DutchAuction: {
@@ -1299,6 +1307,10 @@ export declare const DutchAuction: {
             amount?: string | undefined;
         } | undefined;
         inflowTokenCurrentAmount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+        toBurnAmount?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
@@ -1408,6 +1420,13 @@ export declare const DutchAuction: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & Record<Exclude<keyof I["inflowTokenCurrentAmount"], keyof Coin>, never>) | undefined;
+        toBurnAmount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["toBurnAmount"], keyof Coin>, never>) | undefined;
         outflowTokenInitialPrice?: string | undefined;
         outflowTokenCurrentPrice?: string | undefined;
         outflowTokenEndPrice?: string | undefined;
@@ -2051,6 +2070,7 @@ export declare const AuctionParams: {
         surplusId?: string | number | Long.Long | undefined;
         debtId?: string | number | Long.Long | undefined;
         dutchId?: string | number | Long.Long | undefined;
+        bidDurationSeconds?: string | number | Long.Long | undefined;
     } & {
         appId?: string | number | (Long.Long & {
             high: number;
@@ -2403,6 +2423,64 @@ export declare const AuctionParams: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["dutchId"], keyof Long.Long>, never>) | undefined;
+        bidDurationSeconds?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["bidDurationSeconds"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AuctionParams>, never>>(object: I): AuctionParams;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

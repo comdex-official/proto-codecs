@@ -1,5 +1,5 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.vault.v1beta1";
 /** app_vault_type_id will be the key for  the KVStore for this value. */
 export interface Vault {
@@ -41,6 +41,10 @@ export interface ExtendedPairVaultMapping {
 export interface TvlLockedDataMap {
     assetDenom: string;
     collateralLockedAmount: string;
+}
+export interface MintedDataMap {
+    assetDenom: string;
+    mintedAmount: string;
 }
 export interface StableMintVault {
     id: string;
@@ -866,6 +870,19 @@ export declare const TvlLockedDataMap: {
         assetDenom?: string | undefined;
         collateralLockedAmount?: string | undefined;
     } & Record<Exclude<keyof I, keyof TvlLockedDataMap>, never>>(object: I): TvlLockedDataMap;
+};
+export declare const MintedDataMap: {
+    encode(message: MintedDataMap, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MintedDataMap;
+    fromJSON(object: any): MintedDataMap;
+    toJSON(message: MintedDataMap): unknown;
+    fromPartial<I extends {
+        assetDenom?: string | undefined;
+        mintedAmount?: string | undefined;
+    } & {
+        assetDenom?: string | undefined;
+        mintedAmount?: string | undefined;
+    } & Record<Exclude<keyof I, keyof MintedDataMap>, never>>(object: I): MintedDataMap;
 };
 export declare const StableMintVault: {
     encode(message: StableMintVault, writer?: _m0.Writer): _m0.Writer;
