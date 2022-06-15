@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import  _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.vault.v1beta1";
@@ -51,6 +51,11 @@ export interface ExtendedPairVaultMapping {
 export interface TvlLockedDataMap {
   assetDenom: string;
   collateralLockedAmount: string;
+}
+
+export interface MintedDataMap {
+  assetDenom: string;
+  mintedAmount: string;
 }
 
 export interface StableMintVault {
@@ -730,6 +735,72 @@ export const TvlLockedDataMap = {
     const message = createBaseTvlLockedDataMap();
     message.assetDenom = object.assetDenom ?? "";
     message.collateralLockedAmount = object.collateralLockedAmount ?? "";
+    return message;
+  },
+};
+
+function createBaseMintedDataMap(): MintedDataMap {
+  return { assetDenom: "", mintedAmount: "" };
+}
+
+export const MintedDataMap = {
+  encode(
+    message: MintedDataMap,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.assetDenom !== "") {
+      writer.uint32(10).string(message.assetDenom);
+    }
+    if (message.mintedAmount !== "") {
+      writer.uint32(18).string(message.mintedAmount);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MintedDataMap {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMintedDataMap();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetDenom = reader.string();
+          break;
+        case 2:
+          message.mintedAmount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MintedDataMap {
+    return {
+      assetDenom: isSet(object.assetDenom) ? String(object.assetDenom) : "",
+      mintedAmount: isSet(object.mintedAmount)
+        ? String(object.mintedAmount)
+        : "",
+    };
+  },
+
+  toJSON(message: MintedDataMap): unknown {
+    const obj: any = {};
+    message.assetDenom !== undefined && (obj.assetDenom = message.assetDenom);
+    message.mintedAmount !== undefined &&
+      (obj.mintedAmount = message.mintedAmount);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MintedDataMap>, I>>(
+    object: I
+  ): MintedDataMap {
+    const message = createBaseMintedDataMap();
+    message.assetDenom = object.assetDenom ?? "";
+    message.mintedAmount = object.mintedAmount ?? "";
     return message;
   },
 };
