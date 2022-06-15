@@ -105,10 +105,10 @@ exports.SurplusBiddings = {
     fromJSON(object) {
         return {
             biddingId: isSet(object.biddingId)
-                ? long_1.default.fromString(object.biddingId)
+                ? long_1.default.fromValue(object.biddingId)
                 : long_1.default.UZERO,
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromString(object.auctionId)
+                ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO,
             auctionStatus: isSet(object.auctionStatus)
                 ? String(object.auctionStatus)
@@ -125,9 +125,9 @@ exports.SurplusBiddings = {
                 ? String(object.biddingStatus)
                 : "",
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromString(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -285,10 +285,10 @@ exports.DebtBiddings = {
     fromJSON(object) {
         return {
             biddingId: isSet(object.biddingId)
-                ? long_1.default.fromString(object.biddingId)
+                ? long_1.default.fromValue(object.biddingId)
                 : long_1.default.UZERO,
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromString(object.auctionId)
+                ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO,
             auctionStatus: isSet(object.auctionStatus)
                 ? String(object.auctionStatus)
@@ -305,9 +305,9 @@ exports.DebtBiddings = {
                 ? String(object.biddingStatus)
                 : "",
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromString(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -464,10 +464,10 @@ exports.DutchBiddings = {
     fromJSON(object) {
         return {
             biddingId: isSet(object.biddingId)
-                ? long_1.default.fromString(object.biddingId)
+                ? long_1.default.fromValue(object.biddingId)
                 : long_1.default.UZERO,
             auctionId: isSet(object.auctionId)
-                ? long_1.default.fromString(object.auctionId)
+                ? long_1.default.fromValue(object.auctionId)
                 : long_1.default.UZERO,
             auctionStatus: isSet(object.auctionStatus)
                 ? String(object.auctionStatus)
@@ -486,9 +486,9 @@ exports.DutchBiddings = {
                 ? String(object.biddingStatus)
                 : "",
             auctionMappingId: isSet(object.auctionMappingId)
-                ? long_1.default.fromString(object.auctionMappingId)
+                ? long_1.default.fromValue(object.auctionMappingId)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
