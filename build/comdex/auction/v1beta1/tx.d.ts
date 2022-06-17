@@ -25,12 +25,7 @@ export interface MsgPlaceDutchBidRequest {
     auctionId: Long;
     bidder: string;
     amount?: Coin;
-    /**
-     * string max= 4 [
-     *     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
-     *     (gogoproto.nullable)   = false,
-     *     (gogoproto.moretags)   = "yaml:\"max\""];
-     */
+    max: string;
     appId: Long;
     auctionMappingId: Long;
 }
@@ -471,6 +466,7 @@ export declare const MsgPlaceDutchBidRequest: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
+        max?: string | undefined;
         appId?: string | number | Long.Long | undefined;
         auctionMappingId?: string | number | Long.Long | undefined;
     } & {
@@ -540,6 +536,7 @@ export declare const MsgPlaceDutchBidRequest: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & Record<Exclude<keyof I["amount"], keyof Coin>, never>) | undefined;
+        max?: string | undefined;
         appId?: string | number | (Long.Long & {
             high: number;
             low: number;
