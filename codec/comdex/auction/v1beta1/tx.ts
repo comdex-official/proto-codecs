@@ -30,12 +30,7 @@ export interface MsgPlaceDutchBidRequest {
   auctionId: Long;
   bidder: string;
   amount?: Coin;
-  /**
-   * string max= 4 [
-   *     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
-   *     (gogoproto.nullable)   = false,
-   *     (gogoproto.moretags)   = "yaml:\"max\""];
-   */
+  max: string;
   appId: Long;
   auctionMappingId: Long;
 }
@@ -402,6 +397,7 @@ function createBaseMsgPlaceDutchBidRequest(): MsgPlaceDutchBidRequest {
     auctionId: Long.UZERO,
     bidder: "",
     amount: undefined,
+    max: "",
     appId: Long.UZERO,
     auctionMappingId: Long.UZERO,
   };
@@ -420,6 +416,9 @@ export const MsgPlaceDutchBidRequest = {
     }
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(26).fork()).ldelim();
+    }
+    if (message.max !== "") {
+      writer.uint32(34).string(message.max);
     }
     if (!message.appId.isZero()) {
       writer.uint32(40).uint64(message.appId);
@@ -449,6 +448,9 @@ export const MsgPlaceDutchBidRequest = {
         case 3:
           message.amount = Coin.decode(reader, reader.uint32());
           break;
+        case 4:
+          message.max = reader.string();
+          break;
         case 5:
           message.appId = reader.uint64() as Long;
           break;
@@ -470,6 +472,7 @@ export const MsgPlaceDutchBidRequest = {
         : Long.UZERO,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
+      max: isSet(object.max) ? String(object.max) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       auctionMappingId: isSet(object.auctionMappingId)
         ? Long.fromValue(object.auctionMappingId)
@@ -484,6 +487,7 @@ export const MsgPlaceDutchBidRequest = {
     message.bidder !== undefined && (obj.bidder = message.bidder);
     message.amount !== undefined &&
       (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.max !== undefined && (obj.max = message.max);
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
     message.auctionMappingId !== undefined &&
@@ -506,6 +510,7 @@ export const MsgPlaceDutchBidRequest = {
       object.amount !== undefined && object.amount !== null
         ? Coin.fromPartial(object.amount)
         : undefined;
+    message.max = object.max ?? "";
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
