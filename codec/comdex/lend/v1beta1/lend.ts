@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
@@ -93,11 +93,9 @@ export const LendAsset = {
   fromJSON(object: any): LendAsset {
     return {
       lendingId: isSet(object.lendingId)
-        ? Long.fromString(object.lendingId)
+        ? Long.fromValue(object.lendingId)
         : Long.UZERO,
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
       amountIn: isSet(object.amountIn)
         ? Coin.fromJSON(object.amountIn)
