@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,14 +25,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MsgClientImpl = exports.MsgFundModuleAccountsResponse = exports.MsgDepositResponse = exports.MsgWithdrawResponse = exports.MsgLendResponse = exports.MsgFundModuleAccounts = exports.MsgDepositLend = exports.MsgWithdraw = exports.MsgLend = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 exports.protobufPackage = "comdex.lend.v1beta1";
 function createBaseMsgLend() {
     return { lender: "", amount: undefined, pairId: long_1.default.UZERO };
 }
 exports.MsgLend = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.lender !== "") {
             writer.uint32(10).string(message.lender);
         }
@@ -26,7 +45,7 @@ exports.MsgLend = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgLend();
         while (reader.pos < end) {
@@ -52,9 +71,7 @@ exports.MsgLend = {
         return {
             lender: isSet(object.lender) ? String(object.lender) : "",
             amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -85,7 +102,7 @@ function createBaseMsgWithdraw() {
     return { lender: "", amount: undefined };
 }
 exports.MsgWithdraw = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.lender !== "") {
             writer.uint32(10).string(message.lender);
         }
@@ -95,7 +112,7 @@ exports.MsgWithdraw = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWithdraw();
         while (reader.pos < end) {
@@ -142,7 +159,7 @@ function createBaseMsgDepositLend() {
     return { from: "", id: long_1.default.UZERO, amount: undefined };
 }
 exports.MsgDepositLend = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
@@ -155,7 +172,7 @@ exports.MsgDepositLend = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgDepositLend();
         while (reader.pos < end) {
@@ -180,7 +197,7 @@ exports.MsgDepositLend = {
     fromJSON(object) {
         return {
             from: isSet(object.from) ? String(object.from) : "",
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
         };
     },
@@ -212,7 +229,7 @@ function createBaseMsgFundModuleAccounts() {
     return { moduleName: "", lender: "", amount: undefined };
 }
 exports.MsgFundModuleAccounts = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.moduleName !== "") {
             writer.uint32(10).string(message.moduleName);
         }
@@ -225,7 +242,7 @@ exports.MsgFundModuleAccounts = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgFundModuleAccounts();
         while (reader.pos < end) {
@@ -278,11 +295,11 @@ function createBaseMsgLendResponse() {
     return {};
 }
 exports.MsgLendResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgLendResponse();
         while (reader.pos < end) {
@@ -311,11 +328,11 @@ function createBaseMsgWithdrawResponse() {
     return {};
 }
 exports.MsgWithdrawResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWithdrawResponse();
         while (reader.pos < end) {
@@ -344,11 +361,11 @@ function createBaseMsgDepositResponse() {
     return {};
 }
 exports.MsgDepositResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgDepositResponse();
         while (reader.pos < end) {
@@ -377,11 +394,11 @@ function createBaseMsgFundModuleAccountsResponse() {
     return {};
 }
 exports.MsgFundModuleAccountsResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgFundModuleAccountsResponse();
         while (reader.pos < end) {
@@ -416,23 +433,23 @@ class MsgClientImpl {
     Lend(request) {
         const data = exports.MsgLend.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "Lend", data);
-        return promise.then((data) => exports.MsgLendResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgLendResponse.decode(new _m0.Reader(data)));
     }
     Withdraw(request) {
         const data = exports.MsgWithdraw.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "Withdraw", data);
-        return promise.then((data) => exports.MsgWithdrawResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgWithdrawResponse.decode(new _m0.Reader(data)));
     }
     FundModuleAccounts(request) {
         const data = exports.MsgFundModuleAccounts.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "FundModuleAccounts", data);
-        return promise.then((data) => exports.MsgFundModuleAccountsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgFundModuleAccountsResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
