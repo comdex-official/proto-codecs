@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "comdex.lend.v1beta1";
@@ -85,9 +85,7 @@ export const MsgLend = {
     return {
       lender: isSet(object.lender) ? String(object.lender) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
     };
   },
 
@@ -231,7 +229,7 @@ export const MsgDepositLend = {
   fromJSON(object: any): MsgDepositLend {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
     };
   },
