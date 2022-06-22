@@ -100,7 +100,7 @@ export interface QueryPoolRequest {
 }
 
 export interface QueryPoolResponse {
-  Pool?: Pool;
+  pool?: Pool;
 }
 
 export interface QueryAssetToPairMappingsRequest {
@@ -1403,7 +1403,7 @@ export const QueryPoolRequest = {
 };
 
 function createBaseQueryPoolResponse(): QueryPoolResponse {
-  return { Pool: undefined };
+  return { pool: undefined };
 }
 
 export const QueryPoolResponse = {
@@ -1411,8 +1411,8 @@ export const QueryPoolResponse = {
     message: QueryPoolResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.Pool !== undefined) {
-      Pool.encode(message.Pool, writer.uint32(10).fork()).ldelim();
+    if (message.pool !== undefined) {
+      Pool.encode(message.pool, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -1425,7 +1425,7 @@ export const QueryPoolResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.Pool = Pool.decode(reader, reader.uint32());
+          message.pool = Pool.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -1437,14 +1437,14 @@ export const QueryPoolResponse = {
 
   fromJSON(object: any): QueryPoolResponse {
     return {
-      Pool: isSet(object.Pool) ? Pool.fromJSON(object.Pool) : undefined,
+      pool: isSet(object.pool) ? Pool.fromJSON(object.pool) : undefined,
     };
   },
 
   toJSON(message: QueryPoolResponse): unknown {
     const obj: any = {};
-    message.Pool !== undefined &&
-      (obj.Pool = message.Pool ? Pool.toJSON(message.Pool) : undefined);
+    message.pool !== undefined &&
+      (obj.pool = message.pool ? Pool.toJSON(message.pool) : undefined);
     return obj;
   },
 
@@ -1452,9 +1452,9 @@ export const QueryPoolResponse = {
     object: I
   ): QueryPoolResponse {
     const message = createBaseQueryPoolResponse();
-    message.Pool =
-      object.Pool !== undefined && object.Pool !== null
-        ? Pool.fromPartial(object.Pool)
+    message.pool =
+      object.pool !== undefined && object.pool !== null
+        ? Pool.fromPartial(object.pool)
         : undefined;
     return message;
   },
