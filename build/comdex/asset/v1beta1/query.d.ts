@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
 import { Params } from "../../../comdex/asset/v1beta1/params";
@@ -4014,8 +4014,8 @@ export interface Query {
     QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
     QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
     QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-    QueryAppsMapings(request: QueryAppsRequest): Promise<QueryAppsResponse>;
-    QueryAppMapings(request: QueryAppRequest): Promise<QueryAppResponse>;
+    QueryAppsMappings(request: QueryAppsRequest): Promise<QueryAppsResponse>;
+    QueryAppMappings(request: QueryAppRequest): Promise<QueryAppResponse>;
     QueryPairVault(request: QueryPairVaultRequest): Promise<QueryPairVaultResponse>;
     QueryPairVaults(request: QueryPairVaultsRequest): Promise<QueryPairVaultsResponse>;
     QueryProductToExtendedPair(request: QueryProductToExtendedPairRequest): Promise<QueryProductToExtendedPairResponse>;
@@ -4031,8 +4031,8 @@ export declare class QueryClientImpl implements Query {
     QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
     QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
     QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-    QueryAppsMapings(request: QueryAppsRequest): Promise<QueryAppsResponse>;
-    QueryAppMapings(request: QueryAppRequest): Promise<QueryAppResponse>;
+    QueryAppsMappings(request: QueryAppsRequest): Promise<QueryAppsResponse>;
+    QueryAppMappings(request: QueryAppRequest): Promise<QueryAppResponse>;
     QueryPairVault(request: QueryPairVaultRequest): Promise<QueryPairVaultResponse>;
     QueryPairVaults(request: QueryPairVaultsRequest): Promise<QueryPairVaultsResponse>;
     QueryProductToExtendedPair(request: QueryProductToExtendedPairRequest): Promise<QueryProductToExtendedPairResponse>;
