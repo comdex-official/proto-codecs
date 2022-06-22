@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import  _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import {
   PageRequest,
   PageResponse,
@@ -1849,8 +1849,8 @@ export interface Query {
   QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
   QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
   QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  QueryAppsMapings(request: QueryAppsRequest): Promise<QueryAppsResponse>;
-  QueryAppMapings(request: QueryAppRequest): Promise<QueryAppResponse>;
+  QueryAppsMappings(request: QueryAppsRequest): Promise<QueryAppsResponse>;
+  QueryAppMappings(request: QueryAppRequest): Promise<QueryAppResponse>;
   QueryPairVault(
     request: QueryPairVaultRequest
   ): Promise<QueryPairVaultResponse>;
@@ -1878,8 +1878,8 @@ export class QueryClientImpl implements Query {
     this.QueryPairs = this.QueryPairs.bind(this);
     this.QueryPair = this.QueryPair.bind(this);
     this.QueryParams = this.QueryParams.bind(this);
-    this.QueryAppsMapings = this.QueryAppsMapings.bind(this);
-    this.QueryAppMapings = this.QueryAppMapings.bind(this);
+    this.QueryAppsMappings = this.QueryAppsMappings.bind(this);
+    this.QueryAppMappings = this.QueryAppMappings.bind(this);
     this.QueryPairVault = this.QueryPairVault.bind(this);
     this.QueryPairVaults = this.QueryPairVaults.bind(this);
     this.QueryProductToExtendedPair =
@@ -1950,11 +1950,11 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryAppsMapings(request: QueryAppsRequest): Promise<QueryAppsResponse> {
+  QueryAppsMappings(request: QueryAppsRequest): Promise<QueryAppsResponse> {
     const data = QueryAppsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.asset.v1beta1.Query",
-      "QueryAppsMapings",
+      "QueryAppsMappings",
       data
     );
     return promise.then((data) =>
@@ -1962,11 +1962,11 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryAppMapings(request: QueryAppRequest): Promise<QueryAppResponse> {
+  QueryAppMappings(request: QueryAppRequest): Promise<QueryAppResponse> {
     const data = QueryAppRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.asset.v1beta1.Query",
-      "QueryAppMapings",
+      "QueryAppMappings",
       data
     );
     return promise.then((data) =>
