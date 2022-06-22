@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AddAssetMappingProposal = exports.AddAppMappingProposal = exports.UpdateExtendedPairVaultProposal = exports.AddExtendedPairsVaultProposal = exports.UpdateWhitelistedPairProposal = exports.AddWhitelistedPairsProposal = exports.UpdateWhitelistedAssetProposal = exports.AddWhitelistedAssetsProposal = exports.AddPairsProposal = exports.UpdateAssetProposal = exports.AddAssetsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const asset_1 = require("../../../comdex/asset/v1beta1/asset");
 const extendedAsset_1 = require("../../../comdex/asset/v1beta1/extendedAsset");
 const extendedLend_1 = require("../../../comdex/asset/v1beta1/extendedLend");
@@ -18,7 +37,7 @@ function createBaseAddAssetsProposal() {
     return { title: "", description: "", assets: [] };
 }
 exports.AddAssetsProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -31,7 +50,7 @@ exports.AddAssetsProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddAssetsProposal();
         while (reader.pos < end) {
@@ -88,7 +107,7 @@ function createBaseUpdateAssetProposal() {
     return { title: "", description: "", asset: undefined };
 }
 exports.UpdateAssetProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -101,7 +120,7 @@ exports.UpdateAssetProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseUpdateAssetProposal();
         while (reader.pos < end) {
@@ -155,7 +174,7 @@ function createBaseAddPairsProposal() {
     return { title: "", description: "", pairs: [] };
 }
 exports.AddPairsProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -168,7 +187,7 @@ exports.AddPairsProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddPairsProposal();
         while (reader.pos < end) {
@@ -225,7 +244,7 @@ function createBaseAddWhitelistedAssetsProposal() {
     return { title: "", description: "", assets: [] };
 }
 exports.AddWhitelistedAssetsProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -238,7 +257,7 @@ exports.AddWhitelistedAssetsProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddWhitelistedAssetsProposal();
         while (reader.pos < end) {
@@ -296,7 +315,7 @@ function createBaseUpdateWhitelistedAssetProposal() {
     return { title: "", description: "", asset: undefined };
 }
 exports.UpdateWhitelistedAssetProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -309,7 +328,7 @@ exports.UpdateWhitelistedAssetProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseUpdateWhitelistedAssetProposal();
         while (reader.pos < end) {
@@ -367,7 +386,7 @@ function createBaseAddWhitelistedPairsProposal() {
     return { title: "", description: "", pairs: [] };
 }
 exports.AddWhitelistedPairsProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -380,7 +399,7 @@ exports.AddWhitelistedPairsProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddWhitelistedPairsProposal();
         while (reader.pos < end) {
@@ -438,7 +457,7 @@ function createBaseUpdateWhitelistedPairProposal() {
     return { title: "", description: "", pair: undefined };
 }
 exports.UpdateWhitelistedPairProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -451,7 +470,7 @@ exports.UpdateWhitelistedPairProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseUpdateWhitelistedPairProposal();
         while (reader.pos < end) {
@@ -509,7 +528,7 @@ function createBaseAddExtendedPairsVaultProposal() {
     return { title: "", description: "", pairs: [] };
 }
 exports.AddExtendedPairsVaultProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -522,7 +541,7 @@ exports.AddExtendedPairsVaultProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddExtendedPairsVaultProposal();
         while (reader.pos < end) {
@@ -580,7 +599,7 @@ function createBaseUpdateExtendedPairVaultProposal() {
     return { title: "", description: "", pair: undefined };
 }
 exports.UpdateExtendedPairVaultProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -593,7 +612,7 @@ exports.UpdateExtendedPairVaultProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseUpdateExtendedPairVaultProposal();
         while (reader.pos < end) {
@@ -651,7 +670,7 @@ function createBaseAddAppMappingProposal() {
     return { title: "", description: "", app: [] };
 }
 exports.AddAppMappingProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -664,7 +683,7 @@ exports.AddAppMappingProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddAppMappingProposal();
         while (reader.pos < end) {
@@ -721,7 +740,7 @@ function createBaseAddAssetMappingProposal() {
     return { title: "", description: "", app: [] };
 }
 exports.AddAssetMappingProposal = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
         }
@@ -734,7 +753,7 @@ exports.AddAssetMappingProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddAssetMappingProposal();
         while (reader.pos < end) {
@@ -787,9 +806,9 @@ exports.AddAssetMappingProposal = {
         return message;
     },
 };
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

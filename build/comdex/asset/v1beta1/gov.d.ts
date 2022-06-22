@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
 import { ExtendedAsset } from "../../../comdex/asset/v1beta1/extendedAsset";
 import { ExtendedPairLend } from "../../../comdex/asset/v1beta1/extendedLend";
