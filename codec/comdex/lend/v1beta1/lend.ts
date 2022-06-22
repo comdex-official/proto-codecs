@@ -24,6 +24,7 @@ export interface BorrowAsset {
   pairId: Long;
   amountIn?: Coin;
   amountOut?: Coin;
+  bridgedAssetId: Long;
   borrowingTime?: Date;
   stableBorrowRate: string;
   updatedAmountOut: string;
@@ -33,6 +34,7 @@ export interface BorrowAsset {
 export interface Pool {
   poolId: Long;
   moduleName: string;
+  mainAssetId: Long;
   firstBridgedAssetId: Long;
   secondBridgedAssetId: Long;
   assetData: AssetDataPoolMapping[];
@@ -92,6 +94,7 @@ export interface AssetRatesStats {
   liquidationThreshold: string;
   liquidationPenalty: string;
   reserveFactor: string;
+  cAssetId: Long;
 }
 
 export interface LendMapping {
@@ -274,6 +277,7 @@ function createBaseBorrowAsset(): BorrowAsset {
     pairId: Long.UZERO,
     amountIn: undefined,
     amountOut: undefined,
+    bridgedAssetId: Long.UZERO,
     borrowingTime: undefined,
     stableBorrowRate: "",
     updatedAmountOut: "",
@@ -304,20 +308,23 @@ export const BorrowAsset = {
     if (message.amountOut !== undefined) {
       Coin.encode(message.amountOut, writer.uint32(50).fork()).ldelim();
     }
+    if (!message.bridgedAssetId.isZero()) {
+      writer.uint32(56).uint64(message.bridgedAssetId);
+    }
     if (message.borrowingTime !== undefined) {
       Timestamp.encode(
         toTimestamp(message.borrowingTime),
-        writer.uint32(58).fork()
+        writer.uint32(66).fork()
       ).ldelim();
     }
     if (message.stableBorrowRate !== "") {
-      writer.uint32(66).string(message.stableBorrowRate);
+      writer.uint32(74).string(message.stableBorrowRate);
     }
     if (message.updatedAmountOut !== "") {
-      writer.uint32(74).string(message.updatedAmountOut);
+      writer.uint32(82).string(message.updatedAmountOut);
     }
     if (message.interestAccumulated !== "") {
-      writer.uint32(82).string(message.interestAccumulated);
+      writer.uint32(90).string(message.interestAccumulated);
     }
     return writer;
   },
@@ -348,17 +355,20 @@ export const BorrowAsset = {
           message.amountOut = Coin.decode(reader, reader.uint32());
           break;
         case 7:
+          message.bridgedAssetId = reader.uint64() as Long;
+          break;
+        case 8:
           message.borrowingTime = fromTimestamp(
             Timestamp.decode(reader, reader.uint32())
           );
           break;
-        case 8:
+        case 9:
           message.stableBorrowRate = reader.string();
           break;
-        case 9:
+        case 10:
           message.updatedAmountOut = reader.string();
           break;
-        case 10:
+        case 11:
           message.interestAccumulated = reader.string();
           break;
         default:
@@ -387,6 +397,9 @@ export const BorrowAsset = {
       amountOut: isSet(object.amountOut)
         ? Coin.fromJSON(object.amountOut)
         : undefined,
+      bridgedAssetId: isSet(object.bridgedAssetId)
+        ? Long.fromValue(object.bridgedAssetId)
+        : Long.UZERO,
       borrowingTime: isSet(object.borrowingTime)
         ? fromJsonTimestamp(object.borrowingTime)
         : undefined,
@@ -420,6 +433,8 @@ export const BorrowAsset = {
       (obj.amountOut = message.amountOut
         ? Coin.toJSON(message.amountOut)
         : undefined);
+    message.bridgedAssetId !== undefined &&
+      (obj.bridgedAssetId = (message.bridgedAssetId || Long.UZERO).toString());
     message.borrowingTime !== undefined &&
       (obj.borrowingTime = message.borrowingTime.toISOString());
     message.stableBorrowRate !== undefined &&
@@ -456,6 +471,10 @@ export const BorrowAsset = {
       object.amountOut !== undefined && object.amountOut !== null
         ? Coin.fromPartial(object.amountOut)
         : undefined;
+    message.bridgedAssetId =
+      object.bridgedAssetId !== undefined && object.bridgedAssetId !== null
+        ? Long.fromValue(object.bridgedAssetId)
+        : Long.UZERO;
     message.borrowingTime = object.borrowingTime ?? undefined;
     message.stableBorrowRate = object.stableBorrowRate ?? "";
     message.updatedAmountOut = object.updatedAmountOut ?? "";
@@ -468,6 +487,7 @@ function createBasePool(): Pool {
   return {
     poolId: Long.UZERO,
     moduleName: "",
+    mainAssetId: Long.UZERO,
     firstBridgedAssetId: Long.UZERO,
     secondBridgedAssetId: Long.UZERO,
     assetData: [],
@@ -482,14 +502,17 @@ export const Pool = {
     if (message.moduleName !== "") {
       writer.uint32(18).string(message.moduleName);
     }
+    if (!message.mainAssetId.isZero()) {
+      writer.uint32(24).uint64(message.mainAssetId);
+    }
     if (!message.firstBridgedAssetId.isZero()) {
-      writer.uint32(24).uint64(message.firstBridgedAssetId);
+      writer.uint32(32).uint64(message.firstBridgedAssetId);
     }
     if (!message.secondBridgedAssetId.isZero()) {
-      writer.uint32(32).uint64(message.secondBridgedAssetId);
+      writer.uint32(40).uint64(message.secondBridgedAssetId);
     }
     for (const v of message.assetData) {
-      AssetDataPoolMapping.encode(v!, writer.uint32(42).fork()).ldelim();
+      AssetDataPoolMapping.encode(v!, writer.uint32(50).fork()).ldelim();
     }
     return writer;
   },
@@ -508,12 +531,15 @@ export const Pool = {
           message.moduleName = reader.string();
           break;
         case 3:
-          message.firstBridgedAssetId = reader.uint64() as Long;
+          message.mainAssetId = reader.uint64() as Long;
           break;
         case 4:
-          message.secondBridgedAssetId = reader.uint64() as Long;
+          message.firstBridgedAssetId = reader.uint64() as Long;
           break;
         case 5:
+          message.secondBridgedAssetId = reader.uint64() as Long;
+          break;
+        case 6:
           message.assetData.push(
             AssetDataPoolMapping.decode(reader, reader.uint32())
           );
@@ -530,6 +556,9 @@ export const Pool = {
     return {
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       moduleName: isSet(object.moduleName) ? String(object.moduleName) : "",
+      mainAssetId: isSet(object.mainAssetId)
+        ? Long.fromValue(object.mainAssetId)
+        : Long.UZERO,
       firstBridgedAssetId: isSet(object.firstBridgedAssetId)
         ? Long.fromValue(object.firstBridgedAssetId)
         : Long.UZERO,
@@ -547,6 +576,8 @@ export const Pool = {
     message.poolId !== undefined &&
       (obj.poolId = (message.poolId || Long.UZERO).toString());
     message.moduleName !== undefined && (obj.moduleName = message.moduleName);
+    message.mainAssetId !== undefined &&
+      (obj.mainAssetId = (message.mainAssetId || Long.UZERO).toString());
     message.firstBridgedAssetId !== undefined &&
       (obj.firstBridgedAssetId = (
         message.firstBridgedAssetId || Long.UZERO
@@ -572,6 +603,10 @@ export const Pool = {
         ? Long.fromValue(object.poolId)
         : Long.UZERO;
     message.moduleName = object.moduleName ?? "";
+    message.mainAssetId =
+      object.mainAssetId !== undefined && object.mainAssetId !== null
+        ? Long.fromValue(object.mainAssetId)
+        : Long.UZERO;
     message.firstBridgedAssetId =
       object.firstBridgedAssetId !== undefined &&
       object.firstBridgedAssetId !== null
@@ -1212,6 +1247,7 @@ function createBaseAssetRatesStats(): AssetRatesStats {
     liquidationThreshold: "",
     liquidationPenalty: "",
     reserveFactor: "",
+    cAssetId: Long.UZERO,
   };
 }
 
@@ -1258,6 +1294,9 @@ export const AssetRatesStats = {
     }
     if (message.reserveFactor !== "") {
       writer.uint32(106).string(message.reserveFactor);
+    }
+    if (!message.cAssetId.isZero()) {
+      writer.uint32(112).uint64(message.cAssetId);
     }
     return writer;
   },
@@ -1308,6 +1347,9 @@ export const AssetRatesStats = {
         case 13:
           message.reserveFactor = reader.string();
           break;
+        case 14:
+          message.cAssetId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1345,6 +1387,9 @@ export const AssetRatesStats = {
       reserveFactor: isSet(object.reserveFactor)
         ? String(object.reserveFactor)
         : "",
+      cAssetId: isSet(object.cAssetId)
+        ? Long.fromValue(object.cAssetId)
+        : Long.UZERO,
     };
   },
 
@@ -1370,6 +1415,8 @@ export const AssetRatesStats = {
       (obj.liquidationPenalty = message.liquidationPenalty);
     message.reserveFactor !== undefined &&
       (obj.reserveFactor = message.reserveFactor);
+    message.cAssetId !== undefined &&
+      (obj.cAssetId = (message.cAssetId || Long.UZERO).toString());
     return obj;
   },
 
@@ -1393,6 +1440,10 @@ export const AssetRatesStats = {
     message.liquidationThreshold = object.liquidationThreshold ?? "";
     message.liquidationPenalty = object.liquidationPenalty ?? "";
     message.reserveFactor = object.reserveFactor ?? "";
+    message.cAssetId =
+      object.cAssetId !== undefined && object.cAssetId !== null
+        ? Long.fromValue(object.cAssetId)
+        : Long.UZERO;
     return message;
   },
 };
