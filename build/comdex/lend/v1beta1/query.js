@@ -1038,12 +1038,12 @@ exports.QueryPoolRequest = {
     },
 };
 function createBaseQueryPoolResponse() {
-    return { Pool: undefined };
+    return { pool: undefined };
 }
 exports.QueryPoolResponse = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.Pool !== undefined) {
-            lend_1.Pool.encode(message.Pool, writer.uint32(10).fork()).ldelim();
+        if (message.pool !== undefined) {
+            lend_1.Pool.encode(message.pool, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -1055,7 +1055,7 @@ exports.QueryPoolResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.Pool = lend_1.Pool.decode(reader, reader.uint32());
+                    message.pool = lend_1.Pool.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1066,20 +1066,20 @@ exports.QueryPoolResponse = {
     },
     fromJSON(object) {
         return {
-            Pool: isSet(object.Pool) ? lend_1.Pool.fromJSON(object.Pool) : undefined,
+            pool: isSet(object.pool) ? lend_1.Pool.fromJSON(object.pool) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.Pool !== undefined &&
-            (obj.Pool = message.Pool ? lend_1.Pool.toJSON(message.Pool) : undefined);
+        message.pool !== undefined &&
+            (obj.pool = message.pool ? lend_1.Pool.toJSON(message.pool) : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = createBaseQueryPoolResponse();
-        message.Pool =
-            object.Pool !== undefined && object.Pool !== null
-                ? lend_1.Pool.fromPartial(object.Pool)
+        message.pool =
+            object.pool !== undefined && object.pool !== null
+                ? lend_1.Pool.fromPartial(object.pool)
                 : undefined;
         return message;
     },
