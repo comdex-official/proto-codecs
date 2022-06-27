@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BorrowMapping = exports.LendMapping = exports.AssetRatesStats = exports.AssetStats = exports.LendIdToBorrowIdMapping = exports.UserBorrowIdMapping = exports.UserLendIdMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
+exports.BorrowMapping = exports.LendMapping = exports.AssetRatesStats = exports.AssetStats = exports.LendIdToBorrowIdMapping = exports.UserBorrowIdMapping = exports.BorrowIdByOwnerAndPoolMapping = exports.LendIdByOwnerAndPoolMapping = exports.UserLendIdMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -676,14 +676,17 @@ exports.ExtendedPair = {
     },
 };
 function createBaseAssetToPairMapping() {
-    return { assetId: long_1.default.UZERO, pairId: [] };
+    return { assetId: long_1.default.UZERO, poolId: long_1.default.UZERO, pairId: [] };
 }
 exports.AssetToPairMapping = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
-        writer.uint32(18).fork();
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        writer.uint32(26).fork();
         for (const v of message.pairId) {
             writer.uint64(v);
         }
@@ -701,6 +704,9 @@ exports.AssetToPairMapping = {
                     message.assetId = reader.uint64();
                     break;
                 case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
                     if ((tag & 7) === 2) {
                         const end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2) {
@@ -723,6 +729,7 @@ exports.AssetToPairMapping = {
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             pairId: Array.isArray(object === null || object === void 0 ? void 0 : object.pairId)
                 ? object.pairId.map((e) => long_1.default.fromValue(e))
                 : [],
@@ -732,6 +739,8 @@ exports.AssetToPairMapping = {
         const obj = {};
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
         if (message.pairId) {
             obj.pairId = message.pairId.map((e) => (e || long_1.default.UZERO).toString());
         }
@@ -747,21 +756,27 @@ exports.AssetToPairMapping = {
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
         message.pairId = ((_a = object.pairId) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
         return message;
     },
 };
 function createBaseUserLendIdMapping() {
-    return { owner: "", lends: [] };
+    return { owner: "", lendIds: [] };
 }
 exports.UserLendIdMapping = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.owner !== "") {
             writer.uint32(10).string(message.owner);
         }
-        for (const v of message.lends) {
-            exports.LendAsset.encode(v, writer.uint32(18).fork()).ldelim();
+        writer.uint32(18).fork();
+        for (const v of message.lendIds) {
+            writer.uint64(v);
         }
+        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -775,7 +790,15 @@ exports.UserLendIdMapping = {
                     message.owner = reader.string();
                     break;
                 case 2:
-                    message.lends.push(exports.LendAsset.decode(reader, reader.uint32()));
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.lendIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.lendIds.push(reader.uint64());
+                    }
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -787,19 +810,19 @@ exports.UserLendIdMapping = {
     fromJSON(object) {
         return {
             owner: isSet(object.owner) ? String(object.owner) : "",
-            lends: Array.isArray(object === null || object === void 0 ? void 0 : object.lends)
-                ? object.lends.map((e) => exports.LendAsset.fromJSON(e))
+            lendIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lendIds)
+                ? object.lendIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
     toJSON(message) {
         const obj = {};
         message.owner !== undefined && (obj.owner = message.owner);
-        if (message.lends) {
-            obj.lends = message.lends.map((e) => e ? exports.LendAsset.toJSON(e) : undefined);
+        if (message.lendIds) {
+            obj.lendIds = message.lendIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
-            obj.lends = [];
+            obj.lendIds = [];
         }
         return obj;
     },
@@ -807,21 +830,189 @@ exports.UserLendIdMapping = {
         var _a, _b;
         const message = createBaseUserLendIdMapping();
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
-        message.lends = ((_b = object.lends) === null || _b === void 0 ? void 0 : _b.map((e) => exports.LendAsset.fromPartial(e))) || [];
+        message.lendIds = ((_b = object.lendIds) === null || _b === void 0 ? void 0 : _b.map((e) => long_1.default.fromValue(e))) || [];
+        return message;
+    },
+};
+function createBaseLendIdByOwnerAndPoolMapping() {
+    return { owner: "", poolId: long_1.default.UZERO, lendIds: [] };
+}
+exports.LendIdByOwnerAndPoolMapping = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.owner !== "") {
+            writer.uint32(10).string(message.owner);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        writer.uint32(26).fork();
+        for (const v of message.lendIds) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseLendIdByOwnerAndPoolMapping();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.owner = reader.string();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.lendIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.lendIds.push(reader.uint64());
+                    }
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            owner: isSet(object.owner) ? String(object.owner) : "",
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            lendIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lendIds)
+                ? object.lendIds.map((e) => long_1.default.fromValue(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.owner !== undefined && (obj.owner = message.owner);
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        if (message.lendIds) {
+            obj.lendIds = message.lendIds.map((e) => (e || long_1.default.UZERO).toString());
+        }
+        else {
+            obj.lendIds = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseLendIdByOwnerAndPoolMapping();
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.lendIds = ((_b = object.lendIds) === null || _b === void 0 ? void 0 : _b.map((e) => long_1.default.fromValue(e))) || [];
+        return message;
+    },
+};
+function createBaseBorrowIdByOwnerAndPoolMapping() {
+    return { owner: "", poolId: long_1.default.UZERO, borrowIds: [] };
+}
+exports.BorrowIdByOwnerAndPoolMapping = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.owner !== "") {
+            writer.uint32(10).string(message.owner);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        writer.uint32(26).fork();
+        for (const v of message.borrowIds) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseBorrowIdByOwnerAndPoolMapping();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.owner = reader.string();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.borrowIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.borrowIds.push(reader.uint64());
+                    }
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            owner: isSet(object.owner) ? String(object.owner) : "",
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            borrowIds: Array.isArray(object === null || object === void 0 ? void 0 : object.borrowIds)
+                ? object.borrowIds.map((e) => long_1.default.fromValue(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.owner !== undefined && (obj.owner = message.owner);
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        if (message.borrowIds) {
+            obj.borrowIds = message.borrowIds.map((e) => (e || long_1.default.UZERO).toString());
+        }
+        else {
+            obj.borrowIds = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseBorrowIdByOwnerAndPoolMapping();
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.borrowIds = ((_b = object.borrowIds) === null || _b === void 0 ? void 0 : _b.map((e) => long_1.default.fromValue(e))) || [];
         return message;
     },
 };
 function createBaseUserBorrowIdMapping() {
-    return { owner: "", borrows: [] };
+    return { owner: "", borrowIds: [] };
 }
 exports.UserBorrowIdMapping = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.owner !== "") {
             writer.uint32(10).string(message.owner);
         }
-        for (const v of message.borrows) {
-            exports.BorrowAsset.encode(v, writer.uint32(18).fork()).ldelim();
+        writer.uint32(18).fork();
+        for (const v of message.borrowIds) {
+            writer.uint64(v);
         }
+        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -835,7 +1026,15 @@ exports.UserBorrowIdMapping = {
                     message.owner = reader.string();
                     break;
                 case 2:
-                    message.borrows.push(exports.BorrowAsset.decode(reader, reader.uint32()));
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.borrowIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.borrowIds.push(reader.uint64());
+                    }
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -847,19 +1046,19 @@ exports.UserBorrowIdMapping = {
     fromJSON(object) {
         return {
             owner: isSet(object.owner) ? String(object.owner) : "",
-            borrows: Array.isArray(object === null || object === void 0 ? void 0 : object.borrows)
-                ? object.borrows.map((e) => exports.BorrowAsset.fromJSON(e))
+            borrowIds: Array.isArray(object === null || object === void 0 ? void 0 : object.borrowIds)
+                ? object.borrowIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
     toJSON(message) {
         const obj = {};
         message.owner !== undefined && (obj.owner = message.owner);
-        if (message.borrows) {
-            obj.borrows = message.borrows.map((e) => e ? exports.BorrowAsset.toJSON(e) : undefined);
+        if (message.borrowIds) {
+            obj.borrowIds = message.borrowIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
-            obj.borrows = [];
+            obj.borrowIds = [];
         }
         return obj;
     },
@@ -867,8 +1066,7 @@ exports.UserBorrowIdMapping = {
         var _a, _b;
         const message = createBaseUserBorrowIdMapping();
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
-        message.borrows =
-            ((_b = object.borrows) === null || _b === void 0 ? void 0 : _b.map((e) => exports.BorrowAsset.fromPartial(e))) || [];
+        message.borrowIds = ((_b = object.borrowIds) === null || _b === void 0 ? void 0 : _b.map((e) => long_1.default.fromValue(e))) || [];
         return message;
     },
 };
@@ -955,6 +1153,9 @@ function createBaseAssetStats() {
         assetId: long_1.default.UZERO,
         totalBorrowed: "",
         totalLend: "",
+        lendApr: "",
+        borrowApr: "",
+        stableBorrowApr: "",
     };
 }
 exports.AssetStats = {
@@ -970,6 +1171,15 @@ exports.AssetStats = {
         }
         if (message.totalLend !== "") {
             writer.uint32(34).string(message.totalLend);
+        }
+        if (message.lendApr !== "") {
+            writer.uint32(42).string(message.lendApr);
+        }
+        if (message.borrowApr !== "") {
+            writer.uint32(50).string(message.borrowApr);
+        }
+        if (message.stableBorrowApr !== "") {
+            writer.uint32(58).string(message.stableBorrowApr);
         }
         return writer;
     },
@@ -992,6 +1202,15 @@ exports.AssetStats = {
                 case 4:
                     message.totalLend = reader.string();
                     break;
+                case 5:
+                    message.lendApr = reader.string();
+                    break;
+                case 6:
+                    message.borrowApr = reader.string();
+                    break;
+                case 7:
+                    message.stableBorrowApr = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1009,6 +1228,11 @@ exports.AssetStats = {
                 ? String(object.totalBorrowed)
                 : "",
             totalLend: isSet(object.totalLend) ? String(object.totalLend) : "",
+            lendApr: isSet(object.lendApr) ? String(object.lendApr) : "",
+            borrowApr: isSet(object.borrowApr) ? String(object.borrowApr) : "",
+            stableBorrowApr: isSet(object.stableBorrowApr)
+                ? String(object.stableBorrowApr)
+                : "",
         };
     },
     toJSON(message) {
@@ -1020,10 +1244,14 @@ exports.AssetStats = {
         message.totalBorrowed !== undefined &&
             (obj.totalBorrowed = message.totalBorrowed);
         message.totalLend !== undefined && (obj.totalLend = message.totalLend);
+        message.lendApr !== undefined && (obj.lendApr = message.lendApr);
+        message.borrowApr !== undefined && (obj.borrowApr = message.borrowApr);
+        message.stableBorrowApr !== undefined &&
+            (obj.stableBorrowApr = message.stableBorrowApr);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c, _d, _e;
         const message = createBaseAssetStats();
         message.poolId =
             object.poolId !== undefined && object.poolId !== null
@@ -1035,6 +1263,9 @@ exports.AssetStats = {
                 : long_1.default.UZERO;
         message.totalBorrowed = (_a = object.totalBorrowed) !== null && _a !== void 0 ? _a : "";
         message.totalLend = (_b = object.totalLend) !== null && _b !== void 0 ? _b : "";
+        message.lendApr = (_c = object.lendApr) !== null && _c !== void 0 ? _c : "";
+        message.borrowApr = (_d = object.borrowApr) !== null && _d !== void 0 ? _d : "";
+        message.stableBorrowApr = (_e = object.stableBorrowApr) !== null && _e !== void 0 ? _e : "";
         return message;
     },
 };

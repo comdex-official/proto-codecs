@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryAllBorrowByOwnerResponse = exports.QueryAllBorrowByOwnerRequest = exports.QueryBorrowResponse = exports.QueryBorrowRequest = exports.QueryBorrowsResponse = exports.QueryBorrowsRequest = exports.QueryAssetToPairMappingResponse = exports.QueryAssetToPairMappingRequest = exports.QueryAssetToPairMappingsResponse = exports.QueryAssetToPairMappingsRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryAssetRatesStatResponse = exports.QueryAssetRatesStatRequest = exports.QueryAssetRatesStatsResponse = exports.QueryAssetRatesStatsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAllLendByOwnerResponse = exports.QueryAllLendByOwnerRequest = exports.QueryLendResponse = exports.QueryLendRequest = exports.QueryLendsResponse = exports.QueryLendsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryAssetStatsResponse = exports.QueryAssetStatsRequest = exports.QueryAllBorrowByOwnerAndPoolResponse = exports.QueryAllBorrowByOwnerAndPoolRequest = exports.QueryAllBorrowByOwnerResponse = exports.QueryAllBorrowByOwnerRequest = exports.QueryBorrowResponse = exports.QueryBorrowRequest = exports.QueryBorrowsResponse = exports.QueryBorrowsRequest = exports.QueryAssetToPairMappingResponse = exports.QueryAssetToPairMappingRequest = exports.QueryAssetToPairMappingsResponse = exports.QueryAssetToPairMappingsRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryAssetRatesStatResponse = exports.QueryAssetRatesStatRequest = exports.QueryAssetRatesStatsResponse = exports.QueryAssetRatesStatsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAllLendByOwnerAndPoolResponse = exports.QueryAllLendByOwnerAndPoolRequest = exports.QueryAllLendByOwnerResponse = exports.QueryAllLendByOwnerRequest = exports.QueryLendResponse = exports.QueryLendRequest = exports.QueryLendsResponse = exports.QueryLendsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -385,13 +385,15 @@ exports.QueryAllLendByOwnerRequest = {
     },
 };
 function createBaseQueryAllLendByOwnerResponse() {
-    return { lends: [] };
+    return { lendIds: [] };
 }
 exports.QueryAllLendByOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
-        for (const v of message.lends) {
-            lend_1.LendAsset.encode(v, writer.uint32(10).fork()).ldelim();
+        writer.uint32(10).fork();
+        for (const v of message.lendIds) {
+            writer.uint64(v);
         }
+        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -402,7 +404,15 @@ exports.QueryAllLendByOwnerResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.lends.push(lend_1.LendAsset.decode(reader, reader.uint32()));
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.lendIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.lendIds.push(reader.uint64());
+                    }
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -413,25 +423,160 @@ exports.QueryAllLendByOwnerResponse = {
     },
     fromJSON(object) {
         return {
-            lends: Array.isArray(object === null || object === void 0 ? void 0 : object.lends)
-                ? object.lends.map((e) => lend_1.LendAsset.fromJSON(e))
+            lendIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lendIds)
+                ? object.lendIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
     toJSON(message) {
         const obj = {};
-        if (message.lends) {
-            obj.lends = message.lends.map((e) => e ? lend_1.LendAsset.toJSON(e) : undefined);
+        if (message.lendIds) {
+            obj.lendIds = message.lendIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
-            obj.lends = [];
+            obj.lendIds = [];
         }
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryAllLendByOwnerResponse();
-        message.lends = ((_a = object.lends) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.LendAsset.fromPartial(e))) || [];
+        message.lendIds = ((_a = object.lendIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        return message;
+    },
+};
+function createBaseQueryAllLendByOwnerAndPoolRequest() {
+    return { owner: "", poolId: long_1.default.UZERO, pagination: undefined };
+}
+exports.QueryAllLendByOwnerAndPoolRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.owner !== "") {
+            writer.uint32(10).string(message.owner);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllLendByOwnerAndPoolRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.owner = reader.string();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            owner: isSet(object.owner) ? String(object.owner) : "",
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.owner !== undefined && (obj.owner = message.owner);
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryAllLendByOwnerAndPoolRequest();
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryAllLendByOwnerAndPoolResponse() {
+    return { lendIds: [] };
+}
+exports.QueryAllLendByOwnerAndPoolResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        writer.uint32(10).fork();
+        for (const v of message.lendIds) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllLendByOwnerAndPoolResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.lendIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.lendIds.push(reader.uint64());
+                    }
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            lendIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lendIds)
+                ? object.lendIds.map((e) => long_1.default.fromValue(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.lendIds) {
+            obj.lendIds = message.lendIds.map((e) => (e || long_1.default.UZERO).toString());
+        }
+        else {
+            obj.lendIds = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryAllLendByOwnerAndPoolResponse();
+        message.lendIds = ((_a = object.lendIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
         return message;
     },
 };
@@ -1205,12 +1350,15 @@ exports.QueryAssetToPairMappingsResponse = {
     },
 };
 function createBaseQueryAssetToPairMappingRequest() {
-    return { id: long_1.default.UZERO };
+    return { assetId: long_1.default.UZERO, poolId: long_1.default.UZERO };
 }
 exports.QueryAssetToPairMappingRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (!message.id.isZero()) {
-            writer.uint32(8).uint64(message.id);
+        if (!message.assetId.isZero()) {
+            writer.uint32(8).uint64(message.assetId);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
         }
         return writer;
     },
@@ -1222,7 +1370,10 @@ exports.QueryAssetToPairMappingRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.uint64();
+                    message.assetId = reader.uint64();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1233,20 +1384,29 @@ exports.QueryAssetToPairMappingRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         const message = createBaseQueryAssetToPairMappingRequest();
-        message.id =
-            object.id !== undefined && object.id !== null
-                ? long_1.default.fromValue(object.id)
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -1583,13 +1743,15 @@ exports.QueryAllBorrowByOwnerRequest = {
     },
 };
 function createBaseQueryAllBorrowByOwnerResponse() {
-    return { borrows: [] };
+    return { borrowIds: [] };
 }
 exports.QueryAllBorrowByOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
-        for (const v of message.borrows) {
-            lend_1.BorrowAsset.encode(v, writer.uint32(10).fork()).ldelim();
+        writer.uint32(10).fork();
+        for (const v of message.borrowIds) {
+            writer.uint64(v);
         }
+        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -1600,7 +1762,15 @@ exports.QueryAllBorrowByOwnerResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.borrows.push(lend_1.BorrowAsset.decode(reader, reader.uint32()));
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.borrowIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.borrowIds.push(reader.uint64());
+                    }
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1611,26 +1781,290 @@ exports.QueryAllBorrowByOwnerResponse = {
     },
     fromJSON(object) {
         return {
-            borrows: Array.isArray(object === null || object === void 0 ? void 0 : object.borrows)
-                ? object.borrows.map((e) => lend_1.BorrowAsset.fromJSON(e))
+            borrowIds: Array.isArray(object === null || object === void 0 ? void 0 : object.borrowIds)
+                ? object.borrowIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
     toJSON(message) {
         const obj = {};
-        if (message.borrows) {
-            obj.borrows = message.borrows.map((e) => e ? lend_1.BorrowAsset.toJSON(e) : undefined);
+        if (message.borrowIds) {
+            obj.borrowIds = message.borrowIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
-            obj.borrows = [];
+            obj.borrowIds = [];
         }
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryAllBorrowByOwnerResponse();
-        message.borrows =
-            ((_a = object.borrows) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.BorrowAsset.fromPartial(e))) || [];
+        message.borrowIds = ((_a = object.borrowIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        return message;
+    },
+};
+function createBaseQueryAllBorrowByOwnerAndPoolRequest() {
+    return { owner: "", poolId: long_1.default.UZERO, pagination: undefined };
+}
+exports.QueryAllBorrowByOwnerAndPoolRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.owner !== "") {
+            writer.uint32(10).string(message.owner);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllBorrowByOwnerAndPoolRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.owner = reader.string();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            owner: isSet(object.owner) ? String(object.owner) : "",
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.owner !== undefined && (obj.owner = message.owner);
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryAllBorrowByOwnerAndPoolRequest();
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryAllBorrowByOwnerAndPoolResponse() {
+    return { borrowIds: [] };
+}
+exports.QueryAllBorrowByOwnerAndPoolResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        writer.uint32(10).fork();
+        for (const v of message.borrowIds) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllBorrowByOwnerAndPoolResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.borrowIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.borrowIds.push(reader.uint64());
+                    }
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            borrowIds: Array.isArray(object === null || object === void 0 ? void 0 : object.borrowIds)
+                ? object.borrowIds.map((e) => long_1.default.fromValue(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.borrowIds) {
+            obj.borrowIds = message.borrowIds.map((e) => (e || long_1.default.UZERO).toString());
+        }
+        else {
+            obj.borrowIds = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryAllBorrowByOwnerAndPoolResponse();
+        message.borrowIds = ((_a = object.borrowIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        return message;
+    },
+};
+function createBaseQueryAssetStatsRequest() {
+    return { assetId: long_1.default.UZERO, poolId: long_1.default.UZERO, pagination: undefined };
+}
+exports.QueryAssetStatsRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.assetId.isZero()) {
+            writer.uint32(8).uint64(message.assetId);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAssetStatsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.assetId = reader.uint64();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAssetStatsRequest();
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryAssetStatsResponse() {
+    return { AssetStats: undefined };
+}
+exports.QueryAssetStatsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.AssetStats !== undefined) {
+            lend_1.AssetStats.encode(message.AssetStats, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAssetStatsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.AssetStats = lend_1.AssetStats.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            AssetStats: isSet(object.AssetStats)
+                ? lend_1.AssetStats.fromJSON(object.AssetStats)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.AssetStats !== undefined &&
+            (obj.AssetStats = message.AssetStats
+                ? lend_1.AssetStats.toJSON(message.AssetStats)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAssetStatsResponse();
+        message.AssetStats =
+            object.AssetStats !== undefined && object.AssetStats !== null
+                ? lend_1.AssetStats.fromPartial(object.AssetStats)
+                : undefined;
         return message;
     },
 };
@@ -1640,6 +2074,8 @@ class QueryClientImpl {
         this.QueryLends = this.QueryLends.bind(this);
         this.QueryLend = this.QueryLend.bind(this);
         this.QueryAllLendByOwner = this.QueryAllLendByOwner.bind(this);
+        this.QueryAllLendByOwnerAndPool =
+            this.QueryAllLendByOwnerAndPool.bind(this);
         this.Params = this.Params.bind(this);
         this.QueryPairs = this.QueryPairs.bind(this);
         this.QueryPair = this.QueryPair.bind(this);
@@ -1652,6 +2088,9 @@ class QueryClientImpl {
         this.QueryBorrows = this.QueryBorrows.bind(this);
         this.QueryBorrow = this.QueryBorrow.bind(this);
         this.QueryAllBorrowByOwner = this.QueryAllBorrowByOwner.bind(this);
+        this.QueryAllBorrowByOwnerAndPool =
+            this.QueryAllBorrowByOwnerAndPool.bind(this);
+        this.QueryAssetStats = this.QueryAssetStats.bind(this);
     }
     QueryLends(request) {
         const data = exports.QueryLendsRequest.encode(request).finish();
@@ -1667,6 +2106,11 @@ class QueryClientImpl {
         const data = exports.QueryAllLendByOwnerRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryAllLendByOwner", data);
         return promise.then((data) => exports.QueryAllLendByOwnerResponse.decode(new _m0.Reader(data)));
+    }
+    QueryAllLendByOwnerAndPool(request) {
+        const data = exports.QueryAllLendByOwnerAndPoolRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryAllLendByOwnerAndPool", data);
+        return promise.then((data) => exports.QueryAllLendByOwnerAndPoolResponse.decode(new _m0.Reader(data)));
     }
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
@@ -1727,6 +2171,16 @@ class QueryClientImpl {
         const data = exports.QueryAllBorrowByOwnerRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryAllBorrowByOwner", data);
         return promise.then((data) => exports.QueryAllBorrowByOwnerResponse.decode(new _m0.Reader(data)));
+    }
+    QueryAllBorrowByOwnerAndPool(request) {
+        const data = exports.QueryAllBorrowByOwnerAndPoolRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryAllBorrowByOwnerAndPool", data);
+        return promise.then((data) => exports.QueryAllBorrowByOwnerAndPoolResponse.decode(new _m0.Reader(data)));
+    }
+    QueryAssetStats(request) {
+        const data = exports.QueryAssetStatsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryAssetStats", data);
+        return promise.then((data) => exports.QueryAssetStatsResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
