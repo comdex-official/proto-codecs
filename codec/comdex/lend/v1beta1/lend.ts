@@ -14,6 +14,7 @@ export interface LendAsset {
   amountIn?: Coin;
   lendingTime?: Date;
   updatedAmountIn: string;
+  availableToBorrow: string;
   rewardAccumulated: string;
 }
 
@@ -90,10 +91,12 @@ export interface AssetStats {
   poolId: Long;
   assetId: Long;
   totalBorrowed: string;
+  totalStableBorrowed: string;
   totalLend: string;
   lendApr: string;
   borrowApr: string;
   stableBorrowApr: string;
+  utilisationRatio: string;
 }
 
 export interface AssetRatesStats {
@@ -121,6 +124,20 @@ export interface BorrowMapping {
   borrowIds: Long[];
 }
 
+export interface StableBorrowMapping {
+  stableBorrowIds: Long[];
+}
+
+export interface ModuleBalance {
+  poolId: Long;
+  moduleBalanceStats: ModuleBalanceStats[];
+}
+
+export interface ModuleBalanceStats {
+  assetId: Long;
+  balance?: Coin;
+}
+
 function createBaseLendAsset(): LendAsset {
   return {
     lendingId: Long.UZERO,
@@ -130,6 +147,7 @@ function createBaseLendAsset(): LendAsset {
     amountIn: undefined,
     lendingTime: undefined,
     updatedAmountIn: "",
+    availableToBorrow: "",
     rewardAccumulated: "",
   };
 }
@@ -163,8 +181,11 @@ export const LendAsset = {
     if (message.updatedAmountIn !== "") {
       writer.uint32(58).string(message.updatedAmountIn);
     }
+    if (message.availableToBorrow !== "") {
+      writer.uint32(66).string(message.availableToBorrow);
+    }
     if (message.rewardAccumulated !== "") {
-      writer.uint32(66).string(message.rewardAccumulated);
+      writer.uint32(74).string(message.rewardAccumulated);
     }
     return writer;
   },
@@ -200,6 +221,9 @@ export const LendAsset = {
           message.updatedAmountIn = reader.string();
           break;
         case 8:
+          message.availableToBorrow = reader.string();
+          break;
+        case 9:
           message.rewardAccumulated = reader.string();
           break;
         default:
@@ -229,6 +253,9 @@ export const LendAsset = {
       updatedAmountIn: isSet(object.updatedAmountIn)
         ? String(object.updatedAmountIn)
         : "",
+      availableToBorrow: isSet(object.availableToBorrow)
+        ? String(object.availableToBorrow)
+        : "",
       rewardAccumulated: isSet(object.rewardAccumulated)
         ? String(object.rewardAccumulated)
         : "",
@@ -252,6 +279,8 @@ export const LendAsset = {
       (obj.lendingTime = message.lendingTime.toISOString());
     message.updatedAmountIn !== undefined &&
       (obj.updatedAmountIn = message.updatedAmountIn);
+    message.availableToBorrow !== undefined &&
+      (obj.availableToBorrow = message.availableToBorrow);
     message.rewardAccumulated !== undefined &&
       (obj.rewardAccumulated = message.rewardAccumulated);
     return obj;
@@ -280,6 +309,7 @@ export const LendAsset = {
         : undefined;
     message.lendingTime = object.lendingTime ?? undefined;
     message.updatedAmountIn = object.updatedAmountIn ?? "";
+    message.availableToBorrow = object.availableToBorrow ?? "";
     message.rewardAccumulated = object.rewardAccumulated ?? "";
     return message;
   },
@@ -1372,10 +1402,12 @@ function createBaseAssetStats(): AssetStats {
     poolId: Long.UZERO,
     assetId: Long.UZERO,
     totalBorrowed: "",
+    totalStableBorrowed: "",
     totalLend: "",
     lendApr: "",
     borrowApr: "",
     stableBorrowApr: "",
+    utilisationRatio: "",
   };
 }
 
@@ -1393,17 +1425,23 @@ export const AssetStats = {
     if (message.totalBorrowed !== "") {
       writer.uint32(26).string(message.totalBorrowed);
     }
+    if (message.totalStableBorrowed !== "") {
+      writer.uint32(34).string(message.totalStableBorrowed);
+    }
     if (message.totalLend !== "") {
-      writer.uint32(34).string(message.totalLend);
+      writer.uint32(42).string(message.totalLend);
     }
     if (message.lendApr !== "") {
-      writer.uint32(42).string(message.lendApr);
+      writer.uint32(50).string(message.lendApr);
     }
     if (message.borrowApr !== "") {
-      writer.uint32(50).string(message.borrowApr);
+      writer.uint32(58).string(message.borrowApr);
     }
     if (message.stableBorrowApr !== "") {
-      writer.uint32(58).string(message.stableBorrowApr);
+      writer.uint32(66).string(message.stableBorrowApr);
+    }
+    if (message.utilisationRatio !== "") {
+      writer.uint32(74).string(message.utilisationRatio);
     }
     return writer;
   },
@@ -1425,16 +1463,22 @@ export const AssetStats = {
           message.totalBorrowed = reader.string();
           break;
         case 4:
-          message.totalLend = reader.string();
+          message.totalStableBorrowed = reader.string();
           break;
         case 5:
-          message.lendApr = reader.string();
+          message.totalLend = reader.string();
           break;
         case 6:
-          message.borrowApr = reader.string();
+          message.lendApr = reader.string();
           break;
         case 7:
+          message.borrowApr = reader.string();
+          break;
+        case 8:
           message.stableBorrowApr = reader.string();
+          break;
+        case 9:
+          message.utilisationRatio = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -1453,11 +1497,17 @@ export const AssetStats = {
       totalBorrowed: isSet(object.totalBorrowed)
         ? String(object.totalBorrowed)
         : "",
+      totalStableBorrowed: isSet(object.totalStableBorrowed)
+        ? String(object.totalStableBorrowed)
+        : "",
       totalLend: isSet(object.totalLend) ? String(object.totalLend) : "",
       lendApr: isSet(object.lendApr) ? String(object.lendApr) : "",
       borrowApr: isSet(object.borrowApr) ? String(object.borrowApr) : "",
       stableBorrowApr: isSet(object.stableBorrowApr)
         ? String(object.stableBorrowApr)
+        : "",
+      utilisationRatio: isSet(object.utilisationRatio)
+        ? String(object.utilisationRatio)
         : "",
     };
   },
@@ -1470,11 +1520,15 @@ export const AssetStats = {
       (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.totalBorrowed !== undefined &&
       (obj.totalBorrowed = message.totalBorrowed);
+    message.totalStableBorrowed !== undefined &&
+      (obj.totalStableBorrowed = message.totalStableBorrowed);
     message.totalLend !== undefined && (obj.totalLend = message.totalLend);
     message.lendApr !== undefined && (obj.lendApr = message.lendApr);
     message.borrowApr !== undefined && (obj.borrowApr = message.borrowApr);
     message.stableBorrowApr !== undefined &&
       (obj.stableBorrowApr = message.stableBorrowApr);
+    message.utilisationRatio !== undefined &&
+      (obj.utilisationRatio = message.utilisationRatio);
     return obj;
   },
 
@@ -1491,10 +1545,12 @@ export const AssetStats = {
         ? Long.fromValue(object.assetId)
         : Long.UZERO;
     message.totalBorrowed = object.totalBorrowed ?? "";
+    message.totalStableBorrowed = object.totalStableBorrowed ?? "";
     message.totalLend = object.totalLend ?? "";
     message.lendApr = object.lendApr ?? "";
     message.borrowApr = object.borrowApr ?? "";
     message.stableBorrowApr = object.stableBorrowApr ?? "";
+    message.utilisationRatio = object.utilisationRatio ?? "";
     return message;
   },
 };
@@ -1851,6 +1907,237 @@ export const BorrowMapping = {
   ): BorrowMapping {
     const message = createBaseBorrowMapping();
     message.borrowIds = object.borrowIds?.map((e) => Long.fromValue(e)) || [];
+    return message;
+  },
+};
+
+function createBaseStableBorrowMapping(): StableBorrowMapping {
+  return { stableBorrowIds: [] };
+}
+
+export const StableBorrowMapping = {
+  encode(
+    message: StableBorrowMapping,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    writer.uint32(10).fork();
+    for (const v of message.stableBorrowIds) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): StableBorrowMapping {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseStableBorrowMapping();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.stableBorrowIds.push(reader.uint64() as Long);
+            }
+          } else {
+            message.stableBorrowIds.push(reader.uint64() as Long);
+          }
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): StableBorrowMapping {
+    return {
+      stableBorrowIds: Array.isArray(object?.stableBorrowIds)
+        ? object.stableBorrowIds.map((e: any) => Long.fromValue(e))
+        : [],
+    };
+  },
+
+  toJSON(message: StableBorrowMapping): unknown {
+    const obj: any = {};
+    if (message.stableBorrowIds) {
+      obj.stableBorrowIds = message.stableBorrowIds.map((e) =>
+        (e || Long.UZERO).toString()
+      );
+    } else {
+      obj.stableBorrowIds = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<StableBorrowMapping>, I>>(
+    object: I
+  ): StableBorrowMapping {
+    const message = createBaseStableBorrowMapping();
+    message.stableBorrowIds =
+      object.stableBorrowIds?.map((e) => Long.fromValue(e)) || [];
+    return message;
+  },
+};
+
+function createBaseModuleBalance(): ModuleBalance {
+  return { poolId: Long.UZERO, moduleBalanceStats: [] };
+}
+
+export const ModuleBalance = {
+  encode(
+    message: ModuleBalance,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.poolId.isZero()) {
+      writer.uint32(8).uint64(message.poolId);
+    }
+    for (const v of message.moduleBalanceStats) {
+      ModuleBalanceStats.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ModuleBalance {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseModuleBalance();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.poolId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.moduleBalanceStats.push(
+            ModuleBalanceStats.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ModuleBalance {
+    return {
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      moduleBalanceStats: Array.isArray(object?.moduleBalanceStats)
+        ? object.moduleBalanceStats.map((e: any) =>
+            ModuleBalanceStats.fromJSON(e)
+          )
+        : [],
+    };
+  },
+
+  toJSON(message: ModuleBalance): unknown {
+    const obj: any = {};
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    if (message.moduleBalanceStats) {
+      obj.moduleBalanceStats = message.moduleBalanceStats.map((e) =>
+        e ? ModuleBalanceStats.toJSON(e) : undefined
+      );
+    } else {
+      obj.moduleBalanceStats = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ModuleBalance>, I>>(
+    object: I
+  ): ModuleBalance {
+    const message = createBaseModuleBalance();
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    message.moduleBalanceStats =
+      object.moduleBalanceStats?.map((e) =>
+        ModuleBalanceStats.fromPartial(e)
+      ) || [];
+    return message;
+  },
+};
+
+function createBaseModuleBalanceStats(): ModuleBalanceStats {
+  return { assetId: Long.UZERO, balance: undefined };
+}
+
+export const ModuleBalanceStats = {
+  encode(
+    message: ModuleBalanceStats,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.assetId.isZero()) {
+      writer.uint32(8).uint64(message.assetId);
+    }
+    if (message.balance !== undefined) {
+      Coin.encode(message.balance, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ModuleBalanceStats {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseModuleBalanceStats();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.balance = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ModuleBalanceStats {
+    return {
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+      balance: isSet(object.balance)
+        ? Coin.fromJSON(object.balance)
+        : undefined,
+    };
+  },
+
+  toJSON(message: ModuleBalanceStats): unknown {
+    const obj: any = {};
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.balance !== undefined &&
+      (obj.balance = message.balance
+        ? Coin.toJSON(message.balance)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ModuleBalanceStats>, I>>(
+    object: I
+  ): ModuleBalanceStats {
+    const message = createBaseModuleBalanceStats();
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    message.balance =
+      object.balance !== undefined && object.balance !== null
+        ? Coin.fromPartial(object.balance)
+        : undefined;
     return message;
   },
 };
