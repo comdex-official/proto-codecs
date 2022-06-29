@@ -51,7 +51,7 @@ export interface QueryAllLendByOwnerRequest {
 }
 
 export interface QueryAllLendByOwnerResponse {
-  lendIds: LendAsset[];
+  lends: LendAsset[];
 }
 
 export interface QueryAllLendByOwnerAndPoolRequest {
@@ -61,7 +61,7 @@ export interface QueryAllLendByOwnerAndPoolRequest {
 }
 
 export interface QueryAllLendByOwnerAndPoolResponse {
-  lendIds: LendAsset[];
+  lends: LendAsset[];
 }
 
 export interface QueryPairsRequest {
@@ -156,7 +156,7 @@ export interface QueryAllBorrowByOwnerRequest {
 }
 
 export interface QueryAllBorrowByOwnerResponse {
-  borrowIds: BorrowAsset[];
+  borrows: BorrowAsset[];
 }
 
 export interface QueryAllBorrowByOwnerAndPoolRequest {
@@ -166,7 +166,7 @@ export interface QueryAllBorrowByOwnerAndPoolRequest {
 }
 
 export interface QueryAllBorrowByOwnerAndPoolResponse {
-  borrowIds: BorrowAsset[];
+  borrows: BorrowAsset[];
 }
 
 export interface QueryAssetStatsRequest {
@@ -625,7 +625,7 @@ export const QueryAllLendByOwnerRequest = {
 };
 
 function createBaseQueryAllLendByOwnerResponse(): QueryAllLendByOwnerResponse {
-  return { lendIds: [] };
+  return { lends: [] };
 }
 
 export const QueryAllLendByOwnerResponse = {
@@ -633,7 +633,7 @@ export const QueryAllLendByOwnerResponse = {
     message: QueryAllLendByOwnerResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    for (const v of message.lendIds) {
+    for (const v of message.lends) {
       LendAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
@@ -650,7 +650,7 @@ export const QueryAllLendByOwnerResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.lendIds.push(LendAsset.decode(reader, reader.uint32()));
+          message.lends.push(LendAsset.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -662,20 +662,20 @@ export const QueryAllLendByOwnerResponse = {
 
   fromJSON(object: any): QueryAllLendByOwnerResponse {
     return {
-      lendIds: Array.isArray(object?.lendIds)
-        ? object.lendIds.map((e: any) => LendAsset.fromJSON(e))
+      lends: Array.isArray(object?.lends)
+        ? object.lends.map((e: any) => LendAsset.fromJSON(e))
         : [],
     };
   },
 
   toJSON(message: QueryAllLendByOwnerResponse): unknown {
     const obj: any = {};
-    if (message.lendIds) {
-      obj.lendIds = message.lendIds.map((e) =>
+    if (message.lends) {
+      obj.lends = message.lends.map((e) =>
         e ? LendAsset.toJSON(e) : undefined
       );
     } else {
-      obj.lendIds = [];
+      obj.lends = [];
     }
     return obj;
   },
@@ -684,8 +684,7 @@ export const QueryAllLendByOwnerResponse = {
     object: I
   ): QueryAllLendByOwnerResponse {
     const message = createBaseQueryAllLendByOwnerResponse();
-    message.lendIds =
-      object.lendIds?.map((e) => LendAsset.fromPartial(e)) || [];
+    message.lends = object.lends?.map((e) => LendAsset.fromPartial(e)) || [];
     return message;
   },
 };
@@ -778,7 +777,7 @@ export const QueryAllLendByOwnerAndPoolRequest = {
 };
 
 function createBaseQueryAllLendByOwnerAndPoolResponse(): QueryAllLendByOwnerAndPoolResponse {
-  return { lendIds: [] };
+  return { lends: [] };
 }
 
 export const QueryAllLendByOwnerAndPoolResponse = {
@@ -786,7 +785,7 @@ export const QueryAllLendByOwnerAndPoolResponse = {
     message: QueryAllLendByOwnerAndPoolResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    for (const v of message.lendIds) {
+    for (const v of message.lends) {
       LendAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
@@ -803,7 +802,7 @@ export const QueryAllLendByOwnerAndPoolResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.lendIds.push(LendAsset.decode(reader, reader.uint32()));
+          message.lends.push(LendAsset.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -815,20 +814,20 @@ export const QueryAllLendByOwnerAndPoolResponse = {
 
   fromJSON(object: any): QueryAllLendByOwnerAndPoolResponse {
     return {
-      lendIds: Array.isArray(object?.lendIds)
-        ? object.lendIds.map((e: any) => LendAsset.fromJSON(e))
+      lends: Array.isArray(object?.lends)
+        ? object.lends.map((e: any) => LendAsset.fromJSON(e))
         : [],
     };
   },
 
   toJSON(message: QueryAllLendByOwnerAndPoolResponse): unknown {
     const obj: any = {};
-    if (message.lendIds) {
-      obj.lendIds = message.lendIds.map((e) =>
+    if (message.lends) {
+      obj.lends = message.lends.map((e) =>
         e ? LendAsset.toJSON(e) : undefined
       );
     } else {
-      obj.lendIds = [];
+      obj.lends = [];
     }
     return obj;
   },
@@ -837,8 +836,7 @@ export const QueryAllLendByOwnerAndPoolResponse = {
     I extends Exact<DeepPartial<QueryAllLendByOwnerAndPoolResponse>, I>
   >(object: I): QueryAllLendByOwnerAndPoolResponse {
     const message = createBaseQueryAllLendByOwnerAndPoolResponse();
-    message.lendIds =
-      object.lendIds?.map((e) => LendAsset.fromPartial(e)) || [];
+    message.lends = object.lends?.map((e) => LendAsset.fromPartial(e)) || [];
     return message;
   },
 };
@@ -2304,7 +2302,7 @@ export const QueryAllBorrowByOwnerRequest = {
 };
 
 function createBaseQueryAllBorrowByOwnerResponse(): QueryAllBorrowByOwnerResponse {
-  return { borrowIds: [] };
+  return { borrows: [] };
 }
 
 export const QueryAllBorrowByOwnerResponse = {
@@ -2312,7 +2310,7 @@ export const QueryAllBorrowByOwnerResponse = {
     message: QueryAllBorrowByOwnerResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    for (const v of message.borrowIds) {
+    for (const v of message.borrows) {
       BorrowAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
@@ -2329,7 +2327,7 @@ export const QueryAllBorrowByOwnerResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.borrowIds.push(BorrowAsset.decode(reader, reader.uint32()));
+          message.borrows.push(BorrowAsset.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -2341,20 +2339,20 @@ export const QueryAllBorrowByOwnerResponse = {
 
   fromJSON(object: any): QueryAllBorrowByOwnerResponse {
     return {
-      borrowIds: Array.isArray(object?.borrowIds)
-        ? object.borrowIds.map((e: any) => BorrowAsset.fromJSON(e))
+      borrows: Array.isArray(object?.borrows)
+        ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e))
         : [],
     };
   },
 
   toJSON(message: QueryAllBorrowByOwnerResponse): unknown {
     const obj: any = {};
-    if (message.borrowIds) {
-      obj.borrowIds = message.borrowIds.map((e) =>
+    if (message.borrows) {
+      obj.borrows = message.borrows.map((e) =>
         e ? BorrowAsset.toJSON(e) : undefined
       );
     } else {
-      obj.borrowIds = [];
+      obj.borrows = [];
     }
     return obj;
   },
@@ -2363,8 +2361,8 @@ export const QueryAllBorrowByOwnerResponse = {
     object: I
   ): QueryAllBorrowByOwnerResponse {
     const message = createBaseQueryAllBorrowByOwnerResponse();
-    message.borrowIds =
-      object.borrowIds?.map((e) => BorrowAsset.fromPartial(e)) || [];
+    message.borrows =
+      object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
     return message;
   },
 };
@@ -2457,7 +2455,7 @@ export const QueryAllBorrowByOwnerAndPoolRequest = {
 };
 
 function createBaseQueryAllBorrowByOwnerAndPoolResponse(): QueryAllBorrowByOwnerAndPoolResponse {
-  return { borrowIds: [] };
+  return { borrows: [] };
 }
 
 export const QueryAllBorrowByOwnerAndPoolResponse = {
@@ -2465,7 +2463,7 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
     message: QueryAllBorrowByOwnerAndPoolResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    for (const v of message.borrowIds) {
+    for (const v of message.borrows) {
       BorrowAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
@@ -2482,7 +2480,7 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.borrowIds.push(BorrowAsset.decode(reader, reader.uint32()));
+          message.borrows.push(BorrowAsset.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -2494,20 +2492,20 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
 
   fromJSON(object: any): QueryAllBorrowByOwnerAndPoolResponse {
     return {
-      borrowIds: Array.isArray(object?.borrowIds)
-        ? object.borrowIds.map((e: any) => BorrowAsset.fromJSON(e))
+      borrows: Array.isArray(object?.borrows)
+        ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e))
         : [],
     };
   },
 
   toJSON(message: QueryAllBorrowByOwnerAndPoolResponse): unknown {
     const obj: any = {};
-    if (message.borrowIds) {
-      obj.borrowIds = message.borrowIds.map((e) =>
+    if (message.borrows) {
+      obj.borrows = message.borrows.map((e) =>
         e ? BorrowAsset.toJSON(e) : undefined
       );
     } else {
-      obj.borrowIds = [];
+      obj.borrows = [];
     }
     return obj;
   },
@@ -2516,8 +2514,8 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
     I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndPoolResponse>, I>
   >(object: I): QueryAllBorrowByOwnerAndPoolResponse {
     const message = createBaseQueryAllBorrowByOwnerAndPoolResponse();
-    message.borrowIds =
-      object.borrowIds?.map((e) => BorrowAsset.fromPartial(e)) || [];
+    message.borrows =
+      object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
     return message;
   },
 };
