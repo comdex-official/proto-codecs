@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/collector/v1beta1/params";
 import { CollectorLookupTable, CollectorData, AssetIdToAuctionLookupTable, AssetIdToFeeCollected } from "../../../comdex/collector/v1beta1/collector";
 export declare const protobufPackage = "comdex.collector.v1beta1";
@@ -11,24 +11,24 @@ export interface QueryParamsResponse {
     /** params holds all the parameters of this module. */
     params?: Params;
 }
-export interface QueryCollectorLookupByProductRequest {
+export interface QueryCollectorLookupByAppRequest {
     appId: Long;
 }
-export interface QueryCollectorLookupByProductResponse {
+export interface QueryCollectorLookupByAppResponse {
     collectorLookup: CollectorLookupTable[];
 }
-export interface QueryCollectorLookupByProductAndAssetRequest {
+export interface QueryCollectorLookupByAppAndAssetRequest {
     appId: Long;
     assetId: Long;
 }
-export interface QueryCollectorLookupByProductAndAssetResponse {
+export interface QueryCollectorLookupByAppAndAssetResponse {
     collectorLookup?: CollectorLookupTable;
 }
-export interface QueryCollectorDataByProductAndAssetRequest {
+export interface QueryCollectorDataByAppAndAssetRequest {
     appId: Long;
     assetId: Long;
 }
-export interface QueryCollectorDataByProductAndAssetResponse {
+export interface QueryCollectorDataByAppAndAssetResponse {
     collectorData?: CollectorData;
 }
 export interface QueryAuctionMappingForAppAndAssetRequest {
@@ -63,11 +63,11 @@ export declare const QueryParamsResponse: {
         params?: ({} & {} & Record<Exclude<keyof I["params"], never>, never>) | undefined;
     } & Record<Exclude<keyof I, "params">, never>>(object: I): QueryParamsResponse;
 };
-export declare const QueryCollectorLookupByProductRequest: {
-    encode(message: QueryCollectorLookupByProductRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByProductRequest;
-    fromJSON(object: any): QueryCollectorLookupByProductRequest;
-    toJSON(message: QueryCollectorLookupByProductRequest): unknown;
+export declare const QueryCollectorLookupByAppRequest: {
+    encode(message: QueryCollectorLookupByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByAppRequest;
+    fromJSON(object: any): QueryCollectorLookupByAppRequest;
+    toJSON(message: QueryCollectorLookupByAppRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
     } & {
@@ -129,13 +129,13 @@ export declare const QueryCollectorLookupByProductRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryCollectorLookupByProductRequest;
+    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryCollectorLookupByAppRequest;
 };
-export declare const QueryCollectorLookupByProductResponse: {
-    encode(message: QueryCollectorLookupByProductResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByProductResponse;
-    fromJSON(object: any): QueryCollectorLookupByProductResponse;
-    toJSON(message: QueryCollectorLookupByProductResponse): unknown;
+export declare const QueryCollectorLookupByAppResponse: {
+    encode(message: QueryCollectorLookupByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByAppResponse;
+    fromJSON(object: any): QueryCollectorLookupByAppResponse;
+    toJSON(message: QueryCollectorLookupByAppResponse): unknown;
     fromPartial<I extends {
         collectorLookup?: {
             appId?: string | number | Long.Long | undefined;
@@ -146,6 +146,7 @@ export declare const QueryCollectorLookupByProductResponse: {
             lockerSavingRate?: string | undefined;
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
+            debtLotSize?: string | number | Long.Long | undefined;
         }[] | undefined;
     } & {
         collectorLookup?: ({
@@ -157,6 +158,7 @@ export declare const QueryCollectorLookupByProductResponse: {
             lockerSavingRate?: string | undefined;
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
+            debtLotSize?: string | number | Long.Long | undefined;
         }[] & ({
             appId?: string | number | Long.Long | undefined;
             collectorAssetId?: string | number | Long.Long | undefined;
@@ -166,6 +168,7 @@ export declare const QueryCollectorLookupByProductResponse: {
             lockerSavingRate?: string | undefined;
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
+            debtLotSize?: string | number | Long.Long | undefined;
         } & {
             appId?: string | number | (Long.Long & {
                 high: number;
@@ -517,6 +520,64 @@ export declare const QueryCollectorLookupByProductResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["collectorLookup"][number]["lotSize"], keyof Long.Long>, never>) | undefined;
             bidFactor?: string | undefined;
+            debtLotSize?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["collectorLookup"][number]["debtLotSize"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["collectorLookup"][number], keyof CollectorLookupTable>, never>)[] & Record<Exclude<keyof I["collectorLookup"], keyof {
             appId?: string | number | Long.Long | undefined;
             collectorAssetId?: string | number | Long.Long | undefined;
@@ -526,14 +587,15 @@ export declare const QueryCollectorLookupByProductResponse: {
             lockerSavingRate?: string | undefined;
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
+            debtLotSize?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "collectorLookup">, never>>(object: I): QueryCollectorLookupByProductResponse;
+    } & Record<Exclude<keyof I, "collectorLookup">, never>>(object: I): QueryCollectorLookupByAppResponse;
 };
-export declare const QueryCollectorLookupByProductAndAssetRequest: {
-    encode(message: QueryCollectorLookupByProductAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByProductAndAssetRequest;
-    fromJSON(object: any): QueryCollectorLookupByProductAndAssetRequest;
-    toJSON(message: QueryCollectorLookupByProductAndAssetRequest): unknown;
+export declare const QueryCollectorLookupByAppAndAssetRequest: {
+    encode(message: QueryCollectorLookupByAppAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByAppAndAssetRequest;
+    fromJSON(object: any): QueryCollectorLookupByAppAndAssetRequest;
+    toJSON(message: QueryCollectorLookupByAppAndAssetRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
@@ -654,13 +716,13 @@ export declare const QueryCollectorLookupByProductAndAssetRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryCollectorLookupByProductAndAssetRequest>, never>>(object: I): QueryCollectorLookupByProductAndAssetRequest;
+    } & Record<Exclude<keyof I, keyof QueryCollectorLookupByAppAndAssetRequest>, never>>(object: I): QueryCollectorLookupByAppAndAssetRequest;
 };
-export declare const QueryCollectorLookupByProductAndAssetResponse: {
-    encode(message: QueryCollectorLookupByProductAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByProductAndAssetResponse;
-    fromJSON(object: any): QueryCollectorLookupByProductAndAssetResponse;
-    toJSON(message: QueryCollectorLookupByProductAndAssetResponse): unknown;
+export declare const QueryCollectorLookupByAppAndAssetResponse: {
+    encode(message: QueryCollectorLookupByAppAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByAppAndAssetResponse;
+    fromJSON(object: any): QueryCollectorLookupByAppAndAssetResponse;
+    toJSON(message: QueryCollectorLookupByAppAndAssetResponse): unknown;
     fromPartial<I extends {
         collectorLookup?: {
             appId?: string | number | Long.Long | undefined;
@@ -671,6 +733,7 @@ export declare const QueryCollectorLookupByProductAndAssetResponse: {
             lockerSavingRate?: string | undefined;
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
+            debtLotSize?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         collectorLookup?: ({
@@ -682,6 +745,7 @@ export declare const QueryCollectorLookupByProductAndAssetResponse: {
             lockerSavingRate?: string | undefined;
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
+            debtLotSize?: string | number | Long.Long | undefined;
         } & {
             appId?: string | number | (Long.Long & {
                 high: number;
@@ -1033,14 +1097,72 @@ export declare const QueryCollectorLookupByProductAndAssetResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["collectorLookup"]["lotSize"], keyof Long.Long>, never>) | undefined;
             bidFactor?: string | undefined;
+            debtLotSize?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["collectorLookup"]["debtLotSize"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["collectorLookup"], keyof CollectorLookupTable>, never>) | undefined;
-    } & Record<Exclude<keyof I, "collectorLookup">, never>>(object: I): QueryCollectorLookupByProductAndAssetResponse;
+    } & Record<Exclude<keyof I, "collectorLookup">, never>>(object: I): QueryCollectorLookupByAppAndAssetResponse;
 };
-export declare const QueryCollectorDataByProductAndAssetRequest: {
-    encode(message: QueryCollectorDataByProductAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorDataByProductAndAssetRequest;
-    fromJSON(object: any): QueryCollectorDataByProductAndAssetRequest;
-    toJSON(message: QueryCollectorDataByProductAndAssetRequest): unknown;
+export declare const QueryCollectorDataByAppAndAssetRequest: {
+    encode(message: QueryCollectorDataByAppAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorDataByAppAndAssetRequest;
+    fromJSON(object: any): QueryCollectorDataByAppAndAssetRequest;
+    toJSON(message: QueryCollectorDataByAppAndAssetRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
@@ -1161,13 +1283,13 @@ export declare const QueryCollectorDataByProductAndAssetRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryCollectorDataByProductAndAssetRequest>, never>>(object: I): QueryCollectorDataByProductAndAssetRequest;
+    } & Record<Exclude<keyof I, keyof QueryCollectorDataByAppAndAssetRequest>, never>>(object: I): QueryCollectorDataByAppAndAssetRequest;
 };
-export declare const QueryCollectorDataByProductAndAssetResponse: {
-    encode(message: QueryCollectorDataByProductAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorDataByProductAndAssetResponse;
-    fromJSON(object: any): QueryCollectorDataByProductAndAssetResponse;
-    toJSON(message: QueryCollectorDataByProductAndAssetResponse): unknown;
+export declare const QueryCollectorDataByAppAndAssetResponse: {
+    encode(message: QueryCollectorDataByAppAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorDataByAppAndAssetResponse;
+    fromJSON(object: any): QueryCollectorDataByAppAndAssetResponse;
+    toJSON(message: QueryCollectorDataByAppAndAssetResponse): unknown;
     fromPartial<I extends {
         collectorData?: {
             collectedStabilityFee?: string | undefined;
@@ -1187,7 +1309,7 @@ export declare const QueryCollectorDataByProductAndAssetResponse: {
             collectedOpeningFee?: string | undefined;
             liquidationRewardsCollected?: string | undefined;
         } & Record<Exclude<keyof I["collectorData"], keyof CollectorData>, never>) | undefined;
-    } & Record<Exclude<keyof I, "collectorData">, never>>(object: I): QueryCollectorDataByProductAndAssetResponse;
+    } & Record<Exclude<keyof I, "collectorData">, never>>(object: I): QueryCollectorDataByAppAndAssetResponse;
 };
 export declare const QueryAuctionMappingForAppAndAssetRequest: {
     encode(message: QueryAuctionMappingForAppAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
@@ -1670,9 +1792,9 @@ export declare const QueryNetFeeCollectedForAppAndAssetResponse: {
 export interface Query {
     /** Parameters queries the parameters of the module. */
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-    QueryCollectorLookupByProduct(request: QueryCollectorLookupByProductRequest): Promise<QueryCollectorLookupByProductResponse>;
-    QueryCollectorLookupByProductAndAsset(request: QueryCollectorLookupByProductAndAssetRequest): Promise<QueryCollectorLookupByProductAndAssetResponse>;
-    QueryCollectorDataByProductAndAsset(request: QueryCollectorDataByProductAndAssetRequest): Promise<QueryCollectorDataByProductAndAssetResponse>;
+    QueryCollectorLookupByApp(request: QueryCollectorLookupByAppRequest): Promise<QueryCollectorLookupByAppResponse>;
+    QueryCollectorLookupByAppAndAsset(request: QueryCollectorLookupByAppAndAssetRequest): Promise<QueryCollectorLookupByAppAndAssetResponse>;
+    QueryCollectorDataByAppAndAsset(request: QueryCollectorDataByAppAndAssetRequest): Promise<QueryCollectorDataByAppAndAssetResponse>;
     QueryAuctionMappingForAppAndAsset(request: QueryAuctionMappingForAppAndAssetRequest): Promise<QueryAuctionMappingForAppAndAssetResponse>;
     QueryNetFeeCollectedForAppAndAsset(request: QueryNetFeeCollectedForAppAndAssetRequest): Promise<QueryNetFeeCollectedForAppAndAssetResponse>;
 }
@@ -1680,9 +1802,9 @@ export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-    QueryCollectorLookupByProduct(request: QueryCollectorLookupByProductRequest): Promise<QueryCollectorLookupByProductResponse>;
-    QueryCollectorLookupByProductAndAsset(request: QueryCollectorLookupByProductAndAssetRequest): Promise<QueryCollectorLookupByProductAndAssetResponse>;
-    QueryCollectorDataByProductAndAsset(request: QueryCollectorDataByProductAndAssetRequest): Promise<QueryCollectorDataByProductAndAssetResponse>;
+    QueryCollectorLookupByApp(request: QueryCollectorLookupByAppRequest): Promise<QueryCollectorLookupByAppResponse>;
+    QueryCollectorLookupByAppAndAsset(request: QueryCollectorLookupByAppAndAssetRequest): Promise<QueryCollectorLookupByAppAndAssetResponse>;
+    QueryCollectorDataByAppAndAsset(request: QueryCollectorDataByAppAndAssetRequest): Promise<QueryCollectorDataByAppAndAssetResponse>;
     QueryAuctionMappingForAppAndAsset(request: QueryAuctionMappingForAppAndAssetRequest): Promise<QueryAuctionMappingForAppAndAssetResponse>;
     QueryNetFeeCollectedForAppAndAsset(request: QueryNetFeeCollectedForAppAndAssetRequest): Promise<QueryNetFeeCollectedForAppAndAssetResponse>;
 }

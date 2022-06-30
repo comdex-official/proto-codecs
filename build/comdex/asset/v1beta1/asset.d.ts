@@ -6,7 +6,8 @@ export interface Asset {
     name: string;
     denom: string;
     decimals: Long;
-    isOnchain: boolean;
+    isOnChain: boolean;
+    isOraclePriceRequired: boolean;
 }
 export declare const Asset: {
     encode(message: Asset, writer?: _m0.Writer): _m0.Writer;
@@ -18,7 +19,8 @@ export declare const Asset: {
         name?: string | undefined;
         denom?: string | undefined;
         decimals?: string | number | Long.Long | undefined;
-        isOnchain?: boolean | undefined;
+        isOnChain?: boolean | undefined;
+        isOraclePriceRequired?: boolean | undefined;
     } & {
         id?: string | number | (Long.Long & {
             high: number;
@@ -138,7 +140,8 @@ export declare const Asset: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["decimals"], keyof Long.Long>, never>) | undefined;
-        isOnchain?: boolean | undefined;
+        isOnChain?: boolean | undefined;
+        isOraclePriceRequired?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof Asset>, never>>(object: I): Asset;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

@@ -1,9 +1,9 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.vault.v1beta1";
 export interface MsgCreateRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     amountIn: string;
     amountOut: string;
@@ -12,7 +12,7 @@ export interface MsgCreateResponse {
 }
 export interface MsgDepositRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     userVaultId: string;
     amount: string;
@@ -21,7 +21,7 @@ export interface MsgDepositResponse {
 }
 export interface MsgWithdrawRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     userVaultId: string;
     amount: string;
@@ -30,7 +30,7 @@ export interface MsgWithdrawResponse {
 }
 export interface MsgDrawRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     userVaultId: string;
     amount: string;
@@ -39,7 +39,7 @@ export interface MsgDrawResponse {
 }
 export interface MsgRepayRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     userVaultId: string;
     amount: string;
@@ -48,7 +48,7 @@ export interface MsgRepayResponse {
 }
 export interface MsgCloseRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     userVaultId: string;
 }
@@ -56,7 +56,7 @@ export interface MsgCloseResponse {
 }
 export interface MsgCreateStableMintRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     amount: string;
 }
@@ -64,7 +64,7 @@ export interface MsgCreateStableMintResponse {
 }
 export interface MsgDepositStableMintRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     amount: string;
     stableVaultId: string;
@@ -73,7 +73,7 @@ export interface MsgDepositStableMintResponse {
 }
 export interface MsgWithdrawStableMintRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     amount: string;
     stableVaultId: string;
@@ -87,13 +87,13 @@ export declare const MsgCreateRequest: {
     toJSON(message: MsgCreateRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         amountIn?: string | undefined;
         amountOut?: string | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -150,7 +150,7 @@ export declare const MsgCreateRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -227,13 +227,13 @@ export declare const MsgDepositRequest: {
     toJSON(message: MsgDepositRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         userVaultId?: string | undefined;
         amount?: string | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -290,7 +290,7 @@ export declare const MsgDepositRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -367,13 +367,13 @@ export declare const MsgWithdrawRequest: {
     toJSON(message: MsgWithdrawRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         userVaultId?: string | undefined;
         amount?: string | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -430,7 +430,7 @@ export declare const MsgWithdrawRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -507,13 +507,13 @@ export declare const MsgDrawRequest: {
     toJSON(message: MsgDrawRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         userVaultId?: string | undefined;
         amount?: string | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -570,7 +570,7 @@ export declare const MsgDrawRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -647,13 +647,13 @@ export declare const MsgRepayRequest: {
     toJSON(message: MsgRepayRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         userVaultId?: string | undefined;
         amount?: string | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -710,7 +710,7 @@ export declare const MsgRepayRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -787,12 +787,12 @@ export declare const MsgCloseRequest: {
     toJSON(message: MsgCloseRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         userVaultId?: string | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -849,7 +849,7 @@ export declare const MsgCloseRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -925,12 +925,12 @@ export declare const MsgCreateStableMintRequest: {
     toJSON(message: MsgCreateStableMintRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         amount?: string | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -987,7 +987,7 @@ export declare const MsgCreateStableMintRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1063,13 +1063,13 @@ export declare const MsgDepositStableMintRequest: {
     toJSON(message: MsgDepositStableMintRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         amount?: string | undefined;
         stableVaultId?: string | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -1126,7 +1126,7 @@ export declare const MsgDepositStableMintRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1203,13 +1203,13 @@ export declare const MsgWithdrawStableMintRequest: {
     toJSON(message: MsgWithdrawStableMintRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         amount?: string | undefined;
         stableVaultId?: string | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -1266,7 +1266,7 @@ export declare const MsgWithdrawStableMintRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;

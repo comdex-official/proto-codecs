@@ -1,13 +1,36 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryTotalTVLByAppResponse = exports.QueryTotalTVLByAppRequest = exports.QueryTVLLockedByAppOfAllExtendedPairsResponse = exports.QueryTVLLockedByAppOfAllExtendedPairsRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse = exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = exports.QueryExtendedPairVaultMappingByAppResponse = exports.QueryExtendedPairVaultMappingByAppRequest = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = exports.QueryStableVaultByProductExtendedPairResponse = exports.QueryStableVaultByProductExtendedPairRequest = exports.QueryAllStableVaultsResponse = exports.QueryAllStableVaultsRequest = exports.QueryStableVaultInfoResponse = exports.QueryStableVaultInfoRequest = exports.QueryExtendedPairIDByProductResponse = exports.QueryExtendedPairIDByProductRequest = exports.QueryTotalValueLockedByProductExtendedPairResponse = exports.QueryTotalValueLockedByProductExtendedPairRequest = exports.QueryVaultCountByProductAndPairResponse = exports.QueryVaultCountByProductAndPairRequest = exports.QueryVaultCountByProductResponse = exports.QueryVaultCountByProductRequest = exports.QueryTokenMintedAllProductsResponse = exports.QueryTokenMintedAllProductsRequest = exports.QueryTokenMintedAllProductsByPairResponse = exports.QueryTokenMintedAllProductsByPairRequest = exports.QueryAllVaultByOwnerResponse = exports.QueryAllVaultByOwnerRequest = exports.QueryVaultByProductResponse = exports.QueryVaultByProductRequest = exports.QueryVaultOfOwnerByExtendedPairResponse = exports.QueryVaultOfOwnerByExtendedPairRequest = exports.QueryAllVaultsByAppAndExtendedPairResponse = exports.QueryAllVaultsByAppAndExtendedPairRequest = exports.QueryAllVaultsByProductResponse = exports.QueryAllVaultsByProductRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultInfoByAppByOwnerResponse = exports.QueryVaultInfoByAppByOwnerRequest = exports.QueryVaultInfoResponse = exports.QueryVaultInfoRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
-exports.QueryClientImpl = exports.QueryUserMyPositionByAppResponse = exports.QueryUserMyPositionByAppRequest = void 0;
+exports.QueryUserExtendedPairTotalDataResponse = exports.QueryUserExtendedPairTotalDataRequest = exports.QueryUserMyPositionByAppResponse = exports.QueryUserMyPositionByAppRequest = exports.QueryTotalTVLByAppResponse = exports.QueryTotalTVLByAppRequest = exports.QueryTVLLockedByAppOfAllExtendedPairsResponse = exports.QueryTVLLockedByAppOfAllExtendedPairsRequest = exports.QueryExtendedPairVaultMappingByAppResponse = exports.QueryExtendedPairVaultMappingByAppRequest = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = exports.QueryStableVaultByAppExtendedPairResponse = exports.QueryStableVaultByAppExtendedPairRequest = exports.QueryStableVaultByAppResponse = exports.QueryStableVaultByAppRequest = exports.QueryStableVaultByVaultIdResponse = exports.QueryStableVaultByVaultIdRequest = exports.QueryExtendedPairIDsByAppResponse = exports.QueryExtendedPairIDsByAppRequest = exports.QueryTotalValueLockedByAppExtendedPairResponse = exports.QueryTotalValueLockedByAppExtendedPairRequest = exports.QueryVaultCountByAppAndExtendedPairResponse = exports.QueryVaultCountByAppAndExtendedPairRequest = exports.QueryVaultCountByAppResponse = exports.QueryVaultCountByAppRequest = exports.QueryTokenMintedAssetWiseByAppResponse = exports.QueryTokenMintedAssetWiseByAppRequest = exports.QueryTokenMintedByAppAndExtendedPairResponse = exports.QueryTokenMintedByAppAndExtendedPairRequest = exports.QueryAllVaultIdsByAnOwnerResponse = exports.QueryAllVaultIdsByAnOwnerRequest = exports.QueryVaultIdsByAppInAllExtendedPairsResponse = exports.QueryVaultIdsByAppInAllExtendedPairsRequest = exports.QueryVaultIdOfOwnerByExtendedPairAndAppResponse = exports.QueryVaultIdOfOwnerByExtendedPairAndAppRequest = exports.QueryAllVaultsByAppAndExtendedPairResponse = exports.QueryAllVaultsByAppAndExtendedPairRequest = exports.QueryAllVaultsByAppResponse = exports.QueryAllVaultsByAppRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultInfoOfOwnerByAppResponse = exports.QueryVaultInfoOfOwnerByAppRequest = exports.QueryVaultInfoByVaultIdResponse = exports.QueryVaultInfoByVaultIdRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
+exports.QueryClientImpl = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const vault_1 = require("../../../comdex/vault/v1beta1/vault");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 exports.protobufPackage = "comdex.vault.v1beta1";
@@ -27,7 +50,7 @@ function createBaseVaultInfo() {
     };
 }
 exports.VaultInfo = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
         }
@@ -64,7 +87,7 @@ exports.VaultInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseVaultInfo();
         while (reader.pos < end) {
@@ -182,14 +205,14 @@ function createBaseQueryVaultRequest() {
     return { id: "" };
 }
 exports.QueryVaultRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultRequest();
         while (reader.pos < end) {
@@ -226,14 +249,14 @@ function createBaseQueryVaultResponse() {
     return { vault: undefined };
 }
 exports.QueryVaultResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.vault !== undefined) {
             vault_1.Vault.encode(message.vault, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryVaultResponse();
         while (reader.pos < end) {
@@ -269,20 +292,20 @@ exports.QueryVaultResponse = {
         return message;
     },
 };
-function createBaseQueryVaultInfoRequest() {
+function createBaseQueryVaultInfoByVaultIdRequest() {
     return { id: "" };
 }
-exports.QueryVaultInfoRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryVaultInfoByVaultIdRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultInfoRequest();
+        const message = createBaseQueryVaultInfoByVaultIdRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -308,25 +331,25 @@ exports.QueryVaultInfoRequest = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryVaultInfoRequest();
+        const message = createBaseQueryVaultInfoByVaultIdRequest();
         message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
-function createBaseQueryVaultInfoResponse() {
+function createBaseQueryVaultInfoByVaultIdResponse() {
     return { vaultsInfo: undefined };
 }
-exports.QueryVaultInfoResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryVaultInfoByVaultIdResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.vaultsInfo !== undefined) {
             exports.VaultInfo.encode(message.vaultsInfo, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultInfoResponse();
+        const message = createBaseQueryVaultInfoByVaultIdResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -356,7 +379,7 @@ exports.QueryVaultInfoResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryVaultInfoResponse();
+        const message = createBaseQueryVaultInfoByVaultIdResponse();
         message.vaultsInfo =
             object.vaultsInfo !== undefined && object.vaultsInfo !== null
                 ? exports.VaultInfo.fromPartial(object.vaultsInfo)
@@ -364,11 +387,11 @@ exports.QueryVaultInfoResponse = {
         return message;
     },
 };
-function createBaseQueryVaultInfoByAppByOwnerRequest() {
+function createBaseQueryVaultInfoOfOwnerByAppRequest() {
     return { appId: long_1.default.UZERO, owner: "" };
 }
-exports.QueryVaultInfoByAppByOwnerRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryVaultInfoOfOwnerByAppRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -378,9 +401,9 @@ exports.QueryVaultInfoByAppByOwnerRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultInfoByAppByOwnerRequest();
+        const message = createBaseQueryVaultInfoOfOwnerByAppRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -412,7 +435,7 @@ exports.QueryVaultInfoByAppByOwnerRequest = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryVaultInfoByAppByOwnerRequest();
+        const message = createBaseQueryVaultInfoOfOwnerByAppRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -421,11 +444,11 @@ exports.QueryVaultInfoByAppByOwnerRequest = {
         return message;
     },
 };
-function createBaseQueryVaultInfoByAppByOwnerResponse() {
+function createBaseQueryVaultInfoOfOwnerByAppResponse() {
     return { vaultsInfo: [], pagination: undefined };
 }
-exports.QueryVaultInfoByAppByOwnerResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryVaultInfoOfOwnerByAppResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.vaultsInfo) {
             exports.VaultInfo.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -435,9 +458,9 @@ exports.QueryVaultInfoByAppByOwnerResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultInfoByAppByOwnerResponse();
+        const message = createBaseQueryVaultInfoOfOwnerByAppResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -480,7 +503,7 @@ exports.QueryVaultInfoByAppByOwnerResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryVaultInfoByAppByOwnerResponse();
+        const message = createBaseQueryVaultInfoOfOwnerByAppResponse();
         message.vaultsInfo =
             ((_a = object.vaultsInfo) === null || _a === void 0 ? void 0 : _a.map((e) => exports.VaultInfo.fromPartial(e))) || [];
         message.pagination =
@@ -494,14 +517,14 @@ function createBaseQueryAllVaultsRequest() {
     return { pagination: undefined };
 }
 exports.QueryAllVaultsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultsRequest();
         while (reader.pos < end) {
@@ -545,7 +568,7 @@ function createBaseQueryAllVaultsResponse() {
     return { vault: [], pagination: undefined };
 }
 exports.QueryAllVaultsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.vault) {
             vault_1.Vault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -555,7 +578,7 @@ exports.QueryAllVaultsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultsResponse();
         while (reader.pos < end) {
@@ -609,20 +632,20 @@ exports.QueryAllVaultsResponse = {
         return message;
     },
 };
-function createBaseQueryAllVaultsByProductRequest() {
+function createBaseQueryAllVaultsByAppRequest() {
     return { appId: long_1.default.UZERO };
 }
-exports.QueryAllVaultsByProductRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryAllVaultsByAppRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryAllVaultsByProductRequest();
+        const message = createBaseQueryAllVaultsByAppRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -648,7 +671,7 @@ exports.QueryAllVaultsByProductRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryAllVaultsByProductRequest();
+        const message = createBaseQueryAllVaultsByAppRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -656,11 +679,11 @@ exports.QueryAllVaultsByProductRequest = {
         return message;
     },
 };
-function createBaseQueryAllVaultsByProductResponse() {
+function createBaseQueryAllVaultsByAppResponse() {
     return { vault: [], pagination: undefined };
 }
-exports.QueryAllVaultsByProductResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryAllVaultsByAppResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.vault) {
             vault_1.Vault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -670,9 +693,9 @@ exports.QueryAllVaultsByProductResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryAllVaultsByProductResponse();
+        const message = createBaseQueryAllVaultsByAppResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -715,7 +738,7 @@ exports.QueryAllVaultsByProductResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryAllVaultsByProductResponse();
+        const message = createBaseQueryAllVaultsByAppResponse();
         message.vault = ((_a = object.vault) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.Vault.fromPartial(e))) || [];
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
@@ -732,7 +755,7 @@ function createBaseQueryAllVaultsByAppAndExtendedPairRequest() {
     };
 }
 exports.QueryAllVaultsByAppAndExtendedPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -745,7 +768,7 @@ exports.QueryAllVaultsByAppAndExtendedPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultsByAppAndExtendedPairRequest();
         while (reader.pos < end) {
@@ -811,7 +834,7 @@ function createBaseQueryAllVaultsByAppAndExtendedPairResponse() {
     return { vault: [], pagination: undefined };
 }
 exports.QueryAllVaultsByAppAndExtendedPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.vault) {
             vault_1.Vault.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -821,7 +844,7 @@ exports.QueryAllVaultsByAppAndExtendedPairResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllVaultsByAppAndExtendedPairResponse();
         while (reader.pos < end) {
@@ -875,18 +898,18 @@ exports.QueryAllVaultsByAppAndExtendedPairResponse = {
         return message;
     },
 };
-function createBaseQueryVaultOfOwnerByExtendedPairRequest() {
+function createBaseQueryVaultIdOfOwnerByExtendedPairAndAppRequest() {
     return {
-        productId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
         owner: "",
         extendedPairId: long_1.default.UZERO,
         pagination: undefined,
     };
 }
-exports.QueryVaultOfOwnerByExtendedPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.productId.isZero()) {
-            writer.uint32(8).uint64(message.productId);
+exports.QueryVaultIdOfOwnerByExtendedPairAndAppRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
         }
         if (message.owner !== "") {
             writer.uint32(18).string(message.owner);
@@ -900,14 +923,14 @@ exports.QueryVaultOfOwnerByExtendedPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultOfOwnerByExtendedPairRequest();
+        const message = createBaseQueryVaultIdOfOwnerByExtendedPairAndAppRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.productId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
                     message.owner = reader.string();
@@ -927,9 +950,7 @@ exports.QueryVaultOfOwnerByExtendedPairRequest = {
     },
     fromJSON(object) {
         return {
-            productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
             extendedPairId: isSet(object.extendedPairId)
                 ? long_1.default.fromValue(object.extendedPairId)
@@ -941,8 +962,8 @@ exports.QueryVaultOfOwnerByExtendedPairRequest = {
     },
     toJSON(message) {
         const obj = {};
-        message.productId !== undefined &&
-            (obj.productId = (message.productId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
         message.extendedPairId !== undefined &&
             (obj.extendedPairId = (message.extendedPairId || long_1.default.UZERO).toString());
@@ -954,10 +975,10 @@ exports.QueryVaultOfOwnerByExtendedPairRequest = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryVaultOfOwnerByExtendedPairRequest();
-        message.productId =
-            object.productId !== undefined && object.productId !== null
-                ? long_1.default.fromValue(object.productId)
+        const message = createBaseQueryVaultIdOfOwnerByExtendedPairAndAppRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
         message.extendedPairId =
@@ -971,20 +992,20 @@ exports.QueryVaultOfOwnerByExtendedPairRequest = {
         return message;
     },
 };
-function createBaseQueryVaultOfOwnerByExtendedPairResponse() {
+function createBaseQueryVaultIdOfOwnerByExtendedPairAndAppResponse() {
     return { vaultId: "" };
 }
-exports.QueryVaultOfOwnerByExtendedPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryVaultIdOfOwnerByExtendedPairAndAppResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.vaultId !== "") {
             writer.uint32(10).string(message.vaultId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultOfOwnerByExtendedPairResponse();
+        const message = createBaseQueryVaultIdOfOwnerByExtendedPairAndAppResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1010,18 +1031,18 @@ exports.QueryVaultOfOwnerByExtendedPairResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryVaultOfOwnerByExtendedPairResponse();
+        const message = createBaseQueryVaultIdOfOwnerByExtendedPairAndAppResponse();
         message.vaultId = (_a = object.vaultId) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
-function createBaseQueryVaultByProductRequest() {
-    return { productId: long_1.default.UZERO, pagination: undefined };
+function createBaseQueryVaultIdsByAppInAllExtendedPairsRequest() {
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
-exports.QueryVaultByProductRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.productId.isZero()) {
-            writer.uint32(8).uint64(message.productId);
+exports.QueryVaultIdsByAppInAllExtendedPairsRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
         }
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -1029,14 +1050,14 @@ exports.QueryVaultByProductRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultByProductRequest();
+        const message = createBaseQueryVaultIdsByAppInAllExtendedPairsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.productId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
@@ -1050,9 +1071,7 @@ exports.QueryVaultByProductRequest = {
     },
     fromJSON(object) {
         return {
-            productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -1060,8 +1079,8 @@ exports.QueryVaultByProductRequest = {
     },
     toJSON(message) {
         const obj = {};
-        message.productId !== undefined &&
-            (obj.productId = (message.productId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
@@ -1069,10 +1088,10 @@ exports.QueryVaultByProductRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryVaultByProductRequest();
-        message.productId =
-            object.productId !== undefined && object.productId !== null
-                ? long_1.default.fromValue(object.productId)
+        const message = createBaseQueryVaultIdsByAppInAllExtendedPairsRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
@@ -1081,20 +1100,20 @@ exports.QueryVaultByProductRequest = {
         return message;
     },
 };
-function createBaseQueryVaultByProductResponse() {
+function createBaseQueryVaultIdsByAppInAllExtendedPairsResponse() {
     return { vaultIds: [] };
 }
-exports.QueryVaultByProductResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryVaultIdsByAppInAllExtendedPairsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.vaultIds) {
             writer.uint32(10).string(v);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultByProductResponse();
+        const message = createBaseQueryVaultIdsByAppInAllExtendedPairsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1127,16 +1146,16 @@ exports.QueryVaultByProductResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryVaultByProductResponse();
+        const message = createBaseQueryVaultIdsByAppInAllExtendedPairsResponse();
         message.vaultIds = ((_a = object.vaultIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
         return message;
     },
 };
-function createBaseQueryAllVaultByOwnerRequest() {
+function createBaseQueryAllVaultIdsByAnOwnerRequest() {
     return { owner: "", pagination: undefined };
 }
-exports.QueryAllVaultByOwnerRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryAllVaultIdsByAnOwnerRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.owner !== "") {
             writer.uint32(10).string(message.owner);
         }
@@ -1146,9 +1165,9 @@ exports.QueryAllVaultByOwnerRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryAllVaultByOwnerRequest();
+        const message = createBaseQueryAllVaultIdsByAnOwnerRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1184,7 +1203,7 @@ exports.QueryAllVaultByOwnerRequest = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryAllVaultByOwnerRequest();
+        const message = createBaseQueryAllVaultIdsByAnOwnerRequest();
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
@@ -1193,20 +1212,20 @@ exports.QueryAllVaultByOwnerRequest = {
         return message;
     },
 };
-function createBaseQueryAllVaultByOwnerResponse() {
+function createBaseQueryAllVaultIdsByAnOwnerResponse() {
     return { vaultIds: [] };
 }
-exports.QueryAllVaultByOwnerResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryAllVaultIdsByAnOwnerResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.vaultIds) {
             writer.uint32(10).string(v);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryAllVaultByOwnerResponse();
+        const message = createBaseQueryAllVaultIdsByAnOwnerResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1239,22 +1258,22 @@ exports.QueryAllVaultByOwnerResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryAllVaultByOwnerResponse();
+        const message = createBaseQueryAllVaultIdsByAnOwnerResponse();
         message.vaultIds = ((_a = object.vaultIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
         return message;
     },
 };
-function createBaseQueryTokenMintedAllProductsByPairRequest() {
+function createBaseQueryTokenMintedByAppAndExtendedPairRequest() {
     return {
-        productId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
         extendedPairId: long_1.default.UZERO,
         pagination: undefined,
     };
 }
-exports.QueryTokenMintedAllProductsByPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.productId.isZero()) {
-            writer.uint32(8).uint64(message.productId);
+exports.QueryTokenMintedByAppAndExtendedPairRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
         }
         if (!message.extendedPairId.isZero()) {
             writer.uint32(16).uint64(message.extendedPairId);
@@ -1265,14 +1284,14 @@ exports.QueryTokenMintedAllProductsByPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTokenMintedAllProductsByPairRequest();
+        const message = createBaseQueryTokenMintedByAppAndExtendedPairRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.productId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
                     message.extendedPairId = reader.uint64();
@@ -1289,9 +1308,7 @@ exports.QueryTokenMintedAllProductsByPairRequest = {
     },
     fromJSON(object) {
         return {
-            productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
                 ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
@@ -1302,8 +1319,8 @@ exports.QueryTokenMintedAllProductsByPairRequest = {
     },
     toJSON(message) {
         const obj = {};
-        message.productId !== undefined &&
-            (obj.productId = (message.productId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.extendedPairId !== undefined &&
             (obj.extendedPairId = (message.extendedPairId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
@@ -1313,10 +1330,10 @@ exports.QueryTokenMintedAllProductsByPairRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryTokenMintedAllProductsByPairRequest();
-        message.productId =
-            object.productId !== undefined && object.productId !== null
-                ? long_1.default.fromValue(object.productId)
+        const message = createBaseQueryTokenMintedByAppAndExtendedPairRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.extendedPairId =
             object.extendedPairId !== undefined && object.extendedPairId !== null
@@ -1329,20 +1346,20 @@ exports.QueryTokenMintedAllProductsByPairRequest = {
         return message;
     },
 };
-function createBaseQueryTokenMintedAllProductsByPairResponse() {
+function createBaseQueryTokenMintedByAppAndExtendedPairResponse() {
     return { tokenMinted: "" };
 }
-exports.QueryTokenMintedAllProductsByPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryTokenMintedByAppAndExtendedPairResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.tokenMinted !== "") {
             writer.uint32(10).string(message.tokenMinted);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTokenMintedAllProductsByPairResponse();
+        const message = createBaseQueryTokenMintedByAppAndExtendedPairResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1369,18 +1386,18 @@ exports.QueryTokenMintedAllProductsByPairResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryTokenMintedAllProductsByPairResponse();
+        const message = createBaseQueryTokenMintedByAppAndExtendedPairResponse();
         message.tokenMinted = (_a = object.tokenMinted) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
-function createBaseQueryTokenMintedAllProductsRequest() {
-    return { productId: long_1.default.UZERO, pagination: undefined };
+function createBaseQueryTokenMintedAssetWiseByAppRequest() {
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
-exports.QueryTokenMintedAllProductsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.productId.isZero()) {
-            writer.uint32(8).uint64(message.productId);
+exports.QueryTokenMintedAssetWiseByAppRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
         }
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -1388,14 +1405,14 @@ exports.QueryTokenMintedAllProductsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTokenMintedAllProductsRequest();
+        const message = createBaseQueryTokenMintedAssetWiseByAppRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.productId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
@@ -1409,9 +1426,7 @@ exports.QueryTokenMintedAllProductsRequest = {
     },
     fromJSON(object) {
         return {
-            productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -1419,8 +1434,8 @@ exports.QueryTokenMintedAllProductsRequest = {
     },
     toJSON(message) {
         const obj = {};
-        message.productId !== undefined &&
-            (obj.productId = (message.productId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
@@ -1428,10 +1443,10 @@ exports.QueryTokenMintedAllProductsRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryTokenMintedAllProductsRequest();
-        message.productId =
-            object.productId !== undefined && object.productId !== null
-                ? long_1.default.fromValue(object.productId)
+        const message = createBaseQueryTokenMintedAssetWiseByAppRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
@@ -1440,25 +1455,25 @@ exports.QueryTokenMintedAllProductsRequest = {
         return message;
     },
 };
-function createBaseQueryTokenMintedAllProductsResponse() {
-    return { tokenMinted: "" };
+function createBaseQueryTokenMintedAssetWiseByAppResponse() {
+    return { mintedData: [] };
 }
-exports.QueryTokenMintedAllProductsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.tokenMinted !== "") {
-            writer.uint32(10).string(message.tokenMinted);
+exports.QueryTokenMintedAssetWiseByAppResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.mintedData) {
+            vault_1.MintedDataMap.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTokenMintedAllProductsResponse();
+        const message = createBaseQueryTokenMintedAssetWiseByAppResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.tokenMinted = reader.string();
+                    message.mintedData.push(vault_1.MintedDataMap.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1469,29 +1484,36 @@ exports.QueryTokenMintedAllProductsResponse = {
     },
     fromJSON(object) {
         return {
-            tokenMinted: isSet(object.tokenMinted) ? String(object.tokenMinted) : "",
+            mintedData: Array.isArray(object === null || object === void 0 ? void 0 : object.mintedData)
+                ? object.mintedData.map((e) => vault_1.MintedDataMap.fromJSON(e))
+                : [],
         };
     },
     toJSON(message) {
         const obj = {};
-        message.tokenMinted !== undefined &&
-            (obj.tokenMinted = message.tokenMinted);
+        if (message.mintedData) {
+            obj.mintedData = message.mintedData.map((e) => e ? vault_1.MintedDataMap.toJSON(e) : undefined);
+        }
+        else {
+            obj.mintedData = [];
+        }
         return obj;
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryTokenMintedAllProductsResponse();
-        message.tokenMinted = (_a = object.tokenMinted) !== null && _a !== void 0 ? _a : "";
+        const message = createBaseQueryTokenMintedAssetWiseByAppResponse();
+        message.mintedData =
+            ((_a = object.mintedData) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.MintedDataMap.fromPartial(e))) || [];
         return message;
     },
 };
-function createBaseQueryVaultCountByProductRequest() {
-    return { productId: long_1.default.UZERO, pagination: undefined };
+function createBaseQueryVaultCountByAppRequest() {
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
-exports.QueryVaultCountByProductRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.productId.isZero()) {
-            writer.uint32(8).uint64(message.productId);
+exports.QueryVaultCountByAppRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
         }
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -1499,14 +1521,14 @@ exports.QueryVaultCountByProductRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultCountByProductRequest();
+        const message = createBaseQueryVaultCountByAppRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.productId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
@@ -1520,9 +1542,7 @@ exports.QueryVaultCountByProductRequest = {
     },
     fromJSON(object) {
         return {
-            productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -1530,8 +1550,8 @@ exports.QueryVaultCountByProductRequest = {
     },
     toJSON(message) {
         const obj = {};
-        message.productId !== undefined &&
-            (obj.productId = (message.productId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
@@ -1539,10 +1559,10 @@ exports.QueryVaultCountByProductRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryVaultCountByProductRequest();
-        message.productId =
-            object.productId !== undefined && object.productId !== null
-                ? long_1.default.fromValue(object.productId)
+        const message = createBaseQueryVaultCountByAppRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
@@ -1551,20 +1571,20 @@ exports.QueryVaultCountByProductRequest = {
         return message;
     },
 };
-function createBaseQueryVaultCountByProductResponse() {
+function createBaseQueryVaultCountByAppResponse() {
     return { vaultCount: long_1.default.UZERO };
 }
-exports.QueryVaultCountByProductResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryVaultCountByAppResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.vaultCount.isZero()) {
             writer.uint32(8).uint64(message.vaultCount);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultCountByProductResponse();
+        const message = createBaseQueryVaultCountByAppResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1592,7 +1612,7 @@ exports.QueryVaultCountByProductResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryVaultCountByProductResponse();
+        const message = createBaseQueryVaultCountByAppResponse();
         message.vaultCount =
             object.vaultCount !== undefined && object.vaultCount !== null
                 ? long_1.default.fromValue(object.vaultCount)
@@ -1600,17 +1620,17 @@ exports.QueryVaultCountByProductResponse = {
         return message;
     },
 };
-function createBaseQueryVaultCountByProductAndPairRequest() {
+function createBaseQueryVaultCountByAppAndExtendedPairRequest() {
     return {
-        productId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
         extendedPairId: long_1.default.UZERO,
         pagination: undefined,
     };
 }
-exports.QueryVaultCountByProductAndPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.productId.isZero()) {
-            writer.uint32(8).uint64(message.productId);
+exports.QueryVaultCountByAppAndExtendedPairRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
         }
         if (!message.extendedPairId.isZero()) {
             writer.uint32(16).uint64(message.extendedPairId);
@@ -1621,14 +1641,14 @@ exports.QueryVaultCountByProductAndPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultCountByProductAndPairRequest();
+        const message = createBaseQueryVaultCountByAppAndExtendedPairRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.productId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
                     message.extendedPairId = reader.uint64();
@@ -1645,9 +1665,7 @@ exports.QueryVaultCountByProductAndPairRequest = {
     },
     fromJSON(object) {
         return {
-            productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
                 ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
@@ -1658,8 +1676,8 @@ exports.QueryVaultCountByProductAndPairRequest = {
     },
     toJSON(message) {
         const obj = {};
-        message.productId !== undefined &&
-            (obj.productId = (message.productId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.extendedPairId !== undefined &&
             (obj.extendedPairId = (message.extendedPairId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
@@ -1669,10 +1687,10 @@ exports.QueryVaultCountByProductAndPairRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryVaultCountByProductAndPairRequest();
-        message.productId =
-            object.productId !== undefined && object.productId !== null
-                ? long_1.default.fromValue(object.productId)
+        const message = createBaseQueryVaultCountByAppAndExtendedPairRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.extendedPairId =
             object.extendedPairId !== undefined && object.extendedPairId !== null
@@ -1685,20 +1703,20 @@ exports.QueryVaultCountByProductAndPairRequest = {
         return message;
     },
 };
-function createBaseQueryVaultCountByProductAndPairResponse() {
+function createBaseQueryVaultCountByAppAndExtendedPairResponse() {
     return { vaultCount: long_1.default.UZERO };
 }
-exports.QueryVaultCountByProductAndPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryVaultCountByAppAndExtendedPairResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.vaultCount.isZero()) {
             writer.uint32(8).uint64(message.vaultCount);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryVaultCountByProductAndPairResponse();
+        const message = createBaseQueryVaultCountByAppAndExtendedPairResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1726,7 +1744,7 @@ exports.QueryVaultCountByProductAndPairResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryVaultCountByProductAndPairResponse();
+        const message = createBaseQueryVaultCountByAppAndExtendedPairResponse();
         message.vaultCount =
             object.vaultCount !== undefined && object.vaultCount !== null
                 ? long_1.default.fromValue(object.vaultCount)
@@ -1734,17 +1752,17 @@ exports.QueryVaultCountByProductAndPairResponse = {
         return message;
     },
 };
-function createBaseQueryTotalValueLockedByProductExtendedPairRequest() {
+function createBaseQueryTotalValueLockedByAppExtendedPairRequest() {
     return {
-        productId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
         extendedPairId: long_1.default.UZERO,
         pagination: undefined,
     };
 }
-exports.QueryTotalValueLockedByProductExtendedPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.productId.isZero()) {
-            writer.uint32(8).uint64(message.productId);
+exports.QueryTotalValueLockedByAppExtendedPairRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
         }
         if (!message.extendedPairId.isZero()) {
             writer.uint32(16).uint64(message.extendedPairId);
@@ -1755,14 +1773,14 @@ exports.QueryTotalValueLockedByProductExtendedPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTotalValueLockedByProductExtendedPairRequest();
+        const message = createBaseQueryTotalValueLockedByAppExtendedPairRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.productId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
                     message.extendedPairId = reader.uint64();
@@ -1779,9 +1797,7 @@ exports.QueryTotalValueLockedByProductExtendedPairRequest = {
     },
     fromJSON(object) {
         return {
-            productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
                 ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
@@ -1792,8 +1808,8 @@ exports.QueryTotalValueLockedByProductExtendedPairRequest = {
     },
     toJSON(message) {
         const obj = {};
-        message.productId !== undefined &&
-            (obj.productId = (message.productId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.extendedPairId !== undefined &&
             (obj.extendedPairId = (message.extendedPairId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
@@ -1803,10 +1819,10 @@ exports.QueryTotalValueLockedByProductExtendedPairRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryTotalValueLockedByProductExtendedPairRequest();
-        message.productId =
-            object.productId !== undefined && object.productId !== null
-                ? long_1.default.fromValue(object.productId)
+        const message = createBaseQueryTotalValueLockedByAppExtendedPairRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.extendedPairId =
             object.extendedPairId !== undefined && object.extendedPairId !== null
@@ -1819,20 +1835,20 @@ exports.QueryTotalValueLockedByProductExtendedPairRequest = {
         return message;
     },
 };
-function createBaseQueryTotalValueLockedByProductExtendedPairResponse() {
+function createBaseQueryTotalValueLockedByAppExtendedPairResponse() {
     return { valueLocked: "" };
 }
-exports.QueryTotalValueLockedByProductExtendedPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryTotalValueLockedByAppExtendedPairResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.valueLocked !== "") {
             writer.uint32(10).string(message.valueLocked);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTotalValueLockedByProductExtendedPairResponse();
+        const message = createBaseQueryTotalValueLockedByAppExtendedPairResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1859,18 +1875,18 @@ exports.QueryTotalValueLockedByProductExtendedPairResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryTotalValueLockedByProductExtendedPairResponse();
+        const message = createBaseQueryTotalValueLockedByAppExtendedPairResponse();
         message.valueLocked = (_a = object.valueLocked) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
-function createBaseQueryExtendedPairIDByProductRequest() {
-    return { productId: long_1.default.UZERO, pagination: undefined };
+function createBaseQueryExtendedPairIDsByAppRequest() {
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
-exports.QueryExtendedPairIDByProductRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.productId.isZero()) {
-            writer.uint32(8).uint64(message.productId);
+exports.QueryExtendedPairIDsByAppRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
         }
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -1878,14 +1894,14 @@ exports.QueryExtendedPairIDByProductRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryExtendedPairIDByProductRequest();
+        const message = createBaseQueryExtendedPairIDsByAppRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.productId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
@@ -1899,9 +1915,7 @@ exports.QueryExtendedPairIDByProductRequest = {
     },
     fromJSON(object) {
         return {
-            productId: isSet(object.productId)
-                ? long_1.default.fromValue(object.productId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -1909,8 +1923,8 @@ exports.QueryExtendedPairIDByProductRequest = {
     },
     toJSON(message) {
         const obj = {};
-        message.productId !== undefined &&
-            (obj.productId = (message.productId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
                 ? pagination_1.PageRequest.toJSON(message.pagination)
@@ -1918,10 +1932,10 @@ exports.QueryExtendedPairIDByProductRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryExtendedPairIDByProductRequest();
-        message.productId =
-            object.productId !== undefined && object.productId !== null
-                ? long_1.default.fromValue(object.productId)
+        const message = createBaseQueryExtendedPairIDsByAppRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
@@ -1930,11 +1944,11 @@ exports.QueryExtendedPairIDByProductRequest = {
         return message;
     },
 };
-function createBaseQueryExtendedPairIDByProductResponse() {
+function createBaseQueryExtendedPairIDsByAppResponse() {
     return { extendedPairIds: [] };
 }
-exports.QueryExtendedPairIDByProductResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryExtendedPairIDsByAppResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         writer.uint32(10).fork();
         for (const v of message.extendedPairIds) {
             writer.uint64(v);
@@ -1943,9 +1957,9 @@ exports.QueryExtendedPairIDByProductResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryExtendedPairIDByProductResponse();
+        const message = createBaseQueryExtendedPairIDsByAppResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1986,26 +2000,26 @@ exports.QueryExtendedPairIDByProductResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryExtendedPairIDByProductResponse();
+        const message = createBaseQueryExtendedPairIDsByAppResponse();
         message.extendedPairIds =
             ((_a = object.extendedPairIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
         return message;
     },
 };
-function createBaseQueryStableVaultInfoRequest() {
+function createBaseQueryStableVaultByVaultIdRequest() {
     return { stableVaultId: "" };
 }
-exports.QueryStableVaultInfoRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryStableVaultByVaultIdRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.stableVaultId !== "") {
             writer.uint32(10).string(message.stableVaultId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryStableVaultInfoRequest();
+        const message = createBaseQueryStableVaultByVaultIdRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2034,25 +2048,25 @@ exports.QueryStableVaultInfoRequest = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryStableVaultInfoRequest();
+        const message = createBaseQueryStableVaultByVaultIdRequest();
         message.stableVaultId = (_a = object.stableVaultId) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
-function createBaseQueryStableVaultInfoResponse() {
+function createBaseQueryStableVaultByVaultIdResponse() {
     return { stableMintVault: undefined };
 }
-exports.QueryStableVaultInfoResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryStableVaultByVaultIdResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.stableMintVault !== undefined) {
             vault_1.StableMintVault.encode(message.stableMintVault, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryStableVaultInfoResponse();
+        const message = createBaseQueryStableVaultByVaultIdResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2082,7 +2096,7 @@ exports.QueryStableVaultInfoResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryStableVaultInfoResponse();
+        const message = createBaseQueryStableVaultByVaultIdResponse();
         message.stableMintVault =
             object.stableMintVault !== undefined && object.stableMintVault !== null
                 ? vault_1.StableMintVault.fromPartial(object.stableMintVault)
@@ -2090,20 +2104,20 @@ exports.QueryStableVaultInfoResponse = {
         return message;
     },
 };
-function createBaseQueryAllStableVaultsRequest() {
+function createBaseQueryStableVaultByAppRequest() {
     return { appId: long_1.default.UZERO };
 }
-exports.QueryAllStableVaultsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryStableVaultByAppRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryAllStableVaultsRequest();
+        const message = createBaseQueryStableVaultByAppRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2129,7 +2143,7 @@ exports.QueryAllStableVaultsRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryAllStableVaultsRequest();
+        const message = createBaseQueryStableVaultByAppRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -2137,20 +2151,20 @@ exports.QueryAllStableVaultsRequest = {
         return message;
     },
 };
-function createBaseQueryAllStableVaultsResponse() {
+function createBaseQueryStableVaultByAppResponse() {
     return { stableMintVault: [] };
 }
-exports.QueryAllStableVaultsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryStableVaultByAppResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.stableMintVault) {
             vault_1.StableMintVault.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryAllStableVaultsResponse();
+        const message = createBaseQueryStableVaultByAppResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2183,17 +2197,17 @@ exports.QueryAllStableVaultsResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryAllStableVaultsResponse();
+        const message = createBaseQueryStableVaultByAppResponse();
         message.stableMintVault =
             ((_a = object.stableMintVault) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.StableMintVault.fromPartial(e))) || [];
         return message;
     },
 };
-function createBaseQueryStableVaultByProductExtendedPairRequest() {
+function createBaseQueryStableVaultByAppExtendedPairRequest() {
     return { appId: long_1.default.UZERO, extendedPairId: long_1.default.UZERO };
 }
-exports.QueryStableVaultByProductExtendedPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryStableVaultByAppExtendedPairRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -2203,9 +2217,9 @@ exports.QueryStableVaultByProductExtendedPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryStableVaultByProductExtendedPairRequest();
+        const message = createBaseQueryStableVaultByAppExtendedPairRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2239,7 +2253,7 @@ exports.QueryStableVaultByProductExtendedPairRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryStableVaultByProductExtendedPairRequest();
+        const message = createBaseQueryStableVaultByAppExtendedPairRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -2251,20 +2265,20 @@ exports.QueryStableVaultByProductExtendedPairRequest = {
         return message;
     },
 };
-function createBaseQueryStableVaultByProductExtendedPairResponse() {
+function createBaseQueryStableVaultByAppExtendedPairResponse() {
     return { stableMintVault: undefined };
 }
-exports.QueryStableVaultByProductExtendedPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryStableVaultByAppExtendedPairResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.stableMintVault !== undefined) {
             vault_1.StableMintVault.encode(message.stableMintVault, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryStableVaultByProductExtendedPairResponse();
+        const message = createBaseQueryStableVaultByAppExtendedPairResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2294,7 +2308,7 @@ exports.QueryStableVaultByProductExtendedPairResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryStableVaultByProductExtendedPairResponse();
+        const message = createBaseQueryStableVaultByAppExtendedPairResponse();
         message.stableMintVault =
             object.stableMintVault !== undefined && object.stableMintVault !== null
                 ? vault_1.StableMintVault.fromPartial(object.stableMintVault)
@@ -2306,7 +2320,7 @@ function createBaseQueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest() 
     return { appId: long_1.default.UZERO, extendedPairId: long_1.default.UZERO };
 }
 exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -2316,7 +2330,7 @@ exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest();
         while (reader.pos < end) {
@@ -2368,14 +2382,14 @@ function createBaseQueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse()
     return { extendedPairVaultMapping: undefined };
 }
 exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.extendedPairVaultMapping !== undefined) {
             vault_1.ExtendedPairVaultMapping.encode(message.extendedPairVaultMapping, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse();
         while (reader.pos < end) {
@@ -2420,14 +2434,14 @@ function createBaseQueryExtendedPairVaultMappingByAppRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryExtendedPairVaultMappingByAppRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByAppRequest();
         while (reader.pos < end) {
@@ -2467,14 +2481,14 @@ function createBaseQueryExtendedPairVaultMappingByAppResponse() {
     return { extendedPairVaultMapping: [] };
 }
 exports.QueryExtendedPairVaultMappingByAppResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.extendedPairVaultMapping) {
             vault_1.ExtendedPairVaultMapping.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryExtendedPairVaultMappingByAppResponse();
         while (reader.pos < end) {
@@ -2515,243 +2529,18 @@ exports.QueryExtendedPairVaultMappingByAppResponse = {
         return message;
     },
 };
-function createBaseQueryExtendedPairVaultMappingByOwnerAndAppRequest() {
-    return { owner: "", appId: long_1.default.UZERO };
-}
-exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.owner !== "") {
-            writer.uint32(10).string(message.owner);
-        }
-        if (!message.appId.isZero()) {
-            writer.uint32(16).uint64(message.appId);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppRequest();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.owner = reader.string();
-                    break;
-                case 2:
-                    message.appId = reader.uint64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            owner: isSet(object.owner) ? String(object.owner) : "",
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.owner !== undefined && (obj.owner = message.owner);
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppRequest();
-        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        return message;
-    },
-};
-function createBaseQueryExtendedPairVaultMappingByOwnerAndAppResponse() {
-    return { extendedPairtoVaultMapping: [] };
-}
-exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        for (const v of message.extendedPairtoVaultMapping) {
-            vault_1.ExtendedPairToVaultMapping.encode(v, writer.uint32(10).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppResponse();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.extendedPairtoVaultMapping.push(vault_1.ExtendedPairToVaultMapping.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            extendedPairtoVaultMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPairtoVaultMapping)
-                ? object.extendedPairtoVaultMapping.map((e) => vault_1.ExtendedPairToVaultMapping.fromJSON(e))
-                : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        if (message.extendedPairtoVaultMapping) {
-            obj.extendedPairtoVaultMapping = message.extendedPairtoVaultMapping.map((e) => (e ? vault_1.ExtendedPairToVaultMapping.toJSON(e) : undefined));
-        }
-        else {
-            obj.extendedPairtoVaultMapping = [];
-        }
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppResponse();
-        message.extendedPairtoVaultMapping =
-            ((_a = object.extendedPairtoVaultMapping) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.ExtendedPairToVaultMapping.fromPartial(e))) || [];
-        return message;
-    },
-};
-function createBaseQueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest() {
-    return { owner: "", appId: long_1.default.UZERO, extendedPair: long_1.default.UZERO };
-}
-exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.owner !== "") {
-            writer.uint32(10).string(message.owner);
-        }
-        if (!message.appId.isZero()) {
-            writer.uint32(16).uint64(message.appId);
-        }
-        if (!message.extendedPair.isZero()) {
-            writer.uint32(24).uint64(message.extendedPair);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.owner = reader.string();
-                    break;
-                case 2:
-                    message.appId = reader.uint64();
-                    break;
-                case 3:
-                    message.extendedPair = reader.uint64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            owner: isSet(object.owner) ? String(object.owner) : "",
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            extendedPair: isSet(object.extendedPair)
-                ? long_1.default.fromValue(object.extendedPair)
-                : long_1.default.UZERO,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.owner !== undefined && (obj.owner = message.owner);
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        message.extendedPair !== undefined &&
-            (obj.extendedPair = (message.extendedPair || long_1.default.UZERO).toString());
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest();
-        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        message.extendedPair =
-            object.extendedPair !== undefined && object.extendedPair !== null
-                ? long_1.default.fromValue(object.extendedPair)
-                : long_1.default.UZERO;
-        return message;
-    },
-};
-function createBaseQueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse() {
-    return { vaultId: "" };
-}
-exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.vaultId !== "") {
-            writer.uint32(10).string(message.vaultId);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.vaultId = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            vaultId: isSet(object.vaultId) ? String(object.vaultId) : "",
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.vaultId !== undefined && (obj.vaultId = message.vaultId);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseQueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse();
-        message.vaultId = (_a = object.vaultId) !== null && _a !== void 0 ? _a : "";
-        return message;
-    },
-};
 function createBaseQueryTVLLockedByAppOfAllExtendedPairsRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryTVLLockedByAppOfAllExtendedPairsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTVLLockedByAppOfAllExtendedPairsRequest();
         while (reader.pos < end) {
@@ -2791,14 +2580,14 @@ function createBaseQueryTVLLockedByAppOfAllExtendedPairsResponse() {
     return { tvldata: [] };
 }
 exports.QueryTVLLockedByAppOfAllExtendedPairsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.tvldata) {
             vault_1.TvlLockedDataMap.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTVLLockedByAppOfAllExtendedPairsResponse();
         while (reader.pos < end) {
@@ -2843,14 +2632,14 @@ function createBaseQueryTotalTVLByAppRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryTotalTVLByAppRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTotalTVLByAppRequest();
         while (reader.pos < end) {
@@ -2890,14 +2679,14 @@ function createBaseQueryTotalTVLByAppResponse() {
     return { collateralLocked: "" };
 }
 exports.QueryTotalTVLByAppResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.collateralLocked !== "") {
             writer.uint32(10).string(message.collateralLocked);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryTotalTVLByAppResponse();
         while (reader.pos < end) {
@@ -2937,7 +2726,7 @@ function createBaseQueryUserMyPositionByAppRequest() {
     return { appId: long_1.default.UZERO, owner: "" };
 }
 exports.QueryUserMyPositionByAppRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -2947,7 +2736,7 @@ exports.QueryUserMyPositionByAppRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryUserMyPositionByAppRequest();
         while (reader.pos < end) {
@@ -2999,7 +2788,7 @@ function createBaseQueryUserMyPositionByAppResponse() {
     };
 }
 exports.QueryUserMyPositionByAppResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.collateralLocked !== "") {
             writer.uint32(10).string(message.collateralLocked);
         }
@@ -3015,7 +2804,7 @@ exports.QueryUserMyPositionByAppResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryUserMyPositionByAppResponse();
         while (reader.pos < end) {
@@ -3075,44 +2864,137 @@ exports.QueryUserMyPositionByAppResponse = {
         return message;
     },
 };
+function createBaseQueryUserExtendedPairTotalDataRequest() {
+    return { owner: "" };
+}
+exports.QueryUserExtendedPairTotalDataRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.owner !== "") {
+            writer.uint32(10).string(message.owner);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryUserExtendedPairTotalDataRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.owner = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            owner: isSet(object.owner) ? String(object.owner) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.owner !== undefined && (obj.owner = message.owner);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryUserExtendedPairTotalDataRequest();
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseQueryUserExtendedPairTotalDataResponse() {
+    return { userTotalData: undefined };
+}
+exports.QueryUserExtendedPairTotalDataResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.userTotalData !== undefined) {
+            vault_1.UserVaultAssetMapping.encode(message.userTotalData, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryUserExtendedPairTotalDataResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.userTotalData = vault_1.UserVaultAssetMapping.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            userTotalData: isSet(object.userTotalData)
+                ? vault_1.UserVaultAssetMapping.fromJSON(object.userTotalData)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.userTotalData !== undefined &&
+            (obj.userTotalData = message.userTotalData
+                ? vault_1.UserVaultAssetMapping.toJSON(message.userTotalData)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryUserExtendedPairTotalDataResponse();
+        message.userTotalData =
+            object.userTotalData !== undefined && object.userTotalData !== null
+                ? vault_1.UserVaultAssetMapping.fromPartial(object.userTotalData)
+                : undefined;
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
         this.QueryVault = this.QueryVault.bind(this);
-        this.QueryVaultInfo = this.QueryVaultInfo.bind(this);
-        this.QueryVaultInfoByAppByOwner =
-            this.QueryVaultInfoByAppByOwner.bind(this);
+        this.QueryUserExtendedPairTotalData =
+            this.QueryUserExtendedPairTotalData.bind(this);
+        this.QueryVaultInfoByVaultId = this.QueryVaultInfoByVaultId.bind(this);
+        this.QueryVaultInfoOfOwnerByApp =
+            this.QueryVaultInfoOfOwnerByApp.bind(this);
         this.QueryAllVaults = this.QueryAllVaults.bind(this);
-        this.QueryAllVaultsByProduct = this.QueryAllVaultsByProduct.bind(this);
+        this.QueryAllVaultsByApp = this.QueryAllVaultsByApp.bind(this);
         this.QueryAllVaultsByAppAndExtendedPair =
             this.QueryAllVaultsByAppAndExtendedPair.bind(this);
-        this.QueryVaultOfOwnerByExtendedPair =
-            this.QueryVaultOfOwnerByExtendedPair.bind(this);
-        this.QueryVaultByProduct = this.QueryVaultByProduct.bind(this);
-        this.QueryAllVaultByOwner = this.QueryAllVaultByOwner.bind(this);
-        this.QueryTokenMintedAllProductsByPair =
-            this.QueryTokenMintedAllProductsByPair.bind(this);
-        this.QueryTokenMintedAllProducts =
-            this.QueryTokenMintedAllProducts.bind(this);
-        this.QueryVaultCountByProduct = this.QueryVaultCountByProduct.bind(this);
-        this.QueryVaultCountByProductAndPair =
-            this.QueryVaultCountByProductAndPair.bind(this);
-        this.QueryTotalValueLockedByProductExtendedPair =
-            this.QueryTotalValueLockedByProductExtendedPair.bind(this);
-        this.QueryExtendedPairIDByProduct =
-            this.QueryExtendedPairIDByProduct.bind(this);
-        this.QueryStableVaultInfo = this.QueryStableVaultInfo.bind(this);
-        this.QueryAllStableVaults = this.QueryAllStableVaults.bind(this);
-        this.QueryStableVaultByProductExtendedPair =
-            this.QueryStableVaultByProductExtendedPair.bind(this);
+        this.QueryVaultIdOfOwnerByExtendedPairAndApp =
+            this.QueryVaultIdOfOwnerByExtendedPairAndApp.bind(this);
+        this.QueryVaultIdsByAppInAllExtendedPairs =
+            this.QueryVaultIdsByAppInAllExtendedPairs.bind(this);
+        this.QueryAllVaultIdsByAnOwner = this.QueryAllVaultIdsByAnOwner.bind(this);
+        this.QueryTokenMintedByAppAndExtendedPair =
+            this.QueryTokenMintedByAppAndExtendedPair.bind(this);
+        this.QueryTokenMintedAssetWiseByApp =
+            this.QueryTokenMintedAssetWiseByApp.bind(this);
+        this.QueryVaultCountByApp = this.QueryVaultCountByApp.bind(this);
+        this.QueryVaultCountByAppAndExtendedPair =
+            this.QueryVaultCountByAppAndExtendedPair.bind(this);
+        this.QueryTotalValueLockedByAppExtendedPair =
+            this.QueryTotalValueLockedByAppExtendedPair.bind(this);
+        this.QueryExtendedPairIDsByApp = this.QueryExtendedPairIDsByApp.bind(this);
+        this.QueryStableVaultByVaultId = this.QueryStableVaultByVaultId.bind(this);
+        this.QueryStableVaultByApp = this.QueryStableVaultByApp.bind(this);
+        this.QueryStableVaultByAppExtendedPair =
+            this.QueryStableVaultByAppExtendedPair.bind(this);
         this.QueryExtendedPairVaultMappingByAppAndExtendedPairId =
             this.QueryExtendedPairVaultMappingByAppAndExtendedPairId.bind(this);
         this.QueryExtendedPairVaultMappingByApp =
             this.QueryExtendedPairVaultMappingByApp.bind(this);
-        this.QueryExtendedPairVaultMappingByOwnerAndApp =
-            this.QueryExtendedPairVaultMappingByOwnerAndApp.bind(this);
-        this.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID =
-            this.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID.bind(this);
         this.QueryTVLLockedByAppOfAllExtendedPairs =
             this.QueryTVLLockedByAppOfAllExtendedPairs.bind(this);
         this.QueryTotalTVLByApp = this.QueryTotalTVLByApp.bind(this);
@@ -3121,133 +3003,128 @@ class QueryClientImpl {
     QueryVault(request) {
         const data = exports.QueryVaultRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVault", data);
-        return promise.then((data) => exports.QueryVaultResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryVaultResponse.decode(new _m0.Reader(data)));
     }
-    QueryVaultInfo(request) {
-        const data = exports.QueryVaultInfoRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultInfo", data);
-        return promise.then((data) => exports.QueryVaultInfoResponse.decode(new minimal_1.default.Reader(data)));
+    QueryUserExtendedPairTotalData(request) {
+        const data = exports.QueryUserExtendedPairTotalDataRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryUserExtendedPairTotalData", data);
+        return promise.then((data) => exports.QueryUserExtendedPairTotalDataResponse.decode(new _m0.Reader(data)));
     }
-    QueryVaultInfoByAppByOwner(request) {
-        const data = exports.QueryVaultInfoByAppByOwnerRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultInfoByAppByOwner", data);
-        return promise.then((data) => exports.QueryVaultInfoByAppByOwnerResponse.decode(new minimal_1.default.Reader(data)));
+    QueryVaultInfoByVaultId(request) {
+        const data = exports.QueryVaultInfoByVaultIdRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultInfoByVaultId", data);
+        return promise.then((data) => exports.QueryVaultInfoByVaultIdResponse.decode(new _m0.Reader(data)));
+    }
+    QueryVaultInfoOfOwnerByApp(request) {
+        const data = exports.QueryVaultInfoOfOwnerByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultInfoOfOwnerByApp", data);
+        return promise.then((data) => exports.QueryVaultInfoOfOwnerByAppResponse.decode(new _m0.Reader(data)));
     }
     QueryAllVaults(request) {
         const data = exports.QueryAllVaultsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllVaults", data);
-        return promise.then((data) => exports.QueryAllVaultsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAllVaultsResponse.decode(new _m0.Reader(data)));
     }
-    QueryAllVaultsByProduct(request) {
-        const data = exports.QueryAllVaultsByProductRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllVaultsByProduct", data);
-        return promise.then((data) => exports.QueryAllVaultsByProductResponse.decode(new minimal_1.default.Reader(data)));
+    QueryAllVaultsByApp(request) {
+        const data = exports.QueryAllVaultsByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllVaultsByApp", data);
+        return promise.then((data) => exports.QueryAllVaultsByAppResponse.decode(new _m0.Reader(data)));
     }
     QueryAllVaultsByAppAndExtendedPair(request) {
         const data = exports.QueryAllVaultsByAppAndExtendedPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllVaultsByAppAndExtendedPair", data);
-        return promise.then((data) => exports.QueryAllVaultsByAppAndExtendedPairResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAllVaultsByAppAndExtendedPairResponse.decode(new _m0.Reader(data)));
     }
-    QueryVaultOfOwnerByExtendedPair(request) {
-        const data = exports.QueryVaultOfOwnerByExtendedPairRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultOfOwnerByExtendedPair", data);
-        return promise.then((data) => exports.QueryVaultOfOwnerByExtendedPairResponse.decode(new minimal_1.default.Reader(data)));
+    QueryVaultIdOfOwnerByExtendedPairAndApp(request) {
+        const data = exports.QueryVaultIdOfOwnerByExtendedPairAndAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultIdOfOwnerByExtendedPairAndApp", data);
+        return promise.then((data) => exports.QueryVaultIdOfOwnerByExtendedPairAndAppResponse.decode(new _m0.Reader(data)));
     }
-    QueryVaultByProduct(request) {
-        const data = exports.QueryVaultByProductRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultByProduct", data);
-        return promise.then((data) => exports.QueryVaultByProductResponse.decode(new minimal_1.default.Reader(data)));
+    QueryVaultIdsByAppInAllExtendedPairs(request) {
+        const data = exports.QueryVaultIdsByAppInAllExtendedPairsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultIdsByAppInAllExtendedPairs", data);
+        return promise.then((data) => exports.QueryVaultIdsByAppInAllExtendedPairsResponse.decode(new _m0.Reader(data)));
     }
-    QueryAllVaultByOwner(request) {
-        const data = exports.QueryAllVaultByOwnerRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllVaultByOwner", data);
-        return promise.then((data) => exports.QueryAllVaultByOwnerResponse.decode(new minimal_1.default.Reader(data)));
+    QueryAllVaultIdsByAnOwner(request) {
+        const data = exports.QueryAllVaultIdsByAnOwnerRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllVaultIdsByAnOwner", data);
+        return promise.then((data) => exports.QueryAllVaultIdsByAnOwnerResponse.decode(new _m0.Reader(data)));
     }
-    QueryTokenMintedAllProductsByPair(request) {
-        const data = exports.QueryTokenMintedAllProductsByPairRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTokenMintedAllProductsByPair", data);
-        return promise.then((data) => exports.QueryTokenMintedAllProductsByPairResponse.decode(new minimal_1.default.Reader(data)));
+    QueryTokenMintedByAppAndExtendedPair(request) {
+        const data = exports.QueryTokenMintedByAppAndExtendedPairRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTokenMintedByAppAndExtendedPair", data);
+        return promise.then((data) => exports.QueryTokenMintedByAppAndExtendedPairResponse.decode(new _m0.Reader(data)));
     }
-    QueryTokenMintedAllProducts(request) {
-        const data = exports.QueryTokenMintedAllProductsRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTokenMintedAllProducts", data);
-        return promise.then((data) => exports.QueryTokenMintedAllProductsResponse.decode(new minimal_1.default.Reader(data)));
+    QueryTokenMintedAssetWiseByApp(request) {
+        const data = exports.QueryTokenMintedAssetWiseByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTokenMintedAssetWiseByApp", data);
+        return promise.then((data) => exports.QueryTokenMintedAssetWiseByAppResponse.decode(new _m0.Reader(data)));
     }
-    QueryVaultCountByProduct(request) {
-        const data = exports.QueryVaultCountByProductRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultCountByProduct", data);
-        return promise.then((data) => exports.QueryVaultCountByProductResponse.decode(new minimal_1.default.Reader(data)));
+    QueryVaultCountByApp(request) {
+        const data = exports.QueryVaultCountByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultCountByApp", data);
+        return promise.then((data) => exports.QueryVaultCountByAppResponse.decode(new _m0.Reader(data)));
     }
-    QueryVaultCountByProductAndPair(request) {
-        const data = exports.QueryVaultCountByProductAndPairRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultCountByProductAndPair", data);
-        return promise.then((data) => exports.QueryVaultCountByProductAndPairResponse.decode(new minimal_1.default.Reader(data)));
+    QueryVaultCountByAppAndExtendedPair(request) {
+        const data = exports.QueryVaultCountByAppAndExtendedPairRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryVaultCountByAppAndExtendedPair", data);
+        return promise.then((data) => exports.QueryVaultCountByAppAndExtendedPairResponse.decode(new _m0.Reader(data)));
     }
-    QueryTotalValueLockedByProductExtendedPair(request) {
-        const data = exports.QueryTotalValueLockedByProductExtendedPairRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTotalValueLockedByProductExtendedPair", data);
-        return promise.then((data) => exports.QueryTotalValueLockedByProductExtendedPairResponse.decode(new minimal_1.default.Reader(data)));
+    QueryTotalValueLockedByAppExtendedPair(request) {
+        const data = exports.QueryTotalValueLockedByAppExtendedPairRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTotalValueLockedByAppExtendedPair", data);
+        return promise.then((data) => exports.QueryTotalValueLockedByAppExtendedPairResponse.decode(new _m0.Reader(data)));
     }
-    QueryExtendedPairIDByProduct(request) {
-        const data = exports.QueryExtendedPairIDByProductRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairIDByProduct", data);
-        return promise.then((data) => exports.QueryExtendedPairIDByProductResponse.decode(new minimal_1.default.Reader(data)));
+    QueryExtendedPairIDsByApp(request) {
+        const data = exports.QueryExtendedPairIDsByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairIDsByApp", data);
+        return promise.then((data) => exports.QueryExtendedPairIDsByAppResponse.decode(new _m0.Reader(data)));
     }
-    QueryStableVaultInfo(request) {
-        const data = exports.QueryStableVaultInfoRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryStableVaultInfo", data);
-        return promise.then((data) => exports.QueryStableVaultInfoResponse.decode(new minimal_1.default.Reader(data)));
+    QueryStableVaultByVaultId(request) {
+        const data = exports.QueryStableVaultByVaultIdRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryStableVaultByVaultId", data);
+        return promise.then((data) => exports.QueryStableVaultByVaultIdResponse.decode(new _m0.Reader(data)));
     }
-    QueryAllStableVaults(request) {
-        const data = exports.QueryAllStableVaultsRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllStableVaults", data);
-        return promise.then((data) => exports.QueryAllStableVaultsResponse.decode(new minimal_1.default.Reader(data)));
+    QueryStableVaultByApp(request) {
+        const data = exports.QueryStableVaultByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryStableVaultByApp", data);
+        return promise.then((data) => exports.QueryStableVaultByAppResponse.decode(new _m0.Reader(data)));
     }
-    QueryStableVaultByProductExtendedPair(request) {
-        const data = exports.QueryStableVaultByProductExtendedPairRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryStableVaultByProductExtendedPair", data);
-        return promise.then((data) => exports.QueryStableVaultByProductExtendedPairResponse.decode(new minimal_1.default.Reader(data)));
+    QueryStableVaultByAppExtendedPair(request) {
+        const data = exports.QueryStableVaultByAppExtendedPairRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryStableVaultByAppExtendedPair", data);
+        return promise.then((data) => exports.QueryStableVaultByAppExtendedPairResponse.decode(new _m0.Reader(data)));
     }
     QueryExtendedPairVaultMappingByAppAndExtendedPairId(request) {
         const data = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairVaultMappingByAppAndExtendedPairId", data);
-        return promise.then((data) => exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse.decode(new _m0.Reader(data)));
     }
     QueryExtendedPairVaultMappingByApp(request) {
         const data = exports.QueryExtendedPairVaultMappingByAppRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairVaultMappingByApp", data);
-        return promise.then((data) => exports.QueryExtendedPairVaultMappingByAppResponse.decode(new minimal_1.default.Reader(data)));
-    }
-    QueryExtendedPairVaultMappingByOwnerAndApp(request) {
-        const data = exports.QueryExtendedPairVaultMappingByOwnerAndAppRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairVaultMappingByOwnerAndApp", data);
-        return promise.then((data) => exports.QueryExtendedPairVaultMappingByOwnerAndAppResponse.decode(new minimal_1.default.Reader(data)));
-    }
-    QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID(request) {
-        const data = exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID", data);
-        return promise.then((data) => exports.QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryExtendedPairVaultMappingByAppResponse.decode(new _m0.Reader(data)));
     }
     QueryTVLLockedByAppOfAllExtendedPairs(request) {
         const data = exports.QueryTVLLockedByAppOfAllExtendedPairsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTVLLockedByAppOfAllExtendedPairs", data);
-        return promise.then((data) => exports.QueryTVLLockedByAppOfAllExtendedPairsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryTVLLockedByAppOfAllExtendedPairsResponse.decode(new _m0.Reader(data)));
     }
     QueryTotalTVLByApp(request) {
         const data = exports.QueryTotalTVLByAppRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryTotalTVLByApp", data);
-        return promise.then((data) => exports.QueryTotalTVLByAppResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryTotalTVLByAppResponse.decode(new _m0.Reader(data)));
     }
     QueryUserMyPositionByApp(request) {
         const data = exports.QueryUserMyPositionByAppRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryUserMyPositionByApp", data);
-        return promise.then((data) => exports.QueryUserMyPositionByAppResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryUserMyPositionByAppResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

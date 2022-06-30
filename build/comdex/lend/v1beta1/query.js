@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -22,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryAssetStatsResponse = exports.QueryAssetStatsRequest = exports.QueryAllBorrowByOwnerAndPoolResponse = exports.QueryAllBorrowByOwnerAndPoolRequest = exports.QueryAllBorrowByOwnerResponse = exports.QueryAllBorrowByOwnerRequest = exports.QueryBorrowResponse = exports.QueryBorrowRequest = exports.QueryBorrowsResponse = exports.QueryBorrowsRequest = exports.QueryAssetToPairMappingResponse = exports.QueryAssetToPairMappingRequest = exports.QueryAssetToPairMappingsResponse = exports.QueryAssetToPairMappingsRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryAssetRatesStatResponse = exports.QueryAssetRatesStatRequest = exports.QueryAssetRatesStatsResponse = exports.QueryAssetRatesStatsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAllLendByOwnerAndPoolResponse = exports.QueryAllLendByOwnerAndPoolRequest = exports.QueryAllLendByOwnerResponse = exports.QueryAllLendByOwnerRequest = exports.QueryLendResponse = exports.QueryLendRequest = exports.QueryLendsResponse = exports.QueryLendsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryModuleBalanceResponse = exports.QueryModuleBalanceRequest = exports.QueryAssetStatsResponse = exports.QueryAssetStatsRequest = exports.QueryAllBorrowByOwnerAndPoolResponse = exports.QueryAllBorrowByOwnerAndPoolRequest = exports.QueryAllBorrowByOwnerResponse = exports.QueryAllBorrowByOwnerRequest = exports.QueryBorrowResponse = exports.QueryBorrowRequest = exports.QueryBorrowsResponse = exports.QueryBorrowsRequest = exports.QueryAssetToPairMappingResponse = exports.QueryAssetToPairMappingRequest = exports.QueryAssetToPairMappingsResponse = exports.QueryAssetToPairMappingsRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryAssetRatesStatResponse = exports.QueryAssetRatesStatRequest = exports.QueryAssetRatesStatsResponse = exports.QueryAssetRatesStatsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAllLendByOwnerAndPoolResponse = exports.QueryAllLendByOwnerAndPoolRequest = exports.QueryAllLendByOwnerResponse = exports.QueryAllLendByOwnerRequest = exports.QueryLendResponse = exports.QueryLendRequest = exports.QueryLendsResponse = exports.QueryLendsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -385,15 +389,13 @@ exports.QueryAllLendByOwnerRequest = {
     },
 };
 function createBaseQueryAllLendByOwnerResponse() {
-    return { lendIds: [] };
+    return { lends: [] };
 }
 exports.QueryAllLendByOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
-        writer.uint32(10).fork();
-        for (const v of message.lendIds) {
-            writer.uint64(v);
+        for (const v of message.lends) {
+            lend_1.LendAsset.encode(v, writer.uint32(10).fork()).ldelim();
         }
-        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -404,15 +406,7 @@ exports.QueryAllLendByOwnerResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if ((tag & 7) === 2) {
-                        const end2 = reader.uint32() + reader.pos;
-                        while (reader.pos < end2) {
-                            message.lendIds.push(reader.uint64());
-                        }
-                    }
-                    else {
-                        message.lendIds.push(reader.uint64());
-                    }
+                    message.lends.push(lend_1.LendAsset.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -423,25 +417,25 @@ exports.QueryAllLendByOwnerResponse = {
     },
     fromJSON(object) {
         return {
-            lendIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lendIds)
-                ? object.lendIds.map((e) => long_1.default.fromValue(e))
+            lends: Array.isArray(object === null || object === void 0 ? void 0 : object.lends)
+                ? object.lends.map((e) => lend_1.LendAsset.fromJSON(e))
                 : [],
         };
     },
     toJSON(message) {
         const obj = {};
-        if (message.lendIds) {
-            obj.lendIds = message.lendIds.map((e) => (e || long_1.default.UZERO).toString());
+        if (message.lends) {
+            obj.lends = message.lends.map((e) => e ? lend_1.LendAsset.toJSON(e) : undefined);
         }
         else {
-            obj.lendIds = [];
+            obj.lends = [];
         }
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryAllLendByOwnerResponse();
-        message.lendIds = ((_a = object.lendIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.lends = ((_a = object.lends) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.LendAsset.fromPartial(e))) || [];
         return message;
     },
 };
@@ -520,15 +514,13 @@ exports.QueryAllLendByOwnerAndPoolRequest = {
     },
 };
 function createBaseQueryAllLendByOwnerAndPoolResponse() {
-    return { lendIds: [] };
+    return { lends: [] };
 }
 exports.QueryAllLendByOwnerAndPoolResponse = {
     encode(message, writer = _m0.Writer.create()) {
-        writer.uint32(10).fork();
-        for (const v of message.lendIds) {
-            writer.uint64(v);
+        for (const v of message.lends) {
+            lend_1.LendAsset.encode(v, writer.uint32(10).fork()).ldelim();
         }
-        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -539,15 +531,7 @@ exports.QueryAllLendByOwnerAndPoolResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if ((tag & 7) === 2) {
-                        const end2 = reader.uint32() + reader.pos;
-                        while (reader.pos < end2) {
-                            message.lendIds.push(reader.uint64());
-                        }
-                    }
-                    else {
-                        message.lendIds.push(reader.uint64());
-                    }
+                    message.lends.push(lend_1.LendAsset.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -558,25 +542,25 @@ exports.QueryAllLendByOwnerAndPoolResponse = {
     },
     fromJSON(object) {
         return {
-            lendIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lendIds)
-                ? object.lendIds.map((e) => long_1.default.fromValue(e))
+            lends: Array.isArray(object === null || object === void 0 ? void 0 : object.lends)
+                ? object.lends.map((e) => lend_1.LendAsset.fromJSON(e))
                 : [],
         };
     },
     toJSON(message) {
         const obj = {};
-        if (message.lendIds) {
-            obj.lendIds = message.lendIds.map((e) => (e || long_1.default.UZERO).toString());
+        if (message.lends) {
+            obj.lends = message.lends.map((e) => e ? lend_1.LendAsset.toJSON(e) : undefined);
         }
         else {
-            obj.lendIds = [];
+            obj.lends = [];
         }
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryAllLendByOwnerAndPoolResponse();
-        message.lendIds = ((_a = object.lendIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.lends = ((_a = object.lends) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.LendAsset.fromPartial(e))) || [];
         return message;
     },
 };
@@ -1743,15 +1727,13 @@ exports.QueryAllBorrowByOwnerRequest = {
     },
 };
 function createBaseQueryAllBorrowByOwnerResponse() {
-    return { borrowIds: [] };
+    return { borrows: [] };
 }
 exports.QueryAllBorrowByOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
-        writer.uint32(10).fork();
-        for (const v of message.borrowIds) {
-            writer.uint64(v);
+        for (const v of message.borrows) {
+            lend_1.BorrowAsset.encode(v, writer.uint32(10).fork()).ldelim();
         }
-        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -1762,15 +1744,7 @@ exports.QueryAllBorrowByOwnerResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if ((tag & 7) === 2) {
-                        const end2 = reader.uint32() + reader.pos;
-                        while (reader.pos < end2) {
-                            message.borrowIds.push(reader.uint64());
-                        }
-                    }
-                    else {
-                        message.borrowIds.push(reader.uint64());
-                    }
+                    message.borrows.push(lend_1.BorrowAsset.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1781,25 +1755,26 @@ exports.QueryAllBorrowByOwnerResponse = {
     },
     fromJSON(object) {
         return {
-            borrowIds: Array.isArray(object === null || object === void 0 ? void 0 : object.borrowIds)
-                ? object.borrowIds.map((e) => long_1.default.fromValue(e))
+            borrows: Array.isArray(object === null || object === void 0 ? void 0 : object.borrows)
+                ? object.borrows.map((e) => lend_1.BorrowAsset.fromJSON(e))
                 : [],
         };
     },
     toJSON(message) {
         const obj = {};
-        if (message.borrowIds) {
-            obj.borrowIds = message.borrowIds.map((e) => (e || long_1.default.UZERO).toString());
+        if (message.borrows) {
+            obj.borrows = message.borrows.map((e) => e ? lend_1.BorrowAsset.toJSON(e) : undefined);
         }
         else {
-            obj.borrowIds = [];
+            obj.borrows = [];
         }
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryAllBorrowByOwnerResponse();
-        message.borrowIds = ((_a = object.borrowIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.borrows =
+            ((_a = object.borrows) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.BorrowAsset.fromPartial(e))) || [];
         return message;
     },
 };
@@ -1878,15 +1853,13 @@ exports.QueryAllBorrowByOwnerAndPoolRequest = {
     },
 };
 function createBaseQueryAllBorrowByOwnerAndPoolResponse() {
-    return { borrowIds: [] };
+    return { borrows: [] };
 }
 exports.QueryAllBorrowByOwnerAndPoolResponse = {
     encode(message, writer = _m0.Writer.create()) {
-        writer.uint32(10).fork();
-        for (const v of message.borrowIds) {
-            writer.uint64(v);
+        for (const v of message.borrows) {
+            lend_1.BorrowAsset.encode(v, writer.uint32(10).fork()).ldelim();
         }
-        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -1897,15 +1870,7 @@ exports.QueryAllBorrowByOwnerAndPoolResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if ((tag & 7) === 2) {
-                        const end2 = reader.uint32() + reader.pos;
-                        while (reader.pos < end2) {
-                            message.borrowIds.push(reader.uint64());
-                        }
-                    }
-                    else {
-                        message.borrowIds.push(reader.uint64());
-                    }
+                    message.borrows.push(lend_1.BorrowAsset.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1916,25 +1881,26 @@ exports.QueryAllBorrowByOwnerAndPoolResponse = {
     },
     fromJSON(object) {
         return {
-            borrowIds: Array.isArray(object === null || object === void 0 ? void 0 : object.borrowIds)
-                ? object.borrowIds.map((e) => long_1.default.fromValue(e))
+            borrows: Array.isArray(object === null || object === void 0 ? void 0 : object.borrows)
+                ? object.borrows.map((e) => lend_1.BorrowAsset.fromJSON(e))
                 : [],
         };
     },
     toJSON(message) {
         const obj = {};
-        if (message.borrowIds) {
-            obj.borrowIds = message.borrowIds.map((e) => (e || long_1.default.UZERO).toString());
+        if (message.borrows) {
+            obj.borrows = message.borrows.map((e) => e ? lend_1.BorrowAsset.toJSON(e) : undefined);
         }
         else {
-            obj.borrowIds = [];
+            obj.borrows = [];
         }
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryAllBorrowByOwnerAndPoolResponse();
-        message.borrowIds = ((_a = object.borrowIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.borrows =
+            ((_a = object.borrows) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.BorrowAsset.fromPartial(e))) || [];
         return message;
     },
 };
@@ -2068,6 +2034,121 @@ exports.QueryAssetStatsResponse = {
         return message;
     },
 };
+function createBaseQueryModuleBalanceRequest() {
+    return { poolId: long_1.default.UZERO, pagination: undefined };
+}
+exports.QueryModuleBalanceRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.poolId.isZero()) {
+            writer.uint32(8).uint64(message.poolId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryModuleBalanceRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.poolId = reader.uint64();
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryModuleBalanceRequest();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryModuleBalanceResponse() {
+    return { ModuleBalance: undefined };
+}
+exports.QueryModuleBalanceResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.ModuleBalance !== undefined) {
+            lend_1.ModuleBalance.encode(message.ModuleBalance, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryModuleBalanceResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.ModuleBalance = lend_1.ModuleBalance.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            ModuleBalance: isSet(object.ModuleBalance)
+                ? lend_1.ModuleBalance.fromJSON(object.ModuleBalance)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.ModuleBalance !== undefined &&
+            (obj.ModuleBalance = message.ModuleBalance
+                ? lend_1.ModuleBalance.toJSON(message.ModuleBalance)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryModuleBalanceResponse();
+        message.ModuleBalance =
+            object.ModuleBalance !== undefined && object.ModuleBalance !== null
+                ? lend_1.ModuleBalance.fromPartial(object.ModuleBalance)
+                : undefined;
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2091,6 +2172,7 @@ class QueryClientImpl {
         this.QueryAllBorrowByOwnerAndPool =
             this.QueryAllBorrowByOwnerAndPool.bind(this);
         this.QueryAssetStats = this.QueryAssetStats.bind(this);
+        this.QueryModuleBalance = this.QueryModuleBalance.bind(this);
     }
     QueryLends(request) {
         const data = exports.QueryLendsRequest.encode(request).finish();
@@ -2181,6 +2263,11 @@ class QueryClientImpl {
         const data = exports.QueryAssetStatsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryAssetStats", data);
         return promise.then((data) => exports.QueryAssetStatsResponse.decode(new _m0.Reader(data)));
+    }
+    QueryModuleBalance(request) {
+        const data = exports.QueryModuleBalanceRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryModuleBalance", data);
+        return promise.then((data) => exports.QueryModuleBalanceResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;

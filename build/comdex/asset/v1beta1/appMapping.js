@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -22,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MintGenesisToken = exports.AppMapping = exports.protobufPackage = void 0;
+exports.AppAndGovTime = exports.MintGenesisToken = exports.AppMapping = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -145,7 +149,7 @@ function createBaseMintGenesisToken() {
     return {
         assetId: long_1.default.UZERO,
         genesisSupply: "",
-        isgovToken: false,
+        isGovToken: false,
         recipient: "",
     };
 }
@@ -157,8 +161,8 @@ exports.MintGenesisToken = {
         if (message.genesisSupply !== "") {
             writer.uint32(18).string(message.genesisSupply);
         }
-        if (message.isgovToken === true) {
-            writer.uint32(24).bool(message.isgovToken);
+        if (message.isGovToken === true) {
+            writer.uint32(24).bool(message.isGovToken);
         }
         if (message.recipient !== "") {
             writer.uint32(34).string(message.recipient);
@@ -179,7 +183,7 @@ exports.MintGenesisToken = {
                     message.genesisSupply = reader.string();
                     break;
                 case 3:
-                    message.isgovToken = reader.bool();
+                    message.isGovToken = reader.bool();
                     break;
                 case 4:
                     message.recipient = reader.string();
@@ -199,7 +203,7 @@ exports.MintGenesisToken = {
             genesisSupply: isSet(object.genesisSupply)
                 ? String(object.genesisSupply)
                 : "",
-            isgovToken: isSet(object.isgovToken) ? Boolean(object.isgovToken) : false,
+            isGovToken: isSet(object.isGovToken) ? Boolean(object.isGovToken) : false,
             recipient: isSet(object.recipient) ? String(object.recipient) : "",
         };
     },
@@ -209,7 +213,7 @@ exports.MintGenesisToken = {
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         message.genesisSupply !== undefined &&
             (obj.genesisSupply = message.genesisSupply);
-        message.isgovToken !== undefined && (obj.isgovToken = message.isgovToken);
+        message.isGovToken !== undefined && (obj.isGovToken = message.isGovToken);
         message.recipient !== undefined && (obj.recipient = message.recipient);
         return obj;
     },
@@ -221,8 +225,68 @@ exports.MintGenesisToken = {
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
         message.genesisSupply = (_a = object.genesisSupply) !== null && _a !== void 0 ? _a : "";
-        message.isgovToken = (_b = object.isgovToken) !== null && _b !== void 0 ? _b : false;
+        message.isGovToken = (_b = object.isGovToken) !== null && _b !== void 0 ? _b : false;
         message.recipient = (_c = object.recipient) !== null && _c !== void 0 ? _c : "";
+        return message;
+    },
+};
+function createBaseAppAndGovTime() {
+    return { appId: long_1.default.UZERO, govTimeInSeconds: 0 };
+}
+exports.AppAndGovTime = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        if (message.govTimeInSeconds !== 0) {
+            writer.uint32(17).double(message.govTimeInSeconds);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAppAndGovTime();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
+                    message.govTimeInSeconds = reader.double();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            govTimeInSeconds: isSet(object.govTimeInSeconds)
+                ? Number(object.govTimeInSeconds)
+                : 0,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.govTimeInSeconds !== undefined &&
+            (obj.govTimeInSeconds = message.govTimeInSeconds);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseAppAndGovTime();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.govTimeInSeconds = (_a = object.govTimeInSeconds) !== null && _a !== void 0 ? _a : 0;
         return message;
     },
 };

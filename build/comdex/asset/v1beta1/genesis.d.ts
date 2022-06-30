@@ -20,7 +20,8 @@ export declare const GenesisState: {
             name?: string | undefined;
             denom?: string | undefined;
             decimals?: string | number | Long.Long | undefined;
-            isOnchain?: boolean | undefined;
+            isOnChain?: boolean | undefined;
+            isOraclePriceRequired?: boolean | undefined;
         }[] | undefined;
         pairs?: {
             id?: string | number | Long.Long | undefined;
@@ -34,13 +35,15 @@ export declare const GenesisState: {
             name?: string | undefined;
             denom?: string | undefined;
             decimals?: string | number | Long.Long | undefined;
-            isOnchain?: boolean | undefined;
+            isOnChain?: boolean | undefined;
+            isOraclePriceRequired?: boolean | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             denom?: string | undefined;
             decimals?: string | number | Long.Long | undefined;
-            isOnchain?: boolean | undefined;
+            isOnChain?: boolean | undefined;
+            isOraclePriceRequired?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -160,13 +163,15 @@ export declare const GenesisState: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["assets"][number]["decimals"], keyof Long.Long>, never>) | undefined;
-            isOnchain?: boolean | undefined;
+            isOnChain?: boolean | undefined;
+            isOraclePriceRequired?: boolean | undefined;
         } & Record<Exclude<keyof I["assets"][number], keyof Asset>, never>)[] & Record<Exclude<keyof I["assets"], keyof {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             denom?: string | undefined;
             decimals?: string | number | Long.Long | undefined;
-            isOnchain?: boolean | undefined;
+            isOnChain?: boolean | undefined;
+            isOraclePriceRequired?: boolean | undefined;
         }[]>, never>) | undefined;
         pairs?: ({
             id?: string | number | Long.Long | undefined;
