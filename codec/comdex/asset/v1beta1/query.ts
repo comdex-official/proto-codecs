@@ -68,11 +68,11 @@ export interface QueryAppResponse {
   app?: AppMapping;
 }
 
-export interface QueryTokenGovRequest {
+export interface QueryGovTokenByAppRequest {
   appId: Long;
 }
 
-export interface QueryTokenGovResponse {
+export interface QueryGovTokenByAppResponse {
   govAssetId: Long;
 }
 
@@ -82,41 +82,41 @@ export interface QueryAppsResponse {
   apps: AppMapping[];
 }
 
-export interface QueryPairVaultRequest {
+export interface QueryExtendedPairVaultRequest {
   id: Long;
 }
 
-export interface QueryPairVaultResponse {
+export interface QueryExtendedPairVaultResponse {
   pairVault?: ExtendedPairVault;
 }
 
-export interface QueryPairVaultsRequest {}
+export interface QueryAllExtendedPairVaultsRequest {}
 
-export interface QueryPairVaultsResponse {
+export interface QueryAllExtendedPairVaultsResponse {
   pairVault: ExtendedPairVault[];
 }
 
-export interface QueryProductToExtendedPairRequest {
-  productId: Long;
-}
-
-export interface QueryProductToExtendedPairResponse {
-  extendedPair: ExtendedPairVault[];
-}
-
-export interface QueryExtendedPairPsmPairWiseRequest {
-  productId: Long;
-}
-
-export interface QueryExtendedPairPsmPairWiseResponse {
-  extendedPairsId: Long[];
-}
-
-export interface QueryExtendedPairDataPsmPairWiseRequest {
+export interface QueryAllExtendedPairVaultsByAppRequest {
   appId: Long;
 }
 
-export interface QueryExtendedPairDataPsmPairWiseResponse {
+export interface QueryAllExtendedPairVaultsByAppResponse {
+  extendedPair: ExtendedPairVault[];
+}
+
+export interface QueryAllExtendedPairStableVaultsIdByAppRequest {
+  appId: Long;
+}
+
+export interface QueryAllExtendedPairStableVaultsIdByAppResponse {
+  extendedPairsId: Long[];
+}
+
+export interface QueryAllExtendedPairStableVaultsDataByAppRequest {
+  appId: Long;
+}
+
+export interface QueryAllExtendedPairStableVaultsDataByAppResponse {
   extendedPair: ExtendedPairVault[];
 }
 
@@ -971,13 +971,13 @@ export const QueryAppResponse = {
   },
 };
 
-function createBaseQueryTokenGovRequest(): QueryTokenGovRequest {
+function createBaseQueryGovTokenByAppRequest(): QueryGovTokenByAppRequest {
   return { appId: Long.UZERO };
 }
 
-export const QueryTokenGovRequest = {
+export const QueryGovTokenByAppRequest = {
   encode(
-    message: QueryTokenGovRequest,
+    message: QueryGovTokenByAppRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -989,10 +989,10 @@ export const QueryTokenGovRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryTokenGovRequest {
+  ): QueryGovTokenByAppRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryTokenGovRequest();
+    const message = createBaseQueryGovTokenByAppRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1007,23 +1007,23 @@ export const QueryTokenGovRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryTokenGovRequest {
+  fromJSON(object: any): QueryGovTokenByAppRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryTokenGovRequest): unknown {
+  toJSON(message: QueryGovTokenByAppRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTokenGovRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryGovTokenByAppRequest>, I>>(
     object: I
-  ): QueryTokenGovRequest {
-    const message = createBaseQueryTokenGovRequest();
+  ): QueryGovTokenByAppRequest {
+    const message = createBaseQueryGovTokenByAppRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -1032,13 +1032,13 @@ export const QueryTokenGovRequest = {
   },
 };
 
-function createBaseQueryTokenGovResponse(): QueryTokenGovResponse {
+function createBaseQueryGovTokenByAppResponse(): QueryGovTokenByAppResponse {
   return { govAssetId: Long.UZERO };
 }
 
-export const QueryTokenGovResponse = {
+export const QueryGovTokenByAppResponse = {
   encode(
-    message: QueryTokenGovResponse,
+    message: QueryGovTokenByAppResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.govAssetId.isZero()) {
@@ -1050,10 +1050,10 @@ export const QueryTokenGovResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryTokenGovResponse {
+  ): QueryGovTokenByAppResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryTokenGovResponse();
+    const message = createBaseQueryGovTokenByAppResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1068,7 +1068,7 @@ export const QueryTokenGovResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryTokenGovResponse {
+  fromJSON(object: any): QueryGovTokenByAppResponse {
     return {
       govAssetId: isSet(object.govAssetId)
         ? Long.fromValue(object.govAssetId)
@@ -1076,17 +1076,17 @@ export const QueryTokenGovResponse = {
     };
   },
 
-  toJSON(message: QueryTokenGovResponse): unknown {
+  toJSON(message: QueryGovTokenByAppResponse): unknown {
     const obj: any = {};
     message.govAssetId !== undefined &&
       (obj.govAssetId = (message.govAssetId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryTokenGovResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryGovTokenByAppResponse>, I>>(
     object: I
-  ): QueryTokenGovResponse {
-    const message = createBaseQueryTokenGovResponse();
+  ): QueryGovTokenByAppResponse {
+    const message = createBaseQueryGovTokenByAppResponse();
     message.govAssetId =
       object.govAssetId !== undefined && object.govAssetId !== null
         ? Long.fromValue(object.govAssetId)
@@ -1201,13 +1201,13 @@ export const QueryAppsResponse = {
   },
 };
 
-function createBaseQueryPairVaultRequest(): QueryPairVaultRequest {
+function createBaseQueryExtendedPairVaultRequest(): QueryExtendedPairVaultRequest {
   return { id: Long.UZERO };
 }
 
-export const QueryPairVaultRequest = {
+export const QueryExtendedPairVaultRequest = {
   encode(
-    message: QueryPairVaultRequest,
+    message: QueryExtendedPairVaultRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.id.isZero()) {
@@ -1219,10 +1219,10 @@ export const QueryPairVaultRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryPairVaultRequest {
+  ): QueryExtendedPairVaultRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPairVaultRequest();
+    const message = createBaseQueryExtendedPairVaultRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1237,23 +1237,23 @@ export const QueryPairVaultRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryPairVaultRequest {
+  fromJSON(object: any): QueryExtendedPairVaultRequest {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryPairVaultRequest): unknown {
+  toJSON(message: QueryExtendedPairVaultRequest): unknown {
     const obj: any = {};
     message.id !== undefined &&
       (obj.id = (message.id || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairVaultRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryExtendedPairVaultRequest>, I>>(
     object: I
-  ): QueryPairVaultRequest {
-    const message = createBaseQueryPairVaultRequest();
+  ): QueryExtendedPairVaultRequest {
+    const message = createBaseQueryExtendedPairVaultRequest();
     message.id =
       object.id !== undefined && object.id !== null
         ? Long.fromValue(object.id)
@@ -1262,13 +1262,13 @@ export const QueryPairVaultRequest = {
   },
 };
 
-function createBaseQueryPairVaultResponse(): QueryPairVaultResponse {
+function createBaseQueryExtendedPairVaultResponse(): QueryExtendedPairVaultResponse {
   return { pairVault: undefined };
 }
 
-export const QueryPairVaultResponse = {
+export const QueryExtendedPairVaultResponse = {
   encode(
-    message: QueryPairVaultResponse,
+    message: QueryExtendedPairVaultResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.pairVault !== undefined) {
@@ -1283,10 +1283,10 @@ export const QueryPairVaultResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryPairVaultResponse {
+  ): QueryExtendedPairVaultResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPairVaultResponse();
+    const message = createBaseQueryExtendedPairVaultResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1301,7 +1301,7 @@ export const QueryPairVaultResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryPairVaultResponse {
+  fromJSON(object: any): QueryExtendedPairVaultResponse {
     return {
       pairVault: isSet(object.pairVault)
         ? ExtendedPairVault.fromJSON(object.pairVault)
@@ -1309,7 +1309,7 @@ export const QueryPairVaultResponse = {
     };
   },
 
-  toJSON(message: QueryPairVaultResponse): unknown {
+  toJSON(message: QueryExtendedPairVaultResponse): unknown {
     const obj: any = {};
     message.pairVault !== undefined &&
       (obj.pairVault = message.pairVault
@@ -1318,10 +1318,10 @@ export const QueryPairVaultResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairVaultResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryExtendedPairVaultResponse>, I>>(
     object: I
-  ): QueryPairVaultResponse {
-    const message = createBaseQueryPairVaultResponse();
+  ): QueryExtendedPairVaultResponse {
+    const message = createBaseQueryExtendedPairVaultResponse();
     message.pairVault =
       object.pairVault !== undefined && object.pairVault !== null
         ? ExtendedPairVault.fromPartial(object.pairVault)
@@ -1330,13 +1330,13 @@ export const QueryPairVaultResponse = {
   },
 };
 
-function createBaseQueryPairVaultsRequest(): QueryPairVaultsRequest {
+function createBaseQueryAllExtendedPairVaultsRequest(): QueryAllExtendedPairVaultsRequest {
   return {};
 }
 
-export const QueryPairVaultsRequest = {
+export const QueryAllExtendedPairVaultsRequest = {
   encode(
-    _: QueryPairVaultsRequest,
+    _: QueryAllExtendedPairVaultsRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer;
@@ -1345,10 +1345,10 @@ export const QueryPairVaultsRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryPairVaultsRequest {
+  ): QueryAllExtendedPairVaultsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPairVaultsRequest();
+    const message = createBaseQueryAllExtendedPairVaultsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1360,30 +1360,30 @@ export const QueryPairVaultsRequest = {
     return message;
   },
 
-  fromJSON(_: any): QueryPairVaultsRequest {
+  fromJSON(_: any): QueryAllExtendedPairVaultsRequest {
     return {};
   },
 
-  toJSON(_: QueryPairVaultsRequest): unknown {
+  toJSON(_: QueryAllExtendedPairVaultsRequest): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairVaultsRequest>, I>>(
-    _: I
-  ): QueryPairVaultsRequest {
-    const message = createBaseQueryPairVaultsRequest();
+  fromPartial<
+    I extends Exact<DeepPartial<QueryAllExtendedPairVaultsRequest>, I>
+  >(_: I): QueryAllExtendedPairVaultsRequest {
+    const message = createBaseQueryAllExtendedPairVaultsRequest();
     return message;
   },
 };
 
-function createBaseQueryPairVaultsResponse(): QueryPairVaultsResponse {
+function createBaseQueryAllExtendedPairVaultsResponse(): QueryAllExtendedPairVaultsResponse {
   return { pairVault: [] };
 }
 
-export const QueryPairVaultsResponse = {
+export const QueryAllExtendedPairVaultsResponse = {
   encode(
-    message: QueryPairVaultsResponse,
+    message: QueryAllExtendedPairVaultsResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.pairVault) {
@@ -1395,10 +1395,10 @@ export const QueryPairVaultsResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryPairVaultsResponse {
+  ): QueryAllExtendedPairVaultsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPairVaultsResponse();
+    const message = createBaseQueryAllExtendedPairVaultsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1415,7 +1415,7 @@ export const QueryPairVaultsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryPairVaultsResponse {
+  fromJSON(object: any): QueryAllExtendedPairVaultsResponse {
     return {
       pairVault: Array.isArray(object?.pairVault)
         ? object.pairVault.map((e: any) => ExtendedPairVault.fromJSON(e))
@@ -1423,7 +1423,7 @@ export const QueryPairVaultsResponse = {
     };
   },
 
-  toJSON(message: QueryPairVaultsResponse): unknown {
+  toJSON(message: QueryAllExtendedPairVaultsResponse): unknown {
     const obj: any = {};
     if (message.pairVault) {
       obj.pairVault = message.pairVault.map((e) =>
@@ -1435,27 +1435,27 @@ export const QueryPairVaultsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairVaultsResponse>, I>>(
-    object: I
-  ): QueryPairVaultsResponse {
-    const message = createBaseQueryPairVaultsResponse();
+  fromPartial<
+    I extends Exact<DeepPartial<QueryAllExtendedPairVaultsResponse>, I>
+  >(object: I): QueryAllExtendedPairVaultsResponse {
+    const message = createBaseQueryAllExtendedPairVaultsResponse();
     message.pairVault =
       object.pairVault?.map((e) => ExtendedPairVault.fromPartial(e)) || [];
     return message;
   },
 };
 
-function createBaseQueryProductToExtendedPairRequest(): QueryProductToExtendedPairRequest {
-  return { productId: Long.UZERO };
+function createBaseQueryAllExtendedPairVaultsByAppRequest(): QueryAllExtendedPairVaultsByAppRequest {
+  return { appId: Long.UZERO };
 }
 
-export const QueryProductToExtendedPairRequest = {
+export const QueryAllExtendedPairVaultsByAppRequest = {
   encode(
-    message: QueryProductToExtendedPairRequest,
+    message: QueryAllExtendedPairVaultsByAppRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.productId.isZero()) {
-      writer.uint32(8).uint64(message.productId);
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
     }
     return writer;
   },
@@ -1463,15 +1463,15 @@ export const QueryProductToExtendedPairRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryProductToExtendedPairRequest {
+  ): QueryAllExtendedPairVaultsByAppRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryProductToExtendedPairRequest();
+    const message = createBaseQueryAllExtendedPairVaultsByAppRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.productId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -1481,40 +1481,38 @@ export const QueryProductToExtendedPairRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryProductToExtendedPairRequest {
+  fromJSON(object: any): QueryAllExtendedPairVaultsByAppRequest {
     return {
-      productId: isSet(object.productId)
-        ? Long.fromValue(object.productId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryProductToExtendedPairRequest): unknown {
+  toJSON(message: QueryAllExtendedPairVaultsByAppRequest): unknown {
     const obj: any = {};
-    message.productId !== undefined &&
-      (obj.productId = (message.productId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryProductToExtendedPairRequest>, I>
-  >(object: I): QueryProductToExtendedPairRequest {
-    const message = createBaseQueryProductToExtendedPairRequest();
-    message.productId =
-      object.productId !== undefined && object.productId !== null
-        ? Long.fromValue(object.productId)
+    I extends Exact<DeepPartial<QueryAllExtendedPairVaultsByAppRequest>, I>
+  >(object: I): QueryAllExtendedPairVaultsByAppRequest {
+    const message = createBaseQueryAllExtendedPairVaultsByAppRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     return message;
   },
 };
 
-function createBaseQueryProductToExtendedPairResponse(): QueryProductToExtendedPairResponse {
+function createBaseQueryAllExtendedPairVaultsByAppResponse(): QueryAllExtendedPairVaultsByAppResponse {
   return { extendedPair: [] };
 }
 
-export const QueryProductToExtendedPairResponse = {
+export const QueryAllExtendedPairVaultsByAppResponse = {
   encode(
-    message: QueryProductToExtendedPairResponse,
+    message: QueryAllExtendedPairVaultsByAppResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.extendedPair) {
@@ -1526,10 +1524,10 @@ export const QueryProductToExtendedPairResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryProductToExtendedPairResponse {
+  ): QueryAllExtendedPairVaultsByAppResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryProductToExtendedPairResponse();
+    const message = createBaseQueryAllExtendedPairVaultsByAppResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1546,7 +1544,7 @@ export const QueryProductToExtendedPairResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryProductToExtendedPairResponse {
+  fromJSON(object: any): QueryAllExtendedPairVaultsByAppResponse {
     return {
       extendedPair: Array.isArray(object?.extendedPair)
         ? object.extendedPair.map((e: any) => ExtendedPairVault.fromJSON(e))
@@ -1554,7 +1552,7 @@ export const QueryProductToExtendedPairResponse = {
     };
   },
 
-  toJSON(message: QueryProductToExtendedPairResponse): unknown {
+  toJSON(message: QueryAllExtendedPairVaultsByAppResponse): unknown {
     const obj: any = {};
     if (message.extendedPair) {
       obj.extendedPair = message.extendedPair.map((e) =>
@@ -1567,26 +1565,26 @@ export const QueryProductToExtendedPairResponse = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryProductToExtendedPairResponse>, I>
-  >(object: I): QueryProductToExtendedPairResponse {
-    const message = createBaseQueryProductToExtendedPairResponse();
+    I extends Exact<DeepPartial<QueryAllExtendedPairVaultsByAppResponse>, I>
+  >(object: I): QueryAllExtendedPairVaultsByAppResponse {
+    const message = createBaseQueryAllExtendedPairVaultsByAppResponse();
     message.extendedPair =
       object.extendedPair?.map((e) => ExtendedPairVault.fromPartial(e)) || [];
     return message;
   },
 };
 
-function createBaseQueryExtendedPairPsmPairWiseRequest(): QueryExtendedPairPsmPairWiseRequest {
-  return { productId: Long.UZERO };
+function createBaseQueryAllExtendedPairStableVaultsIdByAppRequest(): QueryAllExtendedPairStableVaultsIdByAppRequest {
+  return { appId: Long.UZERO };
 }
 
-export const QueryExtendedPairPsmPairWiseRequest = {
+export const QueryAllExtendedPairStableVaultsIdByAppRequest = {
   encode(
-    message: QueryExtendedPairPsmPairWiseRequest,
+    message: QueryAllExtendedPairStableVaultsIdByAppRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.productId.isZero()) {
-      writer.uint32(8).uint64(message.productId);
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
     }
     return writer;
   },
@@ -1594,15 +1592,15 @@ export const QueryExtendedPairPsmPairWiseRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryExtendedPairPsmPairWiseRequest {
+  ): QueryAllExtendedPairStableVaultsIdByAppRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryExtendedPairPsmPairWiseRequest();
+    const message = createBaseQueryAllExtendedPairStableVaultsIdByAppRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.productId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -1612,40 +1610,41 @@ export const QueryExtendedPairPsmPairWiseRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryExtendedPairPsmPairWiseRequest {
+  fromJSON(object: any): QueryAllExtendedPairStableVaultsIdByAppRequest {
     return {
-      productId: isSet(object.productId)
-        ? Long.fromValue(object.productId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryExtendedPairPsmPairWiseRequest): unknown {
+  toJSON(message: QueryAllExtendedPairStableVaultsIdByAppRequest): unknown {
     const obj: any = {};
-    message.productId !== undefined &&
-      (obj.productId = (message.productId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryExtendedPairPsmPairWiseRequest>, I>
-  >(object: I): QueryExtendedPairPsmPairWiseRequest {
-    const message = createBaseQueryExtendedPairPsmPairWiseRequest();
-    message.productId =
-      object.productId !== undefined && object.productId !== null
-        ? Long.fromValue(object.productId)
+    I extends Exact<
+      DeepPartial<QueryAllExtendedPairStableVaultsIdByAppRequest>,
+      I
+    >
+  >(object: I): QueryAllExtendedPairStableVaultsIdByAppRequest {
+    const message = createBaseQueryAllExtendedPairStableVaultsIdByAppRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     return message;
   },
 };
 
-function createBaseQueryExtendedPairPsmPairWiseResponse(): QueryExtendedPairPsmPairWiseResponse {
+function createBaseQueryAllExtendedPairStableVaultsIdByAppResponse(): QueryAllExtendedPairStableVaultsIdByAppResponse {
   return { extendedPairsId: [] };
 }
 
-export const QueryExtendedPairPsmPairWiseResponse = {
+export const QueryAllExtendedPairStableVaultsIdByAppResponse = {
   encode(
-    message: QueryExtendedPairPsmPairWiseResponse,
+    message: QueryAllExtendedPairStableVaultsIdByAppResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     writer.uint32(10).fork();
@@ -1659,10 +1658,10 @@ export const QueryExtendedPairPsmPairWiseResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryExtendedPairPsmPairWiseResponse {
+  ): QueryAllExtendedPairStableVaultsIdByAppResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryExtendedPairPsmPairWiseResponse();
+    const message = createBaseQueryAllExtendedPairStableVaultsIdByAppResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1684,7 +1683,7 @@ export const QueryExtendedPairPsmPairWiseResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryExtendedPairPsmPairWiseResponse {
+  fromJSON(object: any): QueryAllExtendedPairStableVaultsIdByAppResponse {
     return {
       extendedPairsId: Array.isArray(object?.extendedPairsId)
         ? object.extendedPairsId.map((e: any) => Long.fromValue(e))
@@ -1692,7 +1691,7 @@ export const QueryExtendedPairPsmPairWiseResponse = {
     };
   },
 
-  toJSON(message: QueryExtendedPairPsmPairWiseResponse): unknown {
+  toJSON(message: QueryAllExtendedPairStableVaultsIdByAppResponse): unknown {
     const obj: any = {};
     if (message.extendedPairsId) {
       obj.extendedPairsId = message.extendedPairsId.map((e) =>
@@ -1705,22 +1704,25 @@ export const QueryExtendedPairPsmPairWiseResponse = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryExtendedPairPsmPairWiseResponse>, I>
-  >(object: I): QueryExtendedPairPsmPairWiseResponse {
-    const message = createBaseQueryExtendedPairPsmPairWiseResponse();
+    I extends Exact<
+      DeepPartial<QueryAllExtendedPairStableVaultsIdByAppResponse>,
+      I
+    >
+  >(object: I): QueryAllExtendedPairStableVaultsIdByAppResponse {
+    const message = createBaseQueryAllExtendedPairStableVaultsIdByAppResponse();
     message.extendedPairsId =
       object.extendedPairsId?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };
 
-function createBaseQueryExtendedPairDataPsmPairWiseRequest(): QueryExtendedPairDataPsmPairWiseRequest {
+function createBaseQueryAllExtendedPairStableVaultsDataByAppRequest(): QueryAllExtendedPairStableVaultsDataByAppRequest {
   return { appId: Long.UZERO };
 }
 
-export const QueryExtendedPairDataPsmPairWiseRequest = {
+export const QueryAllExtendedPairStableVaultsDataByAppRequest = {
   encode(
-    message: QueryExtendedPairDataPsmPairWiseRequest,
+    message: QueryAllExtendedPairStableVaultsDataByAppRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -1732,10 +1734,11 @@ export const QueryExtendedPairDataPsmPairWiseRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryExtendedPairDataPsmPairWiseRequest {
+  ): QueryAllExtendedPairStableVaultsDataByAppRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryExtendedPairDataPsmPairWiseRequest();
+    const message =
+      createBaseQueryAllExtendedPairStableVaultsDataByAppRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1750,13 +1753,13 @@ export const QueryExtendedPairDataPsmPairWiseRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryExtendedPairDataPsmPairWiseRequest {
+  fromJSON(object: any): QueryAllExtendedPairStableVaultsDataByAppRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryExtendedPairDataPsmPairWiseRequest): unknown {
+  toJSON(message: QueryAllExtendedPairStableVaultsDataByAppRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
@@ -1764,9 +1767,13 @@ export const QueryExtendedPairDataPsmPairWiseRequest = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryExtendedPairDataPsmPairWiseRequest>, I>
-  >(object: I): QueryExtendedPairDataPsmPairWiseRequest {
-    const message = createBaseQueryExtendedPairDataPsmPairWiseRequest();
+    I extends Exact<
+      DeepPartial<QueryAllExtendedPairStableVaultsDataByAppRequest>,
+      I
+    >
+  >(object: I): QueryAllExtendedPairStableVaultsDataByAppRequest {
+    const message =
+      createBaseQueryAllExtendedPairStableVaultsDataByAppRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -1775,13 +1782,13 @@ export const QueryExtendedPairDataPsmPairWiseRequest = {
   },
 };
 
-function createBaseQueryExtendedPairDataPsmPairWiseResponse(): QueryExtendedPairDataPsmPairWiseResponse {
+function createBaseQueryAllExtendedPairStableVaultsDataByAppResponse(): QueryAllExtendedPairStableVaultsDataByAppResponse {
   return { extendedPair: [] };
 }
 
-export const QueryExtendedPairDataPsmPairWiseResponse = {
+export const QueryAllExtendedPairStableVaultsDataByAppResponse = {
   encode(
-    message: QueryExtendedPairDataPsmPairWiseResponse,
+    message: QueryAllExtendedPairStableVaultsDataByAppResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.extendedPair) {
@@ -1793,10 +1800,11 @@ export const QueryExtendedPairDataPsmPairWiseResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryExtendedPairDataPsmPairWiseResponse {
+  ): QueryAllExtendedPairStableVaultsDataByAppResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryExtendedPairDataPsmPairWiseResponse();
+    const message =
+      createBaseQueryAllExtendedPairStableVaultsDataByAppResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1813,7 +1821,7 @@ export const QueryExtendedPairDataPsmPairWiseResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryExtendedPairDataPsmPairWiseResponse {
+  fromJSON(object: any): QueryAllExtendedPairStableVaultsDataByAppResponse {
     return {
       extendedPair: Array.isArray(object?.extendedPair)
         ? object.extendedPair.map((e: any) => ExtendedPairVault.fromJSON(e))
@@ -1821,7 +1829,7 @@ export const QueryExtendedPairDataPsmPairWiseResponse = {
     };
   },
 
-  toJSON(message: QueryExtendedPairDataPsmPairWiseResponse): unknown {
+  toJSON(message: QueryAllExtendedPairStableVaultsDataByAppResponse): unknown {
     const obj: any = {};
     if (message.extendedPair) {
       obj.extendedPair = message.extendedPair.map((e) =>
@@ -1834,9 +1842,13 @@ export const QueryExtendedPairDataPsmPairWiseResponse = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryExtendedPairDataPsmPairWiseResponse>, I>
-  >(object: I): QueryExtendedPairDataPsmPairWiseResponse {
-    const message = createBaseQueryExtendedPairDataPsmPairWiseResponse();
+    I extends Exact<
+      DeepPartial<QueryAllExtendedPairStableVaultsDataByAppResponse>,
+      I
+    >
+  >(object: I): QueryAllExtendedPairStableVaultsDataByAppResponse {
+    const message =
+      createBaseQueryAllExtendedPairStableVaultsDataByAppResponse();
     message.extendedPair =
       object.extendedPair?.map((e) => ExtendedPairVault.fromPartial(e)) || [];
     return message;
@@ -1851,22 +1863,24 @@ export interface Query {
   QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   QueryAppsMappings(request: QueryAppsRequest): Promise<QueryAppsResponse>;
   QueryAppMappings(request: QueryAppRequest): Promise<QueryAppResponse>;
-  QueryPairVault(
-    request: QueryPairVaultRequest
-  ): Promise<QueryPairVaultResponse>;
-  QueryPairVaults(
-    request: QueryPairVaultsRequest
-  ): Promise<QueryPairVaultsResponse>;
-  QueryProductToExtendedPair(
-    request: QueryProductToExtendedPairRequest
-  ): Promise<QueryProductToExtendedPairResponse>;
-  QueryExtendedPairPsmPairWise(
-    request: QueryExtendedPairPsmPairWiseRequest
-  ): Promise<QueryExtendedPairPsmPairWiseResponse>;
-  QueryTokenGov(request: QueryTokenGovRequest): Promise<QueryTokenGovResponse>;
-  QueryExtendedPairDataPsmPairWise(
-    request: QueryExtendedPairDataPsmPairWiseRequest
-  ): Promise<QueryExtendedPairDataPsmPairWiseResponse>;
+  QueryExtendedPairVault(
+    request: QueryExtendedPairVaultRequest
+  ): Promise<QueryExtendedPairVaultResponse>;
+  QueryAllExtendedPairVaults(
+    request: QueryAllExtendedPairVaultsRequest
+  ): Promise<QueryAllExtendedPairVaultsResponse>;
+  QueryAllExtendedPairVaultsByApp(
+    request: QueryAllExtendedPairVaultsByAppRequest
+  ): Promise<QueryAllExtendedPairVaultsByAppResponse>;
+  QueryAllExtendedPairStableVaultsIdByApp(
+    request: QueryAllExtendedPairStableVaultsIdByAppRequest
+  ): Promise<QueryAllExtendedPairStableVaultsIdByAppResponse>;
+  QueryGovTokenByApp(
+    request: QueryGovTokenByAppRequest
+  ): Promise<QueryGovTokenByAppResponse>;
+  QueryAllExtendedPairStableVaultsDataByApp(
+    request: QueryAllExtendedPairStableVaultsDataByAppRequest
+  ): Promise<QueryAllExtendedPairStableVaultsDataByAppResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1880,15 +1894,16 @@ export class QueryClientImpl implements Query {
     this.QueryParams = this.QueryParams.bind(this);
     this.QueryAppsMappings = this.QueryAppsMappings.bind(this);
     this.QueryAppMappings = this.QueryAppMappings.bind(this);
-    this.QueryPairVault = this.QueryPairVault.bind(this);
-    this.QueryPairVaults = this.QueryPairVaults.bind(this);
-    this.QueryProductToExtendedPair =
-      this.QueryProductToExtendedPair.bind(this);
-    this.QueryExtendedPairPsmPairWise =
-      this.QueryExtendedPairPsmPairWise.bind(this);
-    this.QueryTokenGov = this.QueryTokenGov.bind(this);
-    this.QueryExtendedPairDataPsmPairWise =
-      this.QueryExtendedPairDataPsmPairWise.bind(this);
+    this.QueryExtendedPairVault = this.QueryExtendedPairVault.bind(this);
+    this.QueryAllExtendedPairVaults =
+      this.QueryAllExtendedPairVaults.bind(this);
+    this.QueryAllExtendedPairVaultsByApp =
+      this.QueryAllExtendedPairVaultsByApp.bind(this);
+    this.QueryAllExtendedPairStableVaultsIdByApp =
+      this.QueryAllExtendedPairStableVaultsIdByApp.bind(this);
+    this.QueryGovTokenByApp = this.QueryGovTokenByApp.bind(this);
+    this.QueryAllExtendedPairStableVaultsDataByApp =
+      this.QueryAllExtendedPairStableVaultsDataByApp.bind(this);
   }
   QueryAssets(request: QueryAssetsRequest): Promise<QueryAssetsResponse> {
     const data = QueryAssetsRequest.encode(request).finish();
@@ -1974,86 +1989,94 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryPairVault(
-    request: QueryPairVaultRequest
-  ): Promise<QueryPairVaultResponse> {
-    const data = QueryPairVaultRequest.encode(request).finish();
+  QueryExtendedPairVault(
+    request: QueryExtendedPairVaultRequest
+  ): Promise<QueryExtendedPairVaultResponse> {
+    const data = QueryExtendedPairVaultRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.asset.v1beta1.Query",
-      "QueryPairVault",
+      "QueryExtendedPairVault",
       data
     );
     return promise.then((data) =>
-      QueryPairVaultResponse.decode(new _m0.Reader(data))
+      QueryExtendedPairVaultResponse.decode(new _m0.Reader(data))
     );
   }
 
-  QueryPairVaults(
-    request: QueryPairVaultsRequest
-  ): Promise<QueryPairVaultsResponse> {
-    const data = QueryPairVaultsRequest.encode(request).finish();
+  QueryAllExtendedPairVaults(
+    request: QueryAllExtendedPairVaultsRequest
+  ): Promise<QueryAllExtendedPairVaultsResponse> {
+    const data = QueryAllExtendedPairVaultsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.asset.v1beta1.Query",
-      "QueryPairVaults",
+      "QueryAllExtendedPairVaults",
       data
     );
     return promise.then((data) =>
-      QueryPairVaultsResponse.decode(new _m0.Reader(data))
+      QueryAllExtendedPairVaultsResponse.decode(new _m0.Reader(data))
     );
   }
 
-  QueryProductToExtendedPair(
-    request: QueryProductToExtendedPairRequest
-  ): Promise<QueryProductToExtendedPairResponse> {
-    const data = QueryProductToExtendedPairRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.asset.v1beta1.Query",
-      "QueryProductToExtendedPair",
-      data
-    );
-    return promise.then((data) =>
-      QueryProductToExtendedPairResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  QueryExtendedPairPsmPairWise(
-    request: QueryExtendedPairPsmPairWiseRequest
-  ): Promise<QueryExtendedPairPsmPairWiseResponse> {
-    const data = QueryExtendedPairPsmPairWiseRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.asset.v1beta1.Query",
-      "QueryExtendedPairPsmPairWise",
-      data
-    );
-    return promise.then((data) =>
-      QueryExtendedPairPsmPairWiseResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  QueryTokenGov(request: QueryTokenGovRequest): Promise<QueryTokenGovResponse> {
-    const data = QueryTokenGovRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.asset.v1beta1.Query",
-      "QueryTokenGov",
-      data
-    );
-    return promise.then((data) =>
-      QueryTokenGovResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  QueryExtendedPairDataPsmPairWise(
-    request: QueryExtendedPairDataPsmPairWiseRequest
-  ): Promise<QueryExtendedPairDataPsmPairWiseResponse> {
+  QueryAllExtendedPairVaultsByApp(
+    request: QueryAllExtendedPairVaultsByAppRequest
+  ): Promise<QueryAllExtendedPairVaultsByAppResponse> {
     const data =
-      QueryExtendedPairDataPsmPairWiseRequest.encode(request).finish();
+      QueryAllExtendedPairVaultsByAppRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.asset.v1beta1.Query",
-      "QueryExtendedPairDataPsmPairWise",
+      "QueryAllExtendedPairVaultsByApp",
       data
     );
     return promise.then((data) =>
-      QueryExtendedPairDataPsmPairWiseResponse.decode(new _m0.Reader(data))
+      QueryAllExtendedPairVaultsByAppResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryAllExtendedPairStableVaultsIdByApp(
+    request: QueryAllExtendedPairStableVaultsIdByAppRequest
+  ): Promise<QueryAllExtendedPairStableVaultsIdByAppResponse> {
+    const data =
+      QueryAllExtendedPairStableVaultsIdByAppRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.asset.v1beta1.Query",
+      "QueryAllExtendedPairStableVaultsIdByApp",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllExtendedPairStableVaultsIdByAppResponse.decode(
+        new _m0.Reader(data)
+      )
+    );
+  }
+
+  QueryGovTokenByApp(
+    request: QueryGovTokenByAppRequest
+  ): Promise<QueryGovTokenByAppResponse> {
+    const data = QueryGovTokenByAppRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.asset.v1beta1.Query",
+      "QueryGovTokenByApp",
+      data
+    );
+    return promise.then((data) =>
+      QueryGovTokenByAppResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryAllExtendedPairStableVaultsDataByApp(
+    request: QueryAllExtendedPairStableVaultsDataByAppRequest
+  ): Promise<QueryAllExtendedPairStableVaultsDataByAppResponse> {
+    const data =
+      QueryAllExtendedPairStableVaultsDataByAppRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.asset.v1beta1.Query",
+      "QueryAllExtendedPairStableVaultsDataByApp",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllExtendedPairStableVaultsDataByAppResponse.decode(
+        new _m0.Reader(data)
+      )
     );
   }
 }

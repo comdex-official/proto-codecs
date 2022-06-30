@@ -8,7 +8,6 @@ export interface ExtendedPairVault {
   id: Long;
   appMappingId: Long;
   pairId: Long;
-  liquidationRatio: string;
   stabilityFee: string;
   closingFee: string;
   liquidationPenalty: string;
@@ -16,7 +15,7 @@ export interface ExtendedPairVault {
   isVaultActive: boolean;
   debtCeiling: string;
   debtFloor: string;
-  isPsmPair: boolean;
+  isStableMintVault: boolean;
   minCr: string;
   pairName: string;
   assetOutOraclePrice: boolean;
@@ -29,7 +28,6 @@ function createBaseExtendedPairVault(): ExtendedPairVault {
     id: Long.UZERO,
     appMappingId: Long.UZERO,
     pairId: Long.UZERO,
-    liquidationRatio: "",
     stabilityFee: "",
     closingFee: "",
     liquidationPenalty: "",
@@ -37,7 +35,7 @@ function createBaseExtendedPairVault(): ExtendedPairVault {
     isVaultActive: false,
     debtCeiling: "",
     debtFloor: "",
-    isPsmPair: false,
+    isStableMintVault: false,
     minCr: "",
     pairName: "",
     assetOutOraclePrice: false,
@@ -60,47 +58,44 @@ export const ExtendedPairVault = {
     if (!message.pairId.isZero()) {
       writer.uint32(24).uint64(message.pairId);
     }
-    if (message.liquidationRatio !== "") {
-      writer.uint32(34).string(message.liquidationRatio);
-    }
     if (message.stabilityFee !== "") {
-      writer.uint32(42).string(message.stabilityFee);
+      writer.uint32(34).string(message.stabilityFee);
     }
     if (message.closingFee !== "") {
-      writer.uint32(50).string(message.closingFee);
+      writer.uint32(42).string(message.closingFee);
     }
     if (message.liquidationPenalty !== "") {
-      writer.uint32(58).string(message.liquidationPenalty);
+      writer.uint32(50).string(message.liquidationPenalty);
     }
     if (message.drawDownFee !== "") {
-      writer.uint32(66).string(message.drawDownFee);
+      writer.uint32(58).string(message.drawDownFee);
     }
     if (message.isVaultActive === true) {
-      writer.uint32(72).bool(message.isVaultActive);
+      writer.uint32(64).bool(message.isVaultActive);
     }
     if (message.debtCeiling !== "") {
-      writer.uint32(82).string(message.debtCeiling);
+      writer.uint32(74).string(message.debtCeiling);
     }
     if (message.debtFloor !== "") {
-      writer.uint32(90).string(message.debtFloor);
+      writer.uint32(82).string(message.debtFloor);
     }
-    if (message.isPsmPair === true) {
-      writer.uint32(96).bool(message.isPsmPair);
+    if (message.isStableMintVault === true) {
+      writer.uint32(88).bool(message.isStableMintVault);
     }
     if (message.minCr !== "") {
-      writer.uint32(106).string(message.minCr);
+      writer.uint32(98).string(message.minCr);
     }
     if (message.pairName !== "") {
-      writer.uint32(114).string(message.pairName);
+      writer.uint32(106).string(message.pairName);
     }
     if (message.assetOutOraclePrice === true) {
-      writer.uint32(120).bool(message.assetOutOraclePrice);
+      writer.uint32(112).bool(message.assetOutOraclePrice);
     }
     if (!message.assetOutPrice.isZero()) {
-      writer.uint32(128).uint64(message.assetOutPrice);
+      writer.uint32(120).uint64(message.assetOutPrice);
     }
     if (!message.minUsdValueLeft.isZero()) {
-      writer.uint32(136).uint64(message.minUsdValueLeft);
+      writer.uint32(128).uint64(message.minUsdValueLeft);
     }
     return writer;
   },
@@ -122,45 +117,42 @@ export const ExtendedPairVault = {
           message.pairId = reader.uint64() as Long;
           break;
         case 4:
-          message.liquidationRatio = reader.string();
-          break;
-        case 5:
           message.stabilityFee = reader.string();
           break;
-        case 6:
+        case 5:
           message.closingFee = reader.string();
           break;
-        case 7:
+        case 6:
           message.liquidationPenalty = reader.string();
           break;
-        case 8:
+        case 7:
           message.drawDownFee = reader.string();
           break;
-        case 9:
+        case 8:
           message.isVaultActive = reader.bool();
           break;
-        case 10:
+        case 9:
           message.debtCeiling = reader.string();
           break;
-        case 11:
+        case 10:
           message.debtFloor = reader.string();
           break;
-        case 12:
-          message.isPsmPair = reader.bool();
+        case 11:
+          message.isStableMintVault = reader.bool();
           break;
-        case 13:
+        case 12:
           message.minCr = reader.string();
           break;
-        case 14:
+        case 13:
           message.pairName = reader.string();
           break;
-        case 15:
+        case 14:
           message.assetOutOraclePrice = reader.bool();
           break;
-        case 16:
+        case 15:
           message.assetOutPrice = reader.uint64() as Long;
           break;
-        case 17:
+        case 16:
           message.minUsdValueLeft = reader.uint64() as Long;
           break;
         default:
@@ -178,9 +170,6 @@ export const ExtendedPairVault = {
         ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
-      liquidationRatio: isSet(object.liquidationRatio)
-        ? String(object.liquidationRatio)
-        : "",
       stabilityFee: isSet(object.stabilityFee)
         ? String(object.stabilityFee)
         : "",
@@ -194,7 +183,9 @@ export const ExtendedPairVault = {
         : false,
       debtCeiling: isSet(object.debtCeiling) ? String(object.debtCeiling) : "",
       debtFloor: isSet(object.debtFloor) ? String(object.debtFloor) : "",
-      isPsmPair: isSet(object.isPsmPair) ? Boolean(object.isPsmPair) : false,
+      isStableMintVault: isSet(object.isStableMintVault)
+        ? Boolean(object.isStableMintVault)
+        : false,
       minCr: isSet(object.minCr) ? String(object.minCr) : "",
       pairName: isSet(object.pairName) ? String(object.pairName) : "",
       assetOutOraclePrice: isSet(object.assetOutOraclePrice)
@@ -217,8 +208,6 @@ export const ExtendedPairVault = {
       (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
     message.pairId !== undefined &&
       (obj.pairId = (message.pairId || Long.UZERO).toString());
-    message.liquidationRatio !== undefined &&
-      (obj.liquidationRatio = message.liquidationRatio);
     message.stabilityFee !== undefined &&
       (obj.stabilityFee = message.stabilityFee);
     message.closingFee !== undefined && (obj.closingFee = message.closingFee);
@@ -231,7 +220,8 @@ export const ExtendedPairVault = {
     message.debtCeiling !== undefined &&
       (obj.debtCeiling = message.debtCeiling);
     message.debtFloor !== undefined && (obj.debtFloor = message.debtFloor);
-    message.isPsmPair !== undefined && (obj.isPsmPair = message.isPsmPair);
+    message.isStableMintVault !== undefined &&
+      (obj.isStableMintVault = message.isStableMintVault);
     message.minCr !== undefined && (obj.minCr = message.minCr);
     message.pairName !== undefined && (obj.pairName = message.pairName);
     message.assetOutOraclePrice !== undefined &&
@@ -261,7 +251,6 @@ export const ExtendedPairVault = {
       object.pairId !== undefined && object.pairId !== null
         ? Long.fromValue(object.pairId)
         : Long.UZERO;
-    message.liquidationRatio = object.liquidationRatio ?? "";
     message.stabilityFee = object.stabilityFee ?? "";
     message.closingFee = object.closingFee ?? "";
     message.liquidationPenalty = object.liquidationPenalty ?? "";
@@ -269,7 +258,7 @@ export const ExtendedPairVault = {
     message.isVaultActive = object.isVaultActive ?? false;
     message.debtCeiling = object.debtCeiling ?? "";
     message.debtFloor = object.debtFloor ?? "";
-    message.isPsmPair = object.isPsmPair ?? false;
+    message.isStableMintVault = object.isStableMintVault ?? false;
     message.minCr = object.minCr ?? "";
     message.pairName = object.pairName ?? "";
     message.assetOutOraclePrice = object.assetOutOraclePrice ?? false;

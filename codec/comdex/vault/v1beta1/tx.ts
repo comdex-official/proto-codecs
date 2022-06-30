@@ -1,12 +1,12 @@
 /* eslint-disable */
 import Long from "long";
-import  _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.vault.v1beta1";
 
 export interface MsgCreateRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   extendedPairVaultId: Long;
   amountIn: string;
   amountOut: string;
@@ -16,7 +16,7 @@ export interface MsgCreateResponse {}
 
 export interface MsgDepositRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   extendedPairVaultId: Long;
   userVaultId: string;
   amount: string;
@@ -26,7 +26,7 @@ export interface MsgDepositResponse {}
 
 export interface MsgWithdrawRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   extendedPairVaultId: Long;
   userVaultId: string;
   amount: string;
@@ -36,7 +36,7 @@ export interface MsgWithdrawResponse {}
 
 export interface MsgDrawRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   extendedPairVaultId: Long;
   userVaultId: string;
   amount: string;
@@ -46,7 +46,7 @@ export interface MsgDrawResponse {}
 
 export interface MsgRepayRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   extendedPairVaultId: Long;
   userVaultId: string;
   amount: string;
@@ -56,7 +56,7 @@ export interface MsgRepayResponse {}
 
 export interface MsgCloseRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   extendedPairVaultId: Long;
   userVaultId: string;
 }
@@ -65,7 +65,7 @@ export interface MsgCloseResponse {}
 
 export interface MsgCreateStableMintRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   extendedPairVaultId: Long;
   amount: string;
 }
@@ -74,7 +74,7 @@ export interface MsgCreateStableMintResponse {}
 
 export interface MsgDepositStableMintRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   extendedPairVaultId: Long;
   amount: string;
   stableVaultId: string;
@@ -84,7 +84,7 @@ export interface MsgDepositStableMintResponse {}
 
 export interface MsgWithdrawStableMintRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   extendedPairVaultId: Long;
   amount: string;
   stableVaultId: string;
@@ -95,7 +95,7 @@ export interface MsgWithdrawStableMintResponse {}
 function createBaseMsgCreateRequest(): MsgCreateRequest {
   return {
     from: "",
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     amountIn: "",
     amountOut: "",
@@ -110,8 +110,8 @@ export const MsgCreateRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.extendedPairVaultId.isZero()) {
       writer.uint32(24).uint64(message.extendedPairVaultId);
@@ -136,7 +136,7 @@ export const MsgCreateRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.extendedPairVaultId = reader.uint64() as Long;
@@ -158,9 +158,7 @@ export const MsgCreateRequest = {
   fromJSON(object: any): MsgCreateRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
@@ -172,8 +170,8 @@ export const MsgCreateRequest = {
   toJSON(message: MsgCreateRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
       (obj.extendedPairVaultId = (
         message.extendedPairVaultId || Long.UZERO
@@ -188,9 +186,9 @@ export const MsgCreateRequest = {
   ): MsgCreateRequest {
     const message = createBaseMsgCreateRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.extendedPairVaultId =
       object.extendedPairVaultId !== undefined &&
@@ -250,7 +248,7 @@ export const MsgCreateResponse = {
 function createBaseMsgDepositRequest(): MsgDepositRequest {
   return {
     from: "",
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     userVaultId: "",
     amount: "",
@@ -265,8 +263,8 @@ export const MsgDepositRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.extendedPairVaultId.isZero()) {
       writer.uint32(24).uint64(message.extendedPairVaultId);
@@ -291,7 +289,7 @@ export const MsgDepositRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.extendedPairVaultId = reader.uint64() as Long;
@@ -313,9 +311,7 @@ export const MsgDepositRequest = {
   fromJSON(object: any): MsgDepositRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
@@ -327,8 +323,8 @@ export const MsgDepositRequest = {
   toJSON(message: MsgDepositRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
       (obj.extendedPairVaultId = (
         message.extendedPairVaultId || Long.UZERO
@@ -344,9 +340,9 @@ export const MsgDepositRequest = {
   ): MsgDepositRequest {
     const message = createBaseMsgDepositRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.extendedPairVaultId =
       object.extendedPairVaultId !== undefined &&
@@ -406,7 +402,7 @@ export const MsgDepositResponse = {
 function createBaseMsgWithdrawRequest(): MsgWithdrawRequest {
   return {
     from: "",
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     userVaultId: "",
     amount: "",
@@ -421,8 +417,8 @@ export const MsgWithdrawRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.extendedPairVaultId.isZero()) {
       writer.uint32(24).uint64(message.extendedPairVaultId);
@@ -447,7 +443,7 @@ export const MsgWithdrawRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.extendedPairVaultId = reader.uint64() as Long;
@@ -469,9 +465,7 @@ export const MsgWithdrawRequest = {
   fromJSON(object: any): MsgWithdrawRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
@@ -483,8 +477,8 @@ export const MsgWithdrawRequest = {
   toJSON(message: MsgWithdrawRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
       (obj.extendedPairVaultId = (
         message.extendedPairVaultId || Long.UZERO
@@ -500,9 +494,9 @@ export const MsgWithdrawRequest = {
   ): MsgWithdrawRequest {
     const message = createBaseMsgWithdrawRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.extendedPairVaultId =
       object.extendedPairVaultId !== undefined &&
@@ -562,7 +556,7 @@ export const MsgWithdrawResponse = {
 function createBaseMsgDrawRequest(): MsgDrawRequest {
   return {
     from: "",
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     userVaultId: "",
     amount: "",
@@ -577,8 +571,8 @@ export const MsgDrawRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.extendedPairVaultId.isZero()) {
       writer.uint32(24).uint64(message.extendedPairVaultId);
@@ -603,7 +597,7 @@ export const MsgDrawRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.extendedPairVaultId = reader.uint64() as Long;
@@ -625,9 +619,7 @@ export const MsgDrawRequest = {
   fromJSON(object: any): MsgDrawRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
@@ -639,8 +631,8 @@ export const MsgDrawRequest = {
   toJSON(message: MsgDrawRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
       (obj.extendedPairVaultId = (
         message.extendedPairVaultId || Long.UZERO
@@ -656,9 +648,9 @@ export const MsgDrawRequest = {
   ): MsgDrawRequest {
     const message = createBaseMsgDrawRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.extendedPairVaultId =
       object.extendedPairVaultId !== undefined &&
@@ -718,7 +710,7 @@ export const MsgDrawResponse = {
 function createBaseMsgRepayRequest(): MsgRepayRequest {
   return {
     from: "",
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     userVaultId: "",
     amount: "",
@@ -733,8 +725,8 @@ export const MsgRepayRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.extendedPairVaultId.isZero()) {
       writer.uint32(24).uint64(message.extendedPairVaultId);
@@ -759,7 +751,7 @@ export const MsgRepayRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.extendedPairVaultId = reader.uint64() as Long;
@@ -781,9 +773,7 @@ export const MsgRepayRequest = {
   fromJSON(object: any): MsgRepayRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
@@ -795,8 +785,8 @@ export const MsgRepayRequest = {
   toJSON(message: MsgRepayRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
       (obj.extendedPairVaultId = (
         message.extendedPairVaultId || Long.UZERO
@@ -812,9 +802,9 @@ export const MsgRepayRequest = {
   ): MsgRepayRequest {
     const message = createBaseMsgRepayRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.extendedPairVaultId =
       object.extendedPairVaultId !== undefined &&
@@ -874,7 +864,7 @@ export const MsgRepayResponse = {
 function createBaseMsgCloseRequest(): MsgCloseRequest {
   return {
     from: "",
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     userVaultId: "",
   };
@@ -888,8 +878,8 @@ export const MsgCloseRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.extendedPairVaultId.isZero()) {
       writer.uint32(24).uint64(message.extendedPairVaultId);
@@ -911,7 +901,7 @@ export const MsgCloseRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.extendedPairVaultId = reader.uint64() as Long;
@@ -930,9 +920,7 @@ export const MsgCloseRequest = {
   fromJSON(object: any): MsgCloseRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
@@ -943,8 +931,8 @@ export const MsgCloseRequest = {
   toJSON(message: MsgCloseRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
       (obj.extendedPairVaultId = (
         message.extendedPairVaultId || Long.UZERO
@@ -959,9 +947,9 @@ export const MsgCloseRequest = {
   ): MsgCloseRequest {
     const message = createBaseMsgCloseRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.extendedPairVaultId =
       object.extendedPairVaultId !== undefined &&
@@ -1020,7 +1008,7 @@ export const MsgCloseResponse = {
 function createBaseMsgCreateStableMintRequest(): MsgCreateStableMintRequest {
   return {
     from: "",
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     amount: "",
   };
@@ -1034,8 +1022,8 @@ export const MsgCreateStableMintRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.extendedPairVaultId.isZero()) {
       writer.uint32(24).uint64(message.extendedPairVaultId);
@@ -1060,7 +1048,7 @@ export const MsgCreateStableMintRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.extendedPairVaultId = reader.uint64() as Long;
@@ -1079,9 +1067,7 @@ export const MsgCreateStableMintRequest = {
   fromJSON(object: any): MsgCreateStableMintRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
@@ -1092,8 +1078,8 @@ export const MsgCreateStableMintRequest = {
   toJSON(message: MsgCreateStableMintRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
       (obj.extendedPairVaultId = (
         message.extendedPairVaultId || Long.UZERO
@@ -1107,9 +1093,9 @@ export const MsgCreateStableMintRequest = {
   ): MsgCreateStableMintRequest {
     const message = createBaseMsgCreateStableMintRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.extendedPairVaultId =
       object.extendedPairVaultId !== undefined &&
@@ -1171,7 +1157,7 @@ export const MsgCreateStableMintResponse = {
 function createBaseMsgDepositStableMintRequest(): MsgDepositStableMintRequest {
   return {
     from: "",
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     amount: "",
     stableVaultId: "",
@@ -1186,8 +1172,8 @@ export const MsgDepositStableMintRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.extendedPairVaultId.isZero()) {
       writer.uint32(24).uint64(message.extendedPairVaultId);
@@ -1215,7 +1201,7 @@ export const MsgDepositStableMintRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.extendedPairVaultId = reader.uint64() as Long;
@@ -1237,9 +1223,7 @@ export const MsgDepositStableMintRequest = {
   fromJSON(object: any): MsgDepositStableMintRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
@@ -1253,8 +1237,8 @@ export const MsgDepositStableMintRequest = {
   toJSON(message: MsgDepositStableMintRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
       (obj.extendedPairVaultId = (
         message.extendedPairVaultId || Long.UZERO
@@ -1270,9 +1254,9 @@ export const MsgDepositStableMintRequest = {
   ): MsgDepositStableMintRequest {
     const message = createBaseMsgDepositStableMintRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.extendedPairVaultId =
       object.extendedPairVaultId !== undefined &&
@@ -1335,7 +1319,7 @@ export const MsgDepositStableMintResponse = {
 function createBaseMsgWithdrawStableMintRequest(): MsgWithdrawStableMintRequest {
   return {
     from: "",
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     amount: "",
     stableVaultId: "",
@@ -1350,8 +1334,8 @@ export const MsgWithdrawStableMintRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.extendedPairVaultId.isZero()) {
       writer.uint32(24).uint64(message.extendedPairVaultId);
@@ -1379,7 +1363,7 @@ export const MsgWithdrawStableMintRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.extendedPairVaultId = reader.uint64() as Long;
@@ -1401,9 +1385,7 @@ export const MsgWithdrawStableMintRequest = {
   fromJSON(object: any): MsgWithdrawStableMintRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
@@ -1417,8 +1399,8 @@ export const MsgWithdrawStableMintRequest = {
   toJSON(message: MsgWithdrawStableMintRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
       (obj.extendedPairVaultId = (
         message.extendedPairVaultId || Long.UZERO
@@ -1434,9 +1416,9 @@ export const MsgWithdrawStableMintRequest = {
   ): MsgWithdrawStableMintRequest {
     const message = createBaseMsgWithdrawStableMintRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.extendedPairVaultId =
       object.extendedPairVaultId !== undefined &&
