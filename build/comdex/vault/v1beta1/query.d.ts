@@ -1,6 +1,6 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Vault, StableMintVault, ExtendedPairVaultMapping, ExtendedPairToVaultMapping, TvlLockedDataMap } from "../../../comdex/vault/v1beta1/vault";
+import * as _m0 from "protobufjs/minimal";
+import { Vault, StableMintVault, ExtendedPairVaultMapping, UserVaultAssetMapping, MintedDataMap, TvlLockedDataMap } from "../../../comdex/vault/v1beta1/vault";
 import { PageResponse, PageRequest } from "../../../cosmos/base/query/v1beta1/pagination";
 export declare const protobufPackage = "comdex.vault.v1beta1";
 export interface VaultInfo {
@@ -22,17 +22,17 @@ export interface QueryVaultRequest {
 export interface QueryVaultResponse {
     vault?: Vault;
 }
-export interface QueryVaultInfoRequest {
+export interface QueryVaultInfoByVaultIdRequest {
     id: string;
 }
-export interface QueryVaultInfoResponse {
+export interface QueryVaultInfoByVaultIdResponse {
     vaultsInfo?: VaultInfo;
 }
-export interface QueryVaultInfoByAppByOwnerRequest {
+export interface QueryVaultInfoOfOwnerByAppRequest {
     appId: Long;
     owner: string;
 }
-export interface QueryVaultInfoByAppByOwnerResponse {
+export interface QueryVaultInfoOfOwnerByAppResponse {
     vaultsInfo: VaultInfo[];
     pagination?: PageResponse;
 }
@@ -43,10 +43,10 @@ export interface QueryAllVaultsResponse {
     vault: Vault[];
     pagination?: PageResponse;
 }
-export interface QueryAllVaultsByProductRequest {
+export interface QueryAllVaultsByAppRequest {
     appId: Long;
 }
-export interface QueryAllVaultsByProductResponse {
+export interface QueryAllVaultsByAppResponse {
     vault: Vault[];
     pagination?: PageResponse;
 }
@@ -59,91 +59,91 @@ export interface QueryAllVaultsByAppAndExtendedPairResponse {
     vault: Vault[];
     pagination?: PageResponse;
 }
-export interface QueryVaultOfOwnerByExtendedPairRequest {
-    productId: Long;
+export interface QueryVaultIdOfOwnerByExtendedPairAndAppRequest {
+    appId: Long;
     owner: string;
     extendedPairId: Long;
     pagination?: PageRequest;
 }
-export interface QueryVaultOfOwnerByExtendedPairResponse {
+export interface QueryVaultIdOfOwnerByExtendedPairAndAppResponse {
     vaultId: string;
 }
-export interface QueryVaultByProductRequest {
-    productId: Long;
+export interface QueryVaultIdsByAppInAllExtendedPairsRequest {
+    appId: Long;
     pagination?: PageRequest;
 }
-export interface QueryVaultByProductResponse {
+export interface QueryVaultIdsByAppInAllExtendedPairsResponse {
     vaultIds: string[];
 }
-export interface QueryAllVaultByOwnerRequest {
+export interface QueryAllVaultIdsByAnOwnerRequest {
     owner: string;
     pagination?: PageRequest;
 }
-export interface QueryAllVaultByOwnerResponse {
+export interface QueryAllVaultIdsByAnOwnerResponse {
     vaultIds: string[];
 }
-export interface QueryTokenMintedAllProductsByPairRequest {
-    productId: Long;
+export interface QueryTokenMintedByAppAndExtendedPairRequest {
+    appId: Long;
     extendedPairId: Long;
     pagination?: PageRequest;
 }
-export interface QueryTokenMintedAllProductsByPairResponse {
+export interface QueryTokenMintedByAppAndExtendedPairResponse {
     tokenMinted: string;
 }
-export interface QueryTokenMintedAllProductsRequest {
-    productId: Long;
+export interface QueryTokenMintedAssetWiseByAppRequest {
+    appId: Long;
     pagination?: PageRequest;
 }
-export interface QueryTokenMintedAllProductsResponse {
-    tokenMinted: string;
+export interface QueryTokenMintedAssetWiseByAppResponse {
+    mintedData: MintedDataMap[];
 }
-export interface QueryVaultCountByProductRequest {
-    productId: Long;
+export interface QueryVaultCountByAppRequest {
+    appId: Long;
     pagination?: PageRequest;
 }
-export interface QueryVaultCountByProductResponse {
+export interface QueryVaultCountByAppResponse {
     vaultCount: Long;
 }
-export interface QueryVaultCountByProductAndPairRequest {
-    productId: Long;
+export interface QueryVaultCountByAppAndExtendedPairRequest {
+    appId: Long;
     extendedPairId: Long;
     pagination?: PageRequest;
 }
-export interface QueryVaultCountByProductAndPairResponse {
+export interface QueryVaultCountByAppAndExtendedPairResponse {
     vaultCount: Long;
 }
-export interface QueryTotalValueLockedByProductExtendedPairRequest {
-    productId: Long;
+export interface QueryTotalValueLockedByAppExtendedPairRequest {
+    appId: Long;
     extendedPairId: Long;
     pagination?: PageRequest;
 }
-export interface QueryTotalValueLockedByProductExtendedPairResponse {
+export interface QueryTotalValueLockedByAppExtendedPairResponse {
     valueLocked: string;
 }
-export interface QueryExtendedPairIDByProductRequest {
-    productId: Long;
+export interface QueryExtendedPairIDsByAppRequest {
+    appId: Long;
     pagination?: PageRequest;
 }
-export interface QueryExtendedPairIDByProductResponse {
+export interface QueryExtendedPairIDsByAppResponse {
     extendedPairIds: Long[];
 }
-export interface QueryStableVaultInfoRequest {
+export interface QueryStableVaultByVaultIdRequest {
     stableVaultId: string;
 }
-export interface QueryStableVaultInfoResponse {
+export interface QueryStableVaultByVaultIdResponse {
     stableMintVault?: StableMintVault;
 }
-export interface QueryAllStableVaultsRequest {
+export interface QueryStableVaultByAppRequest {
     appId: Long;
 }
-export interface QueryAllStableVaultsResponse {
+export interface QueryStableVaultByAppResponse {
     stableMintVault: StableMintVault[];
 }
-export interface QueryStableVaultByProductExtendedPairRequest {
+export interface QueryStableVaultByAppExtendedPairRequest {
     appId: Long;
     extendedPairId: Long;
 }
-export interface QueryStableVaultByProductExtendedPairResponse {
+export interface QueryStableVaultByAppExtendedPairResponse {
     stableMintVault?: StableMintVault;
 }
 export interface QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest {
@@ -158,21 +158,6 @@ export interface QueryExtendedPairVaultMappingByAppRequest {
 }
 export interface QueryExtendedPairVaultMappingByAppResponse {
     extendedPairVaultMapping: ExtendedPairVaultMapping[];
-}
-export interface QueryExtendedPairVaultMappingByOwnerAndAppRequest {
-    owner: string;
-    appId: Long;
-}
-export interface QueryExtendedPairVaultMappingByOwnerAndAppResponse {
-    extendedPairtoVaultMapping: ExtendedPairToVaultMapping[];
-}
-export interface QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest {
-    owner: string;
-    appId: Long;
-    extendedPair: Long;
-}
-export interface QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse {
-    vaultId: string;
 }
 export interface QueryTVLLockedByAppOfAllExtendedPairsRequest {
     appId: Long;
@@ -195,6 +180,12 @@ export interface QueryUserMyPositionByAppResponse {
     totalDue: string;
     availableToBorrow: string;
     averageCrRatio: string;
+}
+export interface QueryUserExtendedPairTotalDataRequest {
+    owner: string;
+}
+export interface QueryUserExtendedPairTotalDataResponse {
+    userTotalData?: UserVaultAssetMapping;
 }
 export declare const VaultInfo: {
     encode(message: VaultInfo, writer?: _m0.Writer): _m0.Writer;
@@ -450,22 +441,22 @@ export declare const QueryVaultResponse: {
         } & Record<Exclude<keyof I["vault"], keyof Vault>, never>) | undefined;
     } & Record<Exclude<keyof I, "vault">, never>>(object: I): QueryVaultResponse;
 };
-export declare const QueryVaultInfoRequest: {
-    encode(message: QueryVaultInfoRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoRequest;
-    fromJSON(object: any): QueryVaultInfoRequest;
-    toJSON(message: QueryVaultInfoRequest): unknown;
+export declare const QueryVaultInfoByVaultIdRequest: {
+    encode(message: QueryVaultInfoByVaultIdRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoByVaultIdRequest;
+    fromJSON(object: any): QueryVaultInfoByVaultIdRequest;
+    toJSON(message: QueryVaultInfoByVaultIdRequest): unknown;
     fromPartial<I extends {
         id?: string | undefined;
     } & {
         id?: string | undefined;
-    } & Record<Exclude<keyof I, "id">, never>>(object: I): QueryVaultInfoRequest;
+    } & Record<Exclude<keyof I, "id">, never>>(object: I): QueryVaultInfoByVaultIdRequest;
 };
-export declare const QueryVaultInfoResponse: {
-    encode(message: QueryVaultInfoResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoResponse;
-    fromJSON(object: any): QueryVaultInfoResponse;
-    toJSON(message: QueryVaultInfoResponse): unknown;
+export declare const QueryVaultInfoByVaultIdResponse: {
+    encode(message: QueryVaultInfoByVaultIdResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoByVaultIdResponse;
+    fromJSON(object: any): QueryVaultInfoByVaultIdResponse;
+    toJSON(message: QueryVaultInfoByVaultIdResponse): unknown;
     fromPartial<I extends {
         vaultsInfo?: {
             id?: string | undefined;
@@ -563,13 +554,13 @@ export declare const QueryVaultInfoResponse: {
             assetOutDenom?: string | undefined;
             minCr?: string | undefined;
         } & Record<Exclude<keyof I["vaultsInfo"], keyof VaultInfo>, never>) | undefined;
-    } & Record<Exclude<keyof I, "vaultsInfo">, never>>(object: I): QueryVaultInfoResponse;
+    } & Record<Exclude<keyof I, "vaultsInfo">, never>>(object: I): QueryVaultInfoByVaultIdResponse;
 };
-export declare const QueryVaultInfoByAppByOwnerRequest: {
-    encode(message: QueryVaultInfoByAppByOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoByAppByOwnerRequest;
-    fromJSON(object: any): QueryVaultInfoByAppByOwnerRequest;
-    toJSON(message: QueryVaultInfoByAppByOwnerRequest): unknown;
+export declare const QueryVaultInfoOfOwnerByAppRequest: {
+    encode(message: QueryVaultInfoOfOwnerByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoOfOwnerByAppRequest;
+    fromJSON(object: any): QueryVaultInfoOfOwnerByAppRequest;
+    toJSON(message: QueryVaultInfoOfOwnerByAppRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
         owner?: string | undefined;
@@ -633,13 +624,13 @@ export declare const QueryVaultInfoByAppByOwnerRequest: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         owner?: string | undefined;
-    } & Record<Exclude<keyof I, keyof QueryVaultInfoByAppByOwnerRequest>, never>>(object: I): QueryVaultInfoByAppByOwnerRequest;
+    } & Record<Exclude<keyof I, keyof QueryVaultInfoOfOwnerByAppRequest>, never>>(object: I): QueryVaultInfoOfOwnerByAppRequest;
 };
-export declare const QueryVaultInfoByAppByOwnerResponse: {
-    encode(message: QueryVaultInfoByAppByOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoByAppByOwnerResponse;
-    fromJSON(object: any): QueryVaultInfoByAppByOwnerResponse;
-    toJSON(message: QueryVaultInfoByAppByOwnerResponse): unknown;
+export declare const QueryVaultInfoOfOwnerByAppResponse: {
+    encode(message: QueryVaultInfoOfOwnerByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultInfoOfOwnerByAppResponse;
+    fromJSON(object: any): QueryVaultInfoOfOwnerByAppResponse;
+    toJSON(message: QueryVaultInfoOfOwnerByAppResponse): unknown;
     fromPartial<I extends {
         vaultsInfo?: {
             id?: string | undefined;
@@ -829,7 +820,7 @@ export declare const QueryVaultInfoByAppByOwnerResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pagination"]["total"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryVaultInfoByAppByOwnerResponse>, never>>(object: I): QueryVaultInfoByAppByOwnerResponse;
+    } & Record<Exclude<keyof I, keyof QueryVaultInfoOfOwnerByAppResponse>, never>>(object: I): QueryVaultInfoOfOwnerByAppResponse;
 };
 export declare const QueryAllVaultsRequest: {
     encode(message: QueryAllVaultsRequest, writer?: _m0.Writer): _m0.Writer;
@@ -1217,11 +1208,11 @@ export declare const QueryAllVaultsResponse: {
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof QueryAllVaultsResponse>, never>>(object: I): QueryAllVaultsResponse;
 };
-export declare const QueryAllVaultsByProductRequest: {
-    encode(message: QueryAllVaultsByProductRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllVaultsByProductRequest;
-    fromJSON(object: any): QueryAllVaultsByProductRequest;
-    toJSON(message: QueryAllVaultsByProductRequest): unknown;
+export declare const QueryAllVaultsByAppRequest: {
+    encode(message: QueryAllVaultsByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllVaultsByAppRequest;
+    fromJSON(object: any): QueryAllVaultsByAppRequest;
+    toJSON(message: QueryAllVaultsByAppRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
     } & {
@@ -1283,13 +1274,13 @@ export declare const QueryAllVaultsByProductRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryAllVaultsByProductRequest;
+    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryAllVaultsByAppRequest;
 };
-export declare const QueryAllVaultsByProductResponse: {
-    encode(message: QueryAllVaultsByProductResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllVaultsByProductResponse;
-    fromJSON(object: any): QueryAllVaultsByProductResponse;
-    toJSON(message: QueryAllVaultsByProductResponse): unknown;
+export declare const QueryAllVaultsByAppResponse: {
+    encode(message: QueryAllVaultsByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllVaultsByAppResponse;
+    fromJSON(object: any): QueryAllVaultsByAppResponse;
+    toJSON(message: QueryAllVaultsByAppResponse): unknown;
     fromPartial<I extends {
         vault?: {
             id?: string | undefined;
@@ -1526,7 +1517,7 @@ export declare const QueryAllVaultsByProductResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pagination"]["total"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryAllVaultsByProductResponse>, never>>(object: I): QueryAllVaultsByProductResponse;
+    } & Record<Exclude<keyof I, keyof QueryAllVaultsByAppResponse>, never>>(object: I): QueryAllVaultsByAppResponse;
 };
 export declare const QueryAllVaultsByAppAndExtendedPairRequest: {
     encode(message: QueryAllVaultsByAppAndExtendedPairRequest, writer?: _m0.Writer): _m0.Writer;
@@ -2032,13 +2023,13 @@ export declare const QueryAllVaultsByAppAndExtendedPairResponse: {
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof QueryAllVaultsByAppAndExtendedPairResponse>, never>>(object: I): QueryAllVaultsByAppAndExtendedPairResponse;
 };
-export declare const QueryVaultOfOwnerByExtendedPairRequest: {
-    encode(message: QueryVaultOfOwnerByExtendedPairRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultOfOwnerByExtendedPairRequest;
-    fromJSON(object: any): QueryVaultOfOwnerByExtendedPairRequest;
-    toJSON(message: QueryVaultOfOwnerByExtendedPairRequest): unknown;
+export declare const QueryVaultIdOfOwnerByExtendedPairAndAppRequest: {
+    encode(message: QueryVaultIdOfOwnerByExtendedPairAndAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultIdOfOwnerByExtendedPairAndAppRequest;
+    fromJSON(object: any): QueryVaultIdOfOwnerByExtendedPairAndAppRequest;
+    toJSON(message: QueryVaultIdOfOwnerByExtendedPairAndAppRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         owner?: string | undefined;
         extendedPairId?: string | number | Long.Long | undefined;
         pagination?: {
@@ -2049,7 +2040,7 @@ export declare const QueryVaultOfOwnerByExtendedPairRequest: {
             reverse?: boolean | undefined;
         } | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -2106,7 +2097,7 @@ export declare const QueryVaultOfOwnerByExtendedPairRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         owner?: string | undefined;
         extendedPairId?: string | number | (Long.Long & {
             high: number;
@@ -2293,26 +2284,26 @@ export declare const QueryVaultOfOwnerByExtendedPairRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryVaultOfOwnerByExtendedPairRequest>, never>>(object: I): QueryVaultOfOwnerByExtendedPairRequest;
+    } & Record<Exclude<keyof I, keyof QueryVaultIdOfOwnerByExtendedPairAndAppRequest>, never>>(object: I): QueryVaultIdOfOwnerByExtendedPairAndAppRequest;
 };
-export declare const QueryVaultOfOwnerByExtendedPairResponse: {
-    encode(message: QueryVaultOfOwnerByExtendedPairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultOfOwnerByExtendedPairResponse;
-    fromJSON(object: any): QueryVaultOfOwnerByExtendedPairResponse;
-    toJSON(message: QueryVaultOfOwnerByExtendedPairResponse): unknown;
+export declare const QueryVaultIdOfOwnerByExtendedPairAndAppResponse: {
+    encode(message: QueryVaultIdOfOwnerByExtendedPairAndAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultIdOfOwnerByExtendedPairAndAppResponse;
+    fromJSON(object: any): QueryVaultIdOfOwnerByExtendedPairAndAppResponse;
+    toJSON(message: QueryVaultIdOfOwnerByExtendedPairAndAppResponse): unknown;
     fromPartial<I extends {
         vaultId?: string | undefined;
     } & {
         vaultId?: string | undefined;
-    } & Record<Exclude<keyof I, "vaultId">, never>>(object: I): QueryVaultOfOwnerByExtendedPairResponse;
+    } & Record<Exclude<keyof I, "vaultId">, never>>(object: I): QueryVaultIdOfOwnerByExtendedPairAndAppResponse;
 };
-export declare const QueryVaultByProductRequest: {
-    encode(message: QueryVaultByProductRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultByProductRequest;
-    fromJSON(object: any): QueryVaultByProductRequest;
-    toJSON(message: QueryVaultByProductRequest): unknown;
+export declare const QueryVaultIdsByAppInAllExtendedPairsRequest: {
+    encode(message: QueryVaultIdsByAppInAllExtendedPairsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultIdsByAppInAllExtendedPairsRequest;
+    fromJSON(object: any): QueryVaultIdsByAppInAllExtendedPairsRequest;
+    toJSON(message: QueryVaultIdsByAppInAllExtendedPairsRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -2321,7 +2312,7 @@ export declare const QueryVaultByProductRequest: {
             reverse?: boolean | undefined;
         } | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -2378,7 +2369,7 @@ export declare const QueryVaultByProductRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         pagination?: ({
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -2506,24 +2497,24 @@ export declare const QueryVaultByProductRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryVaultByProductRequest>, never>>(object: I): QueryVaultByProductRequest;
+    } & Record<Exclude<keyof I, keyof QueryVaultIdsByAppInAllExtendedPairsRequest>, never>>(object: I): QueryVaultIdsByAppInAllExtendedPairsRequest;
 };
-export declare const QueryVaultByProductResponse: {
-    encode(message: QueryVaultByProductResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultByProductResponse;
-    fromJSON(object: any): QueryVaultByProductResponse;
-    toJSON(message: QueryVaultByProductResponse): unknown;
+export declare const QueryVaultIdsByAppInAllExtendedPairsResponse: {
+    encode(message: QueryVaultIdsByAppInAllExtendedPairsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultIdsByAppInAllExtendedPairsResponse;
+    fromJSON(object: any): QueryVaultIdsByAppInAllExtendedPairsResponse;
+    toJSON(message: QueryVaultIdsByAppInAllExtendedPairsResponse): unknown;
     fromPartial<I extends {
         vaultIds?: string[] | undefined;
     } & {
         vaultIds?: (string[] & string[] & Record<Exclude<keyof I["vaultIds"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "vaultIds">, never>>(object: I): QueryVaultByProductResponse;
+    } & Record<Exclude<keyof I, "vaultIds">, never>>(object: I): QueryVaultIdsByAppInAllExtendedPairsResponse;
 };
-export declare const QueryAllVaultByOwnerRequest: {
-    encode(message: QueryAllVaultByOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllVaultByOwnerRequest;
-    fromJSON(object: any): QueryAllVaultByOwnerRequest;
-    toJSON(message: QueryAllVaultByOwnerRequest): unknown;
+export declare const QueryAllVaultIdsByAnOwnerRequest: {
+    encode(message: QueryAllVaultIdsByAnOwnerRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllVaultIdsByAnOwnerRequest;
+    fromJSON(object: any): QueryAllVaultIdsByAnOwnerRequest;
+    toJSON(message: QueryAllVaultIdsByAnOwnerRequest): unknown;
     fromPartial<I extends {
         owner?: string | undefined;
         pagination?: {
@@ -2662,26 +2653,26 @@ export declare const QueryAllVaultByOwnerRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryAllVaultByOwnerRequest>, never>>(object: I): QueryAllVaultByOwnerRequest;
+    } & Record<Exclude<keyof I, keyof QueryAllVaultIdsByAnOwnerRequest>, never>>(object: I): QueryAllVaultIdsByAnOwnerRequest;
 };
-export declare const QueryAllVaultByOwnerResponse: {
-    encode(message: QueryAllVaultByOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllVaultByOwnerResponse;
-    fromJSON(object: any): QueryAllVaultByOwnerResponse;
-    toJSON(message: QueryAllVaultByOwnerResponse): unknown;
+export declare const QueryAllVaultIdsByAnOwnerResponse: {
+    encode(message: QueryAllVaultIdsByAnOwnerResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllVaultIdsByAnOwnerResponse;
+    fromJSON(object: any): QueryAllVaultIdsByAnOwnerResponse;
+    toJSON(message: QueryAllVaultIdsByAnOwnerResponse): unknown;
     fromPartial<I extends {
         vaultIds?: string[] | undefined;
     } & {
         vaultIds?: (string[] & string[] & Record<Exclude<keyof I["vaultIds"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "vaultIds">, never>>(object: I): QueryAllVaultByOwnerResponse;
+    } & Record<Exclude<keyof I, "vaultIds">, never>>(object: I): QueryAllVaultIdsByAnOwnerResponse;
 };
-export declare const QueryTokenMintedAllProductsByPairRequest: {
-    encode(message: QueryTokenMintedAllProductsByPairRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedAllProductsByPairRequest;
-    fromJSON(object: any): QueryTokenMintedAllProductsByPairRequest;
-    toJSON(message: QueryTokenMintedAllProductsByPairRequest): unknown;
+export declare const QueryTokenMintedByAppAndExtendedPairRequest: {
+    encode(message: QueryTokenMintedByAppAndExtendedPairRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByAppAndExtendedPairRequest;
+    fromJSON(object: any): QueryTokenMintedByAppAndExtendedPairRequest;
+    toJSON(message: QueryTokenMintedByAppAndExtendedPairRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairId?: string | number | Long.Long | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
@@ -2691,7 +2682,7 @@ export declare const QueryTokenMintedAllProductsByPairRequest: {
             reverse?: boolean | undefined;
         } | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -2748,7 +2739,7 @@ export declare const QueryTokenMintedAllProductsByPairRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -2934,26 +2925,26 @@ export declare const QueryTokenMintedAllProductsByPairRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryTokenMintedAllProductsByPairRequest>, never>>(object: I): QueryTokenMintedAllProductsByPairRequest;
+    } & Record<Exclude<keyof I, keyof QueryTokenMintedByAppAndExtendedPairRequest>, never>>(object: I): QueryTokenMintedByAppAndExtendedPairRequest;
 };
-export declare const QueryTokenMintedAllProductsByPairResponse: {
-    encode(message: QueryTokenMintedAllProductsByPairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedAllProductsByPairResponse;
-    fromJSON(object: any): QueryTokenMintedAllProductsByPairResponse;
-    toJSON(message: QueryTokenMintedAllProductsByPairResponse): unknown;
+export declare const QueryTokenMintedByAppAndExtendedPairResponse: {
+    encode(message: QueryTokenMintedByAppAndExtendedPairResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByAppAndExtendedPairResponse;
+    fromJSON(object: any): QueryTokenMintedByAppAndExtendedPairResponse;
+    toJSON(message: QueryTokenMintedByAppAndExtendedPairResponse): unknown;
     fromPartial<I extends {
         tokenMinted?: string | undefined;
     } & {
         tokenMinted?: string | undefined;
-    } & Record<Exclude<keyof I, "tokenMinted">, never>>(object: I): QueryTokenMintedAllProductsByPairResponse;
+    } & Record<Exclude<keyof I, "tokenMinted">, never>>(object: I): QueryTokenMintedByAppAndExtendedPairResponse;
 };
-export declare const QueryTokenMintedAllProductsRequest: {
-    encode(message: QueryTokenMintedAllProductsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedAllProductsRequest;
-    fromJSON(object: any): QueryTokenMintedAllProductsRequest;
-    toJSON(message: QueryTokenMintedAllProductsRequest): unknown;
+export declare const QueryTokenMintedAssetWiseByAppRequest: {
+    encode(message: QueryTokenMintedAssetWiseByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedAssetWiseByAppRequest;
+    fromJSON(object: any): QueryTokenMintedAssetWiseByAppRequest;
+    toJSON(message: QueryTokenMintedAssetWiseByAppRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -2962,7 +2953,7 @@ export declare const QueryTokenMintedAllProductsRequest: {
             reverse?: boolean | undefined;
         } | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -3019,7 +3010,7 @@ export declare const QueryTokenMintedAllProductsRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         pagination?: ({
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -3147,26 +3138,41 @@ export declare const QueryTokenMintedAllProductsRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryTokenMintedAllProductsRequest>, never>>(object: I): QueryTokenMintedAllProductsRequest;
+    } & Record<Exclude<keyof I, keyof QueryTokenMintedAssetWiseByAppRequest>, never>>(object: I): QueryTokenMintedAssetWiseByAppRequest;
 };
-export declare const QueryTokenMintedAllProductsResponse: {
-    encode(message: QueryTokenMintedAllProductsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedAllProductsResponse;
-    fromJSON(object: any): QueryTokenMintedAllProductsResponse;
-    toJSON(message: QueryTokenMintedAllProductsResponse): unknown;
+export declare const QueryTokenMintedAssetWiseByAppResponse: {
+    encode(message: QueryTokenMintedAssetWiseByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedAssetWiseByAppResponse;
+    fromJSON(object: any): QueryTokenMintedAssetWiseByAppResponse;
+    toJSON(message: QueryTokenMintedAssetWiseByAppResponse): unknown;
     fromPartial<I extends {
-        tokenMinted?: string | undefined;
+        mintedData?: {
+            assetDenom?: string | undefined;
+            mintedAmount?: string | undefined;
+        }[] | undefined;
     } & {
-        tokenMinted?: string | undefined;
-    } & Record<Exclude<keyof I, "tokenMinted">, never>>(object: I): QueryTokenMintedAllProductsResponse;
+        mintedData?: ({
+            assetDenom?: string | undefined;
+            mintedAmount?: string | undefined;
+        }[] & ({
+            assetDenom?: string | undefined;
+            mintedAmount?: string | undefined;
+        } & {
+            assetDenom?: string | undefined;
+            mintedAmount?: string | undefined;
+        } & Record<Exclude<keyof I["mintedData"][number], keyof MintedDataMap>, never>)[] & Record<Exclude<keyof I["mintedData"], keyof {
+            assetDenom?: string | undefined;
+            mintedAmount?: string | undefined;
+        }[]>, never>) | undefined;
+    } & Record<Exclude<keyof I, "mintedData">, never>>(object: I): QueryTokenMintedAssetWiseByAppResponse;
 };
-export declare const QueryVaultCountByProductRequest: {
-    encode(message: QueryVaultCountByProductRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultCountByProductRequest;
-    fromJSON(object: any): QueryVaultCountByProductRequest;
-    toJSON(message: QueryVaultCountByProductRequest): unknown;
+export declare const QueryVaultCountByAppRequest: {
+    encode(message: QueryVaultCountByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultCountByAppRequest;
+    fromJSON(object: any): QueryVaultCountByAppRequest;
+    toJSON(message: QueryVaultCountByAppRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -3175,7 +3181,7 @@ export declare const QueryVaultCountByProductRequest: {
             reverse?: boolean | undefined;
         } | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -3232,7 +3238,7 @@ export declare const QueryVaultCountByProductRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         pagination?: ({
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -3360,13 +3366,13 @@ export declare const QueryVaultCountByProductRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryVaultCountByProductRequest>, never>>(object: I): QueryVaultCountByProductRequest;
+    } & Record<Exclude<keyof I, keyof QueryVaultCountByAppRequest>, never>>(object: I): QueryVaultCountByAppRequest;
 };
-export declare const QueryVaultCountByProductResponse: {
-    encode(message: QueryVaultCountByProductResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultCountByProductResponse;
-    fromJSON(object: any): QueryVaultCountByProductResponse;
-    toJSON(message: QueryVaultCountByProductResponse): unknown;
+export declare const QueryVaultCountByAppResponse: {
+    encode(message: QueryVaultCountByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultCountByAppResponse;
+    fromJSON(object: any): QueryVaultCountByAppResponse;
+    toJSON(message: QueryVaultCountByAppResponse): unknown;
     fromPartial<I extends {
         vaultCount?: string | number | Long.Long | undefined;
     } & {
@@ -3428,15 +3434,15 @@ export declare const QueryVaultCountByProductResponse: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["vaultCount"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "vaultCount">, never>>(object: I): QueryVaultCountByProductResponse;
+    } & Record<Exclude<keyof I, "vaultCount">, never>>(object: I): QueryVaultCountByAppResponse;
 };
-export declare const QueryVaultCountByProductAndPairRequest: {
-    encode(message: QueryVaultCountByProductAndPairRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultCountByProductAndPairRequest;
-    fromJSON(object: any): QueryVaultCountByProductAndPairRequest;
-    toJSON(message: QueryVaultCountByProductAndPairRequest): unknown;
+export declare const QueryVaultCountByAppAndExtendedPairRequest: {
+    encode(message: QueryVaultCountByAppAndExtendedPairRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultCountByAppAndExtendedPairRequest;
+    fromJSON(object: any): QueryVaultCountByAppAndExtendedPairRequest;
+    toJSON(message: QueryVaultCountByAppAndExtendedPairRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairId?: string | number | Long.Long | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
@@ -3446,7 +3452,7 @@ export declare const QueryVaultCountByProductAndPairRequest: {
             reverse?: boolean | undefined;
         } | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -3503,7 +3509,7 @@ export declare const QueryVaultCountByProductAndPairRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -3689,13 +3695,13 @@ export declare const QueryVaultCountByProductAndPairRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryVaultCountByProductAndPairRequest>, never>>(object: I): QueryVaultCountByProductAndPairRequest;
+    } & Record<Exclude<keyof I, keyof QueryVaultCountByAppAndExtendedPairRequest>, never>>(object: I): QueryVaultCountByAppAndExtendedPairRequest;
 };
-export declare const QueryVaultCountByProductAndPairResponse: {
-    encode(message: QueryVaultCountByProductAndPairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultCountByProductAndPairResponse;
-    fromJSON(object: any): QueryVaultCountByProductAndPairResponse;
-    toJSON(message: QueryVaultCountByProductAndPairResponse): unknown;
+export declare const QueryVaultCountByAppAndExtendedPairResponse: {
+    encode(message: QueryVaultCountByAppAndExtendedPairResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultCountByAppAndExtendedPairResponse;
+    fromJSON(object: any): QueryVaultCountByAppAndExtendedPairResponse;
+    toJSON(message: QueryVaultCountByAppAndExtendedPairResponse): unknown;
     fromPartial<I extends {
         vaultCount?: string | number | Long.Long | undefined;
     } & {
@@ -3757,15 +3763,15 @@ export declare const QueryVaultCountByProductAndPairResponse: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["vaultCount"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "vaultCount">, never>>(object: I): QueryVaultCountByProductAndPairResponse;
+    } & Record<Exclude<keyof I, "vaultCount">, never>>(object: I): QueryVaultCountByAppAndExtendedPairResponse;
 };
-export declare const QueryTotalValueLockedByProductExtendedPairRequest: {
-    encode(message: QueryTotalValueLockedByProductExtendedPairRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalValueLockedByProductExtendedPairRequest;
-    fromJSON(object: any): QueryTotalValueLockedByProductExtendedPairRequest;
-    toJSON(message: QueryTotalValueLockedByProductExtendedPairRequest): unknown;
+export declare const QueryTotalValueLockedByAppExtendedPairRequest: {
+    encode(message: QueryTotalValueLockedByAppExtendedPairRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalValueLockedByAppExtendedPairRequest;
+    fromJSON(object: any): QueryTotalValueLockedByAppExtendedPairRequest;
+    toJSON(message: QueryTotalValueLockedByAppExtendedPairRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairId?: string | number | Long.Long | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
@@ -3775,7 +3781,7 @@ export declare const QueryTotalValueLockedByProductExtendedPairRequest: {
             reverse?: boolean | undefined;
         } | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -3832,7 +3838,7 @@ export declare const QueryTotalValueLockedByProductExtendedPairRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -4018,26 +4024,26 @@ export declare const QueryTotalValueLockedByProductExtendedPairRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryTotalValueLockedByProductExtendedPairRequest>, never>>(object: I): QueryTotalValueLockedByProductExtendedPairRequest;
+    } & Record<Exclude<keyof I, keyof QueryTotalValueLockedByAppExtendedPairRequest>, never>>(object: I): QueryTotalValueLockedByAppExtendedPairRequest;
 };
-export declare const QueryTotalValueLockedByProductExtendedPairResponse: {
-    encode(message: QueryTotalValueLockedByProductExtendedPairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalValueLockedByProductExtendedPairResponse;
-    fromJSON(object: any): QueryTotalValueLockedByProductExtendedPairResponse;
-    toJSON(message: QueryTotalValueLockedByProductExtendedPairResponse): unknown;
+export declare const QueryTotalValueLockedByAppExtendedPairResponse: {
+    encode(message: QueryTotalValueLockedByAppExtendedPairResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalValueLockedByAppExtendedPairResponse;
+    fromJSON(object: any): QueryTotalValueLockedByAppExtendedPairResponse;
+    toJSON(message: QueryTotalValueLockedByAppExtendedPairResponse): unknown;
     fromPartial<I extends {
         valueLocked?: string | undefined;
     } & {
         valueLocked?: string | undefined;
-    } & Record<Exclude<keyof I, "valueLocked">, never>>(object: I): QueryTotalValueLockedByProductExtendedPairResponse;
+    } & Record<Exclude<keyof I, "valueLocked">, never>>(object: I): QueryTotalValueLockedByAppExtendedPairResponse;
 };
-export declare const QueryExtendedPairIDByProductRequest: {
-    encode(message: QueryExtendedPairIDByProductRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairIDByProductRequest;
-    fromJSON(object: any): QueryExtendedPairIDByProductRequest;
-    toJSON(message: QueryExtendedPairIDByProductRequest): unknown;
+export declare const QueryExtendedPairIDsByAppRequest: {
+    encode(message: QueryExtendedPairIDsByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairIDsByAppRequest;
+    fromJSON(object: any): QueryExtendedPairIDsByAppRequest;
+    toJSON(message: QueryExtendedPairIDsByAppRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -4046,7 +4052,7 @@ export declare const QueryExtendedPairIDByProductRequest: {
             reverse?: boolean | undefined;
         } | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -4103,7 +4109,7 @@ export declare const QueryExtendedPairIDByProductRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         pagination?: ({
             key?: Uint8Array | undefined;
             offset?: string | number | Long.Long | undefined;
@@ -4231,13 +4237,13 @@ export declare const QueryExtendedPairIDByProductRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryExtendedPairIDByProductRequest>, never>>(object: I): QueryExtendedPairIDByProductRequest;
+    } & Record<Exclude<keyof I, keyof QueryExtendedPairIDsByAppRequest>, never>>(object: I): QueryExtendedPairIDsByAppRequest;
 };
-export declare const QueryExtendedPairIDByProductResponse: {
-    encode(message: QueryExtendedPairIDByProductResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairIDByProductResponse;
-    fromJSON(object: any): QueryExtendedPairIDByProductResponse;
-    toJSON(message: QueryExtendedPairIDByProductResponse): unknown;
+export declare const QueryExtendedPairIDsByAppResponse: {
+    encode(message: QueryExtendedPairIDsByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairIDsByAppResponse;
+    fromJSON(object: any): QueryExtendedPairIDsByAppResponse;
+    toJSON(message: QueryExtendedPairIDsByAppResponse): unknown;
     fromPartial<I extends {
         extendedPairIds?: (string | number | Long.Long)[] | undefined;
     } & {
@@ -4299,24 +4305,24 @@ export declare const QueryExtendedPairIDByProductResponse: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["extendedPairIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["extendedPairIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "extendedPairIds">, never>>(object: I): QueryExtendedPairIDByProductResponse;
+    } & Record<Exclude<keyof I, "extendedPairIds">, never>>(object: I): QueryExtendedPairIDsByAppResponse;
 };
-export declare const QueryStableVaultInfoRequest: {
-    encode(message: QueryStableVaultInfoRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStableVaultInfoRequest;
-    fromJSON(object: any): QueryStableVaultInfoRequest;
-    toJSON(message: QueryStableVaultInfoRequest): unknown;
+export declare const QueryStableVaultByVaultIdRequest: {
+    encode(message: QueryStableVaultByVaultIdRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStableVaultByVaultIdRequest;
+    fromJSON(object: any): QueryStableVaultByVaultIdRequest;
+    toJSON(message: QueryStableVaultByVaultIdRequest): unknown;
     fromPartial<I extends {
         stableVaultId?: string | undefined;
     } & {
         stableVaultId?: string | undefined;
-    } & Record<Exclude<keyof I, "stableVaultId">, never>>(object: I): QueryStableVaultInfoRequest;
+    } & Record<Exclude<keyof I, "stableVaultId">, never>>(object: I): QueryStableVaultByVaultIdRequest;
 };
-export declare const QueryStableVaultInfoResponse: {
-    encode(message: QueryStableVaultInfoResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStableVaultInfoResponse;
-    fromJSON(object: any): QueryStableVaultInfoResponse;
-    toJSON(message: QueryStableVaultInfoResponse): unknown;
+export declare const QueryStableVaultByVaultIdResponse: {
+    encode(message: QueryStableVaultByVaultIdResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStableVaultByVaultIdResponse;
+    fromJSON(object: any): QueryStableVaultByVaultIdResponse;
+    toJSON(message: QueryStableVaultByVaultIdResponse): unknown;
     fromPartial<I extends {
         stableMintVault?: {
             id?: string | undefined;
@@ -4456,13 +4462,13 @@ export declare const QueryStableVaultInfoResponse: {
             } & Record<Exclude<keyof I["stableMintVault"]["extendedPairVaultId"], keyof Long.Long>, never>) | undefined;
             createdAt?: Date | undefined;
         } & Record<Exclude<keyof I["stableMintVault"], keyof StableMintVault>, never>) | undefined;
-    } & Record<Exclude<keyof I, "stableMintVault">, never>>(object: I): QueryStableVaultInfoResponse;
+    } & Record<Exclude<keyof I, "stableMintVault">, never>>(object: I): QueryStableVaultByVaultIdResponse;
 };
-export declare const QueryAllStableVaultsRequest: {
-    encode(message: QueryAllStableVaultsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllStableVaultsRequest;
-    fromJSON(object: any): QueryAllStableVaultsRequest;
-    toJSON(message: QueryAllStableVaultsRequest): unknown;
+export declare const QueryStableVaultByAppRequest: {
+    encode(message: QueryStableVaultByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStableVaultByAppRequest;
+    fromJSON(object: any): QueryStableVaultByAppRequest;
+    toJSON(message: QueryStableVaultByAppRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
     } & {
@@ -4524,13 +4530,13 @@ export declare const QueryAllStableVaultsRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryAllStableVaultsRequest;
+    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryStableVaultByAppRequest;
 };
-export declare const QueryAllStableVaultsResponse: {
-    encode(message: QueryAllStableVaultsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllStableVaultsResponse;
-    fromJSON(object: any): QueryAllStableVaultsResponse;
-    toJSON(message: QueryAllStableVaultsResponse): unknown;
+export declare const QueryStableVaultByAppResponse: {
+    encode(message: QueryStableVaultByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStableVaultByAppResponse;
+    fromJSON(object: any): QueryStableVaultByAppResponse;
+    toJSON(message: QueryStableVaultByAppResponse): unknown;
     fromPartial<I extends {
         stableMintVault?: {
             id?: string | undefined;
@@ -4684,13 +4690,13 @@ export declare const QueryAllStableVaultsResponse: {
             extendedPairVaultId?: string | number | Long.Long | undefined;
             createdAt?: Date | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "stableMintVault">, never>>(object: I): QueryAllStableVaultsResponse;
+    } & Record<Exclude<keyof I, "stableMintVault">, never>>(object: I): QueryStableVaultByAppResponse;
 };
-export declare const QueryStableVaultByProductExtendedPairRequest: {
-    encode(message: QueryStableVaultByProductExtendedPairRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStableVaultByProductExtendedPairRequest;
-    fromJSON(object: any): QueryStableVaultByProductExtendedPairRequest;
-    toJSON(message: QueryStableVaultByProductExtendedPairRequest): unknown;
+export declare const QueryStableVaultByAppExtendedPairRequest: {
+    encode(message: QueryStableVaultByAppExtendedPairRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStableVaultByAppExtendedPairRequest;
+    fromJSON(object: any): QueryStableVaultByAppExtendedPairRequest;
+    toJSON(message: QueryStableVaultByAppExtendedPairRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
         extendedPairId?: string | number | Long.Long | undefined;
@@ -4811,13 +4817,13 @@ export declare const QueryStableVaultByProductExtendedPairRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["extendedPairId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryStableVaultByProductExtendedPairRequest>, never>>(object: I): QueryStableVaultByProductExtendedPairRequest;
+    } & Record<Exclude<keyof I, keyof QueryStableVaultByAppExtendedPairRequest>, never>>(object: I): QueryStableVaultByAppExtendedPairRequest;
 };
-export declare const QueryStableVaultByProductExtendedPairResponse: {
-    encode(message: QueryStableVaultByProductExtendedPairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStableVaultByProductExtendedPairResponse;
-    fromJSON(object: any): QueryStableVaultByProductExtendedPairResponse;
-    toJSON(message: QueryStableVaultByProductExtendedPairResponse): unknown;
+export declare const QueryStableVaultByAppExtendedPairResponse: {
+    encode(message: QueryStableVaultByAppExtendedPairResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStableVaultByAppExtendedPairResponse;
+    fromJSON(object: any): QueryStableVaultByAppExtendedPairResponse;
+    toJSON(message: QueryStableVaultByAppExtendedPairResponse): unknown;
     fromPartial<I extends {
         stableMintVault?: {
             id?: string | undefined;
@@ -4957,7 +4963,7 @@ export declare const QueryStableVaultByProductExtendedPairResponse: {
             } & Record<Exclude<keyof I["stableMintVault"]["extendedPairVaultId"], keyof Long.Long>, never>) | undefined;
             createdAt?: Date | undefined;
         } & Record<Exclude<keyof I["stableMintVault"], keyof StableMintVault>, never>) | undefined;
-    } & Record<Exclude<keyof I, "stableMintVault">, never>>(object: I): QueryStableVaultByProductExtendedPairResponse;
+    } & Record<Exclude<keyof I, "stableMintVault">, never>>(object: I): QueryStableVaultByAppExtendedPairResponse;
 };
 export declare const QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest: {
     encode(message: QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest, writer?: _m0.Writer): _m0.Writer;
@@ -5330,299 +5336,6 @@ export declare const QueryExtendedPairVaultMappingByAppResponse: {
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "extendedPairVaultMapping">, never>>(object: I): QueryExtendedPairVaultMappingByAppResponse;
 };
-export declare const QueryExtendedPairVaultMappingByOwnerAndAppRequest: {
-    encode(message: QueryExtendedPairVaultMappingByOwnerAndAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairVaultMappingByOwnerAndAppRequest;
-    fromJSON(object: any): QueryExtendedPairVaultMappingByOwnerAndAppRequest;
-    toJSON(message: QueryExtendedPairVaultMappingByOwnerAndAppRequest): unknown;
-    fromPartial<I extends {
-        owner?: string | undefined;
-        appId?: string | number | Long.Long | undefined;
-    } & {
-        owner?: string | undefined;
-        appId?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryExtendedPairVaultMappingByOwnerAndAppRequest>, never>>(object: I): QueryExtendedPairVaultMappingByOwnerAndAppRequest;
-};
-export declare const QueryExtendedPairVaultMappingByOwnerAndAppResponse: {
-    encode(message: QueryExtendedPairVaultMappingByOwnerAndAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairVaultMappingByOwnerAndAppResponse;
-    fromJSON(object: any): QueryExtendedPairVaultMappingByOwnerAndAppResponse;
-    toJSON(message: QueryExtendedPairVaultMappingByOwnerAndAppResponse): unknown;
-    fromPartial<I extends {
-        extendedPairtoVaultMapping?: {
-            extendedPairId?: string | number | Long.Long | undefined;
-            vaultId?: string | undefined;
-        }[] | undefined;
-    } & {
-        extendedPairtoVaultMapping?: ({
-            extendedPairId?: string | number | Long.Long | undefined;
-            vaultId?: string | undefined;
-        }[] & ({
-            extendedPairId?: string | number | Long.Long | undefined;
-            vaultId?: string | undefined;
-        } & {
-            extendedPairId?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["extendedPairtoVaultMapping"][number]["extendedPairId"], keyof Long.Long>, never>) | undefined;
-            vaultId?: string | undefined;
-        } & Record<Exclude<keyof I["extendedPairtoVaultMapping"][number], keyof ExtendedPairToVaultMapping>, never>)[] & Record<Exclude<keyof I["extendedPairtoVaultMapping"], keyof {
-            extendedPairId?: string | number | Long.Long | undefined;
-            vaultId?: string | undefined;
-        }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "extendedPairtoVaultMapping">, never>>(object: I): QueryExtendedPairVaultMappingByOwnerAndAppResponse;
-};
-export declare const QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest: {
-    encode(message: QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest;
-    fromJSON(object: any): QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest;
-    toJSON(message: QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest): unknown;
-    fromPartial<I extends {
-        owner?: string | undefined;
-        appId?: string | number | Long.Long | undefined;
-        extendedPair?: string | number | Long.Long | undefined;
-    } & {
-        owner?: string | undefined;
-        appId?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-        extendedPair?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["extendedPair"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest>, never>>(object: I): QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest;
-};
-export declare const QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse: {
-    encode(message: QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse;
-    fromJSON(object: any): QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse;
-    toJSON(message: QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse): unknown;
-    fromPartial<I extends {
-        vaultId?: string | undefined;
-    } & {
-        vaultId?: string | undefined;
-    } & Record<Exclude<keyof I, "vaultId">, never>>(object: I): QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse;
-};
 export declare const QueryTVLLockedByAppOfAllExtendedPairsRequest: {
     encode(message: QueryTVLLockedByAppOfAllExtendedPairsRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTVLLockedByAppOfAllExtendedPairsRequest;
@@ -5883,29 +5596,218 @@ export declare const QueryUserMyPositionByAppResponse: {
         averageCrRatio?: string | undefined;
     } & Record<Exclude<keyof I, keyof QueryUserMyPositionByAppResponse>, never>>(object: I): QueryUserMyPositionByAppResponse;
 };
+export declare const QueryUserExtendedPairTotalDataRequest: {
+    encode(message: QueryUserExtendedPairTotalDataRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryUserExtendedPairTotalDataRequest;
+    fromJSON(object: any): QueryUserExtendedPairTotalDataRequest;
+    toJSON(message: QueryUserExtendedPairTotalDataRequest): unknown;
+    fromPartial<I extends {
+        owner?: string | undefined;
+    } & {
+        owner?: string | undefined;
+    } & Record<Exclude<keyof I, "owner">, never>>(object: I): QueryUserExtendedPairTotalDataRequest;
+};
+export declare const QueryUserExtendedPairTotalDataResponse: {
+    encode(message: QueryUserExtendedPairTotalDataResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryUserExtendedPairTotalDataResponse;
+    fromJSON(object: any): QueryUserExtendedPairTotalDataResponse;
+    toJSON(message: QueryUserExtendedPairTotalDataResponse): unknown;
+    fromPartial<I extends {
+        userTotalData?: {
+            owner?: string | undefined;
+            userVaultApp?: {
+                appMappingId?: string | number | Long.Long | undefined;
+                userExtendedPairVault?: {
+                    extendedPairId?: string | number | Long.Long | undefined;
+                    vaultId?: string | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        } | undefined;
+    } & {
+        userTotalData?: ({
+            owner?: string | undefined;
+            userVaultApp?: {
+                appMappingId?: string | number | Long.Long | undefined;
+                userExtendedPairVault?: {
+                    extendedPairId?: string | number | Long.Long | undefined;
+                    vaultId?: string | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        } & {
+            owner?: string | undefined;
+            userVaultApp?: ({
+                appMappingId?: string | number | Long.Long | undefined;
+                userExtendedPairVault?: {
+                    extendedPairId?: string | number | Long.Long | undefined;
+                    vaultId?: string | undefined;
+                }[] | undefined;
+            }[] & ({
+                appMappingId?: string | number | Long.Long | undefined;
+                userExtendedPairVault?: {
+                    extendedPairId?: string | number | Long.Long | undefined;
+                    vaultId?: string | undefined;
+                }[] | undefined;
+            } & {
+                appMappingId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["userTotalData"]["userVaultApp"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+                userExtendedPairVault?: ({
+                    extendedPairId?: string | number | Long.Long | undefined;
+                    vaultId?: string | undefined;
+                }[] & ({
+                    extendedPairId?: string | number | Long.Long | undefined;
+                    vaultId?: string | undefined;
+                } & {
+                    extendedPairId?: string | number | (Long.Long & {
+                        high: number;
+                        low: number;
+                        unsigned: boolean;
+                        add: (addend: string | number | Long.Long) => Long.Long;
+                        and: (other: string | number | Long.Long) => Long.Long;
+                        compare: (other: string | number | Long.Long) => number;
+                        comp: (other: string | number | Long.Long) => number;
+                        divide: (divisor: string | number | Long.Long) => Long.Long;
+                        div: (divisor: string | number | Long.Long) => Long.Long;
+                        equals: (other: string | number | Long.Long) => boolean;
+                        eq: (other: string | number | Long.Long) => boolean;
+                        getHighBits: () => number;
+                        getHighBitsUnsigned: () => number;
+                        getLowBits: () => number;
+                        getLowBitsUnsigned: () => number;
+                        getNumBitsAbs: () => number;
+                        greaterThan: (other: string | number | Long.Long) => boolean;
+                        gt: (other: string | number | Long.Long) => boolean;
+                        greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                        gte: (other: string | number | Long.Long) => boolean;
+                        isEven: () => boolean;
+                        isNegative: () => boolean;
+                        isOdd: () => boolean;
+                        isPositive: () => boolean;
+                        isZero: () => boolean;
+                        lessThan: (other: string | number | Long.Long) => boolean;
+                        lt: (other: string | number | Long.Long) => boolean;
+                        lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                        lte: (other: string | number | Long.Long) => boolean;
+                        modulo: (other: string | number | Long.Long) => Long.Long;
+                        mod: (other: string | number | Long.Long) => Long.Long;
+                        multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                        mul: (multiplier: string | number | Long.Long) => Long.Long;
+                        negate: () => Long.Long;
+                        neg: () => Long.Long;
+                        not: () => Long.Long;
+                        notEquals: (other: string | number | Long.Long) => boolean;
+                        neq: (other: string | number | Long.Long) => boolean;
+                        or: (other: string | number | Long.Long) => Long.Long;
+                        shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                        shl: (numBits: number | Long.Long) => Long.Long;
+                        shiftRight: (numBits: number | Long.Long) => Long.Long;
+                        shr: (numBits: number | Long.Long) => Long.Long;
+                        shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                        shru: (numBits: number | Long.Long) => Long.Long;
+                        subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                        sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                        toInt: () => number;
+                        toNumber: () => number;
+                        toBytes: (le?: boolean | undefined) => number[];
+                        toBytesLE: () => number[];
+                        toBytesBE: () => number[];
+                        toSigned: () => Long.Long;
+                        toString: (radix?: number | undefined) => string;
+                        toUnsigned: () => Long.Long;
+                        xor: (other: string | number | Long.Long) => Long.Long;
+                    } & Record<Exclude<keyof I["userTotalData"]["userVaultApp"][number]["userExtendedPairVault"][number]["extendedPairId"], keyof Long.Long>, never>) | undefined;
+                    vaultId?: string | undefined;
+                } & Record<Exclude<keyof I["userTotalData"]["userVaultApp"][number]["userExtendedPairVault"][number], keyof import("../../../comdex/vault/v1beta1/vault").ExtendedPairToVaultMapping>, never>)[] & Record<Exclude<keyof I["userTotalData"]["userVaultApp"][number]["userExtendedPairVault"], keyof {
+                    extendedPairId?: string | number | Long.Long | undefined;
+                    vaultId?: string | undefined;
+                }[]>, never>) | undefined;
+            } & Record<Exclude<keyof I["userTotalData"]["userVaultApp"][number], keyof import("../../../comdex/vault/v1beta1/vault").VaultToAppMapping>, never>)[] & Record<Exclude<keyof I["userTotalData"]["userVaultApp"], keyof {
+                appMappingId?: string | number | Long.Long | undefined;
+                userExtendedPairVault?: {
+                    extendedPairId?: string | number | Long.Long | undefined;
+                    vaultId?: string | undefined;
+                }[] | undefined;
+            }[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["userTotalData"], keyof UserVaultAssetMapping>, never>) | undefined;
+    } & Record<Exclude<keyof I, "userTotalData">, never>>(object: I): QueryUserExtendedPairTotalDataResponse;
+};
 export interface Query {
     QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse>;
-    QueryVaultInfo(request: QueryVaultInfoRequest): Promise<QueryVaultInfoResponse>;
-    QueryVaultInfoByAppByOwner(request: QueryVaultInfoByAppByOwnerRequest): Promise<QueryVaultInfoByAppByOwnerResponse>;
+    QueryUserExtendedPairTotalData(request: QueryUserExtendedPairTotalDataRequest): Promise<QueryUserExtendedPairTotalDataResponse>;
+    QueryVaultInfoByVaultId(request: QueryVaultInfoByVaultIdRequest): Promise<QueryVaultInfoByVaultIdResponse>;
+    QueryVaultInfoOfOwnerByApp(request: QueryVaultInfoOfOwnerByAppRequest): Promise<QueryVaultInfoOfOwnerByAppResponse>;
     QueryAllVaults(request: QueryAllVaultsRequest): Promise<QueryAllVaultsResponse>;
-    QueryAllVaultsByProduct(request: QueryAllVaultsByProductRequest): Promise<QueryAllVaultsByProductResponse>;
+    QueryAllVaultsByApp(request: QueryAllVaultsByAppRequest): Promise<QueryAllVaultsByAppResponse>;
     QueryAllVaultsByAppAndExtendedPair(request: QueryAllVaultsByAppAndExtendedPairRequest): Promise<QueryAllVaultsByAppAndExtendedPairResponse>;
-    QueryVaultOfOwnerByExtendedPair(request: QueryVaultOfOwnerByExtendedPairRequest): Promise<QueryVaultOfOwnerByExtendedPairResponse>;
-    QueryVaultByProduct(request: QueryVaultByProductRequest): Promise<QueryVaultByProductResponse>;
-    QueryAllVaultByOwner(request: QueryAllVaultByOwnerRequest): Promise<QueryAllVaultByOwnerResponse>;
-    QueryTokenMintedAllProductsByPair(request: QueryTokenMintedAllProductsByPairRequest): Promise<QueryTokenMintedAllProductsByPairResponse>;
-    QueryTokenMintedAllProducts(request: QueryTokenMintedAllProductsRequest): Promise<QueryTokenMintedAllProductsResponse>;
-    QueryVaultCountByProduct(request: QueryVaultCountByProductRequest): Promise<QueryVaultCountByProductResponse>;
-    QueryVaultCountByProductAndPair(request: QueryVaultCountByProductAndPairRequest): Promise<QueryVaultCountByProductAndPairResponse>;
-    QueryTotalValueLockedByProductExtendedPair(request: QueryTotalValueLockedByProductExtendedPairRequest): Promise<QueryTotalValueLockedByProductExtendedPairResponse>;
-    QueryExtendedPairIDByProduct(request: QueryExtendedPairIDByProductRequest): Promise<QueryExtendedPairIDByProductResponse>;
-    QueryStableVaultInfo(request: QueryStableVaultInfoRequest): Promise<QueryStableVaultInfoResponse>;
-    QueryAllStableVaults(request: QueryAllStableVaultsRequest): Promise<QueryAllStableVaultsResponse>;
-    QueryStableVaultByProductExtendedPair(request: QueryStableVaultByProductExtendedPairRequest): Promise<QueryStableVaultByProductExtendedPairResponse>;
+    QueryVaultIdOfOwnerByExtendedPairAndApp(request: QueryVaultIdOfOwnerByExtendedPairAndAppRequest): Promise<QueryVaultIdOfOwnerByExtendedPairAndAppResponse>;
+    QueryVaultIdsByAppInAllExtendedPairs(request: QueryVaultIdsByAppInAllExtendedPairsRequest): Promise<QueryVaultIdsByAppInAllExtendedPairsResponse>;
+    QueryAllVaultIdsByAnOwner(request: QueryAllVaultIdsByAnOwnerRequest): Promise<QueryAllVaultIdsByAnOwnerResponse>;
+    QueryTokenMintedByAppAndExtendedPair(request: QueryTokenMintedByAppAndExtendedPairRequest): Promise<QueryTokenMintedByAppAndExtendedPairResponse>;
+    QueryTokenMintedAssetWiseByApp(request: QueryTokenMintedAssetWiseByAppRequest): Promise<QueryTokenMintedAssetWiseByAppResponse>;
+    QueryVaultCountByApp(request: QueryVaultCountByAppRequest): Promise<QueryVaultCountByAppResponse>;
+    QueryVaultCountByAppAndExtendedPair(request: QueryVaultCountByAppAndExtendedPairRequest): Promise<QueryVaultCountByAppAndExtendedPairResponse>;
+    QueryTotalValueLockedByAppExtendedPair(request: QueryTotalValueLockedByAppExtendedPairRequest): Promise<QueryTotalValueLockedByAppExtendedPairResponse>;
+    QueryExtendedPairIDsByApp(request: QueryExtendedPairIDsByAppRequest): Promise<QueryExtendedPairIDsByAppResponse>;
+    QueryStableVaultByVaultId(request: QueryStableVaultByVaultIdRequest): Promise<QueryStableVaultByVaultIdResponse>;
+    QueryStableVaultByApp(request: QueryStableVaultByAppRequest): Promise<QueryStableVaultByAppResponse>;
+    QueryStableVaultByAppExtendedPair(request: QueryStableVaultByAppExtendedPairRequest): Promise<QueryStableVaultByAppExtendedPairResponse>;
     QueryExtendedPairVaultMappingByAppAndExtendedPairId(request: QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest): Promise<QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse>;
     QueryExtendedPairVaultMappingByApp(request: QueryExtendedPairVaultMappingByAppRequest): Promise<QueryExtendedPairVaultMappingByAppResponse>;
-    QueryExtendedPairVaultMappingByOwnerAndApp(request: QueryExtendedPairVaultMappingByOwnerAndAppRequest): Promise<QueryExtendedPairVaultMappingByOwnerAndAppResponse>;
-    QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID(request: QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest): Promise<QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse>;
     QueryTVLLockedByAppOfAllExtendedPairs(request: QueryTVLLockedByAppOfAllExtendedPairsRequest): Promise<QueryTVLLockedByAppOfAllExtendedPairsResponse>;
     QueryTotalTVLByApp(request: QueryTotalTVLByAppRequest): Promise<QueryTotalTVLByAppResponse>;
     QueryUserMyPositionByApp(request: QueryUserMyPositionByAppRequest): Promise<QueryUserMyPositionByAppResponse>;
@@ -5914,27 +5816,26 @@ export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
     QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse>;
-    QueryVaultInfo(request: QueryVaultInfoRequest): Promise<QueryVaultInfoResponse>;
-    QueryVaultInfoByAppByOwner(request: QueryVaultInfoByAppByOwnerRequest): Promise<QueryVaultInfoByAppByOwnerResponse>;
+    QueryUserExtendedPairTotalData(request: QueryUserExtendedPairTotalDataRequest): Promise<QueryUserExtendedPairTotalDataResponse>;
+    QueryVaultInfoByVaultId(request: QueryVaultInfoByVaultIdRequest): Promise<QueryVaultInfoByVaultIdResponse>;
+    QueryVaultInfoOfOwnerByApp(request: QueryVaultInfoOfOwnerByAppRequest): Promise<QueryVaultInfoOfOwnerByAppResponse>;
     QueryAllVaults(request: QueryAllVaultsRequest): Promise<QueryAllVaultsResponse>;
-    QueryAllVaultsByProduct(request: QueryAllVaultsByProductRequest): Promise<QueryAllVaultsByProductResponse>;
+    QueryAllVaultsByApp(request: QueryAllVaultsByAppRequest): Promise<QueryAllVaultsByAppResponse>;
     QueryAllVaultsByAppAndExtendedPair(request: QueryAllVaultsByAppAndExtendedPairRequest): Promise<QueryAllVaultsByAppAndExtendedPairResponse>;
-    QueryVaultOfOwnerByExtendedPair(request: QueryVaultOfOwnerByExtendedPairRequest): Promise<QueryVaultOfOwnerByExtendedPairResponse>;
-    QueryVaultByProduct(request: QueryVaultByProductRequest): Promise<QueryVaultByProductResponse>;
-    QueryAllVaultByOwner(request: QueryAllVaultByOwnerRequest): Promise<QueryAllVaultByOwnerResponse>;
-    QueryTokenMintedAllProductsByPair(request: QueryTokenMintedAllProductsByPairRequest): Promise<QueryTokenMintedAllProductsByPairResponse>;
-    QueryTokenMintedAllProducts(request: QueryTokenMintedAllProductsRequest): Promise<QueryTokenMintedAllProductsResponse>;
-    QueryVaultCountByProduct(request: QueryVaultCountByProductRequest): Promise<QueryVaultCountByProductResponse>;
-    QueryVaultCountByProductAndPair(request: QueryVaultCountByProductAndPairRequest): Promise<QueryVaultCountByProductAndPairResponse>;
-    QueryTotalValueLockedByProductExtendedPair(request: QueryTotalValueLockedByProductExtendedPairRequest): Promise<QueryTotalValueLockedByProductExtendedPairResponse>;
-    QueryExtendedPairIDByProduct(request: QueryExtendedPairIDByProductRequest): Promise<QueryExtendedPairIDByProductResponse>;
-    QueryStableVaultInfo(request: QueryStableVaultInfoRequest): Promise<QueryStableVaultInfoResponse>;
-    QueryAllStableVaults(request: QueryAllStableVaultsRequest): Promise<QueryAllStableVaultsResponse>;
-    QueryStableVaultByProductExtendedPair(request: QueryStableVaultByProductExtendedPairRequest): Promise<QueryStableVaultByProductExtendedPairResponse>;
+    QueryVaultIdOfOwnerByExtendedPairAndApp(request: QueryVaultIdOfOwnerByExtendedPairAndAppRequest): Promise<QueryVaultIdOfOwnerByExtendedPairAndAppResponse>;
+    QueryVaultIdsByAppInAllExtendedPairs(request: QueryVaultIdsByAppInAllExtendedPairsRequest): Promise<QueryVaultIdsByAppInAllExtendedPairsResponse>;
+    QueryAllVaultIdsByAnOwner(request: QueryAllVaultIdsByAnOwnerRequest): Promise<QueryAllVaultIdsByAnOwnerResponse>;
+    QueryTokenMintedByAppAndExtendedPair(request: QueryTokenMintedByAppAndExtendedPairRequest): Promise<QueryTokenMintedByAppAndExtendedPairResponse>;
+    QueryTokenMintedAssetWiseByApp(request: QueryTokenMintedAssetWiseByAppRequest): Promise<QueryTokenMintedAssetWiseByAppResponse>;
+    QueryVaultCountByApp(request: QueryVaultCountByAppRequest): Promise<QueryVaultCountByAppResponse>;
+    QueryVaultCountByAppAndExtendedPair(request: QueryVaultCountByAppAndExtendedPairRequest): Promise<QueryVaultCountByAppAndExtendedPairResponse>;
+    QueryTotalValueLockedByAppExtendedPair(request: QueryTotalValueLockedByAppExtendedPairRequest): Promise<QueryTotalValueLockedByAppExtendedPairResponse>;
+    QueryExtendedPairIDsByApp(request: QueryExtendedPairIDsByAppRequest): Promise<QueryExtendedPairIDsByAppResponse>;
+    QueryStableVaultByVaultId(request: QueryStableVaultByVaultIdRequest): Promise<QueryStableVaultByVaultIdResponse>;
+    QueryStableVaultByApp(request: QueryStableVaultByAppRequest): Promise<QueryStableVaultByAppResponse>;
+    QueryStableVaultByAppExtendedPair(request: QueryStableVaultByAppExtendedPairRequest): Promise<QueryStableVaultByAppExtendedPairResponse>;
     QueryExtendedPairVaultMappingByAppAndExtendedPairId(request: QueryExtendedPairVaultMappingByAppAndExtendedPairIdRequest): Promise<QueryExtendedPairVaultMappingByAppAndExtendedPairIdResponse>;
     QueryExtendedPairVaultMappingByApp(request: QueryExtendedPairVaultMappingByAppRequest): Promise<QueryExtendedPairVaultMappingByAppResponse>;
-    QueryExtendedPairVaultMappingByOwnerAndApp(request: QueryExtendedPairVaultMappingByOwnerAndAppRequest): Promise<QueryExtendedPairVaultMappingByOwnerAndAppResponse>;
-    QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairID(request: QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDRequest): Promise<QueryExtendedPairVaultMappingByOwnerAndAppAndExtendedPairIDResponse>;
     QueryTVLLockedByAppOfAllExtendedPairs(request: QueryTVLLockedByAppOfAllExtendedPairsRequest): Promise<QueryTVLLockedByAppOfAllExtendedPairsResponse>;
     QueryTotalTVLByApp(request: QueryTotalTVLByAppRequest): Promise<QueryTotalTVLByAppResponse>;
     QueryUserMyPositionByApp(request: QueryUserMyPositionByAppRequest): Promise<QueryUserMyPositionByAppResponse>;

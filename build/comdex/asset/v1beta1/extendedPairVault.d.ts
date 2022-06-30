@@ -5,7 +5,6 @@ export interface ExtendedPairVault {
     id: Long;
     appMappingId: Long;
     pairId: Long;
-    liquidationRatio: string;
     stabilityFee: string;
     closingFee: string;
     liquidationPenalty: string;
@@ -13,7 +12,7 @@ export interface ExtendedPairVault {
     isVaultActive: boolean;
     debtCeiling: string;
     debtFloor: string;
-    isPsmPair: boolean;
+    isStableMintVault: boolean;
     minCr: string;
     pairName: string;
     assetOutOraclePrice: boolean;
@@ -29,7 +28,6 @@ export declare const ExtendedPairVault: {
         id?: string | number | Long.Long | undefined;
         appMappingId?: string | number | Long.Long | undefined;
         pairId?: string | number | Long.Long | undefined;
-        liquidationRatio?: string | undefined;
         stabilityFee?: string | undefined;
         closingFee?: string | undefined;
         liquidationPenalty?: string | undefined;
@@ -37,7 +35,7 @@ export declare const ExtendedPairVault: {
         isVaultActive?: boolean | undefined;
         debtCeiling?: string | undefined;
         debtFloor?: string | undefined;
-        isPsmPair?: boolean | undefined;
+        isStableMintVault?: boolean | undefined;
         minCr?: string | undefined;
         pairName?: string | undefined;
         assetOutOraclePrice?: boolean | undefined;
@@ -218,7 +216,6 @@ export declare const ExtendedPairVault: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
-        liquidationRatio?: string | undefined;
         stabilityFee?: string | undefined;
         closingFee?: string | undefined;
         liquidationPenalty?: string | undefined;
@@ -226,7 +223,7 @@ export declare const ExtendedPairVault: {
         isVaultActive?: boolean | undefined;
         debtCeiling?: string | undefined;
         debtFloor?: string | undefined;
-        isPsmPair?: boolean | undefined;
+        isStableMintVault?: boolean | undefined;
         minCr?: string | undefined;
         pairName?: string | undefined;
         assetOutOraclePrice?: boolean | undefined;

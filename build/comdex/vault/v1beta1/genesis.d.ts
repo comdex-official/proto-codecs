@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Vault } from "../../../comdex/vault/v1beta1/vault";
 export declare const protobufPackage = "comdex.vault.v1beta1";
 export interface GenesisState {

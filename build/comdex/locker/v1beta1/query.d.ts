@@ -2202,7 +2202,8 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                 name?: string | undefined;
                 denom?: string | undefined;
                 decimals?: string | number | Long.Long | undefined;
-                isOnchain?: boolean | undefined;
+                isOnChain?: boolean | undefined;
+                isOraclePriceRequired?: boolean | undefined;
             }[] | undefined;
         }[] | undefined;
     } & {
@@ -2213,7 +2214,8 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                 name?: string | undefined;
                 denom?: string | undefined;
                 decimals?: string | number | Long.Long | undefined;
-                isOnchain?: boolean | undefined;
+                isOnChain?: boolean | undefined;
+                isOraclePriceRequired?: boolean | undefined;
             }[] | undefined;
         }[] & ({
             productId?: string | number | Long.Long | undefined;
@@ -2222,7 +2224,8 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                 name?: string | undefined;
                 denom?: string | undefined;
                 decimals?: string | number | Long.Long | undefined;
-                isOnchain?: boolean | undefined;
+                isOnChain?: boolean | undefined;
+                isOraclePriceRequired?: boolean | undefined;
             }[] | undefined;
         } & {
             productId?: string | number | (Long.Long & {
@@ -2288,13 +2291,15 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                 name?: string | undefined;
                 denom?: string | undefined;
                 decimals?: string | number | Long.Long | undefined;
-                isOnchain?: boolean | undefined;
+                isOnChain?: boolean | undefined;
+                isOraclePriceRequired?: boolean | undefined;
             }[] & ({
                 id?: string | number | Long.Long | undefined;
                 name?: string | undefined;
                 denom?: string | undefined;
                 decimals?: string | number | Long.Long | undefined;
-                isOnchain?: boolean | undefined;
+                isOnChain?: boolean | undefined;
+                isOraclePriceRequired?: boolean | undefined;
             } & {
                 id?: string | number | (Long.Long & {
                     high: number;
@@ -2414,13 +2419,15 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["productToAllAsset"][number]["assets"][number]["decimals"], keyof Long.Long>, never>) | undefined;
-                isOnchain?: boolean | undefined;
+                isOnChain?: boolean | undefined;
+                isOraclePriceRequired?: boolean | undefined;
             } & Record<Exclude<keyof I["productToAllAsset"][number]["assets"][number], keyof Asset>, never>)[] & Record<Exclude<keyof I["productToAllAsset"][number]["assets"], keyof {
                 id?: string | number | Long.Long | undefined;
                 name?: string | undefined;
                 denom?: string | undefined;
                 decimals?: string | number | Long.Long | undefined;
-                isOnchain?: boolean | undefined;
+                isOnChain?: boolean | undefined;
+                isOraclePriceRequired?: boolean | undefined;
             }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["productToAllAsset"][number], keyof ProductToAllAsset>, never>)[] & Record<Exclude<keyof I["productToAllAsset"], keyof {
             productId?: string | number | Long.Long | undefined;
@@ -2429,7 +2436,8 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                 name?: string | undefined;
                 denom?: string | undefined;
                 decimals?: string | number | Long.Long | undefined;
-                isOnchain?: boolean | undefined;
+                isOnChain?: boolean | undefined;
+                isOraclePriceRequired?: boolean | undefined;
             }[] | undefined;
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "productToAllAsset">, never>>(object: I): QueryWhiteListedAssetByAllProductResponse;
@@ -2446,7 +2454,8 @@ export declare const ProductToAllAsset: {
             name?: string | undefined;
             denom?: string | undefined;
             decimals?: string | number | Long.Long | undefined;
-            isOnchain?: boolean | undefined;
+            isOnChain?: boolean | undefined;
+            isOraclePriceRequired?: boolean | undefined;
         }[] | undefined;
     } & {
         productId?: string | number | (Long.Long & {
@@ -2512,13 +2521,15 @@ export declare const ProductToAllAsset: {
             name?: string | undefined;
             denom?: string | undefined;
             decimals?: string | number | Long.Long | undefined;
-            isOnchain?: boolean | undefined;
+            isOnChain?: boolean | undefined;
+            isOraclePriceRequired?: boolean | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             denom?: string | undefined;
             decimals?: string | number | Long.Long | undefined;
-            isOnchain?: boolean | undefined;
+            isOnChain?: boolean | undefined;
+            isOraclePriceRequired?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -2638,13 +2649,15 @@ export declare const ProductToAllAsset: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["assets"][number]["decimals"], keyof Long.Long>, never>) | undefined;
-            isOnchain?: boolean | undefined;
+            isOnChain?: boolean | undefined;
+            isOraclePriceRequired?: boolean | undefined;
         } & Record<Exclude<keyof I["assets"][number], keyof Asset>, never>)[] & Record<Exclude<keyof I["assets"], keyof {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             denom?: string | undefined;
             decimals?: string | number | Long.Long | undefined;
-            isOnchain?: boolean | undefined;
+            isOnChain?: boolean | undefined;
+            isOraclePriceRequired?: boolean | undefined;
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof ProductToAllAsset>, never>>(object: I): ProductToAllAsset;
 };

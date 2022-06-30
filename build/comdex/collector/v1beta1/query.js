@@ -1,12 +1,35 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryNetFeeCollectedForAppAndAssetResponse = exports.QueryNetFeeCollectedForAppAndAssetRequest = exports.QueryAuctionMappingForAppAndAssetResponse = exports.QueryAuctionMappingForAppAndAssetRequest = exports.QueryCollectorDataByProductAndAssetResponse = exports.QueryCollectorDataByProductAndAssetRequest = exports.QueryCollectorLookupByProductAndAssetResponse = exports.QueryCollectorLookupByProductAndAssetRequest = exports.QueryCollectorLookupByProductResponse = exports.QueryCollectorLookupByProductRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryNetFeeCollectedForAppAndAssetResponse = exports.QueryNetFeeCollectedForAppAndAssetRequest = exports.QueryAuctionMappingForAppAndAssetResponse = exports.QueryAuctionMappingForAppAndAssetRequest = exports.QueryCollectorDataByAppAndAssetResponse = exports.QueryCollectorDataByAppAndAssetRequest = exports.QueryCollectorLookupByAppAndAssetResponse = exports.QueryCollectorLookupByAppAndAssetRequest = exports.QueryCollectorLookupByAppResponse = exports.QueryCollectorLookupByAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const params_1 = require("../../../comdex/collector/v1beta1/params");
 const collector_1 = require("../../../comdex/collector/v1beta1/collector");
 exports.protobufPackage = "comdex.collector.v1beta1";
@@ -14,11 +37,11 @@ function createBaseQueryParamsRequest() {
     return {};
 }
 exports.QueryParamsRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
@@ -47,14 +70,14 @@ function createBaseQueryParamsResponse() {
     return { params: undefined };
 }
 exports.QueryParamsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
@@ -90,20 +113,20 @@ exports.QueryParamsResponse = {
         return message;
     },
 };
-function createBaseQueryCollectorLookupByProductRequest() {
+function createBaseQueryCollectorLookupByAppRequest() {
     return { appId: long_1.default.UZERO };
 }
-exports.QueryCollectorLookupByProductRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryCollectorLookupByAppRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryCollectorLookupByProductRequest();
+        const message = createBaseQueryCollectorLookupByAppRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -129,7 +152,7 @@ exports.QueryCollectorLookupByProductRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryCollectorLookupByProductRequest();
+        const message = createBaseQueryCollectorLookupByAppRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -137,20 +160,20 @@ exports.QueryCollectorLookupByProductRequest = {
         return message;
     },
 };
-function createBaseQueryCollectorLookupByProductResponse() {
+function createBaseQueryCollectorLookupByAppResponse() {
     return { collectorLookup: [] };
 }
-exports.QueryCollectorLookupByProductResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryCollectorLookupByAppResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.collectorLookup) {
             collector_1.CollectorLookupTable.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryCollectorLookupByProductResponse();
+        const message = createBaseQueryCollectorLookupByAppResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -183,18 +206,18 @@ exports.QueryCollectorLookupByProductResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryCollectorLookupByProductResponse();
+        const message = createBaseQueryCollectorLookupByAppResponse();
         message.collectorLookup =
             ((_a = object.collectorLookup) === null || _a === void 0 ? void 0 : _a.map((e) => collector_1.CollectorLookupTable.fromPartial(e))) ||
                 [];
         return message;
     },
 };
-function createBaseQueryCollectorLookupByProductAndAssetRequest() {
+function createBaseQueryCollectorLookupByAppAndAssetRequest() {
     return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO };
 }
-exports.QueryCollectorLookupByProductAndAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryCollectorLookupByAppAndAssetRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -204,9 +227,9 @@ exports.QueryCollectorLookupByProductAndAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryCollectorLookupByProductAndAssetRequest();
+        const message = createBaseQueryCollectorLookupByAppAndAssetRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -240,7 +263,7 @@ exports.QueryCollectorLookupByProductAndAssetRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryCollectorLookupByProductAndAssetRequest();
+        const message = createBaseQueryCollectorLookupByAppAndAssetRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -252,20 +275,20 @@ exports.QueryCollectorLookupByProductAndAssetRequest = {
         return message;
     },
 };
-function createBaseQueryCollectorLookupByProductAndAssetResponse() {
+function createBaseQueryCollectorLookupByAppAndAssetResponse() {
     return { collectorLookup: undefined };
 }
-exports.QueryCollectorLookupByProductAndAssetResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryCollectorLookupByAppAndAssetResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.collectorLookup !== undefined) {
             collector_1.CollectorLookupTable.encode(message.collectorLookup, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryCollectorLookupByProductAndAssetResponse();
+        const message = createBaseQueryCollectorLookupByAppAndAssetResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -295,7 +318,7 @@ exports.QueryCollectorLookupByProductAndAssetResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryCollectorLookupByProductAndAssetResponse();
+        const message = createBaseQueryCollectorLookupByAppAndAssetResponse();
         message.collectorLookup =
             object.collectorLookup !== undefined && object.collectorLookup !== null
                 ? collector_1.CollectorLookupTable.fromPartial(object.collectorLookup)
@@ -303,11 +326,11 @@ exports.QueryCollectorLookupByProductAndAssetResponse = {
         return message;
     },
 };
-function createBaseQueryCollectorDataByProductAndAssetRequest() {
+function createBaseQueryCollectorDataByAppAndAssetRequest() {
     return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO };
 }
-exports.QueryCollectorDataByProductAndAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryCollectorDataByAppAndAssetRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -317,9 +340,9 @@ exports.QueryCollectorDataByProductAndAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryCollectorDataByProductAndAssetRequest();
+        const message = createBaseQueryCollectorDataByAppAndAssetRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -353,7 +376,7 @@ exports.QueryCollectorDataByProductAndAssetRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryCollectorDataByProductAndAssetRequest();
+        const message = createBaseQueryCollectorDataByAppAndAssetRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -365,20 +388,20 @@ exports.QueryCollectorDataByProductAndAssetRequest = {
         return message;
     },
 };
-function createBaseQueryCollectorDataByProductAndAssetResponse() {
+function createBaseQueryCollectorDataByAppAndAssetResponse() {
     return { collectorData: undefined };
 }
-exports.QueryCollectorDataByProductAndAssetResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryCollectorDataByAppAndAssetResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.collectorData !== undefined) {
             collector_1.CollectorData.encode(message.collectorData, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryCollectorDataByProductAndAssetResponse();
+        const message = createBaseQueryCollectorDataByAppAndAssetResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -408,7 +431,7 @@ exports.QueryCollectorDataByProductAndAssetResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryCollectorDataByProductAndAssetResponse();
+        const message = createBaseQueryCollectorDataByAppAndAssetResponse();
         message.collectorData =
             object.collectorData !== undefined && object.collectorData !== null
                 ? collector_1.CollectorData.fromPartial(object.collectorData)
@@ -420,7 +443,7 @@ function createBaseQueryAuctionMappingForAppAndAssetRequest() {
     return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO };
 }
 exports.QueryAuctionMappingForAppAndAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -430,7 +453,7 @@ exports.QueryAuctionMappingForAppAndAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAuctionMappingForAppAndAssetRequest();
         while (reader.pos < end) {
@@ -482,14 +505,14 @@ function createBaseQueryAuctionMappingForAppAndAssetResponse() {
     return { assetIdToAuctionLookupTable: undefined };
 }
 exports.QueryAuctionMappingForAppAndAssetResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.assetIdToAuctionLookupTable !== undefined) {
             collector_1.AssetIdToAuctionLookupTable.encode(message.assetIdToAuctionLookupTable, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAuctionMappingForAppAndAssetResponse();
         while (reader.pos < end) {
@@ -535,7 +558,7 @@ function createBaseQueryNetFeeCollectedForAppAndAssetRequest() {
     return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO };
 }
 exports.QueryNetFeeCollectedForAppAndAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -545,7 +568,7 @@ exports.QueryNetFeeCollectedForAppAndAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryNetFeeCollectedForAppAndAssetRequest();
         while (reader.pos < end) {
@@ -597,14 +620,14 @@ function createBaseQueryNetFeeCollectedForAppAndAssetResponse() {
     return { assetIdToFeeCollected: undefined };
 }
 exports.QueryNetFeeCollectedForAppAndAssetResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.assetIdToFeeCollected !== undefined) {
             collector_1.AssetIdToFeeCollected.encode(message.assetIdToFeeCollected, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryNetFeeCollectedForAppAndAssetResponse();
         while (reader.pos < end) {
@@ -649,12 +672,11 @@ class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
         this.Params = this.Params.bind(this);
-        this.QueryCollectorLookupByProduct =
-            this.QueryCollectorLookupByProduct.bind(this);
-        this.QueryCollectorLookupByProductAndAsset =
-            this.QueryCollectorLookupByProductAndAsset.bind(this);
-        this.QueryCollectorDataByProductAndAsset =
-            this.QueryCollectorDataByProductAndAsset.bind(this);
+        this.QueryCollectorLookupByApp = this.QueryCollectorLookupByApp.bind(this);
+        this.QueryCollectorLookupByAppAndAsset =
+            this.QueryCollectorLookupByAppAndAsset.bind(this);
+        this.QueryCollectorDataByAppAndAsset =
+            this.QueryCollectorDataByAppAndAsset.bind(this);
         this.QueryAuctionMappingForAppAndAsset =
             this.QueryAuctionMappingForAppAndAsset.bind(this);
         this.QueryNetFeeCollectedForAppAndAsset =
@@ -663,38 +685,38 @@ class QueryClientImpl {
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.collector.v1beta1.Query", "Params", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new _m0.Reader(data)));
     }
-    QueryCollectorLookupByProduct(request) {
-        const data = exports.QueryCollectorLookupByProductRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.collector.v1beta1.Query", "QueryCollectorLookupByProduct", data);
-        return promise.then((data) => exports.QueryCollectorLookupByProductResponse.decode(new minimal_1.default.Reader(data)));
+    QueryCollectorLookupByApp(request) {
+        const data = exports.QueryCollectorLookupByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.collector.v1beta1.Query", "QueryCollectorLookupByApp", data);
+        return promise.then((data) => exports.QueryCollectorLookupByAppResponse.decode(new _m0.Reader(data)));
     }
-    QueryCollectorLookupByProductAndAsset(request) {
-        const data = exports.QueryCollectorLookupByProductAndAssetRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.collector.v1beta1.Query", "QueryCollectorLookupByProductAndAsset", data);
-        return promise.then((data) => exports.QueryCollectorLookupByProductAndAssetResponse.decode(new minimal_1.default.Reader(data)));
+    QueryCollectorLookupByAppAndAsset(request) {
+        const data = exports.QueryCollectorLookupByAppAndAssetRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.collector.v1beta1.Query", "QueryCollectorLookupByAppAndAsset", data);
+        return promise.then((data) => exports.QueryCollectorLookupByAppAndAssetResponse.decode(new _m0.Reader(data)));
     }
-    QueryCollectorDataByProductAndAsset(request) {
-        const data = exports.QueryCollectorDataByProductAndAssetRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.collector.v1beta1.Query", "QueryCollectorDataByProductAndAsset", data);
-        return promise.then((data) => exports.QueryCollectorDataByProductAndAssetResponse.decode(new minimal_1.default.Reader(data)));
+    QueryCollectorDataByAppAndAsset(request) {
+        const data = exports.QueryCollectorDataByAppAndAssetRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.collector.v1beta1.Query", "QueryCollectorDataByAppAndAsset", data);
+        return promise.then((data) => exports.QueryCollectorDataByAppAndAssetResponse.decode(new _m0.Reader(data)));
     }
     QueryAuctionMappingForAppAndAsset(request) {
         const data = exports.QueryAuctionMappingForAppAndAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.collector.v1beta1.Query", "QueryAuctionMappingForAppAndAsset", data);
-        return promise.then((data) => exports.QueryAuctionMappingForAppAndAssetResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAuctionMappingForAppAndAssetResponse.decode(new _m0.Reader(data)));
     }
     QueryNetFeeCollectedForAppAndAsset(request) {
         const data = exports.QueryNetFeeCollectedForAppAndAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.collector.v1beta1.Query", "QueryNetFeeCollectedForAppAndAsset", data);
-        return promise.then((data) => exports.QueryNetFeeCollectedForAppAndAssetResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryNetFeeCollectedForAppAndAssetResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

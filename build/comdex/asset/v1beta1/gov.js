@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -22,16 +26,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddAssetMappingProposal = exports.AddAppMappingProposal = exports.UpdateExtendedPairVaultProposal = exports.AddExtendedPairsVaultProposal = exports.UpdateWhitelistedPairProposal = exports.AddWhitelistedPairsProposal = exports.UpdateWhitelistedAssetProposal = exports.AddWhitelistedAssetsProposal = exports.AddPairsProposal = exports.UpdateAssetProposal = exports.AddAssetsProposal = exports.protobufPackage = void 0;
+exports.AddAssetMappingProposal = exports.UpdateGovTimeInAppMappingProposal = exports.AddAppMappingProposal = exports.UpdateExtendedPairVaultProposal = exports.AddExtendedPairsVaultProposal = exports.AddPairsProposal = exports.UpdateAssetProposal = exports.AddAssetsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 const asset_1 = require("../../../comdex/asset/v1beta1/asset");
-const extendedAsset_1 = require("../../../comdex/asset/v1beta1/extendedAsset");
-const extendedLend_1 = require("../../../comdex/asset/v1beta1/extendedLend");
 const extendedPairVault_1 = require("../../../comdex/asset/v1beta1/extendedPairVault");
-const pair_1 = require("../../../comdex/asset/v1beta1/pair");
 const appMapping_1 = require("../../../comdex/asset/v1beta1/appMapping");
+const pair_1 = require("../../../comdex/asset/v1beta1/pair");
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseAddAssetsProposal() {
     return { title: "", description: "", assets: [] };
@@ -237,290 +239,6 @@ exports.AddPairsProposal = {
         message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
         message.pairs = ((_c = object.pairs) === null || _c === void 0 ? void 0 : _c.map((e) => pair_1.Pair.fromPartial(e))) || [];
-        return message;
-    },
-};
-function createBaseAddWhitelistedAssetsProposal() {
-    return { title: "", description: "", assets: [] };
-}
-exports.AddWhitelistedAssetsProposal = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.title !== "") {
-            writer.uint32(10).string(message.title);
-        }
-        if (message.description !== "") {
-            writer.uint32(18).string(message.description);
-        }
-        for (const v of message.assets) {
-            extendedAsset_1.ExtendedAsset.encode(v, writer.uint32(26).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseAddWhitelistedAssetsProposal();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.title = reader.string();
-                    break;
-                case 2:
-                    message.description = reader.string();
-                    break;
-                case 3:
-                    message.assets.push(extendedAsset_1.ExtendedAsset.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            title: isSet(object.title) ? String(object.title) : "",
-            description: isSet(object.description) ? String(object.description) : "",
-            assets: Array.isArray(object === null || object === void 0 ? void 0 : object.assets)
-                ? object.assets.map((e) => extendedAsset_1.ExtendedAsset.fromJSON(e))
-                : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.title !== undefined && (obj.title = message.title);
-        message.description !== undefined &&
-            (obj.description = message.description);
-        if (message.assets) {
-            obj.assets = message.assets.map((e) => e ? extendedAsset_1.ExtendedAsset.toJSON(e) : undefined);
-        }
-        else {
-            obj.assets = [];
-        }
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b, _c;
-        const message = createBaseAddWhitelistedAssetsProposal();
-        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
-        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.assets =
-            ((_c = object.assets) === null || _c === void 0 ? void 0 : _c.map((e) => extendedAsset_1.ExtendedAsset.fromPartial(e))) || [];
-        return message;
-    },
-};
-function createBaseUpdateWhitelistedAssetProposal() {
-    return { title: "", description: "", asset: undefined };
-}
-exports.UpdateWhitelistedAssetProposal = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.title !== "") {
-            writer.uint32(10).string(message.title);
-        }
-        if (message.description !== "") {
-            writer.uint32(18).string(message.description);
-        }
-        if (message.asset !== undefined) {
-            extendedAsset_1.ExtendedAsset.encode(message.asset, writer.uint32(26).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseUpdateWhitelistedAssetProposal();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.title = reader.string();
-                    break;
-                case 2:
-                    message.description = reader.string();
-                    break;
-                case 3:
-                    message.asset = extendedAsset_1.ExtendedAsset.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            title: isSet(object.title) ? String(object.title) : "",
-            description: isSet(object.description) ? String(object.description) : "",
-            asset: isSet(object.asset)
-                ? extendedAsset_1.ExtendedAsset.fromJSON(object.asset)
-                : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.title !== undefined && (obj.title = message.title);
-        message.description !== undefined &&
-            (obj.description = message.description);
-        message.asset !== undefined &&
-            (obj.asset = message.asset
-                ? extendedAsset_1.ExtendedAsset.toJSON(message.asset)
-                : undefined);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b;
-        const message = createBaseUpdateWhitelistedAssetProposal();
-        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
-        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.asset =
-            object.asset !== undefined && object.asset !== null
-                ? extendedAsset_1.ExtendedAsset.fromPartial(object.asset)
-                : undefined;
-        return message;
-    },
-};
-function createBaseAddWhitelistedPairsProposal() {
-    return { title: "", description: "", pairs: [] };
-}
-exports.AddWhitelistedPairsProposal = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.title !== "") {
-            writer.uint32(10).string(message.title);
-        }
-        if (message.description !== "") {
-            writer.uint32(18).string(message.description);
-        }
-        for (const v of message.pairs) {
-            extendedLend_1.ExtendedPairLend.encode(v, writer.uint32(26).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseAddWhitelistedPairsProposal();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.title = reader.string();
-                    break;
-                case 2:
-                    message.description = reader.string();
-                    break;
-                case 3:
-                    message.pairs.push(extendedLend_1.ExtendedPairLend.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            title: isSet(object.title) ? String(object.title) : "",
-            description: isSet(object.description) ? String(object.description) : "",
-            pairs: Array.isArray(object === null || object === void 0 ? void 0 : object.pairs)
-                ? object.pairs.map((e) => extendedLend_1.ExtendedPairLend.fromJSON(e))
-                : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.title !== undefined && (obj.title = message.title);
-        message.description !== undefined &&
-            (obj.description = message.description);
-        if (message.pairs) {
-            obj.pairs = message.pairs.map((e) => e ? extendedLend_1.ExtendedPairLend.toJSON(e) : undefined);
-        }
-        else {
-            obj.pairs = [];
-        }
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b, _c;
-        const message = createBaseAddWhitelistedPairsProposal();
-        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
-        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.pairs =
-            ((_c = object.pairs) === null || _c === void 0 ? void 0 : _c.map((e) => extendedLend_1.ExtendedPairLend.fromPartial(e))) || [];
-        return message;
-    },
-};
-function createBaseUpdateWhitelistedPairProposal() {
-    return { title: "", description: "", pair: undefined };
-}
-exports.UpdateWhitelistedPairProposal = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.title !== "") {
-            writer.uint32(10).string(message.title);
-        }
-        if (message.description !== "") {
-            writer.uint32(18).string(message.description);
-        }
-        if (message.pair !== undefined) {
-            extendedLend_1.ExtendedPairLend.encode(message.pair, writer.uint32(26).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseUpdateWhitelistedPairProposal();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.title = reader.string();
-                    break;
-                case 2:
-                    message.description = reader.string();
-                    break;
-                case 3:
-                    message.pair = extendedLend_1.ExtendedPairLend.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            title: isSet(object.title) ? String(object.title) : "",
-            description: isSet(object.description) ? String(object.description) : "",
-            pair: isSet(object.pair)
-                ? extendedLend_1.ExtendedPairLend.fromJSON(object.pair)
-                : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.title !== undefined && (obj.title = message.title);
-        message.description !== undefined &&
-            (obj.description = message.description);
-        message.pair !== undefined &&
-            (obj.pair = message.pair
-                ? extendedLend_1.ExtendedPairLend.toJSON(message.pair)
-                : undefined);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b;
-        const message = createBaseUpdateWhitelistedPairProposal();
-        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
-        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.pair =
-            object.pair !== undefined && object.pair !== null
-                ? extendedLend_1.ExtendedPairLend.fromPartial(object.pair)
-                : undefined;
         return message;
     },
 };
@@ -733,6 +451,77 @@ exports.AddAppMappingProposal = {
         message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
         message.app = ((_c = object.app) === null || _c === void 0 ? void 0 : _c.map((e) => appMapping_1.AppMapping.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseUpdateGovTimeInAppMappingProposal() {
+    return { title: "", description: "", govTime: undefined };
+}
+exports.UpdateGovTimeInAppMappingProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        if (message.govTime !== undefined) {
+            appMapping_1.AppAndGovTime.encode(message.govTime, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseUpdateGovTimeInAppMappingProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.govTime = appMapping_1.AppAndGovTime.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            govTime: isSet(object.govTime)
+                ? appMapping_1.AppAndGovTime.fromJSON(object.govTime)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        message.govTime !== undefined &&
+            (obj.govTime = message.govTime
+                ? appMapping_1.AppAndGovTime.toJSON(message.govTime)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseUpdateGovTimeInAppMappingProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.govTime =
+            object.govTime !== undefined && object.govTime !== null
+                ? appMapping_1.AppAndGovTime.fromPartial(object.govTime)
+                : undefined;
         return message;
     },
 };
