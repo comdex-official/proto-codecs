@@ -16,8 +16,13 @@ export interface AppMapping {
 export interface MintGenesisToken {
   assetId: Long;
   genesisSupply: string;
-  isgovToken: boolean;
+  isGovToken: boolean;
   recipient: string;
+}
+
+export interface AppAndGovTime {
+  appId: Long;
+  govTimeInSeconds: number;
 }
 
 function createBaseAppMapping(): AppMapping {
@@ -151,7 +156,7 @@ function createBaseMintGenesisToken(): MintGenesisToken {
   return {
     assetId: Long.UZERO,
     genesisSupply: "",
-    isgovToken: false,
+    isGovToken: false,
     recipient: "",
   };
 }
@@ -167,8 +172,8 @@ export const MintGenesisToken = {
     if (message.genesisSupply !== "") {
       writer.uint32(18).string(message.genesisSupply);
     }
-    if (message.isgovToken === true) {
-      writer.uint32(24).bool(message.isgovToken);
+    if (message.isGovToken === true) {
+      writer.uint32(24).bool(message.isGovToken);
     }
     if (message.recipient !== "") {
       writer.uint32(34).string(message.recipient);
@@ -190,7 +195,7 @@ export const MintGenesisToken = {
           message.genesisSupply = reader.string();
           break;
         case 3:
-          message.isgovToken = reader.bool();
+          message.isGovToken = reader.bool();
           break;
         case 4:
           message.recipient = reader.string();
@@ -211,7 +216,7 @@ export const MintGenesisToken = {
       genesisSupply: isSet(object.genesisSupply)
         ? String(object.genesisSupply)
         : "",
-      isgovToken: isSet(object.isgovToken) ? Boolean(object.isgovToken) : false,
+      isGovToken: isSet(object.isGovToken) ? Boolean(object.isGovToken) : false,
       recipient: isSet(object.recipient) ? String(object.recipient) : "",
     };
   },
@@ -222,7 +227,7 @@ export const MintGenesisToken = {
       (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.genesisSupply !== undefined &&
       (obj.genesisSupply = message.genesisSupply);
-    message.isgovToken !== undefined && (obj.isgovToken = message.isgovToken);
+    message.isGovToken !== undefined && (obj.isGovToken = message.isGovToken);
     message.recipient !== undefined && (obj.recipient = message.recipient);
     return obj;
   },
@@ -236,8 +241,78 @@ export const MintGenesisToken = {
         ? Long.fromValue(object.assetId)
         : Long.UZERO;
     message.genesisSupply = object.genesisSupply ?? "";
-    message.isgovToken = object.isgovToken ?? false;
+    message.isGovToken = object.isGovToken ?? false;
     message.recipient = object.recipient ?? "";
+    return message;
+  },
+};
+
+function createBaseAppAndGovTime(): AppAndGovTime {
+  return { appId: Long.UZERO, govTimeInSeconds: 0 };
+}
+
+export const AppAndGovTime = {
+  encode(
+    message: AppAndGovTime,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (message.govTimeInSeconds !== 0) {
+      writer.uint32(17).double(message.govTimeInSeconds);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): AppAndGovTime {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAppAndGovTime();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.govTimeInSeconds = reader.double();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AppAndGovTime {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      govTimeInSeconds: isSet(object.govTimeInSeconds)
+        ? Number(object.govTimeInSeconds)
+        : 0,
+    };
+  },
+
+  toJSON(message: AppAndGovTime): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.govTimeInSeconds !== undefined &&
+      (obj.govTimeInSeconds = message.govTimeInSeconds);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AppAndGovTime>, I>>(
+    object: I
+  ): AppAndGovTime {
+    const message = createBaseAppAndGovTime();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.govTimeInSeconds = object.govTimeInSeconds ?? 0;
     return message;
   },
 };

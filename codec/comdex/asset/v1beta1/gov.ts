@@ -2,11 +2,9 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
-import { ExtendedAsset } from "../../../comdex/asset/v1beta1/extendedAsset";
-import { ExtendedPairLend } from "../../../comdex/asset/v1beta1/extendedLend";
 import { ExtendedPairVault } from "../../../comdex/asset/v1beta1/extendedPairVault";
+import { AppAndGovTime, AppMapping } from "../../../comdex/asset/v1beta1/appMapping";
 import { Pair } from "../../../comdex/asset/v1beta1/pair";
-import { AppMapping } from "../../../comdex/asset/v1beta1/appMapping";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -28,30 +26,6 @@ export interface AddPairsProposal {
   pairs: Pair[];
 }
 
-export interface AddWhitelistedAssetsProposal {
-  title: string;
-  description: string;
-  assets: ExtendedAsset[];
-}
-
-export interface UpdateWhitelistedAssetProposal {
-  title: string;
-  description: string;
-  asset?: ExtendedAsset;
-}
-
-export interface AddWhitelistedPairsProposal {
-  title: string;
-  description: string;
-  pairs: ExtendedPairLend[];
-}
-
-export interface UpdateWhitelistedPairProposal {
-  title: string;
-  description: string;
-  pair?: ExtendedPairLend;
-}
-
 export interface AddExtendedPairsVaultProposal {
   title: string;
   description: string;
@@ -68,6 +42,12 @@ export interface AddAppMappingProposal {
   title: string;
   description: string;
   app: AppMapping[];
+}
+
+export interface UpdateGovTimeInAppMappingProposal {
+  title: string;
+  description: string;
+  govTime?: AppAndGovTime;
 }
 
 export interface AddAssetMappingProposal {
@@ -307,344 +287,6 @@ export const AddPairsProposal = {
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
-    return message;
-  },
-};
-
-function createBaseAddWhitelistedAssetsProposal(): AddWhitelistedAssetsProposal {
-  return { title: "", description: "", assets: [] };
-}
-
-export const AddWhitelistedAssetsProposal = {
-  encode(
-    message: AddWhitelistedAssetsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.title !== "") {
-      writer.uint32(10).string(message.title);
-    }
-    if (message.description !== "") {
-      writer.uint32(18).string(message.description);
-    }
-    for (const v of message.assets) {
-      ExtendedAsset.encode(v!, writer.uint32(26).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddWhitelistedAssetsProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAddWhitelistedAssetsProposal();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.title = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        case 3:
-          message.assets.push(ExtendedAsset.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): AddWhitelistedAssetsProposal {
-    return {
-      title: isSet(object.title) ? String(object.title) : "",
-      description: isSet(object.description) ? String(object.description) : "",
-      assets: Array.isArray(object?.assets)
-        ? object.assets.map((e: any) => ExtendedAsset.fromJSON(e))
-        : [],
-    };
-  },
-
-  toJSON(message: AddWhitelistedAssetsProposal): unknown {
-    const obj: any = {};
-    message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    if (message.assets) {
-      obj.assets = message.assets.map((e) =>
-        e ? ExtendedAsset.toJSON(e) : undefined
-      );
-    } else {
-      obj.assets = [];
-    }
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<AddWhitelistedAssetsProposal>, I>>(
-    object: I
-  ): AddWhitelistedAssetsProposal {
-    const message = createBaseAddWhitelistedAssetsProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.assets =
-      object.assets?.map((e) => ExtendedAsset.fromPartial(e)) || [];
-    return message;
-  },
-};
-
-function createBaseUpdateWhitelistedAssetProposal(): UpdateWhitelistedAssetProposal {
-  return { title: "", description: "", asset: undefined };
-}
-
-export const UpdateWhitelistedAssetProposal = {
-  encode(
-    message: UpdateWhitelistedAssetProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.title !== "") {
-      writer.uint32(10).string(message.title);
-    }
-    if (message.description !== "") {
-      writer.uint32(18).string(message.description);
-    }
-    if (message.asset !== undefined) {
-      ExtendedAsset.encode(message.asset, writer.uint32(26).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): UpdateWhitelistedAssetProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUpdateWhitelistedAssetProposal();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.title = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        case 3:
-          message.asset = ExtendedAsset.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): UpdateWhitelistedAssetProposal {
-    return {
-      title: isSet(object.title) ? String(object.title) : "",
-      description: isSet(object.description) ? String(object.description) : "",
-      asset: isSet(object.asset)
-        ? ExtendedAsset.fromJSON(object.asset)
-        : undefined,
-    };
-  },
-
-  toJSON(message: UpdateWhitelistedAssetProposal): unknown {
-    const obj: any = {};
-    message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.asset !== undefined &&
-      (obj.asset = message.asset
-        ? ExtendedAsset.toJSON(message.asset)
-        : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<UpdateWhitelistedAssetProposal>, I>>(
-    object: I
-  ): UpdateWhitelistedAssetProposal {
-    const message = createBaseUpdateWhitelistedAssetProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.asset =
-      object.asset !== undefined && object.asset !== null
-        ? ExtendedAsset.fromPartial(object.asset)
-        : undefined;
-    return message;
-  },
-};
-
-function createBaseAddWhitelistedPairsProposal(): AddWhitelistedPairsProposal {
-  return { title: "", description: "", pairs: [] };
-}
-
-export const AddWhitelistedPairsProposal = {
-  encode(
-    message: AddWhitelistedPairsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.title !== "") {
-      writer.uint32(10).string(message.title);
-    }
-    if (message.description !== "") {
-      writer.uint32(18).string(message.description);
-    }
-    for (const v of message.pairs) {
-      ExtendedPairLend.encode(v!, writer.uint32(26).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddWhitelistedPairsProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAddWhitelistedPairsProposal();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.title = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        case 3:
-          message.pairs.push(ExtendedPairLend.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): AddWhitelistedPairsProposal {
-    return {
-      title: isSet(object.title) ? String(object.title) : "",
-      description: isSet(object.description) ? String(object.description) : "",
-      pairs: Array.isArray(object?.pairs)
-        ? object.pairs.map((e: any) => ExtendedPairLend.fromJSON(e))
-        : [],
-    };
-  },
-
-  toJSON(message: AddWhitelistedPairsProposal): unknown {
-    const obj: any = {};
-    message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    if (message.pairs) {
-      obj.pairs = message.pairs.map((e) =>
-        e ? ExtendedPairLend.toJSON(e) : undefined
-      );
-    } else {
-      obj.pairs = [];
-    }
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<AddWhitelistedPairsProposal>, I>>(
-    object: I
-  ): AddWhitelistedPairsProposal {
-    const message = createBaseAddWhitelistedPairsProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.pairs =
-      object.pairs?.map((e) => ExtendedPairLend.fromPartial(e)) || [];
-    return message;
-  },
-};
-
-function createBaseUpdateWhitelistedPairProposal(): UpdateWhitelistedPairProposal {
-  return { title: "", description: "", pair: undefined };
-}
-
-export const UpdateWhitelistedPairProposal = {
-  encode(
-    message: UpdateWhitelistedPairProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.title !== "") {
-      writer.uint32(10).string(message.title);
-    }
-    if (message.description !== "") {
-      writer.uint32(18).string(message.description);
-    }
-    if (message.pair !== undefined) {
-      ExtendedPairLend.encode(message.pair, writer.uint32(26).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): UpdateWhitelistedPairProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUpdateWhitelistedPairProposal();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.title = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        case 3:
-          message.pair = ExtendedPairLend.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): UpdateWhitelistedPairProposal {
-    return {
-      title: isSet(object.title) ? String(object.title) : "",
-      description: isSet(object.description) ? String(object.description) : "",
-      pair: isSet(object.pair)
-        ? ExtendedPairLend.fromJSON(object.pair)
-        : undefined,
-    };
-  },
-
-  toJSON(message: UpdateWhitelistedPairProposal): unknown {
-    const obj: any = {};
-    message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.pair !== undefined &&
-      (obj.pair = message.pair
-        ? ExtendedPairLend.toJSON(message.pair)
-        : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<UpdateWhitelistedPairProposal>, I>>(
-    object: I
-  ): UpdateWhitelistedPairProposal {
-    const message = createBaseUpdateWhitelistedPairProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.pair =
-      object.pair !== undefined && object.pair !== null
-        ? ExtendedPairLend.fromPartial(object.pair)
-        : undefined;
     return message;
   },
 };
@@ -896,6 +538,90 @@ export const AddAppMappingProposal = {
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.app = object.app?.map((e) => AppMapping.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseUpdateGovTimeInAppMappingProposal(): UpdateGovTimeInAppMappingProposal {
+  return { title: "", description: "", govTime: undefined };
+}
+
+export const UpdateGovTimeInAppMappingProposal = {
+  encode(
+    message: UpdateGovTimeInAppMappingProposal,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    if (message.govTime !== undefined) {
+      AppAndGovTime.encode(message.govTime, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): UpdateGovTimeInAppMappingProposal {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseUpdateGovTimeInAppMappingProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+        case 2:
+          message.description = reader.string();
+          break;
+        case 3:
+          message.govTime = AppAndGovTime.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): UpdateGovTimeInAppMappingProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      govTime: isSet(object.govTime)
+        ? AppAndGovTime.fromJSON(object.govTime)
+        : undefined,
+    };
+  },
+
+  toJSON(message: UpdateGovTimeInAppMappingProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    message.govTime !== undefined &&
+      (obj.govTime = message.govTime
+        ? AppAndGovTime.toJSON(message.govTime)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<UpdateGovTimeInAppMappingProposal>, I>
+  >(object: I): UpdateGovTimeInAppMappingProposal {
+    const message = createBaseUpdateGovTimeInAppMappingProposal();
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.govTime =
+      object.govTime !== undefined && object.govTime !== null
+        ? AppAndGovTime.fromPartial(object.govTime)
+        : undefined;
     return message;
   },
 };

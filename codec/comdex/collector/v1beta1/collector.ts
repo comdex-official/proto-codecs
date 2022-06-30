@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import  _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.collector.v1beta1";
 
@@ -40,6 +40,7 @@ export interface CollectorLookupTable {
   lockerSavingRate: string;
   lotSize: Long;
   bidFactor: string;
+  debtLotSize: Long;
 }
 
 export interface CollectorLookup {
@@ -50,16 +51,6 @@ export interface CollectorLookup {
 export interface AppToDenomsMapping {
   appId: Long;
   assetIds: Long[];
-}
-
-export interface HistoricalAuction {
-  appId: Long;
-  assetToAuction: AssetToAuctionMapping[];
-}
-
-export interface AssetToAuctionMapping {
-  auctionId: Long;
-  assetDenoms: string[];
 }
 
 /** key app id -> assets  traverse this one */
@@ -511,6 +502,7 @@ function createBaseCollectorLookupTable(): CollectorLookupTable {
     lockerSavingRate: "",
     lotSize: Long.UZERO,
     bidFactor: "",
+    debtLotSize: Long.UZERO,
   };
 }
 
@@ -542,6 +534,9 @@ export const CollectorLookupTable = {
     }
     if (message.bidFactor !== "") {
       writer.uint32(66).string(message.bidFactor);
+    }
+    if (!message.debtLotSize.isZero()) {
+      writer.uint32(72).uint64(message.debtLotSize);
     }
     return writer;
   },
@@ -580,6 +575,9 @@ export const CollectorLookupTable = {
         case 8:
           message.bidFactor = reader.string();
           break;
+        case 9:
+          message.debtLotSize = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -610,6 +608,9 @@ export const CollectorLookupTable = {
         ? Long.fromValue(object.lotSize)
         : Long.UZERO,
       bidFactor: isSet(object.bidFactor) ? String(object.bidFactor) : "",
+      debtLotSize: isSet(object.debtLotSize)
+        ? Long.fromValue(object.debtLotSize)
+        : Long.UZERO,
     };
   },
 
@@ -636,6 +637,8 @@ export const CollectorLookupTable = {
     message.lotSize !== undefined &&
       (obj.lotSize = (message.lotSize || Long.UZERO).toString());
     message.bidFactor !== undefined && (obj.bidFactor = message.bidFactor);
+    message.debtLotSize !== undefined &&
+      (obj.debtLotSize = (message.debtLotSize || Long.UZERO).toString());
     return obj;
   },
 
@@ -669,6 +672,10 @@ export const CollectorLookupTable = {
         ? Long.fromValue(object.lotSize)
         : Long.UZERO;
     message.bidFactor = object.bidFactor ?? "";
+    message.debtLotSize =
+      object.debtLotSize !== undefined && object.debtLotSize !== null
+        ? Long.fromValue(object.debtLotSize)
+        : Long.UZERO;
     return message;
   },
 };
@@ -830,165 +837,6 @@ export const AppToDenomsMapping = {
         ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.assetIds = object.assetIds?.map((e) => Long.fromValue(e)) || [];
-    return message;
-  },
-};
-
-function createBaseHistoricalAuction(): HistoricalAuction {
-  return { appId: Long.UZERO, assetToAuction: [] };
-}
-
-export const HistoricalAuction = {
-  encode(
-    message: HistoricalAuction,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (!message.appId.isZero()) {
-      writer.uint32(8).uint64(message.appId);
-    }
-    for (const v of message.assetToAuction) {
-      AssetToAuctionMapping.encode(v!, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): HistoricalAuction {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseHistoricalAuction();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.appId = reader.uint64() as Long;
-          break;
-        case 2:
-          message.assetToAuction.push(
-            AssetToAuctionMapping.decode(reader, reader.uint32())
-          );
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): HistoricalAuction {
-    return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      assetToAuction: Array.isArray(object?.assetToAuction)
-        ? object.assetToAuction.map((e: any) =>
-            AssetToAuctionMapping.fromJSON(e)
-          )
-        : [],
-    };
-  },
-
-  toJSON(message: HistoricalAuction): unknown {
-    const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    if (message.assetToAuction) {
-      obj.assetToAuction = message.assetToAuction.map((e) =>
-        e ? AssetToAuctionMapping.toJSON(e) : undefined
-      );
-    } else {
-      obj.assetToAuction = [];
-    }
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<HistoricalAuction>, I>>(
-    object: I
-  ): HistoricalAuction {
-    const message = createBaseHistoricalAuction();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.assetToAuction =
-      object.assetToAuction?.map((e) => AssetToAuctionMapping.fromPartial(e)) ||
-      [];
-    return message;
-  },
-};
-
-function createBaseAssetToAuctionMapping(): AssetToAuctionMapping {
-  return { auctionId: Long.UZERO, assetDenoms: [] };
-}
-
-export const AssetToAuctionMapping = {
-  encode(
-    message: AssetToAuctionMapping,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (!message.auctionId.isZero()) {
-      writer.uint32(8).uint64(message.auctionId);
-    }
-    for (const v of message.assetDenoms) {
-      writer.uint32(18).string(v!);
-    }
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AssetToAuctionMapping {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAssetToAuctionMapping();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.auctionId = reader.uint64() as Long;
-          break;
-        case 2:
-          message.assetDenoms.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): AssetToAuctionMapping {
-    return {
-      auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
-        : Long.UZERO,
-      assetDenoms: Array.isArray(object?.assetDenoms)
-        ? object.assetDenoms.map((e: any) => String(e))
-        : [],
-    };
-  },
-
-  toJSON(message: AssetToAuctionMapping): unknown {
-    const obj: any = {};
-    message.auctionId !== undefined &&
-      (obj.auctionId = (message.auctionId || Long.UZERO).toString());
-    if (message.assetDenoms) {
-      obj.assetDenoms = message.assetDenoms.map((e) => e);
-    } else {
-      obj.assetDenoms = [];
-    }
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<AssetToAuctionMapping>, I>>(
-    object: I
-  ): AssetToAuctionMapping {
-    const message = createBaseAssetToAuctionMapping();
-    message.auctionId =
-      object.auctionId !== undefined && object.auctionId !== null
-        ? Long.fromValue(object.auctionId)
-        : Long.UZERO;
-    message.assetDenoms = object.assetDenoms?.map((e) => e) || [];
     return message;
   },
 };

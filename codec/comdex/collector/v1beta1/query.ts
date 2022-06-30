@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import  _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/collector/v1beta1/params";
 import {
   CollectorLookupTable,
@@ -20,29 +20,29 @@ export interface QueryParamsResponse {
   params?: Params;
 }
 
-export interface QueryCollectorLookupByProductRequest {
+export interface QueryCollectorLookupByAppRequest {
   appId: Long;
 }
 
-export interface QueryCollectorLookupByProductResponse {
+export interface QueryCollectorLookupByAppResponse {
   collectorLookup: CollectorLookupTable[];
 }
 
-export interface QueryCollectorLookupByProductAndAssetRequest {
+export interface QueryCollectorLookupByAppAndAssetRequest {
   appId: Long;
   assetId: Long;
 }
 
-export interface QueryCollectorLookupByProductAndAssetResponse {
+export interface QueryCollectorLookupByAppAndAssetResponse {
   collectorLookup?: CollectorLookupTable;
 }
 
-export interface QueryCollectorDataByProductAndAssetRequest {
+export interface QueryCollectorDataByAppAndAssetRequest {
   appId: Long;
   assetId: Long;
 }
 
-export interface QueryCollectorDataByProductAndAssetResponse {
+export interface QueryCollectorDataByAppAndAssetResponse {
   collectorData?: CollectorData;
 }
 
@@ -166,13 +166,13 @@ export const QueryParamsResponse = {
   },
 };
 
-function createBaseQueryCollectorLookupByProductRequest(): QueryCollectorLookupByProductRequest {
+function createBaseQueryCollectorLookupByAppRequest(): QueryCollectorLookupByAppRequest {
   return { appId: Long.UZERO };
 }
 
-export const QueryCollectorLookupByProductRequest = {
+export const QueryCollectorLookupByAppRequest = {
   encode(
-    message: QueryCollectorLookupByProductRequest,
+    message: QueryCollectorLookupByAppRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -184,10 +184,10 @@ export const QueryCollectorLookupByProductRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryCollectorLookupByProductRequest {
+  ): QueryCollectorLookupByAppRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryCollectorLookupByProductRequest();
+    const message = createBaseQueryCollectorLookupByAppRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -202,13 +202,13 @@ export const QueryCollectorLookupByProductRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryCollectorLookupByProductRequest {
+  fromJSON(object: any): QueryCollectorLookupByAppRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryCollectorLookupByProductRequest): unknown {
+  toJSON(message: QueryCollectorLookupByAppRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
@@ -216,9 +216,9 @@ export const QueryCollectorLookupByProductRequest = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryCollectorLookupByProductRequest>, I>
-  >(object: I): QueryCollectorLookupByProductRequest {
-    const message = createBaseQueryCollectorLookupByProductRequest();
+    I extends Exact<DeepPartial<QueryCollectorLookupByAppRequest>, I>
+  >(object: I): QueryCollectorLookupByAppRequest {
+    const message = createBaseQueryCollectorLookupByAppRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -227,13 +227,13 @@ export const QueryCollectorLookupByProductRequest = {
   },
 };
 
-function createBaseQueryCollectorLookupByProductResponse(): QueryCollectorLookupByProductResponse {
+function createBaseQueryCollectorLookupByAppResponse(): QueryCollectorLookupByAppResponse {
   return { collectorLookup: [] };
 }
 
-export const QueryCollectorLookupByProductResponse = {
+export const QueryCollectorLookupByAppResponse = {
   encode(
-    message: QueryCollectorLookupByProductResponse,
+    message: QueryCollectorLookupByAppResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.collectorLookup) {
@@ -245,10 +245,10 @@ export const QueryCollectorLookupByProductResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryCollectorLookupByProductResponse {
+  ): QueryCollectorLookupByAppResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryCollectorLookupByProductResponse();
+    const message = createBaseQueryCollectorLookupByAppResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -265,7 +265,7 @@ export const QueryCollectorLookupByProductResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryCollectorLookupByProductResponse {
+  fromJSON(object: any): QueryCollectorLookupByAppResponse {
     return {
       collectorLookup: Array.isArray(object?.collectorLookup)
         ? object.collectorLookup.map((e: any) =>
@@ -275,7 +275,7 @@ export const QueryCollectorLookupByProductResponse = {
     };
   },
 
-  toJSON(message: QueryCollectorLookupByProductResponse): unknown {
+  toJSON(message: QueryCollectorLookupByAppResponse): unknown {
     const obj: any = {};
     if (message.collectorLookup) {
       obj.collectorLookup = message.collectorLookup.map((e) =>
@@ -288,9 +288,9 @@ export const QueryCollectorLookupByProductResponse = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryCollectorLookupByProductResponse>, I>
-  >(object: I): QueryCollectorLookupByProductResponse {
-    const message = createBaseQueryCollectorLookupByProductResponse();
+    I extends Exact<DeepPartial<QueryCollectorLookupByAppResponse>, I>
+  >(object: I): QueryCollectorLookupByAppResponse {
+    const message = createBaseQueryCollectorLookupByAppResponse();
     message.collectorLookup =
       object.collectorLookup?.map((e) => CollectorLookupTable.fromPartial(e)) ||
       [];
@@ -298,13 +298,13 @@ export const QueryCollectorLookupByProductResponse = {
   },
 };
 
-function createBaseQueryCollectorLookupByProductAndAssetRequest(): QueryCollectorLookupByProductAndAssetRequest {
+function createBaseQueryCollectorLookupByAppAndAssetRequest(): QueryCollectorLookupByAppAndAssetRequest {
   return { appId: Long.UZERO, assetId: Long.UZERO };
 }
 
-export const QueryCollectorLookupByProductAndAssetRequest = {
+export const QueryCollectorLookupByAppAndAssetRequest = {
   encode(
-    message: QueryCollectorLookupByProductAndAssetRequest,
+    message: QueryCollectorLookupByAppAndAssetRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -319,10 +319,10 @@ export const QueryCollectorLookupByProductAndAssetRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryCollectorLookupByProductAndAssetRequest {
+  ): QueryCollectorLookupByAppAndAssetRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryCollectorLookupByProductAndAssetRequest();
+    const message = createBaseQueryCollectorLookupByAppAndAssetRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -340,7 +340,7 @@ export const QueryCollectorLookupByProductAndAssetRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryCollectorLookupByProductAndAssetRequest {
+  fromJSON(object: any): QueryCollectorLookupByAppAndAssetRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetId: isSet(object.assetId)
@@ -349,7 +349,7 @@ export const QueryCollectorLookupByProductAndAssetRequest = {
     };
   },
 
-  toJSON(message: QueryCollectorLookupByProductAndAssetRequest): unknown {
+  toJSON(message: QueryCollectorLookupByAppAndAssetRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
@@ -359,12 +359,9 @@ export const QueryCollectorLookupByProductAndAssetRequest = {
   },
 
   fromPartial<
-    I extends Exact<
-      DeepPartial<QueryCollectorLookupByProductAndAssetRequest>,
-      I
-    >
-  >(object: I): QueryCollectorLookupByProductAndAssetRequest {
-    const message = createBaseQueryCollectorLookupByProductAndAssetRequest();
+    I extends Exact<DeepPartial<QueryCollectorLookupByAppAndAssetRequest>, I>
+  >(object: I): QueryCollectorLookupByAppAndAssetRequest {
+    const message = createBaseQueryCollectorLookupByAppAndAssetRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -377,13 +374,13 @@ export const QueryCollectorLookupByProductAndAssetRequest = {
   },
 };
 
-function createBaseQueryCollectorLookupByProductAndAssetResponse(): QueryCollectorLookupByProductAndAssetResponse {
+function createBaseQueryCollectorLookupByAppAndAssetResponse(): QueryCollectorLookupByAppAndAssetResponse {
   return { collectorLookup: undefined };
 }
 
-export const QueryCollectorLookupByProductAndAssetResponse = {
+export const QueryCollectorLookupByAppAndAssetResponse = {
   encode(
-    message: QueryCollectorLookupByProductAndAssetResponse,
+    message: QueryCollectorLookupByAppAndAssetResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.collectorLookup !== undefined) {
@@ -398,10 +395,10 @@ export const QueryCollectorLookupByProductAndAssetResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryCollectorLookupByProductAndAssetResponse {
+  ): QueryCollectorLookupByAppAndAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryCollectorLookupByProductAndAssetResponse();
+    const message = createBaseQueryCollectorLookupByAppAndAssetResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -419,7 +416,7 @@ export const QueryCollectorLookupByProductAndAssetResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryCollectorLookupByProductAndAssetResponse {
+  fromJSON(object: any): QueryCollectorLookupByAppAndAssetResponse {
     return {
       collectorLookup: isSet(object.collectorLookup)
         ? CollectorLookupTable.fromJSON(object.collectorLookup)
@@ -427,7 +424,7 @@ export const QueryCollectorLookupByProductAndAssetResponse = {
     };
   },
 
-  toJSON(message: QueryCollectorLookupByProductAndAssetResponse): unknown {
+  toJSON(message: QueryCollectorLookupByAppAndAssetResponse): unknown {
     const obj: any = {};
     message.collectorLookup !== undefined &&
       (obj.collectorLookup = message.collectorLookup
@@ -437,12 +434,9 @@ export const QueryCollectorLookupByProductAndAssetResponse = {
   },
 
   fromPartial<
-    I extends Exact<
-      DeepPartial<QueryCollectorLookupByProductAndAssetResponse>,
-      I
-    >
-  >(object: I): QueryCollectorLookupByProductAndAssetResponse {
-    const message = createBaseQueryCollectorLookupByProductAndAssetResponse();
+    I extends Exact<DeepPartial<QueryCollectorLookupByAppAndAssetResponse>, I>
+  >(object: I): QueryCollectorLookupByAppAndAssetResponse {
+    const message = createBaseQueryCollectorLookupByAppAndAssetResponse();
     message.collectorLookup =
       object.collectorLookup !== undefined && object.collectorLookup !== null
         ? CollectorLookupTable.fromPartial(object.collectorLookup)
@@ -451,13 +445,13 @@ export const QueryCollectorLookupByProductAndAssetResponse = {
   },
 };
 
-function createBaseQueryCollectorDataByProductAndAssetRequest(): QueryCollectorDataByProductAndAssetRequest {
+function createBaseQueryCollectorDataByAppAndAssetRequest(): QueryCollectorDataByAppAndAssetRequest {
   return { appId: Long.UZERO, assetId: Long.UZERO };
 }
 
-export const QueryCollectorDataByProductAndAssetRequest = {
+export const QueryCollectorDataByAppAndAssetRequest = {
   encode(
-    message: QueryCollectorDataByProductAndAssetRequest,
+    message: QueryCollectorDataByAppAndAssetRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -472,10 +466,10 @@ export const QueryCollectorDataByProductAndAssetRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryCollectorDataByProductAndAssetRequest {
+  ): QueryCollectorDataByAppAndAssetRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryCollectorDataByProductAndAssetRequest();
+    const message = createBaseQueryCollectorDataByAppAndAssetRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -493,7 +487,7 @@ export const QueryCollectorDataByProductAndAssetRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryCollectorDataByProductAndAssetRequest {
+  fromJSON(object: any): QueryCollectorDataByAppAndAssetRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetId: isSet(object.assetId)
@@ -502,7 +496,7 @@ export const QueryCollectorDataByProductAndAssetRequest = {
     };
   },
 
-  toJSON(message: QueryCollectorDataByProductAndAssetRequest): unknown {
+  toJSON(message: QueryCollectorDataByAppAndAssetRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
@@ -512,9 +506,9 @@ export const QueryCollectorDataByProductAndAssetRequest = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryCollectorDataByProductAndAssetRequest>, I>
-  >(object: I): QueryCollectorDataByProductAndAssetRequest {
-    const message = createBaseQueryCollectorDataByProductAndAssetRequest();
+    I extends Exact<DeepPartial<QueryCollectorDataByAppAndAssetRequest>, I>
+  >(object: I): QueryCollectorDataByAppAndAssetRequest {
+    const message = createBaseQueryCollectorDataByAppAndAssetRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -527,13 +521,13 @@ export const QueryCollectorDataByProductAndAssetRequest = {
   },
 };
 
-function createBaseQueryCollectorDataByProductAndAssetResponse(): QueryCollectorDataByProductAndAssetResponse {
+function createBaseQueryCollectorDataByAppAndAssetResponse(): QueryCollectorDataByAppAndAssetResponse {
   return { collectorData: undefined };
 }
 
-export const QueryCollectorDataByProductAndAssetResponse = {
+export const QueryCollectorDataByAppAndAssetResponse = {
   encode(
-    message: QueryCollectorDataByProductAndAssetResponse,
+    message: QueryCollectorDataByAppAndAssetResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.collectorData !== undefined) {
@@ -548,10 +542,10 @@ export const QueryCollectorDataByProductAndAssetResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryCollectorDataByProductAndAssetResponse {
+  ): QueryCollectorDataByAppAndAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryCollectorDataByProductAndAssetResponse();
+    const message = createBaseQueryCollectorDataByAppAndAssetResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -566,7 +560,7 @@ export const QueryCollectorDataByProductAndAssetResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryCollectorDataByProductAndAssetResponse {
+  fromJSON(object: any): QueryCollectorDataByAppAndAssetResponse {
     return {
       collectorData: isSet(object.collectorData)
         ? CollectorData.fromJSON(object.collectorData)
@@ -574,7 +568,7 @@ export const QueryCollectorDataByProductAndAssetResponse = {
     };
   },
 
-  toJSON(message: QueryCollectorDataByProductAndAssetResponse): unknown {
+  toJSON(message: QueryCollectorDataByAppAndAssetResponse): unknown {
     const obj: any = {};
     message.collectorData !== undefined &&
       (obj.collectorData = message.collectorData
@@ -584,9 +578,9 @@ export const QueryCollectorDataByProductAndAssetResponse = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryCollectorDataByProductAndAssetResponse>, I>
-  >(object: I): QueryCollectorDataByProductAndAssetResponse {
-    const message = createBaseQueryCollectorDataByProductAndAssetResponse();
+    I extends Exact<DeepPartial<QueryCollectorDataByAppAndAssetResponse>, I>
+  >(object: I): QueryCollectorDataByAppAndAssetResponse {
+    const message = createBaseQueryCollectorDataByAppAndAssetResponse();
     message.collectorData =
       object.collectorData !== undefined && object.collectorData !== null
         ? CollectorData.fromPartial(object.collectorData)
@@ -899,15 +893,15 @@ export const QueryNetFeeCollectedForAppAndAssetResponse = {
 export interface Query {
   /** Parameters queries the parameters of the module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  QueryCollectorLookupByProduct(
-    request: QueryCollectorLookupByProductRequest
-  ): Promise<QueryCollectorLookupByProductResponse>;
-  QueryCollectorLookupByProductAndAsset(
-    request: QueryCollectorLookupByProductAndAssetRequest
-  ): Promise<QueryCollectorLookupByProductAndAssetResponse>;
-  QueryCollectorDataByProductAndAsset(
-    request: QueryCollectorDataByProductAndAssetRequest
-  ): Promise<QueryCollectorDataByProductAndAssetResponse>;
+  QueryCollectorLookupByApp(
+    request: QueryCollectorLookupByAppRequest
+  ): Promise<QueryCollectorLookupByAppResponse>;
+  QueryCollectorLookupByAppAndAsset(
+    request: QueryCollectorLookupByAppAndAssetRequest
+  ): Promise<QueryCollectorLookupByAppAndAssetResponse>;
+  QueryCollectorDataByAppAndAsset(
+    request: QueryCollectorDataByAppAndAssetRequest
+  ): Promise<QueryCollectorDataByAppAndAssetResponse>;
   QueryAuctionMappingForAppAndAsset(
     request: QueryAuctionMappingForAppAndAssetRequest
   ): Promise<QueryAuctionMappingForAppAndAssetResponse>;
@@ -921,12 +915,11 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
-    this.QueryCollectorLookupByProduct =
-      this.QueryCollectorLookupByProduct.bind(this);
-    this.QueryCollectorLookupByProductAndAsset =
-      this.QueryCollectorLookupByProductAndAsset.bind(this);
-    this.QueryCollectorDataByProductAndAsset =
-      this.QueryCollectorDataByProductAndAsset.bind(this);
+    this.QueryCollectorLookupByApp = this.QueryCollectorLookupByApp.bind(this);
+    this.QueryCollectorLookupByAppAndAsset =
+      this.QueryCollectorLookupByAppAndAsset.bind(this);
+    this.QueryCollectorDataByAppAndAsset =
+      this.QueryCollectorDataByAppAndAsset.bind(this);
     this.QueryAuctionMappingForAppAndAsset =
       this.QueryAuctionMappingForAppAndAsset.bind(this);
     this.QueryNetFeeCollectedForAppAndAsset =
@@ -944,47 +937,47 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryCollectorLookupByProduct(
-    request: QueryCollectorLookupByProductRequest
-  ): Promise<QueryCollectorLookupByProductResponse> {
-    const data = QueryCollectorLookupByProductRequest.encode(request).finish();
+  QueryCollectorLookupByApp(
+    request: QueryCollectorLookupByAppRequest
+  ): Promise<QueryCollectorLookupByAppResponse> {
+    const data = QueryCollectorLookupByAppRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.collector.v1beta1.Query",
-      "QueryCollectorLookupByProduct",
+      "QueryCollectorLookupByApp",
       data
     );
     return promise.then((data) =>
-      QueryCollectorLookupByProductResponse.decode(new _m0.Reader(data))
+      QueryCollectorLookupByAppResponse.decode(new _m0.Reader(data))
     );
   }
 
-  QueryCollectorLookupByProductAndAsset(
-    request: QueryCollectorLookupByProductAndAssetRequest
-  ): Promise<QueryCollectorLookupByProductAndAssetResponse> {
+  QueryCollectorLookupByAppAndAsset(
+    request: QueryCollectorLookupByAppAndAssetRequest
+  ): Promise<QueryCollectorLookupByAppAndAssetResponse> {
     const data =
-      QueryCollectorLookupByProductAndAssetRequest.encode(request).finish();
+      QueryCollectorLookupByAppAndAssetRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.collector.v1beta1.Query",
-      "QueryCollectorLookupByProductAndAsset",
+      "QueryCollectorLookupByAppAndAsset",
       data
     );
     return promise.then((data) =>
-      QueryCollectorLookupByProductAndAssetResponse.decode(new _m0.Reader(data))
+      QueryCollectorLookupByAppAndAssetResponse.decode(new _m0.Reader(data))
     );
   }
 
-  QueryCollectorDataByProductAndAsset(
-    request: QueryCollectorDataByProductAndAssetRequest
-  ): Promise<QueryCollectorDataByProductAndAssetResponse> {
+  QueryCollectorDataByAppAndAsset(
+    request: QueryCollectorDataByAppAndAssetRequest
+  ): Promise<QueryCollectorDataByAppAndAssetResponse> {
     const data =
-      QueryCollectorDataByProductAndAssetRequest.encode(request).finish();
+      QueryCollectorDataByAppAndAssetRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.collector.v1beta1.Query",
-      "QueryCollectorDataByProductAndAsset",
+      "QueryCollectorDataByAppAndAsset",
       data
     );
     return promise.then((data) =>
-      QueryCollectorDataByProductAndAssetResponse.decode(new _m0.Reader(data))
+      QueryCollectorDataByAppAndAssetResponse.decode(new _m0.Reader(data))
     );
   }
 
