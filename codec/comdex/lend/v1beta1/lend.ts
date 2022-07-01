@@ -25,7 +25,7 @@ export interface BorrowAsset {
   pairId: Long;
   amountIn?: Coin;
   amountOut?: Coin;
-  bridgedAssetId: Long;
+  bridgedAssetAmount?: Coin;
   borrowingTime?: Date;
   stableBorrowRate: string;
   updatedAmountOut: string;
@@ -323,7 +323,7 @@ function createBaseBorrowAsset(): BorrowAsset {
     pairId: Long.UZERO,
     amountIn: undefined,
     amountOut: undefined,
-    bridgedAssetId: Long.UZERO,
+    bridgedAssetAmount: undefined,
     borrowingTime: undefined,
     stableBorrowRate: "",
     updatedAmountOut: "",
@@ -354,8 +354,11 @@ export const BorrowAsset = {
     if (message.amountOut !== undefined) {
       Coin.encode(message.amountOut, writer.uint32(50).fork()).ldelim();
     }
-    if (!message.bridgedAssetId.isZero()) {
-      writer.uint32(56).uint64(message.bridgedAssetId);
+    if (message.bridgedAssetAmount !== undefined) {
+      Coin.encode(
+        message.bridgedAssetAmount,
+        writer.uint32(58).fork()
+      ).ldelim();
     }
     if (message.borrowingTime !== undefined) {
       Timestamp.encode(
@@ -401,7 +404,7 @@ export const BorrowAsset = {
           message.amountOut = Coin.decode(reader, reader.uint32());
           break;
         case 7:
-          message.bridgedAssetId = reader.uint64() as Long;
+          message.bridgedAssetAmount = Coin.decode(reader, reader.uint32());
           break;
         case 8:
           message.borrowingTime = fromTimestamp(
@@ -443,9 +446,9 @@ export const BorrowAsset = {
       amountOut: isSet(object.amountOut)
         ? Coin.fromJSON(object.amountOut)
         : undefined,
-      bridgedAssetId: isSet(object.bridgedAssetId)
-        ? Long.fromValue(object.bridgedAssetId)
-        : Long.UZERO,
+      bridgedAssetAmount: isSet(object.bridgedAssetAmount)
+        ? Coin.fromJSON(object.bridgedAssetAmount)
+        : undefined,
       borrowingTime: isSet(object.borrowingTime)
         ? fromJsonTimestamp(object.borrowingTime)
         : undefined,
@@ -479,8 +482,10 @@ export const BorrowAsset = {
       (obj.amountOut = message.amountOut
         ? Coin.toJSON(message.amountOut)
         : undefined);
-    message.bridgedAssetId !== undefined &&
-      (obj.bridgedAssetId = (message.bridgedAssetId || Long.UZERO).toString());
+    message.bridgedAssetAmount !== undefined &&
+      (obj.bridgedAssetAmount = message.bridgedAssetAmount
+        ? Coin.toJSON(message.bridgedAssetAmount)
+        : undefined);
     message.borrowingTime !== undefined &&
       (obj.borrowingTime = message.borrowingTime.toISOString());
     message.stableBorrowRate !== undefined &&
@@ -517,10 +522,11 @@ export const BorrowAsset = {
       object.amountOut !== undefined && object.amountOut !== null
         ? Coin.fromPartial(object.amountOut)
         : undefined;
-    message.bridgedAssetId =
-      object.bridgedAssetId !== undefined && object.bridgedAssetId !== null
-        ? Long.fromValue(object.bridgedAssetId)
-        : Long.UZERO;
+    message.bridgedAssetAmount =
+      object.bridgedAssetAmount !== undefined &&
+      object.bridgedAssetAmount !== null
+        ? Coin.fromPartial(object.bridgedAssetAmount)
+        : undefined;
     message.borrowingTime = object.borrowingTime ?? undefined;
     message.stableBorrowRate = object.stableBorrowRate ?? "";
     message.updatedAmountOut = object.updatedAmountOut ?? "";
