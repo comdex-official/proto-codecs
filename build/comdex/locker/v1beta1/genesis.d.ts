@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/locker/v1beta1/params";
 export declare const protobufPackage = "comdex.locker.v1beta1";
 export interface GenesisState {

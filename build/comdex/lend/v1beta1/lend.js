@@ -203,7 +203,7 @@ function createBaseBorrowAsset() {
         pairId: long_1.default.UZERO,
         amountIn: undefined,
         amountOut: undefined,
-        bridgedAssetId: long_1.default.UZERO,
+        bridgedAssetAmount: undefined,
         borrowingTime: undefined,
         stableBorrowRate: "",
         updatedAmountOut: "",
@@ -230,8 +230,8 @@ exports.BorrowAsset = {
         if (message.amountOut !== undefined) {
             coin_1.Coin.encode(message.amountOut, writer.uint32(50).fork()).ldelim();
         }
-        if (!message.bridgedAssetId.isZero()) {
-            writer.uint32(56).uint64(message.bridgedAssetId);
+        if (message.bridgedAssetAmount !== undefined) {
+            coin_1.Coin.encode(message.bridgedAssetAmount, writer.uint32(58).fork()).ldelim();
         }
         if (message.borrowingTime !== undefined) {
             timestamp_1.Timestamp.encode(toTimestamp(message.borrowingTime), writer.uint32(66).fork()).ldelim();
@@ -273,7 +273,7 @@ exports.BorrowAsset = {
                     message.amountOut = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 case 7:
-                    message.bridgedAssetId = reader.uint64();
+                    message.bridgedAssetAmount = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 case 8:
                     message.borrowingTime = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
@@ -312,9 +312,9 @@ exports.BorrowAsset = {
             amountOut: isSet(object.amountOut)
                 ? coin_1.Coin.fromJSON(object.amountOut)
                 : undefined,
-            bridgedAssetId: isSet(object.bridgedAssetId)
-                ? long_1.default.fromValue(object.bridgedAssetId)
-                : long_1.default.UZERO,
+            bridgedAssetAmount: isSet(object.bridgedAssetAmount)
+                ? coin_1.Coin.fromJSON(object.bridgedAssetAmount)
+                : undefined,
             borrowingTime: isSet(object.borrowingTime)
                 ? fromJsonTimestamp(object.borrowingTime)
                 : undefined,
@@ -347,8 +347,10 @@ exports.BorrowAsset = {
             (obj.amountOut = message.amountOut
                 ? coin_1.Coin.toJSON(message.amountOut)
                 : undefined);
-        message.bridgedAssetId !== undefined &&
-            (obj.bridgedAssetId = (message.bridgedAssetId || long_1.default.UZERO).toString());
+        message.bridgedAssetAmount !== undefined &&
+            (obj.bridgedAssetAmount = message.bridgedAssetAmount
+                ? coin_1.Coin.toJSON(message.bridgedAssetAmount)
+                : undefined);
         message.borrowingTime !== undefined &&
             (obj.borrowingTime = message.borrowingTime.toISOString());
         message.stableBorrowRate !== undefined &&
@@ -383,10 +385,11 @@ exports.BorrowAsset = {
             object.amountOut !== undefined && object.amountOut !== null
                 ? coin_1.Coin.fromPartial(object.amountOut)
                 : undefined;
-        message.bridgedAssetId =
-            object.bridgedAssetId !== undefined && object.bridgedAssetId !== null
-                ? long_1.default.fromValue(object.bridgedAssetId)
-                : long_1.default.UZERO;
+        message.bridgedAssetAmount =
+            object.bridgedAssetAmount !== undefined &&
+                object.bridgedAssetAmount !== null
+                ? coin_1.Coin.fromPartial(object.bridgedAssetAmount)
+                : undefined;
         message.borrowingTime = (_b = object.borrowingTime) !== null && _b !== void 0 ? _b : undefined;
         message.stableBorrowRate = (_c = object.stableBorrowRate) !== null && _c !== void 0 ? _c : "";
         message.updatedAmountOut = (_d = object.updatedAmountOut) !== null && _d !== void 0 ? _d : "";

@@ -5,13 +5,13 @@ export interface MsgCreateLockerRequest {
     depositor: string;
     amount: string;
     assetId: Long;
-    appMappingId: Long;
+    appId: Long;
 }
 export interface MsgCreateLockerResponse {
 }
 export interface MsgAddWhiteListedAssetRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     assetId: Long;
 }
 export interface MsgAddWhiteListedAssetResponse {
@@ -21,7 +21,7 @@ export interface MsgDepositAssetRequest {
     lockerId: string;
     amount: string;
     assetId: Long;
-    appMappingId: Long;
+    appId: Long;
 }
 export interface MsgDepositAssetResponse {
 }
@@ -30,7 +30,7 @@ export interface MsgWithdrawAssetRequest {
     lockerId: string;
     amount: string;
     assetId: Long;
-    appMappingId: Long;
+    appId: Long;
 }
 export interface MsgWithdrawAssetResponse {
 }
@@ -43,7 +43,7 @@ export declare const MsgCreateLockerRequest: {
         depositor?: string | undefined;
         amount?: string | undefined;
         assetId?: string | number | Long.Long | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
     } & {
         depositor?: string | undefined;
         amount?: string | undefined;
@@ -105,7 +105,7 @@ export declare const MsgCreateLockerRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -162,7 +162,7 @@ export declare const MsgCreateLockerRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof MsgCreateLockerRequest>, never>>(object: I): MsgCreateLockerRequest;
 };
 export declare const MsgCreateLockerResponse: {
@@ -179,11 +179,11 @@ export declare const MsgAddWhiteListedAssetRequest: {
     toJSON(message: MsgAddWhiteListedAssetRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -240,7 +240,7 @@ export declare const MsgAddWhiteListedAssetRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         assetId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -318,7 +318,7 @@ export declare const MsgDepositAssetRequest: {
         lockerId?: string | undefined;
         amount?: string | undefined;
         assetId?: string | number | Long.Long | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
     } & {
         depositor?: string | undefined;
         lockerId?: string | undefined;
@@ -381,7 +381,7 @@ export declare const MsgDepositAssetRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -438,7 +438,7 @@ export declare const MsgDepositAssetRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof MsgDepositAssetRequest>, never>>(object: I): MsgDepositAssetRequest;
 };
 export declare const MsgDepositAssetResponse: {
@@ -458,7 +458,7 @@ export declare const MsgWithdrawAssetRequest: {
         lockerId?: string | undefined;
         amount?: string | undefined;
         assetId?: string | number | Long.Long | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
     } & {
         depositor?: string | undefined;
         lockerId?: string | undefined;
@@ -521,7 +521,7 @@ export declare const MsgWithdrawAssetRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -578,7 +578,7 @@ export declare const MsgWithdrawAssetRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof MsgWithdrawAssetRequest>, never>>(object: I): MsgWithdrawAssetRequest;
 };
 export declare const MsgWithdrawAssetResponse: {

@@ -2,8 +2,8 @@ import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
-import { Params } from "../../../comdex/asset/v1beta1/params";
-import { AppMapping } from "../../../comdex/asset/v1beta1/appMapping";
+import { PairInfo } from "../../../comdex/asset/v1beta1/pair";
+import { AppData } from "../../../comdex/asset/v1beta1/app";
 import { ExtendedPairVault } from "../../../comdex/asset/v1beta1/extendedPairVault";
 export declare const protobufPackage = "comdex.asset.v1beta1";
 export interface QueryAssetsRequest {
@@ -19,13 +19,6 @@ export interface QueryAssetRequest {
 export interface QueryAssetResponse {
     asset?: Asset;
 }
-export interface PairInfo {
-    id: Long;
-    assetIn: Long;
-    denomIn: string;
-    assetOut: Long;
-    denomOut: string;
-}
 export interface QueryPairsRequest {
     pagination?: PageRequest;
 }
@@ -39,16 +32,11 @@ export interface QueryPairRequest {
 export interface QueryPairResponse {
     pairInfo?: PairInfo;
 }
-export interface QueryParamsRequest {
-}
-export interface QueryParamsResponse {
-    params?: Params;
-}
 export interface QueryAppRequest {
     id: Long;
 }
 export interface QueryAppResponse {
-    app?: AppMapping;
+    app?: AppData;
 }
 export interface QueryGovTokenByAppRequest {
     appId: Long;
@@ -59,7 +47,7 @@ export interface QueryGovTokenByAppResponse {
 export interface QueryAppsRequest {
 }
 export interface QueryAppsResponse {
-    apps: AppMapping[];
+    apps: AppData[];
 }
 export interface QueryExtendedPairVaultRequest {
     id: Long;
@@ -84,10 +72,10 @@ export interface QueryAllExtendedPairStableVaultsIdByAppRequest {
 export interface QueryAllExtendedPairStableVaultsIdByAppResponse {
     extendedPairsId: Long[];
 }
-export interface QueryAllExtendedPairStableVaultsDataByAppRequest {
+export interface QueryAllExtendedPairStableVaultsByAppRequest {
     appId: Long;
 }
-export interface QueryAllExtendedPairStableVaultsDataByAppResponse {
+export interface QueryAllExtendedPairStableVaultsByAppResponse {
     extendedPair: ExtendedPairVault[];
 }
 export declare const QueryAssetsRequest: {
@@ -674,196 +662,6 @@ export declare const QueryAssetResponse: {
             isOraclePriceRequired?: boolean | undefined;
         } & Record<Exclude<keyof I["asset"], keyof Asset>, never>) | undefined;
     } & Record<Exclude<keyof I, "asset">, never>>(object: I): QueryAssetResponse;
-};
-export declare const PairInfo: {
-    encode(message: PairInfo, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PairInfo;
-    fromJSON(object: any): PairInfo;
-    toJSON(message: PairInfo): unknown;
-    fromPartial<I extends {
-        id?: string | number | Long.Long | undefined;
-        assetIn?: string | number | Long.Long | undefined;
-        denomIn?: string | undefined;
-        assetOut?: string | number | Long.Long | undefined;
-        denomOut?: string | undefined;
-    } & {
-        id?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["id"], keyof Long.Long>, never>) | undefined;
-        assetIn?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["assetIn"], keyof Long.Long>, never>) | undefined;
-        denomIn?: string | undefined;
-        assetOut?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["assetOut"], keyof Long.Long>, never>) | undefined;
-        denomOut?: string | undefined;
-    } & Record<Exclude<keyof I, keyof PairInfo>, never>>(object: I): PairInfo;
 };
 export declare const QueryPairsRequest: {
     encode(message: QueryPairsRequest, writer?: _m0.Writer): _m0.Writer;
@@ -1556,24 +1354,6 @@ export declare const QueryPairResponse: {
         } & Record<Exclude<keyof I["pairInfo"], keyof PairInfo>, never>) | undefined;
     } & Record<Exclude<keyof I, "pairInfo">, never>>(object: I): QueryPairResponse;
 };
-export declare const QueryParamsRequest: {
-    encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsRequest;
-    fromJSON(_: any): QueryParamsRequest;
-    toJSON(_: QueryParamsRequest): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryParamsRequest;
-};
-export declare const QueryParamsResponse: {
-    encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsResponse;
-    fromJSON(object: any): QueryParamsResponse;
-    toJSON(message: QueryParamsResponse): unknown;
-    fromPartial<I extends {
-        params?: {} | undefined;
-    } & {
-        params?: ({} & {} & Record<Exclude<keyof I["params"], never>, never>) | undefined;
-    } & Record<Exclude<keyof I, "params">, never>>(object: I): QueryParamsResponse;
-};
 export declare const QueryAppRequest: {
     encode(message: QueryAppRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAppRequest;
@@ -1809,13 +1589,13 @@ export declare const QueryAppResponse: {
                 genesisSupply?: string | undefined;
                 isGovToken?: boolean | undefined;
                 recipient?: string | undefined;
-            } & Record<Exclude<keyof I["app"]["genesisToken"][number], keyof import("../../../comdex/asset/v1beta1/appMapping").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"]["genesisToken"], keyof {
+            } & Record<Exclude<keyof I["app"]["genesisToken"][number], keyof import("../../../comdex/asset/v1beta1/app").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"]["genesisToken"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
                 isGovToken?: boolean | undefined;
                 recipient?: string | undefined;
             }[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["app"], keyof AppMapping>, never>) | undefined;
+        } & Record<Exclude<keyof I["app"], keyof AppData>, never>) | undefined;
     } & Record<Exclude<keyof I, "app">, never>>(object: I): QueryAppResponse;
 };
 export declare const QueryGovTokenByAppRequest: {
@@ -2140,13 +1920,13 @@ export declare const QueryAppsResponse: {
                 genesisSupply?: string | undefined;
                 isGovToken?: boolean | undefined;
                 recipient?: string | undefined;
-            } & Record<Exclude<keyof I["apps"][number]["genesisToken"][number], keyof import("../../../comdex/asset/v1beta1/appMapping").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["apps"][number]["genesisToken"], keyof {
+            } & Record<Exclude<keyof I["apps"][number]["genesisToken"][number], keyof import("../../../comdex/asset/v1beta1/app").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["apps"][number]["genesisToken"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
                 isGovToken?: boolean | undefined;
                 recipient?: string | undefined;
             }[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["apps"][number], keyof AppMapping>, never>)[] & Record<Exclude<keyof I["apps"], keyof {
+        } & Record<Exclude<keyof I["apps"][number], keyof AppData>, never>)[] & Record<Exclude<keyof I["apps"], keyof {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
@@ -2237,7 +2017,7 @@ export declare const QueryExtendedPairVaultResponse: {
     fromPartial<I extends {
         pairVault?: {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -2256,7 +2036,7 @@ export declare const QueryExtendedPairVaultResponse: {
     } & {
         pairVault?: ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -2330,7 +2110,7 @@ export declare const QueryExtendedPairVaultResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pairVault"]["id"], keyof Long.Long>, never>) | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -2387,7 +2167,7 @@ export declare const QueryExtendedPairVaultResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pairVault"]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["pairVault"]["appId"], keyof Long.Long>, never>) | undefined;
             pairId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -2591,7 +2371,7 @@ export declare const QueryAllExtendedPairVaultsResponse: {
     fromPartial<I extends {
         pairVault?: {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -2610,7 +2390,7 @@ export declare const QueryAllExtendedPairVaultsResponse: {
     } & {
         pairVault?: ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -2627,7 +2407,7 @@ export declare const QueryAllExtendedPairVaultsResponse: {
             minUsdValueLeft?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -2701,7 +2481,7 @@ export declare const QueryAllExtendedPairVaultsResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pairVault"][number]["id"], keyof Long.Long>, never>) | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -2758,7 +2538,7 @@ export declare const QueryAllExtendedPairVaultsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pairVault"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["pairVault"][number]["appId"], keyof Long.Long>, never>) | undefined;
             pairId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -2946,7 +2726,7 @@ export declare const QueryAllExtendedPairVaultsResponse: {
             } & Record<Exclude<keyof I["pairVault"][number]["minUsdValueLeft"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pairVault"][number], keyof ExtendedPairVault>, never>)[] & Record<Exclude<keyof I["pairVault"], keyof {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -3040,7 +2820,7 @@ export declare const QueryAllExtendedPairVaultsByAppResponse: {
     fromPartial<I extends {
         extendedPair?: {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -3059,7 +2839,7 @@ export declare const QueryAllExtendedPairVaultsByAppResponse: {
     } & {
         extendedPair?: ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -3076,7 +2856,7 @@ export declare const QueryAllExtendedPairVaultsByAppResponse: {
             minUsdValueLeft?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -3150,7 +2930,7 @@ export declare const QueryAllExtendedPairVaultsByAppResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["extendedPair"][number]["id"], keyof Long.Long>, never>) | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -3207,7 +2987,7 @@ export declare const QueryAllExtendedPairVaultsByAppResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["extendedPair"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["extendedPair"][number]["appId"], keyof Long.Long>, never>) | undefined;
             pairId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -3395,7 +3175,7 @@ export declare const QueryAllExtendedPairVaultsByAppResponse: {
             } & Record<Exclude<keyof I["extendedPair"][number]["minUsdValueLeft"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["extendedPair"][number], keyof ExtendedPairVault>, never>)[] & Record<Exclude<keyof I["extendedPair"], keyof {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -3549,11 +3329,11 @@ export declare const QueryAllExtendedPairStableVaultsIdByAppResponse: {
         } & Record<Exclude<keyof I["extendedPairsId"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["extendedPairsId"], keyof (string | number | Long.Long)[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "extendedPairsId">, never>>(object: I): QueryAllExtendedPairStableVaultsIdByAppResponse;
 };
-export declare const QueryAllExtendedPairStableVaultsDataByAppRequest: {
-    encode(message: QueryAllExtendedPairStableVaultsDataByAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsDataByAppRequest;
-    fromJSON(object: any): QueryAllExtendedPairStableVaultsDataByAppRequest;
-    toJSON(message: QueryAllExtendedPairStableVaultsDataByAppRequest): unknown;
+export declare const QueryAllExtendedPairStableVaultsByAppRequest: {
+    encode(message: QueryAllExtendedPairStableVaultsByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsByAppRequest;
+    fromJSON(object: any): QueryAllExtendedPairStableVaultsByAppRequest;
+    toJSON(message: QueryAllExtendedPairStableVaultsByAppRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
     } & {
@@ -3615,17 +3395,17 @@ export declare const QueryAllExtendedPairStableVaultsDataByAppRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryAllExtendedPairStableVaultsDataByAppRequest;
+    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryAllExtendedPairStableVaultsByAppRequest;
 };
-export declare const QueryAllExtendedPairStableVaultsDataByAppResponse: {
-    encode(message: QueryAllExtendedPairStableVaultsDataByAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsDataByAppResponse;
-    fromJSON(object: any): QueryAllExtendedPairStableVaultsDataByAppResponse;
-    toJSON(message: QueryAllExtendedPairStableVaultsDataByAppResponse): unknown;
+export declare const QueryAllExtendedPairStableVaultsByAppResponse: {
+    encode(message: QueryAllExtendedPairStableVaultsByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsByAppResponse;
+    fromJSON(object: any): QueryAllExtendedPairStableVaultsByAppResponse;
+    toJSON(message: QueryAllExtendedPairStableVaultsByAppResponse): unknown;
     fromPartial<I extends {
         extendedPair?: {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -3644,7 +3424,7 @@ export declare const QueryAllExtendedPairStableVaultsDataByAppResponse: {
     } & {
         extendedPair?: ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -3661,7 +3441,7 @@ export declare const QueryAllExtendedPairStableVaultsDataByAppResponse: {
             minUsdValueLeft?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -3735,7 +3515,7 @@ export declare const QueryAllExtendedPairStableVaultsDataByAppResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["extendedPair"][number]["id"], keyof Long.Long>, never>) | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -3792,7 +3572,7 @@ export declare const QueryAllExtendedPairStableVaultsDataByAppResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["extendedPair"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["extendedPair"][number]["appId"], keyof Long.Long>, never>) | undefined;
             pairId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -3980,7 +3760,7 @@ export declare const QueryAllExtendedPairStableVaultsDataByAppResponse: {
             } & Record<Exclude<keyof I["extendedPair"][number]["minUsdValueLeft"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["extendedPair"][number], keyof ExtendedPairVault>, never>)[] & Record<Exclude<keyof I["extendedPair"], keyof {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             stabilityFee?: string | undefined;
             closingFee?: string | undefined;
@@ -3996,22 +3776,21 @@ export declare const QueryAllExtendedPairStableVaultsDataByAppResponse: {
             assetOutPrice?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "extendedPair">, never>>(object: I): QueryAllExtendedPairStableVaultsDataByAppResponse;
+    } & Record<Exclude<keyof I, "extendedPair">, never>>(object: I): QueryAllExtendedPairStableVaultsByAppResponse;
 };
 export interface Query {
     QueryAssets(request: QueryAssetsRequest): Promise<QueryAssetsResponse>;
     QueryAsset(request: QueryAssetRequest): Promise<QueryAssetResponse>;
     QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
     QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
-    QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-    QueryAppsMappings(request: QueryAppsRequest): Promise<QueryAppsResponse>;
-    QueryAppMappings(request: QueryAppRequest): Promise<QueryAppResponse>;
+    QueryApps(request: QueryAppsRequest): Promise<QueryAppsResponse>;
+    QueryApp(request: QueryAppRequest): Promise<QueryAppResponse>;
     QueryExtendedPairVault(request: QueryExtendedPairVaultRequest): Promise<QueryExtendedPairVaultResponse>;
     QueryAllExtendedPairVaults(request: QueryAllExtendedPairVaultsRequest): Promise<QueryAllExtendedPairVaultsResponse>;
     QueryAllExtendedPairVaultsByApp(request: QueryAllExtendedPairVaultsByAppRequest): Promise<QueryAllExtendedPairVaultsByAppResponse>;
     QueryAllExtendedPairStableVaultsIdByApp(request: QueryAllExtendedPairStableVaultsIdByAppRequest): Promise<QueryAllExtendedPairStableVaultsIdByAppResponse>;
     QueryGovTokenByApp(request: QueryGovTokenByAppRequest): Promise<QueryGovTokenByAppResponse>;
-    QueryAllExtendedPairStableVaultsDataByApp(request: QueryAllExtendedPairStableVaultsDataByAppRequest): Promise<QueryAllExtendedPairStableVaultsDataByAppResponse>;
+    QueryAllExtendedPairStableVaultsByApp(request: QueryAllExtendedPairStableVaultsByAppRequest): Promise<QueryAllExtendedPairStableVaultsByAppResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -4020,15 +3799,14 @@ export declare class QueryClientImpl implements Query {
     QueryAsset(request: QueryAssetRequest): Promise<QueryAssetResponse>;
     QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
     QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
-    QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-    QueryAppsMappings(request: QueryAppsRequest): Promise<QueryAppsResponse>;
-    QueryAppMappings(request: QueryAppRequest): Promise<QueryAppResponse>;
+    QueryApps(request: QueryAppsRequest): Promise<QueryAppsResponse>;
+    QueryApp(request: QueryAppRequest): Promise<QueryAppResponse>;
     QueryExtendedPairVault(request: QueryExtendedPairVaultRequest): Promise<QueryExtendedPairVaultResponse>;
     QueryAllExtendedPairVaults(request: QueryAllExtendedPairVaultsRequest): Promise<QueryAllExtendedPairVaultsResponse>;
     QueryAllExtendedPairVaultsByApp(request: QueryAllExtendedPairVaultsByAppRequest): Promise<QueryAllExtendedPairVaultsByAppResponse>;
     QueryAllExtendedPairStableVaultsIdByApp(request: QueryAllExtendedPairStableVaultsIdByAppRequest): Promise<QueryAllExtendedPairStableVaultsIdByAppResponse>;
     QueryGovTokenByApp(request: QueryGovTokenByAppRequest): Promise<QueryGovTokenByAppResponse>;
-    QueryAllExtendedPairStableVaultsDataByApp(request: QueryAllExtendedPairStableVaultsDataByAppRequest): Promise<QueryAllExtendedPairStableVaultsDataByAppResponse>;
+    QueryAllExtendedPairStableVaultsByApp(request: QueryAllExtendedPairStableVaultsByAppRequest): Promise<QueryAllExtendedPairStableVaultsByAppResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

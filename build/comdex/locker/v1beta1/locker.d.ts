@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.locker.v1beta1";
 /** locker_id will be the key which will be derived from the LockerLookUpTable */
 export interface Locker {
@@ -17,7 +17,7 @@ export interface Locker {
     createdAt?: Date;
     assetDepositId: Long;
     isLocked: boolean;
-    appMappingId: Long;
+    appId: Long;
 }
 /** Key is user address */
 export interface UserLockerAssetMapping {
@@ -26,7 +26,7 @@ export interface UserLockerAssetMapping {
 }
 /** This is used inside the UserLockerAssetMapping */
 export interface LockerToAppMapping {
-    appMappingId: Long;
+    appId: Long;
     userAssetLocker: AssetToLockerMapping[];
 }
 /** This is used inside LockerToAppMapping */
@@ -43,7 +43,7 @@ export interface UserTxData {
 }
 /** Key is app_mapping_id */
 export interface LockerLookupTable {
-    appMappingId: Long;
+    appId: Long;
     lockers: TokenToLockerMapping[];
     counter: Long;
 }
@@ -54,12 +54,17 @@ export interface TokenToLockerMapping {
 }
 /** Key is app_mapping_id */
 export interface LockerProductAssetMapping {
-    appMappingId: Long;
+    appId: Long;
     assetIds: Long[];
 }
 export interface LockedDepositedAmountDataMap {
     assetId: Long;
     depositedAmount: string;
+}
+export interface LockerTotalRewardsByAssetAppWise {
+    appId: Long;
+    assetId: Long;
+    totalRewards: string;
 }
 export declare const Locker: {
     encode(message: Locker, writer?: _m0.Writer): _m0.Writer;
@@ -74,7 +79,7 @@ export declare const Locker: {
         createdAt?: Date | undefined;
         assetDepositId?: string | number | Long.Long | undefined;
         isLocked?: boolean | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
     } & {
         lockerId?: string | undefined;
         depositor?: string | undefined;
@@ -140,7 +145,7 @@ export declare const Locker: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetDepositId"], keyof Long.Long>, never>) | undefined;
         isLocked?: boolean | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -197,7 +202,7 @@ export declare const Locker: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof Locker>, never>>(object: I): Locker;
 };
 export declare const UserLockerAssetMapping: {
@@ -208,7 +213,7 @@ export declare const UserLockerAssetMapping: {
     fromPartial<I extends {
         owner?: string | undefined;
         lockerAppMapping?: {
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             userAssetLocker?: {
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
@@ -223,7 +228,7 @@ export declare const UserLockerAssetMapping: {
     } & {
         owner?: string | undefined;
         lockerAppMapping?: ({
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             userAssetLocker?: {
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
@@ -235,7 +240,7 @@ export declare const UserLockerAssetMapping: {
                 }[] | undefined;
             }[] | undefined;
         }[] & ({
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             userAssetLocker?: {
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
@@ -247,7 +252,7 @@ export declare const UserLockerAssetMapping: {
                 }[] | undefined;
             }[] | undefined;
         } & {
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -304,7 +309,7 @@ export declare const UserLockerAssetMapping: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["lockerAppMapping"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockerAppMapping"][number]["appId"], keyof Long.Long>, never>) | undefined;
             userAssetLocker?: ({
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
@@ -415,7 +420,7 @@ export declare const UserLockerAssetMapping: {
                 }[] | undefined;
             }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["lockerAppMapping"][number], keyof LockerToAppMapping>, never>)[] & Record<Exclude<keyof I["lockerAppMapping"], keyof {
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             userAssetLocker?: {
                 assetId?: string | number | Long.Long | undefined;
                 lockerId?: string | undefined;
@@ -435,7 +440,7 @@ export declare const LockerToAppMapping: {
     fromJSON(object: any): LockerToAppMapping;
     toJSON(message: LockerToAppMapping): unknown;
     fromPartial<I extends {
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         userAssetLocker?: {
             assetId?: string | number | Long.Long | undefined;
             lockerId?: string | undefined;
@@ -447,7 +452,7 @@ export declare const LockerToAppMapping: {
             }[] | undefined;
         }[] | undefined;
     } & {
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -504,7 +509,7 @@ export declare const LockerToAppMapping: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         userAssetLocker?: ({
             assetId?: string | number | Long.Long | undefined;
             lockerId?: string | undefined;
@@ -736,7 +741,7 @@ export declare const LockerLookupTable: {
     fromJSON(object: any): LockerLookupTable;
     toJSON(message: LockerLookupTable): unknown;
     fromPartial<I extends {
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         lockers?: {
             assetId?: string | number | Long.Long | undefined;
             lockerIds?: string[] | undefined;
@@ -744,7 +749,7 @@ export declare const LockerLookupTable: {
         }[] | undefined;
         counter?: string | number | Long.Long | undefined;
     } & {
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -801,7 +806,7 @@ export declare const LockerLookupTable: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         lockers?: ({
             assetId?: string | number | Long.Long | undefined;
             lockerIds?: string[] | undefined;
@@ -1014,10 +1019,10 @@ export declare const LockerProductAssetMapping: {
     fromJSON(object: any): LockerProductAssetMapping;
     toJSON(message: LockerProductAssetMapping): unknown;
     fromPartial<I extends {
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         assetIds?: (string | number | Long.Long)[] | undefined;
     } & {
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -1074,7 +1079,7 @@ export declare const LockerProductAssetMapping: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         assetIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1204,6 +1209,135 @@ export declare const LockedDepositedAmountDataMap: {
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
         depositedAmount?: string | undefined;
     } & Record<Exclude<keyof I, keyof LockedDepositedAmountDataMap>, never>>(object: I): LockedDepositedAmountDataMap;
+};
+export declare const LockerTotalRewardsByAssetAppWise: {
+    encode(message: LockerTotalRewardsByAssetAppWise, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LockerTotalRewardsByAssetAppWise;
+    fromJSON(object: any): LockerTotalRewardsByAssetAppWise;
+    toJSON(message: LockerTotalRewardsByAssetAppWise): unknown;
+    fromPartial<I extends {
+        appId?: string | number | Long.Long | undefined;
+        assetId?: string | number | Long.Long | undefined;
+        totalRewards?: string | undefined;
+    } & {
+        appId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        assetId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
+        totalRewards?: string | undefined;
+    } & Record<Exclude<keyof I, keyof LockerTotalRewardsByAssetAppWise>, never>>(object: I): LockerTotalRewardsByAssetAppWise;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
