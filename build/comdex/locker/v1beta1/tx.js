@@ -32,12 +32,7 @@ const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.locker.v1beta1";
 function createBaseMsgCreateLockerRequest() {
-    return {
-        depositor: "",
-        amount: "",
-        assetId: long_1.default.UZERO,
-        appMappingId: long_1.default.UZERO,
-    };
+    return { depositor: "", amount: "", assetId: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.MsgCreateLockerRequest = {
     encode(message, writer = _m0.Writer.create()) {
@@ -50,8 +45,8 @@ exports.MsgCreateLockerRequest = {
         if (!message.assetId.isZero()) {
             writer.uint32(24).uint64(message.assetId);
         }
-        if (!message.appMappingId.isZero()) {
-            writer.uint32(32).uint64(message.appMappingId);
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         return writer;
     },
@@ -72,7 +67,7 @@ exports.MsgCreateLockerRequest = {
                     message.assetId = reader.uint64();
                     break;
                 case 4:
-                    message.appMappingId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -88,9 +83,7 @@ exports.MsgCreateLockerRequest = {
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
-            appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -99,8 +92,8 @@ exports.MsgCreateLockerRequest = {
         message.amount !== undefined && (obj.amount = message.amount);
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
-        message.appMappingId !== undefined &&
-            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -112,9 +105,9 @@ exports.MsgCreateLockerRequest = {
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
-        message.appMappingId =
-            object.appMappingId !== undefined && object.appMappingId !== null
-                ? long_1.default.fromValue(object.appMappingId)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -153,15 +146,15 @@ exports.MsgCreateLockerResponse = {
     },
 };
 function createBaseMsgAddWhiteListedAssetRequest() {
-    return { from: "", appMappingId: long_1.default.UZERO, assetId: long_1.default.UZERO };
+    return { from: "", appId: long_1.default.UZERO, assetId: long_1.default.UZERO };
 }
 exports.MsgAddWhiteListedAssetRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
-        if (!message.appMappingId.isZero()) {
-            writer.uint32(16).uint64(message.appMappingId);
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         if (!message.assetId.isZero()) {
             writer.uint32(24).uint64(message.assetId);
@@ -179,7 +172,7 @@ exports.MsgAddWhiteListedAssetRequest = {
                     message.from = reader.string();
                     break;
                 case 2:
-                    message.appMappingId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 3:
                     message.assetId = reader.uint64();
@@ -194,9 +187,7 @@ exports.MsgAddWhiteListedAssetRequest = {
     fromJSON(object) {
         return {
             from: isSet(object.from) ? String(object.from) : "",
-            appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
@@ -205,8 +196,8 @@ exports.MsgAddWhiteListedAssetRequest = {
     toJSON(message) {
         const obj = {};
         message.from !== undefined && (obj.from = message.from);
-        message.appMappingId !== undefined &&
-            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         return obj;
@@ -215,9 +206,9 @@ exports.MsgAddWhiteListedAssetRequest = {
         var _a;
         const message = createBaseMsgAddWhiteListedAssetRequest();
         message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
-        message.appMappingId =
-            object.appMappingId !== undefined && object.appMappingId !== null
-                ? long_1.default.fromValue(object.appMappingId)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
@@ -265,7 +256,7 @@ function createBaseMsgDepositAssetRequest() {
         lockerId: "",
         amount: "",
         assetId: long_1.default.UZERO,
-        appMappingId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
     };
 }
 exports.MsgDepositAssetRequest = {
@@ -282,8 +273,8 @@ exports.MsgDepositAssetRequest = {
         if (!message.assetId.isZero()) {
             writer.uint32(32).uint64(message.assetId);
         }
-        if (!message.appMappingId.isZero()) {
-            writer.uint32(40).uint64(message.appMappingId);
+        if (!message.appId.isZero()) {
+            writer.uint32(40).uint64(message.appId);
         }
         return writer;
     },
@@ -307,7 +298,7 @@ exports.MsgDepositAssetRequest = {
                     message.assetId = reader.uint64();
                     break;
                 case 5:
-                    message.appMappingId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -324,9 +315,7 @@ exports.MsgDepositAssetRequest = {
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
-            appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -336,8 +325,8 @@ exports.MsgDepositAssetRequest = {
         message.amount !== undefined && (obj.amount = message.amount);
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
-        message.appMappingId !== undefined &&
-            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -350,9 +339,9 @@ exports.MsgDepositAssetRequest = {
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
-        message.appMappingId =
-            object.appMappingId !== undefined && object.appMappingId !== null
-                ? long_1.default.fromValue(object.appMappingId)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -396,7 +385,7 @@ function createBaseMsgWithdrawAssetRequest() {
         lockerId: "",
         amount: "",
         assetId: long_1.default.UZERO,
-        appMappingId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
     };
 }
 exports.MsgWithdrawAssetRequest = {
@@ -413,8 +402,8 @@ exports.MsgWithdrawAssetRequest = {
         if (!message.assetId.isZero()) {
             writer.uint32(32).uint64(message.assetId);
         }
-        if (!message.appMappingId.isZero()) {
-            writer.uint32(40).uint64(message.appMappingId);
+        if (!message.appId.isZero()) {
+            writer.uint32(40).uint64(message.appId);
         }
         return writer;
     },
@@ -438,7 +427,7 @@ exports.MsgWithdrawAssetRequest = {
                     message.assetId = reader.uint64();
                     break;
                 case 5:
-                    message.appMappingId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -455,9 +444,7 @@ exports.MsgWithdrawAssetRequest = {
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
-            appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -467,8 +454,8 @@ exports.MsgWithdrawAssetRequest = {
         message.amount !== undefined && (obj.amount = message.amount);
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
-        message.appMappingId !== undefined &&
-            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -481,9 +468,9 @@ exports.MsgWithdrawAssetRequest = {
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
-        message.appMappingId =
-            object.appMappingId !== undefined && object.appMappingId !== null
-                ? long_1.default.fromValue(object.appMappingId)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },

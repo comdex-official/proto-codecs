@@ -4,7 +4,7 @@ export declare const protobufPackage = "comdex.vault.v1beta1";
 /** app_vault_type_id will be the key for  the KVStore for this value. */
 export interface Vault {
     id: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     owner: string;
     amountIn: string;
@@ -19,7 +19,7 @@ export interface UserVaultAssetMapping {
     userVaultApp: VaultToAppMapping[];
 }
 export interface VaultToAppMapping {
-    appMappingId: Long;
+    appId: Long;
     userExtendedPairVault: ExtendedPairToVaultMapping[];
 }
 export interface ExtendedPairToVaultMapping {
@@ -28,7 +28,7 @@ export interface ExtendedPairToVaultMapping {
 }
 /** app_id is the key */
 export interface AppExtendedPairVaultMapping {
-    appMappingId: Long;
+    appId: Long;
     counter: Long;
     extendedPairVaults: ExtendedPairVaultMapping[];
 }
@@ -50,9 +50,15 @@ export interface StableMintVault {
     id: string;
     amountIn: string;
     amountOut: string;
-    appMappingId: Long;
+    appId: Long;
     extendedPairVaultId: Long;
     createdAt?: Date;
+}
+export interface PairStatisticData {
+    assetInDenom: string;
+    assetOutDenom: string;
+    collateralAmount: string;
+    mintedAmount: string;
 }
 export declare const Vault: {
     encode(message: Vault, writer?: _m0.Writer): _m0.Writer;
@@ -61,7 +67,7 @@ export declare const Vault: {
     toJSON(message: Vault): unknown;
     fromPartial<I extends {
         id?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         owner?: string | undefined;
         amountIn?: string | undefined;
@@ -71,7 +77,7 @@ export declare const Vault: {
         closingFeeAccumulated?: string | undefined;
     } & {
         id?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -128,7 +134,7 @@ export declare const Vault: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -203,7 +209,7 @@ export declare const UserVaultAssetMapping: {
     fromPartial<I extends {
         owner?: string | undefined;
         userVaultApp?: {
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             userExtendedPairVault?: {
                 extendedPairId?: string | number | Long.Long | undefined;
                 vaultId?: string | undefined;
@@ -212,19 +218,19 @@ export declare const UserVaultAssetMapping: {
     } & {
         owner?: string | undefined;
         userVaultApp?: ({
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             userExtendedPairVault?: {
                 extendedPairId?: string | number | Long.Long | undefined;
                 vaultId?: string | undefined;
             }[] | undefined;
         }[] & ({
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             userExtendedPairVault?: {
                 extendedPairId?: string | number | Long.Long | undefined;
                 vaultId?: string | undefined;
             }[] | undefined;
         } & {
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -281,7 +287,7 @@ export declare const UserVaultAssetMapping: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["userVaultApp"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["userVaultApp"][number]["appId"], keyof Long.Long>, never>) | undefined;
             userExtendedPairVault?: ({
                 extendedPairId?: string | number | Long.Long | undefined;
                 vaultId?: string | undefined;
@@ -353,7 +359,7 @@ export declare const UserVaultAssetMapping: {
                 vaultId?: string | undefined;
             }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["userVaultApp"][number], keyof VaultToAppMapping>, never>)[] & Record<Exclude<keyof I["userVaultApp"], keyof {
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             userExtendedPairVault?: {
                 extendedPairId?: string | number | Long.Long | undefined;
                 vaultId?: string | undefined;
@@ -367,13 +373,13 @@ export declare const VaultToAppMapping: {
     fromJSON(object: any): VaultToAppMapping;
     toJSON(message: VaultToAppMapping): unknown;
     fromPartial<I extends {
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         userExtendedPairVault?: {
             extendedPairId?: string | number | Long.Long | undefined;
             vaultId?: string | undefined;
         }[] | undefined;
     } & {
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -430,7 +436,7 @@ export declare const VaultToAppMapping: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         userExtendedPairVault?: ({
             extendedPairId?: string | number | Long.Long | undefined;
             vaultId?: string | undefined;
@@ -579,7 +585,7 @@ export declare const AppExtendedPairVaultMapping: {
     fromJSON(object: any): AppExtendedPairVaultMapping;
     toJSON(message: AppExtendedPairVaultMapping): unknown;
     fromPartial<I extends {
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         counter?: string | number | Long.Long | undefined;
         extendedPairVaults?: {
             extendedPairId?: string | number | Long.Long | undefined;
@@ -588,7 +594,7 @@ export declare const AppExtendedPairVaultMapping: {
             collateralLockedAmount?: string | undefined;
         }[] | undefined;
     } & {
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -645,7 +651,7 @@ export declare const AppExtendedPairVaultMapping: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         counter?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -893,14 +899,14 @@ export declare const StableMintVault: {
         id?: string | undefined;
         amountIn?: string | undefined;
         amountOut?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         extendedPairVaultId?: string | number | Long.Long | undefined;
         createdAt?: Date | undefined;
     } & {
         id?: string | undefined;
         amountIn?: string | undefined;
         amountOut?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -957,7 +963,7 @@ export declare const StableMintVault: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         extendedPairVaultId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1018,6 +1024,23 @@ export declare const StableMintVault: {
         } & Record<Exclude<keyof I["extendedPairVaultId"], keyof Long.Long>, never>) | undefined;
         createdAt?: Date | undefined;
     } & Record<Exclude<keyof I, keyof StableMintVault>, never>>(object: I): StableMintVault;
+};
+export declare const PairStatisticData: {
+    encode(message: PairStatisticData, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PairStatisticData;
+    fromJSON(object: any): PairStatisticData;
+    toJSON(message: PairStatisticData): unknown;
+    fromPartial<I extends {
+        assetInDenom?: string | undefined;
+        assetOutDenom?: string | undefined;
+        collateralAmount?: string | undefined;
+        mintedAmount?: string | undefined;
+    } & {
+        assetInDenom?: string | undefined;
+        assetOutDenom?: string | undefined;
+        collateralAmount?: string | undefined;
+        mintedAmount?: string | undefined;
+    } & Record<Exclude<keyof I, keyof PairStatisticData>, never>>(object: I): PairStatisticData;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

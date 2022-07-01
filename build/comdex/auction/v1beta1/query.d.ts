@@ -1,9 +1,9 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { SurplusAuction, DebtAuction, DutchAuction, AuctionParams, ProtocolStatistics } from "./auction";
+import * as _m0 from "protobufjs/minimal";
+import { SurplusAuction, DebtAuction, DutchAuction, AuctionParams, ProtocolStatistics } from "../../../comdex/auction/v1beta1/auction";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Params } from "./params";
-import { SurplusBiddings, DebtBiddings, DutchBiddings } from "./biddings";
+import { Params } from "../../../comdex/auction/v1beta1/params";
+import { SurplusBiddings, DebtBiddings, DutchBiddings } from "../../../comdex/auction/v1beta1/biddings";
 export declare const protobufPackage = "comdex.auction.v1beta1";
 export interface QuerySurplusAuctionRequest {
     appId: Long;
@@ -576,7 +576,7 @@ export declare const QuerySurplusAuctionResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auction"]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("../../../comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -1442,7 +1442,7 @@ export declare const QuerySurplusAuctionsResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("../../../comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -2944,7 +2944,7 @@ export declare const QueryDebtAuctionResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auction"]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("../../../comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -3829,7 +3829,7 @@ export declare const QueryDebtAuctionsResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("../../../comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -5015,7 +5015,7 @@ export declare const QueryDutchAuctionResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auction"]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auction"]["biddingIds"][number], keyof import("../../../comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auction"]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;
@@ -5878,7 +5878,7 @@ export declare const QueryDutchAuctionsResponse: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number]["bidId"], keyof Long.Long>, never>) | undefined;
                 bidOwner?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("./auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
+            } & Record<Exclude<keyof I["auctions"][number]["biddingIds"][number], keyof import("../../../comdex/auction/v1beta1/auction").bidOwnerMapping>, never>)[] & Record<Exclude<keyof I["auctions"][number]["biddingIds"], keyof {
                 bidId?: string | number | Long.Long | undefined;
                 bidOwner?: string | undefined;
             }[]>, never>) | undefined;

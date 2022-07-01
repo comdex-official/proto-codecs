@@ -34,7 +34,7 @@ exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseExtendedPairVault() {
     return {
         id: long_1.default.UZERO,
-        appMappingId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
         pairId: long_1.default.UZERO,
         stabilityFee: "",
         closingFee: "",
@@ -56,8 +56,8 @@ exports.ExtendedPairVault = {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
-        if (!message.appMappingId.isZero()) {
-            writer.uint32(16).uint64(message.appMappingId);
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         if (!message.pairId.isZero()) {
             writer.uint32(24).uint64(message.pairId);
@@ -114,7 +114,7 @@ exports.ExtendedPairVault = {
                     message.id = reader.uint64();
                     break;
                 case 2:
-                    message.appMappingId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 3:
                     message.pairId = reader.uint64();
@@ -168,9 +168,7 @@ exports.ExtendedPairVault = {
     fromJSON(object) {
         return {
             id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
-            appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             stabilityFee: isSet(object.stabilityFee)
                 ? String(object.stabilityFee)
@@ -205,8 +203,8 @@ exports.ExtendedPairVault = {
         const obj = {};
         message.id !== undefined &&
             (obj.id = (message.id || long_1.default.UZERO).toString());
-        message.appMappingId !== undefined &&
-            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.pairId !== undefined &&
             (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
         message.stabilityFee !== undefined &&
@@ -240,9 +238,9 @@ exports.ExtendedPairVault = {
             object.id !== undefined && object.id !== null
                 ? long_1.default.fromValue(object.id)
                 : long_1.default.UZERO;
-        message.appMappingId =
-            object.appMappingId !== undefined && object.appMappingId !== null
-                ? long_1.default.fromValue(object.appMappingId)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.pairId =
             object.pairId !== undefined && object.pairId !== null

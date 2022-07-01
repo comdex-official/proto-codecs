@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 export declare const protobufPackage = "comdex.auction.v1beta1";
 export interface MsgPlaceSurplusBidRequest {

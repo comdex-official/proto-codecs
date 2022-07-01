@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,7 +29,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuctionParams = exports.ProtocolStatistics = exports.bidOwnerMapping = exports.DutchAuction = exports.DebtAuction = exports.SurplusAuction = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.auction.v1beta1";
@@ -31,7 +54,7 @@ function createBaseSurplusAuction() {
     };
 }
 exports.SurplusAuction = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.auctionId.isZero()) {
             writer.uint32(8).uint64(message.auctionId);
         }
@@ -83,7 +106,7 @@ exports.SurplusAuction = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseSurplusAuction();
         while (reader.pos < end) {
@@ -308,7 +331,7 @@ function createBaseDebtAuction() {
     };
 }
 exports.DebtAuction = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.auctionId.isZero()) {
             writer.uint32(8).uint64(message.auctionId);
         }
@@ -363,7 +386,7 @@ exports.DebtAuction = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseDebtAuction();
         while (reader.pos < end) {
@@ -613,7 +636,7 @@ function createBaseDutchAuction() {
     };
 }
 exports.DutchAuction = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.auctionId.isZero()) {
             writer.uint32(8).uint64(message.auctionId);
         }
@@ -683,7 +706,7 @@ exports.DutchAuction = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseDutchAuction();
         while (reader.pos < end) {
@@ -963,7 +986,7 @@ function createBasebidOwnerMapping() {
     return { bidId: long_1.default.UZERO, bidOwner: "" };
 }
 exports.bidOwnerMapping = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.bidId.isZero()) {
             writer.uint32(8).uint64(message.bidId);
         }
@@ -973,7 +996,7 @@ exports.bidOwnerMapping = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBasebidOwnerMapping();
         while (reader.pos < end) {
@@ -1020,7 +1043,7 @@ function createBaseProtocolStatistics() {
     return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO, loss: "" };
 }
 exports.ProtocolStatistics = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -1033,7 +1056,7 @@ exports.ProtocolStatistics = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseProtocolStatistics();
         while (reader.pos < end) {
@@ -1103,7 +1126,7 @@ function createBaseAuctionParams() {
     };
 }
 exports.AuctionParams = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -1137,7 +1160,7 @@ exports.AuctionParams = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAuctionParams();
         while (reader.pos < end) {
@@ -1289,9 +1312,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

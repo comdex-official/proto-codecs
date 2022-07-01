@@ -1,6 +1,6 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Locker, TokenToLockerMapping, UserTxData, LockedDepositedAmountDataMap } from "../../../comdex/locker/v1beta1/locker";
+import * as _m0 from "protobufjs/minimal";
+import { Locker, TokenToLockerMapping, LockerTotalRewardsByAssetAppWise, UserTxData, LockedDepositedAmountDataMap } from "../../../comdex/locker/v1beta1/locker";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "../../../comdex/locker/v1beta1/params";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
@@ -12,90 +12,90 @@ export interface QueryLockerInfoRequest {
 export interface QueryLockerInfoResponse {
     lockerInfo?: Locker;
 }
-export interface QueryLockersByProductToAssetIDRequest {
-    productId: Long;
+export interface QueryLockersByAppToAssetIDRequest {
+    appId: Long;
     assetId: Long;
 }
-export interface QueryLockersByProductToAssetIDResponse {
+export interface QueryLockersByAppToAssetIDResponse {
     lockerIds: string[];
 }
-export interface QueryLockerInfoByProductIDRequest {
-    productId: Long;
+export interface QueryLockerInfoByAppIDRequest {
+    appId: Long;
 }
-export interface QueryLockerInfoByProductIDResponse {
+export interface QueryLockerInfoByAppIDResponse {
     lockerIds: string[];
 }
-export interface QueryTotalDepositByProductAssetIDRequest {
-    productId: Long;
+export interface QueryTotalDepositByAppAndAssetIDRequest {
+    appId: Long;
     assetId: Long;
 }
-export interface QueryTotalDepositByProductAssetIDResponse {
+export interface QueryTotalDepositByAppAndAssetIDResponse {
     totalDeposit: Long;
 }
-export interface QueryOwnerLockerByProductIDbyOwnerRequest {
-    productId: Long;
+export interface QueryOwnerLockerByAppIDbyOwnerRequest {
+    appId: Long;
     owner: string;
 }
-export interface QueryOwnerLockerByProductIDbyOwnerResponse {
+export interface QueryOwnerLockerByAppIDbyOwnerResponse {
     lockerIds: string[];
 }
-export interface QueryOwnerLockerOfAllProductByOwnerRequest {
+export interface QueryOwnerLockerOfAllAppsByOwnerRequest {
     owner: string;
 }
-export interface QueryOwnerLockerOfAllProductByOwnerResponse {
+export interface QueryOwnerLockerOfAllAppsByOwnerResponse {
     lockerIds: string[];
 }
-export interface QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest {
-    productId: Long;
+export interface QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest {
+    appId: Long;
     owner: string;
     assetId: Long;
     pagination?: PageRequest;
 }
-export interface QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse {
+export interface QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse {
     userTxData: UserTxData[];
     pagination?: PageResponse;
 }
-export interface QueryOwnerLockerByProductToAssetIDbyOwnerRequest {
-    productId: Long;
+export interface QueryOwnerLockerByAppToAssetIDbyOwnerRequest {
+    appId: Long;
     assetId: Long;
     owner: string;
 }
-export interface QueryOwnerLockerByProductToAssetIDbyOwnerResponse {
+export interface QueryOwnerLockerByAppToAssetIDbyOwnerResponse {
     lockerInfo: Locker[];
 }
-export interface QueryLockerByProductByOwnerRequest {
-    productId: Long;
+export interface QueryLockerByAppByOwnerRequest {
+    appId: Long;
     owner: string;
 }
-export interface QueryLockerByProductByOwnerResponse {
+export interface QueryLockerByAppByOwnerResponse {
     lockerInfo: Locker[];
 }
-export interface QueryLockerCountByProductIDRequest {
-    productId: Long;
+export interface QueryLockerCountByAppIDRequest {
+    appId: Long;
 }
-export interface QueryLockerCountByProductIDResponse {
+export interface QueryLockerCountByAppIDResponse {
     totalCount: Long;
 }
-export interface QueryLockerCountByProductToAssetIDRequest {
-    productId: Long;
+export interface QueryLockerCountByAppToAssetIDRequest {
+    appId: Long;
     assetId: Long;
 }
-export interface QueryLockerCountByProductToAssetIDResponse {
+export interface QueryLockerCountByAppToAssetIDResponse {
     totalCount: Long;
 }
-export interface QueryWhiteListedAssetIDsByProductIDRequest {
-    productId: Long;
+export interface QueryWhiteListedAssetIDsByAppIDRequest {
+    appId: Long;
 }
-export interface QueryWhiteListedAssetIDsByProductIDResponse {
+export interface QueryWhiteListedAssetIDsByAppIDResponse {
     assetIds: Long[];
 }
-export interface QueryWhiteListedAssetByAllProductRequest {
+export interface QueryWhiteListedAssetByAllAppsRequest {
 }
-export interface QueryWhiteListedAssetByAllProductResponse {
-    productToAllAsset: ProductToAllAsset[];
+export interface QueryWhiteListedAssetByAllAppsResponse {
+    productToAllAsset: AppToAllAsset[];
 }
-export interface ProductToAllAsset {
-    productId: Long;
+export interface AppToAllAsset {
+    appId: Long;
     assets: Asset[];
 }
 export interface QueryParamsRequest {
@@ -121,6 +121,13 @@ export interface QueryLockerTotalDepositedByAppRequest {
 }
 export interface QueryLockerTotalDepositedByAppResponse {
     lockedDepositedAmountDataMap: LockedDepositedAmountDataMap[];
+}
+export interface QueryLockerTotalRewardsByAssetAppWiseRequest {
+    appId: Long;
+    assetId: Long;
+}
+export interface QueryLockerTotalRewardsByAssetAppWiseResponse {
+    totalRewards?: LockerTotalRewardsByAssetAppWise;
 }
 export interface QueryStateRequest {
     address: string;
@@ -156,7 +163,7 @@ export declare const QueryLockerInfoResponse: {
             createdAt?: Date | undefined;
             assetDepositId?: string | number | Long.Long | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         lockerInfo?: ({
@@ -167,7 +174,7 @@ export declare const QueryLockerInfoResponse: {
             createdAt?: Date | undefined;
             assetDepositId?: string | number | Long.Long | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
         } & {
             lockerId?: string | undefined;
             depositor?: string | undefined;
@@ -233,7 +240,7 @@ export declare const QueryLockerInfoResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["lockerInfo"]["assetDepositId"], keyof Long.Long>, never>) | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -290,20 +297,20 @@ export declare const QueryLockerInfoResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["lockerInfo"]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockerInfo"]["appId"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["lockerInfo"], keyof Locker>, never>) | undefined;
     } & Record<Exclude<keyof I, "lockerInfo">, never>>(object: I): QueryLockerInfoResponse;
 };
-export declare const QueryLockersByProductToAssetIDRequest: {
-    encode(message: QueryLockersByProductToAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockersByProductToAssetIDRequest;
-    fromJSON(object: any): QueryLockersByProductToAssetIDRequest;
-    toJSON(message: QueryLockersByProductToAssetIDRequest): unknown;
+export declare const QueryLockersByAppToAssetIDRequest: {
+    encode(message: QueryLockersByAppToAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockersByAppToAssetIDRequest;
+    fromJSON(object: any): QueryLockersByAppToAssetIDRequest;
+    toJSON(message: QueryLockersByAppToAssetIDRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -360,7 +367,7 @@ export declare const QueryLockersByProductToAssetIDRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         assetId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -419,28 +426,28 @@ export declare const QueryLockersByProductToAssetIDRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryLockersByProductToAssetIDRequest>, never>>(object: I): QueryLockersByProductToAssetIDRequest;
+    } & Record<Exclude<keyof I, keyof QueryLockersByAppToAssetIDRequest>, never>>(object: I): QueryLockersByAppToAssetIDRequest;
 };
-export declare const QueryLockersByProductToAssetIDResponse: {
-    encode(message: QueryLockersByProductToAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockersByProductToAssetIDResponse;
-    fromJSON(object: any): QueryLockersByProductToAssetIDResponse;
-    toJSON(message: QueryLockersByProductToAssetIDResponse): unknown;
+export declare const QueryLockersByAppToAssetIDResponse: {
+    encode(message: QueryLockersByAppToAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockersByAppToAssetIDResponse;
+    fromJSON(object: any): QueryLockersByAppToAssetIDResponse;
+    toJSON(message: QueryLockersByAppToAssetIDResponse): unknown;
     fromPartial<I extends {
         lockerIds?: string[] | undefined;
     } & {
         lockerIds?: (string[] & string[] & Record<Exclude<keyof I["lockerIds"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryLockersByProductToAssetIDResponse;
+    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryLockersByAppToAssetIDResponse;
 };
-export declare const QueryLockerInfoByProductIDRequest: {
-    encode(message: QueryLockerInfoByProductIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerInfoByProductIDRequest;
-    fromJSON(object: any): QueryLockerInfoByProductIDRequest;
-    toJSON(message: QueryLockerInfoByProductIDRequest): unknown;
+export declare const QueryLockerInfoByAppIDRequest: {
+    encode(message: QueryLockerInfoByAppIDRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerInfoByAppIDRequest;
+    fromJSON(object: any): QueryLockerInfoByAppIDRequest;
+    toJSON(message: QueryLockerInfoByAppIDRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -497,30 +504,30 @@ export declare const QueryLockerInfoByProductIDRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "productId">, never>>(object: I): QueryLockerInfoByProductIDRequest;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryLockerInfoByAppIDRequest;
 };
-export declare const QueryLockerInfoByProductIDResponse: {
-    encode(message: QueryLockerInfoByProductIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerInfoByProductIDResponse;
-    fromJSON(object: any): QueryLockerInfoByProductIDResponse;
-    toJSON(message: QueryLockerInfoByProductIDResponse): unknown;
+export declare const QueryLockerInfoByAppIDResponse: {
+    encode(message: QueryLockerInfoByAppIDResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerInfoByAppIDResponse;
+    fromJSON(object: any): QueryLockerInfoByAppIDResponse;
+    toJSON(message: QueryLockerInfoByAppIDResponse): unknown;
     fromPartial<I extends {
         lockerIds?: string[] | undefined;
     } & {
         lockerIds?: (string[] & string[] & Record<Exclude<keyof I["lockerIds"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryLockerInfoByProductIDResponse;
+    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryLockerInfoByAppIDResponse;
 };
-export declare const QueryTotalDepositByProductAssetIDRequest: {
-    encode(message: QueryTotalDepositByProductAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalDepositByProductAssetIDRequest;
-    fromJSON(object: any): QueryTotalDepositByProductAssetIDRequest;
-    toJSON(message: QueryTotalDepositByProductAssetIDRequest): unknown;
+export declare const QueryTotalDepositByAppAndAssetIDRequest: {
+    encode(message: QueryTotalDepositByAppAndAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalDepositByAppAndAssetIDRequest;
+    fromJSON(object: any): QueryTotalDepositByAppAndAssetIDRequest;
+    toJSON(message: QueryTotalDepositByAppAndAssetIDRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -577,7 +584,7 @@ export declare const QueryTotalDepositByProductAssetIDRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         assetId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -636,13 +643,13 @@ export declare const QueryTotalDepositByProductAssetIDRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryTotalDepositByProductAssetIDRequest>, never>>(object: I): QueryTotalDepositByProductAssetIDRequest;
+    } & Record<Exclude<keyof I, keyof QueryTotalDepositByAppAndAssetIDRequest>, never>>(object: I): QueryTotalDepositByAppAndAssetIDRequest;
 };
-export declare const QueryTotalDepositByProductAssetIDResponse: {
-    encode(message: QueryTotalDepositByProductAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalDepositByProductAssetIDResponse;
-    fromJSON(object: any): QueryTotalDepositByProductAssetIDResponse;
-    toJSON(message: QueryTotalDepositByProductAssetIDResponse): unknown;
+export declare const QueryTotalDepositByAppAndAssetIDResponse: {
+    encode(message: QueryTotalDepositByAppAndAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalDepositByAppAndAssetIDResponse;
+    fromJSON(object: any): QueryTotalDepositByAppAndAssetIDResponse;
+    toJSON(message: QueryTotalDepositByAppAndAssetIDResponse): unknown;
     fromPartial<I extends {
         totalDeposit?: string | number | Long.Long | undefined;
     } & {
@@ -704,18 +711,18 @@ export declare const QueryTotalDepositByProductAssetIDResponse: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["totalDeposit"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "totalDeposit">, never>>(object: I): QueryTotalDepositByProductAssetIDResponse;
+    } & Record<Exclude<keyof I, "totalDeposit">, never>>(object: I): QueryTotalDepositByAppAndAssetIDResponse;
 };
-export declare const QueryOwnerLockerByProductIDbyOwnerRequest: {
-    encode(message: QueryOwnerLockerByProductIDbyOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductIDbyOwnerRequest;
-    fromJSON(object: any): QueryOwnerLockerByProductIDbyOwnerRequest;
-    toJSON(message: QueryOwnerLockerByProductIDbyOwnerRequest): unknown;
+export declare const QueryOwnerLockerByAppIDbyOwnerRequest: {
+    encode(message: QueryOwnerLockerByAppIDbyOwnerRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByAppIDbyOwnerRequest;
+    fromJSON(object: any): QueryOwnerLockerByAppIDbyOwnerRequest;
+    toJSON(message: QueryOwnerLockerByAppIDbyOwnerRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         owner?: string | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -772,50 +779,50 @@ export declare const QueryOwnerLockerByProductIDbyOwnerRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         owner?: string | undefined;
-    } & Record<Exclude<keyof I, keyof QueryOwnerLockerByProductIDbyOwnerRequest>, never>>(object: I): QueryOwnerLockerByProductIDbyOwnerRequest;
+    } & Record<Exclude<keyof I, keyof QueryOwnerLockerByAppIDbyOwnerRequest>, never>>(object: I): QueryOwnerLockerByAppIDbyOwnerRequest;
 };
-export declare const QueryOwnerLockerByProductIDbyOwnerResponse: {
-    encode(message: QueryOwnerLockerByProductIDbyOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductIDbyOwnerResponse;
-    fromJSON(object: any): QueryOwnerLockerByProductIDbyOwnerResponse;
-    toJSON(message: QueryOwnerLockerByProductIDbyOwnerResponse): unknown;
+export declare const QueryOwnerLockerByAppIDbyOwnerResponse: {
+    encode(message: QueryOwnerLockerByAppIDbyOwnerResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByAppIDbyOwnerResponse;
+    fromJSON(object: any): QueryOwnerLockerByAppIDbyOwnerResponse;
+    toJSON(message: QueryOwnerLockerByAppIDbyOwnerResponse): unknown;
     fromPartial<I extends {
         lockerIds?: string[] | undefined;
     } & {
         lockerIds?: (string[] & string[] & Record<Exclude<keyof I["lockerIds"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryOwnerLockerByProductIDbyOwnerResponse;
+    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryOwnerLockerByAppIDbyOwnerResponse;
 };
-export declare const QueryOwnerLockerOfAllProductByOwnerRequest: {
-    encode(message: QueryOwnerLockerOfAllProductByOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerOfAllProductByOwnerRequest;
-    fromJSON(object: any): QueryOwnerLockerOfAllProductByOwnerRequest;
-    toJSON(message: QueryOwnerLockerOfAllProductByOwnerRequest): unknown;
+export declare const QueryOwnerLockerOfAllAppsByOwnerRequest: {
+    encode(message: QueryOwnerLockerOfAllAppsByOwnerRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerOfAllAppsByOwnerRequest;
+    fromJSON(object: any): QueryOwnerLockerOfAllAppsByOwnerRequest;
+    toJSON(message: QueryOwnerLockerOfAllAppsByOwnerRequest): unknown;
     fromPartial<I extends {
         owner?: string | undefined;
     } & {
         owner?: string | undefined;
-    } & Record<Exclude<keyof I, "owner">, never>>(object: I): QueryOwnerLockerOfAllProductByOwnerRequest;
+    } & Record<Exclude<keyof I, "owner">, never>>(object: I): QueryOwnerLockerOfAllAppsByOwnerRequest;
 };
-export declare const QueryOwnerLockerOfAllProductByOwnerResponse: {
-    encode(message: QueryOwnerLockerOfAllProductByOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerOfAllProductByOwnerResponse;
-    fromJSON(object: any): QueryOwnerLockerOfAllProductByOwnerResponse;
-    toJSON(message: QueryOwnerLockerOfAllProductByOwnerResponse): unknown;
+export declare const QueryOwnerLockerOfAllAppsByOwnerResponse: {
+    encode(message: QueryOwnerLockerOfAllAppsByOwnerResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerOfAllAppsByOwnerResponse;
+    fromJSON(object: any): QueryOwnerLockerOfAllAppsByOwnerResponse;
+    toJSON(message: QueryOwnerLockerOfAllAppsByOwnerResponse): unknown;
     fromPartial<I extends {
         lockerIds?: string[] | undefined;
     } & {
         lockerIds?: (string[] & string[] & Record<Exclude<keyof I["lockerIds"], keyof string[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryOwnerLockerOfAllProductByOwnerResponse;
+    } & Record<Exclude<keyof I, "lockerIds">, never>>(object: I): QueryOwnerLockerOfAllAppsByOwnerResponse;
 };
-export declare const QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest: {
-    encode(message: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest;
-    fromJSON(object: any): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest;
-    toJSON(message: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest): unknown;
+export declare const QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest: {
+    encode(message: QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest;
+    fromJSON(object: any): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest;
+    toJSON(message: QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         owner?: string | undefined;
         assetId?: string | number | Long.Long | undefined;
         pagination?: {
@@ -826,7 +833,7 @@ export declare const QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest: {
             reverse?: boolean | undefined;
         } | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -883,7 +890,7 @@ export declare const QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         owner?: string | undefined;
         assetId?: string | number | (Long.Long & {
             high: number;
@@ -1070,13 +1077,13 @@ export declare const QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest>, never>>(object: I): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest;
+    } & Record<Exclude<keyof I, keyof QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest>, never>>(object: I): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest;
 };
-export declare const QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse: {
-    encode(message: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse;
-    fromJSON(object: any): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse;
-    toJSON(message: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse): unknown;
+export declare const QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse: {
+    encode(message: QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse;
+    fromJSON(object: any): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse;
+    toJSON(message: QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse): unknown;
     fromPartial<I extends {
         userTxData?: {
             txType?: string | undefined;
@@ -1174,19 +1181,19 @@ export declare const QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pagination"]["total"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse>, never>>(object: I): QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse;
+    } & Record<Exclude<keyof I, keyof QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse>, never>>(object: I): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse;
 };
-export declare const QueryOwnerLockerByProductToAssetIDbyOwnerRequest: {
-    encode(message: QueryOwnerLockerByProductToAssetIDbyOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductToAssetIDbyOwnerRequest;
-    fromJSON(object: any): QueryOwnerLockerByProductToAssetIDbyOwnerRequest;
-    toJSON(message: QueryOwnerLockerByProductToAssetIDbyOwnerRequest): unknown;
+export declare const QueryOwnerLockerByAppToAssetIDbyOwnerRequest: {
+    encode(message: QueryOwnerLockerByAppToAssetIDbyOwnerRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByAppToAssetIDbyOwnerRequest;
+    fromJSON(object: any): QueryOwnerLockerByAppToAssetIDbyOwnerRequest;
+    toJSON(message: QueryOwnerLockerByAppToAssetIDbyOwnerRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
         owner?: string | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -1243,7 +1250,7 @@ export declare const QueryOwnerLockerByProductToAssetIDbyOwnerRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         assetId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1303,13 +1310,13 @@ export declare const QueryOwnerLockerByProductToAssetIDbyOwnerRequest: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
         owner?: string | undefined;
-    } & Record<Exclude<keyof I, keyof QueryOwnerLockerByProductToAssetIDbyOwnerRequest>, never>>(object: I): QueryOwnerLockerByProductToAssetIDbyOwnerRequest;
+    } & Record<Exclude<keyof I, keyof QueryOwnerLockerByAppToAssetIDbyOwnerRequest>, never>>(object: I): QueryOwnerLockerByAppToAssetIDbyOwnerRequest;
 };
-export declare const QueryOwnerLockerByProductToAssetIDbyOwnerResponse: {
-    encode(message: QueryOwnerLockerByProductToAssetIDbyOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByProductToAssetIDbyOwnerResponse;
-    fromJSON(object: any): QueryOwnerLockerByProductToAssetIDbyOwnerResponse;
-    toJSON(message: QueryOwnerLockerByProductToAssetIDbyOwnerResponse): unknown;
+export declare const QueryOwnerLockerByAppToAssetIDbyOwnerResponse: {
+    encode(message: QueryOwnerLockerByAppToAssetIDbyOwnerResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByAppToAssetIDbyOwnerResponse;
+    fromJSON(object: any): QueryOwnerLockerByAppToAssetIDbyOwnerResponse;
+    toJSON(message: QueryOwnerLockerByAppToAssetIDbyOwnerResponse): unknown;
     fromPartial<I extends {
         lockerInfo?: {
             lockerId?: string | undefined;
@@ -1319,7 +1326,7 @@ export declare const QueryOwnerLockerByProductToAssetIDbyOwnerResponse: {
             createdAt?: Date | undefined;
             assetDepositId?: string | number | Long.Long | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
         }[] | undefined;
     } & {
         lockerInfo?: ({
@@ -1330,7 +1337,7 @@ export declare const QueryOwnerLockerByProductToAssetIDbyOwnerResponse: {
             createdAt?: Date | undefined;
             assetDepositId?: string | number | Long.Long | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
         }[] & ({
             lockerId?: string | undefined;
             depositor?: string | undefined;
@@ -1339,7 +1346,7 @@ export declare const QueryOwnerLockerByProductToAssetIDbyOwnerResponse: {
             createdAt?: Date | undefined;
             assetDepositId?: string | number | Long.Long | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
         } & {
             lockerId?: string | undefined;
             depositor?: string | undefined;
@@ -1405,7 +1412,7 @@ export declare const QueryOwnerLockerByProductToAssetIDbyOwnerResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["lockerInfo"][number]["assetDepositId"], keyof Long.Long>, never>) | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -1462,7 +1469,7 @@ export declare const QueryOwnerLockerByProductToAssetIDbyOwnerResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["lockerInfo"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockerInfo"][number]["appId"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["lockerInfo"][number], keyof Locker>, never>)[] & Record<Exclude<keyof I["lockerInfo"], keyof {
             lockerId?: string | undefined;
             depositor?: string | undefined;
@@ -1471,20 +1478,20 @@ export declare const QueryOwnerLockerByProductToAssetIDbyOwnerResponse: {
             createdAt?: Date | undefined;
             assetDepositId?: string | number | Long.Long | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "lockerInfo">, never>>(object: I): QueryOwnerLockerByProductToAssetIDbyOwnerResponse;
+    } & Record<Exclude<keyof I, "lockerInfo">, never>>(object: I): QueryOwnerLockerByAppToAssetIDbyOwnerResponse;
 };
-export declare const QueryLockerByProductByOwnerRequest: {
-    encode(message: QueryLockerByProductByOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerByProductByOwnerRequest;
-    fromJSON(object: any): QueryLockerByProductByOwnerRequest;
-    toJSON(message: QueryLockerByProductByOwnerRequest): unknown;
+export declare const QueryLockerByAppByOwnerRequest: {
+    encode(message: QueryLockerByAppByOwnerRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerByAppByOwnerRequest;
+    fromJSON(object: any): QueryLockerByAppByOwnerRequest;
+    toJSON(message: QueryLockerByAppByOwnerRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         owner?: string | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -1541,15 +1548,15 @@ export declare const QueryLockerByProductByOwnerRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         owner?: string | undefined;
-    } & Record<Exclude<keyof I, keyof QueryLockerByProductByOwnerRequest>, never>>(object: I): QueryLockerByProductByOwnerRequest;
+    } & Record<Exclude<keyof I, keyof QueryLockerByAppByOwnerRequest>, never>>(object: I): QueryLockerByAppByOwnerRequest;
 };
-export declare const QueryLockerByProductByOwnerResponse: {
-    encode(message: QueryLockerByProductByOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerByProductByOwnerResponse;
-    fromJSON(object: any): QueryLockerByProductByOwnerResponse;
-    toJSON(message: QueryLockerByProductByOwnerResponse): unknown;
+export declare const QueryLockerByAppByOwnerResponse: {
+    encode(message: QueryLockerByAppByOwnerResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerByAppByOwnerResponse;
+    fromJSON(object: any): QueryLockerByAppByOwnerResponse;
+    toJSON(message: QueryLockerByAppByOwnerResponse): unknown;
     fromPartial<I extends {
         lockerInfo?: {
             lockerId?: string | undefined;
@@ -1559,7 +1566,7 @@ export declare const QueryLockerByProductByOwnerResponse: {
             createdAt?: Date | undefined;
             assetDepositId?: string | number | Long.Long | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
         }[] | undefined;
     } & {
         lockerInfo?: ({
@@ -1570,7 +1577,7 @@ export declare const QueryLockerByProductByOwnerResponse: {
             createdAt?: Date | undefined;
             assetDepositId?: string | number | Long.Long | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
         }[] & ({
             lockerId?: string | undefined;
             depositor?: string | undefined;
@@ -1579,7 +1586,7 @@ export declare const QueryLockerByProductByOwnerResponse: {
             createdAt?: Date | undefined;
             assetDepositId?: string | number | Long.Long | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
         } & {
             lockerId?: string | undefined;
             depositor?: string | undefined;
@@ -1645,7 +1652,7 @@ export declare const QueryLockerByProductByOwnerResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["lockerInfo"][number]["assetDepositId"], keyof Long.Long>, never>) | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -1702,7 +1709,7 @@ export declare const QueryLockerByProductByOwnerResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["lockerInfo"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockerInfo"][number]["appId"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["lockerInfo"][number], keyof Locker>, never>)[] & Record<Exclude<keyof I["lockerInfo"], keyof {
             lockerId?: string | undefined;
             depositor?: string | undefined;
@@ -1711,19 +1718,19 @@ export declare const QueryLockerByProductByOwnerResponse: {
             createdAt?: Date | undefined;
             assetDepositId?: string | number | Long.Long | undefined;
             isLocked?: boolean | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "lockerInfo">, never>>(object: I): QueryLockerByProductByOwnerResponse;
+    } & Record<Exclude<keyof I, "lockerInfo">, never>>(object: I): QueryLockerByAppByOwnerResponse;
 };
-export declare const QueryLockerCountByProductIDRequest: {
-    encode(message: QueryLockerCountByProductIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByProductIDRequest;
-    fromJSON(object: any): QueryLockerCountByProductIDRequest;
-    toJSON(message: QueryLockerCountByProductIDRequest): unknown;
+export declare const QueryLockerCountByAppIDRequest: {
+    encode(message: QueryLockerCountByAppIDRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByAppIDRequest;
+    fromJSON(object: any): QueryLockerCountByAppIDRequest;
+    toJSON(message: QueryLockerCountByAppIDRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -1780,14 +1787,14 @@ export declare const QueryLockerCountByProductIDRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "productId">, never>>(object: I): QueryLockerCountByProductIDRequest;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryLockerCountByAppIDRequest;
 };
-export declare const QueryLockerCountByProductIDResponse: {
-    encode(message: QueryLockerCountByProductIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByProductIDResponse;
-    fromJSON(object: any): QueryLockerCountByProductIDResponse;
-    toJSON(message: QueryLockerCountByProductIDResponse): unknown;
+export declare const QueryLockerCountByAppIDResponse: {
+    encode(message: QueryLockerCountByAppIDResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByAppIDResponse;
+    fromJSON(object: any): QueryLockerCountByAppIDResponse;
+    toJSON(message: QueryLockerCountByAppIDResponse): unknown;
     fromPartial<I extends {
         totalCount?: string | number | Long.Long | undefined;
     } & {
@@ -1849,18 +1856,18 @@ export declare const QueryLockerCountByProductIDResponse: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["totalCount"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "totalCount">, never>>(object: I): QueryLockerCountByProductIDResponse;
+    } & Record<Exclude<keyof I, "totalCount">, never>>(object: I): QueryLockerCountByAppIDResponse;
 };
-export declare const QueryLockerCountByProductToAssetIDRequest: {
-    encode(message: QueryLockerCountByProductToAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByProductToAssetIDRequest;
-    fromJSON(object: any): QueryLockerCountByProductToAssetIDRequest;
-    toJSON(message: QueryLockerCountByProductToAssetIDRequest): unknown;
+export declare const QueryLockerCountByAppToAssetIDRequest: {
+    encode(message: QueryLockerCountByAppToAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByAppToAssetIDRequest;
+    fromJSON(object: any): QueryLockerCountByAppToAssetIDRequest;
+    toJSON(message: QueryLockerCountByAppToAssetIDRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -1917,7 +1924,7 @@ export declare const QueryLockerCountByProductToAssetIDRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         assetId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1976,13 +1983,13 @@ export declare const QueryLockerCountByProductToAssetIDRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryLockerCountByProductToAssetIDRequest>, never>>(object: I): QueryLockerCountByProductToAssetIDRequest;
+    } & Record<Exclude<keyof I, keyof QueryLockerCountByAppToAssetIDRequest>, never>>(object: I): QueryLockerCountByAppToAssetIDRequest;
 };
-export declare const QueryLockerCountByProductToAssetIDResponse: {
-    encode(message: QueryLockerCountByProductToAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByProductToAssetIDResponse;
-    fromJSON(object: any): QueryLockerCountByProductToAssetIDResponse;
-    toJSON(message: QueryLockerCountByProductToAssetIDResponse): unknown;
+export declare const QueryLockerCountByAppToAssetIDResponse: {
+    encode(message: QueryLockerCountByAppToAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByAppToAssetIDResponse;
+    fromJSON(object: any): QueryLockerCountByAppToAssetIDResponse;
+    toJSON(message: QueryLockerCountByAppToAssetIDResponse): unknown;
     fromPartial<I extends {
         totalCount?: string | number | Long.Long | undefined;
     } & {
@@ -2044,17 +2051,17 @@ export declare const QueryLockerCountByProductToAssetIDResponse: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["totalCount"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "totalCount">, never>>(object: I): QueryLockerCountByProductToAssetIDResponse;
+    } & Record<Exclude<keyof I, "totalCount">, never>>(object: I): QueryLockerCountByAppToAssetIDResponse;
 };
-export declare const QueryWhiteListedAssetIDsByProductIDRequest: {
-    encode(message: QueryWhiteListedAssetIDsByProductIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetIDsByProductIDRequest;
-    fromJSON(object: any): QueryWhiteListedAssetIDsByProductIDRequest;
-    toJSON(message: QueryWhiteListedAssetIDsByProductIDRequest): unknown;
+export declare const QueryWhiteListedAssetIDsByAppIDRequest: {
+    encode(message: QueryWhiteListedAssetIDsByAppIDRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetIDsByAppIDRequest;
+    fromJSON(object: any): QueryWhiteListedAssetIDsByAppIDRequest;
+    toJSON(message: QueryWhiteListedAssetIDsByAppIDRequest): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -2111,14 +2118,14 @@ export declare const QueryWhiteListedAssetIDsByProductIDRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "productId">, never>>(object: I): QueryWhiteListedAssetIDsByProductIDRequest;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryWhiteListedAssetIDsByAppIDRequest;
 };
-export declare const QueryWhiteListedAssetIDsByProductIDResponse: {
-    encode(message: QueryWhiteListedAssetIDsByProductIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetIDsByProductIDResponse;
-    fromJSON(object: any): QueryWhiteListedAssetIDsByProductIDResponse;
-    toJSON(message: QueryWhiteListedAssetIDsByProductIDResponse): unknown;
+export declare const QueryWhiteListedAssetIDsByAppIDResponse: {
+    encode(message: QueryWhiteListedAssetIDsByAppIDResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetIDsByAppIDResponse;
+    fromJSON(object: any): QueryWhiteListedAssetIDsByAppIDResponse;
+    toJSON(message: QueryWhiteListedAssetIDsByAppIDResponse): unknown;
     fromPartial<I extends {
         assetIds?: (string | number | Long.Long)[] | undefined;
     } & {
@@ -2180,23 +2187,23 @@ export declare const QueryWhiteListedAssetIDsByProductIDResponse: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["assetIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "assetIds">, never>>(object: I): QueryWhiteListedAssetIDsByProductIDResponse;
+    } & Record<Exclude<keyof I, "assetIds">, never>>(object: I): QueryWhiteListedAssetIDsByAppIDResponse;
 };
-export declare const QueryWhiteListedAssetByAllProductRequest: {
-    encode(_: QueryWhiteListedAssetByAllProductRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetByAllProductRequest;
-    fromJSON(_: any): QueryWhiteListedAssetByAllProductRequest;
-    toJSON(_: QueryWhiteListedAssetByAllProductRequest): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryWhiteListedAssetByAllProductRequest;
+export declare const QueryWhiteListedAssetByAllAppsRequest: {
+    encode(_: QueryWhiteListedAssetByAllAppsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetByAllAppsRequest;
+    fromJSON(_: any): QueryWhiteListedAssetByAllAppsRequest;
+    toJSON(_: QueryWhiteListedAssetByAllAppsRequest): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryWhiteListedAssetByAllAppsRequest;
 };
-export declare const QueryWhiteListedAssetByAllProductResponse: {
-    encode(message: QueryWhiteListedAssetByAllProductResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetByAllProductResponse;
-    fromJSON(object: any): QueryWhiteListedAssetByAllProductResponse;
-    toJSON(message: QueryWhiteListedAssetByAllProductResponse): unknown;
+export declare const QueryWhiteListedAssetByAllAppsResponse: {
+    encode(message: QueryWhiteListedAssetByAllAppsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetByAllAppsResponse;
+    fromJSON(object: any): QueryWhiteListedAssetByAllAppsResponse;
+    toJSON(message: QueryWhiteListedAssetByAllAppsResponse): unknown;
     fromPartial<I extends {
         productToAllAsset?: {
-            productId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             assets?: {
                 id?: string | number | Long.Long | undefined;
                 name?: string | undefined;
@@ -2208,7 +2215,7 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
         }[] | undefined;
     } & {
         productToAllAsset?: ({
-            productId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             assets?: {
                 id?: string | number | Long.Long | undefined;
                 name?: string | undefined;
@@ -2218,7 +2225,7 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                 isOraclePriceRequired?: boolean | undefined;
             }[] | undefined;
         }[] & ({
-            productId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             assets?: {
                 id?: string | number | Long.Long | undefined;
                 name?: string | undefined;
@@ -2228,7 +2235,7 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                 isOraclePriceRequired?: boolean | undefined;
             }[] | undefined;
         } & {
-            productId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -2285,7 +2292,7 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["productToAllAsset"][number]["productId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["productToAllAsset"][number]["appId"], keyof Long.Long>, never>) | undefined;
             assets?: ({
                 id?: string | number | Long.Long | undefined;
                 name?: string | undefined;
@@ -2429,8 +2436,8 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                 isOnChain?: boolean | undefined;
                 isOraclePriceRequired?: boolean | undefined;
             }[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["productToAllAsset"][number], keyof ProductToAllAsset>, never>)[] & Record<Exclude<keyof I["productToAllAsset"], keyof {
-            productId?: string | number | Long.Long | undefined;
+        } & Record<Exclude<keyof I["productToAllAsset"][number], keyof AppToAllAsset>, never>)[] & Record<Exclude<keyof I["productToAllAsset"], keyof {
+            appId?: string | number | Long.Long | undefined;
             assets?: {
                 id?: string | number | Long.Long | undefined;
                 name?: string | undefined;
@@ -2440,15 +2447,15 @@ export declare const QueryWhiteListedAssetByAllProductResponse: {
                 isOraclePriceRequired?: boolean | undefined;
             }[] | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "productToAllAsset">, never>>(object: I): QueryWhiteListedAssetByAllProductResponse;
+    } & Record<Exclude<keyof I, "productToAllAsset">, never>>(object: I): QueryWhiteListedAssetByAllAppsResponse;
 };
-export declare const ProductToAllAsset: {
-    encode(message: ProductToAllAsset, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ProductToAllAsset;
-    fromJSON(object: any): ProductToAllAsset;
-    toJSON(message: ProductToAllAsset): unknown;
+export declare const AppToAllAsset: {
+    encode(message: AppToAllAsset, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppToAllAsset;
+    fromJSON(object: any): AppToAllAsset;
+    toJSON(message: AppToAllAsset): unknown;
     fromPartial<I extends {
-        productId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         assets?: {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
@@ -2458,7 +2465,7 @@ export declare const ProductToAllAsset: {
             isOraclePriceRequired?: boolean | undefined;
         }[] | undefined;
     } & {
-        productId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -2515,7 +2522,7 @@ export declare const ProductToAllAsset: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["productId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         assets?: ({
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
@@ -2659,7 +2666,7 @@ export declare const ProductToAllAsset: {
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof ProductToAllAsset>, never>>(object: I): ProductToAllAsset;
+    } & Record<Exclude<keyof I, keyof AppToAllAsset>, never>>(object: I): AppToAllAsset;
 };
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
@@ -3193,6 +3200,270 @@ export declare const QueryLockerTotalDepositedByAppResponse: {
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "lockedDepositedAmountDataMap">, never>>(object: I): QueryLockerTotalDepositedByAppResponse;
 };
+export declare const QueryLockerTotalRewardsByAssetAppWiseRequest: {
+    encode(message: QueryLockerTotalRewardsByAssetAppWiseRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerTotalRewardsByAssetAppWiseRequest;
+    fromJSON(object: any): QueryLockerTotalRewardsByAssetAppWiseRequest;
+    toJSON(message: QueryLockerTotalRewardsByAssetAppWiseRequest): unknown;
+    fromPartial<I extends {
+        appId?: string | number | Long.Long | undefined;
+        assetId?: string | number | Long.Long | undefined;
+    } & {
+        appId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        assetId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof QueryLockerTotalRewardsByAssetAppWiseRequest>, never>>(object: I): QueryLockerTotalRewardsByAssetAppWiseRequest;
+};
+export declare const QueryLockerTotalRewardsByAssetAppWiseResponse: {
+    encode(message: QueryLockerTotalRewardsByAssetAppWiseResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerTotalRewardsByAssetAppWiseResponse;
+    fromJSON(object: any): QueryLockerTotalRewardsByAssetAppWiseResponse;
+    toJSON(message: QueryLockerTotalRewardsByAssetAppWiseResponse): unknown;
+    fromPartial<I extends {
+        totalRewards?: {
+            appId?: string | number | Long.Long | undefined;
+            assetId?: string | number | Long.Long | undefined;
+            totalRewards?: string | undefined;
+        } | undefined;
+    } & {
+        totalRewards?: ({
+            appId?: string | number | Long.Long | undefined;
+            assetId?: string | number | Long.Long | undefined;
+            totalRewards?: string | undefined;
+        } & {
+            appId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["totalRewards"]["appId"], keyof Long.Long>, never>) | undefined;
+            assetId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["totalRewards"]["assetId"], keyof Long.Long>, never>) | undefined;
+            totalRewards?: string | undefined;
+        } & Record<Exclude<keyof I["totalRewards"], keyof LockerTotalRewardsByAssetAppWise>, never>) | undefined;
+    } & Record<Exclude<keyof I, "totalRewards">, never>>(object: I): QueryLockerTotalRewardsByAssetAppWiseResponse;
+};
 export declare const QueryStateRequest: {
     encode(message: QueryStateRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStateRequest;
@@ -3232,21 +3503,22 @@ export declare const QueryStateResponse: {
 };
 export interface Query {
     QueryLockerInfo(request: QueryLockerInfoRequest): Promise<QueryLockerInfoResponse>;
-    QueryLockersByProductToAssetID(request: QueryLockersByProductToAssetIDRequest): Promise<QueryLockersByProductToAssetIDResponse>;
-    QueryLockerInfoByProductID(request: QueryLockerInfoByProductIDRequest): Promise<QueryLockerInfoByProductIDResponse>;
-    QueryTotalDepositByProductAssetID(request: QueryTotalDepositByProductAssetIDRequest): Promise<QueryTotalDepositByProductAssetIDResponse>;
-    QueryOwnerLockerByProductIDbyOwner(request: QueryOwnerLockerByProductIDbyOwnerRequest): Promise<QueryOwnerLockerByProductIDbyOwnerResponse>;
-    QueryOwnerLockerOfAllProductByOwner(request: QueryOwnerLockerOfAllProductByOwnerRequest): Promise<QueryOwnerLockerOfAllProductByOwnerResponse>;
-    QueryOwnerTxDetailsLockerOfProductByOwnerByAsset(request: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest): Promise<QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse>;
-    QueryOwnerLockerByProductToAssetIDbyOwner(request: QueryOwnerLockerByProductToAssetIDbyOwnerRequest): Promise<QueryOwnerLockerByProductToAssetIDbyOwnerResponse>;
-    QueryLockerByProductByOwner(request: QueryLockerByProductByOwnerRequest): Promise<QueryLockerByProductByOwnerResponse>;
-    QueryLockerCountByProductID(request: QueryLockerCountByProductIDRequest): Promise<QueryLockerCountByProductIDResponse>;
-    QueryLockerCountByProductToAssetID(request: QueryLockerCountByProductToAssetIDRequest): Promise<QueryLockerCountByProductToAssetIDResponse>;
-    QueryWhiteListedAssetIDsByProductID(request: QueryWhiteListedAssetIDsByProductIDRequest): Promise<QueryWhiteListedAssetIDsByProductIDResponse>;
-    QueryWhiteListedAssetByAllProduct(request: QueryWhiteListedAssetByAllProductRequest): Promise<QueryWhiteListedAssetByAllProductResponse>;
+    QueryLockersByAppToAssetID(request: QueryLockersByAppToAssetIDRequest): Promise<QueryLockersByAppToAssetIDResponse>;
+    QueryLockerInfoByAppID(request: QueryLockerInfoByAppIDRequest): Promise<QueryLockerInfoByAppIDResponse>;
+    QueryTotalDepositByAppAndAssetID(request: QueryTotalDepositByAppAndAssetIDRequest): Promise<QueryTotalDepositByAppAndAssetIDResponse>;
+    QueryOwnerLockerByAppIDbyOwner(request: QueryOwnerLockerByAppIDbyOwnerRequest): Promise<QueryOwnerLockerByAppIDbyOwnerResponse>;
+    QueryOwnerLockerOfAllAppsByOwner(request: QueryOwnerLockerOfAllAppsByOwnerRequest): Promise<QueryOwnerLockerOfAllAppsByOwnerResponse>;
+    QueryOwnerTxDetailsLockerOfAppByOwnerByAsset(request: QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest): Promise<QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse>;
+    QueryOwnerLockerByAppToAssetIDbyOwner(request: QueryOwnerLockerByAppToAssetIDbyOwnerRequest): Promise<QueryOwnerLockerByAppToAssetIDbyOwnerResponse>;
+    QueryLockerByAppByOwner(request: QueryLockerByAppByOwnerRequest): Promise<QueryLockerByAppByOwnerResponse>;
+    QueryLockerCountByAppID(request: QueryLockerCountByAppIDRequest): Promise<QueryLockerCountByAppIDResponse>;
+    QueryLockerCountByAppToAssetID(request: QueryLockerCountByAppToAssetIDRequest): Promise<QueryLockerCountByAppToAssetIDResponse>;
+    QueryWhiteListedAssetIDsByAppID(request: QueryWhiteListedAssetIDsByAppIDRequest): Promise<QueryWhiteListedAssetIDsByAppIDResponse>;
+    QueryWhiteListedAssetByAllApps(request: QueryWhiteListedAssetByAllAppsRequest): Promise<QueryWhiteListedAssetByAllAppsResponse>;
     QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     QueryLockerLookupTableByApp(request: QueryLockerLookupTableByAppRequest): Promise<QueryLockerLookupTableByAppResponse>;
     QueryLockerLookupTableByAppAndAssetId(request: QueryLockerLookupTableByAppAndAssetIdRequest): Promise<QueryLockerLookupTableByAppAndAssetIdResponse>;
+    QueryLockerTotalRewardsByAssetAppWise(request: QueryLockerTotalRewardsByAssetAppWiseRequest): Promise<QueryLockerTotalRewardsByAssetAppWiseResponse>;
     QueryLockerTotalDepositedByApp(request: QueryLockerTotalDepositedByAppRequest): Promise<QueryLockerTotalDepositedByAppResponse>;
     QueryState(request: QueryStateRequest): Promise<QueryStateResponse>;
 }
@@ -3254,21 +3526,22 @@ export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
     QueryLockerInfo(request: QueryLockerInfoRequest): Promise<QueryLockerInfoResponse>;
-    QueryLockersByProductToAssetID(request: QueryLockersByProductToAssetIDRequest): Promise<QueryLockersByProductToAssetIDResponse>;
-    QueryLockerInfoByProductID(request: QueryLockerInfoByProductIDRequest): Promise<QueryLockerInfoByProductIDResponse>;
-    QueryTotalDepositByProductAssetID(request: QueryTotalDepositByProductAssetIDRequest): Promise<QueryTotalDepositByProductAssetIDResponse>;
-    QueryOwnerLockerByProductIDbyOwner(request: QueryOwnerLockerByProductIDbyOwnerRequest): Promise<QueryOwnerLockerByProductIDbyOwnerResponse>;
-    QueryOwnerLockerOfAllProductByOwner(request: QueryOwnerLockerOfAllProductByOwnerRequest): Promise<QueryOwnerLockerOfAllProductByOwnerResponse>;
-    QueryOwnerTxDetailsLockerOfProductByOwnerByAsset(request: QueryOwnerTxDetailsLockerOfProductByOwnerByAssetRequest): Promise<QueryOwnerTxDetailsLockerOfProductByOwnerByAssetResponse>;
-    QueryOwnerLockerByProductToAssetIDbyOwner(request: QueryOwnerLockerByProductToAssetIDbyOwnerRequest): Promise<QueryOwnerLockerByProductToAssetIDbyOwnerResponse>;
-    QueryLockerByProductByOwner(request: QueryLockerByProductByOwnerRequest): Promise<QueryLockerByProductByOwnerResponse>;
-    QueryLockerCountByProductID(request: QueryLockerCountByProductIDRequest): Promise<QueryLockerCountByProductIDResponse>;
-    QueryLockerCountByProductToAssetID(request: QueryLockerCountByProductToAssetIDRequest): Promise<QueryLockerCountByProductToAssetIDResponse>;
-    QueryWhiteListedAssetIDsByProductID(request: QueryWhiteListedAssetIDsByProductIDRequest): Promise<QueryWhiteListedAssetIDsByProductIDResponse>;
-    QueryWhiteListedAssetByAllProduct(request: QueryWhiteListedAssetByAllProductRequest): Promise<QueryWhiteListedAssetByAllProductResponse>;
+    QueryLockersByAppToAssetID(request: QueryLockersByAppToAssetIDRequest): Promise<QueryLockersByAppToAssetIDResponse>;
+    QueryLockerInfoByAppID(request: QueryLockerInfoByAppIDRequest): Promise<QueryLockerInfoByAppIDResponse>;
+    QueryTotalDepositByAppAndAssetID(request: QueryTotalDepositByAppAndAssetIDRequest): Promise<QueryTotalDepositByAppAndAssetIDResponse>;
+    QueryOwnerLockerByAppIDbyOwner(request: QueryOwnerLockerByAppIDbyOwnerRequest): Promise<QueryOwnerLockerByAppIDbyOwnerResponse>;
+    QueryOwnerLockerOfAllAppsByOwner(request: QueryOwnerLockerOfAllAppsByOwnerRequest): Promise<QueryOwnerLockerOfAllAppsByOwnerResponse>;
+    QueryOwnerTxDetailsLockerOfAppByOwnerByAsset(request: QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest): Promise<QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse>;
+    QueryOwnerLockerByAppToAssetIDbyOwner(request: QueryOwnerLockerByAppToAssetIDbyOwnerRequest): Promise<QueryOwnerLockerByAppToAssetIDbyOwnerResponse>;
+    QueryLockerByAppByOwner(request: QueryLockerByAppByOwnerRequest): Promise<QueryLockerByAppByOwnerResponse>;
+    QueryLockerCountByAppID(request: QueryLockerCountByAppIDRequest): Promise<QueryLockerCountByAppIDResponse>;
+    QueryLockerCountByAppToAssetID(request: QueryLockerCountByAppToAssetIDRequest): Promise<QueryLockerCountByAppToAssetIDResponse>;
+    QueryWhiteListedAssetIDsByAppID(request: QueryWhiteListedAssetIDsByAppIDRequest): Promise<QueryWhiteListedAssetIDsByAppIDResponse>;
+    QueryWhiteListedAssetByAllApps(request: QueryWhiteListedAssetByAllAppsRequest): Promise<QueryWhiteListedAssetByAllAppsResponse>;
     QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     QueryLockerLookupTableByApp(request: QueryLockerLookupTableByAppRequest): Promise<QueryLockerLookupTableByAppResponse>;
     QueryLockerLookupTableByAppAndAssetId(request: QueryLockerLookupTableByAppAndAssetIdRequest): Promise<QueryLockerLookupTableByAppAndAssetIdResponse>;
+    QueryLockerTotalRewardsByAssetAppWise(request: QueryLockerTotalRewardsByAssetAppWiseRequest): Promise<QueryLockerTotalRewardsByAssetAppWiseResponse>;
     QueryLockerTotalDepositedByApp(request: QueryLockerTotalDepositedByAppRequest): Promise<QueryLockerTotalDepositedByAppResponse>;
     QueryState(request: QueryStateRequest): Promise<QueryStateResponse>;
 }

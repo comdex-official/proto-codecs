@@ -13,7 +13,7 @@ export declare const GenesisState: {
     fromPartial<I extends {
         vaults?: {
             id?: string | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
             owner?: string | undefined;
             amountIn?: string | undefined;
@@ -25,7 +25,7 @@ export declare const GenesisState: {
     } & {
         vaults?: ({
             id?: string | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
             owner?: string | undefined;
             amountIn?: string | undefined;
@@ -35,7 +35,7 @@ export declare const GenesisState: {
             closingFeeAccumulated?: string | undefined;
         }[] & ({
             id?: string | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
             owner?: string | undefined;
             amountIn?: string | undefined;
@@ -45,7 +45,7 @@ export declare const GenesisState: {
             closingFeeAccumulated?: string | undefined;
         } & {
             id?: string | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -102,7 +102,7 @@ export declare const GenesisState: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["vaults"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["vaults"][number]["appId"], keyof Long.Long>, never>) | undefined;
             extendedPairVaultId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -169,7 +169,7 @@ export declare const GenesisState: {
             closingFeeAccumulated?: string | undefined;
         } & Record<Exclude<keyof I["vaults"][number], keyof Vault>, never>)[] & Record<Exclude<keyof I["vaults"], keyof {
             id?: string | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
             owner?: string | undefined;
             amountIn?: string | undefined;

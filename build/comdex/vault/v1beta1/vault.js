@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StableMintVault = exports.MintedDataMap = exports.TvlLockedDataMap = exports.ExtendedPairVaultMapping = exports.AppExtendedPairVaultMapping = exports.ExtendedPairToVaultMapping = exports.VaultToAppMapping = exports.UserVaultAssetMapping = exports.Vault = exports.protobufPackage = void 0;
+exports.PairStatisticData = exports.StableMintVault = exports.MintedDataMap = exports.TvlLockedDataMap = exports.ExtendedPairVaultMapping = exports.AppExtendedPairVaultMapping = exports.ExtendedPairToVaultMapping = exports.VaultToAppMapping = exports.UserVaultAssetMapping = exports.Vault = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -35,7 +35,7 @@ exports.protobufPackage = "comdex.vault.v1beta1";
 function createBaseVault() {
     return {
         id: "",
-        appMappingId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
         owner: "",
         amountIn: "",
@@ -50,8 +50,8 @@ exports.Vault = {
         if (message.id !== "") {
             writer.uint32(10).string(message.id);
         }
-        if (!message.appMappingId.isZero()) {
-            writer.uint32(16).uint64(message.appMappingId);
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
         }
         if (!message.extendedPairVaultId.isZero()) {
             writer.uint32(24).uint64(message.extendedPairVaultId);
@@ -87,7 +87,7 @@ exports.Vault = {
                     message.id = reader.string();
                     break;
                 case 2:
-                    message.appMappingId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 3:
                     message.extendedPairVaultId = reader.uint64();
@@ -120,9 +120,7 @@ exports.Vault = {
     fromJSON(object) {
         return {
             id: isSet(object.id) ? String(object.id) : "",
-            appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
@@ -143,8 +141,8 @@ exports.Vault = {
     toJSON(message) {
         const obj = {};
         message.id !== undefined && (obj.id = message.id);
-        message.appMappingId !== undefined &&
-            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.extendedPairVaultId !== undefined &&
             (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
@@ -162,9 +160,9 @@ exports.Vault = {
         var _a, _b, _c, _d, _e, _f, _g;
         const message = createBaseVault();
         message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
-        message.appMappingId =
-            object.appMappingId !== undefined && object.appMappingId !== null
-                ? long_1.default.fromValue(object.appMappingId)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.extendedPairVaultId =
             object.extendedPairVaultId !== undefined &&
@@ -242,12 +240,12 @@ exports.UserVaultAssetMapping = {
     },
 };
 function createBaseVaultToAppMapping() {
-    return { appMappingId: long_1.default.UZERO, userExtendedPairVault: [] };
+    return { appId: long_1.default.UZERO, userExtendedPairVault: [] };
 }
 exports.VaultToAppMapping = {
     encode(message, writer = _m0.Writer.create()) {
-        if (!message.appMappingId.isZero()) {
-            writer.uint32(8).uint64(message.appMappingId);
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
         }
         for (const v of message.userExtendedPairVault) {
             exports.ExtendedPairToVaultMapping.encode(v, writer.uint32(18).fork()).ldelim();
@@ -262,7 +260,7 @@ exports.VaultToAppMapping = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.appMappingId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
                     message.userExtendedPairVault.push(exports.ExtendedPairToVaultMapping.decode(reader, reader.uint32()));
@@ -276,9 +274,7 @@ exports.VaultToAppMapping = {
     },
     fromJSON(object) {
         return {
-            appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             userExtendedPairVault: Array.isArray(object === null || object === void 0 ? void 0 : object.userExtendedPairVault)
                 ? object.userExtendedPairVault.map((e) => exports.ExtendedPairToVaultMapping.fromJSON(e))
                 : [],
@@ -286,8 +282,8 @@ exports.VaultToAppMapping = {
     },
     toJSON(message) {
         const obj = {};
-        message.appMappingId !== undefined &&
-            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         if (message.userExtendedPairVault) {
             obj.userExtendedPairVault = message.userExtendedPairVault.map((e) => e ? exports.ExtendedPairToVaultMapping.toJSON(e) : undefined);
         }
@@ -299,9 +295,9 @@ exports.VaultToAppMapping = {
     fromPartial(object) {
         var _a;
         const message = createBaseVaultToAppMapping();
-        message.appMappingId =
-            object.appMappingId !== undefined && object.appMappingId !== null
-                ? long_1.default.fromValue(object.appMappingId)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.userExtendedPairVault =
             ((_a = object.userExtendedPairVault) === null || _a === void 0 ? void 0 : _a.map((e) => exports.ExtendedPairToVaultMapping.fromPartial(e))) || [];
@@ -368,16 +364,12 @@ exports.ExtendedPairToVaultMapping = {
     },
 };
 function createBaseAppExtendedPairVaultMapping() {
-    return {
-        appMappingId: long_1.default.UZERO,
-        counter: long_1.default.UZERO,
-        extendedPairVaults: [],
-    };
+    return { appId: long_1.default.UZERO, counter: long_1.default.UZERO, extendedPairVaults: [] };
 }
 exports.AppExtendedPairVaultMapping = {
     encode(message, writer = _m0.Writer.create()) {
-        if (!message.appMappingId.isZero()) {
-            writer.uint32(8).uint64(message.appMappingId);
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
         }
         if (!message.counter.isZero()) {
             writer.uint32(16).uint64(message.counter);
@@ -395,7 +387,7 @@ exports.AppExtendedPairVaultMapping = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.appMappingId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
                     message.counter = reader.uint64();
@@ -412,9 +404,7 @@ exports.AppExtendedPairVaultMapping = {
     },
     fromJSON(object) {
         return {
-            appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             counter: isSet(object.counter)
                 ? long_1.default.fromValue(object.counter)
                 : long_1.default.UZERO,
@@ -425,8 +415,8 @@ exports.AppExtendedPairVaultMapping = {
     },
     toJSON(message) {
         const obj = {};
-        message.appMappingId !== undefined &&
-            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.counter !== undefined &&
             (obj.counter = (message.counter || long_1.default.UZERO).toString());
         if (message.extendedPairVaults) {
@@ -440,9 +430,9 @@ exports.AppExtendedPairVaultMapping = {
     fromPartial(object) {
         var _a;
         const message = createBaseAppExtendedPairVaultMapping();
-        message.appMappingId =
-            object.appMappingId !== undefined && object.appMappingId !== null
-                ? long_1.default.fromValue(object.appMappingId)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.counter =
             object.counter !== undefined && object.counter !== null
@@ -665,7 +655,7 @@ function createBaseStableMintVault() {
         id: "",
         amountIn: "",
         amountOut: "",
-        appMappingId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
         createdAt: undefined,
     };
@@ -681,8 +671,8 @@ exports.StableMintVault = {
         if (message.amountOut !== "") {
             writer.uint32(26).string(message.amountOut);
         }
-        if (!message.appMappingId.isZero()) {
-            writer.uint32(32).uint64(message.appMappingId);
+        if (!message.appId.isZero()) {
+            writer.uint32(32).uint64(message.appId);
         }
         if (!message.extendedPairVaultId.isZero()) {
             writer.uint32(40).uint64(message.extendedPairVaultId);
@@ -709,7 +699,7 @@ exports.StableMintVault = {
                     message.amountOut = reader.string();
                     break;
                 case 4:
-                    message.appMappingId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 5:
                     message.extendedPairVaultId = reader.uint64();
@@ -729,9 +719,7 @@ exports.StableMintVault = {
             id: isSet(object.id) ? String(object.id) : "",
             amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
             amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
-            appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromValue(object.appMappingId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
@@ -745,8 +733,8 @@ exports.StableMintVault = {
         message.id !== undefined && (obj.id = message.id);
         message.amountIn !== undefined && (obj.amountIn = message.amountIn);
         message.amountOut !== undefined && (obj.amountOut = message.amountOut);
-        message.appMappingId !== undefined &&
-            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.extendedPairVaultId !== undefined &&
             (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
         message.createdAt !== undefined &&
@@ -759,9 +747,9 @@ exports.StableMintVault = {
         message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
         message.amountIn = (_b = object.amountIn) !== null && _b !== void 0 ? _b : "";
         message.amountOut = (_c = object.amountOut) !== null && _c !== void 0 ? _c : "";
-        message.appMappingId =
-            object.appMappingId !== undefined && object.appMappingId !== null
-                ? long_1.default.fromValue(object.appMappingId)
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.extendedPairVaultId =
             object.extendedPairVaultId !== undefined &&
@@ -769,6 +757,94 @@ exports.StableMintVault = {
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
         message.createdAt = (_d = object.createdAt) !== null && _d !== void 0 ? _d : undefined;
+        return message;
+    },
+};
+function createBasePairStatisticData() {
+    return {
+        assetInDenom: "",
+        assetOutDenom: "",
+        collateralAmount: "",
+        mintedAmount: "",
+    };
+}
+exports.PairStatisticData = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.assetInDenom !== "") {
+            writer.uint32(10).string(message.assetInDenom);
+        }
+        if (message.assetOutDenom !== "") {
+            writer.uint32(18).string(message.assetOutDenom);
+        }
+        if (message.collateralAmount !== "") {
+            writer.uint32(26).string(message.collateralAmount);
+        }
+        if (message.mintedAmount !== "") {
+            writer.uint32(34).string(message.mintedAmount);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBasePairStatisticData();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.assetInDenom = reader.string();
+                    break;
+                case 2:
+                    message.assetOutDenom = reader.string();
+                    break;
+                case 3:
+                    message.collateralAmount = reader.string();
+                    break;
+                case 4:
+                    message.mintedAmount = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            assetInDenom: isSet(object.assetInDenom)
+                ? String(object.assetInDenom)
+                : "",
+            assetOutDenom: isSet(object.assetOutDenom)
+                ? String(object.assetOutDenom)
+                : "",
+            collateralAmount: isSet(object.collateralAmount)
+                ? String(object.collateralAmount)
+                : "",
+            mintedAmount: isSet(object.mintedAmount)
+                ? String(object.mintedAmount)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.assetInDenom !== undefined &&
+            (obj.assetInDenom = message.assetInDenom);
+        message.assetOutDenom !== undefined &&
+            (obj.assetOutDenom = message.assetOutDenom);
+        message.collateralAmount !== undefined &&
+            (obj.collateralAmount = message.collateralAmount);
+        message.mintedAmount !== undefined &&
+            (obj.mintedAmount = message.mintedAmount);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d;
+        const message = createBasePairStatisticData();
+        message.assetInDenom = (_a = object.assetInDenom) !== null && _a !== void 0 ? _a : "";
+        message.assetOutDenom = (_b = object.assetOutDenom) !== null && _b !== void 0 ? _b : "";
+        message.collateralAmount = (_c = object.collateralAmount) !== null && _c !== void 0 ? _c : "";
+        message.mintedAmount = (_d = object.mintedAmount) !== null && _d !== void 0 ? _d : "";
         return message;
     },
 };
