@@ -6,7 +6,7 @@ export const protobufPackage = "comdex.asset.v1beta1";
 
 export interface ExtendedPairVault {
   id: Long;
-  appMappingId: Long;
+  appId: Long;
   pairId: Long;
   stabilityFee: string;
   closingFee: string;
@@ -26,7 +26,7 @@ export interface ExtendedPairVault {
 function createBaseExtendedPairVault(): ExtendedPairVault {
   return {
     id: Long.UZERO,
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     pairId: Long.UZERO,
     stabilityFee: "",
     closingFee: "",
@@ -52,8 +52,8 @@ export const ExtendedPairVault = {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.pairId.isZero()) {
       writer.uint32(24).uint64(message.pairId);
@@ -111,7 +111,7 @@ export const ExtendedPairVault = {
           message.id = reader.uint64() as Long;
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.pairId = reader.uint64() as Long;
@@ -166,9 +166,7 @@ export const ExtendedPairVault = {
   fromJSON(object: any): ExtendedPairVault {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       stabilityFee: isSet(object.stabilityFee)
         ? String(object.stabilityFee)
@@ -204,8 +202,8 @@ export const ExtendedPairVault = {
     const obj: any = {};
     message.id !== undefined &&
       (obj.id = (message.id || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.pairId !== undefined &&
       (obj.pairId = (message.pairId || Long.UZERO).toString());
     message.stabilityFee !== undefined &&
@@ -243,9 +241,9 @@ export const ExtendedPairVault = {
       object.id !== undefined && object.id !== null
         ? Long.fromValue(object.id)
         : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.pairId =
       object.pairId !== undefined && object.pairId !== null

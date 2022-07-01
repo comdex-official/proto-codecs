@@ -2,8 +2,7 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
-import { ExtendedPairVault } from "../../../comdex/asset/v1beta1/extendedPairVault";
-import { AppAndGovTime, AppMapping } from "../../../comdex/asset/v1beta1/appMapping";
+import { AppAndGovTime, AppData } from "../../../comdex/asset/v1beta1/app";
 import { Pair } from "../../../comdex/asset/v1beta1/pair";
 
 export const protobufPackage = "comdex.asset.v1beta1";
@@ -26,34 +25,22 @@ export interface AddPairsProposal {
   pairs: Pair[];
 }
 
-export interface AddExtendedPairsVaultProposal {
+export interface AddAppProposal {
   title: string;
   description: string;
-  pairs: ExtendedPairVault[];
+  app: AppData[];
 }
 
-export interface UpdateExtendedPairVaultProposal {
-  title: string;
-  description: string;
-  pair?: ExtendedPairVault;
-}
-
-export interface AddAppMappingProposal {
-  title: string;
-  description: string;
-  app: AppMapping[];
-}
-
-export interface UpdateGovTimeInAppMappingProposal {
+export interface UpdateGovTimeInAppProposal {
   title: string;
   description: string;
   govTime?: AppAndGovTime;
 }
 
-export interface AddAssetMappingProposal {
+export interface AddAssetInAppProposal {
   title: string;
   description: string;
-  app: AppMapping[];
+  app: AppData[];
 }
 
 function createBaseAddAssetsProposal(): AddAssetsProposal {
@@ -291,182 +278,13 @@ export const AddPairsProposal = {
   },
 };
 
-function createBaseAddExtendedPairsVaultProposal(): AddExtendedPairsVaultProposal {
-  return { title: "", description: "", pairs: [] };
-}
-
-export const AddExtendedPairsVaultProposal = {
-  encode(
-    message: AddExtendedPairsVaultProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.title !== "") {
-      writer.uint32(10).string(message.title);
-    }
-    if (message.description !== "") {
-      writer.uint32(18).string(message.description);
-    }
-    for (const v of message.pairs) {
-      ExtendedPairVault.encode(v!, writer.uint32(26).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddExtendedPairsVaultProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAddExtendedPairsVaultProposal();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.title = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        case 3:
-          message.pairs.push(ExtendedPairVault.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): AddExtendedPairsVaultProposal {
-    return {
-      title: isSet(object.title) ? String(object.title) : "",
-      description: isSet(object.description) ? String(object.description) : "",
-      pairs: Array.isArray(object?.pairs)
-        ? object.pairs.map((e: any) => ExtendedPairVault.fromJSON(e))
-        : [],
-    };
-  },
-
-  toJSON(message: AddExtendedPairsVaultProposal): unknown {
-    const obj: any = {};
-    message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    if (message.pairs) {
-      obj.pairs = message.pairs.map((e) =>
-        e ? ExtendedPairVault.toJSON(e) : undefined
-      );
-    } else {
-      obj.pairs = [];
-    }
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<AddExtendedPairsVaultProposal>, I>>(
-    object: I
-  ): AddExtendedPairsVaultProposal {
-    const message = createBaseAddExtendedPairsVaultProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.pairs =
-      object.pairs?.map((e) => ExtendedPairVault.fromPartial(e)) || [];
-    return message;
-  },
-};
-
-function createBaseUpdateExtendedPairVaultProposal(): UpdateExtendedPairVaultProposal {
-  return { title: "", description: "", pair: undefined };
-}
-
-export const UpdateExtendedPairVaultProposal = {
-  encode(
-    message: UpdateExtendedPairVaultProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.title !== "") {
-      writer.uint32(10).string(message.title);
-    }
-    if (message.description !== "") {
-      writer.uint32(18).string(message.description);
-    }
-    if (message.pair !== undefined) {
-      ExtendedPairVault.encode(message.pair, writer.uint32(26).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): UpdateExtendedPairVaultProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUpdateExtendedPairVaultProposal();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.title = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        case 3:
-          message.pair = ExtendedPairVault.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): UpdateExtendedPairVaultProposal {
-    return {
-      title: isSet(object.title) ? String(object.title) : "",
-      description: isSet(object.description) ? String(object.description) : "",
-      pair: isSet(object.pair)
-        ? ExtendedPairVault.fromJSON(object.pair)
-        : undefined,
-    };
-  },
-
-  toJSON(message: UpdateExtendedPairVaultProposal): unknown {
-    const obj: any = {};
-    message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.pair !== undefined &&
-      (obj.pair = message.pair
-        ? ExtendedPairVault.toJSON(message.pair)
-        : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<UpdateExtendedPairVaultProposal>, I>>(
-    object: I
-  ): UpdateExtendedPairVaultProposal {
-    const message = createBaseUpdateExtendedPairVaultProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.pair =
-      object.pair !== undefined && object.pair !== null
-        ? ExtendedPairVault.fromPartial(object.pair)
-        : undefined;
-    return message;
-  },
-};
-
-function createBaseAddAppMappingProposal(): AddAppMappingProposal {
+function createBaseAddAppProposal(): AddAppProposal {
   return { title: "", description: "", app: [] };
 }
 
-export const AddAppMappingProposal = {
+export const AddAppProposal = {
   encode(
-    message: AddAppMappingProposal,
+    message: AddAppProposal,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.title !== "") {
@@ -476,18 +294,15 @@ export const AddAppMappingProposal = {
       writer.uint32(18).string(message.description);
     }
     for (const v of message.app) {
-      AppMapping.encode(v!, writer.uint32(26).fork()).ldelim();
+      AppData.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddAppMappingProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddAppProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAddAppMappingProposal();
+    const message = createBaseAddAppProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -498,7 +313,7 @@ export const AddAppMappingProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.app.push(AppMapping.decode(reader, reader.uint32()));
+          message.app.push(AppData.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -508,47 +323,47 @@ export const AddAppMappingProposal = {
     return message;
   },
 
-  fromJSON(object: any): AddAppMappingProposal {
+  fromJSON(object: any): AddAppProposal {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
       app: Array.isArray(object?.app)
-        ? object.app.map((e: any) => AppMapping.fromJSON(e))
+        ? object.app.map((e: any) => AppData.fromJSON(e))
         : [],
     };
   },
 
-  toJSON(message: AddAppMappingProposal): unknown {
+  toJSON(message: AddAppProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined &&
       (obj.description = message.description);
     if (message.app) {
-      obj.app = message.app.map((e) => (e ? AppMapping.toJSON(e) : undefined));
+      obj.app = message.app.map((e) => (e ? AppData.toJSON(e) : undefined));
     } else {
       obj.app = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddAppMappingProposal>, I>>(
+  fromPartial<I extends Exact<DeepPartial<AddAppProposal>, I>>(
     object: I
-  ): AddAppMappingProposal {
-    const message = createBaseAddAppMappingProposal();
+  ): AddAppProposal {
+    const message = createBaseAddAppProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.app = object.app?.map((e) => AppMapping.fromPartial(e)) || [];
+    message.app = object.app?.map((e) => AppData.fromPartial(e)) || [];
     return message;
   },
 };
 
-function createBaseUpdateGovTimeInAppMappingProposal(): UpdateGovTimeInAppMappingProposal {
+function createBaseUpdateGovTimeInAppProposal(): UpdateGovTimeInAppProposal {
   return { title: "", description: "", govTime: undefined };
 }
 
-export const UpdateGovTimeInAppMappingProposal = {
+export const UpdateGovTimeInAppProposal = {
   encode(
-    message: UpdateGovTimeInAppMappingProposal,
+    message: UpdateGovTimeInAppProposal,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.title !== "") {
@@ -566,10 +381,10 @@ export const UpdateGovTimeInAppMappingProposal = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): UpdateGovTimeInAppMappingProposal {
+  ): UpdateGovTimeInAppProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUpdateGovTimeInAppMappingProposal();
+    const message = createBaseUpdateGovTimeInAppProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -590,7 +405,7 @@ export const UpdateGovTimeInAppMappingProposal = {
     return message;
   },
 
-  fromJSON(object: any): UpdateGovTimeInAppMappingProposal {
+  fromJSON(object: any): UpdateGovTimeInAppProposal {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
@@ -600,7 +415,7 @@ export const UpdateGovTimeInAppMappingProposal = {
     };
   },
 
-  toJSON(message: UpdateGovTimeInAppMappingProposal): unknown {
+  toJSON(message: UpdateGovTimeInAppProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined &&
@@ -612,10 +427,10 @@ export const UpdateGovTimeInAppMappingProposal = {
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<UpdateGovTimeInAppMappingProposal>, I>
-  >(object: I): UpdateGovTimeInAppMappingProposal {
-    const message = createBaseUpdateGovTimeInAppMappingProposal();
+  fromPartial<I extends Exact<DeepPartial<UpdateGovTimeInAppProposal>, I>>(
+    object: I
+  ): UpdateGovTimeInAppProposal {
+    const message = createBaseUpdateGovTimeInAppProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.govTime =
@@ -626,13 +441,13 @@ export const UpdateGovTimeInAppMappingProposal = {
   },
 };
 
-function createBaseAddAssetMappingProposal(): AddAssetMappingProposal {
+function createBaseAddAssetInAppProposal(): AddAssetInAppProposal {
   return { title: "", description: "", app: [] };
 }
 
-export const AddAssetMappingProposal = {
+export const AddAssetInAppProposal = {
   encode(
-    message: AddAssetMappingProposal,
+    message: AddAssetInAppProposal,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.title !== "") {
@@ -642,7 +457,7 @@ export const AddAssetMappingProposal = {
       writer.uint32(18).string(message.description);
     }
     for (const v of message.app) {
-      AppMapping.encode(v!, writer.uint32(26).fork()).ldelim();
+      AppData.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -650,10 +465,10 @@ export const AddAssetMappingProposal = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): AddAssetMappingProposal {
+  ): AddAssetInAppProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAddAssetMappingProposal();
+    const message = createBaseAddAssetInAppProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -664,7 +479,7 @@ export const AddAssetMappingProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.app.push(AppMapping.decode(reader, reader.uint32()));
+          message.app.push(AppData.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -674,36 +489,36 @@ export const AddAssetMappingProposal = {
     return message;
   },
 
-  fromJSON(object: any): AddAssetMappingProposal {
+  fromJSON(object: any): AddAssetInAppProposal {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
       app: Array.isArray(object?.app)
-        ? object.app.map((e: any) => AppMapping.fromJSON(e))
+        ? object.app.map((e: any) => AppData.fromJSON(e))
         : [],
     };
   },
 
-  toJSON(message: AddAssetMappingProposal): unknown {
+  toJSON(message: AddAssetInAppProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined &&
       (obj.description = message.description);
     if (message.app) {
-      obj.app = message.app.map((e) => (e ? AppMapping.toJSON(e) : undefined));
+      obj.app = message.app.map((e) => (e ? AppData.toJSON(e) : undefined));
     } else {
       obj.app = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddAssetMappingProposal>, I>>(
+  fromPartial<I extends Exact<DeepPartial<AddAssetInAppProposal>, I>>(
     object: I
-  ): AddAssetMappingProposal {
-    const message = createBaseAddAssetMappingProposal();
+  ): AddAssetInAppProposal {
+    const message = createBaseAddAssetInAppProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.app = object.app?.map((e) => AppMapping.fromPartial(e)) || [];
+    message.app = object.app?.map((e) => AppData.fromPartial(e)) || [];
     return message;
   },
 };

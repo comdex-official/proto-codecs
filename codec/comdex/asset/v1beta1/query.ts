@@ -6,8 +6,8 @@ import {
   PageResponse,
 } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
-import { Params } from "../../../comdex/asset/v1beta1/params";
-import { AppMapping } from "../../../comdex/asset/v1beta1/appMapping";
+import { PairInfo } from "../../../comdex/asset/v1beta1/pair";
+import { AppData } from "../../../comdex/asset/v1beta1/app";
 import { ExtendedPairVault } from "../../../comdex/asset/v1beta1/extendedPairVault";
 
 export const protobufPackage = "comdex.asset.v1beta1";
@@ -29,14 +29,6 @@ export interface QueryAssetResponse {
   asset?: Asset;
 }
 
-export interface PairInfo {
-  id: Long;
-  assetIn: Long;
-  denomIn: string;
-  assetOut: Long;
-  denomOut: string;
-}
-
 export interface QueryPairsRequest {
   pagination?: PageRequest;
 }
@@ -54,18 +46,12 @@ export interface QueryPairResponse {
   pairInfo?: PairInfo;
 }
 
-export interface QueryParamsRequest {}
-
-export interface QueryParamsResponse {
-  params?: Params;
-}
-
 export interface QueryAppRequest {
   id: Long;
 }
 
 export interface QueryAppResponse {
-  app?: AppMapping;
+  app?: AppData;
 }
 
 export interface QueryGovTokenByAppRequest {
@@ -79,7 +65,7 @@ export interface QueryGovTokenByAppResponse {
 export interface QueryAppsRequest {}
 
 export interface QueryAppsResponse {
-  apps: AppMapping[];
+  apps: AppData[];
 }
 
 export interface QueryExtendedPairVaultRequest {
@@ -112,11 +98,11 @@ export interface QueryAllExtendedPairStableVaultsIdByAppResponse {
   extendedPairsId: Long[];
 }
 
-export interface QueryAllExtendedPairStableVaultsDataByAppRequest {
+export interface QueryAllExtendedPairStableVaultsByAppRequest {
   appId: Long;
 }
 
-export interface QueryAllExtendedPairStableVaultsDataByAppResponse {
+export interface QueryAllExtendedPairStableVaultsByAppResponse {
   extendedPair: ExtendedPairVault[];
 }
 
@@ -374,116 +360,6 @@ export const QueryAssetResponse = {
       object.asset !== undefined && object.asset !== null
         ? Asset.fromPartial(object.asset)
         : undefined;
-    return message;
-  },
-};
-
-function createBasePairInfo(): PairInfo {
-  return {
-    id: Long.UZERO,
-    assetIn: Long.UZERO,
-    denomIn: "",
-    assetOut: Long.UZERO,
-    denomOut: "",
-  };
-}
-
-export const PairInfo = {
-  encode(
-    message: PairInfo,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (!message.id.isZero()) {
-      writer.uint32(8).uint64(message.id);
-    }
-    if (!message.assetIn.isZero()) {
-      writer.uint32(16).uint64(message.assetIn);
-    }
-    if (message.denomIn !== "") {
-      writer.uint32(26).string(message.denomIn);
-    }
-    if (!message.assetOut.isZero()) {
-      writer.uint32(32).uint64(message.assetOut);
-    }
-    if (message.denomOut !== "") {
-      writer.uint32(42).string(message.denomOut);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): PairInfo {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePairInfo();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.id = reader.uint64() as Long;
-          break;
-        case 2:
-          message.assetIn = reader.uint64() as Long;
-          break;
-        case 3:
-          message.denomIn = reader.string();
-          break;
-        case 4:
-          message.assetOut = reader.uint64() as Long;
-          break;
-        case 5:
-          message.denomOut = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): PairInfo {
-    return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      assetIn: isSet(object.assetIn)
-        ? Long.fromValue(object.assetIn)
-        : Long.UZERO,
-      denomIn: isSet(object.denomIn) ? String(object.denomIn) : "",
-      assetOut: isSet(object.assetOut)
-        ? Long.fromValue(object.assetOut)
-        : Long.UZERO,
-      denomOut: isSet(object.denomOut) ? String(object.denomOut) : "",
-    };
-  },
-
-  toJSON(message: PairInfo): unknown {
-    const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.assetIn !== undefined &&
-      (obj.assetIn = (message.assetIn || Long.UZERO).toString());
-    message.denomIn !== undefined && (obj.denomIn = message.denomIn);
-    message.assetOut !== undefined &&
-      (obj.assetOut = (message.assetOut || Long.UZERO).toString());
-    message.denomOut !== undefined && (obj.denomOut = message.denomOut);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<PairInfo>, I>>(object: I): PairInfo {
-    const message = createBasePairInfo();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
-    message.assetIn =
-      object.assetIn !== undefined && object.assetIn !== null
-        ? Long.fromValue(object.assetIn)
-        : Long.UZERO;
-    message.denomIn = object.denomIn ?? "";
-    message.assetOut =
-      object.assetOut !== undefined && object.assetOut !== null
-        ? Long.fromValue(object.assetOut)
-        : Long.UZERO;
-    message.denomOut = object.denomOut ?? "";
     return message;
   },
 };
@@ -753,108 +629,6 @@ export const QueryPairResponse = {
   },
 };
 
-function createBaseQueryParamsRequest(): QueryParamsRequest {
-  return {};
-}
-
-export const QueryParamsRequest = {
-  encode(
-    _: QueryParamsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryParamsRequest();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(_: any): QueryParamsRequest {
-    return {};
-  },
-
-  toJSON(_: QueryParamsRequest): unknown {
-    const obj: any = {};
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(
-    _: I
-  ): QueryParamsRequest {
-    const message = createBaseQueryParamsRequest();
-    return message;
-  },
-};
-
-function createBaseQueryParamsResponse(): QueryParamsResponse {
-  return { params: undefined };
-}
-
-export const QueryParamsResponse = {
-  encode(
-    message: QueryParamsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.params !== undefined) {
-      Params.encode(message.params, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryParamsResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
-  },
-
-  toJSON(message: QueryParamsResponse): unknown {
-    const obj: any = {};
-    message.params !== undefined &&
-      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(
-    object: I
-  ): QueryParamsResponse {
-    const message = createBaseQueryParamsResponse();
-    message.params =
-      object.params !== undefined && object.params !== null
-        ? Params.fromPartial(object.params)
-        : undefined;
-    return message;
-  },
-};
-
 function createBaseQueryAppRequest(): QueryAppRequest {
   return { id: Long.UZERO };
 }
@@ -923,7 +697,7 @@ export const QueryAppResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.app !== undefined) {
-      AppMapping.encode(message.app, writer.uint32(10).fork()).ldelim();
+      AppData.encode(message.app, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -936,7 +710,7 @@ export const QueryAppResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.app = AppMapping.decode(reader, reader.uint32());
+          message.app = AppData.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -948,14 +722,14 @@ export const QueryAppResponse = {
 
   fromJSON(object: any): QueryAppResponse {
     return {
-      app: isSet(object.app) ? AppMapping.fromJSON(object.app) : undefined,
+      app: isSet(object.app) ? AppData.fromJSON(object.app) : undefined,
     };
   },
 
   toJSON(message: QueryAppResponse): unknown {
     const obj: any = {};
     message.app !== undefined &&
-      (obj.app = message.app ? AppMapping.toJSON(message.app) : undefined);
+      (obj.app = message.app ? AppData.toJSON(message.app) : undefined);
     return obj;
   },
 
@@ -965,7 +739,7 @@ export const QueryAppResponse = {
     const message = createBaseQueryAppResponse();
     message.app =
       object.app !== undefined && object.app !== null
-        ? AppMapping.fromPartial(object.app)
+        ? AppData.fromPartial(object.app)
         : undefined;
     return message;
   },
@@ -1149,7 +923,7 @@ export const QueryAppsResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.apps) {
-      AppMapping.encode(v!, writer.uint32(10).fork()).ldelim();
+      AppData.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -1162,7 +936,7 @@ export const QueryAppsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.apps.push(AppMapping.decode(reader, reader.uint32()));
+          message.apps.push(AppData.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -1175,7 +949,7 @@ export const QueryAppsResponse = {
   fromJSON(object: any): QueryAppsResponse {
     return {
       apps: Array.isArray(object?.apps)
-        ? object.apps.map((e: any) => AppMapping.fromJSON(e))
+        ? object.apps.map((e: any) => AppData.fromJSON(e))
         : [],
     };
   },
@@ -1183,9 +957,7 @@ export const QueryAppsResponse = {
   toJSON(message: QueryAppsResponse): unknown {
     const obj: any = {};
     if (message.apps) {
-      obj.apps = message.apps.map((e) =>
-        e ? AppMapping.toJSON(e) : undefined
-      );
+      obj.apps = message.apps.map((e) => (e ? AppData.toJSON(e) : undefined));
     } else {
       obj.apps = [];
     }
@@ -1196,7 +968,7 @@ export const QueryAppsResponse = {
     object: I
   ): QueryAppsResponse {
     const message = createBaseQueryAppsResponse();
-    message.apps = object.apps?.map((e) => AppMapping.fromPartial(e)) || [];
+    message.apps = object.apps?.map((e) => AppData.fromPartial(e)) || [];
     return message;
   },
 };
@@ -1716,13 +1488,13 @@ export const QueryAllExtendedPairStableVaultsIdByAppResponse = {
   },
 };
 
-function createBaseQueryAllExtendedPairStableVaultsDataByAppRequest(): QueryAllExtendedPairStableVaultsDataByAppRequest {
+function createBaseQueryAllExtendedPairStableVaultsByAppRequest(): QueryAllExtendedPairStableVaultsByAppRequest {
   return { appId: Long.UZERO };
 }
 
-export const QueryAllExtendedPairStableVaultsDataByAppRequest = {
+export const QueryAllExtendedPairStableVaultsByAppRequest = {
   encode(
-    message: QueryAllExtendedPairStableVaultsDataByAppRequest,
+    message: QueryAllExtendedPairStableVaultsByAppRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -1734,11 +1506,10 @@ export const QueryAllExtendedPairStableVaultsDataByAppRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryAllExtendedPairStableVaultsDataByAppRequest {
+  ): QueryAllExtendedPairStableVaultsByAppRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message =
-      createBaseQueryAllExtendedPairStableVaultsDataByAppRequest();
+    const message = createBaseQueryAllExtendedPairStableVaultsByAppRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1753,13 +1524,13 @@ export const QueryAllExtendedPairStableVaultsDataByAppRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllExtendedPairStableVaultsDataByAppRequest {
+  fromJSON(object: any): QueryAllExtendedPairStableVaultsByAppRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryAllExtendedPairStableVaultsDataByAppRequest): unknown {
+  toJSON(message: QueryAllExtendedPairStableVaultsByAppRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
@@ -1768,12 +1539,11 @@ export const QueryAllExtendedPairStableVaultsDataByAppRequest = {
 
   fromPartial<
     I extends Exact<
-      DeepPartial<QueryAllExtendedPairStableVaultsDataByAppRequest>,
+      DeepPartial<QueryAllExtendedPairStableVaultsByAppRequest>,
       I
     >
-  >(object: I): QueryAllExtendedPairStableVaultsDataByAppRequest {
-    const message =
-      createBaseQueryAllExtendedPairStableVaultsDataByAppRequest();
+  >(object: I): QueryAllExtendedPairStableVaultsByAppRequest {
+    const message = createBaseQueryAllExtendedPairStableVaultsByAppRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -1782,13 +1552,13 @@ export const QueryAllExtendedPairStableVaultsDataByAppRequest = {
   },
 };
 
-function createBaseQueryAllExtendedPairStableVaultsDataByAppResponse(): QueryAllExtendedPairStableVaultsDataByAppResponse {
+function createBaseQueryAllExtendedPairStableVaultsByAppResponse(): QueryAllExtendedPairStableVaultsByAppResponse {
   return { extendedPair: [] };
 }
 
-export const QueryAllExtendedPairStableVaultsDataByAppResponse = {
+export const QueryAllExtendedPairStableVaultsByAppResponse = {
   encode(
-    message: QueryAllExtendedPairStableVaultsDataByAppResponse,
+    message: QueryAllExtendedPairStableVaultsByAppResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.extendedPair) {
@@ -1800,11 +1570,10 @@ export const QueryAllExtendedPairStableVaultsDataByAppResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryAllExtendedPairStableVaultsDataByAppResponse {
+  ): QueryAllExtendedPairStableVaultsByAppResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message =
-      createBaseQueryAllExtendedPairStableVaultsDataByAppResponse();
+    const message = createBaseQueryAllExtendedPairStableVaultsByAppResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1821,7 +1590,7 @@ export const QueryAllExtendedPairStableVaultsDataByAppResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllExtendedPairStableVaultsDataByAppResponse {
+  fromJSON(object: any): QueryAllExtendedPairStableVaultsByAppResponse {
     return {
       extendedPair: Array.isArray(object?.extendedPair)
         ? object.extendedPair.map((e: any) => ExtendedPairVault.fromJSON(e))
@@ -1829,7 +1598,7 @@ export const QueryAllExtendedPairStableVaultsDataByAppResponse = {
     };
   },
 
-  toJSON(message: QueryAllExtendedPairStableVaultsDataByAppResponse): unknown {
+  toJSON(message: QueryAllExtendedPairStableVaultsByAppResponse): unknown {
     const obj: any = {};
     if (message.extendedPair) {
       obj.extendedPair = message.extendedPair.map((e) =>
@@ -1843,12 +1612,11 @@ export const QueryAllExtendedPairStableVaultsDataByAppResponse = {
 
   fromPartial<
     I extends Exact<
-      DeepPartial<QueryAllExtendedPairStableVaultsDataByAppResponse>,
+      DeepPartial<QueryAllExtendedPairStableVaultsByAppResponse>,
       I
     >
-  >(object: I): QueryAllExtendedPairStableVaultsDataByAppResponse {
-    const message =
-      createBaseQueryAllExtendedPairStableVaultsDataByAppResponse();
+  >(object: I): QueryAllExtendedPairStableVaultsByAppResponse {
+    const message = createBaseQueryAllExtendedPairStableVaultsByAppResponse();
     message.extendedPair =
       object.extendedPair?.map((e) => ExtendedPairVault.fromPartial(e)) || [];
     return message;
@@ -1860,9 +1628,8 @@ export interface Query {
   QueryAsset(request: QueryAssetRequest): Promise<QueryAssetResponse>;
   QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
   QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
-  QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  QueryAppsMappings(request: QueryAppsRequest): Promise<QueryAppsResponse>;
-  QueryAppMappings(request: QueryAppRequest): Promise<QueryAppResponse>;
+  QueryApps(request: QueryAppsRequest): Promise<QueryAppsResponse>;
+  QueryApp(request: QueryAppRequest): Promise<QueryAppResponse>;
   QueryExtendedPairVault(
     request: QueryExtendedPairVaultRequest
   ): Promise<QueryExtendedPairVaultResponse>;
@@ -1878,9 +1645,9 @@ export interface Query {
   QueryGovTokenByApp(
     request: QueryGovTokenByAppRequest
   ): Promise<QueryGovTokenByAppResponse>;
-  QueryAllExtendedPairStableVaultsDataByApp(
-    request: QueryAllExtendedPairStableVaultsDataByAppRequest
-  ): Promise<QueryAllExtendedPairStableVaultsDataByAppResponse>;
+  QueryAllExtendedPairStableVaultsByApp(
+    request: QueryAllExtendedPairStableVaultsByAppRequest
+  ): Promise<QueryAllExtendedPairStableVaultsByAppResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1891,9 +1658,8 @@ export class QueryClientImpl implements Query {
     this.QueryAsset = this.QueryAsset.bind(this);
     this.QueryPairs = this.QueryPairs.bind(this);
     this.QueryPair = this.QueryPair.bind(this);
-    this.QueryParams = this.QueryParams.bind(this);
-    this.QueryAppsMappings = this.QueryAppsMappings.bind(this);
-    this.QueryAppMappings = this.QueryAppMappings.bind(this);
+    this.QueryApps = this.QueryApps.bind(this);
+    this.QueryApp = this.QueryApp.bind(this);
     this.QueryExtendedPairVault = this.QueryExtendedPairVault.bind(this);
     this.QueryAllExtendedPairVaults =
       this.QueryAllExtendedPairVaults.bind(this);
@@ -1902,8 +1668,8 @@ export class QueryClientImpl implements Query {
     this.QueryAllExtendedPairStableVaultsIdByApp =
       this.QueryAllExtendedPairStableVaultsIdByApp.bind(this);
     this.QueryGovTokenByApp = this.QueryGovTokenByApp.bind(this);
-    this.QueryAllExtendedPairStableVaultsDataByApp =
-      this.QueryAllExtendedPairStableVaultsDataByApp.bind(this);
+    this.QueryAllExtendedPairStableVaultsByApp =
+      this.QueryAllExtendedPairStableVaultsByApp.bind(this);
   }
   QueryAssets(request: QueryAssetsRequest): Promise<QueryAssetsResponse> {
     const data = QueryAssetsRequest.encode(request).finish();
@@ -1953,23 +1719,11 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse> {
-    const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.asset.v1beta1.Query",
-      "QueryParams",
-      data
-    );
-    return promise.then((data) =>
-      QueryParamsResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  QueryAppsMappings(request: QueryAppsRequest): Promise<QueryAppsResponse> {
+  QueryApps(request: QueryAppsRequest): Promise<QueryAppsResponse> {
     const data = QueryAppsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.asset.v1beta1.Query",
-      "QueryAppsMappings",
+      "QueryApps",
       data
     );
     return promise.then((data) =>
@@ -1977,11 +1731,11 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryAppMappings(request: QueryAppRequest): Promise<QueryAppResponse> {
+  QueryApp(request: QueryAppRequest): Promise<QueryAppResponse> {
     const data = QueryAppRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.asset.v1beta1.Query",
-      "QueryAppMappings",
+      "QueryApp",
       data
     );
     return promise.then((data) =>
@@ -2063,20 +1817,18 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryAllExtendedPairStableVaultsDataByApp(
-    request: QueryAllExtendedPairStableVaultsDataByAppRequest
-  ): Promise<QueryAllExtendedPairStableVaultsDataByAppResponse> {
+  QueryAllExtendedPairStableVaultsByApp(
+    request: QueryAllExtendedPairStableVaultsByAppRequest
+  ): Promise<QueryAllExtendedPairStableVaultsByAppResponse> {
     const data =
-      QueryAllExtendedPairStableVaultsDataByAppRequest.encode(request).finish();
+      QueryAllExtendedPairStableVaultsByAppRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.asset.v1beta1.Query",
-      "QueryAllExtendedPairStableVaultsDataByApp",
+      "QueryAllExtendedPairStableVaultsByApp",
       data
     );
     return promise.then((data) =>
-      QueryAllExtendedPairStableVaultsDataByAppResponse.decode(
-        new _m0.Reader(data)
-      )
+      QueryAllExtendedPairStableVaultsByAppResponse.decode(new _m0.Reader(data))
     );
   }
 }

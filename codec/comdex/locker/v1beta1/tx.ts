@@ -8,14 +8,14 @@ export interface MsgCreateLockerRequest {
   depositor: string;
   amount: string;
   assetId: Long;
-  appMappingId: Long;
+  appId: Long;
 }
 
 export interface MsgCreateLockerResponse {}
 
 export interface MsgAddWhiteListedAssetRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   assetId: Long;
 }
 
@@ -26,7 +26,7 @@ export interface MsgDepositAssetRequest {
   lockerId: string;
   amount: string;
   assetId: Long;
-  appMappingId: Long;
+  appId: Long;
 }
 
 export interface MsgDepositAssetResponse {}
@@ -36,18 +36,13 @@ export interface MsgWithdrawAssetRequest {
   lockerId: string;
   amount: string;
   assetId: Long;
-  appMappingId: Long;
+  appId: Long;
 }
 
 export interface MsgWithdrawAssetResponse {}
 
 function createBaseMsgCreateLockerRequest(): MsgCreateLockerRequest {
-  return {
-    depositor: "",
-    amount: "",
-    assetId: Long.UZERO,
-    appMappingId: Long.UZERO,
-  };
+  return { depositor: "", amount: "", assetId: Long.UZERO, appId: Long.UZERO };
 }
 
 export const MsgCreateLockerRequest = {
@@ -64,8 +59,8 @@ export const MsgCreateLockerRequest = {
     if (!message.assetId.isZero()) {
       writer.uint32(24).uint64(message.assetId);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(32).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(32).uint64(message.appId);
     }
     return writer;
   },
@@ -90,7 +85,7 @@ export const MsgCreateLockerRequest = {
           message.assetId = reader.uint64() as Long;
           break;
         case 4:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -107,9 +102,7 @@ export const MsgCreateLockerRequest = {
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -119,8 +112,8 @@ export const MsgCreateLockerRequest = {
     message.amount !== undefined && (obj.amount = message.amount);
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -134,9 +127,9 @@ export const MsgCreateLockerRequest = {
       object.assetId !== undefined && object.assetId !== null
         ? Long.fromValue(object.assetId)
         : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     return message;
   },
@@ -190,7 +183,7 @@ export const MsgCreateLockerResponse = {
 };
 
 function createBaseMsgAddWhiteListedAssetRequest(): MsgAddWhiteListedAssetRequest {
-  return { from: "", appMappingId: Long.UZERO, assetId: Long.UZERO };
+  return { from: "", appId: Long.UZERO, assetId: Long.UZERO };
 }
 
 export const MsgAddWhiteListedAssetRequest = {
@@ -201,8 +194,8 @@ export const MsgAddWhiteListedAssetRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.assetId.isZero()) {
       writer.uint32(24).uint64(message.assetId);
@@ -224,7 +217,7 @@ export const MsgAddWhiteListedAssetRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.assetId = reader.uint64() as Long;
@@ -240,9 +233,7 @@ export const MsgAddWhiteListedAssetRequest = {
   fromJSON(object: any): MsgAddWhiteListedAssetRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
@@ -252,8 +243,8 @@ export const MsgAddWhiteListedAssetRequest = {
   toJSON(message: MsgAddWhiteListedAssetRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
     return obj;
@@ -264,9 +255,9 @@ export const MsgAddWhiteListedAssetRequest = {
   ): MsgAddWhiteListedAssetRequest {
     const message = createBaseMsgAddWhiteListedAssetRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.assetId =
       object.assetId !== undefined && object.assetId !== null
@@ -329,7 +320,7 @@ function createBaseMsgDepositAssetRequest(): MsgDepositAssetRequest {
     lockerId: "",
     amount: "",
     assetId: Long.UZERO,
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
   };
 }
 
@@ -350,8 +341,8 @@ export const MsgDepositAssetRequest = {
     if (!message.assetId.isZero()) {
       writer.uint32(32).uint64(message.assetId);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(40).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(40).uint64(message.appId);
     }
     return writer;
   },
@@ -379,7 +370,7 @@ export const MsgDepositAssetRequest = {
           message.assetId = reader.uint64() as Long;
           break;
         case 5:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -397,9 +388,7 @@ export const MsgDepositAssetRequest = {
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -410,8 +399,8 @@ export const MsgDepositAssetRequest = {
     message.amount !== undefined && (obj.amount = message.amount);
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -426,9 +415,9 @@ export const MsgDepositAssetRequest = {
       object.assetId !== undefined && object.assetId !== null
         ? Long.fromValue(object.assetId)
         : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     return message;
   },
@@ -487,7 +476,7 @@ function createBaseMsgWithdrawAssetRequest(): MsgWithdrawAssetRequest {
     lockerId: "",
     amount: "",
     assetId: Long.UZERO,
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
   };
 }
 
@@ -508,8 +497,8 @@ export const MsgWithdrawAssetRequest = {
     if (!message.assetId.isZero()) {
       writer.uint32(32).uint64(message.assetId);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(40).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(40).uint64(message.appId);
     }
     return writer;
   },
@@ -537,7 +526,7 @@ export const MsgWithdrawAssetRequest = {
           message.assetId = reader.uint64() as Long;
           break;
         case 5:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -555,9 +544,7 @@ export const MsgWithdrawAssetRequest = {
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -568,8 +555,8 @@ export const MsgWithdrawAssetRequest = {
     message.amount !== undefined && (obj.amount = message.amount);
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -584,9 +571,9 @@ export const MsgWithdrawAssetRequest = {
       object.assetId !== undefined && object.assetId !== null
         ? Long.fromValue(object.assetId)
         : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     return message;
   },
