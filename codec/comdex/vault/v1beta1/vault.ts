@@ -72,6 +72,7 @@ export interface PairStatisticData {
   assetOutDenom: string;
   collateralAmount: string;
   mintedAmount: string;
+  extendedPairVaultId: Long;
 }
 
 function createBaseVault(): Vault {
@@ -935,6 +936,7 @@ function createBasePairStatisticData(): PairStatisticData {
     assetOutDenom: "",
     collateralAmount: "",
     mintedAmount: "",
+    extendedPairVaultId: Long.UZERO,
   };
 }
 
@@ -954,6 +956,9 @@ export const PairStatisticData = {
     }
     if (message.mintedAmount !== "") {
       writer.uint32(34).string(message.mintedAmount);
+    }
+    if (!message.extendedPairVaultId.isZero()) {
+      writer.uint32(40).uint64(message.extendedPairVaultId);
     }
     return writer;
   },
@@ -977,6 +982,9 @@ export const PairStatisticData = {
         case 4:
           message.mintedAmount = reader.string();
           break;
+        case 5:
+          message.extendedPairVaultId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -999,6 +1007,9 @@ export const PairStatisticData = {
       mintedAmount: isSet(object.mintedAmount)
         ? String(object.mintedAmount)
         : "",
+      extendedPairVaultId: isSet(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
+        : Long.UZERO,
     };
   },
 
@@ -1012,6 +1023,10 @@ export const PairStatisticData = {
       (obj.collateralAmount = message.collateralAmount);
     message.mintedAmount !== undefined &&
       (obj.mintedAmount = message.mintedAmount);
+    message.extendedPairVaultId !== undefined &&
+      (obj.extendedPairVaultId = (
+        message.extendedPairVaultId || Long.UZERO
+      ).toString());
     return obj;
   },
 
@@ -1023,6 +1038,11 @@ export const PairStatisticData = {
     message.assetOutDenom = object.assetOutDenom ?? "";
     message.collateralAmount = object.collateralAmount ?? "";
     message.mintedAmount = object.mintedAmount ?? "";
+    message.extendedPairVaultId =
+      object.extendedPairVaultId !== undefined &&
+      object.extendedPairVaultId !== null
+        ? Long.fromValue(object.extendedPairVaultId)
+        : Long.UZERO;
     return message;
   },
 };

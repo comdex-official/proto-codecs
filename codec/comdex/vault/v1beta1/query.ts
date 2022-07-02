@@ -39,11 +39,11 @@ export interface QueryVaultResponse {
   vault?: Vault;
 }
 
-export interface QueryVaultInfoByVaultIdRequest {
+export interface QueryVaultInfoByVaultIDRequest {
   id: string;
 }
 
-export interface QueryVaultInfoByVaultIdResponse {
+export interface QueryVaultInfoByVaultIDResponse {
   vaultsInfo?: VaultInfo;
 }
 
@@ -86,14 +86,14 @@ export interface QueryAllVaultsByAppAndExtendedPairResponse {
   pagination?: PageResponse;
 }
 
-export interface QueryVaultIdOfOwnerByExtendedPairAndAppRequest {
+export interface QueryVaultIDOfOwnerByExtendedPairAndAppRequest {
   appId: Long;
   owner: string;
   extendedPairId: Long;
   pagination?: PageRequest;
 }
 
-export interface QueryVaultIdOfOwnerByExtendedPairAndAppResponse {
+export interface QueryVaultIDOfOwnerByExtendedPairAndAppResponse {
   vaultId: string;
 }
 
@@ -172,11 +172,11 @@ export interface QueryExtendedPairIDsByAppResponse {
   extendedPairIds: Long[];
 }
 
-export interface QueryStableVaultByVaultIdRequest {
+export interface QueryStableVaultByVaultIDRequest {
   stableVaultId: string;
 }
 
-export interface QueryStableVaultByVaultIdResponse {
+export interface QueryStableVaultByVaultIDResponse {
   stableMintVault?: StableMintVault;
 }
 
@@ -547,13 +547,13 @@ export const QueryVaultResponse = {
   },
 };
 
-function createBaseQueryVaultInfoByVaultIdRequest(): QueryVaultInfoByVaultIdRequest {
+function createBaseQueryVaultInfoByVaultIDRequest(): QueryVaultInfoByVaultIDRequest {
   return { id: "" };
 }
 
-export const QueryVaultInfoByVaultIdRequest = {
+export const QueryVaultInfoByVaultIDRequest = {
   encode(
-    message: QueryVaultInfoByVaultIdRequest,
+    message: QueryVaultInfoByVaultIDRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.id !== "") {
@@ -565,10 +565,10 @@ export const QueryVaultInfoByVaultIdRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryVaultInfoByVaultIdRequest {
+  ): QueryVaultInfoByVaultIDRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryVaultInfoByVaultIdRequest();
+    const message = createBaseQueryVaultInfoByVaultIDRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -583,34 +583,34 @@ export const QueryVaultInfoByVaultIdRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryVaultInfoByVaultIdRequest {
+  fromJSON(object: any): QueryVaultInfoByVaultIDRequest {
     return {
       id: isSet(object.id) ? String(object.id) : "",
     };
   },
 
-  toJSON(message: QueryVaultInfoByVaultIdRequest): unknown {
+  toJSON(message: QueryVaultInfoByVaultIDRequest): unknown {
     const obj: any = {};
     message.id !== undefined && (obj.id = message.id);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVaultInfoByVaultIdRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryVaultInfoByVaultIDRequest>, I>>(
     object: I
-  ): QueryVaultInfoByVaultIdRequest {
-    const message = createBaseQueryVaultInfoByVaultIdRequest();
+  ): QueryVaultInfoByVaultIDRequest {
+    const message = createBaseQueryVaultInfoByVaultIDRequest();
     message.id = object.id ?? "";
     return message;
   },
 };
 
-function createBaseQueryVaultInfoByVaultIdResponse(): QueryVaultInfoByVaultIdResponse {
+function createBaseQueryVaultInfoByVaultIDResponse(): QueryVaultInfoByVaultIDResponse {
   return { vaultsInfo: undefined };
 }
 
-export const QueryVaultInfoByVaultIdResponse = {
+export const QueryVaultInfoByVaultIDResponse = {
   encode(
-    message: QueryVaultInfoByVaultIdResponse,
+    message: QueryVaultInfoByVaultIDResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.vaultsInfo !== undefined) {
@@ -622,10 +622,10 @@ export const QueryVaultInfoByVaultIdResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryVaultInfoByVaultIdResponse {
+  ): QueryVaultInfoByVaultIDResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryVaultInfoByVaultIdResponse();
+    const message = createBaseQueryVaultInfoByVaultIDResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -640,7 +640,7 @@ export const QueryVaultInfoByVaultIdResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryVaultInfoByVaultIdResponse {
+  fromJSON(object: any): QueryVaultInfoByVaultIDResponse {
     return {
       vaultsInfo: isSet(object.vaultsInfo)
         ? VaultInfo.fromJSON(object.vaultsInfo)
@@ -648,7 +648,7 @@ export const QueryVaultInfoByVaultIdResponse = {
     };
   },
 
-  toJSON(message: QueryVaultInfoByVaultIdResponse): unknown {
+  toJSON(message: QueryVaultInfoByVaultIDResponse): unknown {
     const obj: any = {};
     message.vaultsInfo !== undefined &&
       (obj.vaultsInfo = message.vaultsInfo
@@ -657,10 +657,10 @@ export const QueryVaultInfoByVaultIdResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryVaultInfoByVaultIdResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryVaultInfoByVaultIDResponse>, I>>(
     object: I
-  ): QueryVaultInfoByVaultIdResponse {
-    const message = createBaseQueryVaultInfoByVaultIdResponse();
+  ): QueryVaultInfoByVaultIDResponse {
+    const message = createBaseQueryVaultInfoByVaultIDResponse();
     message.vaultsInfo =
       object.vaultsInfo !== undefined && object.vaultsInfo !== null
         ? VaultInfo.fromPartial(object.vaultsInfo)
@@ -1297,7 +1297,7 @@ export const QueryAllVaultsByAppAndExtendedPairResponse = {
   },
 };
 
-function createBaseQueryVaultIdOfOwnerByExtendedPairAndAppRequest(): QueryVaultIdOfOwnerByExtendedPairAndAppRequest {
+function createBaseQueryVaultIDOfOwnerByExtendedPairAndAppRequest(): QueryVaultIDOfOwnerByExtendedPairAndAppRequest {
   return {
     appId: Long.UZERO,
     owner: "",
@@ -1306,9 +1306,9 @@ function createBaseQueryVaultIdOfOwnerByExtendedPairAndAppRequest(): QueryVaultI
   };
 }
 
-export const QueryVaultIdOfOwnerByExtendedPairAndAppRequest = {
+export const QueryVaultIDOfOwnerByExtendedPairAndAppRequest = {
   encode(
-    message: QueryVaultIdOfOwnerByExtendedPairAndAppRequest,
+    message: QueryVaultIDOfOwnerByExtendedPairAndAppRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -1329,10 +1329,10 @@ export const QueryVaultIdOfOwnerByExtendedPairAndAppRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryVaultIdOfOwnerByExtendedPairAndAppRequest {
+  ): QueryVaultIDOfOwnerByExtendedPairAndAppRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryVaultIdOfOwnerByExtendedPairAndAppRequest();
+    const message = createBaseQueryVaultIDOfOwnerByExtendedPairAndAppRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1356,7 +1356,7 @@ export const QueryVaultIdOfOwnerByExtendedPairAndAppRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryVaultIdOfOwnerByExtendedPairAndAppRequest {
+  fromJSON(object: any): QueryVaultIDOfOwnerByExtendedPairAndAppRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
@@ -1369,7 +1369,7 @@ export const QueryVaultIdOfOwnerByExtendedPairAndAppRequest = {
     };
   },
 
-  toJSON(message: QueryVaultIdOfOwnerByExtendedPairAndAppRequest): unknown {
+  toJSON(message: QueryVaultIDOfOwnerByExtendedPairAndAppRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
@@ -1385,11 +1385,11 @@ export const QueryVaultIdOfOwnerByExtendedPairAndAppRequest = {
 
   fromPartial<
     I extends Exact<
-      DeepPartial<QueryVaultIdOfOwnerByExtendedPairAndAppRequest>,
+      DeepPartial<QueryVaultIDOfOwnerByExtendedPairAndAppRequest>,
       I
     >
-  >(object: I): QueryVaultIdOfOwnerByExtendedPairAndAppRequest {
-    const message = createBaseQueryVaultIdOfOwnerByExtendedPairAndAppRequest();
+  >(object: I): QueryVaultIDOfOwnerByExtendedPairAndAppRequest {
+    const message = createBaseQueryVaultIDOfOwnerByExtendedPairAndAppRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -1407,13 +1407,13 @@ export const QueryVaultIdOfOwnerByExtendedPairAndAppRequest = {
   },
 };
 
-function createBaseQueryVaultIdOfOwnerByExtendedPairAndAppResponse(): QueryVaultIdOfOwnerByExtendedPairAndAppResponse {
+function createBaseQueryVaultIDOfOwnerByExtendedPairAndAppResponse(): QueryVaultIDOfOwnerByExtendedPairAndAppResponse {
   return { vaultId: "" };
 }
 
-export const QueryVaultIdOfOwnerByExtendedPairAndAppResponse = {
+export const QueryVaultIDOfOwnerByExtendedPairAndAppResponse = {
   encode(
-    message: QueryVaultIdOfOwnerByExtendedPairAndAppResponse,
+    message: QueryVaultIDOfOwnerByExtendedPairAndAppResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.vaultId !== "") {
@@ -1425,10 +1425,10 @@ export const QueryVaultIdOfOwnerByExtendedPairAndAppResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryVaultIdOfOwnerByExtendedPairAndAppResponse {
+  ): QueryVaultIDOfOwnerByExtendedPairAndAppResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryVaultIdOfOwnerByExtendedPairAndAppResponse();
+    const message = createBaseQueryVaultIDOfOwnerByExtendedPairAndAppResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1443,13 +1443,13 @@ export const QueryVaultIdOfOwnerByExtendedPairAndAppResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryVaultIdOfOwnerByExtendedPairAndAppResponse {
+  fromJSON(object: any): QueryVaultIDOfOwnerByExtendedPairAndAppResponse {
     return {
       vaultId: isSet(object.vaultId) ? String(object.vaultId) : "",
     };
   },
 
-  toJSON(message: QueryVaultIdOfOwnerByExtendedPairAndAppResponse): unknown {
+  toJSON(message: QueryVaultIDOfOwnerByExtendedPairAndAppResponse): unknown {
     const obj: any = {};
     message.vaultId !== undefined && (obj.vaultId = message.vaultId);
     return obj;
@@ -1457,11 +1457,11 @@ export const QueryVaultIdOfOwnerByExtendedPairAndAppResponse = {
 
   fromPartial<
     I extends Exact<
-      DeepPartial<QueryVaultIdOfOwnerByExtendedPairAndAppResponse>,
+      DeepPartial<QueryVaultIDOfOwnerByExtendedPairAndAppResponse>,
       I
     >
-  >(object: I): QueryVaultIdOfOwnerByExtendedPairAndAppResponse {
-    const message = createBaseQueryVaultIdOfOwnerByExtendedPairAndAppResponse();
+  >(object: I): QueryVaultIDOfOwnerByExtendedPairAndAppResponse {
+    const message = createBaseQueryVaultIDOfOwnerByExtendedPairAndAppResponse();
     message.vaultId = object.vaultId ?? "";
     return message;
   },
@@ -2671,13 +2671,13 @@ export const QueryExtendedPairIDsByAppResponse = {
   },
 };
 
-function createBaseQueryStableVaultByVaultIdRequest(): QueryStableVaultByVaultIdRequest {
+function createBaseQueryStableVaultByVaultIDRequest(): QueryStableVaultByVaultIDRequest {
   return { stableVaultId: "" };
 }
 
-export const QueryStableVaultByVaultIdRequest = {
+export const QueryStableVaultByVaultIDRequest = {
   encode(
-    message: QueryStableVaultByVaultIdRequest,
+    message: QueryStableVaultByVaultIDRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.stableVaultId !== "") {
@@ -2689,10 +2689,10 @@ export const QueryStableVaultByVaultIdRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryStableVaultByVaultIdRequest {
+  ): QueryStableVaultByVaultIDRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryStableVaultByVaultIdRequest();
+    const message = createBaseQueryStableVaultByVaultIDRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2707,7 +2707,7 @@ export const QueryStableVaultByVaultIdRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryStableVaultByVaultIdRequest {
+  fromJSON(object: any): QueryStableVaultByVaultIDRequest {
     return {
       stableVaultId: isSet(object.stableVaultId)
         ? String(object.stableVaultId)
@@ -2715,7 +2715,7 @@ export const QueryStableVaultByVaultIdRequest = {
     };
   },
 
-  toJSON(message: QueryStableVaultByVaultIdRequest): unknown {
+  toJSON(message: QueryStableVaultByVaultIDRequest): unknown {
     const obj: any = {};
     message.stableVaultId !== undefined &&
       (obj.stableVaultId = message.stableVaultId);
@@ -2723,21 +2723,21 @@ export const QueryStableVaultByVaultIdRequest = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryStableVaultByVaultIdRequest>, I>
-  >(object: I): QueryStableVaultByVaultIdRequest {
-    const message = createBaseQueryStableVaultByVaultIdRequest();
+    I extends Exact<DeepPartial<QueryStableVaultByVaultIDRequest>, I>
+  >(object: I): QueryStableVaultByVaultIDRequest {
+    const message = createBaseQueryStableVaultByVaultIDRequest();
     message.stableVaultId = object.stableVaultId ?? "";
     return message;
   },
 };
 
-function createBaseQueryStableVaultByVaultIdResponse(): QueryStableVaultByVaultIdResponse {
+function createBaseQueryStableVaultByVaultIDResponse(): QueryStableVaultByVaultIDResponse {
   return { stableMintVault: undefined };
 }
 
-export const QueryStableVaultByVaultIdResponse = {
+export const QueryStableVaultByVaultIDResponse = {
   encode(
-    message: QueryStableVaultByVaultIdResponse,
+    message: QueryStableVaultByVaultIDResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.stableMintVault !== undefined) {
@@ -2752,10 +2752,10 @@ export const QueryStableVaultByVaultIdResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryStableVaultByVaultIdResponse {
+  ): QueryStableVaultByVaultIDResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryStableVaultByVaultIdResponse();
+    const message = createBaseQueryStableVaultByVaultIDResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2773,7 +2773,7 @@ export const QueryStableVaultByVaultIdResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryStableVaultByVaultIdResponse {
+  fromJSON(object: any): QueryStableVaultByVaultIDResponse {
     return {
       stableMintVault: isSet(object.stableMintVault)
         ? StableMintVault.fromJSON(object.stableMintVault)
@@ -2781,7 +2781,7 @@ export const QueryStableVaultByVaultIdResponse = {
     };
   },
 
-  toJSON(message: QueryStableVaultByVaultIdResponse): unknown {
+  toJSON(message: QueryStableVaultByVaultIDResponse): unknown {
     const obj: any = {};
     message.stableMintVault !== undefined &&
       (obj.stableMintVault = message.stableMintVault
@@ -2791,9 +2791,9 @@ export const QueryStableVaultByVaultIdResponse = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryStableVaultByVaultIdResponse>, I>
-  >(object: I): QueryStableVaultByVaultIdResponse {
-    const message = createBaseQueryStableVaultByVaultIdResponse();
+    I extends Exact<DeepPartial<QueryStableVaultByVaultIDResponse>, I>
+  >(object: I): QueryStableVaultByVaultIDResponse {
+    const message = createBaseQueryStableVaultByVaultIDResponse();
     message.stableMintVault =
       object.stableMintVault !== undefined && object.stableMintVault !== null
         ? StableMintVault.fromPartial(object.stableMintVault)
@@ -4069,9 +4069,9 @@ export interface Query {
   QueryUserExtendedPairTotalData(
     request: QueryUserExtendedPairTotalDataRequest
   ): Promise<QueryUserExtendedPairTotalDataResponse>;
-  QueryVaultInfoByVaultId(
-    request: QueryVaultInfoByVaultIdRequest
-  ): Promise<QueryVaultInfoByVaultIdResponse>;
+  QueryVaultInfoByVaultID(
+    request: QueryVaultInfoByVaultIDRequest
+  ): Promise<QueryVaultInfoByVaultIDResponse>;
   QueryVaultInfoOfOwnerByApp(
     request: QueryVaultInfoOfOwnerByAppRequest
   ): Promise<QueryVaultInfoOfOwnerByAppResponse>;
@@ -4084,9 +4084,9 @@ export interface Query {
   QueryAllVaultsByAppAndExtendedPair(
     request: QueryAllVaultsByAppAndExtendedPairRequest
   ): Promise<QueryAllVaultsByAppAndExtendedPairResponse>;
-  QueryVaultIdOfOwnerByExtendedPairAndApp(
-    request: QueryVaultIdOfOwnerByExtendedPairAndAppRequest
-  ): Promise<QueryVaultIdOfOwnerByExtendedPairAndAppResponse>;
+  QueryVaultIDOfOwnerByExtendedPairAndApp(
+    request: QueryVaultIDOfOwnerByExtendedPairAndAppRequest
+  ): Promise<QueryVaultIDOfOwnerByExtendedPairAndAppResponse>;
   QueryVaultIdsByAppInAllExtendedPairs(
     request: QueryVaultIdsByAppInAllExtendedPairsRequest
   ): Promise<QueryVaultIdsByAppInAllExtendedPairsResponse>;
@@ -4111,9 +4111,9 @@ export interface Query {
   QueryExtendedPairIDsByApp(
     request: QueryExtendedPairIDsByAppRequest
   ): Promise<QueryExtendedPairIDsByAppResponse>;
-  QueryStableVaultByVaultId(
-    request: QueryStableVaultByVaultIdRequest
-  ): Promise<QueryStableVaultByVaultIdResponse>;
+  QueryStableVaultByVaultID(
+    request: QueryStableVaultByVaultIDRequest
+  ): Promise<QueryStableVaultByVaultIDResponse>;
   QueryStableVaultByApp(
     request: QueryStableVaultByAppRequest
   ): Promise<QueryStableVaultByAppResponse>;
@@ -4145,15 +4145,15 @@ export class QueryClientImpl implements Query {
     this.QueryVault = this.QueryVault.bind(this);
     this.QueryUserExtendedPairTotalData =
       this.QueryUserExtendedPairTotalData.bind(this);
-    this.QueryVaultInfoByVaultId = this.QueryVaultInfoByVaultId.bind(this);
+    this.QueryVaultInfoByVaultID = this.QueryVaultInfoByVaultID.bind(this);
     this.QueryVaultInfoOfOwnerByApp =
       this.QueryVaultInfoOfOwnerByApp.bind(this);
     this.QueryAllVaults = this.QueryAllVaults.bind(this);
     this.QueryAllVaultsByApp = this.QueryAllVaultsByApp.bind(this);
     this.QueryAllVaultsByAppAndExtendedPair =
       this.QueryAllVaultsByAppAndExtendedPair.bind(this);
-    this.QueryVaultIdOfOwnerByExtendedPairAndApp =
-      this.QueryVaultIdOfOwnerByExtendedPairAndApp.bind(this);
+    this.QueryVaultIDOfOwnerByExtendedPairAndApp =
+      this.QueryVaultIDOfOwnerByExtendedPairAndApp.bind(this);
     this.QueryVaultIdsByAppInAllExtendedPairs =
       this.QueryVaultIdsByAppInAllExtendedPairs.bind(this);
     this.QueryAllVaultIdsByAnOwner = this.QueryAllVaultIdsByAnOwner.bind(this);
@@ -4167,7 +4167,7 @@ export class QueryClientImpl implements Query {
     this.QueryTotalValueLockedByAppAndExtendedPair =
       this.QueryTotalValueLockedByAppAndExtendedPair.bind(this);
     this.QueryExtendedPairIDsByApp = this.QueryExtendedPairIDsByApp.bind(this);
-    this.QueryStableVaultByVaultId = this.QueryStableVaultByVaultId.bind(this);
+    this.QueryStableVaultByVaultID = this.QueryStableVaultByVaultID.bind(this);
     this.QueryStableVaultByApp = this.QueryStableVaultByApp.bind(this);
     this.QueryStableVaultByAppAndExtendedPair =
       this.QueryStableVaultByAppAndExtendedPair.bind(this);
@@ -4208,17 +4208,17 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryVaultInfoByVaultId(
-    request: QueryVaultInfoByVaultIdRequest
-  ): Promise<QueryVaultInfoByVaultIdResponse> {
-    const data = QueryVaultInfoByVaultIdRequest.encode(request).finish();
+  QueryVaultInfoByVaultID(
+    request: QueryVaultInfoByVaultIDRequest
+  ): Promise<QueryVaultInfoByVaultIDResponse> {
+    const data = QueryVaultInfoByVaultIDRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.vault.v1beta1.Query",
-      "QueryVaultInfoByVaultId",
+      "QueryVaultInfoByVaultID",
       data
     );
     return promise.then((data) =>
-      QueryVaultInfoByVaultIdResponse.decode(new _m0.Reader(data))
+      QueryVaultInfoByVaultIDResponse.decode(new _m0.Reader(data))
     );
   }
 
@@ -4279,18 +4279,18 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryVaultIdOfOwnerByExtendedPairAndApp(
-    request: QueryVaultIdOfOwnerByExtendedPairAndAppRequest
-  ): Promise<QueryVaultIdOfOwnerByExtendedPairAndAppResponse> {
+  QueryVaultIDOfOwnerByExtendedPairAndApp(
+    request: QueryVaultIDOfOwnerByExtendedPairAndAppRequest
+  ): Promise<QueryVaultIDOfOwnerByExtendedPairAndAppResponse> {
     const data =
-      QueryVaultIdOfOwnerByExtendedPairAndAppRequest.encode(request).finish();
+      QueryVaultIDOfOwnerByExtendedPairAndAppRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.vault.v1beta1.Query",
-      "QueryVaultIdOfOwnerByExtendedPairAndApp",
+      "QueryVaultIDOfOwnerByExtendedPairAndApp",
       data
     );
     return promise.then((data) =>
-      QueryVaultIdOfOwnerByExtendedPairAndAppResponse.decode(
+      QueryVaultIDOfOwnerByExtendedPairAndAppResponse.decode(
         new _m0.Reader(data)
       )
     );
@@ -4414,17 +4414,17 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryStableVaultByVaultId(
-    request: QueryStableVaultByVaultIdRequest
-  ): Promise<QueryStableVaultByVaultIdResponse> {
-    const data = QueryStableVaultByVaultIdRequest.encode(request).finish();
+  QueryStableVaultByVaultID(
+    request: QueryStableVaultByVaultIDRequest
+  ): Promise<QueryStableVaultByVaultIDResponse> {
+    const data = QueryStableVaultByVaultIDRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.vault.v1beta1.Query",
-      "QueryStableVaultByVaultId",
+      "QueryStableVaultByVaultID",
       data
     );
     return promise.then((data) =>
-      QueryStableVaultByVaultIdResponse.decode(new _m0.Reader(data))
+      QueryStableVaultByVaultIDResponse.decode(new _m0.Reader(data))
     );
   }
 
