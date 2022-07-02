@@ -766,6 +766,7 @@ function createBasePairStatisticData() {
         assetOutDenom: "",
         collateralAmount: "",
         mintedAmount: "",
+        extendedPairVaultId: long_1.default.UZERO,
     };
 }
 exports.PairStatisticData = {
@@ -781,6 +782,9 @@ exports.PairStatisticData = {
         }
         if (message.mintedAmount !== "") {
             writer.uint32(34).string(message.mintedAmount);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(40).uint64(message.extendedPairVaultId);
         }
         return writer;
     },
@@ -803,6 +807,9 @@ exports.PairStatisticData = {
                 case 4:
                     message.mintedAmount = reader.string();
                     break;
+                case 5:
+                    message.extendedPairVaultId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -824,6 +831,9 @@ exports.PairStatisticData = {
             mintedAmount: isSet(object.mintedAmount)
                 ? String(object.mintedAmount)
                 : "",
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -836,6 +846,8 @@ exports.PairStatisticData = {
             (obj.collateralAmount = message.collateralAmount);
         message.mintedAmount !== undefined &&
             (obj.mintedAmount = message.mintedAmount);
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -845,6 +857,11 @@ exports.PairStatisticData = {
         message.assetOutDenom = (_b = object.assetOutDenom) !== null && _b !== void 0 ? _b : "";
         message.collateralAmount = (_c = object.collateralAmount) !== null && _c !== void 0 ? _c : "";
         message.mintedAmount = (_d = object.mintedAmount) !== null && _d !== void 0 ? _d : "";
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
         return message;
     },
 };
