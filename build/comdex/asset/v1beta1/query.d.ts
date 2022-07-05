@@ -66,10 +66,10 @@ export interface QueryAllExtendedPairVaultsByAppRequest {
 export interface QueryAllExtendedPairVaultsByAppResponse {
     extendedPair: ExtendedPairVault[];
 }
-export interface QueryAllExtendedPairStableVaultsIdByAppRequest {
+export interface QueryAllExtendedPairStableVaultsIDByAppRequest {
     appId: Long;
 }
-export interface QueryAllExtendedPairStableVaultsIdByAppResponse {
+export interface QueryAllExtendedPairStableVaultsIDByAppResponse {
     extendedPairsId: Long[];
 }
 export interface QueryAllExtendedPairStableVaultsByAppRequest {
@@ -3193,11 +3193,11 @@ export declare const QueryAllExtendedPairVaultsByAppResponse: {
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "extendedPair">, never>>(object: I): QueryAllExtendedPairVaultsByAppResponse;
 };
-export declare const QueryAllExtendedPairStableVaultsIdByAppRequest: {
-    encode(message: QueryAllExtendedPairStableVaultsIdByAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsIdByAppRequest;
-    fromJSON(object: any): QueryAllExtendedPairStableVaultsIdByAppRequest;
-    toJSON(message: QueryAllExtendedPairStableVaultsIdByAppRequest): unknown;
+export declare const QueryAllExtendedPairStableVaultsIDByAppRequest: {
+    encode(message: QueryAllExtendedPairStableVaultsIDByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsIDByAppRequest;
+    fromJSON(object: any): QueryAllExtendedPairStableVaultsIDByAppRequest;
+    toJSON(message: QueryAllExtendedPairStableVaultsIDByAppRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
     } & {
@@ -3259,13 +3259,13 @@ export declare const QueryAllExtendedPairStableVaultsIdByAppRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryAllExtendedPairStableVaultsIdByAppRequest;
+    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryAllExtendedPairStableVaultsIDByAppRequest;
 };
-export declare const QueryAllExtendedPairStableVaultsIdByAppResponse: {
-    encode(message: QueryAllExtendedPairStableVaultsIdByAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsIdByAppResponse;
-    fromJSON(object: any): QueryAllExtendedPairStableVaultsIdByAppResponse;
-    toJSON(message: QueryAllExtendedPairStableVaultsIdByAppResponse): unknown;
+export declare const QueryAllExtendedPairStableVaultsIDByAppResponse: {
+    encode(message: QueryAllExtendedPairStableVaultsIDByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsIDByAppResponse;
+    fromJSON(object: any): QueryAllExtendedPairStableVaultsIDByAppResponse;
+    toJSON(message: QueryAllExtendedPairStableVaultsIDByAppResponse): unknown;
     fromPartial<I extends {
         extendedPairsId?: (string | number | Long.Long)[] | undefined;
     } & {
@@ -3327,7 +3327,7 @@ export declare const QueryAllExtendedPairStableVaultsIdByAppResponse: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["extendedPairsId"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["extendedPairsId"], keyof (string | number | Long.Long)[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "extendedPairsId">, never>>(object: I): QueryAllExtendedPairStableVaultsIdByAppResponse;
+    } & Record<Exclude<keyof I, "extendedPairsId">, never>>(object: I): QueryAllExtendedPairStableVaultsIDByAppResponse;
 };
 export declare const QueryAllExtendedPairStableVaultsByAppRequest: {
     encode(message: QueryAllExtendedPairStableVaultsByAppRequest, writer?: _m0.Writer): _m0.Writer;
@@ -3788,7 +3788,7 @@ export interface Query {
     QueryExtendedPairVault(request: QueryExtendedPairVaultRequest): Promise<QueryExtendedPairVaultResponse>;
     QueryAllExtendedPairVaults(request: QueryAllExtendedPairVaultsRequest): Promise<QueryAllExtendedPairVaultsResponse>;
     QueryAllExtendedPairVaultsByApp(request: QueryAllExtendedPairVaultsByAppRequest): Promise<QueryAllExtendedPairVaultsByAppResponse>;
-    QueryAllExtendedPairStableVaultsIdByApp(request: QueryAllExtendedPairStableVaultsIdByAppRequest): Promise<QueryAllExtendedPairStableVaultsIdByAppResponse>;
+    QueryAllExtendedPairStableVaultsIDByApp(request: QueryAllExtendedPairStableVaultsIDByAppRequest): Promise<QueryAllExtendedPairStableVaultsIDByAppResponse>;
     QueryGovTokenByApp(request: QueryGovTokenByAppRequest): Promise<QueryGovTokenByAppResponse>;
     QueryAllExtendedPairStableVaultsByApp(request: QueryAllExtendedPairStableVaultsByAppRequest): Promise<QueryAllExtendedPairStableVaultsByAppResponse>;
 }
@@ -3804,7 +3804,7 @@ export declare class QueryClientImpl implements Query {
     QueryExtendedPairVault(request: QueryExtendedPairVaultRequest): Promise<QueryExtendedPairVaultResponse>;
     QueryAllExtendedPairVaults(request: QueryAllExtendedPairVaultsRequest): Promise<QueryAllExtendedPairVaultsResponse>;
     QueryAllExtendedPairVaultsByApp(request: QueryAllExtendedPairVaultsByAppRequest): Promise<QueryAllExtendedPairVaultsByAppResponse>;
-    QueryAllExtendedPairStableVaultsIdByApp(request: QueryAllExtendedPairStableVaultsIdByAppRequest): Promise<QueryAllExtendedPairStableVaultsIdByAppResponse>;
+    QueryAllExtendedPairStableVaultsIDByApp(request: QueryAllExtendedPairStableVaultsIDByAppRequest): Promise<QueryAllExtendedPairStableVaultsIDByAppResponse>;
     QueryGovTokenByApp(request: QueryGovTokenByAppRequest): Promise<QueryGovTokenByAppResponse>;
     QueryAllExtendedPairStableVaultsByApp(request: QueryAllExtendedPairStableVaultsByAppRequest): Promise<QueryAllExtendedPairStableVaultsByAppResponse>;
 }

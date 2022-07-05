@@ -109,11 +109,11 @@ export interface QueryLockerLookupTableByAppRequest {
 export interface QueryLockerLookupTableByAppResponse {
     tokenToLockerMapping: TokenToLockerMapping[];
 }
-export interface QueryLockerLookupTableByAppAndAssetIdRequest {
+export interface QueryLockerLookupTableByAppAndAssetIDRequest {
     appId: Long;
     assetId: Long;
 }
-export interface QueryLockerLookupTableByAppAndAssetIdResponse {
+export interface QueryLockerLookupTableByAppAndAssetIDResponse {
     tokenToLockerMapping?: TokenToLockerMapping;
 }
 export interface QueryLockerTotalDepositedByAppRequest {
@@ -2842,11 +2842,11 @@ export declare const QueryLockerLookupTableByAppResponse: {
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, "tokenToLockerMapping">, never>>(object: I): QueryLockerLookupTableByAppResponse;
 };
-export declare const QueryLockerLookupTableByAppAndAssetIdRequest: {
-    encode(message: QueryLockerLookupTableByAppAndAssetIdRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerLookupTableByAppAndAssetIdRequest;
-    fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIdRequest;
-    toJSON(message: QueryLockerLookupTableByAppAndAssetIdRequest): unknown;
+export declare const QueryLockerLookupTableByAppAndAssetIDRequest: {
+    encode(message: QueryLockerLookupTableByAppAndAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerLookupTableByAppAndAssetIDRequest;
+    fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIDRequest;
+    toJSON(message: QueryLockerLookupTableByAppAndAssetIDRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
@@ -2967,13 +2967,13 @@ export declare const QueryLockerLookupTableByAppAndAssetIdRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryLockerLookupTableByAppAndAssetIdRequest>, never>>(object: I): QueryLockerLookupTableByAppAndAssetIdRequest;
+    } & Record<Exclude<keyof I, keyof QueryLockerLookupTableByAppAndAssetIDRequest>, never>>(object: I): QueryLockerLookupTableByAppAndAssetIDRequest;
 };
-export declare const QueryLockerLookupTableByAppAndAssetIdResponse: {
-    encode(message: QueryLockerLookupTableByAppAndAssetIdResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerLookupTableByAppAndAssetIdResponse;
-    fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIdResponse;
-    toJSON(message: QueryLockerLookupTableByAppAndAssetIdResponse): unknown;
+export declare const QueryLockerLookupTableByAppAndAssetIDResponse: {
+    encode(message: QueryLockerLookupTableByAppAndAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerLookupTableByAppAndAssetIDResponse;
+    fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIDResponse;
+    toJSON(message: QueryLockerLookupTableByAppAndAssetIDResponse): unknown;
     fromPartial<I extends {
         tokenToLockerMapping?: {
             assetId?: string | number | Long.Long | undefined;
@@ -3047,7 +3047,7 @@ export declare const QueryLockerLookupTableByAppAndAssetIdResponse: {
             lockerIds?: (string[] & string[] & Record<Exclude<keyof I["tokenToLockerMapping"]["lockerIds"], keyof string[]>, never>) | undefined;
             depositedAmount?: string | undefined;
         } & Record<Exclude<keyof I["tokenToLockerMapping"], keyof TokenToLockerMapping>, never>) | undefined;
-    } & Record<Exclude<keyof I, "tokenToLockerMapping">, never>>(object: I): QueryLockerLookupTableByAppAndAssetIdResponse;
+    } & Record<Exclude<keyof I, "tokenToLockerMapping">, never>>(object: I): QueryLockerLookupTableByAppAndAssetIDResponse;
 };
 export declare const QueryLockerTotalDepositedByAppRequest: {
     encode(message: QueryLockerTotalDepositedByAppRequest, writer?: _m0.Writer): _m0.Writer;
@@ -3517,7 +3517,7 @@ export interface Query {
     QueryWhiteListedAssetByAllApps(request: QueryWhiteListedAssetByAllAppsRequest): Promise<QueryWhiteListedAssetByAllAppsResponse>;
     QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     QueryLockerLookupTableByApp(request: QueryLockerLookupTableByAppRequest): Promise<QueryLockerLookupTableByAppResponse>;
-    QueryLockerLookupTableByAppAndAssetId(request: QueryLockerLookupTableByAppAndAssetIdRequest): Promise<QueryLockerLookupTableByAppAndAssetIdResponse>;
+    QueryLockerLookupTableByAppAndAssetID(request: QueryLockerLookupTableByAppAndAssetIDRequest): Promise<QueryLockerLookupTableByAppAndAssetIDResponse>;
     QueryLockerTotalRewardsByAssetAppWise(request: QueryLockerTotalRewardsByAssetAppWiseRequest): Promise<QueryLockerTotalRewardsByAssetAppWiseResponse>;
     QueryLockerTotalDepositedByApp(request: QueryLockerTotalDepositedByAppRequest): Promise<QueryLockerTotalDepositedByAppResponse>;
     QueryState(request: QueryStateRequest): Promise<QueryStateResponse>;
@@ -3540,7 +3540,7 @@ export declare class QueryClientImpl implements Query {
     QueryWhiteListedAssetByAllApps(request: QueryWhiteListedAssetByAllAppsRequest): Promise<QueryWhiteListedAssetByAllAppsResponse>;
     QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     QueryLockerLookupTableByApp(request: QueryLockerLookupTableByAppRequest): Promise<QueryLockerLookupTableByAppResponse>;
-    QueryLockerLookupTableByAppAndAssetId(request: QueryLockerLookupTableByAppAndAssetIdRequest): Promise<QueryLockerLookupTableByAppAndAssetIdResponse>;
+    QueryLockerLookupTableByAppAndAssetID(request: QueryLockerLookupTableByAppAndAssetIDRequest): Promise<QueryLockerLookupTableByAppAndAssetIDResponse>;
     QueryLockerTotalRewardsByAssetAppWise(request: QueryLockerTotalRewardsByAssetAppWiseRequest): Promise<QueryLockerTotalRewardsByAssetAppWiseResponse>;
     QueryLockerTotalDepositedByApp(request: QueryLockerTotalDepositedByAppRequest): Promise<QueryLockerTotalDepositedByAppResponse>;
     QueryState(request: QueryStateRequest): Promise<QueryStateResponse>;

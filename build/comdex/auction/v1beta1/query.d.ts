@@ -4725,10 +4725,6 @@ export declare const QueryDutchAuctionResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            toBurnAmount?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
             outflowTokenInitialPrice?: string | undefined;
             outflowTokenCurrentPrice?: string | undefined;
             outflowTokenEndPrice?: string | undefined;
@@ -4747,7 +4743,6 @@ export declare const QueryDutchAuctionResponse: {
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
             liquidationPenalty?: string | undefined;
-            isLockedVaultAmountInZero?: boolean | undefined;
         } | undefined;
     } & {
         auction?: ({
@@ -4768,10 +4763,6 @@ export declare const QueryDutchAuctionResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            toBurnAmount?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
             outflowTokenInitialPrice?: string | undefined;
             outflowTokenCurrentPrice?: string | undefined;
             outflowTokenEndPrice?: string | undefined;
@@ -4790,7 +4781,6 @@ export declare const QueryDutchAuctionResponse: {
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
             liquidationPenalty?: string | undefined;
-            isLockedVaultAmountInZero?: boolean | undefined;
         } & {
             auctionId?: string | number | (Long.Long & {
                 high: number;
@@ -4878,13 +4868,6 @@ export declare const QueryDutchAuctionResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & Record<Exclude<keyof I["auction"]["inflowTokenCurrentAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
-            toBurnAmount?: ({
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & Record<Exclude<keyof I["auction"]["toBurnAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             outflowTokenInitialPrice?: string | undefined;
             outflowTokenCurrentPrice?: string | undefined;
             outflowTokenEndPrice?: string | undefined;
@@ -5311,7 +5294,6 @@ export declare const QueryDutchAuctionResponse: {
             } & Record<Exclude<keyof I["auction"]["lockedVaultId"], keyof Long.Long>, never>) | undefined;
             vaultOwner?: string | undefined;
             liquidationPenalty?: string | undefined;
-            isLockedVaultAmountInZero?: boolean | undefined;
         } & Record<Exclude<keyof I["auction"], keyof DutchAuction>, never>) | undefined;
     } & Record<Exclude<keyof I, "auction">, never>>(object: I): QueryDutchAuctionResponse;
 };
@@ -5543,10 +5525,6 @@ export declare const QueryDutchAuctionsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            toBurnAmount?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
             outflowTokenInitialPrice?: string | undefined;
             outflowTokenCurrentPrice?: string | undefined;
             outflowTokenEndPrice?: string | undefined;
@@ -5565,7 +5543,6 @@ export declare const QueryDutchAuctionsResponse: {
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
             liquidationPenalty?: string | undefined;
-            isLockedVaultAmountInZero?: boolean | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -5590,10 +5567,6 @@ export declare const QueryDutchAuctionsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            toBurnAmount?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
             outflowTokenInitialPrice?: string | undefined;
             outflowTokenCurrentPrice?: string | undefined;
             outflowTokenEndPrice?: string | undefined;
@@ -5612,7 +5585,6 @@ export declare const QueryDutchAuctionsResponse: {
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
             liquidationPenalty?: string | undefined;
-            isLockedVaultAmountInZero?: boolean | undefined;
         }[] & ({
             auctionId?: string | number | Long.Long | undefined;
             outflowTokenInitAmount?: {
@@ -5631,10 +5603,6 @@ export declare const QueryDutchAuctionsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            toBurnAmount?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
             outflowTokenInitialPrice?: string | undefined;
             outflowTokenCurrentPrice?: string | undefined;
             outflowTokenEndPrice?: string | undefined;
@@ -5653,7 +5621,6 @@ export declare const QueryDutchAuctionsResponse: {
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
             liquidationPenalty?: string | undefined;
-            isLockedVaultAmountInZero?: boolean | undefined;
         } & {
             auctionId?: string | number | (Long.Long & {
                 high: number;
@@ -5741,13 +5708,6 @@ export declare const QueryDutchAuctionsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & Record<Exclude<keyof I["auctions"][number]["inflowTokenCurrentAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
-            toBurnAmount?: ({
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & Record<Exclude<keyof I["auctions"][number]["toBurnAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
             outflowTokenInitialPrice?: string | undefined;
             outflowTokenCurrentPrice?: string | undefined;
             outflowTokenEndPrice?: string | undefined;
@@ -6174,7 +6134,6 @@ export declare const QueryDutchAuctionsResponse: {
             } & Record<Exclude<keyof I["auctions"][number]["lockedVaultId"], keyof Long.Long>, never>) | undefined;
             vaultOwner?: string | undefined;
             liquidationPenalty?: string | undefined;
-            isLockedVaultAmountInZero?: boolean | undefined;
         } & Record<Exclude<keyof I["auctions"][number], keyof DutchAuction>, never>)[] & Record<Exclude<keyof I["auctions"], keyof {
             auctionId?: string | number | Long.Long | undefined;
             outflowTokenInitAmount?: {
@@ -6190,10 +6149,6 @@ export declare const QueryDutchAuctionsResponse: {
                 amount?: string | undefined;
             } | undefined;
             inflowTokenCurrentAmount?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } | undefined;
-            toBurnAmount?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
@@ -6215,7 +6170,6 @@ export declare const QueryDutchAuctionsResponse: {
             lockedVaultId?: string | number | Long.Long | undefined;
             vaultOwner?: string | undefined;
             liquidationPenalty?: string | undefined;
-            isLockedVaultAmountInZero?: boolean | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;

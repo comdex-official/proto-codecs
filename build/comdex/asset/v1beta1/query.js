@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryAllExtendedPairStableVaultsByAppResponse = exports.QueryAllExtendedPairStableVaultsByAppRequest = exports.QueryAllExtendedPairStableVaultsIdByAppResponse = exports.QueryAllExtendedPairStableVaultsIdByAppRequest = exports.QueryAllExtendedPairVaultsByAppResponse = exports.QueryAllExtendedPairVaultsByAppRequest = exports.QueryAllExtendedPairVaultsResponse = exports.QueryAllExtendedPairVaultsRequest = exports.QueryExtendedPairVaultResponse = exports.QueryExtendedPairVaultRequest = exports.QueryAppsResponse = exports.QueryAppsRequest = exports.QueryGovTokenByAppResponse = exports.QueryGovTokenByAppRequest = exports.QueryAppResponse = exports.QueryAppRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAssetResponse = exports.QueryAssetRequest = exports.QueryAssetsResponse = exports.QueryAssetsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryAllExtendedPairStableVaultsByAppResponse = exports.QueryAllExtendedPairStableVaultsByAppRequest = exports.QueryAllExtendedPairStableVaultsIDByAppResponse = exports.QueryAllExtendedPairStableVaultsIDByAppRequest = exports.QueryAllExtendedPairVaultsByAppResponse = exports.QueryAllExtendedPairVaultsByAppRequest = exports.QueryAllExtendedPairVaultsResponse = exports.QueryAllExtendedPairVaultsRequest = exports.QueryExtendedPairVaultResponse = exports.QueryExtendedPairVaultRequest = exports.QueryAppsResponse = exports.QueryAppsRequest = exports.QueryGovTokenByAppResponse = exports.QueryGovTokenByAppRequest = exports.QueryAppResponse = exports.QueryAppRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAssetResponse = exports.QueryAssetRequest = exports.QueryAssetsResponse = exports.QueryAssetsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -1023,10 +1023,10 @@ exports.QueryAllExtendedPairVaultsByAppResponse = {
         return message;
     },
 };
-function createBaseQueryAllExtendedPairStableVaultsIdByAppRequest() {
+function createBaseQueryAllExtendedPairStableVaultsIDByAppRequest() {
     return { appId: long_1.default.UZERO };
 }
-exports.QueryAllExtendedPairStableVaultsIdByAppRequest = {
+exports.QueryAllExtendedPairStableVaultsIDByAppRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
@@ -1036,7 +1036,7 @@ exports.QueryAllExtendedPairStableVaultsIdByAppRequest = {
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryAllExtendedPairStableVaultsIdByAppRequest();
+        const message = createBaseQueryAllExtendedPairStableVaultsIDByAppRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1062,7 +1062,7 @@ exports.QueryAllExtendedPairStableVaultsIdByAppRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryAllExtendedPairStableVaultsIdByAppRequest();
+        const message = createBaseQueryAllExtendedPairStableVaultsIDByAppRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -1070,10 +1070,10 @@ exports.QueryAllExtendedPairStableVaultsIdByAppRequest = {
         return message;
     },
 };
-function createBaseQueryAllExtendedPairStableVaultsIdByAppResponse() {
+function createBaseQueryAllExtendedPairStableVaultsIDByAppResponse() {
     return { extendedPairsId: [] };
 }
-exports.QueryAllExtendedPairStableVaultsIdByAppResponse = {
+exports.QueryAllExtendedPairStableVaultsIDByAppResponse = {
     encode(message, writer = _m0.Writer.create()) {
         writer.uint32(10).fork();
         for (const v of message.extendedPairsId) {
@@ -1085,7 +1085,7 @@ exports.QueryAllExtendedPairStableVaultsIdByAppResponse = {
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryAllExtendedPairStableVaultsIdByAppResponse();
+        const message = createBaseQueryAllExtendedPairStableVaultsIDByAppResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1126,7 +1126,7 @@ exports.QueryAllExtendedPairStableVaultsIdByAppResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryAllExtendedPairStableVaultsIdByAppResponse();
+        const message = createBaseQueryAllExtendedPairStableVaultsIDByAppResponse();
         message.extendedPairsId =
             ((_a = object.extendedPairsId) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
         return message;
@@ -1245,8 +1245,8 @@ class QueryClientImpl {
             this.QueryAllExtendedPairVaults.bind(this);
         this.QueryAllExtendedPairVaultsByApp =
             this.QueryAllExtendedPairVaultsByApp.bind(this);
-        this.QueryAllExtendedPairStableVaultsIdByApp =
-            this.QueryAllExtendedPairStableVaultsIdByApp.bind(this);
+        this.QueryAllExtendedPairStableVaultsIDByApp =
+            this.QueryAllExtendedPairStableVaultsIDByApp.bind(this);
         this.QueryGovTokenByApp = this.QueryGovTokenByApp.bind(this);
         this.QueryAllExtendedPairStableVaultsByApp =
             this.QueryAllExtendedPairStableVaultsByApp.bind(this);
@@ -1296,10 +1296,10 @@ class QueryClientImpl {
         const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryAllExtendedPairVaultsByApp", data);
         return promise.then((data) => exports.QueryAllExtendedPairVaultsByAppResponse.decode(new _m0.Reader(data)));
     }
-    QueryAllExtendedPairStableVaultsIdByApp(request) {
-        const data = exports.QueryAllExtendedPairStableVaultsIdByAppRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryAllExtendedPairStableVaultsIdByApp", data);
-        return promise.then((data) => exports.QueryAllExtendedPairStableVaultsIdByAppResponse.decode(new _m0.Reader(data)));
+    QueryAllExtendedPairStableVaultsIDByApp(request) {
+        const data = exports.QueryAllExtendedPairStableVaultsIDByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.asset.v1beta1.Query", "QueryAllExtendedPairStableVaultsIDByApp", data);
+        return promise.then((data) => exports.QueryAllExtendedPairStableVaultsIDByAppResponse.decode(new _m0.Reader(data)));
     }
     QueryGovTokenByApp(request) {
         const data = exports.QueryGovTokenByAppRequest.encode(request).finish();
