@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryStateResponse = exports.QueryStateRequest = exports.QueryLockerTotalRewardsByAssetAppWiseResponse = exports.QueryLockerTotalRewardsByAssetAppWiseRequest = exports.QueryLockerTotalDepositedByAppResponse = exports.QueryLockerTotalDepositedByAppRequest = exports.QueryLockerLookupTableByAppAndAssetIdResponse = exports.QueryLockerLookupTableByAppAndAssetIdRequest = exports.QueryLockerLookupTableByAppResponse = exports.QueryLockerLookupTableByAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.AppToAllAsset = exports.QueryWhiteListedAssetByAllAppsResponse = exports.QueryWhiteListedAssetByAllAppsRequest = exports.QueryWhiteListedAssetIDsByAppIDResponse = exports.QueryWhiteListedAssetIDsByAppIDRequest = exports.QueryLockerCountByAppToAssetIDResponse = exports.QueryLockerCountByAppToAssetIDRequest = exports.QueryLockerCountByAppIDResponse = exports.QueryLockerCountByAppIDRequest = exports.QueryLockerByAppByOwnerResponse = exports.QueryLockerByAppByOwnerRequest = exports.QueryOwnerLockerByAppToAssetIDbyOwnerResponse = exports.QueryOwnerLockerByAppToAssetIDbyOwnerRequest = exports.QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse = exports.QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest = exports.QueryOwnerLockerOfAllAppsByOwnerResponse = exports.QueryOwnerLockerOfAllAppsByOwnerRequest = exports.QueryOwnerLockerByAppIDbyOwnerResponse = exports.QueryOwnerLockerByAppIDbyOwnerRequest = exports.QueryTotalDepositByAppAndAssetIDResponse = exports.QueryTotalDepositByAppAndAssetIDRequest = exports.QueryLockerInfoByAppIDResponse = exports.QueryLockerInfoByAppIDRequest = exports.QueryLockersByAppToAssetIDResponse = exports.QueryLockersByAppToAssetIDRequest = exports.QueryLockerInfoResponse = exports.QueryLockerInfoRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryStateResponse = exports.QueryStateRequest = exports.QueryLockerTotalRewardsByAssetAppWiseResponse = exports.QueryLockerTotalRewardsByAssetAppWiseRequest = exports.QueryLockerTotalDepositedByAppResponse = exports.QueryLockerTotalDepositedByAppRequest = exports.QueryLockerLookupTableByAppAndAssetIDResponse = exports.QueryLockerLookupTableByAppAndAssetIDRequest = exports.QueryLockerLookupTableByAppResponse = exports.QueryLockerLookupTableByAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.AppToAllAsset = exports.QueryWhiteListedAssetByAllAppsResponse = exports.QueryWhiteListedAssetByAllAppsRequest = exports.QueryWhiteListedAssetIDsByAppIDResponse = exports.QueryWhiteListedAssetIDsByAppIDRequest = exports.QueryLockerCountByAppToAssetIDResponse = exports.QueryLockerCountByAppToAssetIDRequest = exports.QueryLockerCountByAppIDResponse = exports.QueryLockerCountByAppIDRequest = exports.QueryLockerByAppByOwnerResponse = exports.QueryLockerByAppByOwnerRequest = exports.QueryOwnerLockerByAppToAssetIDbyOwnerResponse = exports.QueryOwnerLockerByAppToAssetIDbyOwnerRequest = exports.QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse = exports.QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest = exports.QueryOwnerLockerOfAllAppsByOwnerResponse = exports.QueryOwnerLockerOfAllAppsByOwnerRequest = exports.QueryOwnerLockerByAppIDbyOwnerResponse = exports.QueryOwnerLockerByAppIDbyOwnerRequest = exports.QueryTotalDepositByAppAndAssetIDResponse = exports.QueryTotalDepositByAppAndAssetIDRequest = exports.QueryLockerInfoByAppIDResponse = exports.QueryLockerInfoByAppIDRequest = exports.QueryLockersByAppToAssetIDResponse = exports.QueryLockersByAppToAssetIDRequest = exports.QueryLockerInfoResponse = exports.QueryLockerInfoRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -1695,10 +1695,10 @@ exports.QueryLockerLookupTableByAppResponse = {
         return message;
     },
 };
-function createBaseQueryLockerLookupTableByAppAndAssetIdRequest() {
+function createBaseQueryLockerLookupTableByAppAndAssetIDRequest() {
     return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO };
 }
-exports.QueryLockerLookupTableByAppAndAssetIdRequest = {
+exports.QueryLockerLookupTableByAppAndAssetIDRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
@@ -1711,7 +1711,7 @@ exports.QueryLockerLookupTableByAppAndAssetIdRequest = {
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryLockerLookupTableByAppAndAssetIdRequest();
+        const message = createBaseQueryLockerLookupTableByAppAndAssetIDRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1745,7 +1745,7 @@ exports.QueryLockerLookupTableByAppAndAssetIdRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryLockerLookupTableByAppAndAssetIdRequest();
+        const message = createBaseQueryLockerLookupTableByAppAndAssetIDRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -1757,10 +1757,10 @@ exports.QueryLockerLookupTableByAppAndAssetIdRequest = {
         return message;
     },
 };
-function createBaseQueryLockerLookupTableByAppAndAssetIdResponse() {
+function createBaseQueryLockerLookupTableByAppAndAssetIDResponse() {
     return { tokenToLockerMapping: undefined };
 }
-exports.QueryLockerLookupTableByAppAndAssetIdResponse = {
+exports.QueryLockerLookupTableByAppAndAssetIDResponse = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.tokenToLockerMapping !== undefined) {
             locker_1.TokenToLockerMapping.encode(message.tokenToLockerMapping, writer.uint32(10).fork()).ldelim();
@@ -1770,7 +1770,7 @@ exports.QueryLockerLookupTableByAppAndAssetIdResponse = {
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryLockerLookupTableByAppAndAssetIdResponse();
+        const message = createBaseQueryLockerLookupTableByAppAndAssetIDResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1800,7 +1800,7 @@ exports.QueryLockerLookupTableByAppAndAssetIdResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryLockerLookupTableByAppAndAssetIdResponse();
+        const message = createBaseQueryLockerLookupTableByAppAndAssetIDResponse();
         message.tokenToLockerMapping =
             object.tokenToLockerMapping !== undefined &&
                 object.tokenToLockerMapping !== null
@@ -2168,8 +2168,8 @@ class QueryClientImpl {
         this.QueryParams = this.QueryParams.bind(this);
         this.QueryLockerLookupTableByApp =
             this.QueryLockerLookupTableByApp.bind(this);
-        this.QueryLockerLookupTableByAppAndAssetId =
-            this.QueryLockerLookupTableByAppAndAssetId.bind(this);
+        this.QueryLockerLookupTableByAppAndAssetID =
+            this.QueryLockerLookupTableByAppAndAssetID.bind(this);
         this.QueryLockerTotalRewardsByAssetAppWise =
             this.QueryLockerTotalRewardsByAssetAppWise.bind(this);
         this.QueryLockerTotalDepositedByApp =
@@ -2251,10 +2251,10 @@ class QueryClientImpl {
         const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryLockerLookupTableByApp", data);
         return promise.then((data) => exports.QueryLockerLookupTableByAppResponse.decode(new _m0.Reader(data)));
     }
-    QueryLockerLookupTableByAppAndAssetId(request) {
-        const data = exports.QueryLockerLookupTableByAppAndAssetIdRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryLockerLookupTableByAppAndAssetId", data);
-        return promise.then((data) => exports.QueryLockerLookupTableByAppAndAssetIdResponse.decode(new _m0.Reader(data)));
+    QueryLockerLookupTableByAppAndAssetID(request) {
+        const data = exports.QueryLockerLookupTableByAppAndAssetIDRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryLockerLookupTableByAppAndAssetID", data);
+        return promise.then((data) => exports.QueryLockerLookupTableByAppAndAssetIDResponse.decode(new _m0.Reader(data)));
     }
     QueryLockerTotalRewardsByAssetAppWise(request) {
         const data = exports.QueryLockerTotalRewardsByAssetAppWiseRequest.encode(request).finish();

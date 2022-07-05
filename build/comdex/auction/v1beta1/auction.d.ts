@@ -45,7 +45,6 @@ export interface DutchAuction {
     outflowTokenCurrentAmount?: Coin;
     inflowTokenTargetAmount?: Coin;
     inflowTokenCurrentAmount?: Coin;
-    toBurnAmount?: Coin;
     outflowTokenInitialPrice: string;
     outflowTokenCurrentPrice: string;
     outflowTokenEndPrice: string;
@@ -61,7 +60,6 @@ export interface DutchAuction {
     lockedVaultId: Long;
     vaultOwner: string;
     liquidationPenalty: string;
-    isLockedVaultAmountInZero: boolean;
 }
 export interface bidOwnerMapping {
     bidId: Long;
@@ -1310,10 +1308,6 @@ export declare const DutchAuction: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
-        toBurnAmount?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
         outflowTokenInitialPrice?: string | undefined;
         outflowTokenCurrentPrice?: string | undefined;
         outflowTokenEndPrice?: string | undefined;
@@ -1332,7 +1326,6 @@ export declare const DutchAuction: {
         lockedVaultId?: string | number | Long.Long | undefined;
         vaultOwner?: string | undefined;
         liquidationPenalty?: string | undefined;
-        isLockedVaultAmountInZero?: boolean | undefined;
     } & {
         auctionId?: string | number | (Long.Long & {
             high: number;
@@ -1420,13 +1413,6 @@ export declare const DutchAuction: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & Record<Exclude<keyof I["inflowTokenCurrentAmount"], keyof Coin>, never>) | undefined;
-        toBurnAmount?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & Record<Exclude<keyof I["toBurnAmount"], keyof Coin>, never>) | undefined;
         outflowTokenInitialPrice?: string | undefined;
         outflowTokenCurrentPrice?: string | undefined;
         outflowTokenEndPrice?: string | undefined;
@@ -1853,7 +1839,6 @@ export declare const DutchAuction: {
         } & Record<Exclude<keyof I["lockedVaultId"], keyof Long.Long>, never>) | undefined;
         vaultOwner?: string | undefined;
         liquidationPenalty?: string | undefined;
-        isLockedVaultAmountInZero?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof DutchAuction>, never>>(object: I): DutchAuction;
 };
 export declare const bidOwnerMapping: {
