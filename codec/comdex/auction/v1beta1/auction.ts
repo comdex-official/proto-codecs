@@ -51,7 +51,6 @@ export interface DutchAuction {
   outflowTokenCurrentAmount?: Coin;
   inflowTokenTargetAmount?: Coin;
   inflowTokenCurrentAmount?: Coin;
-  toBurnAmount?: Coin;
   outflowTokenInitialPrice: string;
   outflowTokenCurrentPrice: string;
   outflowTokenEndPrice: string;
@@ -67,7 +66,6 @@ export interface DutchAuction {
   lockedVaultId: Long;
   vaultOwner: string;
   liquidationPenalty: string;
-  isLockedVaultAmountInZero: boolean;
 }
 
 export interface bidOwnerMapping {
@@ -734,7 +732,6 @@ function createBaseDutchAuction(): DutchAuction {
     outflowTokenCurrentAmount: undefined,
     inflowTokenTargetAmount: undefined,
     inflowTokenCurrentAmount: undefined,
-    toBurnAmount: undefined,
     outflowTokenInitialPrice: "",
     outflowTokenCurrentPrice: "",
     outflowTokenEndPrice: "",
@@ -750,7 +747,6 @@ function createBaseDutchAuction(): DutchAuction {
     lockedVaultId: Long.UZERO,
     vaultOwner: "",
     liquidationPenalty: "",
-    isLockedVaultAmountInZero: false,
   };
 }
 
@@ -786,62 +782,56 @@ export const DutchAuction = {
         writer.uint32(42).fork()
       ).ldelim();
     }
-    if (message.toBurnAmount !== undefined) {
-      Coin.encode(message.toBurnAmount, writer.uint32(50).fork()).ldelim();
-    }
     if (message.outflowTokenInitialPrice !== "") {
-      writer.uint32(58).string(message.outflowTokenInitialPrice);
+      writer.uint32(50).string(message.outflowTokenInitialPrice);
     }
     if (message.outflowTokenCurrentPrice !== "") {
-      writer.uint32(66).string(message.outflowTokenCurrentPrice);
+      writer.uint32(58).string(message.outflowTokenCurrentPrice);
     }
     if (message.outflowTokenEndPrice !== "") {
-      writer.uint32(74).string(message.outflowTokenEndPrice);
+      writer.uint32(66).string(message.outflowTokenEndPrice);
     }
     if (message.inflowTokenCurrentPrice !== "") {
-      writer.uint32(82).string(message.inflowTokenCurrentPrice);
+      writer.uint32(74).string(message.inflowTokenCurrentPrice);
     }
     if (message.endTime !== undefined) {
       Timestamp.encode(
         toTimestamp(message.endTime),
-        writer.uint32(90).fork()
+        writer.uint32(82).fork()
       ).ldelim();
     }
     if (!message.auctionStatus.isZero()) {
-      writer.uint32(96).uint64(message.auctionStatus);
+      writer.uint32(88).uint64(message.auctionStatus);
     }
     if (message.startTime !== undefined) {
       Timestamp.encode(
         toTimestamp(message.startTime),
-        writer.uint32(106).fork()
+        writer.uint32(98).fork()
       ).ldelim();
     }
     for (const v of message.biddingIds) {
-      bidOwnerMapping.encode(v!, writer.uint32(114).fork()).ldelim();
+      bidOwnerMapping.encode(v!, writer.uint32(106).fork()).ldelim();
     }
     if (!message.auctionMappingId.isZero()) {
-      writer.uint32(120).uint64(message.auctionMappingId);
+      writer.uint32(112).uint64(message.auctionMappingId);
     }
     if (!message.appId.isZero()) {
-      writer.uint32(128).uint64(message.appId);
+      writer.uint32(120).uint64(message.appId);
     }
     if (!message.assetInId.isZero()) {
-      writer.uint32(136).uint64(message.assetInId);
+      writer.uint32(128).uint64(message.assetInId);
     }
     if (!message.assetOutId.isZero()) {
-      writer.uint32(144).uint64(message.assetOutId);
+      writer.uint32(136).uint64(message.assetOutId);
     }
     if (!message.lockedVaultId.isZero()) {
-      writer.uint32(152).uint64(message.lockedVaultId);
+      writer.uint32(144).uint64(message.lockedVaultId);
     }
     if (message.vaultOwner !== "") {
-      writer.uint32(162).string(message.vaultOwner);
+      writer.uint32(154).string(message.vaultOwner);
     }
     if (message.liquidationPenalty !== "") {
-      writer.uint32(170).string(message.liquidationPenalty);
-    }
-    if (message.isLockedVaultAmountInZero === true) {
-      writer.uint32(176).bool(message.isLockedVaultAmountInZero);
+      writer.uint32(162).string(message.liquidationPenalty);
     }
     return writer;
   },
@@ -878,61 +868,55 @@ export const DutchAuction = {
           );
           break;
         case 6:
-          message.toBurnAmount = Coin.decode(reader, reader.uint32());
-          break;
-        case 7:
           message.outflowTokenInitialPrice = reader.string();
           break;
-        case 8:
+        case 7:
           message.outflowTokenCurrentPrice = reader.string();
           break;
-        case 9:
+        case 8:
           message.outflowTokenEndPrice = reader.string();
           break;
-        case 10:
+        case 9:
           message.inflowTokenCurrentPrice = reader.string();
           break;
-        case 11:
+        case 10:
           message.endTime = fromTimestamp(
             Timestamp.decode(reader, reader.uint32())
           );
           break;
-        case 12:
+        case 11:
           message.auctionStatus = reader.uint64() as Long;
           break;
-        case 13:
+        case 12:
           message.startTime = fromTimestamp(
             Timestamp.decode(reader, reader.uint32())
           );
           break;
-        case 14:
+        case 13:
           message.biddingIds.push(
             bidOwnerMapping.decode(reader, reader.uint32())
           );
           break;
-        case 15:
+        case 14:
           message.auctionMappingId = reader.uint64() as Long;
           break;
-        case 16:
+        case 15:
           message.appId = reader.uint64() as Long;
           break;
-        case 17:
+        case 16:
           message.assetInId = reader.uint64() as Long;
           break;
-        case 18:
+        case 17:
           message.assetOutId = reader.uint64() as Long;
           break;
-        case 19:
+        case 18:
           message.lockedVaultId = reader.uint64() as Long;
           break;
-        case 20:
+        case 19:
           message.vaultOwner = reader.string();
           break;
-        case 21:
+        case 20:
           message.liquidationPenalty = reader.string();
-          break;
-        case 22:
-          message.isLockedVaultAmountInZero = reader.bool();
           break;
         default:
           reader.skipType(tag & 7);
@@ -958,9 +942,6 @@ export const DutchAuction = {
         : undefined,
       inflowTokenCurrentAmount: isSet(object.inflowTokenCurrentAmount)
         ? Coin.fromJSON(object.inflowTokenCurrentAmount)
-        : undefined,
-      toBurnAmount: isSet(object.toBurnAmount)
-        ? Coin.fromJSON(object.toBurnAmount)
         : undefined,
       outflowTokenInitialPrice: isSet(object.outflowTokenInitialPrice)
         ? String(object.outflowTokenInitialPrice)
@@ -1003,9 +984,6 @@ export const DutchAuction = {
       liquidationPenalty: isSet(object.liquidationPenalty)
         ? String(object.liquidationPenalty)
         : "",
-      isLockedVaultAmountInZero: isSet(object.isLockedVaultAmountInZero)
-        ? Boolean(object.isLockedVaultAmountInZero)
-        : false,
     };
   },
 
@@ -1028,10 +1006,6 @@ export const DutchAuction = {
     message.inflowTokenCurrentAmount !== undefined &&
       (obj.inflowTokenCurrentAmount = message.inflowTokenCurrentAmount
         ? Coin.toJSON(message.inflowTokenCurrentAmount)
-        : undefined);
-    message.toBurnAmount !== undefined &&
-      (obj.toBurnAmount = message.toBurnAmount
-        ? Coin.toJSON(message.toBurnAmount)
         : undefined);
     message.outflowTokenInitialPrice !== undefined &&
       (obj.outflowTokenInitialPrice = message.outflowTokenInitialPrice);
@@ -1069,8 +1043,6 @@ export const DutchAuction = {
     message.vaultOwner !== undefined && (obj.vaultOwner = message.vaultOwner);
     message.liquidationPenalty !== undefined &&
       (obj.liquidationPenalty = message.liquidationPenalty);
-    message.isLockedVaultAmountInZero !== undefined &&
-      (obj.isLockedVaultAmountInZero = message.isLockedVaultAmountInZero);
     return obj;
   },
 
@@ -1101,10 +1073,6 @@ export const DutchAuction = {
       object.inflowTokenCurrentAmount !== undefined &&
       object.inflowTokenCurrentAmount !== null
         ? Coin.fromPartial(object.inflowTokenCurrentAmount)
-        : undefined;
-    message.toBurnAmount =
-      object.toBurnAmount !== undefined && object.toBurnAmount !== null
-        ? Coin.fromPartial(object.toBurnAmount)
         : undefined;
     message.outflowTokenInitialPrice = object.outflowTokenInitialPrice ?? "";
     message.outflowTokenCurrentPrice = object.outflowTokenCurrentPrice ?? "";
@@ -1140,8 +1108,6 @@ export const DutchAuction = {
         : Long.UZERO;
     message.vaultOwner = object.vaultOwner ?? "";
     message.liquidationPenalty = object.liquidationPenalty ?? "";
-    message.isLockedVaultAmountInZero =
-      object.isLockedVaultAmountInZero ?? false;
     return message;
   },
 };

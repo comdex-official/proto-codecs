@@ -955,10 +955,10 @@ export const AssetIdToAuctionLookupTable = {
       writer.uint32(32).bool(message.isAuctionActive);
     }
     if (message.assetOutOraclePrice === true) {
-      writer.uint32(120).bool(message.assetOutOraclePrice);
+      writer.uint32(40).bool(message.assetOutOraclePrice);
     }
     if (!message.assetOutPrice.isZero()) {
-      writer.uint32(128).uint64(message.assetOutPrice);
+      writer.uint32(48).uint64(message.assetOutPrice);
     }
     return writer;
   },
@@ -985,10 +985,10 @@ export const AssetIdToAuctionLookupTable = {
         case 4:
           message.isAuctionActive = reader.bool();
           break;
-        case 15:
+        case 5:
           message.assetOutOraclePrice = reader.bool();
           break;
-        case 16:
+        case 6:
           message.assetOutPrice = reader.uint64() as Long;
           break;
         default:
