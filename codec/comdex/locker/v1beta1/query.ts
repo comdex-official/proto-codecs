@@ -150,12 +150,12 @@ export interface QueryLockerLookupTableByAppResponse {
   tokenToLockerMapping: TokenToLockerMapping[];
 }
 
-export interface QueryLockerLookupTableByAppAndAssetIdRequest {
+export interface QueryLockerLookupTableByAppAndAssetIDRequest {
   appId: Long;
   assetId: Long;
 }
 
-export interface QueryLockerLookupTableByAppAndAssetIdResponse {
+export interface QueryLockerLookupTableByAppAndAssetIDResponse {
   tokenToLockerMapping?: TokenToLockerMapping;
 }
 
@@ -2283,13 +2283,13 @@ export const QueryLockerLookupTableByAppResponse = {
   },
 };
 
-function createBaseQueryLockerLookupTableByAppAndAssetIdRequest(): QueryLockerLookupTableByAppAndAssetIdRequest {
+function createBaseQueryLockerLookupTableByAppAndAssetIDRequest(): QueryLockerLookupTableByAppAndAssetIDRequest {
   return { appId: Long.UZERO, assetId: Long.UZERO };
 }
 
-export const QueryLockerLookupTableByAppAndAssetIdRequest = {
+export const QueryLockerLookupTableByAppAndAssetIDRequest = {
   encode(
-    message: QueryLockerLookupTableByAppAndAssetIdRequest,
+    message: QueryLockerLookupTableByAppAndAssetIDRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -2304,10 +2304,10 @@ export const QueryLockerLookupTableByAppAndAssetIdRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryLockerLookupTableByAppAndAssetIdRequest {
+  ): QueryLockerLookupTableByAppAndAssetIDRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryLockerLookupTableByAppAndAssetIdRequest();
+    const message = createBaseQueryLockerLookupTableByAppAndAssetIDRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2325,7 +2325,7 @@ export const QueryLockerLookupTableByAppAndAssetIdRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIdRequest {
+  fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIDRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetId: isSet(object.assetId)
@@ -2334,7 +2334,7 @@ export const QueryLockerLookupTableByAppAndAssetIdRequest = {
     };
   },
 
-  toJSON(message: QueryLockerLookupTableByAppAndAssetIdRequest): unknown {
+  toJSON(message: QueryLockerLookupTableByAppAndAssetIDRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
@@ -2345,11 +2345,11 @@ export const QueryLockerLookupTableByAppAndAssetIdRequest = {
 
   fromPartial<
     I extends Exact<
-      DeepPartial<QueryLockerLookupTableByAppAndAssetIdRequest>,
+      DeepPartial<QueryLockerLookupTableByAppAndAssetIDRequest>,
       I
     >
-  >(object: I): QueryLockerLookupTableByAppAndAssetIdRequest {
-    const message = createBaseQueryLockerLookupTableByAppAndAssetIdRequest();
+  >(object: I): QueryLockerLookupTableByAppAndAssetIDRequest {
+    const message = createBaseQueryLockerLookupTableByAppAndAssetIDRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -2362,13 +2362,13 @@ export const QueryLockerLookupTableByAppAndAssetIdRequest = {
   },
 };
 
-function createBaseQueryLockerLookupTableByAppAndAssetIdResponse(): QueryLockerLookupTableByAppAndAssetIdResponse {
+function createBaseQueryLockerLookupTableByAppAndAssetIDResponse(): QueryLockerLookupTableByAppAndAssetIDResponse {
   return { tokenToLockerMapping: undefined };
 }
 
-export const QueryLockerLookupTableByAppAndAssetIdResponse = {
+export const QueryLockerLookupTableByAppAndAssetIDResponse = {
   encode(
-    message: QueryLockerLookupTableByAppAndAssetIdResponse,
+    message: QueryLockerLookupTableByAppAndAssetIDResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.tokenToLockerMapping !== undefined) {
@@ -2383,10 +2383,10 @@ export const QueryLockerLookupTableByAppAndAssetIdResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryLockerLookupTableByAppAndAssetIdResponse {
+  ): QueryLockerLookupTableByAppAndAssetIDResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryLockerLookupTableByAppAndAssetIdResponse();
+    const message = createBaseQueryLockerLookupTableByAppAndAssetIDResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2404,7 +2404,7 @@ export const QueryLockerLookupTableByAppAndAssetIdResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIdResponse {
+  fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIDResponse {
     return {
       tokenToLockerMapping: isSet(object.tokenToLockerMapping)
         ? TokenToLockerMapping.fromJSON(object.tokenToLockerMapping)
@@ -2412,7 +2412,7 @@ export const QueryLockerLookupTableByAppAndAssetIdResponse = {
     };
   },
 
-  toJSON(message: QueryLockerLookupTableByAppAndAssetIdResponse): unknown {
+  toJSON(message: QueryLockerLookupTableByAppAndAssetIDResponse): unknown {
     const obj: any = {};
     message.tokenToLockerMapping !== undefined &&
       (obj.tokenToLockerMapping = message.tokenToLockerMapping
@@ -2423,11 +2423,11 @@ export const QueryLockerLookupTableByAppAndAssetIdResponse = {
 
   fromPartial<
     I extends Exact<
-      DeepPartial<QueryLockerLookupTableByAppAndAssetIdResponse>,
+      DeepPartial<QueryLockerLookupTableByAppAndAssetIDResponse>,
       I
     >
-  >(object: I): QueryLockerLookupTableByAppAndAssetIdResponse {
-    const message = createBaseQueryLockerLookupTableByAppAndAssetIdResponse();
+  >(object: I): QueryLockerLookupTableByAppAndAssetIDResponse {
+    const message = createBaseQueryLockerLookupTableByAppAndAssetIDResponse();
     message.tokenToLockerMapping =
       object.tokenToLockerMapping !== undefined &&
       object.tokenToLockerMapping !== null
@@ -2912,9 +2912,9 @@ export interface Query {
   QueryLockerLookupTableByApp(
     request: QueryLockerLookupTableByAppRequest
   ): Promise<QueryLockerLookupTableByAppResponse>;
-  QueryLockerLookupTableByAppAndAssetId(
-    request: QueryLockerLookupTableByAppAndAssetIdRequest
-  ): Promise<QueryLockerLookupTableByAppAndAssetIdResponse>;
+  QueryLockerLookupTableByAppAndAssetID(
+    request: QueryLockerLookupTableByAppAndAssetIDRequest
+  ): Promise<QueryLockerLookupTableByAppAndAssetIDResponse>;
   QueryLockerTotalRewardsByAssetAppWise(
     request: QueryLockerTotalRewardsByAssetAppWiseRequest
   ): Promise<QueryLockerTotalRewardsByAssetAppWiseResponse>;
@@ -2953,8 +2953,8 @@ export class QueryClientImpl implements Query {
     this.QueryParams = this.QueryParams.bind(this);
     this.QueryLockerLookupTableByApp =
       this.QueryLockerLookupTableByApp.bind(this);
-    this.QueryLockerLookupTableByAppAndAssetId =
-      this.QueryLockerLookupTableByAppAndAssetId.bind(this);
+    this.QueryLockerLookupTableByAppAndAssetID =
+      this.QueryLockerLookupTableByAppAndAssetID.bind(this);
     this.QueryLockerTotalRewardsByAssetAppWise =
       this.QueryLockerTotalRewardsByAssetAppWise.bind(this);
     this.QueryLockerTotalDepositedByApp =
@@ -3178,18 +3178,18 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryLockerLookupTableByAppAndAssetId(
-    request: QueryLockerLookupTableByAppAndAssetIdRequest
-  ): Promise<QueryLockerLookupTableByAppAndAssetIdResponse> {
+  QueryLockerLookupTableByAppAndAssetID(
+    request: QueryLockerLookupTableByAppAndAssetIDRequest
+  ): Promise<QueryLockerLookupTableByAppAndAssetIDResponse> {
     const data =
-      QueryLockerLookupTableByAppAndAssetIdRequest.encode(request).finish();
+      QueryLockerLookupTableByAppAndAssetIDRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.locker.v1beta1.Query",
-      "QueryLockerLookupTableByAppAndAssetId",
+      "QueryLockerLookupTableByAppAndAssetID",
       data
     );
     return promise.then((data) =>
-      QueryLockerLookupTableByAppAndAssetIdResponse.decode(new _m0.Reader(data))
+      QueryLockerLookupTableByAppAndAssetIDResponse.decode(new _m0.Reader(data))
     );
   }
 
