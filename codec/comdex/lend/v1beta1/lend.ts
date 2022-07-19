@@ -16,6 +16,7 @@ export interface LendAsset {
   updatedAmountIn: string;
   availableToBorrow: string;
   rewardAccumulated: string;
+  appId: Long;
 }
 
 export interface BorrowAsset {
@@ -138,6 +139,15 @@ export interface ModuleBalanceStats {
   balance?: Coin;
 }
 
+export interface BalanceStats {
+  assetId: Long;
+  amount: string;
+}
+
+export interface DepositStats {
+  balanceStats: BalanceStats[];
+}
+
 function createBaseLendAsset(): LendAsset {
   return {
     lendingId: Long.UZERO,
@@ -149,6 +159,7 @@ function createBaseLendAsset(): LendAsset {
     updatedAmountIn: "",
     availableToBorrow: "",
     rewardAccumulated: "",
+    appId: Long.UZERO,
   };
 }
 
@@ -186,6 +197,9 @@ export const LendAsset = {
     }
     if (message.rewardAccumulated !== "") {
       writer.uint32(74).string(message.rewardAccumulated);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(80).uint64(message.appId);
     }
     return writer;
   },
@@ -226,6 +240,9 @@ export const LendAsset = {
         case 9:
           message.rewardAccumulated = reader.string();
           break;
+        case 10:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -259,6 +276,7 @@ export const LendAsset = {
       rewardAccumulated: isSet(object.rewardAccumulated)
         ? String(object.rewardAccumulated)
         : "",
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -283,6 +301,8 @@ export const LendAsset = {
       (obj.availableToBorrow = message.availableToBorrow);
     message.rewardAccumulated !== undefined &&
       (obj.rewardAccumulated = message.rewardAccumulated);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -311,6 +331,10 @@ export const LendAsset = {
     message.updatedAmountIn = object.updatedAmountIn ?? "";
     message.availableToBorrow = object.availableToBorrow ?? "";
     message.rewardAccumulated = object.rewardAccumulated ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -2144,6 +2168,140 @@ export const ModuleBalanceStats = {
       object.balance !== undefined && object.balance !== null
         ? Coin.fromPartial(object.balance)
         : undefined;
+    return message;
+  },
+};
+
+function createBaseBalanceStats(): BalanceStats {
+  return { assetId: Long.UZERO, amount: "" };
+}
+
+export const BalanceStats = {
+  encode(
+    message: BalanceStats,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.assetId.isZero()) {
+      writer.uint32(8).uint64(message.assetId);
+    }
+    if (message.amount !== "") {
+      writer.uint32(18).string(message.amount);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BalanceStats {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBalanceStats();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.amount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BalanceStats {
+    return {
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+      amount: isSet(object.amount) ? String(object.amount) : "",
+    };
+  },
+
+  toJSON(message: BalanceStats): unknown {
+    const obj: any = {};
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.amount !== undefined && (obj.amount = message.amount);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BalanceStats>, I>>(
+    object: I
+  ): BalanceStats {
+    const message = createBaseBalanceStats();
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    message.amount = object.amount ?? "";
+    return message;
+  },
+};
+
+function createBaseDepositStats(): DepositStats {
+  return { balanceStats: [] };
+}
+
+export const DepositStats = {
+  encode(
+    message: DepositStats,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.balanceStats) {
+      BalanceStats.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DepositStats {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDepositStats();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.balanceStats.push(
+            BalanceStats.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DepositStats {
+    return {
+      balanceStats: Array.isArray(object?.balanceStats)
+        ? object.balanceStats.map((e: any) => BalanceStats.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: DepositStats): unknown {
+    const obj: any = {};
+    if (message.balanceStats) {
+      obj.balanceStats = message.balanceStats.map((e) =>
+        e ? BalanceStats.toJSON(e) : undefined
+      );
+    } else {
+      obj.balanceStats = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DepositStats>, I>>(
+    object: I
+  ): DepositStats {
+    const message = createBaseDepositStats();
+    message.balanceStats =
+      object.balanceStats?.map((e) => BalanceStats.fromPartial(e)) || [];
     return message;
   },
 };

@@ -1,13 +1,14 @@
 /* eslint-disable */
 import Long from "long";
-import  _m0 from "protobufjs/minimal";
-import { Timestamp } from "../../../google/protobuf/timestamp";
+import * as _m0 from "protobufjs/minimal";
+import { Coin } from "./cosmos/base/v1beta1/coin";
+import { Timestamp } from "./google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.liquidation.v1beta1";
 
 export interface LockedVault {
   id: Long;
-  appMappingId: Long;
+  appId: Long;
   appVaultTypeId: string;
   originalVaultId: string;
   extendedPairVaultId: Long;
@@ -27,21 +28,30 @@ export interface LockedVault {
   collateralToBeAuctioned: string;
   liquidationTimestamp?: Date;
   selloffHistory: string[];
+  interestAccumulated: string;
+  borrowMetaData?: BorrowMetaData | undefined;
+}
+
+export interface BorrowMetaData {
+  lendingId: Long;
+  isStableBorrow: boolean;
+  stableBorrowRate: string;
+  bridgedAssetAmount?: Coin;
 }
 
 export interface LockedVaultToAppMapping {
-  appMappingId: Long;
+  appId: Long;
   lockedVault: LockedVault[];
 }
 
 export interface WhitelistedAppIds {
-  whitelistedAppMappingIds: Long[];
+  whitelistedAppIds: Long[];
 }
 
 function createBaseLockedVault(): LockedVault {
   return {
     id: Long.UZERO,
-    appMappingId: Long.UZERO,
+    appId: Long.UZERO,
     appVaultTypeId: "",
     originalVaultId: "",
     extendedPairVaultId: Long.UZERO,
@@ -57,6 +67,8 @@ function createBaseLockedVault(): LockedVault {
     collateralToBeAuctioned: "",
     liquidationTimestamp: undefined,
     selloffHistory: [],
+    interestAccumulated: "",
+    borrowMetaData: undefined,
   };
 }
 
@@ -68,8 +80,8 @@ export const LockedVault = {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (message.appVaultTypeId !== "") {
       writer.uint32(26).string(message.appVaultTypeId);
@@ -119,6 +131,15 @@ export const LockedVault = {
     for (const v of message.selloffHistory) {
       writer.uint32(138).string(v!);
     }
+    if (message.interestAccumulated !== "") {
+      writer.uint32(146).string(message.interestAccumulated);
+    }
+    if (message.borrowMetaData !== undefined) {
+      BorrowMetaData.encode(
+        message.borrowMetaData,
+        writer.uint32(154).fork()
+      ).ldelim();
+    }
     return writer;
   },
 
@@ -133,7 +154,7 @@ export const LockedVault = {
           message.id = reader.uint64() as Long;
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.appVaultTypeId = reader.string();
@@ -182,6 +203,15 @@ export const LockedVault = {
         case 17:
           message.selloffHistory.push(reader.string());
           break;
+        case 18:
+          message.interestAccumulated = reader.string();
+          break;
+        case 19:
+          message.borrowMetaData = BorrowMetaData.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -193,9 +223,7 @@ export const LockedVault = {
   fromJSON(object: any): LockedVault {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       appVaultTypeId: isSet(object.appVaultTypeId)
         ? String(object.appVaultTypeId)
         : "",
@@ -233,6 +261,12 @@ export const LockedVault = {
       selloffHistory: Array.isArray(object?.selloffHistory)
         ? object.selloffHistory.map((e: any) => String(e))
         : [],
+      interestAccumulated: isSet(object.interestAccumulated)
+        ? String(object.interestAccumulated)
+        : "",
+      borrowMetaData: isSet(object.borrowMetaData)
+        ? BorrowMetaData.fromJSON(object.borrowMetaData)
+        : undefined,
     };
   },
 
@@ -240,8 +274,8 @@ export const LockedVault = {
     const obj: any = {};
     message.id !== undefined &&
       (obj.id = (message.id || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.appVaultTypeId !== undefined &&
       (obj.appVaultTypeId = message.appVaultTypeId);
     message.originalVaultId !== undefined &&
@@ -274,6 +308,12 @@ export const LockedVault = {
     } else {
       obj.selloffHistory = [];
     }
+    message.interestAccumulated !== undefined &&
+      (obj.interestAccumulated = message.interestAccumulated);
+    message.borrowMetaData !== undefined &&
+      (obj.borrowMetaData = message.borrowMetaData
+        ? BorrowMetaData.toJSON(message.borrowMetaData)
+        : undefined);
     return obj;
   },
 
@@ -285,9 +325,9 @@ export const LockedVault = {
       object.id !== undefined && object.id !== null
         ? Long.fromValue(object.id)
         : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.appVaultTypeId = object.appVaultTypeId ?? "";
     message.originalVaultId = object.originalVaultId ?? "";
@@ -309,12 +349,127 @@ export const LockedVault = {
     message.collateralToBeAuctioned = object.collateralToBeAuctioned ?? "";
     message.liquidationTimestamp = object.liquidationTimestamp ?? undefined;
     message.selloffHistory = object.selloffHistory?.map((e) => e) || [];
+    message.interestAccumulated = object.interestAccumulated ?? "";
+    message.borrowMetaData =
+      object.borrowMetaData !== undefined && object.borrowMetaData !== null
+        ? BorrowMetaData.fromPartial(object.borrowMetaData)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseBorrowMetaData(): BorrowMetaData {
+  return {
+    lendingId: Long.UZERO,
+    isStableBorrow: false,
+    stableBorrowRate: "",
+    bridgedAssetAmount: undefined,
+  };
+}
+
+export const BorrowMetaData = {
+  encode(
+    message: BorrowMetaData,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.lendingId.isZero()) {
+      writer.uint32(8).uint64(message.lendingId);
+    }
+    if (message.isStableBorrow === true) {
+      writer.uint32(16).bool(message.isStableBorrow);
+    }
+    if (message.stableBorrowRate !== "") {
+      writer.uint32(26).string(message.stableBorrowRate);
+    }
+    if (message.bridgedAssetAmount !== undefined) {
+      Coin.encode(
+        message.bridgedAssetAmount,
+        writer.uint32(58).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BorrowMetaData {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBorrowMetaData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.lendingId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.isStableBorrow = reader.bool();
+          break;
+        case 3:
+          message.stableBorrowRate = reader.string();
+          break;
+        case 7:
+          message.bridgedAssetAmount = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BorrowMetaData {
+    return {
+      lendingId: isSet(object.lendingId)
+        ? Long.fromValue(object.lendingId)
+        : Long.UZERO,
+      isStableBorrow: isSet(object.isStableBorrow)
+        ? Boolean(object.isStableBorrow)
+        : false,
+      stableBorrowRate: isSet(object.stableBorrowRate)
+        ? String(object.stableBorrowRate)
+        : "",
+      bridgedAssetAmount: isSet(object.bridgedAssetAmount)
+        ? Coin.fromJSON(object.bridgedAssetAmount)
+        : undefined,
+    };
+  },
+
+  toJSON(message: BorrowMetaData): unknown {
+    const obj: any = {};
+    message.lendingId !== undefined &&
+      (obj.lendingId = (message.lendingId || Long.UZERO).toString());
+    message.isStableBorrow !== undefined &&
+      (obj.isStableBorrow = message.isStableBorrow);
+    message.stableBorrowRate !== undefined &&
+      (obj.stableBorrowRate = message.stableBorrowRate);
+    message.bridgedAssetAmount !== undefined &&
+      (obj.bridgedAssetAmount = message.bridgedAssetAmount
+        ? Coin.toJSON(message.bridgedAssetAmount)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BorrowMetaData>, I>>(
+    object: I
+  ): BorrowMetaData {
+    const message = createBaseBorrowMetaData();
+    message.lendingId =
+      object.lendingId !== undefined && object.lendingId !== null
+        ? Long.fromValue(object.lendingId)
+        : Long.UZERO;
+    message.isStableBorrow = object.isStableBorrow ?? false;
+    message.stableBorrowRate = object.stableBorrowRate ?? "";
+    message.bridgedAssetAmount =
+      object.bridgedAssetAmount !== undefined &&
+      object.bridgedAssetAmount !== null
+        ? Coin.fromPartial(object.bridgedAssetAmount)
+        : undefined;
     return message;
   },
 };
 
 function createBaseLockedVaultToAppMapping(): LockedVaultToAppMapping {
-  return { appMappingId: Long.UZERO, lockedVault: [] };
+  return { appId: Long.UZERO, lockedVault: [] };
 }
 
 export const LockedVaultToAppMapping = {
@@ -322,8 +477,8 @@ export const LockedVaultToAppMapping = {
     message: LockedVaultToAppMapping,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(8).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
     }
     for (const v of message.lockedVault) {
       LockedVault.encode(v!, writer.uint32(18).fork()).ldelim();
@@ -342,7 +497,7 @@ export const LockedVaultToAppMapping = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 2:
           message.lockedVault.push(LockedVault.decode(reader, reader.uint32()));
@@ -357,9 +512,7 @@ export const LockedVaultToAppMapping = {
 
   fromJSON(object: any): LockedVaultToAppMapping {
     return {
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       lockedVault: Array.isArray(object?.lockedVault)
         ? object.lockedVault.map((e: any) => LockedVault.fromJSON(e))
         : [],
@@ -368,8 +521,8 @@ export const LockedVaultToAppMapping = {
 
   toJSON(message: LockedVaultToAppMapping): unknown {
     const obj: any = {};
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     if (message.lockedVault) {
       obj.lockedVault = message.lockedVault.map((e) =>
         e ? LockedVault.toJSON(e) : undefined
@@ -384,9 +537,9 @@ export const LockedVaultToAppMapping = {
     object: I
   ): LockedVaultToAppMapping {
     const message = createBaseLockedVaultToAppMapping();
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.lockedVault =
       object.lockedVault?.map((e) => LockedVault.fromPartial(e)) || [];
@@ -395,7 +548,7 @@ export const LockedVaultToAppMapping = {
 };
 
 function createBaseWhitelistedAppIds(): WhitelistedAppIds {
-  return { whitelistedAppMappingIds: [] };
+  return { whitelistedAppIds: [] };
 }
 
 export const WhitelistedAppIds = {
@@ -404,7 +557,7 @@ export const WhitelistedAppIds = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     writer.uint32(10).fork();
-    for (const v of message.whitelistedAppMappingIds) {
+    for (const v of message.whitelistedAppIds) {
       writer.uint64(v);
     }
     writer.ldelim();
@@ -422,10 +575,10 @@ export const WhitelistedAppIds = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.whitelistedAppMappingIds.push(reader.uint64() as Long);
+              message.whitelistedAppIds.push(reader.uint64() as Long);
             }
           } else {
-            message.whitelistedAppMappingIds.push(reader.uint64() as Long);
+            message.whitelistedAppIds.push(reader.uint64() as Long);
           }
           break;
         default:
@@ -438,20 +591,20 @@ export const WhitelistedAppIds = {
 
   fromJSON(object: any): WhitelistedAppIds {
     return {
-      whitelistedAppMappingIds: Array.isArray(object?.whitelistedAppMappingIds)
-        ? object.whitelistedAppMappingIds.map((e: any) => Long.fromValue(e))
+      whitelistedAppIds: Array.isArray(object?.whitelistedAppIds)
+        ? object.whitelistedAppIds.map((e: any) => Long.fromValue(e))
         : [],
     };
   },
 
   toJSON(message: WhitelistedAppIds): unknown {
     const obj: any = {};
-    if (message.whitelistedAppMappingIds) {
-      obj.whitelistedAppMappingIds = message.whitelistedAppMappingIds.map((e) =>
+    if (message.whitelistedAppIds) {
+      obj.whitelistedAppIds = message.whitelistedAppIds.map((e) =>
         (e || Long.UZERO).toString()
       );
     } else {
-      obj.whitelistedAppMappingIds = [];
+      obj.whitelistedAppIds = [];
     }
     return obj;
   },
@@ -460,8 +613,8 @@ export const WhitelistedAppIds = {
     object: I
   ): WhitelistedAppIds {
     const message = createBaseWhitelistedAppIds();
-    message.whitelistedAppMappingIds =
-      object.whitelistedAppMappingIds?.map((e) => Long.fromValue(e)) || [];
+    message.whitelistedAppIds =
+      object.whitelistedAppIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };

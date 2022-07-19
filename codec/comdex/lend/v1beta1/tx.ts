@@ -10,6 +10,7 @@ export interface MsgLend {
   assetId: Long;
   amount?: Coin;
   poolId: Long;
+  appId: Long;
 }
 
 export interface MsgWithdraw {
@@ -94,6 +95,7 @@ function createBaseMsgLend(): MsgLend {
     assetId: Long.UZERO,
     amount: undefined,
     poolId: Long.UZERO,
+    appId: Long.UZERO,
   };
 }
 
@@ -113,6 +115,9 @@ export const MsgLend = {
     }
     if (!message.poolId.isZero()) {
       writer.uint32(32).uint64(message.poolId);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(40).uint64(message.appId);
     }
     return writer;
   },
@@ -136,6 +141,9 @@ export const MsgLend = {
         case 4:
           message.poolId = reader.uint64() as Long;
           break;
+        case 5:
+          message.appId = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -152,6 +160,7 @@ export const MsgLend = {
         : Long.UZERO,
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -164,6 +173,8 @@ export const MsgLend = {
       (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     message.poolId !== undefined &&
       (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
@@ -181,6 +192,10 @@ export const MsgLend = {
     message.poolId =
       object.poolId !== undefined && object.poolId !== null
         ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     return message;
   },
