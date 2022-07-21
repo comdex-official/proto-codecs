@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -38,6 +34,7 @@ function createBaseMsgLend() {
         assetId: long_1.default.UZERO,
         amount: undefined,
         poolId: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
     };
 }
 exports.MsgLend = {
@@ -53,6 +50,9 @@ exports.MsgLend = {
         }
         if (!message.poolId.isZero()) {
             writer.uint32(32).uint64(message.poolId);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(40).uint64(message.appId);
         }
         return writer;
     },
@@ -75,6 +75,9 @@ exports.MsgLend = {
                 case 4:
                     message.poolId = reader.uint64();
                     break;
+                case 5:
+                    message.appId = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -90,6 +93,7 @@ exports.MsgLend = {
                 : long_1.default.UZERO,
             amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
             poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -101,6 +105,8 @@ exports.MsgLend = {
             (obj.amount = message.amount ? coin_1.Coin.toJSON(message.amount) : undefined);
         message.poolId !== undefined &&
             (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -118,6 +124,10 @@ exports.MsgLend = {
         message.poolId =
             object.poolId !== undefined && object.poolId !== null
                 ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         return message;
     },

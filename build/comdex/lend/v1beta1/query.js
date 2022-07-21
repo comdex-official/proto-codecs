@@ -1,11 +1,7 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -26,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryModuleBalanceResponse = exports.QueryModuleBalanceRequest = exports.QueryAssetStatsResponse = exports.QueryAssetStatsRequest = exports.QueryAllBorrowByOwnerAndPoolResponse = exports.QueryAllBorrowByOwnerAndPoolRequest = exports.QueryAllBorrowByOwnerResponse = exports.QueryAllBorrowByOwnerRequest = exports.QueryBorrowResponse = exports.QueryBorrowRequest = exports.QueryBorrowsResponse = exports.QueryBorrowsRequest = exports.QueryAssetToPairMappingResponse = exports.QueryAssetToPairMappingRequest = exports.QueryAssetToPairMappingsResponse = exports.QueryAssetToPairMappingsRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryAssetRatesStatResponse = exports.QueryAssetRatesStatRequest = exports.QueryAssetRatesStatsResponse = exports.QueryAssetRatesStatsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAllLendByOwnerAndPoolResponse = exports.QueryAllLendByOwnerAndPoolRequest = exports.QueryAllLendByOwnerResponse = exports.QueryAllLendByOwnerRequest = exports.QueryLendResponse = exports.QueryLendRequest = exports.QueryLendsResponse = exports.QueryLendsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryBorrowStatsResponse = exports.QueryBorrowStatsRequest = exports.QueryBuyBackDepositStatsResponse = exports.QueryBuyBackDepositStatsRequest = exports.QueryReserveDepositStatsResponse = exports.QueryReserveDepositStatsRequest = exports.QueryUserDepositStatsResponse = exports.QueryUserDepositStatsRequest = exports.QueryDepositStatsResponse = exports.QueryDepositStatsRequest = exports.QueryModuleBalanceResponse = exports.QueryModuleBalanceRequest = exports.QueryAssetStatsResponse = exports.QueryAssetStatsRequest = exports.QueryAllBorrowByOwnerAndPoolResponse = exports.QueryAllBorrowByOwnerAndPoolRequest = exports.QueryAllBorrowByOwnerResponse = exports.QueryAllBorrowByOwnerRequest = exports.QueryBorrowResponse = exports.QueryBorrowRequest = exports.QueryBorrowsResponse = exports.QueryBorrowsRequest = exports.QueryAssetToPairMappingResponse = exports.QueryAssetToPairMappingRequest = exports.QueryAssetToPairMappingsResponse = exports.QueryAssetToPairMappingsRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryAssetRatesStatResponse = exports.QueryAssetRatesStatRequest = exports.QueryAssetRatesStatsResponse = exports.QueryAssetRatesStatsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAllLendByOwnerAndPoolResponse = exports.QueryAllLendByOwnerAndPoolRequest = exports.QueryAllLendByOwnerResponse = exports.QueryAllLendByOwnerRequest = exports.QueryLendResponse = exports.QueryLendRequest = exports.QueryLendsResponse = exports.QueryLendsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -2149,6 +2145,428 @@ exports.QueryModuleBalanceResponse = {
         return message;
     },
 };
+function createBaseQueryDepositStatsRequest() {
+    return {};
+}
+exports.QueryDepositStatsRequest = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryDepositStatsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseQueryDepositStatsRequest();
+        return message;
+    },
+};
+function createBaseQueryDepositStatsResponse() {
+    return { DepositStats: undefined };
+}
+exports.QueryDepositStatsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.DepositStats !== undefined) {
+            lend_1.DepositStats.encode(message.DepositStats, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryDepositStatsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.DepositStats = lend_1.DepositStats.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            DepositStats: isSet(object.DepositStats)
+                ? lend_1.DepositStats.fromJSON(object.DepositStats)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.DepositStats !== undefined &&
+            (obj.DepositStats = message.DepositStats
+                ? lend_1.DepositStats.toJSON(message.DepositStats)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryDepositStatsResponse();
+        message.DepositStats =
+            object.DepositStats !== undefined && object.DepositStats !== null
+                ? lend_1.DepositStats.fromPartial(object.DepositStats)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryUserDepositStatsRequest() {
+    return {};
+}
+exports.QueryUserDepositStatsRequest = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryUserDepositStatsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseQueryUserDepositStatsRequest();
+        return message;
+    },
+};
+function createBaseQueryUserDepositStatsResponse() {
+    return { UserDepositStats: undefined };
+}
+exports.QueryUserDepositStatsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.UserDepositStats !== undefined) {
+            lend_1.DepositStats.encode(message.UserDepositStats, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryUserDepositStatsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.UserDepositStats = lend_1.DepositStats.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            UserDepositStats: isSet(object.UserDepositStats)
+                ? lend_1.DepositStats.fromJSON(object.UserDepositStats)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.UserDepositStats !== undefined &&
+            (obj.UserDepositStats = message.UserDepositStats
+                ? lend_1.DepositStats.toJSON(message.UserDepositStats)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryUserDepositStatsResponse();
+        message.UserDepositStats =
+            object.UserDepositStats !== undefined && object.UserDepositStats !== null
+                ? lend_1.DepositStats.fromPartial(object.UserDepositStats)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryReserveDepositStatsRequest() {
+    return {};
+}
+exports.QueryReserveDepositStatsRequest = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryReserveDepositStatsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseQueryReserveDepositStatsRequest();
+        return message;
+    },
+};
+function createBaseQueryReserveDepositStatsResponse() {
+    return { ReserveDepositStats: undefined };
+}
+exports.QueryReserveDepositStatsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.ReserveDepositStats !== undefined) {
+            lend_1.DepositStats.encode(message.ReserveDepositStats, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryReserveDepositStatsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.ReserveDepositStats = lend_1.DepositStats.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            ReserveDepositStats: isSet(object.ReserveDepositStats)
+                ? lend_1.DepositStats.fromJSON(object.ReserveDepositStats)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.ReserveDepositStats !== undefined &&
+            (obj.ReserveDepositStats = message.ReserveDepositStats
+                ? lend_1.DepositStats.toJSON(message.ReserveDepositStats)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryReserveDepositStatsResponse();
+        message.ReserveDepositStats =
+            object.ReserveDepositStats !== undefined &&
+                object.ReserveDepositStats !== null
+                ? lend_1.DepositStats.fromPartial(object.ReserveDepositStats)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryBuyBackDepositStatsRequest() {
+    return {};
+}
+exports.QueryBuyBackDepositStatsRequest = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryBuyBackDepositStatsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseQueryBuyBackDepositStatsRequest();
+        return message;
+    },
+};
+function createBaseQueryBuyBackDepositStatsResponse() {
+    return { BuyBackDepositStats: undefined };
+}
+exports.QueryBuyBackDepositStatsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.BuyBackDepositStats !== undefined) {
+            lend_1.DepositStats.encode(message.BuyBackDepositStats, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryBuyBackDepositStatsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.BuyBackDepositStats = lend_1.DepositStats.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            BuyBackDepositStats: isSet(object.BuyBackDepositStats)
+                ? lend_1.DepositStats.fromJSON(object.BuyBackDepositStats)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.BuyBackDepositStats !== undefined &&
+            (obj.BuyBackDepositStats = message.BuyBackDepositStats
+                ? lend_1.DepositStats.toJSON(message.BuyBackDepositStats)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryBuyBackDepositStatsResponse();
+        message.BuyBackDepositStats =
+            object.BuyBackDepositStats !== undefined &&
+                object.BuyBackDepositStats !== null
+                ? lend_1.DepositStats.fromPartial(object.BuyBackDepositStats)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryBorrowStatsRequest() {
+    return {};
+}
+exports.QueryBorrowStatsRequest = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryBorrowStatsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseQueryBorrowStatsRequest();
+        return message;
+    },
+};
+function createBaseQueryBorrowStatsResponse() {
+    return { BorrowStats: undefined };
+}
+exports.QueryBorrowStatsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.BorrowStats !== undefined) {
+            lend_1.DepositStats.encode(message.BorrowStats, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryBorrowStatsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.BorrowStats = lend_1.DepositStats.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            BorrowStats: isSet(object.BorrowStats)
+                ? lend_1.DepositStats.fromJSON(object.BorrowStats)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.BorrowStats !== undefined &&
+            (obj.BorrowStats = message.BorrowStats
+                ? lend_1.DepositStats.toJSON(message.BorrowStats)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryBorrowStatsResponse();
+        message.BorrowStats =
+            object.BorrowStats !== undefined && object.BorrowStats !== null
+                ? lend_1.DepositStats.fromPartial(object.BorrowStats)
+                : undefined;
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2173,6 +2591,11 @@ class QueryClientImpl {
             this.QueryAllBorrowByOwnerAndPool.bind(this);
         this.QueryAssetStats = this.QueryAssetStats.bind(this);
         this.QueryModuleBalance = this.QueryModuleBalance.bind(this);
+        this.QueryDepositStats = this.QueryDepositStats.bind(this);
+        this.QueryUserDepositStats = this.QueryUserDepositStats.bind(this);
+        this.QueryReserveDepositStats = this.QueryReserveDepositStats.bind(this);
+        this.QueryBuyBackDepositStats = this.QueryBuyBackDepositStats.bind(this);
+        this.QueryBorrowStats = this.QueryBorrowStats.bind(this);
     }
     QueryLends(request) {
         const data = exports.QueryLendsRequest.encode(request).finish();
@@ -2268,6 +2691,31 @@ class QueryClientImpl {
         const data = exports.QueryModuleBalanceRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryModuleBalance", data);
         return promise.then((data) => exports.QueryModuleBalanceResponse.decode(new _m0.Reader(data)));
+    }
+    QueryDepositStats(request) {
+        const data = exports.QueryDepositStatsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryDepositStats", data);
+        return promise.then((data) => exports.QueryDepositStatsResponse.decode(new _m0.Reader(data)));
+    }
+    QueryUserDepositStats(request) {
+        const data = exports.QueryUserDepositStatsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryUserDepositStats", data);
+        return promise.then((data) => exports.QueryUserDepositStatsResponse.decode(new _m0.Reader(data)));
+    }
+    QueryReserveDepositStats(request) {
+        const data = exports.QueryReserveDepositStatsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryReserveDepositStats", data);
+        return promise.then((data) => exports.QueryReserveDepositStatsResponse.decode(new _m0.Reader(data)));
+    }
+    QueryBuyBackDepositStats(request) {
+        const data = exports.QueryBuyBackDepositStatsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryBuyBackDepositStats", data);
+        return promise.then((data) => exports.QueryBuyBackDepositStatsResponse.decode(new _m0.Reader(data)));
+    }
+    QueryBorrowStats(request) {
+        const data = exports.QueryBorrowStatsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryBorrowStats", data);
+        return promise.then((data) => exports.QueryBorrowStatsResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
