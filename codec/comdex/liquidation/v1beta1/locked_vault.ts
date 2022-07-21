@@ -1,8 +1,8 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-import { Coin } from "./cosmos/base/v1beta1/coin";
-import { Timestamp } from "./google/protobuf/timestamp";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.liquidation.v1beta1";
 
@@ -384,7 +384,7 @@ export const BorrowMetaData = {
     if (message.bridgedAssetAmount !== undefined) {
       Coin.encode(
         message.bridgedAssetAmount,
-        writer.uint32(58).fork()
+        writer.uint32(34).fork()
       ).ldelim();
     }
     return writer;
@@ -406,7 +406,7 @@ export const BorrowMetaData = {
         case 3:
           message.stableBorrowRate = reader.string();
           break;
-        case 7:
+        case 4:
           message.bridgedAssetAmount = Coin.decode(reader, reader.uint32());
           break;
         default:
