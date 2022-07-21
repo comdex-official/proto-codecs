@@ -16,6 +16,8 @@ export interface LendAsset {
   updatedAmountIn: string;
   availableToBorrow: string;
   rewardAccumulated: string;
+  appId: Long;
+  cpoolName: string;
 }
 
 export interface BorrowAsset {
@@ -30,6 +32,7 @@ export interface BorrowAsset {
   stableBorrowRate: string;
   updatedAmountOut: string;
   interestAccumulated: string;
+  cpoolName: string;
 }
 
 export interface Pool {
@@ -38,6 +41,7 @@ export interface Pool {
   mainAssetId: Long;
   firstBridgedAssetId: Long;
   secondBridgedAssetId: Long;
+  cpoolName: string;
   assetData: AssetDataPoolMapping[];
 }
 
@@ -52,6 +56,7 @@ export interface ExtendedPair {
   assetOut: Long;
   isInterPool: boolean;
   assetOutPoolId: Long;
+  minUsdValueLeft: Long;
 }
 
 export interface AssetToPairMapping {
@@ -112,6 +117,7 @@ export interface AssetRatesStats {
   ltv: string;
   liquidationThreshold: string;
   liquidationPenalty: string;
+  liquidationBonus: string;
   reserveFactor: string;
   cAssetId: Long;
 }
@@ -138,6 +144,15 @@ export interface ModuleBalanceStats {
   balance?: Coin;
 }
 
+export interface BalanceStats {
+  assetId: Long;
+  amount: string;
+}
+
+export interface DepositStats {
+  balanceStats: BalanceStats[];
+}
+
 function createBaseLendAsset(): LendAsset {
   return {
     lendingId: Long.UZERO,
@@ -149,6 +164,8 @@ function createBaseLendAsset(): LendAsset {
     updatedAmountIn: "",
     availableToBorrow: "",
     rewardAccumulated: "",
+    appId: Long.UZERO,
+    cpoolName: "",
   };
 }
 
@@ -186,6 +203,12 @@ export const LendAsset = {
     }
     if (message.rewardAccumulated !== "") {
       writer.uint32(74).string(message.rewardAccumulated);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(80).uint64(message.appId);
+    }
+    if (message.cpoolName !== "") {
+      writer.uint32(90).string(message.cpoolName);
     }
     return writer;
   },
@@ -226,6 +249,12 @@ export const LendAsset = {
         case 9:
           message.rewardAccumulated = reader.string();
           break;
+        case 10:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 11:
+          message.cpoolName = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -259,6 +288,8 @@ export const LendAsset = {
       rewardAccumulated: isSet(object.rewardAccumulated)
         ? String(object.rewardAccumulated)
         : "",
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      cpoolName: isSet(object.cpoolName) ? String(object.cpoolName) : "",
     };
   },
 
@@ -283,6 +314,9 @@ export const LendAsset = {
       (obj.availableToBorrow = message.availableToBorrow);
     message.rewardAccumulated !== undefined &&
       (obj.rewardAccumulated = message.rewardAccumulated);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.cpoolName !== undefined && (obj.cpoolName = message.cpoolName);
     return obj;
   },
 
@@ -311,6 +345,11 @@ export const LendAsset = {
     message.updatedAmountIn = object.updatedAmountIn ?? "";
     message.availableToBorrow = object.availableToBorrow ?? "";
     message.rewardAccumulated = object.rewardAccumulated ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.cpoolName = object.cpoolName ?? "";
     return message;
   },
 };
@@ -328,6 +367,7 @@ function createBaseBorrowAsset(): BorrowAsset {
     stableBorrowRate: "",
     updatedAmountOut: "",
     interestAccumulated: "",
+    cpoolName: "",
   };
 }
 
@@ -375,6 +415,9 @@ export const BorrowAsset = {
     if (message.interestAccumulated !== "") {
       writer.uint32(90).string(message.interestAccumulated);
     }
+    if (message.cpoolName !== "") {
+      writer.uint32(98).string(message.cpoolName);
+    }
     return writer;
   },
 
@@ -420,6 +463,9 @@ export const BorrowAsset = {
         case 11:
           message.interestAccumulated = reader.string();
           break;
+        case 12:
+          message.cpoolName = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -461,6 +507,7 @@ export const BorrowAsset = {
       interestAccumulated: isSet(object.interestAccumulated)
         ? String(object.interestAccumulated)
         : "",
+      cpoolName: isSet(object.cpoolName) ? String(object.cpoolName) : "",
     };
   },
 
@@ -494,6 +541,7 @@ export const BorrowAsset = {
       (obj.updatedAmountOut = message.updatedAmountOut);
     message.interestAccumulated !== undefined &&
       (obj.interestAccumulated = message.interestAccumulated);
+    message.cpoolName !== undefined && (obj.cpoolName = message.cpoolName);
     return obj;
   },
 
@@ -531,6 +579,7 @@ export const BorrowAsset = {
     message.stableBorrowRate = object.stableBorrowRate ?? "";
     message.updatedAmountOut = object.updatedAmountOut ?? "";
     message.interestAccumulated = object.interestAccumulated ?? "";
+    message.cpoolName = object.cpoolName ?? "";
     return message;
   },
 };
@@ -542,6 +591,7 @@ function createBasePool(): Pool {
     mainAssetId: Long.UZERO,
     firstBridgedAssetId: Long.UZERO,
     secondBridgedAssetId: Long.UZERO,
+    cpoolName: "",
     assetData: [],
   };
 }
@@ -563,8 +613,11 @@ export const Pool = {
     if (!message.secondBridgedAssetId.isZero()) {
       writer.uint32(40).uint64(message.secondBridgedAssetId);
     }
+    if (message.cpoolName !== "") {
+      writer.uint32(50).string(message.cpoolName);
+    }
     for (const v of message.assetData) {
-      AssetDataPoolMapping.encode(v!, writer.uint32(50).fork()).ldelim();
+      AssetDataPoolMapping.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     return writer;
   },
@@ -592,6 +645,9 @@ export const Pool = {
           message.secondBridgedAssetId = reader.uint64() as Long;
           break;
         case 6:
+          message.cpoolName = reader.string();
+          break;
+        case 7:
           message.assetData.push(
             AssetDataPoolMapping.decode(reader, reader.uint32())
           );
@@ -617,6 +673,7 @@ export const Pool = {
       secondBridgedAssetId: isSet(object.secondBridgedAssetId)
         ? Long.fromValue(object.secondBridgedAssetId)
         : Long.UZERO,
+      cpoolName: isSet(object.cpoolName) ? String(object.cpoolName) : "",
       assetData: Array.isArray(object?.assetData)
         ? object.assetData.map((e: any) => AssetDataPoolMapping.fromJSON(e))
         : [],
@@ -638,6 +695,7 @@ export const Pool = {
       (obj.secondBridgedAssetId = (
         message.secondBridgedAssetId || Long.UZERO
       ).toString());
+    message.cpoolName !== undefined && (obj.cpoolName = message.cpoolName);
     if (message.assetData) {
       obj.assetData = message.assetData.map((e) =>
         e ? AssetDataPoolMapping.toJSON(e) : undefined
@@ -669,6 +727,7 @@ export const Pool = {
       object.secondBridgedAssetId !== null
         ? Long.fromValue(object.secondBridgedAssetId)
         : Long.UZERO;
+    message.cpoolName = object.cpoolName ?? "";
     message.assetData =
       object.assetData?.map((e) => AssetDataPoolMapping.fromPartial(e)) || [];
     return message;
@@ -754,6 +813,7 @@ function createBaseExtendedPair(): ExtendedPair {
     assetOut: Long.UZERO,
     isInterPool: false,
     assetOutPoolId: Long.UZERO,
+    minUsdValueLeft: Long.UZERO,
   };
 }
 
@@ -776,6 +836,9 @@ export const ExtendedPair = {
     }
     if (!message.assetOutPoolId.isZero()) {
       writer.uint32(40).uint64(message.assetOutPoolId);
+    }
+    if (!message.minUsdValueLeft.isZero()) {
+      writer.uint32(48).uint64(message.minUsdValueLeft);
     }
     return writer;
   },
@@ -802,6 +865,9 @@ export const ExtendedPair = {
         case 5:
           message.assetOutPoolId = reader.uint64() as Long;
           break;
+        case 6:
+          message.minUsdValueLeft = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -825,6 +891,9 @@ export const ExtendedPair = {
       assetOutPoolId: isSet(object.assetOutPoolId)
         ? Long.fromValue(object.assetOutPoolId)
         : Long.UZERO,
+      minUsdValueLeft: isSet(object.minUsdValueLeft)
+        ? Long.fromValue(object.minUsdValueLeft)
+        : Long.UZERO,
     };
   },
 
@@ -840,6 +909,10 @@ export const ExtendedPair = {
       (obj.isInterPool = message.isInterPool);
     message.assetOutPoolId !== undefined &&
       (obj.assetOutPoolId = (message.assetOutPoolId || Long.UZERO).toString());
+    message.minUsdValueLeft !== undefined &&
+      (obj.minUsdValueLeft = (
+        message.minUsdValueLeft || Long.UZERO
+      ).toString());
     return obj;
   },
 
@@ -863,6 +936,10 @@ export const ExtendedPair = {
     message.assetOutPoolId =
       object.assetOutPoolId !== undefined && object.assetOutPoolId !== null
         ? Long.fromValue(object.assetOutPoolId)
+        : Long.UZERO;
+    message.minUsdValueLeft =
+      object.minUsdValueLeft !== undefined && object.minUsdValueLeft !== null
+        ? Long.fromValue(object.minUsdValueLeft)
         : Long.UZERO;
     return message;
   },
@@ -1575,6 +1652,7 @@ function createBaseAssetRatesStats(): AssetRatesStats {
     ltv: "",
     liquidationThreshold: "",
     liquidationPenalty: "",
+    liquidationBonus: "",
     reserveFactor: "",
     cAssetId: Long.UZERO,
   };
@@ -1621,11 +1699,14 @@ export const AssetRatesStats = {
     if (message.liquidationPenalty !== "") {
       writer.uint32(98).string(message.liquidationPenalty);
     }
+    if (message.liquidationBonus !== "") {
+      writer.uint32(106).string(message.liquidationBonus);
+    }
     if (message.reserveFactor !== "") {
-      writer.uint32(106).string(message.reserveFactor);
+      writer.uint32(114).string(message.reserveFactor);
     }
     if (!message.cAssetId.isZero()) {
-      writer.uint32(112).uint64(message.cAssetId);
+      writer.uint32(120).uint64(message.cAssetId);
     }
     return writer;
   },
@@ -1674,9 +1755,12 @@ export const AssetRatesStats = {
           message.liquidationPenalty = reader.string();
           break;
         case 13:
-          message.reserveFactor = reader.string();
+          message.liquidationBonus = reader.string();
           break;
         case 14:
+          message.reserveFactor = reader.string();
+          break;
+        case 15:
           message.cAssetId = reader.uint64() as Long;
           break;
         default:
@@ -1713,6 +1797,9 @@ export const AssetRatesStats = {
       liquidationPenalty: isSet(object.liquidationPenalty)
         ? String(object.liquidationPenalty)
         : "",
+      liquidationBonus: isSet(object.liquidationBonus)
+        ? String(object.liquidationBonus)
+        : "",
       reserveFactor: isSet(object.reserveFactor)
         ? String(object.reserveFactor)
         : "",
@@ -1742,6 +1829,8 @@ export const AssetRatesStats = {
       (obj.liquidationThreshold = message.liquidationThreshold);
     message.liquidationPenalty !== undefined &&
       (obj.liquidationPenalty = message.liquidationPenalty);
+    message.liquidationBonus !== undefined &&
+      (obj.liquidationBonus = message.liquidationBonus);
     message.reserveFactor !== undefined &&
       (obj.reserveFactor = message.reserveFactor);
     message.cAssetId !== undefined &&
@@ -1768,6 +1857,7 @@ export const AssetRatesStats = {
     message.ltv = object.ltv ?? "";
     message.liquidationThreshold = object.liquidationThreshold ?? "";
     message.liquidationPenalty = object.liquidationPenalty ?? "";
+    message.liquidationBonus = object.liquidationBonus ?? "";
     message.reserveFactor = object.reserveFactor ?? "";
     message.cAssetId =
       object.cAssetId !== undefined && object.cAssetId !== null
@@ -2144,6 +2234,140 @@ export const ModuleBalanceStats = {
       object.balance !== undefined && object.balance !== null
         ? Coin.fromPartial(object.balance)
         : undefined;
+    return message;
+  },
+};
+
+function createBaseBalanceStats(): BalanceStats {
+  return { assetId: Long.UZERO, amount: "" };
+}
+
+export const BalanceStats = {
+  encode(
+    message: BalanceStats,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.assetId.isZero()) {
+      writer.uint32(8).uint64(message.assetId);
+    }
+    if (message.amount !== "") {
+      writer.uint32(18).string(message.amount);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BalanceStats {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBalanceStats();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.amount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BalanceStats {
+    return {
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+      amount: isSet(object.amount) ? String(object.amount) : "",
+    };
+  },
+
+  toJSON(message: BalanceStats): unknown {
+    const obj: any = {};
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.amount !== undefined && (obj.amount = message.amount);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BalanceStats>, I>>(
+    object: I
+  ): BalanceStats {
+    const message = createBaseBalanceStats();
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    message.amount = object.amount ?? "";
+    return message;
+  },
+};
+
+function createBaseDepositStats(): DepositStats {
+  return { balanceStats: [] };
+}
+
+export const DepositStats = {
+  encode(
+    message: DepositStats,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.balanceStats) {
+      BalanceStats.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DepositStats {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDepositStats();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.balanceStats.push(
+            BalanceStats.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DepositStats {
+    return {
+      balanceStats: Array.isArray(object?.balanceStats)
+        ? object.balanceStats.map((e: any) => BalanceStats.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: DepositStats): unknown {
+    const obj: any = {};
+    if (message.balanceStats) {
+      obj.balanceStats = message.balanceStats.map((e) =>
+        e ? BalanceStats.toJSON(e) : undefined
+      );
+    } else {
+      obj.balanceStats = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DepositStats>, I>>(
+    object: I
+  ): DepositStats {
+    const message = createBaseDepositStats();
+    message.balanceStats =
+      object.balanceStats?.map((e) => BalanceStats.fromPartial(e)) || [];
     return message;
   },
 };
