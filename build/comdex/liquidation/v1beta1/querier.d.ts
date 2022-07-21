@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { LockedVault, WhitelistedAppIds } from "../../../comdex/liquidation/v1beta1/locked_vault";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "../../../comdex/liquidation/v1beta1/params";
@@ -134,7 +134,7 @@ export declare const QueryLockedVaultResponse: {
     fromPartial<I extends {
         lockedVault?: {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -150,11 +150,21 @@ export declare const QueryLockedVaultResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         } | undefined;
     } & {
         lockedVault?: ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -170,6 +180,16 @@ export declare const QueryLockedVaultResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -229,7 +249,7 @@ export declare const QueryLockedVaultResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["lockedVault"]["id"], keyof Long.Long>, never>) | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -286,7 +306,7 @@ export declare const QueryLockedVaultResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["lockedVault"]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockedVault"]["appId"], keyof Long.Long>, never>) | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | (Long.Long & {
@@ -359,6 +379,84 @@ export declare const QueryLockedVaultResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: (string[] & string[] & Record<Exclude<keyof I["lockedVault"]["selloffHistory"], keyof string[]>, never>) | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: ({
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } & {
+                lendingId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["lockedVault"]["borrowMetaData"]["lendingId"], keyof Long.Long>, never>) | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & Record<Exclude<keyof I["lockedVault"]["borrowMetaData"]["bridgedAssetAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockedVault"]["borrowMetaData"], keyof import("../../../comdex/liquidation/v1beta1/locked_vault").BorrowMetaData>, never>) | undefined;
         } & Record<Exclude<keyof I["lockedVault"], keyof LockedVault>, never>) | undefined;
     } & Record<Exclude<keyof I, "lockedVault">, never>>(object: I): QueryLockedVaultResponse;
 };
@@ -513,7 +611,7 @@ export declare const QueryLockedVaultsResponse: {
     fromPartial<I extends {
         lockedVaults?: {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -529,6 +627,16 @@ export declare const QueryLockedVaultsResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -537,7 +645,7 @@ export declare const QueryLockedVaultsResponse: {
     } & {
         lockedVaults?: ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -553,9 +661,19 @@ export declare const QueryLockedVaultsResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -571,6 +689,16 @@ export declare const QueryLockedVaultsResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -630,7 +758,7 @@ export declare const QueryLockedVaultsResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["lockedVaults"][number]["id"], keyof Long.Long>, never>) | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -687,7 +815,7 @@ export declare const QueryLockedVaultsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["lockedVaults"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockedVaults"][number]["appId"], keyof Long.Long>, never>) | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | (Long.Long & {
@@ -760,9 +888,87 @@ export declare const QueryLockedVaultsResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: (string[] & string[] & Record<Exclude<keyof I["lockedVaults"][number]["selloffHistory"], keyof string[]>, never>) | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: ({
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } & {
+                lendingId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["lockedVaults"][number]["borrowMetaData"]["lendingId"], keyof Long.Long>, never>) | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & Record<Exclude<keyof I["lockedVaults"][number]["borrowMetaData"]["bridgedAssetAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockedVaults"][number]["borrowMetaData"], keyof import("../../../comdex/liquidation/v1beta1/locked_vault").BorrowMetaData>, never>) | undefined;
         } & Record<Exclude<keyof I["lockedVaults"][number], keyof LockedVault>, never>)[] & Record<Exclude<keyof I["lockedVaults"], keyof {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -778,6 +984,16 @@ export declare const QueryLockedVaultsResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -1014,7 +1230,7 @@ export declare const QueryLockedVaultsHistoryResponse: {
     fromPartial<I extends {
         lockedVaultsHistory?: {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -1030,6 +1246,16 @@ export declare const QueryLockedVaultsHistoryResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -1038,7 +1264,7 @@ export declare const QueryLockedVaultsHistoryResponse: {
     } & {
         lockedVaultsHistory?: ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -1054,9 +1280,19 @@ export declare const QueryLockedVaultsHistoryResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -1072,6 +1308,16 @@ export declare const QueryLockedVaultsHistoryResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -1131,7 +1377,7 @@ export declare const QueryLockedVaultsHistoryResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["lockedVaultsHistory"][number]["id"], keyof Long.Long>, never>) | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -1188,7 +1434,7 @@ export declare const QueryLockedVaultsHistoryResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["lockedVaultsHistory"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockedVaultsHistory"][number]["appId"], keyof Long.Long>, never>) | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | (Long.Long & {
@@ -1261,9 +1507,87 @@ export declare const QueryLockedVaultsHistoryResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: (string[] & string[] & Record<Exclude<keyof I["lockedVaultsHistory"][number]["selloffHistory"], keyof string[]>, never>) | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: ({
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } & {
+                lendingId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["lockedVaultsHistory"][number]["borrowMetaData"]["lendingId"], keyof Long.Long>, never>) | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & Record<Exclude<keyof I["lockedVaultsHistory"][number]["borrowMetaData"]["bridgedAssetAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockedVaultsHistory"][number]["borrowMetaData"], keyof import("../../../comdex/liquidation/v1beta1/locked_vault").BorrowMetaData>, never>) | undefined;
         } & Record<Exclude<keyof I["lockedVaultsHistory"][number], keyof LockedVault>, never>)[] & Record<Exclude<keyof I["lockedVaultsHistory"], keyof {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -1279,6 +1603,16 @@ export declare const QueryLockedVaultsHistoryResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -1499,7 +1833,7 @@ export declare const QueryUserLockedVaultsResponse: {
     fromPartial<I extends {
         userLockedVaults?: {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -1515,6 +1849,16 @@ export declare const QueryUserLockedVaultsResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -1523,7 +1867,7 @@ export declare const QueryUserLockedVaultsResponse: {
     } & {
         userLockedVaults?: ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -1539,9 +1883,19 @@ export declare const QueryUserLockedVaultsResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -1557,6 +1911,16 @@ export declare const QueryUserLockedVaultsResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -1616,7 +1980,7 @@ export declare const QueryUserLockedVaultsResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["userLockedVaults"][number]["id"], keyof Long.Long>, never>) | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -1673,7 +2037,7 @@ export declare const QueryUserLockedVaultsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["userLockedVaults"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["userLockedVaults"][number]["appId"], keyof Long.Long>, never>) | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | (Long.Long & {
@@ -1746,9 +2110,87 @@ export declare const QueryUserLockedVaultsResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: (string[] & string[] & Record<Exclude<keyof I["userLockedVaults"][number]["selloffHistory"], keyof string[]>, never>) | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: ({
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } & {
+                lendingId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["userLockedVaults"][number]["borrowMetaData"]["lendingId"], keyof Long.Long>, never>) | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & Record<Exclude<keyof I["userLockedVaults"][number]["borrowMetaData"]["bridgedAssetAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["userLockedVaults"][number]["borrowMetaData"], keyof import("../../../comdex/liquidation/v1beta1/locked_vault").BorrowMetaData>, never>) | undefined;
         } & Record<Exclude<keyof I["userLockedVaults"][number], keyof LockedVault>, never>)[] & Record<Exclude<keyof I["userLockedVaults"], keyof {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -1764,6 +2206,16 @@ export declare const QueryUserLockedVaultsResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -1984,7 +2436,7 @@ export declare const QueryUserLockedVaultsHistoryResponse: {
     fromPartial<I extends {
         userLockedVaultsHistory?: {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -2000,6 +2452,16 @@ export declare const QueryUserLockedVaultsHistoryResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -2008,7 +2470,7 @@ export declare const QueryUserLockedVaultsHistoryResponse: {
     } & {
         userLockedVaultsHistory?: ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -2024,9 +2486,19 @@ export declare const QueryUserLockedVaultsHistoryResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -2042,6 +2514,16 @@ export declare const QueryUserLockedVaultsHistoryResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -2101,7 +2583,7 @@ export declare const QueryUserLockedVaultsHistoryResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["userLockedVaultsHistory"][number]["id"], keyof Long.Long>, never>) | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -2158,7 +2640,7 @@ export declare const QueryUserLockedVaultsHistoryResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["userLockedVaultsHistory"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["userLockedVaultsHistory"][number]["appId"], keyof Long.Long>, never>) | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | (Long.Long & {
@@ -2231,9 +2713,87 @@ export declare const QueryUserLockedVaultsHistoryResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: (string[] & string[] & Record<Exclude<keyof I["userLockedVaultsHistory"][number]["selloffHistory"], keyof string[]>, never>) | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: ({
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } & {
+                lendingId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["userLockedVaultsHistory"][number]["borrowMetaData"]["lendingId"], keyof Long.Long>, never>) | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & Record<Exclude<keyof I["userLockedVaultsHistory"][number]["borrowMetaData"]["bridgedAssetAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["userLockedVaultsHistory"][number]["borrowMetaData"], keyof import("../../../comdex/liquidation/v1beta1/locked_vault").BorrowMetaData>, never>) | undefined;
         } & Record<Exclude<keyof I["userLockedVaultsHistory"][number], keyof LockedVault>, never>)[] & Record<Exclude<keyof I["userLockedVaultsHistory"], keyof {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -2249,6 +2809,16 @@ export declare const QueryUserLockedVaultsHistoryResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -2526,7 +3096,7 @@ export declare const QueryLockedVaultsPairResponse: {
     fromPartial<I extends {
         lockedVaultsPair?: {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -2542,6 +3112,16 @@ export declare const QueryLockedVaultsPairResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -2550,7 +3130,7 @@ export declare const QueryLockedVaultsPairResponse: {
     } & {
         lockedVaultsPair?: ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -2566,9 +3146,19 @@ export declare const QueryLockedVaultsPairResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -2584,6 +3174,16 @@ export declare const QueryLockedVaultsPairResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -2643,7 +3243,7 @@ export declare const QueryLockedVaultsPairResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["lockedVaultsPair"][number]["id"], keyof Long.Long>, never>) | undefined;
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -2700,7 +3300,7 @@ export declare const QueryLockedVaultsPairResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["lockedVaultsPair"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockedVaultsPair"][number]["appId"], keyof Long.Long>, never>) | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | (Long.Long & {
@@ -2773,9 +3373,87 @@ export declare const QueryLockedVaultsPairResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: (string[] & string[] & Record<Exclude<keyof I["lockedVaultsPair"][number]["selloffHistory"], keyof string[]>, never>) | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: ({
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } & {
+                lendingId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["lockedVaultsPair"][number]["borrowMetaData"]["lendingId"], keyof Long.Long>, never>) | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & Record<Exclude<keyof I["lockedVaultsPair"][number]["borrowMetaData"]["bridgedAssetAmount"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["lockedVaultsPair"][number]["borrowMetaData"], keyof import("../../../comdex/liquidation/v1beta1/locked_vault").BorrowMetaData>, never>) | undefined;
         } & Record<Exclude<keyof I["lockedVaultsPair"][number], keyof LockedVault>, never>)[] & Record<Exclude<keyof I["lockedVaultsPair"], keyof {
             id?: string | number | Long.Long | undefined;
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             appVaultTypeId?: string | undefined;
             originalVaultId?: string | undefined;
             extendedPairVaultId?: string | number | Long.Long | undefined;
@@ -2791,6 +3469,16 @@ export declare const QueryLockedVaultsPairResponse: {
             collateralToBeAuctioned?: string | undefined;
             liquidationTimestamp?: Date | undefined;
             selloffHistory?: string[] | undefined;
+            interestAccumulated?: string | undefined;
+            borrowMetaData?: {
+                lendingId?: string | number | Long.Long | undefined;
+                isStableBorrow?: boolean | undefined;
+                stableBorrowRate?: string | undefined;
+                bridgedAssetAmount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -2872,13 +3560,13 @@ export declare const QueryAppIdsResponse: {
     toJSON(message: QueryAppIdsResponse): unknown;
     fromPartial<I extends {
         WhitelistedAppIds?: {
-            whitelistedAppMappingIds?: (string | number | Long.Long)[] | undefined;
+            whitelistedAppIds?: (string | number | Long.Long)[] | undefined;
         } | undefined;
     } & {
         WhitelistedAppIds?: ({
-            whitelistedAppMappingIds?: (string | number | Long.Long)[] | undefined;
+            whitelistedAppIds?: (string | number | Long.Long)[] | undefined;
         } & {
-            whitelistedAppMappingIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
+            whitelistedAppIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -2935,8 +3623,8 @@ export declare const QueryAppIdsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["WhitelistedAppIds"]["whitelistedAppMappingIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["WhitelistedAppIds"]["whitelistedAppMappingIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["WhitelistedAppIds"], "whitelistedAppMappingIds">, never>) | undefined;
+            } & Record<Exclude<keyof I["WhitelistedAppIds"]["whitelistedAppIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["WhitelistedAppIds"]["whitelistedAppIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["WhitelistedAppIds"], "whitelistedAppIds">, never>) | undefined;
     } & Record<Exclude<keyof I, "WhitelistedAppIds">, never>>(object: I): QueryAppIdsResponse;
 };
 export interface Query {
