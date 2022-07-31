@@ -138,31 +138,27 @@ export interface MsgCancelAllOrders {
 /** MsgCancelAllOrdersResponse defines the Msg/CancelAllOrders response type. */
 export interface MsgCancelAllOrdersResponse {}
 
-/** MsgTokensSoftLock defines a SDK message for soft locking coins (i.e without bonding) for incentivisation. */
-export interface MsgTokensSoftLock {
-  /** depositor defines the bech32-encoded address of the farmer */
-  depositor: string;
-  poolId: Long;
-  /** soft_lock_coin specifies coins to stake */
-  softLockCoin?: Coin;
+/** MsgFarm defines a SDK message for farming coins (i.e without bonding) for incentivisation. */
+export interface MsgFarm {
   appId: Long;
+  poolId: Long;
+  farmer: string;
+  farmingPoolCoin?: Coin;
 }
 
-/** MsgTokensSoftLockResponse  defines the Msg/MsgTokensSoftLockResponse response type. */
-export interface MsgTokensSoftLockResponse {}
+/** MsgFarmResponse  defines the Msg/MsgFarmResponse response type. */
+export interface MsgFarmResponse {}
 
-/** MsgTokensSoftUnlock defines a SDK message for performing unlocking of the soft locked coins */
-export interface MsgTokensSoftUnlock {
-  /** depositor defines the bech32-encoded address of the farmer */
-  depositor: string;
-  poolId: Long;
-  /** soft_unlock_coin specifies coins to stake */
-  softUnlockCoin?: Coin;
+/** MsgUnfarm defines a SDK message for performing unfarm of the farmed coins */
+export interface MsgUnfarm {
   appId: Long;
+  poolId: Long;
+  farmer: string;
+  unfarmingPoolCoin?: Coin;
 }
 
-/** MsgTokensSoftUnlockResponse defines the Msg/MsgTokensSoftUnlockResponse response type. */
-export interface MsgTokensSoftUnlockResponse {}
+/** MsgUnfarmResponse defines the Msg/MsgUnfarmResponse response type. */
+export interface MsgUnfarmResponse {}
 
 function createBaseMsgCreatePair(): MsgCreatePair {
   return {
@@ -1463,53 +1459,53 @@ export const MsgCancelAllOrdersResponse = {
   },
 };
 
-function createBaseMsgTokensSoftLock(): MsgTokensSoftLock {
+function createBaseMsgFarm(): MsgFarm {
   return {
-    depositor: "",
-    poolId: Long.UZERO,
-    softLockCoin: undefined,
     appId: Long.UZERO,
+    poolId: Long.UZERO,
+    farmer: "",
+    farmingPoolCoin: undefined,
   };
 }
 
-export const MsgTokensSoftLock = {
+export const MsgFarm = {
   encode(
-    message: MsgTokensSoftLock,
+    message: MsgFarm,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.depositor !== "") {
-      writer.uint32(10).string(message.depositor);
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
     }
     if (!message.poolId.isZero()) {
       writer.uint32(16).uint64(message.poolId);
     }
-    if (message.softLockCoin !== undefined) {
-      Coin.encode(message.softLockCoin, writer.uint32(26).fork()).ldelim();
+    if (message.farmer !== "") {
+      writer.uint32(26).string(message.farmer);
     }
-    if (!message.appId.isZero()) {
-      writer.uint32(32).uint64(message.appId);
+    if (message.farmingPoolCoin !== undefined) {
+      Coin.encode(message.farmingPoolCoin, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgTokensSoftLock {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgFarm {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgTokensSoftLock();
+    const message = createBaseMsgFarm();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.depositor = reader.string();
+          message.appId = reader.uint64() as Long;
           break;
         case 2:
           message.poolId = reader.uint64() as Long;
           break;
         case 3:
-          message.softLockCoin = Coin.decode(reader, reader.uint32());
+          message.farmer = reader.string();
           break;
         case 4:
-          message.appId = reader.uint64() as Long;
+          message.farmingPoolCoin = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -1519,73 +1515,68 @@ export const MsgTokensSoftLock = {
     return message;
   },
 
-  fromJSON(object: any): MsgTokensSoftLock {
+  fromJSON(object: any): MsgFarm {
     return {
-      depositor: isSet(object.depositor) ? String(object.depositor) : "",
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       poolId: isSet(object.poolId)
         ? Long.fromString(object.poolId)
         : Long.UZERO,
-      softLockCoin: isSet(object.softLockCoin)
-        ? Coin.fromJSON(object.softLockCoin)
+      farmer: isSet(object.farmer) ? String(object.farmer) : "",
+      farmingPoolCoin: isSet(object.farmingPoolCoin)
+        ? Coin.fromJSON(object.farmingPoolCoin)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
-  toJSON(message: MsgTokensSoftLock): unknown {
+  toJSON(message: MsgFarm): unknown {
     const obj: any = {};
-    message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.softLockCoin !== undefined &&
-      (obj.softLockCoin = message.softLockCoin
-        ? Coin.toJSON(message.softLockCoin)
-        : undefined);
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.farmer !== undefined && (obj.farmer = message.farmer);
+    message.farmingPoolCoin !== undefined &&
+      (obj.farmingPoolCoin = message.farmingPoolCoin
+        ? Coin.toJSON(message.farmingPoolCoin)
+        : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgTokensSoftLock>, I>>(
-    object: I
-  ): MsgTokensSoftLock {
-    const message = createBaseMsgTokensSoftLock();
-    message.depositor = object.depositor ?? "";
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
-    message.softLockCoin =
-      object.softLockCoin !== undefined && object.softLockCoin !== null
-        ? Coin.fromPartial(object.softLockCoin)
-        : undefined;
+  fromPartial<I extends Exact<DeepPartial<MsgFarm>, I>>(object: I): MsgFarm {
+    const message = createBaseMsgFarm();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
         : Long.UZERO;
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    message.farmer = object.farmer ?? "";
+    message.farmingPoolCoin =
+      object.farmingPoolCoin !== undefined && object.farmingPoolCoin !== null
+        ? Coin.fromPartial(object.farmingPoolCoin)
+        : undefined;
     return message;
   },
 };
 
-function createBaseMsgTokensSoftLockResponse(): MsgTokensSoftLockResponse {
+function createBaseMsgFarmResponse(): MsgFarmResponse {
   return {};
 }
 
-export const MsgTokensSoftLockResponse = {
+export const MsgFarmResponse = {
   encode(
-    _: MsgTokensSoftLockResponse,
+    _: MsgFarmResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgTokensSoftLockResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgFarmResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgTokensSoftLockResponse();
+    const message = createBaseMsgFarmResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1597,70 +1588,70 @@ export const MsgTokensSoftLockResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgTokensSoftLockResponse {
+  fromJSON(_: any): MsgFarmResponse {
     return {};
   },
 
-  toJSON(_: MsgTokensSoftLockResponse): unknown {
+  toJSON(_: MsgFarmResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgTokensSoftLockResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgFarmResponse>, I>>(
     _: I
-  ): MsgTokensSoftLockResponse {
-    const message = createBaseMsgTokensSoftLockResponse();
+  ): MsgFarmResponse {
+    const message = createBaseMsgFarmResponse();
     return message;
   },
 };
 
-function createBaseMsgTokensSoftUnlock(): MsgTokensSoftUnlock {
+function createBaseMsgUnfarm(): MsgUnfarm {
   return {
-    depositor: "",
-    poolId: Long.UZERO,
-    softUnlockCoin: undefined,
     appId: Long.UZERO,
+    poolId: Long.UZERO,
+    farmer: "",
+    unfarmingPoolCoin: undefined,
   };
 }
 
-export const MsgTokensSoftUnlock = {
+export const MsgUnfarm = {
   encode(
-    message: MsgTokensSoftUnlock,
+    message: MsgUnfarm,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.depositor !== "") {
-      writer.uint32(10).string(message.depositor);
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
     }
     if (!message.poolId.isZero()) {
       writer.uint32(16).uint64(message.poolId);
     }
-    if (message.softUnlockCoin !== undefined) {
-      Coin.encode(message.softUnlockCoin, writer.uint32(26).fork()).ldelim();
+    if (message.farmer !== "") {
+      writer.uint32(26).string(message.farmer);
     }
-    if (!message.appId.isZero()) {
-      writer.uint32(32).uint64(message.appId);
+    if (message.unfarmingPoolCoin !== undefined) {
+      Coin.encode(message.unfarmingPoolCoin, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): MsgTokensSoftUnlock {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnfarm {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgTokensSoftUnlock();
+    const message = createBaseMsgUnfarm();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.depositor = reader.string();
+          message.appId = reader.uint64() as Long;
           break;
         case 2:
           message.poolId = reader.uint64() as Long;
           break;
         case 3:
-          message.softUnlockCoin = Coin.decode(reader, reader.uint32());
+          message.farmer = reader.string();
           break;
         case 4:
-          message.appId = reader.uint64() as Long;
+          message.unfarmingPoolCoin = Coin.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -1670,73 +1661,71 @@ export const MsgTokensSoftUnlock = {
     return message;
   },
 
-  fromJSON(object: any): MsgTokensSoftUnlock {
+  fromJSON(object: any): MsgUnfarm {
     return {
-      depositor: isSet(object.depositor) ? String(object.depositor) : "",
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       poolId: isSet(object.poolId)
         ? Long.fromString(object.poolId)
         : Long.UZERO,
-      softUnlockCoin: isSet(object.softUnlockCoin)
-        ? Coin.fromJSON(object.softUnlockCoin)
+      farmer: isSet(object.farmer) ? String(object.farmer) : "",
+      unfarmingPoolCoin: isSet(object.unfarmingPoolCoin)
+        ? Coin.fromJSON(object.unfarmingPoolCoin)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
-  toJSON(message: MsgTokensSoftUnlock): unknown {
+  toJSON(message: MsgUnfarm): unknown {
     const obj: any = {};
-    message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.softUnlockCoin !== undefined &&
-      (obj.softUnlockCoin = message.softUnlockCoin
-        ? Coin.toJSON(message.softUnlockCoin)
-        : undefined);
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.farmer !== undefined && (obj.farmer = message.farmer);
+    message.unfarmingPoolCoin !== undefined &&
+      (obj.unfarmingPoolCoin = message.unfarmingPoolCoin
+        ? Coin.toJSON(message.unfarmingPoolCoin)
+        : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgTokensSoftUnlock>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgUnfarm>, I>>(
     object: I
-  ): MsgTokensSoftUnlock {
-    const message = createBaseMsgTokensSoftUnlock();
-    message.depositor = object.depositor ?? "";
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
-    message.softUnlockCoin =
-      object.softUnlockCoin !== undefined && object.softUnlockCoin !== null
-        ? Coin.fromPartial(object.softUnlockCoin)
-        : undefined;
+  ): MsgUnfarm {
+    const message = createBaseMsgUnfarm();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
         : Long.UZERO;
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    message.farmer = object.farmer ?? "";
+    message.unfarmingPoolCoin =
+      object.unfarmingPoolCoin !== undefined &&
+      object.unfarmingPoolCoin !== null
+        ? Coin.fromPartial(object.unfarmingPoolCoin)
+        : undefined;
     return message;
   },
 };
 
-function createBaseMsgTokensSoftUnlockResponse(): MsgTokensSoftUnlockResponse {
+function createBaseMsgUnfarmResponse(): MsgUnfarmResponse {
   return {};
 }
 
-export const MsgTokensSoftUnlockResponse = {
+export const MsgUnfarmResponse = {
   encode(
-    _: MsgTokensSoftUnlockResponse,
+    _: MsgUnfarmResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgTokensSoftUnlockResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnfarmResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgTokensSoftUnlockResponse();
+    const message = createBaseMsgUnfarmResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1748,19 +1737,19 @@ export const MsgTokensSoftUnlockResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgTokensSoftUnlockResponse {
+  fromJSON(_: any): MsgUnfarmResponse {
     return {};
   },
 
-  toJSON(_: MsgTokensSoftUnlockResponse): unknown {
+  toJSON(_: MsgUnfarmResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgTokensSoftUnlockResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgUnfarmResponse>, I>>(
     _: I
-  ): MsgTokensSoftUnlockResponse {
-    const message = createBaseMsgTokensSoftUnlockResponse();
+  ): MsgUnfarmResponse {
+    const message = createBaseMsgUnfarmResponse();
     return message;
   },
 };
@@ -1785,14 +1774,10 @@ export interface Msg {
   CancelAllOrders(
     request: MsgCancelAllOrders
   ): Promise<MsgCancelAllOrdersResponse>;
-  /** TokensSoftLock defines a method to soft lock the token, for incentivization */
-  TokensSoftLock(
-    request: MsgTokensSoftLock
-  ): Promise<MsgTokensSoftLockResponse>;
-  /** TokensSoftUnlock defines a method to unlock the soft locked token, for incentivization */
-  TokensSoftUnlock(
-    request: MsgTokensSoftUnlock
-  ): Promise<MsgTokensSoftUnlockResponse>;
+  /** MsgFarm defines a method to farm the pool token, for incentivization */
+  Farm(request: MsgFarm): Promise<MsgFarmResponse>;
+  /** Unfarm defines a method to unfarm the farmed pool token */
+  Unfarm(request: MsgUnfarm): Promise<MsgUnfarmResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1807,8 +1792,8 @@ export class MsgClientImpl implements Msg {
     this.MarketOrder = this.MarketOrder.bind(this);
     this.CancelOrder = this.CancelOrder.bind(this);
     this.CancelAllOrders = this.CancelAllOrders.bind(this);
-    this.TokensSoftLock = this.TokensSoftLock.bind(this);
-    this.TokensSoftUnlock = this.TokensSoftUnlock.bind(this);
+    this.Farm = this.Farm.bind(this);
+    this.Unfarm = this.Unfarm.bind(this);
   }
   CreatePair(request: MsgCreatePair): Promise<MsgCreatePairResponse> {
     const data = MsgCreatePair.encode(request).finish();
@@ -1908,31 +1893,25 @@ export class MsgClientImpl implements Msg {
     );
   }
 
-  TokensSoftLock(
-    request: MsgTokensSoftLock
-  ): Promise<MsgTokensSoftLockResponse> {
-    const data = MsgTokensSoftLock.encode(request).finish();
+  Farm(request: MsgFarm): Promise<MsgFarmResponse> {
+    const data = MsgFarm.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.liquidity.v1beta1.Msg",
-      "TokensSoftLock",
+      "Farm",
       data
     );
-    return promise.then((data) =>
-      MsgTokensSoftLockResponse.decode(new _m0.Reader(data))
-    );
+    return promise.then((data) => MsgFarmResponse.decode(new _m0.Reader(data)));
   }
 
-  TokensSoftUnlock(
-    request: MsgTokensSoftUnlock
-  ): Promise<MsgTokensSoftUnlockResponse> {
-    const data = MsgTokensSoftUnlock.encode(request).finish();
+  Unfarm(request: MsgUnfarm): Promise<MsgUnfarmResponse> {
+    const data = MsgUnfarm.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.liquidity.v1beta1.Msg",
-      "TokensSoftUnlock",
+      "Unfarm",
       data
     );
     return promise.then((data) =>
-      MsgTokensSoftUnlockResponse.decode(new _m0.Reader(data))
+      MsgUnfarmResponse.decode(new _m0.Reader(data))
     );
   }
 }
