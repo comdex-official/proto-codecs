@@ -153,18 +153,18 @@ export interface PoolResponse {
     lastWithdrawRequestId: Long;
     appId: Long;
 }
-/** QuerySoftLockRequest is request type for the Query/SoftLock RPC method. */
-export interface QuerySoftLockRequest {
-    poolId: Long;
-    depositor: string;
+/** QueryFarmerRequest is request type for the Query/Farmer RPC method. */
+export interface QueryFarmerRequest {
     appId: Long;
+    poolId: Long;
+    farmer: string;
 }
 export interface QueuedPoolCoin {
     poolCoin?: Coin;
     dequeAt?: Date;
 }
-/** QuerySoftLockResponse is response type for the Query/SoftLock RPC method. */
-export interface QuerySoftLockResponse {
+/** QueryFarmerResponse is response type for the Query/Farmer RPC method. */
+export interface QueryFarmerResponse {
     activePoolCoin?: Coin;
     queuedPoolCoin: QueuedPoolCoin[];
 }
@@ -7305,75 +7305,16 @@ export declare const PoolResponse: {
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof PoolResponse>, never>>(object: I): PoolResponse;
 };
-export declare const QuerySoftLockRequest: {
-    encode(message: QuerySoftLockRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QuerySoftLockRequest;
-    fromJSON(object: any): QuerySoftLockRequest;
-    toJSON(message: QuerySoftLockRequest): unknown;
+export declare const QueryFarmerRequest: {
+    encode(message: QueryFarmerRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryFarmerRequest;
+    fromJSON(object: any): QueryFarmerRequest;
+    toJSON(message: QueryFarmerRequest): unknown;
     fromPartial<I extends {
-        poolId?: string | number | Long.Long | undefined;
-        depositor?: string | undefined;
         appId?: string | number | Long.Long | undefined;
+        poolId?: string | number | Long.Long | undefined;
+        farmer?: string | undefined;
     } & {
-        poolId?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["poolId"], keyof Long.Long>, never>) | undefined;
-        depositor?: string | undefined;
         appId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -7432,7 +7373,66 @@ export declare const QuerySoftLockRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QuerySoftLockRequest>, never>>(object: I): QuerySoftLockRequest;
+        poolId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["poolId"], keyof Long.Long>, never>) | undefined;
+        farmer?: string | undefined;
+    } & Record<Exclude<keyof I, keyof QueryFarmerRequest>, never>>(object: I): QueryFarmerRequest;
 };
 export declare const QueuedPoolCoin: {
     encode(message: QueuedPoolCoin, writer?: _m0.Writer): _m0.Writer;
@@ -7456,11 +7456,11 @@ export declare const QueuedPoolCoin: {
         dequeAt?: Date | undefined;
     } & Record<Exclude<keyof I, keyof QueuedPoolCoin>, never>>(object: I): QueuedPoolCoin;
 };
-export declare const QuerySoftLockResponse: {
-    encode(message: QuerySoftLockResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QuerySoftLockResponse;
-    fromJSON(object: any): QuerySoftLockResponse;
-    toJSON(message: QuerySoftLockResponse): unknown;
+export declare const QueryFarmerResponse: {
+    encode(message: QueryFarmerResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryFarmerResponse;
+    fromJSON(object: any): QueryFarmerResponse;
+    toJSON(message: QueryFarmerResponse): unknown;
     fromPartial<I extends {
         activePoolCoin?: {
             denom?: string | undefined;
@@ -7509,7 +7509,7 @@ export declare const QuerySoftLockResponse: {
             } | undefined;
             dequeAt?: Date | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QuerySoftLockResponse>, never>>(object: I): QuerySoftLockResponse;
+    } & Record<Exclude<keyof I, keyof QueryFarmerResponse>, never>>(object: I): QueryFarmerResponse;
 };
 export declare const QueryDeserializePoolCoinRequest: {
     encode(message: QueryDeserializePoolCoinRequest, writer?: _m0.Writer): _m0.Writer;
@@ -8837,13 +8837,13 @@ export interface Query {
     Order(request: QueryOrderRequest): Promise<QueryOrderResponse>;
     /** OrdersByOrderer returns orders made by an orderer. */
     OrdersByOrderer(request: QueryOrdersByOrdererRequest): Promise<QueryOrdersResponse>;
-    /** SoftLock returns deposited poolcoin for farming . */
-    SoftLock(request: QuerySoftLockRequest): Promise<QuerySoftLockResponse>;
+    /** Farmer returns deposited poolcoin for farming . */
+    Farmer(request: QueryFarmerRequest): Promise<QueryFarmerResponse>;
     /** DeserializePoolCoin splits poolcoin into the actual provided pool assets . */
     DeserializePoolCoin(request: QueryDeserializePoolCoinRequest): Promise<QueryDeserializePoolCoinResponse>;
     /** PoolIncentives provides insights about available pool incentives. */
     PoolIncentives(request: QueryPoolsIncentivesRequest): Promise<QueryPoolIncentivesResponse>;
-    /** FarmedPoolCoin returns the total coin in the soft-lock. */
+    /** FarmedPoolCoin returns the total farmed pool coins. */
     FarmedPoolCoin(request: QueryFarmedPoolCoinRequest): Promise<QueryFarmedPoolCoinResponse>;
 }
 export declare class QueryClientImpl implements Query {
@@ -8864,7 +8864,7 @@ export declare class QueryClientImpl implements Query {
     Orders(request: QueryOrdersRequest): Promise<QueryOrdersResponse>;
     Order(request: QueryOrderRequest): Promise<QueryOrderResponse>;
     OrdersByOrderer(request: QueryOrdersByOrdererRequest): Promise<QueryOrdersResponse>;
-    SoftLock(request: QuerySoftLockRequest): Promise<QuerySoftLockResponse>;
+    Farmer(request: QueryFarmerRequest): Promise<QueryFarmerResponse>;
     DeserializePoolCoin(request: QueryDeserializePoolCoinRequest): Promise<QueryDeserializePoolCoinResponse>;
     PoolIncentives(request: QueryPoolsIncentivesRequest): Promise<QueryPoolIncentivesResponse>;
     FarmedPoolCoin(request: QueryFarmedPoolCoinRequest): Promise<QueryFarmedPoolCoinResponse>;

@@ -123,29 +123,25 @@ export interface MsgCancelAllOrders {
 /** MsgCancelAllOrdersResponse defines the Msg/CancelAllOrders response type. */
 export interface MsgCancelAllOrdersResponse {
 }
-/** MsgTokensSoftLock defines a SDK message for soft locking coins (i.e without bonding) for incentivisation. */
-export interface MsgTokensSoftLock {
-    /** depositor defines the bech32-encoded address of the farmer */
-    depositor: string;
-    poolId: Long;
-    /** soft_lock_coin specifies coins to stake */
-    softLockCoin?: Coin;
+/** MsgFarm defines a SDK message for farming coins (i.e without bonding) for incentivisation. */
+export interface MsgFarm {
     appId: Long;
-}
-/** MsgTokensSoftLockResponse  defines the Msg/MsgTokensSoftLockResponse response type. */
-export interface MsgTokensSoftLockResponse {
-}
-/** MsgTokensSoftUnlock defines a SDK message for performing unlocking of the soft locked coins */
-export interface MsgTokensSoftUnlock {
-    /** depositor defines the bech32-encoded address of the farmer */
-    depositor: string;
     poolId: Long;
-    /** soft_unlock_coin specifies coins to stake */
-    softUnlockCoin?: Coin;
-    appId: Long;
+    farmer: string;
+    farmingPoolCoin?: Coin;
 }
-/** MsgTokensSoftUnlockResponse defines the Msg/MsgTokensSoftUnlockResponse response type. */
-export interface MsgTokensSoftUnlockResponse {
+/** MsgFarmResponse  defines the Msg/MsgFarmResponse response type. */
+export interface MsgFarmResponse {
+}
+/** MsgUnfarm defines a SDK message for performing unfarm of the farmed coins */
+export interface MsgUnfarm {
+    appId: Long;
+    poolId: Long;
+    farmer: string;
+    unfarmingPoolCoin?: Coin;
+}
+/** MsgUnfarmResponse defines the Msg/MsgUnfarmResponse response type. */
+export interface MsgUnfarmResponse {
 }
 export declare const MsgCreatePair: {
     encode(message: MsgCreatePair, writer?: _m0.Writer): _m0.Writer;
@@ -1456,86 +1452,20 @@ export declare const MsgCancelAllOrdersResponse: {
     toJSON(_: MsgCancelAllOrdersResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCancelAllOrdersResponse;
 };
-export declare const MsgTokensSoftLock: {
-    encode(message: MsgTokensSoftLock, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgTokensSoftLock;
-    fromJSON(object: any): MsgTokensSoftLock;
-    toJSON(message: MsgTokensSoftLock): unknown;
+export declare const MsgFarm: {
+    encode(message: MsgFarm, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFarm;
+    fromJSON(object: any): MsgFarm;
+    toJSON(message: MsgFarm): unknown;
     fromPartial<I extends {
-        depositor?: string | undefined;
+        appId?: string | number | Long.Long | undefined;
         poolId?: string | number | Long.Long | undefined;
-        softLockCoin?: {
+        farmer?: string | undefined;
+        farmingPoolCoin?: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
-        appId?: string | number | Long.Long | undefined;
     } & {
-        depositor?: string | undefined;
-        poolId?: string | number | (Long.Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long.Long) => Long.Long;
-            and: (other: string | number | Long.Long) => Long.Long;
-            compare: (other: string | number | Long.Long) => number;
-            comp: (other: string | number | Long.Long) => number;
-            divide: (divisor: string | number | Long.Long) => Long.Long;
-            div: (divisor: string | number | Long.Long) => Long.Long;
-            equals: (other: string | number | Long.Long) => boolean;
-            eq: (other: string | number | Long.Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long.Long) => boolean;
-            gt: (other: string | number | Long.Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-            gte: (other: string | number | Long.Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            lessThan: (other: string | number | Long.Long) => boolean;
-            lt: (other: string | number | Long.Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-            lte: (other: string | number | Long.Long) => boolean;
-            modulo: (other: string | number | Long.Long) => Long.Long;
-            mod: (other: string | number | Long.Long) => Long.Long;
-            multiply: (multiplier: string | number | Long.Long) => Long.Long;
-            mul: (multiplier: string | number | Long.Long) => Long.Long;
-            negate: () => Long.Long;
-            neg: () => Long.Long;
-            not: () => Long.Long;
-            notEquals: (other: string | number | Long.Long) => boolean;
-            neq: (other: string | number | Long.Long) => boolean;
-            or: (other: string | number | Long.Long) => Long.Long;
-            shiftLeft: (numBits: number | Long.Long) => Long.Long;
-            shl: (numBits: number | Long.Long) => Long.Long;
-            shiftRight: (numBits: number | Long.Long) => Long.Long;
-            shr: (numBits: number | Long.Long) => Long.Long;
-            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-            shru: (numBits: number | Long.Long) => Long.Long;
-            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-            sub: (subtrahend: string | number | Long.Long) => Long.Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long.Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long.Long;
-            xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["poolId"], keyof Long.Long>, never>) | undefined;
-        softLockCoin?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & Record<Exclude<keyof I["softLockCoin"], keyof Coin>, never>) | undefined;
         appId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1594,30 +1524,6 @@ export declare const MsgTokensSoftLock: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof MsgTokensSoftLock>, never>>(object: I): MsgTokensSoftLock;
-};
-export declare const MsgTokensSoftLockResponse: {
-    encode(_: MsgTokensSoftLockResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgTokensSoftLockResponse;
-    fromJSON(_: any): MsgTokensSoftLockResponse;
-    toJSON(_: MsgTokensSoftLockResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgTokensSoftLockResponse;
-};
-export declare const MsgTokensSoftUnlock: {
-    encode(message: MsgTokensSoftUnlock, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgTokensSoftUnlock;
-    fromJSON(object: any): MsgTokensSoftUnlock;
-    toJSON(message: MsgTokensSoftUnlock): unknown;
-    fromPartial<I extends {
-        depositor?: string | undefined;
-        poolId?: string | number | Long.Long | undefined;
-        softUnlockCoin?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
-        appId?: string | number | Long.Long | undefined;
-    } & {
-        depositor?: string | undefined;
         poolId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1676,13 +1582,37 @@ export declare const MsgTokensSoftUnlock: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["poolId"], keyof Long.Long>, never>) | undefined;
-        softUnlockCoin?: ({
+        farmer?: string | undefined;
+        farmingPoolCoin?: ({
             denom?: string | undefined;
             amount?: string | undefined;
         } & {
             denom?: string | undefined;
             amount?: string | undefined;
-        } & Record<Exclude<keyof I["softUnlockCoin"], keyof Coin>, never>) | undefined;
+        } & Record<Exclude<keyof I["farmingPoolCoin"], keyof Coin>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgFarm>, never>>(object: I): MsgFarm;
+};
+export declare const MsgFarmResponse: {
+    encode(_: MsgFarmResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFarmResponse;
+    fromJSON(_: any): MsgFarmResponse;
+    toJSON(_: MsgFarmResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgFarmResponse;
+};
+export declare const MsgUnfarm: {
+    encode(message: MsgUnfarm, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUnfarm;
+    fromJSON(object: any): MsgUnfarm;
+    toJSON(message: MsgUnfarm): unknown;
+    fromPartial<I extends {
+        appId?: string | number | Long.Long | undefined;
+        poolId?: string | number | Long.Long | undefined;
+        farmer?: string | undefined;
+        unfarmingPoolCoin?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
         appId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -1741,14 +1671,80 @@ export declare const MsgTokensSoftUnlock: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof MsgTokensSoftUnlock>, never>>(object: I): MsgTokensSoftUnlock;
+        poolId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["poolId"], keyof Long.Long>, never>) | undefined;
+        farmer?: string | undefined;
+        unfarmingPoolCoin?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["unfarmingPoolCoin"], keyof Coin>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgUnfarm>, never>>(object: I): MsgUnfarm;
 };
-export declare const MsgTokensSoftUnlockResponse: {
-    encode(_: MsgTokensSoftUnlockResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgTokensSoftUnlockResponse;
-    fromJSON(_: any): MsgTokensSoftUnlockResponse;
-    toJSON(_: MsgTokensSoftUnlockResponse): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgTokensSoftUnlockResponse;
+export declare const MsgUnfarmResponse: {
+    encode(_: MsgUnfarmResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUnfarmResponse;
+    fromJSON(_: any): MsgUnfarmResponse;
+    toJSON(_: MsgUnfarmResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgUnfarmResponse;
 };
 /** Msg defines the Msg service. */
 export interface Msg {
@@ -1768,10 +1764,10 @@ export interface Msg {
     CancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse>;
     /** CancelAllOrders defines a method for cancelling all orders */
     CancelAllOrders(request: MsgCancelAllOrders): Promise<MsgCancelAllOrdersResponse>;
-    /** TokensSoftLock defines a method to soft lock the token, for incentivization */
-    TokensSoftLock(request: MsgTokensSoftLock): Promise<MsgTokensSoftLockResponse>;
-    /** TokensSoftUnlock defines a method to unlock the soft locked token, for incentivization */
-    TokensSoftUnlock(request: MsgTokensSoftUnlock): Promise<MsgTokensSoftUnlockResponse>;
+    /** MsgFarm defines a method to farm the pool token, for incentivization */
+    Farm(request: MsgFarm): Promise<MsgFarmResponse>;
+    /** Unfarm defines a method to unfarm the farmed pool token */
+    Unfarm(request: MsgUnfarm): Promise<MsgUnfarmResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -1784,8 +1780,8 @@ export declare class MsgClientImpl implements Msg {
     MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse>;
     CancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse>;
     CancelAllOrders(request: MsgCancelAllOrders): Promise<MsgCancelAllOrdersResponse>;
-    TokensSoftLock(request: MsgTokensSoftLock): Promise<MsgTokensSoftLockResponse>;
-    TokensSoftUnlock(request: MsgTokensSoftUnlock): Promise<MsgTokensSoftUnlockResponse>;
+    Farm(request: MsgFarm): Promise<MsgFarmResponse>;
+    Unfarm(request: MsgUnfarm): Promise<MsgUnfarmResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

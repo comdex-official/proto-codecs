@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryFarmedPoolCoinResponse = exports.QueryFarmedPoolCoinRequest = exports.QueryPoolIncentivesResponse = exports.PoolIncentive = exports.QueryPoolsIncentivesRequest = exports.QueryDeserializePoolCoinResponse = exports.QueryDeserializePoolCoinRequest = exports.QuerySoftLockResponse = exports.QueuedPoolCoin = exports.QuerySoftLockRequest = exports.PoolResponse = exports.QueryOrdersByOrdererRequest = exports.QueryOrderResponse = exports.QueryOrderRequest = exports.QueryOrdersResponse = exports.QueryOrdersRequest = exports.QueryWithdrawRequestResponse = exports.QueryWithdrawRequestRequest = exports.QueryWithdrawRequestsResponse = exports.QueryWithdrawRequestsRequest = exports.QueryDepositRequestResponse = exports.QueryDepositRequestRequest = exports.QueryDepositRequestsResponse = exports.QueryDepositRequestsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryPoolByPoolCoinDenomRequest = exports.QueryPoolByReserveAddressRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryGenericParamsResponse = exports.QueryGenericParamsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryFarmedPoolCoinResponse = exports.QueryFarmedPoolCoinRequest = exports.QueryPoolIncentivesResponse = exports.PoolIncentive = exports.QueryPoolsIncentivesRequest = exports.QueryDeserializePoolCoinResponse = exports.QueryDeserializePoolCoinRequest = exports.QueryFarmerResponse = exports.QueuedPoolCoin = exports.QueryFarmerRequest = exports.PoolResponse = exports.QueryOrdersByOrdererRequest = exports.QueryOrderResponse = exports.QueryOrderRequest = exports.QueryOrdersResponse = exports.QueryOrdersRequest = exports.QueryWithdrawRequestResponse = exports.QueryWithdrawRequestRequest = exports.QueryWithdrawRequestsResponse = exports.QueryWithdrawRequestsRequest = exports.QueryDepositRequestResponse = exports.QueryDepositRequestRequest = exports.QueryDepositRequestsResponse = exports.QueryDepositRequestsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryPoolByPoolCoinDenomRequest = exports.QueryPoolByReserveAddressRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryGenericParamsResponse = exports.QueryGenericParamsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -1909,37 +1909,37 @@ exports.PoolResponse = {
         return message;
     },
 };
-function createBaseQuerySoftLockRequest() {
-    return { poolId: long_1.default.UZERO, depositor: "", appId: long_1.default.UZERO };
+function createBaseQueryFarmerRequest() {
+    return { appId: long_1.default.UZERO, poolId: long_1.default.UZERO, farmer: "" };
 }
-exports.QuerySoftLockRequest = {
+exports.QueryFarmerRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.poolId.isZero()) {
-            writer.uint32(8).uint64(message.poolId);
-        }
-        if (message.depositor !== "") {
-            writer.uint32(18).string(message.depositor);
-        }
         if (!message.appId.isZero()) {
-            writer.uint32(24).uint64(message.appId);
+            writer.uint32(8).uint64(message.appId);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        if (message.farmer !== "") {
+            writer.uint32(26).string(message.farmer);
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQuerySoftLockRequest();
+        const message = createBaseQueryFarmerRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.poolId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
-                    message.depositor = reader.string();
+                    message.poolId = reader.uint64();
                     break;
                 case 3:
-                    message.appId = reader.uint64();
+                    message.farmer = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1950,34 +1950,34 @@ exports.QuerySoftLockRequest = {
     },
     fromJSON(object) {
         return {
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             poolId: isSet(object.poolId)
                 ? long_1.default.fromString(object.poolId)
                 : long_1.default.UZERO,
-            depositor: isSet(object.depositor) ? String(object.depositor) : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            farmer: isSet(object.farmer) ? String(object.farmer) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.poolId !== undefined &&
-            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
-        message.depositor !== undefined && (obj.depositor = message.depositor);
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.farmer !== undefined && (obj.farmer = message.farmer);
         return obj;
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQuerySoftLockRequest();
-        message.poolId =
-            object.poolId !== undefined && object.poolId !== null
-                ? long_1.default.fromValue(object.poolId)
-                : long_1.default.UZERO;
-        message.depositor = (_a = object.depositor) !== null && _a !== void 0 ? _a : "";
+        const message = createBaseQueryFarmerRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.farmer = (_a = object.farmer) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
@@ -2045,10 +2045,10 @@ exports.QueuedPoolCoin = {
         return message;
     },
 };
-function createBaseQuerySoftLockResponse() {
+function createBaseQueryFarmerResponse() {
     return { activePoolCoin: undefined, queuedPoolCoin: [] };
 }
-exports.QuerySoftLockResponse = {
+exports.QueryFarmerResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.activePoolCoin !== undefined) {
             coin_1.Coin.encode(message.activePoolCoin, writer.uint32(10).fork()).ldelim();
@@ -2061,7 +2061,7 @@ exports.QuerySoftLockResponse = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQuerySoftLockResponse();
+        const message = createBaseQueryFarmerResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2104,7 +2104,7 @@ exports.QuerySoftLockResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQuerySoftLockResponse();
+        const message = createBaseQueryFarmerResponse();
         message.activePoolCoin =
             object.activePoolCoin !== undefined && object.activePoolCoin !== null
                 ? coin_1.Coin.fromPartial(object.activePoolCoin)
@@ -2682,7 +2682,7 @@ class QueryClientImpl {
         this.Orders = this.Orders.bind(this);
         this.Order = this.Order.bind(this);
         this.OrdersByOrderer = this.OrdersByOrderer.bind(this);
-        this.SoftLock = this.SoftLock.bind(this);
+        this.Farmer = this.Farmer.bind(this);
         this.DeserializePoolCoin = this.DeserializePoolCoin.bind(this);
         this.PoolIncentives = this.PoolIncentives.bind(this);
         this.FarmedPoolCoin = this.FarmedPoolCoin.bind(this);
@@ -2762,10 +2762,10 @@ class QueryClientImpl {
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "OrdersByOrderer", data);
         return promise.then((data) => exports.QueryOrdersResponse.decode(new minimal_1.default.Reader(data)));
     }
-    SoftLock(request) {
-        const data = exports.QuerySoftLockRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "SoftLock", data);
-        return promise.then((data) => exports.QuerySoftLockResponse.decode(new minimal_1.default.Reader(data)));
+    Farmer(request) {
+        const data = exports.QueryFarmerRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Farmer", data);
+        return promise.then((data) => exports.QueryFarmerResponse.decode(new minimal_1.default.Reader(data)));
     }
     DeserializePoolCoin(request) {
         const data = exports.QueryDeserializePoolCoinRequest.encode(request).finish();
