@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateGenericParamsProposal = exports.protobufPackage = void 0;
+exports.CreateNewLiquidityPairProposal = exports.UpdateGenericParamsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -110,6 +110,113 @@ exports.UpdateGenericParamsProposal = {
         message.values = ((_b = object.values) === null || _b === void 0 ? void 0 : _b.map((e) => e)) || [];
         message.title = (_c = object.title) !== null && _c !== void 0 ? _c : "";
         message.description = (_d = object.description) !== null && _d !== void 0 ? _d : "";
+        return message;
+    },
+};
+function createBaseCreateNewLiquidityPairProposal() {
+    return {
+        from: "",
+        appId: long_1.default.UZERO,
+        baseCoinDenom: "",
+        quoteCoinDenom: "",
+        title: "",
+        description: "",
+    };
+}
+exports.CreateNewLiquidityPairProposal = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.from !== "") {
+            writer.uint32(10).string(message.from);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
+        }
+        if (message.baseCoinDenom !== "") {
+            writer.uint32(26).string(message.baseCoinDenom);
+        }
+        if (message.quoteCoinDenom !== "") {
+            writer.uint32(34).string(message.quoteCoinDenom);
+        }
+        if (message.title !== "") {
+            writer.uint32(42).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(50).string(message.description);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseCreateNewLiquidityPairProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.from = reader.string();
+                    break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
+                case 3:
+                    message.baseCoinDenom = reader.string();
+                    break;
+                case 4:
+                    message.quoteCoinDenom = reader.string();
+                    break;
+                case 5:
+                    message.title = reader.string();
+                    break;
+                case 6:
+                    message.description = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            baseCoinDenom: isSet(object.baseCoinDenom)
+                ? String(object.baseCoinDenom)
+                : "",
+            quoteCoinDenom: isSet(object.quoteCoinDenom)
+                ? String(object.quoteCoinDenom)
+                : "",
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.from !== undefined && (obj.from = message.from);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.baseCoinDenom !== undefined &&
+            (obj.baseCoinDenom = message.baseCoinDenom);
+        message.quoteCoinDenom !== undefined &&
+            (obj.quoteCoinDenom = message.quoteCoinDenom);
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d, _e;
+        const message = createBaseCreateNewLiquidityPairProposal();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.baseCoinDenom = (_b = object.baseCoinDenom) !== null && _b !== void 0 ? _b : "";
+        message.quoteCoinDenom = (_c = object.quoteCoinDenom) !== null && _c !== void 0 ? _c : "";
+        message.title = (_d = object.title) !== null && _d !== void 0 ? _d : "";
+        message.description = (_e = object.description) !== null && _e !== void 0 ? _e : "";
         return message;
     },
 };
