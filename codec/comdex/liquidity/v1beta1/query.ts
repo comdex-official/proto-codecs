@@ -184,11 +184,11 @@ export interface PoolResponse {
   appId: Long;
 }
 
-/** QuerySoftLockRequest is request type for the Query/SoftLock RPC method. */
-export interface QuerySoftLockRequest {
-  poolId: Long;
-  depositor: string;
+/** QueryFarmerRequest is request type for the Query/Farmer RPC method. */
+export interface QueryFarmerRequest {
   appId: Long;
+  poolId: Long;
+  farmer: string;
 }
 
 export interface QueuedPoolCoin {
@@ -196,8 +196,8 @@ export interface QueuedPoolCoin {
   dequeAt?: Date;
 }
 
-/** QuerySoftLockResponse is response type for the Query/SoftLock RPC method. */
-export interface QuerySoftLockResponse {
+/** QueryFarmerResponse is response type for the Query/Farmer RPC method. */
+export interface QueryFarmerResponse {
   activePoolCoin?: Coin;
   queuedPoolCoin: QueuedPoolCoin[];
 }
@@ -2514,45 +2514,42 @@ export const PoolResponse = {
   },
 };
 
-function createBaseQuerySoftLockRequest(): QuerySoftLockRequest {
-  return { poolId: Long.UZERO, depositor: "", appId: Long.UZERO };
+function createBaseQueryFarmerRequest(): QueryFarmerRequest {
+  return { appId: Long.UZERO, poolId: Long.UZERO, farmer: "" };
 }
 
-export const QuerySoftLockRequest = {
+export const QueryFarmerRequest = {
   encode(
-    message: QuerySoftLockRequest,
+    message: QueryFarmerRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.poolId.isZero()) {
-      writer.uint32(8).uint64(message.poolId);
-    }
-    if (message.depositor !== "") {
-      writer.uint32(18).string(message.depositor);
-    }
     if (!message.appId.isZero()) {
-      writer.uint32(24).uint64(message.appId);
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (!message.poolId.isZero()) {
+      writer.uint32(16).uint64(message.poolId);
+    }
+    if (message.farmer !== "") {
+      writer.uint32(26).string(message.farmer);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QuerySoftLockRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFarmerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQuerySoftLockRequest();
+    const message = createBaseQueryFarmerRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.poolId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 2:
-          message.depositor = reader.string();
+          message.poolId = reader.uint64() as Long;
           break;
         case 3:
-          message.appId = reader.uint64() as Long;
+          message.farmer = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -2562,39 +2559,39 @@ export const QuerySoftLockRequest = {
     return message;
   },
 
-  fromJSON(object: any): QuerySoftLockRequest {
+  fromJSON(object: any): QueryFarmerRequest {
     return {
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       poolId: isSet(object.poolId)
         ? Long.fromString(object.poolId)
         : Long.UZERO,
-      depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      farmer: isSet(object.farmer) ? String(object.farmer) : "",
     };
   },
 
-  toJSON(message: QuerySoftLockRequest): unknown {
+  toJSON(message: QueryFarmerRequest): unknown {
     const obj: any = {};
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.depositor !== undefined && (obj.depositor = message.depositor);
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.farmer !== undefined && (obj.farmer = message.farmer);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QuerySoftLockRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryFarmerRequest>, I>>(
     object: I
-  ): QuerySoftLockRequest {
-    const message = createBaseQuerySoftLockRequest();
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
-    message.depositor = object.depositor ?? "";
+  ): QueryFarmerRequest {
+    const message = createBaseQueryFarmerRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
         : Long.UZERO;
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    message.farmer = object.farmer ?? "";
     return message;
   },
 };
@@ -2678,13 +2675,13 @@ export const QueuedPoolCoin = {
   },
 };
 
-function createBaseQuerySoftLockResponse(): QuerySoftLockResponse {
+function createBaseQueryFarmerResponse(): QueryFarmerResponse {
   return { activePoolCoin: undefined, queuedPoolCoin: [] };
 }
 
-export const QuerySoftLockResponse = {
+export const QueryFarmerResponse = {
   encode(
-    message: QuerySoftLockResponse,
+    message: QueryFarmerResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.activePoolCoin !== undefined) {
@@ -2696,13 +2693,10 @@ export const QuerySoftLockResponse = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QuerySoftLockResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFarmerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQuerySoftLockResponse();
+    const message = createBaseQueryFarmerResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2722,7 +2716,7 @@ export const QuerySoftLockResponse = {
     return message;
   },
 
-  fromJSON(object: any): QuerySoftLockResponse {
+  fromJSON(object: any): QueryFarmerResponse {
     return {
       activePoolCoin: isSet(object.activePoolCoin)
         ? Coin.fromJSON(object.activePoolCoin)
@@ -2733,7 +2727,7 @@ export const QuerySoftLockResponse = {
     };
   },
 
-  toJSON(message: QuerySoftLockResponse): unknown {
+  toJSON(message: QueryFarmerResponse): unknown {
     const obj: any = {};
     message.activePoolCoin !== undefined &&
       (obj.activePoolCoin = message.activePoolCoin
@@ -2749,10 +2743,10 @@ export const QuerySoftLockResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QuerySoftLockResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryFarmerResponse>, I>>(
     object: I
-  ): QuerySoftLockResponse {
-    const message = createBaseQuerySoftLockResponse();
+  ): QueryFarmerResponse {
+    const message = createBaseQueryFarmerResponse();
     message.activePoolCoin =
       object.activePoolCoin !== undefined && object.activePoolCoin !== null
         ? Coin.fromPartial(object.activePoolCoin)
@@ -3463,8 +3457,8 @@ export interface Query {
   OrdersByOrderer(
     request: QueryOrdersByOrdererRequest
   ): Promise<QueryOrdersResponse>;
-  /** SoftLock returns deposited poolcoin for farming . */
-  SoftLock(request: QuerySoftLockRequest): Promise<QuerySoftLockResponse>;
+  /** Farmer returns deposited poolcoin for farming . */
+  Farmer(request: QueryFarmerRequest): Promise<QueryFarmerResponse>;
   /** DeserializePoolCoin splits poolcoin into the actual provided pool assets . */
   DeserializePoolCoin(
     request: QueryDeserializePoolCoinRequest
@@ -3473,7 +3467,7 @@ export interface Query {
   PoolIncentives(
     request: QueryPoolsIncentivesRequest
   ): Promise<QueryPoolIncentivesResponse>;
-  /** FarmedPoolCoin returns the total coin in the soft-lock. */
+  /** FarmedPoolCoin returns the total farmed pool coins. */
   FarmedPoolCoin(
     request: QueryFarmedPoolCoinRequest
   ): Promise<QueryFarmedPoolCoinResponse>;
@@ -3498,7 +3492,7 @@ export class QueryClientImpl implements Query {
     this.Orders = this.Orders.bind(this);
     this.Order = this.Order.bind(this);
     this.OrdersByOrderer = this.OrdersByOrderer.bind(this);
-    this.SoftLock = this.SoftLock.bind(this);
+    this.Farmer = this.Farmer.bind(this);
     this.DeserializePoolCoin = this.DeserializePoolCoin.bind(this);
     this.PoolIncentives = this.PoolIncentives.bind(this);
     this.FarmedPoolCoin = this.FarmedPoolCoin.bind(this);
@@ -3699,15 +3693,15 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  SoftLock(request: QuerySoftLockRequest): Promise<QuerySoftLockResponse> {
-    const data = QuerySoftLockRequest.encode(request).finish();
+  Farmer(request: QueryFarmerRequest): Promise<QueryFarmerResponse> {
+    const data = QueryFarmerRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.liquidity.v1beta1.Query",
-      "SoftLock",
+      "Farmer",
       data
     );
     return promise.then((data) =>
-      QuerySoftLockResponse.decode(new _m0.Reader(data))
+      QueryFarmerResponse.decode(new _m0.Reader(data))
     );
   }
 
