@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -22,14 +26,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddAssetRatesStats = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.UpdatePairProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
+exports.AddAuctionParamsProposal = exports.AddAssetRatesStats = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.UpdatePairProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 const lend_1 = require("../../../comdex/lend/v1beta1/lend");
 exports.protobufPackage = "comdex.lend.v1beta1";
 function createBaseLendPairsProposal() {
-    return { title: "", description: "", pairs: [] };
+    return { title: "", description: "", pairs: undefined };
 }
 exports.LendPairsProposal = {
     encode(message, writer = _m0.Writer.create()) {
@@ -39,8 +43,8 @@ exports.LendPairsProposal = {
         if (message.description !== "") {
             writer.uint32(18).string(message.description);
         }
-        for (const v of message.pairs) {
-            lend_1.ExtendedPair.encode(v, writer.uint32(26).fork()).ldelim();
+        if (message.pairs !== undefined) {
+            lend_1.ExtendedPair.encode(message.pairs, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -58,7 +62,7 @@ exports.LendPairsProposal = {
                     message.description = reader.string();
                     break;
                 case 3:
-                    message.pairs.push(lend_1.ExtendedPair.decode(reader, reader.uint32()));
+                    message.pairs = lend_1.ExtendedPair.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -71,9 +75,9 @@ exports.LendPairsProposal = {
         return {
             title: isSet(object.title) ? String(object.title) : "",
             description: isSet(object.description) ? String(object.description) : "",
-            pairs: Array.isArray(object === null || object === void 0 ? void 0 : object.pairs)
-                ? object.pairs.map((e) => lend_1.ExtendedPair.fromJSON(e))
-                : [],
+            pairs: isSet(object.pairs)
+                ? lend_1.ExtendedPair.fromJSON(object.pairs)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -81,20 +85,21 @@ exports.LendPairsProposal = {
         message.title !== undefined && (obj.title = message.title);
         message.description !== undefined &&
             (obj.description = message.description);
-        if (message.pairs) {
-            obj.pairs = message.pairs.map((e) => e ? lend_1.ExtendedPair.toJSON(e) : undefined);
-        }
-        else {
-            obj.pairs = [];
-        }
+        message.pairs !== undefined &&
+            (obj.pairs = message.pairs
+                ? lend_1.ExtendedPair.toJSON(message.pairs)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b;
         const message = createBaseLendPairsProposal();
         message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.pairs = ((_c = object.pairs) === null || _c === void 0 ? void 0 : _c.map((e) => lend_1.ExtendedPair.fromPartial(e))) || [];
+        message.pairs =
+            object.pairs !== undefined && object.pairs !== null
+                ? lend_1.ExtendedPair.fromPartial(object.pairs)
+                : undefined;
         return message;
     },
 };
@@ -305,7 +310,7 @@ exports.AddAssetToPairProposal = {
     },
 };
 function createBaseAddAssetRatesStats() {
-    return { title: "", description: "", AssetRatesStats: [] };
+    return { title: "", description: "", AssetRatesStats: undefined };
 }
 exports.AddAssetRatesStats = {
     encode(message, writer = _m0.Writer.create()) {
@@ -315,8 +320,8 @@ exports.AddAssetRatesStats = {
         if (message.description !== "") {
             writer.uint32(18).string(message.description);
         }
-        for (const v of message.AssetRatesStats) {
-            lend_1.AssetRatesStats.encode(v, writer.uint32(26).fork()).ldelim();
+        if (message.AssetRatesStats !== undefined) {
+            lend_1.AssetRatesStats.encode(message.AssetRatesStats, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -334,7 +339,7 @@ exports.AddAssetRatesStats = {
                     message.description = reader.string();
                     break;
                 case 3:
-                    message.AssetRatesStats.push(lend_1.AssetRatesStats.decode(reader, reader.uint32()));
+                    message.AssetRatesStats = lend_1.AssetRatesStats.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -347,9 +352,9 @@ exports.AddAssetRatesStats = {
         return {
             title: isSet(object.title) ? String(object.title) : "",
             description: isSet(object.description) ? String(object.description) : "",
-            AssetRatesStats: Array.isArray(object === null || object === void 0 ? void 0 : object.AssetRatesStats)
-                ? object.AssetRatesStats.map((e) => lend_1.AssetRatesStats.fromJSON(e))
-                : [],
+            AssetRatesStats: isSet(object.AssetRatesStats)
+                ? lend_1.AssetRatesStats.fromJSON(object.AssetRatesStats)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -357,21 +362,92 @@ exports.AddAssetRatesStats = {
         message.title !== undefined && (obj.title = message.title);
         message.description !== undefined &&
             (obj.description = message.description);
-        if (message.AssetRatesStats) {
-            obj.AssetRatesStats = message.AssetRatesStats.map((e) => e ? lend_1.AssetRatesStats.toJSON(e) : undefined);
-        }
-        else {
-            obj.AssetRatesStats = [];
-        }
+        message.AssetRatesStats !== undefined &&
+            (obj.AssetRatesStats = message.AssetRatesStats
+                ? lend_1.AssetRatesStats.toJSON(message.AssetRatesStats)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b;
         const message = createBaseAddAssetRatesStats();
         message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
         message.AssetRatesStats =
-            ((_c = object.AssetRatesStats) === null || _c === void 0 ? void 0 : _c.map((e) => lend_1.AssetRatesStats.fromPartial(e))) || [];
+            object.AssetRatesStats !== undefined && object.AssetRatesStats !== null
+                ? lend_1.AssetRatesStats.fromPartial(object.AssetRatesStats)
+                : undefined;
+        return message;
+    },
+};
+function createBaseAddAuctionParamsProposal() {
+    return { title: "", description: "", AuctionParams: undefined };
+}
+exports.AddAuctionParamsProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        if (message.AuctionParams !== undefined) {
+            lend_1.AuctionParams.encode(message.AuctionParams, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAddAuctionParamsProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.AuctionParams = lend_1.AuctionParams.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            AuctionParams: isSet(object.AuctionParams)
+                ? lend_1.AuctionParams.fromJSON(object.AuctionParams)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        message.AuctionParams !== undefined &&
+            (obj.AuctionParams = message.AuctionParams
+                ? lend_1.AuctionParams.toJSON(message.AuctionParams)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseAddAuctionParamsProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.AuctionParams =
+            object.AuctionParams !== undefined && object.AuctionParams !== null
+                ? lend_1.AuctionParams.fromPartial(object.AuctionParams)
+                : undefined;
         return message;
     },
 };

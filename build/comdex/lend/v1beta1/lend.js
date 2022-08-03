@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -22,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DepositStats = exports.BalanceStats = exports.ModuleBalanceStats = exports.ModuleBalance = exports.StableBorrowMapping = exports.BorrowMapping = exports.LendMapping = exports.AssetRatesStats = exports.AssetStats = exports.LendIdToBorrowIdMapping = exports.UserBorrowIdMapping = exports.BorrowIdByOwnerAndPoolMapping = exports.LendIdByOwnerAndPoolMapping = exports.UserLendIdMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
+exports.AuctionParams = exports.DepositStats = exports.BalanceStats = exports.ModuleBalanceStats = exports.ModuleBalance = exports.StableBorrowMapping = exports.BorrowMapping = exports.LendMapping = exports.AssetRatesStats = exports.AssetStats = exports.LendIdToBorrowIdMapping = exports.UserBorrowIdMapping = exports.BorrowIdByOwnerAndPoolMapping = exports.LendIdByOwnerAndPoolMapping = exports.UserLendIdMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -2013,6 +2017,183 @@ exports.DepositStats = {
         const message = createBaseDepositStats();
         message.balanceStats =
             ((_a = object.balanceStats) === null || _a === void 0 ? void 0 : _a.map((e) => exports.BalanceStats.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseAuctionParams() {
+    return {
+        appId: long_1.default.UZERO,
+        auctionDurationSeconds: long_1.default.UZERO,
+        buffer: "",
+        cusp: "",
+        step: "",
+        priceFunctionType: long_1.default.UZERO,
+        surplusId: long_1.default.UZERO,
+        debtId: long_1.default.UZERO,
+        dutchId: long_1.default.UZERO,
+        bidDurationSeconds: long_1.default.UZERO,
+    };
+}
+exports.AuctionParams = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        if (!message.auctionDurationSeconds.isZero()) {
+            writer.uint32(16).uint64(message.auctionDurationSeconds);
+        }
+        if (message.buffer !== "") {
+            writer.uint32(26).string(message.buffer);
+        }
+        if (message.cusp !== "") {
+            writer.uint32(34).string(message.cusp);
+        }
+        if (message.step !== "") {
+            writer.uint32(42).string(message.step);
+        }
+        if (!message.priceFunctionType.isZero()) {
+            writer.uint32(48).uint64(message.priceFunctionType);
+        }
+        if (!message.surplusId.isZero()) {
+            writer.uint32(56).uint64(message.surplusId);
+        }
+        if (!message.debtId.isZero()) {
+            writer.uint32(64).uint64(message.debtId);
+        }
+        if (!message.dutchId.isZero()) {
+            writer.uint32(72).uint64(message.dutchId);
+        }
+        if (!message.bidDurationSeconds.isZero()) {
+            writer.uint32(80).uint64(message.bidDurationSeconds);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAuctionParams();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
+                    message.auctionDurationSeconds = reader.uint64();
+                    break;
+                case 3:
+                    message.buffer = reader.string();
+                    break;
+                case 4:
+                    message.cusp = reader.string();
+                    break;
+                case 5:
+                    message.step = reader.string();
+                    break;
+                case 6:
+                    message.priceFunctionType = reader.uint64();
+                    break;
+                case 7:
+                    message.surplusId = reader.uint64();
+                    break;
+                case 8:
+                    message.debtId = reader.uint64();
+                    break;
+                case 9:
+                    message.dutchId = reader.uint64();
+                    break;
+                case 10:
+                    message.bidDurationSeconds = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            auctionDurationSeconds: isSet(object.auctionDurationSeconds)
+                ? long_1.default.fromValue(object.auctionDurationSeconds)
+                : long_1.default.UZERO,
+            buffer: isSet(object.buffer) ? String(object.buffer) : "",
+            cusp: isSet(object.cusp) ? String(object.cusp) : "",
+            step: isSet(object.step) ? String(object.step) : "",
+            priceFunctionType: isSet(object.priceFunctionType)
+                ? long_1.default.fromValue(object.priceFunctionType)
+                : long_1.default.UZERO,
+            surplusId: isSet(object.surplusId)
+                ? long_1.default.fromValue(object.surplusId)
+                : long_1.default.UZERO,
+            debtId: isSet(object.debtId) ? long_1.default.fromValue(object.debtId) : long_1.default.UZERO,
+            dutchId: isSet(object.dutchId)
+                ? long_1.default.fromValue(object.dutchId)
+                : long_1.default.UZERO,
+            bidDurationSeconds: isSet(object.bidDurationSeconds)
+                ? long_1.default.fromValue(object.bidDurationSeconds)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.auctionDurationSeconds !== undefined &&
+            (obj.auctionDurationSeconds = (message.auctionDurationSeconds || long_1.default.UZERO).toString());
+        message.buffer !== undefined && (obj.buffer = message.buffer);
+        message.cusp !== undefined && (obj.cusp = message.cusp);
+        message.step !== undefined && (obj.step = message.step);
+        message.priceFunctionType !== undefined &&
+            (obj.priceFunctionType = (message.priceFunctionType || long_1.default.UZERO).toString());
+        message.surplusId !== undefined &&
+            (obj.surplusId = (message.surplusId || long_1.default.UZERO).toString());
+        message.debtId !== undefined &&
+            (obj.debtId = (message.debtId || long_1.default.UZERO).toString());
+        message.dutchId !== undefined &&
+            (obj.dutchId = (message.dutchId || long_1.default.UZERO).toString());
+        message.bidDurationSeconds !== undefined &&
+            (obj.bidDurationSeconds = (message.bidDurationSeconds || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseAuctionParams();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.auctionDurationSeconds =
+            object.auctionDurationSeconds !== undefined &&
+                object.auctionDurationSeconds !== null
+                ? long_1.default.fromValue(object.auctionDurationSeconds)
+                : long_1.default.UZERO;
+        message.buffer = (_a = object.buffer) !== null && _a !== void 0 ? _a : "";
+        message.cusp = (_b = object.cusp) !== null && _b !== void 0 ? _b : "";
+        message.step = (_c = object.step) !== null && _c !== void 0 ? _c : "";
+        message.priceFunctionType =
+            object.priceFunctionType !== undefined &&
+                object.priceFunctionType !== null
+                ? long_1.default.fromValue(object.priceFunctionType)
+                : long_1.default.UZERO;
+        message.surplusId =
+            object.surplusId !== undefined && object.surplusId !== null
+                ? long_1.default.fromValue(object.surplusId)
+                : long_1.default.UZERO;
+        message.debtId =
+            object.debtId !== undefined && object.debtId !== null
+                ? long_1.default.fromValue(object.debtId)
+                : long_1.default.UZERO;
+        message.dutchId =
+            object.dutchId !== undefined && object.dutchId !== null
+                ? long_1.default.fromValue(object.dutchId)
+                : long_1.default.UZERO;
+        message.bidDurationSeconds =
+            object.bidDurationSeconds !== undefined &&
+                object.bidDurationSeconds !== null
+                ? long_1.default.fromValue(object.bidDurationSeconds)
+                : long_1.default.UZERO;
         return message;
     },
 };
