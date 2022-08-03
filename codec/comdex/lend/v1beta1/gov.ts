@@ -6,6 +6,7 @@ import {
   Pool,
   AssetToPairMapping,
   AssetRatesStats,
+  AuctionParams,
 } from "../../../comdex/lend/v1beta1/lend";
 
 export const protobufPackage = "comdex.lend.v1beta1";
@@ -13,7 +14,7 @@ export const protobufPackage = "comdex.lend.v1beta1";
 export interface LendPairsProposal {
   title: string;
   description: string;
-  pairs: ExtendedPair[];
+  pairs?: ExtendedPair;
 }
 
 export interface UpdatePairProposal {
@@ -37,11 +38,17 @@ export interface AddAssetToPairProposal {
 export interface AddAssetRatesStats {
   title: string;
   description: string;
-  AssetRatesStats: AssetRatesStats[];
+  AssetRatesStats?: AssetRatesStats;
+}
+
+export interface AddAuctionParamsProposal {
+  title: string;
+  description: string;
+  AuctionParams?: AuctionParams;
 }
 
 function createBaseLendPairsProposal(): LendPairsProposal {
-  return { title: "", description: "", pairs: [] };
+  return { title: "", description: "", pairs: undefined };
 }
 
 export const LendPairsProposal = {
@@ -55,8 +62,8 @@ export const LendPairsProposal = {
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-    for (const v of message.pairs) {
-      ExtendedPair.encode(v!, writer.uint32(26).fork()).ldelim();
+    if (message.pairs !== undefined) {
+      ExtendedPair.encode(message.pairs, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -75,7 +82,7 @@ export const LendPairsProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.pairs.push(ExtendedPair.decode(reader, reader.uint32()));
+          message.pairs = ExtendedPair.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -89,9 +96,9 @@ export const LendPairsProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      pairs: Array.isArray(object?.pairs)
-        ? object.pairs.map((e: any) => ExtendedPair.fromJSON(e))
-        : [],
+      pairs: isSet(object.pairs)
+        ? ExtendedPair.fromJSON(object.pairs)
+        : undefined,
     };
   },
 
@@ -100,13 +107,10 @@ export const LendPairsProposal = {
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined &&
       (obj.description = message.description);
-    if (message.pairs) {
-      obj.pairs = message.pairs.map((e) =>
-        e ? ExtendedPair.toJSON(e) : undefined
-      );
-    } else {
-      obj.pairs = [];
-    }
+    message.pairs !== undefined &&
+      (obj.pairs = message.pairs
+        ? ExtendedPair.toJSON(message.pairs)
+        : undefined);
     return obj;
   },
 
@@ -116,7 +120,10 @@ export const LendPairsProposal = {
     const message = createBaseLendPairsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.pairs = object.pairs?.map((e) => ExtendedPair.fromPartial(e)) || [];
+    message.pairs =
+      object.pairs !== undefined && object.pairs !== null
+        ? ExtendedPair.fromPartial(object.pairs)
+        : undefined;
     return message;
   },
 };
@@ -367,7 +374,7 @@ export const AddAssetToPairProposal = {
 };
 
 function createBaseAddAssetRatesStats(): AddAssetRatesStats {
-  return { title: "", description: "", AssetRatesStats: [] };
+  return { title: "", description: "", AssetRatesStats: undefined };
 }
 
 export const AddAssetRatesStats = {
@@ -381,8 +388,11 @@ export const AddAssetRatesStats = {
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-    for (const v of message.AssetRatesStats) {
-      AssetRatesStats.encode(v!, writer.uint32(26).fork()).ldelim();
+    if (message.AssetRatesStats !== undefined) {
+      AssetRatesStats.encode(
+        message.AssetRatesStats,
+        writer.uint32(26).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -401,8 +411,9 @@ export const AddAssetRatesStats = {
           message.description = reader.string();
           break;
         case 3:
-          message.AssetRatesStats.push(
-            AssetRatesStats.decode(reader, reader.uint32())
+          message.AssetRatesStats = AssetRatesStats.decode(
+            reader,
+            reader.uint32()
           );
           break;
         default:
@@ -417,9 +428,9 @@ export const AddAssetRatesStats = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      AssetRatesStats: Array.isArray(object?.AssetRatesStats)
-        ? object.AssetRatesStats.map((e: any) => AssetRatesStats.fromJSON(e))
-        : [],
+      AssetRatesStats: isSet(object.AssetRatesStats)
+        ? AssetRatesStats.fromJSON(object.AssetRatesStats)
+        : undefined,
     };
   },
 
@@ -428,13 +439,10 @@ export const AddAssetRatesStats = {
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined &&
       (obj.description = message.description);
-    if (message.AssetRatesStats) {
-      obj.AssetRatesStats = message.AssetRatesStats.map((e) =>
-        e ? AssetRatesStats.toJSON(e) : undefined
-      );
-    } else {
-      obj.AssetRatesStats = [];
-    }
+    message.AssetRatesStats !== undefined &&
+      (obj.AssetRatesStats = message.AssetRatesStats
+        ? AssetRatesStats.toJSON(message.AssetRatesStats)
+        : undefined);
     return obj;
   },
 
@@ -445,7 +453,96 @@ export const AddAssetRatesStats = {
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.AssetRatesStats =
-      object.AssetRatesStats?.map((e) => AssetRatesStats.fromPartial(e)) || [];
+      object.AssetRatesStats !== undefined && object.AssetRatesStats !== null
+        ? AssetRatesStats.fromPartial(object.AssetRatesStats)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseAddAuctionParamsProposal(): AddAuctionParamsProposal {
+  return { title: "", description: "", AuctionParams: undefined };
+}
+
+export const AddAuctionParamsProposal = {
+  encode(
+    message: AddAuctionParamsProposal,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    if (message.AuctionParams !== undefined) {
+      AuctionParams.encode(
+        message.AuctionParams,
+        writer.uint32(26).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): AddAuctionParamsProposal {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAddAuctionParamsProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+        case 2:
+          message.description = reader.string();
+          break;
+        case 3:
+          message.AuctionParams = AuctionParams.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AddAuctionParamsProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      AuctionParams: isSet(object.AuctionParams)
+        ? AuctionParams.fromJSON(object.AuctionParams)
+        : undefined,
+    };
+  },
+
+  toJSON(message: AddAuctionParamsProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    message.AuctionParams !== undefined &&
+      (obj.AuctionParams = message.AuctionParams
+        ? AuctionParams.toJSON(message.AuctionParams)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddAuctionParamsProposal>, I>>(
+    object: I
+  ): AddAuctionParamsProposal {
+    const message = createBaseAddAuctionParamsProposal();
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.AuctionParams =
+      object.AuctionParams !== undefined && object.AuctionParams !== null
+        ? AuctionParams.fromPartial(object.AuctionParams)
+        : undefined;
     return message;
   },
 };
