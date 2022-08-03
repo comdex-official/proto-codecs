@@ -16,6 +16,7 @@ import {
   AssetStats,
   ModuleBalance,
   DepositStats,
+  AuctionParams,
 } from "../../../comdex/lend/v1beta1/lend";
 
 export const protobufPackage = "comdex.lend.v1beta1";
@@ -217,6 +218,14 @@ export interface QueryBorrowStatsRequest {}
 
 export interface QueryBorrowStatsResponse {
   BorrowStats?: DepositStats;
+}
+
+export interface QueryAuctionParamRequest {
+  appId: Long;
+}
+
+export interface QueryAuctionParamResponse {
+  auctionParams?: AuctionParams;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -3441,6 +3450,135 @@ export const QueryBorrowStatsResponse = {
   },
 };
 
+function createBaseQueryAuctionParamRequest(): QueryAuctionParamRequest {
+  return { appId: Long.UZERO };
+}
+
+export const QueryAuctionParamRequest = {
+  encode(
+    message: QueryAuctionParamRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAuctionParamRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAuctionParamRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAuctionParamRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryAuctionParamRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAuctionParamRequest>, I>>(
+    object: I
+  ): QueryAuctionParamRequest {
+    const message = createBaseQueryAuctionParamRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryAuctionParamResponse(): QueryAuctionParamResponse {
+  return { auctionParams: undefined };
+}
+
+export const QueryAuctionParamResponse = {
+  encode(
+    message: QueryAuctionParamResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.auctionParams !== undefined) {
+      AuctionParams.encode(
+        message.auctionParams,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAuctionParamResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAuctionParamResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.auctionParams = AuctionParams.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAuctionParamResponse {
+    return {
+      auctionParams: isSet(object.auctionParams)
+        ? AuctionParams.fromJSON(object.auctionParams)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryAuctionParamResponse): unknown {
+    const obj: any = {};
+    message.auctionParams !== undefined &&
+      (obj.auctionParams = message.auctionParams
+        ? AuctionParams.toJSON(message.auctionParams)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAuctionParamResponse>, I>>(
+    object: I
+  ): QueryAuctionParamResponse {
+    const message = createBaseQueryAuctionParamResponse();
+    message.auctionParams =
+      object.auctionParams !== undefined && object.auctionParams !== null
+        ? AuctionParams.fromPartial(object.auctionParams)
+        : undefined;
+    return message;
+  },
+};
+
 export interface Query {
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse>;
   QueryLend(request: QueryLendRequest): Promise<QueryLendResponse>;
@@ -3496,6 +3634,9 @@ export interface Query {
   QueryBorrowStats(
     request: QueryBorrowStatsRequest
   ): Promise<QueryBorrowStatsResponse>;
+  QueryAuctionParams(
+    request: QueryAuctionParamRequest
+  ): Promise<QueryAuctionParamResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3528,6 +3669,7 @@ export class QueryClientImpl implements Query {
     this.QueryReserveDepositStats = this.QueryReserveDepositStats.bind(this);
     this.QueryBuyBackDepositStats = this.QueryBuyBackDepositStats.bind(this);
     this.QueryBorrowStats = this.QueryBorrowStats.bind(this);
+    this.QueryAuctionParams = this.QueryAuctionParams.bind(this);
   }
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse> {
     const data = QueryLendsRequest.encode(request).finish();
@@ -3844,6 +3986,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryBorrowStatsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryAuctionParams(
+    request: QueryAuctionParamRequest
+  ): Promise<QueryAuctionParamResponse> {
+    const data = QueryAuctionParamRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryAuctionParams",
+      data
+    );
+    return promise.then((data) =>
+      QueryAuctionParamResponse.decode(new _m0.Reader(data))
     );
   }
 }
