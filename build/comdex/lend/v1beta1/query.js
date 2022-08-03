@@ -22,7 +22,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryBorrowStatsResponse = exports.QueryBorrowStatsRequest = exports.QueryBuyBackDepositStatsResponse = exports.QueryBuyBackDepositStatsRequest = exports.QueryReserveDepositStatsResponse = exports.QueryReserveDepositStatsRequest = exports.QueryUserDepositStatsResponse = exports.QueryUserDepositStatsRequest = exports.QueryDepositStatsResponse = exports.QueryDepositStatsRequest = exports.QueryModuleBalanceResponse = exports.QueryModuleBalanceRequest = exports.QueryAssetStatsResponse = exports.QueryAssetStatsRequest = exports.QueryAllBorrowByOwnerAndPoolResponse = exports.QueryAllBorrowByOwnerAndPoolRequest = exports.QueryAllBorrowByOwnerResponse = exports.QueryAllBorrowByOwnerRequest = exports.QueryBorrowResponse = exports.QueryBorrowRequest = exports.QueryBorrowsResponse = exports.QueryBorrowsRequest = exports.QueryAssetToPairMappingResponse = exports.QueryAssetToPairMappingRequest = exports.QueryAssetToPairMappingsResponse = exports.QueryAssetToPairMappingsRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryAssetRatesStatResponse = exports.QueryAssetRatesStatRequest = exports.QueryAssetRatesStatsResponse = exports.QueryAssetRatesStatsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAllLendByOwnerAndPoolResponse = exports.QueryAllLendByOwnerAndPoolRequest = exports.QueryAllLendByOwnerResponse = exports.QueryAllLendByOwnerRequest = exports.QueryLendResponse = exports.QueryLendRequest = exports.QueryLendsResponse = exports.QueryLendsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryAuctionParamRequest = exports.QueryBorrowStatsResponse = exports.QueryBorrowStatsRequest = exports.QueryBuyBackDepositStatsResponse = exports.QueryBuyBackDepositStatsRequest = exports.QueryReserveDepositStatsResponse = exports.QueryReserveDepositStatsRequest = exports.QueryUserDepositStatsResponse = exports.QueryUserDepositStatsRequest = exports.QueryDepositStatsResponse = exports.QueryDepositStatsRequest = exports.QueryModuleBalanceResponse = exports.QueryModuleBalanceRequest = exports.QueryAssetStatsResponse = exports.QueryAssetStatsRequest = exports.QueryAllBorrowByOwnerAndPoolResponse = exports.QueryAllBorrowByOwnerAndPoolRequest = exports.QueryAllBorrowByOwnerResponse = exports.QueryAllBorrowByOwnerRequest = exports.QueryBorrowResponse = exports.QueryBorrowRequest = exports.QueryBorrowsResponse = exports.QueryBorrowsRequest = exports.QueryAssetToPairMappingResponse = exports.QueryAssetToPairMappingRequest = exports.QueryAssetToPairMappingsResponse = exports.QueryAssetToPairMappingsRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryAssetRatesStatResponse = exports.QueryAssetRatesStatRequest = exports.QueryAssetRatesStatsResponse = exports.QueryAssetRatesStatsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAllLendByOwnerAndPoolResponse = exports.QueryAllLendByOwnerAndPoolRequest = exports.QueryAllLendByOwnerResponse = exports.QueryAllLendByOwnerRequest = exports.QueryLendResponse = exports.QueryLendRequest = exports.QueryLendsResponse = exports.QueryLendsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryAuctionParamResponse = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -2567,6 +2568,104 @@ exports.QueryBorrowStatsResponse = {
         return message;
     },
 };
+function createBaseQueryAuctionParamRequest() {
+    return { appId: long_1.default.UZERO };
+}
+exports.QueryAuctionParamRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAuctionParamRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAuctionParamRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryAuctionParamResponse() {
+    return { auctionParams: undefined };
+}
+exports.QueryAuctionParamResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.auctionParams !== undefined) {
+            lend_1.AuctionParams.encode(message.auctionParams, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAuctionParamResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.auctionParams = lend_1.AuctionParams.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            auctionParams: isSet(object.auctionParams)
+                ? lend_1.AuctionParams.fromJSON(object.auctionParams)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.auctionParams !== undefined &&
+            (obj.auctionParams = message.auctionParams
+                ? lend_1.AuctionParams.toJSON(message.auctionParams)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAuctionParamResponse();
+        message.auctionParams =
+            object.auctionParams !== undefined && object.auctionParams !== null
+                ? lend_1.AuctionParams.fromPartial(object.auctionParams)
+                : undefined;
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2596,6 +2695,7 @@ class QueryClientImpl {
         this.QueryReserveDepositStats = this.QueryReserveDepositStats.bind(this);
         this.QueryBuyBackDepositStats = this.QueryBuyBackDepositStats.bind(this);
         this.QueryBorrowStats = this.QueryBorrowStats.bind(this);
+        this.QueryAuctionParams = this.QueryAuctionParams.bind(this);
     }
     QueryLends(request) {
         const data = exports.QueryLendsRequest.encode(request).finish();
@@ -2716,6 +2816,11 @@ class QueryClientImpl {
         const data = exports.QueryBorrowStatsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryBorrowStats", data);
         return promise.then((data) => exports.QueryBorrowStatsResponse.decode(new _m0.Reader(data)));
+    }
+    QueryAuctionParams(request) {
+        const data = exports.QueryAuctionParamRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryAuctionParams", data);
+        return promise.then((data) => exports.QueryAuctionParamResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
