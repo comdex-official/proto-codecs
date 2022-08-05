@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgClientImpl = exports.MsgFundModuleAccountsResponse = exports.MsgCloseBorrowResponse = exports.MsgDrawResponse = exports.MsgDepositBorrowResponse = exports.MsgRepayResponse = exports.MsgBorrowResponse = exports.MsgCloseLendResponse = exports.MsgDepositResponse = exports.MsgWithdrawResponse = exports.MsgLendResponse = exports.MsgFundModuleAccounts = exports.MsgCloseBorrow = exports.MsgDraw = exports.MsgDepositBorrow = exports.MsgRepay = exports.MsgBorrow = exports.MsgCloseLend = exports.MsgDeposit = exports.MsgWithdraw = exports.MsgLend = exports.protobufPackage = void 0;
+exports.MsgClientImpl = exports.MsgFundModuleAccountsResponse = exports.MsgBorrowAlternateResponse = exports.MsgCloseBorrowResponse = exports.MsgDrawResponse = exports.MsgDepositBorrowResponse = exports.MsgRepayResponse = exports.MsgBorrowResponse = exports.MsgCloseLendResponse = exports.MsgDepositResponse = exports.MsgWithdrawResponse = exports.MsgLendResponse = exports.MsgFundModuleAccounts = exports.MsgBorrowAlternate = exports.MsgCloseBorrow = exports.MsgDraw = exports.MsgDepositBorrow = exports.MsgRepay = exports.MsgBorrow = exports.MsgCloseLend = exports.MsgDeposit = exports.MsgWithdraw = exports.MsgLend = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -727,6 +727,159 @@ exports.MsgCloseBorrow = {
         return message;
     },
 };
+function createBaseMsgBorrowAlternate() {
+    return {
+        lender: "",
+        assetId: long_1.default.UZERO,
+        poolId: long_1.default.UZERO,
+        amountIn: undefined,
+        pairId: long_1.default.UZERO,
+        isStableBorrow: false,
+        amountOut: undefined,
+        appId: long_1.default.UZERO,
+    };
+}
+exports.MsgBorrowAlternate = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.lender !== "") {
+            writer.uint32(10).string(message.lender);
+        }
+        if (!message.assetId.isZero()) {
+            writer.uint32(16).uint64(message.assetId);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(24).uint64(message.poolId);
+        }
+        if (message.amountIn !== undefined) {
+            coin_1.Coin.encode(message.amountIn, writer.uint32(34).fork()).ldelim();
+        }
+        if (!message.pairId.isZero()) {
+            writer.uint32(40).uint64(message.pairId);
+        }
+        if (message.isStableBorrow === true) {
+            writer.uint32(48).bool(message.isStableBorrow);
+        }
+        if (message.amountOut !== undefined) {
+            coin_1.Coin.encode(message.amountOut, writer.uint32(58).fork()).ldelim();
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(64).uint64(message.appId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgBorrowAlternate();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.lender = reader.string();
+                    break;
+                case 2:
+                    message.assetId = reader.uint64();
+                    break;
+                case 3:
+                    message.poolId = reader.uint64();
+                    break;
+                case 4:
+                    message.amountIn = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 5:
+                    message.pairId = reader.uint64();
+                    break;
+                case 6:
+                    message.isStableBorrow = reader.bool();
+                    break;
+                case 7:
+                    message.amountOut = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 8:
+                    message.appId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            lender: isSet(object.lender) ? String(object.lender) : "",
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            amountIn: isSet(object.amountIn)
+                ? coin_1.Coin.fromJSON(object.amountIn)
+                : undefined,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            isStableBorrow: isSet(object.isStableBorrow)
+                ? Boolean(object.isStableBorrow)
+                : false,
+            amountOut: isSet(object.amountOut)
+                ? coin_1.Coin.fromJSON(object.amountOut)
+                : undefined,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.lender !== undefined && (obj.lender = message.lender);
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.amountIn !== undefined &&
+            (obj.amountIn = message.amountIn
+                ? coin_1.Coin.toJSON(message.amountIn)
+                : undefined);
+        message.pairId !== undefined &&
+            (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
+        message.isStableBorrow !== undefined &&
+            (obj.isStableBorrow = message.isStableBorrow);
+        message.amountOut !== undefined &&
+            (obj.amountOut = message.amountOut
+                ? coin_1.Coin.toJSON(message.amountOut)
+                : undefined);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseMsgBorrowAlternate();
+        message.lender = (_a = object.lender) !== null && _a !== void 0 ? _a : "";
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.amountIn =
+            object.amountIn !== undefined && object.amountIn !== null
+                ? coin_1.Coin.fromPartial(object.amountIn)
+                : undefined;
+        message.pairId =
+            object.pairId !== undefined && object.pairId !== null
+                ? long_1.default.fromValue(object.pairId)
+                : long_1.default.UZERO;
+        message.isStableBorrow = (_b = object.isStableBorrow) !== null && _b !== void 0 ? _b : false;
+        message.amountOut =
+            object.amountOut !== undefined && object.amountOut !== null
+                ? coin_1.Coin.fromPartial(object.amountOut)
+                : undefined;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
 function createBaseMsgFundModuleAccounts() {
     return { moduleName: "", assetId: long_1.default.UZERO, lender: "", amount: undefined };
 }
@@ -1105,6 +1258,39 @@ exports.MsgCloseBorrowResponse = {
         return message;
     },
 };
+function createBaseMsgBorrowAlternateResponse() {
+    return {};
+}
+exports.MsgBorrowAlternateResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgBorrowAlternateResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgBorrowAlternateResponse();
+        return message;
+    },
+};
 function createBaseMsgFundModuleAccountsResponse() {
     return {};
 }
@@ -1150,6 +1336,7 @@ class MsgClientImpl {
         this.DepositBorrow = this.DepositBorrow.bind(this);
         this.Draw = this.Draw.bind(this);
         this.CloseBorrow = this.CloseBorrow.bind(this);
+        this.BorrowAlternate = this.BorrowAlternate.bind(this);
         this.FundModuleAccounts = this.FundModuleAccounts.bind(this);
     }
     Lend(request) {
@@ -1196,6 +1383,11 @@ class MsgClientImpl {
         const data = exports.MsgCloseBorrow.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "CloseBorrow", data);
         return promise.then((data) => exports.MsgCloseBorrowResponse.decode(new _m0.Reader(data)));
+    }
+    BorrowAlternate(request) {
+        const data = exports.MsgBorrowAlternate.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "BorrowAlternate", data);
+        return promise.then((data) => exports.MsgBorrowAlternateResponse.decode(new _m0.Reader(data)));
     }
     FundModuleAccounts(request) {
         const data = exports.MsgFundModuleAccounts.encode(request).finish();

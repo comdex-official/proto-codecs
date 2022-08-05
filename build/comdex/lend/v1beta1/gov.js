@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddAuctionParamsProposal = exports.AddAssetRatesStats = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.UpdatePairProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
+exports.AddAuctionParamsProposal = exports.AddAssetRatesStats = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -95,73 +95,6 @@ exports.LendPairsProposal = {
         message.pairs =
             object.pairs !== undefined && object.pairs !== null
                 ? lend_1.ExtendedPair.fromPartial(object.pairs)
-                : undefined;
-        return message;
-    },
-};
-function createBaseUpdatePairProposal() {
-    return { title: "", description: "", pair: undefined };
-}
-exports.UpdatePairProposal = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.title !== "") {
-            writer.uint32(10).string(message.title);
-        }
-        if (message.description !== "") {
-            writer.uint32(18).string(message.description);
-        }
-        if (message.pair !== undefined) {
-            lend_1.ExtendedPair.encode(message.pair, writer.uint32(26).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseUpdatePairProposal();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.title = reader.string();
-                    break;
-                case 2:
-                    message.description = reader.string();
-                    break;
-                case 3:
-                    message.pair = lend_1.ExtendedPair.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            title: isSet(object.title) ? String(object.title) : "",
-            description: isSet(object.description) ? String(object.description) : "",
-            pair: isSet(object.pair) ? lend_1.ExtendedPair.fromJSON(object.pair) : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.title !== undefined && (obj.title = message.title);
-        message.description !== undefined &&
-            (obj.description = message.description);
-        message.pair !== undefined &&
-            (obj.pair = message.pair ? lend_1.ExtendedPair.toJSON(message.pair) : undefined);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b;
-        const message = createBaseUpdatePairProposal();
-        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
-        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.pair =
-            object.pair !== undefined && object.pair !== null
-                ? lend_1.ExtendedPair.fromPartial(object.pair)
                 : undefined;
         return message;
     },

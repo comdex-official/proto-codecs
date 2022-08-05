@@ -26,15 +26,30 @@ exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
+const locked_vault_1 = require("../../../comdex/liquidation/v1beta1/locked_vault");
 const params_1 = require("../../../comdex/liquidation/v1beta1/params");
 exports.protobufPackage = "comdex.liquidation.v1beta1";
 function createBaseGenesisState() {
-    return { params: undefined };
+    return {
+        lockedVault: [],
+        lockedVaultToAppMapping: [],
+        whitelistedAppIds: undefined,
+        params: undefined,
+    };
 }
 exports.GenesisState = {
     encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.lockedVault) {
+            locked_vault_1.LockedVault.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        for (const v of message.lockedVaultToAppMapping) {
+            locked_vault_1.LockedVaultToAppMapping.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        if (message.whitelistedAppIds !== undefined) {
+            locked_vault_1.WhitelistedAppIds.encode(message.whitelistedAppIds, writer.uint32(26).fork()).ldelim();
+        }
         if (message.params !== undefined) {
-            params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+            params_1.Params.encode(message.params, writer.uint32(34).fork()).ldelim();
         }
         return writer;
     },
@@ -46,6 +61,15 @@ exports.GenesisState = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    message.lockedVault.push(locked_vault_1.LockedVault.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.lockedVaultToAppMapping.push(locked_vault_1.LockedVaultToAppMapping.decode(reader, reader.uint32()));
+                    break;
+                case 3:
+                    message.whitelistedAppIds = locked_vault_1.WhitelistedAppIds.decode(reader, reader.uint32());
+                    break;
+                case 4:
                     message.params = params_1.Params.decode(reader, reader.uint32());
                     break;
                 default:
@@ -57,17 +81,52 @@ exports.GenesisState = {
     },
     fromJSON(object) {
         return {
+            lockedVault: Array.isArray(object === null || object === void 0 ? void 0 : object.lockedVault)
+                ? object.lockedVault.map((e) => locked_vault_1.LockedVault.fromJSON(e))
+                : [],
+            lockedVaultToAppMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.lockedVaultToAppMapping)
+                ? object.lockedVaultToAppMapping.map((e) => locked_vault_1.LockedVaultToAppMapping.fromJSON(e))
+                : [],
+            whitelistedAppIds: isSet(object.whitelistedAppIds)
+                ? locked_vault_1.WhitelistedAppIds.fromJSON(object.whitelistedAppIds)
+                : undefined,
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
+        if (message.lockedVault) {
+            obj.lockedVault = message.lockedVault.map((e) => e ? locked_vault_1.LockedVault.toJSON(e) : undefined);
+        }
+        else {
+            obj.lockedVault = [];
+        }
+        if (message.lockedVaultToAppMapping) {
+            obj.lockedVaultToAppMapping = message.lockedVaultToAppMapping.map((e) => e ? locked_vault_1.LockedVaultToAppMapping.toJSON(e) : undefined);
+        }
+        else {
+            obj.lockedVaultToAppMapping = [];
+        }
+        message.whitelistedAppIds !== undefined &&
+            (obj.whitelistedAppIds = message.whitelistedAppIds
+                ? locked_vault_1.WhitelistedAppIds.toJSON(message.whitelistedAppIds)
+                : undefined);
         message.params !== undefined &&
             (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
         return obj;
     },
     fromPartial(object) {
+        var _a, _b;
         const message = createBaseGenesisState();
+        message.lockedVault =
+            ((_a = object.lockedVault) === null || _a === void 0 ? void 0 : _a.map((e) => locked_vault_1.LockedVault.fromPartial(e))) || [];
+        message.lockedVaultToAppMapping =
+            ((_b = object.lockedVaultToAppMapping) === null || _b === void 0 ? void 0 : _b.map((e) => locked_vault_1.LockedVaultToAppMapping.fromPartial(e))) || [];
+        message.whitelistedAppIds =
+            object.whitelistedAppIds !== undefined &&
+                object.whitelistedAppIds !== null
+                ? locked_vault_1.WhitelistedAppIds.fromPartial(object.whitelistedAppIds)
+                : undefined;
         message.params =
             object.params !== undefined && object.params !== null
                 ? params_1.Params.fromPartial(object.params)
