@@ -2,22 +2,34 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/locker/v1beta1/params";
+import {
+  Locker,
+  LockerProductAssetMapping,
+  LockerTotalRewardsByAssetAppWise,
+  LockerLookupTable,
+  UserLockerAssetMapping,
+} from "../../../comdex/locker/v1beta1/locker";
 
 export const protobufPackage = "comdex.locker.v1beta1";
 
 export interface GenesisState {
-  /**
-   * repeated Locker lockers = 1 [
-   *   (gogoproto.customname) = "Lockers",
-   *   (gogoproto.moretags)   = "yaml:\"lockers\"",
-   *   (gogoproto.nullable)   = false
-   * ];
-   */
+  lockers: Locker[];
+  lockerProductAssetMapping: LockerProductAssetMapping[];
+  lockerTotalRewardsByAssetAppWise: LockerTotalRewardsByAssetAppWise[];
+  lockerLookupTable: LockerLookupTable[];
+  userLockerAssetMapping: UserLockerAssetMapping[];
   params?: Params;
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { params: undefined };
+  return {
+    lockers: [],
+    lockerProductAssetMapping: [],
+    lockerTotalRewardsByAssetAppWise: [],
+    lockerLookupTable: [],
+    userLockerAssetMapping: [],
+    params: undefined,
+  };
 }
 
 export const GenesisState = {
@@ -25,8 +37,26 @@ export const GenesisState = {
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
+    for (const v of message.lockers) {
+      Locker.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    for (const v of message.lockerProductAssetMapping) {
+      LockerProductAssetMapping.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    for (const v of message.lockerTotalRewardsByAssetAppWise) {
+      LockerTotalRewardsByAssetAppWise.encode(
+        v!,
+        writer.uint32(26).fork()
+      ).ldelim();
+    }
+    for (const v of message.lockerLookupTable) {
+      LockerLookupTable.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    for (const v of message.userLockerAssetMapping) {
+      UserLockerAssetMapping.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
     if (message.params !== undefined) {
-      Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+      Params.encode(message.params, writer.uint32(50).fork()).ldelim();
     }
     return writer;
   },
@@ -39,6 +69,29 @@ export const GenesisState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          message.lockers.push(Locker.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.lockerProductAssetMapping.push(
+            LockerProductAssetMapping.decode(reader, reader.uint32())
+          );
+          break;
+        case 3:
+          message.lockerTotalRewardsByAssetAppWise.push(
+            LockerTotalRewardsByAssetAppWise.decode(reader, reader.uint32())
+          );
+          break;
+        case 4:
+          message.lockerLookupTable.push(
+            LockerLookupTable.decode(reader, reader.uint32())
+          );
+          break;
+        case 5:
+          message.userLockerAssetMapping.push(
+            UserLockerAssetMapping.decode(reader, reader.uint32())
+          );
+          break;
+        case 6:
           message.params = Params.decode(reader, reader.uint32());
           break;
         default:
@@ -51,12 +104,75 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      lockers: Array.isArray(object?.lockers)
+        ? object.lockers.map((e: any) => Locker.fromJSON(e))
+        : [],
+      lockerProductAssetMapping: Array.isArray(
+        object?.lockerProductAssetMapping
+      )
+        ? object.lockerProductAssetMapping.map((e: any) =>
+            LockerProductAssetMapping.fromJSON(e)
+          )
+        : [],
+      lockerTotalRewardsByAssetAppWise: Array.isArray(
+        object?.lockerTotalRewardsByAssetAppWise
+      )
+        ? object.lockerTotalRewardsByAssetAppWise.map((e: any) =>
+            LockerTotalRewardsByAssetAppWise.fromJSON(e)
+          )
+        : [],
+      lockerLookupTable: Array.isArray(object?.lockerLookupTable)
+        ? object.lockerLookupTable.map((e: any) =>
+            LockerLookupTable.fromJSON(e)
+          )
+        : [],
+      userLockerAssetMapping: Array.isArray(object?.userLockerAssetMapping)
+        ? object.userLockerAssetMapping.map((e: any) =>
+            UserLockerAssetMapping.fromJSON(e)
+          )
+        : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
+    if (message.lockers) {
+      obj.lockers = message.lockers.map((e) =>
+        e ? Locker.toJSON(e) : undefined
+      );
+    } else {
+      obj.lockers = [];
+    }
+    if (message.lockerProductAssetMapping) {
+      obj.lockerProductAssetMapping = message.lockerProductAssetMapping.map(
+        (e) => (e ? LockerProductAssetMapping.toJSON(e) : undefined)
+      );
+    } else {
+      obj.lockerProductAssetMapping = [];
+    }
+    if (message.lockerTotalRewardsByAssetAppWise) {
+      obj.lockerTotalRewardsByAssetAppWise =
+        message.lockerTotalRewardsByAssetAppWise.map((e) =>
+          e ? LockerTotalRewardsByAssetAppWise.toJSON(e) : undefined
+        );
+    } else {
+      obj.lockerTotalRewardsByAssetAppWise = [];
+    }
+    if (message.lockerLookupTable) {
+      obj.lockerLookupTable = message.lockerLookupTable.map((e) =>
+        e ? LockerLookupTable.toJSON(e) : undefined
+      );
+    } else {
+      obj.lockerLookupTable = [];
+    }
+    if (message.userLockerAssetMapping) {
+      obj.userLockerAssetMapping = message.userLockerAssetMapping.map((e) =>
+        e ? UserLockerAssetMapping.toJSON(e) : undefined
+      );
+    } else {
+      obj.userLockerAssetMapping = [];
+    }
     message.params !== undefined &&
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
@@ -66,6 +182,22 @@ export const GenesisState = {
     object: I
   ): GenesisState {
     const message = createBaseGenesisState();
+    message.lockers = object.lockers?.map((e) => Locker.fromPartial(e)) || [];
+    message.lockerProductAssetMapping =
+      object.lockerProductAssetMapping?.map((e) =>
+        LockerProductAssetMapping.fromPartial(e)
+      ) || [];
+    message.lockerTotalRewardsByAssetAppWise =
+      object.lockerTotalRewardsByAssetAppWise?.map((e) =>
+        LockerTotalRewardsByAssetAppWise.fromPartial(e)
+      ) || [];
+    message.lockerLookupTable =
+      object.lockerLookupTable?.map((e) => LockerLookupTable.fromPartial(e)) ||
+      [];
+    message.userLockerAssetMapping =
+      object.userLockerAssetMapping?.map((e) =>
+        UserLockerAssetMapping.fromPartial(e)
+      ) || [];
     message.params =
       object.params !== undefined && object.params !== null
         ? Params.fromPartial(object.params)

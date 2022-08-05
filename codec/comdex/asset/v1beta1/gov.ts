@@ -2,15 +2,15 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
-import { AppAndGovTime, AppData } from "../../../comdex/asset/v1beta1/app";
 import { Pair } from "../../../comdex/asset/v1beta1/pair";
+import { AppData, AppAndGovTime } from "../../../comdex/asset/v1beta1/app";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
 export interface AddAssetsProposal {
   title: string;
   description: string;
-  assets: Asset[];
+  assets?: Asset;
 }
 
 export interface UpdateAssetProposal {
@@ -22,13 +22,13 @@ export interface UpdateAssetProposal {
 export interface AddPairsProposal {
   title: string;
   description: string;
-  pairs: Pair[];
+  pairs?: Pair;
 }
 
 export interface AddAppProposal {
   title: string;
   description: string;
-  app: AppData[];
+  app?: AppData;
 }
 
 export interface UpdateGovTimeInAppProposal {
@@ -40,11 +40,11 @@ export interface UpdateGovTimeInAppProposal {
 export interface AddAssetInAppProposal {
   title: string;
   description: string;
-  app: AppData[];
+  app?: AppData;
 }
 
 function createBaseAddAssetsProposal(): AddAssetsProposal {
-  return { title: "", description: "", assets: [] };
+  return { title: "", description: "", assets: undefined };
 }
 
 export const AddAssetsProposal = {
@@ -58,8 +58,8 @@ export const AddAssetsProposal = {
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-    for (const v of message.assets) {
-      Asset.encode(v!, writer.uint32(26).fork()).ldelim();
+    if (message.assets !== undefined) {
+      Asset.encode(message.assets, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -78,7 +78,7 @@ export const AddAssetsProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.assets.push(Asset.decode(reader, reader.uint32()));
+          message.assets = Asset.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -92,9 +92,7 @@ export const AddAssetsProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      assets: Array.isArray(object?.assets)
-        ? object.assets.map((e: any) => Asset.fromJSON(e))
-        : [],
+      assets: isSet(object.assets) ? Asset.fromJSON(object.assets) : undefined,
     };
   },
 
@@ -103,11 +101,8 @@ export const AddAssetsProposal = {
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined &&
       (obj.description = message.description);
-    if (message.assets) {
-      obj.assets = message.assets.map((e) => (e ? Asset.toJSON(e) : undefined));
-    } else {
-      obj.assets = [];
-    }
+    message.assets !== undefined &&
+      (obj.assets = message.assets ? Asset.toJSON(message.assets) : undefined);
     return obj;
   },
 
@@ -117,7 +112,10 @@ export const AddAssetsProposal = {
     const message = createBaseAddAssetsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.assets = object.assets?.map((e) => Asset.fromPartial(e)) || [];
+    message.assets =
+      object.assets !== undefined && object.assets !== null
+        ? Asset.fromPartial(object.assets)
+        : undefined;
     return message;
   },
 };
@@ -200,7 +198,7 @@ export const UpdateAssetProposal = {
 };
 
 function createBaseAddPairsProposal(): AddPairsProposal {
-  return { title: "", description: "", pairs: [] };
+  return { title: "", description: "", pairs: undefined };
 }
 
 export const AddPairsProposal = {
@@ -214,8 +212,8 @@ export const AddPairsProposal = {
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-    for (const v of message.pairs) {
-      Pair.encode(v!, writer.uint32(26).fork()).ldelim();
+    if (message.pairs !== undefined) {
+      Pair.encode(message.pairs, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -234,7 +232,7 @@ export const AddPairsProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.pairs.push(Pair.decode(reader, reader.uint32()));
+          message.pairs = Pair.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -248,9 +246,7 @@ export const AddPairsProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      pairs: Array.isArray(object?.pairs)
-        ? object.pairs.map((e: any) => Pair.fromJSON(e))
-        : [],
+      pairs: isSet(object.pairs) ? Pair.fromJSON(object.pairs) : undefined,
     };
   },
 
@@ -259,11 +255,8 @@ export const AddPairsProposal = {
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined &&
       (obj.description = message.description);
-    if (message.pairs) {
-      obj.pairs = message.pairs.map((e) => (e ? Pair.toJSON(e) : undefined));
-    } else {
-      obj.pairs = [];
-    }
+    message.pairs !== undefined &&
+      (obj.pairs = message.pairs ? Pair.toJSON(message.pairs) : undefined);
     return obj;
   },
 
@@ -273,13 +266,16 @@ export const AddPairsProposal = {
     const message = createBaseAddPairsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
+    message.pairs =
+      object.pairs !== undefined && object.pairs !== null
+        ? Pair.fromPartial(object.pairs)
+        : undefined;
     return message;
   },
 };
 
 function createBaseAddAppProposal(): AddAppProposal {
-  return { title: "", description: "", app: [] };
+  return { title: "", description: "", app: undefined };
 }
 
 export const AddAppProposal = {
@@ -293,8 +289,8 @@ export const AddAppProposal = {
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-    for (const v of message.app) {
-      AppData.encode(v!, writer.uint32(26).fork()).ldelim();
+    if (message.app !== undefined) {
+      AppData.encode(message.app, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -313,7 +309,7 @@ export const AddAppProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.app.push(AppData.decode(reader, reader.uint32()));
+          message.app = AppData.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -327,9 +323,7 @@ export const AddAppProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      app: Array.isArray(object?.app)
-        ? object.app.map((e: any) => AppData.fromJSON(e))
-        : [],
+      app: isSet(object.app) ? AppData.fromJSON(object.app) : undefined,
     };
   },
 
@@ -338,11 +332,8 @@ export const AddAppProposal = {
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined &&
       (obj.description = message.description);
-    if (message.app) {
-      obj.app = message.app.map((e) => (e ? AppData.toJSON(e) : undefined));
-    } else {
-      obj.app = [];
-    }
+    message.app !== undefined &&
+      (obj.app = message.app ? AppData.toJSON(message.app) : undefined);
     return obj;
   },
 
@@ -352,7 +343,10 @@ export const AddAppProposal = {
     const message = createBaseAddAppProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.app = object.app?.map((e) => AppData.fromPartial(e)) || [];
+    message.app =
+      object.app !== undefined && object.app !== null
+        ? AppData.fromPartial(object.app)
+        : undefined;
     return message;
   },
 };
@@ -442,7 +436,7 @@ export const UpdateGovTimeInAppProposal = {
 };
 
 function createBaseAddAssetInAppProposal(): AddAssetInAppProposal {
-  return { title: "", description: "", app: [] };
+  return { title: "", description: "", app: undefined };
 }
 
 export const AddAssetInAppProposal = {
@@ -456,8 +450,8 @@ export const AddAssetInAppProposal = {
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-    for (const v of message.app) {
-      AppData.encode(v!, writer.uint32(26).fork()).ldelim();
+    if (message.app !== undefined) {
+      AppData.encode(message.app, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -479,7 +473,7 @@ export const AddAssetInAppProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.app.push(AppData.decode(reader, reader.uint32()));
+          message.app = AppData.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -493,9 +487,7 @@ export const AddAssetInAppProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      app: Array.isArray(object?.app)
-        ? object.app.map((e: any) => AppData.fromJSON(e))
-        : [],
+      app: isSet(object.app) ? AppData.fromJSON(object.app) : undefined,
     };
   },
 
@@ -504,11 +496,8 @@ export const AddAssetInAppProposal = {
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined &&
       (obj.description = message.description);
-    if (message.app) {
-      obj.app = message.app.map((e) => (e ? AppData.toJSON(e) : undefined));
-    } else {
-      obj.app = [];
-    }
+    message.app !== undefined &&
+      (obj.app = message.app ? AppData.toJSON(message.app) : undefined);
     return obj;
   },
 
@@ -518,7 +507,10 @@ export const AddAssetInAppProposal = {
     const message = createBaseAddAssetInAppProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.app = object.app?.map((e) => AppData.fromPartial(e)) || [];
+    message.app =
+      object.app !== undefined && object.app !== null
+        ? AppData.fromPartial(object.app)
+        : undefined;
     return message;
   },
 };

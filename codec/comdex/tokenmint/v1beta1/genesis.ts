@@ -1,18 +1,20 @@
 /* eslint-disable */
 import Long from "long";
-import  _m0 from "protobufjs/minimal";
-import { Params } from "./params";
+import * as _m0 from "protobufjs/minimal";
+import { Params } from "../../../comdex/tokenmint/v1beta1/params";
+import { TokenMint } from "../../../comdex/tokenmint/v1beta1/mint";
 
 export const protobufPackage = "comdex.tokenmint.v1beta1";
 
 /** GenesisState defines the tokenmint module's genesis state. */
 export interface GenesisState {
+  tokenMint: TokenMint[];
   /** this line is used by starport scaffolding # genesis/proto/state */
   params?: Params;
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { params: undefined };
+  return { tokenMint: [], params: undefined };
 }
 
 export const GenesisState = {
@@ -20,8 +22,11 @@ export const GenesisState = {
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
+    for (const v of message.tokenMint) {
+      TokenMint.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
     if (message.params !== undefined) {
-      Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+      Params.encode(message.params, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -34,6 +39,9 @@ export const GenesisState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          message.tokenMint.push(TokenMint.decode(reader, reader.uint32()));
+          break;
+        case 2:
           message.params = Params.decode(reader, reader.uint32());
           break;
         default:
@@ -46,12 +54,22 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
+      tokenMint: Array.isArray(object?.tokenMint)
+        ? object.tokenMint.map((e: any) => TokenMint.fromJSON(e))
+        : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
+    if (message.tokenMint) {
+      obj.tokenMint = message.tokenMint.map((e) =>
+        e ? TokenMint.toJSON(e) : undefined
+      );
+    } else {
+      obj.tokenMint = [];
+    }
     message.params !== undefined &&
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
@@ -61,6 +79,8 @@ export const GenesisState = {
     object: I
   ): GenesisState {
     const message = createBaseGenesisState();
+    message.tokenMint =
+      object.tokenMint?.map((e) => TokenMint.fromPartial(e)) || [];
     message.params =
       object.params !== undefined && object.params !== null
         ? Params.fromPartial(object.params)

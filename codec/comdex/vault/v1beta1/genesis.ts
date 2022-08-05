@@ -1,16 +1,29 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-import { Vault } from "../../../comdex/vault/v1beta1/vault";
+import {
+  Vault,
+  StableMintVault,
+  AppExtendedPairVaultMapping,
+  UserVaultAssetMapping,
+} from "../../../comdex/vault/v1beta1/vault";
 
 export const protobufPackage = "comdex.vault.v1beta1";
 
 export interface GenesisState {
   vaults: Vault[];
+  stableMintVault: StableMintVault[];
+  appExtendedPairVaultMapping: AppExtendedPairVaultMapping[];
+  userVaultAssetMapping: UserVaultAssetMapping[];
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { vaults: [] };
+  return {
+    vaults: [],
+    stableMintVault: [],
+    appExtendedPairVaultMapping: [],
+    userVaultAssetMapping: [],
+  };
 }
 
 export const GenesisState = {
@@ -20,6 +33,15 @@ export const GenesisState = {
   ): _m0.Writer {
     for (const v of message.vaults) {
       Vault.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    for (const v of message.stableMintVault) {
+      StableMintVault.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    for (const v of message.appExtendedPairVaultMapping) {
+      AppExtendedPairVaultMapping.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    for (const v of message.userVaultAssetMapping) {
+      UserVaultAssetMapping.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -34,6 +56,21 @@ export const GenesisState = {
         case 1:
           message.vaults.push(Vault.decode(reader, reader.uint32()));
           break;
+        case 2:
+          message.stableMintVault.push(
+            StableMintVault.decode(reader, reader.uint32())
+          );
+          break;
+        case 3:
+          message.appExtendedPairVaultMapping.push(
+            AppExtendedPairVaultMapping.decode(reader, reader.uint32())
+          );
+          break;
+        case 4:
+          message.userVaultAssetMapping.push(
+            UserVaultAssetMapping.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -47,6 +84,21 @@ export const GenesisState = {
       vaults: Array.isArray(object?.vaults)
         ? object.vaults.map((e: any) => Vault.fromJSON(e))
         : [],
+      stableMintVault: Array.isArray(object?.stableMintVault)
+        ? object.stableMintVault.map((e: any) => StableMintVault.fromJSON(e))
+        : [],
+      appExtendedPairVaultMapping: Array.isArray(
+        object?.appExtendedPairVaultMapping
+      )
+        ? object.appExtendedPairVaultMapping.map((e: any) =>
+            AppExtendedPairVaultMapping.fromJSON(e)
+          )
+        : [],
+      userVaultAssetMapping: Array.isArray(object?.userVaultAssetMapping)
+        ? object.userVaultAssetMapping.map((e: any) =>
+            UserVaultAssetMapping.fromJSON(e)
+          )
+        : [],
     };
   },
 
@@ -57,6 +109,27 @@ export const GenesisState = {
     } else {
       obj.vaults = [];
     }
+    if (message.stableMintVault) {
+      obj.stableMintVault = message.stableMintVault.map((e) =>
+        e ? StableMintVault.toJSON(e) : undefined
+      );
+    } else {
+      obj.stableMintVault = [];
+    }
+    if (message.appExtendedPairVaultMapping) {
+      obj.appExtendedPairVaultMapping = message.appExtendedPairVaultMapping.map(
+        (e) => (e ? AppExtendedPairVaultMapping.toJSON(e) : undefined)
+      );
+    } else {
+      obj.appExtendedPairVaultMapping = [];
+    }
+    if (message.userVaultAssetMapping) {
+      obj.userVaultAssetMapping = message.userVaultAssetMapping.map((e) =>
+        e ? UserVaultAssetMapping.toJSON(e) : undefined
+      );
+    } else {
+      obj.userVaultAssetMapping = [];
+    }
     return obj;
   },
 
@@ -65,6 +138,16 @@ export const GenesisState = {
   ): GenesisState {
     const message = createBaseGenesisState();
     message.vaults = object.vaults?.map((e) => Vault.fromPartial(e)) || [];
+    message.stableMintVault =
+      object.stableMintVault?.map((e) => StableMintVault.fromPartial(e)) || [];
+    message.appExtendedPairVaultMapping =
+      object.appExtendedPairVaultMapping?.map((e) =>
+        AppExtendedPairVaultMapping.fromPartial(e)
+      ) || [];
+    message.userVaultAssetMapping =
+      object.userVaultAssetMapping?.map((e) =>
+        UserVaultAssetMapping.fromPartial(e)
+      ) || [];
     return message;
   },
 };
