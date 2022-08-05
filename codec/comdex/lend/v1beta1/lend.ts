@@ -42,6 +42,7 @@ export interface Pool {
   firstBridgedAssetId: Long;
   secondBridgedAssetId: Long;
   cpoolName: string;
+  reserveFunds: Long;
   assetData: AssetDataPoolMapping[];
 }
 
@@ -160,8 +161,6 @@ export interface AuctionParams {
   cusp: string;
   step: string;
   priceFunctionType: Long;
-  surplusId: Long;
-  debtId: Long;
   dutchId: Long;
   bidDurationSeconds: Long;
 }
@@ -605,6 +604,7 @@ function createBasePool(): Pool {
     firstBridgedAssetId: Long.UZERO,
     secondBridgedAssetId: Long.UZERO,
     cpoolName: "",
+    reserveFunds: Long.UZERO,
     assetData: [],
   };
 }
@@ -629,8 +629,11 @@ export const Pool = {
     if (message.cpoolName !== "") {
       writer.uint32(50).string(message.cpoolName);
     }
+    if (!message.reserveFunds.isZero()) {
+      writer.uint32(56).uint64(message.reserveFunds);
+    }
     for (const v of message.assetData) {
-      AssetDataPoolMapping.encode(v!, writer.uint32(58).fork()).ldelim();
+      AssetDataPoolMapping.encode(v!, writer.uint32(66).fork()).ldelim();
     }
     return writer;
   },
@@ -661,6 +664,9 @@ export const Pool = {
           message.cpoolName = reader.string();
           break;
         case 7:
+          message.reserveFunds = reader.uint64() as Long;
+          break;
+        case 8:
           message.assetData.push(
             AssetDataPoolMapping.decode(reader, reader.uint32())
           );
@@ -687,6 +693,9 @@ export const Pool = {
         ? Long.fromValue(object.secondBridgedAssetId)
         : Long.UZERO,
       cpoolName: isSet(object.cpoolName) ? String(object.cpoolName) : "",
+      reserveFunds: isSet(object.reserveFunds)
+        ? Long.fromValue(object.reserveFunds)
+        : Long.UZERO,
       assetData: Array.isArray(object?.assetData)
         ? object.assetData.map((e: any) => AssetDataPoolMapping.fromJSON(e))
         : [],
@@ -709,6 +718,8 @@ export const Pool = {
         message.secondBridgedAssetId || Long.UZERO
       ).toString());
     message.cpoolName !== undefined && (obj.cpoolName = message.cpoolName);
+    message.reserveFunds !== undefined &&
+      (obj.reserveFunds = (message.reserveFunds || Long.UZERO).toString());
     if (message.assetData) {
       obj.assetData = message.assetData.map((e) =>
         e ? AssetDataPoolMapping.toJSON(e) : undefined
@@ -741,6 +752,10 @@ export const Pool = {
         ? Long.fromValue(object.secondBridgedAssetId)
         : Long.UZERO;
     message.cpoolName = object.cpoolName ?? "";
+    message.reserveFunds =
+      object.reserveFunds !== undefined && object.reserveFunds !== null
+        ? Long.fromValue(object.reserveFunds)
+        : Long.UZERO;
     message.assetData =
       object.assetData?.map((e) => AssetDataPoolMapping.fromPartial(e)) || [];
     return message;
@@ -2393,8 +2408,6 @@ function createBaseAuctionParams(): AuctionParams {
     cusp: "",
     step: "",
     priceFunctionType: Long.UZERO,
-    surplusId: Long.UZERO,
-    debtId: Long.UZERO,
     dutchId: Long.UZERO,
     bidDurationSeconds: Long.UZERO,
   };
@@ -2423,17 +2436,11 @@ export const AuctionParams = {
     if (!message.priceFunctionType.isZero()) {
       writer.uint32(48).uint64(message.priceFunctionType);
     }
-    if (!message.surplusId.isZero()) {
-      writer.uint32(56).uint64(message.surplusId);
-    }
-    if (!message.debtId.isZero()) {
-      writer.uint32(64).uint64(message.debtId);
-    }
     if (!message.dutchId.isZero()) {
-      writer.uint32(72).uint64(message.dutchId);
+      writer.uint32(56).uint64(message.dutchId);
     }
     if (!message.bidDurationSeconds.isZero()) {
-      writer.uint32(80).uint64(message.bidDurationSeconds);
+      writer.uint32(64).uint64(message.bidDurationSeconds);
     }
     return writer;
   },
@@ -2464,15 +2471,9 @@ export const AuctionParams = {
           message.priceFunctionType = reader.uint64() as Long;
           break;
         case 7:
-          message.surplusId = reader.uint64() as Long;
-          break;
-        case 8:
-          message.debtId = reader.uint64() as Long;
-          break;
-        case 9:
           message.dutchId = reader.uint64() as Long;
           break;
-        case 10:
+        case 8:
           message.bidDurationSeconds = reader.uint64() as Long;
           break;
         default:
@@ -2495,10 +2496,6 @@ export const AuctionParams = {
       priceFunctionType: isSet(object.priceFunctionType)
         ? Long.fromValue(object.priceFunctionType)
         : Long.UZERO,
-      surplusId: isSet(object.surplusId)
-        ? Long.fromValue(object.surplusId)
-        : Long.UZERO,
-      debtId: isSet(object.debtId) ? Long.fromValue(object.debtId) : Long.UZERO,
       dutchId: isSet(object.dutchId)
         ? Long.fromValue(object.dutchId)
         : Long.UZERO,
@@ -2523,10 +2520,6 @@ export const AuctionParams = {
       (obj.priceFunctionType = (
         message.priceFunctionType || Long.UZERO
       ).toString());
-    message.surplusId !== undefined &&
-      (obj.surplusId = (message.surplusId || Long.UZERO).toString());
-    message.debtId !== undefined &&
-      (obj.debtId = (message.debtId || Long.UZERO).toString());
     message.dutchId !== undefined &&
       (obj.dutchId = (message.dutchId || Long.UZERO).toString());
     message.bidDurationSeconds !== undefined &&
@@ -2556,14 +2549,6 @@ export const AuctionParams = {
       object.priceFunctionType !== undefined &&
       object.priceFunctionType !== null
         ? Long.fromValue(object.priceFunctionType)
-        : Long.UZERO;
-    message.surplusId =
-      object.surplusId !== undefined && object.surplusId !== null
-        ? Long.fromValue(object.surplusId)
-        : Long.UZERO;
-    message.debtId =
-      object.debtId !== undefined && object.debtId !== null
-        ? Long.fromValue(object.debtId)
         : Long.UZERO;
     message.dutchId =
       object.dutchId !== undefined && object.dutchId !== null

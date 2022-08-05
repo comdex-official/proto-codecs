@@ -17,12 +17,6 @@ export interface LendPairsProposal {
   pairs?: ExtendedPair;
 }
 
-export interface UpdatePairProposal {
-  title: string;
-  description: string;
-  pair?: ExtendedPair;
-}
-
 export interface AddPoolsProposal {
   title: string;
   description: string;
@@ -123,83 +117,6 @@ export const LendPairsProposal = {
     message.pairs =
       object.pairs !== undefined && object.pairs !== null
         ? ExtendedPair.fromPartial(object.pairs)
-        : undefined;
-    return message;
-  },
-};
-
-function createBaseUpdatePairProposal(): UpdatePairProposal {
-  return { title: "", description: "", pair: undefined };
-}
-
-export const UpdatePairProposal = {
-  encode(
-    message: UpdatePairProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.title !== "") {
-      writer.uint32(10).string(message.title);
-    }
-    if (message.description !== "") {
-      writer.uint32(18).string(message.description);
-    }
-    if (message.pair !== undefined) {
-      ExtendedPair.encode(message.pair, writer.uint32(26).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): UpdatePairProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseUpdatePairProposal();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.title = reader.string();
-          break;
-        case 2:
-          message.description = reader.string();
-          break;
-        case 3:
-          message.pair = ExtendedPair.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): UpdatePairProposal {
-    return {
-      title: isSet(object.title) ? String(object.title) : "",
-      description: isSet(object.description) ? String(object.description) : "",
-      pair: isSet(object.pair) ? ExtendedPair.fromJSON(object.pair) : undefined,
-    };
-  },
-
-  toJSON(message: UpdatePairProposal): unknown {
-    const obj: any = {};
-    message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.pair !== undefined &&
-      (obj.pair = message.pair ? ExtendedPair.toJSON(message.pair) : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<UpdatePairProposal>, I>>(
-    object: I
-  ): UpdatePairProposal {
-    const message = createBaseUpdatePairProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.pair =
-      object.pair !== undefined && object.pair !== null
-        ? ExtendedPair.fromPartial(object.pair)
         : undefined;
     return message;
   },
