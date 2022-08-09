@@ -1,12 +1,12 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import {
   OrderDirection,
   orderDirectionFromJSON,
   orderDirectionToJSON,
-} from "./liquidity";
+} from "../../../comdex/liquidity/v1beta1/liquidity";
 import { Duration } from "../../../google/protobuf/duration";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
@@ -225,7 +225,7 @@ export const MsgCreatePair = {
       quoteCoinDenom: isSet(object.quoteCoinDenom)
         ? String(object.quoteCoinDenom)
         : "",
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -362,13 +362,11 @@ export const MsgCreatePool = {
   fromJSON(object: any): MsgCreatePool {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       depositCoins: Array.isArray(object?.depositCoins)
         ? object.depositCoins.map((e: any) => Coin.fromJSON(e))
         : [],
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -514,13 +512,11 @@ export const MsgDeposit = {
   fromJSON(object: any): MsgDeposit {
     return {
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       depositCoins: Array.isArray(object?.depositCoins)
         ? object.depositCoins.map((e: any) => Coin.fromJSON(e))
         : [],
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -663,13 +659,11 @@ export const MsgWithdraw = {
   fromJSON(object: any): MsgWithdraw {
     return {
       withdrawer: isSet(object.withdrawer) ? String(object.withdrawer) : "",
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       poolCoin: isSet(object.poolCoin)
         ? Coin.fromJSON(object.poolCoin)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -846,9 +840,7 @@ export const MsgLimitOrder = {
   fromJSON(object: any): MsgLimitOrder {
     return {
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       direction: isSet(object.direction)
         ? orderDirectionFromJSON(object.direction)
         : 0,
@@ -863,7 +855,7 @@ export const MsgLimitOrder = {
       orderLifespan: isSet(object.orderLifespan)
         ? Duration.fromJSON(object.orderLifespan)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1054,9 +1046,7 @@ export const MsgMarketOrder = {
   fromJSON(object: any): MsgMarketOrder {
     return {
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       direction: isSet(object.direction)
         ? orderDirectionFromJSON(object.direction)
         : 0,
@@ -1070,7 +1060,7 @@ export const MsgMarketOrder = {
       orderLifespan: isSet(object.orderLifespan)
         ? Duration.fromJSON(object.orderLifespan)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1231,13 +1221,11 @@ export const MsgCancelOrder = {
   fromJSON(object: any): MsgCancelOrder {
     return {
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       orderId: isSet(object.orderId)
-        ? Long.fromString(object.orderId)
+        ? Long.fromValue(object.orderId)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1379,9 +1367,9 @@ export const MsgCancelAllOrders = {
     return {
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
       pairIds: Array.isArray(object?.pairIds)
-        ? object.pairIds.map((e: any) => Long.fromString(e))
+        ? object.pairIds.map((e: any) => Long.fromValue(e))
         : [],
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1517,10 +1505,8 @@ export const MsgFarm = {
 
   fromJSON(object: any): MsgFarm {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       farmer: isSet(object.farmer) ? String(object.farmer) : "",
       farmingPoolCoin: isSet(object.farmingPoolCoin)
         ? Coin.fromJSON(object.farmingPoolCoin)
@@ -1663,10 +1649,8 @@ export const MsgUnfarm = {
 
   fromJSON(object: any): MsgUnfarm {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       farmer: isSet(object.farmer) ? String(object.farmer) : "",
       unfarmingPoolCoin: isSet(object.unfarmingPoolCoin)
         ? Coin.fromJSON(object.unfarmingPoolCoin)

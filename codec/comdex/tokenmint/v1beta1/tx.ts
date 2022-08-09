@@ -1,20 +1,20 @@
 /* eslint-disable */
 import Long from "long";
-import  _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.tokenmint.v1beta1";
 
 /** Will become governance proposal- will trigger token minting & sending */
 export interface MsgMintNewTokensRequest {
   from: string;
-  appMappingId: Long;
+  appId: Long;
   assetId: Long;
 }
 
 export interface MsgMintNewTokensResponse {}
 
 function createBaseMsgMintNewTokensRequest(): MsgMintNewTokensRequest {
-  return { from: "", appMappingId: Long.UZERO, assetId: Long.UZERO };
+  return { from: "", appId: Long.UZERO, assetId: Long.UZERO };
 }
 
 export const MsgMintNewTokensRequest = {
@@ -25,8 +25,8 @@ export const MsgMintNewTokensRequest = {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(16).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
     }
     if (!message.assetId.isZero()) {
       writer.uint32(24).uint64(message.assetId);
@@ -48,7 +48,7 @@ export const MsgMintNewTokensRequest = {
           message.from = reader.string();
           break;
         case 2:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 3:
           message.assetId = reader.uint64() as Long;
@@ -64,9 +64,7 @@ export const MsgMintNewTokensRequest = {
   fromJSON(object: any): MsgMintNewTokensRequest {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
@@ -76,8 +74,8 @@ export const MsgMintNewTokensRequest = {
   toJSON(message: MsgMintNewTokensRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
     return obj;
@@ -88,9 +86,9 @@ export const MsgMintNewTokensRequest = {
   ): MsgMintNewTokensRequest {
     const message = createBaseMsgMintNewTokensRequest();
     message.from = object.from ?? "";
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.assetId =
       object.assetId !== undefined && object.assetId !== null

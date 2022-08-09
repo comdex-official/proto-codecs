@@ -1,9 +1,17 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Params, GenericParams } from "./params";
-import { Pair, DepositRequest, WithdrawRequest, Order } from "./liquidity";
-import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import * as _m0 from "protobufjs/minimal";
+import { Params, GenericParams } from "../../../comdex/liquidity/v1beta1/params";
+import {
+  PageRequest,
+  PageResponse,
+} from "../../../cosmos/base/query/v1beta1/pagination";
+import {
+  Pair,
+  DepositRequest,
+  WithdrawRequest,
+  Order,
+} from "../../../comdex/liquidity/v1beta1/liquidity";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
 import { Timestamp } from "../../../google/protobuf/timestamp";
@@ -387,7 +395,7 @@ export const QueryGenericParamsRequest = {
 
   fromJSON(object: any): QueryGenericParamsRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -533,14 +541,12 @@ export const QueryPoolsRequest = {
 
   fromJSON(object: any): QueryPoolsRequest {
     return {
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       disabled: isSet(object.disabled) ? String(object.disabled) : "",
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -702,10 +708,8 @@ export const QueryPoolRequest = {
 
   fromJSON(object: any): QueryPoolRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -839,7 +843,7 @@ export const QueryPoolByReserveAddressRequest = {
       reserveAddress: isSet(object.reserveAddress)
         ? String(object.reserveAddress)
         : "",
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -912,7 +916,7 @@ export const QueryPoolByPoolCoinDenomRequest = {
       poolCoinDenom: isSet(object.poolCoinDenom)
         ? String(object.poolCoinDenom)
         : "",
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -991,7 +995,7 @@ export const QueryPairsRequest = {
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1149,10 +1153,8 @@ export const QueryPairRequest = {
 
   fromJSON(object: any): QueryPairRequest {
     return {
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1289,10 +1291,8 @@ export const QueryDepositRequestsRequest = {
 
   fromJSON(object: any): QueryDepositRequestsRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -1470,11 +1470,9 @@ export const QueryDepositRequestRequest = {
 
   fromJSON(object: any): QueryDepositRequestRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1630,13 +1628,11 @@ export const QueryWithdrawRequestsRequest = {
 
   fromJSON(object: any): QueryWithdrawRequestsRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1811,11 +1807,9 @@ export const QueryWithdrawRequestRequest = {
 
   fromJSON(object: any): QueryWithdrawRequestRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1968,13 +1962,11 @@ export const QueryOrdersRequest = {
 
   fromJSON(object: any): QueryOrdersRequest {
     return {
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -2138,11 +2130,9 @@ export const QueryOrderRequest = {
 
   fromJSON(object: any): QueryOrderRequest {
     return {
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -2297,13 +2287,11 @@ export const QueryOrdersByOrdererRequest = {
   fromJSON(object: any): QueryOrdersByOrdererRequest {
     return {
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -2428,10 +2416,8 @@ export const PoolResponse = {
 
   fromJSON(object: any): PoolResponse {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       reserveAddress: isSet(object.reserveAddress)
         ? String(object.reserveAddress)
         : "",
@@ -2442,12 +2428,12 @@ export const PoolResponse = {
         ? object.balances.map((e: any) => Coin.fromJSON(e))
         : [],
       lastDepositRequestId: isSet(object.lastDepositRequestId)
-        ? Long.fromString(object.lastDepositRequestId)
+        ? Long.fromValue(object.lastDepositRequestId)
         : Long.UZERO,
       lastWithdrawRequestId: isSet(object.lastWithdrawRequestId)
-        ? Long.fromString(object.lastWithdrawRequestId)
+        ? Long.fromValue(object.lastWithdrawRequestId)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -2561,10 +2547,8 @@ export const QueryFarmerRequest = {
 
   fromJSON(object: any): QueryFarmerRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       farmer: isSet(object.farmer) ? String(object.farmer) : "",
     };
   },
@@ -2807,13 +2791,11 @@ export const QueryDeserializePoolCoinRequest = {
 
   fromJSON(object: any): QueryDeserializePoolCoinRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       poolCoinAmount: isSet(object.poolCoinAmount)
-        ? Long.fromString(object.poolCoinAmount)
+        ? Long.fromValue(object.poolCoinAmount)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -2949,7 +2931,7 @@ export const QueryPoolsIncentivesRequest = {
 
   fromJSON(object: any): QueryPoolsIncentivesRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -3096,12 +3078,10 @@ export const PoolIncentive = {
 
   fromJSON(object: any): PoolIncentive {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       masterPool: isSet(object.masterPool) ? Boolean(object.masterPool) : false,
       childPoolIds: Array.isArray(object?.childPoolIds)
-        ? object.childPoolIds.map((e: any) => Long.fromString(e))
+        ? object.childPoolIds.map((e: any) => Long.fromValue(e))
         : [],
       totalRewards: isSet(object.totalRewards)
         ? Coin.fromJSON(object.totalRewards)
@@ -3110,10 +3090,10 @@ export const PoolIncentive = {
         ? Coin.fromJSON(object.distributedRewards)
         : undefined,
       totalEpochs: isSet(object.totalEpochs)
-        ? Long.fromString(object.totalEpochs)
+        ? Long.fromValue(object.totalEpochs)
         : Long.UZERO,
       filledEpochs: isSet(object.filledEpochs)
-        ? Long.fromString(object.filledEpochs)
+        ? Long.fromValue(object.filledEpochs)
         : Long.UZERO,
       epochDuration: isSet(object.epochDuration)
         ? Duration.fromJSON(object.epochDuration)
@@ -3122,7 +3102,7 @@ export const PoolIncentive = {
         ? fromJsonTimestamp(object.nextDistribution)
         : undefined,
       isSwapFee: isSet(object.isSwapFee) ? Boolean(object.isSwapFee) : false,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -3316,10 +3296,8 @@ export const QueryFarmedPoolCoinRequest = {
 
   fromJSON(object: any): QueryFarmedPoolCoinRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Duration } from "../../../google/protobuf/duration";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 
@@ -230,10 +230,10 @@ export const GenericParams = {
   fromJSON(object: any): GenericParams {
     return {
       batchSize: isSet(object.batchSize)
-        ? Long.fromString(object.batchSize)
+        ? Long.fromValue(object.batchSize)
         : Long.UZERO,
       tickPrecision: isSet(object.tickPrecision)
-        ? Long.fromString(object.tickPrecision)
+        ? Long.fromValue(object.tickPrecision)
         : Long.UZERO,
       feeCollectorAddress: isSet(object.feeCollectorAddress)
         ? String(object.feeCollectorAddress)
@@ -264,13 +264,13 @@ export const GenericParams = {
         ? String(object.withdrawFeeRate)
         : "",
       depositExtraGas: isSet(object.depositExtraGas)
-        ? Long.fromString(object.depositExtraGas)
+        ? Long.fromValue(object.depositExtraGas)
         : Long.UZERO,
       withdrawExtraGas: isSet(object.withdrawExtraGas)
-        ? Long.fromString(object.withdrawExtraGas)
+        ? Long.fromValue(object.withdrawExtraGas)
         : Long.UZERO,
       orderExtraGas: isSet(object.orderExtraGas)
-        ? Long.fromString(object.orderExtraGas)
+        ? Long.fromValue(object.orderExtraGas)
         : Long.UZERO,
       swapFeeDistrDenom: isSet(object.swapFeeDistrDenom)
         ? String(object.swapFeeDistrDenom)
@@ -278,7 +278,7 @@ export const GenericParams = {
       swapFeeBurnRate: isSet(object.swapFeeBurnRate)
         ? String(object.swapFeeBurnRate)
         : "",
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 

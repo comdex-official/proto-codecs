@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Duration } from "../../../google/protobuf/duration";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
@@ -96,13 +96,13 @@ export const EpochInfo = {
         ? Duration.fromJSON(object.duration)
         : undefined,
       currentEpoch: isSet(object.currentEpoch)
-        ? Long.fromString(object.currentEpoch)
+        ? Long.fromValue(object.currentEpoch)
         : Long.ZERO,
       currentEpochStartTime: isSet(object.currentEpochStartTime)
         ? fromJsonTimestamp(object.currentEpochStartTime)
         : undefined,
       currentEpochStartHeight: isSet(object.currentEpochStartHeight)
-        ? Long.fromString(object.currentEpochStartHeight)
+        ? Long.fromValue(object.currentEpochStartHeight)
         : Long.ZERO,
     };
   },

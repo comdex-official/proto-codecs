@@ -1,51 +1,51 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import {
   PageRequest,
   PageResponse,
 } from "../../../cosmos/base/query/v1beta1/pagination";
-import { TokenMint, MintedTokens } from "./mint";
+import { TokenMint, MintedTokens } from "../../../comdex/tokenmint/v1beta1/mint";
 
 export const protobufPackage = "comdex.tokenmint.v1beta1";
 
-export interface QueryAllTokenMintedForAllProductsRequest {
+export interface QueryAllTokenMintedForAllAppsRequest {
   pagination?: PageRequest;
 }
 
-export interface QueryAllTokenMintedForAllProductsResponse {
+export interface QueryAllTokenMintedForAllAppsResponse {
   tokenMint: TokenMint[];
   pagination?: PageResponse;
 }
 
-export interface QueryTokenMintedByProductRequest {
+export interface QueryTokenMintedByAppRequest {
   appId: Long;
   pagination?: PageRequest;
 }
 
-export interface QueryTokenMintedByProductResponse {
+export interface QueryTokenMintedByAppResponse {
   tokenMint?: TokenMint;
   pagination?: PageResponse;
 }
 
-export interface QueryTokenMintedByProductAndAssetRequest {
+export interface QueryTokenMintedByAppAndAssetRequest {
   appId: Long;
   assetId: Long;
   pagination?: PageRequest;
 }
 
-export interface QueryTokenMintedByProductAndAssetResponse {
+export interface QueryTokenMintedByAppAndAssetResponse {
   mintedTokens?: MintedTokens;
   pagination?: PageResponse;
 }
 
-function createBaseQueryAllTokenMintedForAllProductsRequest(): QueryAllTokenMintedForAllProductsRequest {
+function createBaseQueryAllTokenMintedForAllAppsRequest(): QueryAllTokenMintedForAllAppsRequest {
   return { pagination: undefined };
 }
 
-export const QueryAllTokenMintedForAllProductsRequest = {
+export const QueryAllTokenMintedForAllAppsRequest = {
   encode(
-    message: QueryAllTokenMintedForAllProductsRequest,
+    message: QueryAllTokenMintedForAllAppsRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.pagination !== undefined) {
@@ -57,10 +57,10 @@ export const QueryAllTokenMintedForAllProductsRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryAllTokenMintedForAllProductsRequest {
+  ): QueryAllTokenMintedForAllAppsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAllTokenMintedForAllProductsRequest();
+    const message = createBaseQueryAllTokenMintedForAllAppsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -75,7 +75,7 @@ export const QueryAllTokenMintedForAllProductsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllTokenMintedForAllProductsRequest {
+  fromJSON(object: any): QueryAllTokenMintedForAllAppsRequest {
     return {
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -83,7 +83,7 @@ export const QueryAllTokenMintedForAllProductsRequest = {
     };
   },
 
-  toJSON(message: QueryAllTokenMintedForAllProductsRequest): unknown {
+  toJSON(message: QueryAllTokenMintedForAllAppsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
@@ -93,9 +93,9 @@ export const QueryAllTokenMintedForAllProductsRequest = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryAllTokenMintedForAllProductsRequest>, I>
-  >(object: I): QueryAllTokenMintedForAllProductsRequest {
-    const message = createBaseQueryAllTokenMintedForAllProductsRequest();
+    I extends Exact<DeepPartial<QueryAllTokenMintedForAllAppsRequest>, I>
+  >(object: I): QueryAllTokenMintedForAllAppsRequest {
+    const message = createBaseQueryAllTokenMintedForAllAppsRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -104,13 +104,13 @@ export const QueryAllTokenMintedForAllProductsRequest = {
   },
 };
 
-function createBaseQueryAllTokenMintedForAllProductsResponse(): QueryAllTokenMintedForAllProductsResponse {
+function createBaseQueryAllTokenMintedForAllAppsResponse(): QueryAllTokenMintedForAllAppsResponse {
   return { tokenMint: [], pagination: undefined };
 }
 
-export const QueryAllTokenMintedForAllProductsResponse = {
+export const QueryAllTokenMintedForAllAppsResponse = {
   encode(
-    message: QueryAllTokenMintedForAllProductsResponse,
+    message: QueryAllTokenMintedForAllAppsResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.tokenMint) {
@@ -128,10 +128,10 @@ export const QueryAllTokenMintedForAllProductsResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryAllTokenMintedForAllProductsResponse {
+  ): QueryAllTokenMintedForAllAppsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAllTokenMintedForAllProductsResponse();
+    const message = createBaseQueryAllTokenMintedForAllAppsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -149,7 +149,7 @@ export const QueryAllTokenMintedForAllProductsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryAllTokenMintedForAllProductsResponse {
+  fromJSON(object: any): QueryAllTokenMintedForAllAppsResponse {
     return {
       tokenMint: Array.isArray(object?.tokenMint)
         ? object.tokenMint.map((e: any) => TokenMint.fromJSON(e))
@@ -160,7 +160,7 @@ export const QueryAllTokenMintedForAllProductsResponse = {
     };
   },
 
-  toJSON(message: QueryAllTokenMintedForAllProductsResponse): unknown {
+  toJSON(message: QueryAllTokenMintedForAllAppsResponse): unknown {
     const obj: any = {};
     if (message.tokenMint) {
       obj.tokenMint = message.tokenMint.map((e) =>
@@ -177,9 +177,9 @@ export const QueryAllTokenMintedForAllProductsResponse = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryAllTokenMintedForAllProductsResponse>, I>
-  >(object: I): QueryAllTokenMintedForAllProductsResponse {
-    const message = createBaseQueryAllTokenMintedForAllProductsResponse();
+    I extends Exact<DeepPartial<QueryAllTokenMintedForAllAppsResponse>, I>
+  >(object: I): QueryAllTokenMintedForAllAppsResponse {
+    const message = createBaseQueryAllTokenMintedForAllAppsResponse();
     message.tokenMint =
       object.tokenMint?.map((e) => TokenMint.fromPartial(e)) || [];
     message.pagination =
@@ -190,13 +190,13 @@ export const QueryAllTokenMintedForAllProductsResponse = {
   },
 };
 
-function createBaseQueryTokenMintedByProductRequest(): QueryTokenMintedByProductRequest {
+function createBaseQueryTokenMintedByAppRequest(): QueryTokenMintedByAppRequest {
   return { appId: Long.UZERO, pagination: undefined };
 }
 
-export const QueryTokenMintedByProductRequest = {
+export const QueryTokenMintedByAppRequest = {
   encode(
-    message: QueryTokenMintedByProductRequest,
+    message: QueryTokenMintedByAppRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -211,10 +211,10 @@ export const QueryTokenMintedByProductRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryTokenMintedByProductRequest {
+  ): QueryTokenMintedByAppRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryTokenMintedByProductRequest();
+    const message = createBaseQueryTokenMintedByAppRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -232,7 +232,7 @@ export const QueryTokenMintedByProductRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryTokenMintedByProductRequest {
+  fromJSON(object: any): QueryTokenMintedByAppRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       pagination: isSet(object.pagination)
@@ -241,7 +241,7 @@ export const QueryTokenMintedByProductRequest = {
     };
   },
 
-  toJSON(message: QueryTokenMintedByProductRequest): unknown {
+  toJSON(message: QueryTokenMintedByAppRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
@@ -252,10 +252,10 @@ export const QueryTokenMintedByProductRequest = {
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryTokenMintedByProductRequest>, I>
-  >(object: I): QueryTokenMintedByProductRequest {
-    const message = createBaseQueryTokenMintedByProductRequest();
+  fromPartial<I extends Exact<DeepPartial<QueryTokenMintedByAppRequest>, I>>(
+    object: I
+  ): QueryTokenMintedByAppRequest {
+    const message = createBaseQueryTokenMintedByAppRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -268,13 +268,13 @@ export const QueryTokenMintedByProductRequest = {
   },
 };
 
-function createBaseQueryTokenMintedByProductResponse(): QueryTokenMintedByProductResponse {
+function createBaseQueryTokenMintedByAppResponse(): QueryTokenMintedByAppResponse {
   return { tokenMint: undefined, pagination: undefined };
 }
 
-export const QueryTokenMintedByProductResponse = {
+export const QueryTokenMintedByAppResponse = {
   encode(
-    message: QueryTokenMintedByProductResponse,
+    message: QueryTokenMintedByAppResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.tokenMint !== undefined) {
@@ -292,10 +292,10 @@ export const QueryTokenMintedByProductResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryTokenMintedByProductResponse {
+  ): QueryTokenMintedByAppResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryTokenMintedByProductResponse();
+    const message = createBaseQueryTokenMintedByAppResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -313,7 +313,7 @@ export const QueryTokenMintedByProductResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryTokenMintedByProductResponse {
+  fromJSON(object: any): QueryTokenMintedByAppResponse {
     return {
       tokenMint: isSet(object.tokenMint)
         ? TokenMint.fromJSON(object.tokenMint)
@@ -324,7 +324,7 @@ export const QueryTokenMintedByProductResponse = {
     };
   },
 
-  toJSON(message: QueryTokenMintedByProductResponse): unknown {
+  toJSON(message: QueryTokenMintedByAppResponse): unknown {
     const obj: any = {};
     message.tokenMint !== undefined &&
       (obj.tokenMint = message.tokenMint
@@ -337,10 +337,10 @@ export const QueryTokenMintedByProductResponse = {
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryTokenMintedByProductResponse>, I>
-  >(object: I): QueryTokenMintedByProductResponse {
-    const message = createBaseQueryTokenMintedByProductResponse();
+  fromPartial<I extends Exact<DeepPartial<QueryTokenMintedByAppResponse>, I>>(
+    object: I
+  ): QueryTokenMintedByAppResponse {
+    const message = createBaseQueryTokenMintedByAppResponse();
     message.tokenMint =
       object.tokenMint !== undefined && object.tokenMint !== null
         ? TokenMint.fromPartial(object.tokenMint)
@@ -353,13 +353,13 @@ export const QueryTokenMintedByProductResponse = {
   },
 };
 
-function createBaseQueryTokenMintedByProductAndAssetRequest(): QueryTokenMintedByProductAndAssetRequest {
+function createBaseQueryTokenMintedByAppAndAssetRequest(): QueryTokenMintedByAppAndAssetRequest {
   return { appId: Long.UZERO, assetId: Long.UZERO, pagination: undefined };
 }
 
-export const QueryTokenMintedByProductAndAssetRequest = {
+export const QueryTokenMintedByAppAndAssetRequest = {
   encode(
-    message: QueryTokenMintedByProductAndAssetRequest,
+    message: QueryTokenMintedByAppAndAssetRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.appId.isZero()) {
@@ -377,10 +377,10 @@ export const QueryTokenMintedByProductAndAssetRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryTokenMintedByProductAndAssetRequest {
+  ): QueryTokenMintedByAppAndAssetRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryTokenMintedByProductAndAssetRequest();
+    const message = createBaseQueryTokenMintedByAppAndAssetRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -401,7 +401,7 @@ export const QueryTokenMintedByProductAndAssetRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryTokenMintedByProductAndAssetRequest {
+  fromJSON(object: any): QueryTokenMintedByAppAndAssetRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       assetId: isSet(object.assetId)
@@ -413,7 +413,7 @@ export const QueryTokenMintedByProductAndAssetRequest = {
     };
   },
 
-  toJSON(message: QueryTokenMintedByProductAndAssetRequest): unknown {
+  toJSON(message: QueryTokenMintedByAppAndAssetRequest): unknown {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
@@ -427,9 +427,9 @@ export const QueryTokenMintedByProductAndAssetRequest = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryTokenMintedByProductAndAssetRequest>, I>
-  >(object: I): QueryTokenMintedByProductAndAssetRequest {
-    const message = createBaseQueryTokenMintedByProductAndAssetRequest();
+    I extends Exact<DeepPartial<QueryTokenMintedByAppAndAssetRequest>, I>
+  >(object: I): QueryTokenMintedByAppAndAssetRequest {
+    const message = createBaseQueryTokenMintedByAppAndAssetRequest();
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -446,13 +446,13 @@ export const QueryTokenMintedByProductAndAssetRequest = {
   },
 };
 
-function createBaseQueryTokenMintedByProductAndAssetResponse(): QueryTokenMintedByProductAndAssetResponse {
+function createBaseQueryTokenMintedByAppAndAssetResponse(): QueryTokenMintedByAppAndAssetResponse {
   return { mintedTokens: undefined, pagination: undefined };
 }
 
-export const QueryTokenMintedByProductAndAssetResponse = {
+export const QueryTokenMintedByAppAndAssetResponse = {
   encode(
-    message: QueryTokenMintedByProductAndAssetResponse,
+    message: QueryTokenMintedByAppAndAssetResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.mintedTokens !== undefined) {
@@ -473,10 +473,10 @@ export const QueryTokenMintedByProductAndAssetResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryTokenMintedByProductAndAssetResponse {
+  ): QueryTokenMintedByAppAndAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryTokenMintedByProductAndAssetResponse();
+    const message = createBaseQueryTokenMintedByAppAndAssetResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -494,7 +494,7 @@ export const QueryTokenMintedByProductAndAssetResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryTokenMintedByProductAndAssetResponse {
+  fromJSON(object: any): QueryTokenMintedByAppAndAssetResponse {
     return {
       mintedTokens: isSet(object.mintedTokens)
         ? MintedTokens.fromJSON(object.mintedTokens)
@@ -505,7 +505,7 @@ export const QueryTokenMintedByProductAndAssetResponse = {
     };
   },
 
-  toJSON(message: QueryTokenMintedByProductAndAssetResponse): unknown {
+  toJSON(message: QueryTokenMintedByAppAndAssetResponse): unknown {
     const obj: any = {};
     message.mintedTokens !== undefined &&
       (obj.mintedTokens = message.mintedTokens
@@ -519,9 +519,9 @@ export const QueryTokenMintedByProductAndAssetResponse = {
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryTokenMintedByProductAndAssetResponse>, I>
-  >(object: I): QueryTokenMintedByProductAndAssetResponse {
-    const message = createBaseQueryTokenMintedByProductAndAssetResponse();
+    I extends Exact<DeepPartial<QueryTokenMintedByAppAndAssetResponse>, I>
+  >(object: I): QueryTokenMintedByAppAndAssetResponse {
+    const message = createBaseQueryTokenMintedByAppAndAssetResponse();
     message.mintedTokens =
       object.mintedTokens !== undefined && object.mintedTokens !== null
         ? MintedTokens.fromPartial(object.mintedTokens)
@@ -535,68 +535,66 @@ export const QueryTokenMintedByProductAndAssetResponse = {
 };
 
 export interface Query {
-  QueryAllTokenMintedForAllProducts(
-    request: QueryAllTokenMintedForAllProductsRequest
-  ): Promise<QueryAllTokenMintedForAllProductsResponse>;
-  QueryTokenMintedByProduct(
-    request: QueryTokenMintedByProductRequest
-  ): Promise<QueryTokenMintedByProductResponse>;
-  QueryTokenMintedByProductAndAsset(
-    request: QueryTokenMintedByProductAndAssetRequest
-  ): Promise<QueryTokenMintedByProductAndAssetResponse>;
+  QueryAllTokenMintedForAllApps(
+    request: QueryAllTokenMintedForAllAppsRequest
+  ): Promise<QueryAllTokenMintedForAllAppsResponse>;
+  QueryTokenMintedByApp(
+    request: QueryTokenMintedByAppRequest
+  ): Promise<QueryTokenMintedByAppResponse>;
+  QueryTokenMintedByAppAndAsset(
+    request: QueryTokenMintedByAppAndAssetRequest
+  ): Promise<QueryTokenMintedByAppAndAssetResponse>;
 }
 
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
-    this.QueryAllTokenMintedForAllProducts =
-      this.QueryAllTokenMintedForAllProducts.bind(this);
-    this.QueryTokenMintedByProduct = this.QueryTokenMintedByProduct.bind(this);
-    this.QueryTokenMintedByProductAndAsset =
-      this.QueryTokenMintedByProductAndAsset.bind(this);
+    this.QueryAllTokenMintedForAllApps =
+      this.QueryAllTokenMintedForAllApps.bind(this);
+    this.QueryTokenMintedByApp = this.QueryTokenMintedByApp.bind(this);
+    this.QueryTokenMintedByAppAndAsset =
+      this.QueryTokenMintedByAppAndAsset.bind(this);
   }
-  QueryAllTokenMintedForAllProducts(
-    request: QueryAllTokenMintedForAllProductsRequest
-  ): Promise<QueryAllTokenMintedForAllProductsResponse> {
-    const data =
-      QueryAllTokenMintedForAllProductsRequest.encode(request).finish();
+  QueryAllTokenMintedForAllApps(
+    request: QueryAllTokenMintedForAllAppsRequest
+  ): Promise<QueryAllTokenMintedForAllAppsResponse> {
+    const data = QueryAllTokenMintedForAllAppsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.tokenmint.v1beta1.Query",
-      "QueryAllTokenMintedForAllProducts",
+      "QueryAllTokenMintedForAllApps",
       data
     );
     return promise.then((data) =>
-      QueryAllTokenMintedForAllProductsResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  QueryTokenMintedByProduct(
-    request: QueryTokenMintedByProductRequest
-  ): Promise<QueryTokenMintedByProductResponse> {
-    const data = QueryTokenMintedByProductRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.tokenmint.v1beta1.Query",
-      "QueryTokenMintedByProduct",
-      data
-    );
-    return promise.then((data) =>
-      QueryTokenMintedByProductResponse.decode(new _m0.Reader(data))
+      QueryAllTokenMintedForAllAppsResponse.decode(new _m0.Reader(data))
     );
   }
 
-  QueryTokenMintedByProductAndAsset(
-    request: QueryTokenMintedByProductAndAssetRequest
-  ): Promise<QueryTokenMintedByProductAndAssetResponse> {
-    const data =
-      QueryTokenMintedByProductAndAssetRequest.encode(request).finish();
+  QueryTokenMintedByApp(
+    request: QueryTokenMintedByAppRequest
+  ): Promise<QueryTokenMintedByAppResponse> {
+    const data = QueryTokenMintedByAppRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.tokenmint.v1beta1.Query",
-      "QueryTokenMintedByProductAndAsset",
+      "QueryTokenMintedByApp",
       data
     );
     return promise.then((data) =>
-      QueryTokenMintedByProductAndAssetResponse.decode(new _m0.Reader(data))
+      QueryTokenMintedByAppResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryTokenMintedByAppAndAsset(
+    request: QueryTokenMintedByAppAndAssetRequest
+  ): Promise<QueryTokenMintedByAppAndAssetResponse> {
+    const data = QueryTokenMintedByAppAndAssetRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.tokenmint.v1beta1.Query",
+      "QueryTokenMintedByAppAndAsset",
+      data
+    );
+    return promise.then((data) =>
+      QueryTokenMintedByAppAndAssetResponse.decode(new _m0.Reader(data))
     );
   }
 }

@@ -1,10 +1,10 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { LiquidtyGaugeMetaData } from "./gauge";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import * as _m0 from "protobufjs/minimal";
 import { Duration } from "../../../google/protobuf/duration";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
+import { LiquidtyGaugeMetaData } from "../../../comdex/rewards/v1beta1/gauge";
 
 export const protobufPackage = "comdex.rewards.v1beta1";
 
@@ -175,7 +175,7 @@ export const MsgCreateGauge = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       gaugeTypeId: isSet(object.gaugeTypeId)
-        ? Long.fromString(object.gaugeTypeId)
+        ? Long.fromValue(object.gaugeTypeId)
         : Long.UZERO,
       triggerDuration: isSet(object.triggerDuration)
         ? Duration.fromJSON(object.triggerDuration)
@@ -184,7 +184,7 @@ export const MsgCreateGauge = {
         ? Coin.fromJSON(object.depositAmount)
         : undefined,
       totalTriggers: isSet(object.totalTriggers)
-        ? Long.fromString(object.totalTriggers)
+        ? Long.fromValue(object.totalTriggers)
         : Long.UZERO,
       startTime: isSet(object.startTime)
         ? fromJsonTimestamp(object.startTime)
@@ -192,7 +192,7 @@ export const MsgCreateGauge = {
       liquidityMetaData: isSet(object.liquidityMetaData)
         ? LiquidtyGaugeMetaData.fromJSON(object.liquidityMetaData)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -361,11 +361,11 @@ export const WhitelistAsset = {
   fromJSON(object: any): WhitelistAsset {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
       assetId: Array.isArray(object?.assetId)
-        ? object.assetId.map((e: any) => Long.fromString(e))
+        ? object.assetId.map((e: any) => Long.fromValue(e))
         : [],
     };
   },
@@ -448,11 +448,11 @@ export const RemoveWhitelistAsset = {
   fromJSON(object: any): RemoveWhitelistAsset {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
     };
   },
@@ -620,7 +620,7 @@ export const WhitelistAppIdVault = {
   fromJSON(object: any): WhitelistAppIdVault {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
     };
@@ -692,7 +692,7 @@ export const RemoveWhitelistAppIdVault = {
   fromJSON(object: any): RemoveWhitelistAppIdVault {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
     };
@@ -889,20 +889,20 @@ export const ActivateExternalRewardsLockers = {
   fromJSON(object: any): ActivateExternalRewardsLockers {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       assetId: isSet(object.assetId)
-        ? Long.fromString(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
       totalRewards: isSet(object.totalRewards)
         ? Coin.fromJSON(object.totalRewards)
         : undefined,
       durationDays: isSet(object.durationDays)
-        ? Long.fromString(object.durationDays)
+        ? Long.fromValue(object.durationDays)
         : Long.ZERO,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
-        ? Long.fromString(object.minLockupTimeSeconds)
+        ? Long.fromValue(object.minLockupTimeSeconds)
         : Long.ZERO,
     };
   },
@@ -1080,20 +1080,20 @@ export const ActivateExternalRewardsVault = {
   fromJSON(object: any): ActivateExternalRewardsVault {
     return {
       appMappingId: isSet(object.appMappingId)
-        ? Long.fromString(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromString(object.extendedPairId)
+        ? Long.fromValue(object.extendedPairId)
         : Long.UZERO,
       totalRewards: isSet(object.totalRewards)
         ? Coin.fromJSON(object.totalRewards)
         : undefined,
       durationDays: isSet(object.durationDays)
-        ? Long.fromString(object.durationDays)
+        ? Long.fromValue(object.durationDays)
         : Long.ZERO,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
-        ? Long.fromString(object.minLockupTimeSeconds)
+        ? Long.fromValue(object.minLockupTimeSeconds)
         : Long.ZERO,
     };
   },
@@ -1197,16 +1197,6 @@ export const ActivateExternalRewardsVaultResponse = {
 
 export interface Msg {
   CreateGauge(request: MsgCreateGauge): Promise<MsgCreateGaugeResponse>;
-  Whitelist(request: WhitelistAsset): Promise<MsgWhitelistAssetResponse>;
-  RemoveWhitelist(
-    request: RemoveWhitelistAsset
-  ): Promise<MsgRemoveWhitelistAssetResponse>;
-  WhitelistAppVault(
-    request: WhitelistAppIdVault
-  ): Promise<MsgWhitelistAppIdVaultResponse>;
-  RemoveWhitelistAppVault(
-    request: RemoveWhitelistAppIdVault
-  ): Promise<MsgRemoveWhitelistAppIdVaultResponse>;
   ExternalRewardsLockers(
     request: ActivateExternalRewardsLockers
   ): Promise<ActivateExternalRewardsLockersResponse>;
@@ -1220,10 +1210,6 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.CreateGauge = this.CreateGauge.bind(this);
-    this.Whitelist = this.Whitelist.bind(this);
-    this.RemoveWhitelist = this.RemoveWhitelist.bind(this);
-    this.WhitelistAppVault = this.WhitelistAppVault.bind(this);
-    this.RemoveWhitelistAppVault = this.RemoveWhitelistAppVault.bind(this);
     this.ExternalRewardsLockers = this.ExternalRewardsLockers.bind(this);
     this.ExternalRewardsVault = this.ExternalRewardsVault.bind(this);
   }
@@ -1236,60 +1222,6 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCreateGaugeResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  Whitelist(request: WhitelistAsset): Promise<MsgWhitelistAssetResponse> {
-    const data = WhitelistAsset.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.rewards.v1beta1.Msg",
-      "Whitelist",
-      data
-    );
-    return promise.then((data) =>
-      MsgWhitelistAssetResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  RemoveWhitelist(
-    request: RemoveWhitelistAsset
-  ): Promise<MsgRemoveWhitelistAssetResponse> {
-    const data = RemoveWhitelistAsset.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.rewards.v1beta1.Msg",
-      "RemoveWhitelist",
-      data
-    );
-    return promise.then((data) =>
-      MsgRemoveWhitelistAssetResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  WhitelistAppVault(
-    request: WhitelistAppIdVault
-  ): Promise<MsgWhitelistAppIdVaultResponse> {
-    const data = WhitelistAppIdVault.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.rewards.v1beta1.Msg",
-      "WhitelistAppVault",
-      data
-    );
-    return promise.then((data) =>
-      MsgWhitelistAppIdVaultResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  RemoveWhitelistAppVault(
-    request: RemoveWhitelistAppIdVault
-  ): Promise<MsgRemoveWhitelistAppIdVaultResponse> {
-    const data = RemoveWhitelistAppIdVault.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.rewards.v1beta1.Msg",
-      "RemoveWhitelistAppVault",
-      data
-    );
-    return promise.then((data) =>
-      MsgRemoveWhitelistAppIdVaultResponse.decode(new _m0.Reader(data))
     );
   }
 

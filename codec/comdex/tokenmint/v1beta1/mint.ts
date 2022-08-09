@@ -1,13 +1,13 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.tokenmint.v1beta1";
 
 /** app_vault_type_id will be the key for  the KVStore for this value. */
 export interface TokenMint {
-  appMappingId: Long;
+  appId: Long;
   mintedTokens: MintedTokens[];
 }
 
@@ -19,7 +19,7 @@ export interface MintedTokens {
 }
 
 function createBaseTokenMint(): TokenMint {
-  return { appMappingId: Long.UZERO, mintedTokens: [] };
+  return { appId: Long.UZERO, mintedTokens: [] };
 }
 
 export const TokenMint = {
@@ -27,8 +27,8 @@ export const TokenMint = {
     message: TokenMint,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.appMappingId.isZero()) {
-      writer.uint32(8).uint64(message.appMappingId);
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
     }
     for (const v of message.mintedTokens) {
       MintedTokens.encode(v!, writer.uint32(18).fork()).ldelim();
@@ -44,7 +44,7 @@ export const TokenMint = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.appMappingId = reader.uint64() as Long;
+          message.appId = reader.uint64() as Long;
           break;
         case 2:
           message.mintedTokens.push(
@@ -61,9 +61,7 @@ export const TokenMint = {
 
   fromJSON(object: any): TokenMint {
     return {
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       mintedTokens: Array.isArray(object?.mintedTokens)
         ? object.mintedTokens.map((e: any) => MintedTokens.fromJSON(e))
         : [],
@@ -72,8 +70,8 @@ export const TokenMint = {
 
   toJSON(message: TokenMint): unknown {
     const obj: any = {};
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
     if (message.mintedTokens) {
       obj.mintedTokens = message.mintedTokens.map((e) =>
         e ? MintedTokens.toJSON(e) : undefined
@@ -88,9 +86,9 @@ export const TokenMint = {
     object: I
   ): TokenMint {
     const message = createBaseTokenMint();
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.mintedTokens =
       object.mintedTokens?.map((e) => MintedTokens.fromPartial(e)) || [];

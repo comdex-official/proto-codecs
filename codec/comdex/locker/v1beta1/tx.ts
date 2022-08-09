@@ -628,9 +628,6 @@ export const MsgWithdrawAssetResponse = {
 
 /** For CLI Command & Proposals */
 export interface Msg {
-  MsgAddWhiteListedAsset(
-    request: MsgAddWhiteListedAssetRequest
-  ): Promise<MsgAddWhiteListedAssetResponse>;
   MsgCreateLocker(
     request: MsgCreateLockerRequest
   ): Promise<MsgCreateLockerResponse>;
@@ -646,25 +643,10 @@ export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
   constructor(rpc: Rpc) {
     this.rpc = rpc;
-    this.MsgAddWhiteListedAsset = this.MsgAddWhiteListedAsset.bind(this);
     this.MsgCreateLocker = this.MsgCreateLocker.bind(this);
     this.MsgDepositAsset = this.MsgDepositAsset.bind(this);
     this.MsgWithdrawAsset = this.MsgWithdrawAsset.bind(this);
   }
-  MsgAddWhiteListedAsset(
-    request: MsgAddWhiteListedAssetRequest
-  ): Promise<MsgAddWhiteListedAssetResponse> {
-    const data = MsgAddWhiteListedAssetRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.locker.v1beta1.Msg",
-      "MsgAddWhiteListedAsset",
-      data
-    );
-    return promise.then((data) =>
-      MsgAddWhiteListedAssetResponse.decode(new _m0.Reader(data))
-    );
-  }
-
   MsgCreateLocker(
     request: MsgCreateLockerRequest
   ): Promise<MsgCreateLockerResponse> {

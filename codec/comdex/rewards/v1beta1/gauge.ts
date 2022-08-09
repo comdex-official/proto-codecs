@@ -1,8 +1,8 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import * as _m0 from "protobufjs/minimal";
 import { Duration } from "../../../google/protobuf/duration";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.rewards.v1beta1";
@@ -94,14 +94,12 @@ export const LiquidtyGaugeMetaData = {
 
   fromJSON(object: any): LiquidtyGaugeMetaData {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       isMasterPool: isSet(object.isMasterPool)
         ? Boolean(object.isMasterPool)
         : false,
       childPoolIds: Array.isArray(object?.childPoolIds)
-        ? object.childPoolIds.map((e: any) => Long.fromString(e))
+        ? object.childPoolIds.map((e: any) => Long.fromValue(e))
         : [],
     };
   },
@@ -281,7 +279,7 @@ export const Gauge = {
 
   fromJSON(object: any): Gauge {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
       createdAt: isSet(object.createdAt)
         ? fromJsonTimestamp(object.createdAt)
@@ -290,7 +288,7 @@ export const Gauge = {
         ? fromJsonTimestamp(object.startTime)
         : undefined,
       gaugeTypeId: isSet(object.gaugeTypeId)
-        ? Long.fromString(object.gaugeTypeId)
+        ? Long.fromValue(object.gaugeTypeId)
         : Long.UZERO,
       triggerDuration: isSet(object.triggerDuration)
         ? Duration.fromJSON(object.triggerDuration)
@@ -299,10 +297,10 @@ export const Gauge = {
         ? Coin.fromJSON(object.depositAmount)
         : undefined,
       totalTriggers: isSet(object.totalTriggers)
-        ? Long.fromString(object.totalTriggers)
+        ? Long.fromValue(object.totalTriggers)
         : Long.UZERO,
       triggeredCount: isSet(object.triggeredCount)
-        ? Long.fromString(object.triggeredCount)
+        ? Long.fromValue(object.triggeredCount)
         : Long.UZERO,
       distributedAmount: isSet(object.distributedAmount)
         ? Coin.fromJSON(object.distributedAmount)
@@ -312,7 +310,7 @@ export const Gauge = {
       liquidityMetaData: isSet(object.liquidityMetaData)
         ? LiquidtyGaugeMetaData.fromJSON(object.liquidityMetaData)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -463,7 +461,7 @@ export const GaugeByTriggerDuration = {
         ? Duration.fromJSON(object.triggerDuration)
         : undefined,
       gaugeIds: Array.isArray(object?.gaugeIds)
-        ? object.gaugeIds.map((e: any) => Long.fromString(e))
+        ? object.gaugeIds.map((e: any) => Long.fromValue(e))
         : [],
     };
   },
