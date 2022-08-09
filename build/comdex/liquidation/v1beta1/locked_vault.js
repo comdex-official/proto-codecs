@@ -34,7 +34,7 @@ function createBaseLockedVault() {
         id: long_1.default.UZERO,
         appId: long_1.default.UZERO,
         appVaultTypeId: "",
-        originalVaultId: "",
+        originalVaultId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
         owner: "",
         amountIn: "",
@@ -63,8 +63,8 @@ exports.LockedVault = {
         if (message.appVaultTypeId !== "") {
             writer.uint32(26).string(message.appVaultTypeId);
         }
-        if (message.originalVaultId !== "") {
-            writer.uint32(34).string(message.originalVaultId);
+        if (!message.originalVaultId.isZero()) {
+            writer.uint32(32).uint64(message.originalVaultId);
         }
         if (!message.extendedPairVaultId.isZero()) {
             writer.uint32(40).uint64(message.extendedPairVaultId);
@@ -130,7 +130,7 @@ exports.LockedVault = {
                     message.appVaultTypeId = reader.string();
                     break;
                 case 4:
-                    message.originalVaultId = reader.string();
+                    message.originalVaultId = reader.uint64();
                     break;
                 case 5:
                     message.extendedPairVaultId = reader.uint64();
@@ -192,8 +192,8 @@ exports.LockedVault = {
                 ? String(object.appVaultTypeId)
                 : "",
             originalVaultId: isSet(object.originalVaultId)
-                ? String(object.originalVaultId)
-                : "",
+                ? long_1.default.fromValue(object.originalVaultId)
+                : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO,
@@ -242,7 +242,7 @@ exports.LockedVault = {
         message.appVaultTypeId !== undefined &&
             (obj.appVaultTypeId = message.appVaultTypeId);
         message.originalVaultId !== undefined &&
-            (obj.originalVaultId = message.originalVaultId);
+            (obj.originalVaultId = (message.originalVaultId || long_1.default.UZERO).toString());
         message.extendedPairVaultId !== undefined &&
             (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
@@ -279,7 +279,7 @@ exports.LockedVault = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
         const message = createBaseLockedVault();
         message.id =
             object.id !== undefined && object.id !== null
@@ -290,26 +290,29 @@ exports.LockedVault = {
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.appVaultTypeId = (_a = object.appVaultTypeId) !== null && _a !== void 0 ? _a : "";
-        message.originalVaultId = (_b = object.originalVaultId) !== null && _b !== void 0 ? _b : "";
+        message.originalVaultId =
+            object.originalVaultId !== undefined && object.originalVaultId !== null
+                ? long_1.default.fromValue(object.originalVaultId)
+                : long_1.default.UZERO;
         message.extendedPairVaultId =
             object.extendedPairVaultId !== undefined &&
                 object.extendedPairVaultId !== null
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
-        message.owner = (_c = object.owner) !== null && _c !== void 0 ? _c : "";
-        message.amountIn = (_d = object.amountIn) !== null && _d !== void 0 ? _d : "";
-        message.amountOut = (_e = object.amountOut) !== null && _e !== void 0 ? _e : "";
-        message.updatedAmountOut = (_f = object.updatedAmountOut) !== null && _f !== void 0 ? _f : "";
-        message.initiator = (_g = object.initiator) !== null && _g !== void 0 ? _g : "";
-        message.isAuctionComplete = (_h = object.isAuctionComplete) !== null && _h !== void 0 ? _h : false;
-        message.isAuctionInProgress = (_j = object.isAuctionInProgress) !== null && _j !== void 0 ? _j : false;
-        message.crAtLiquidation = (_k = object.crAtLiquidation) !== null && _k !== void 0 ? _k : "";
+        message.owner = (_b = object.owner) !== null && _b !== void 0 ? _b : "";
+        message.amountIn = (_c = object.amountIn) !== null && _c !== void 0 ? _c : "";
+        message.amountOut = (_d = object.amountOut) !== null && _d !== void 0 ? _d : "";
+        message.updatedAmountOut = (_e = object.updatedAmountOut) !== null && _e !== void 0 ? _e : "";
+        message.initiator = (_f = object.initiator) !== null && _f !== void 0 ? _f : "";
+        message.isAuctionComplete = (_g = object.isAuctionComplete) !== null && _g !== void 0 ? _g : false;
+        message.isAuctionInProgress = (_h = object.isAuctionInProgress) !== null && _h !== void 0 ? _h : false;
+        message.crAtLiquidation = (_j = object.crAtLiquidation) !== null && _j !== void 0 ? _j : "";
         message.currentCollateralisationRatio =
-            (_l = object.currentCollateralisationRatio) !== null && _l !== void 0 ? _l : "";
-        message.collateralToBeAuctioned = (_m = object.collateralToBeAuctioned) !== null && _m !== void 0 ? _m : "";
-        message.liquidationTimestamp = (_o = object.liquidationTimestamp) !== null && _o !== void 0 ? _o : undefined;
-        message.selloffHistory = ((_p = object.selloffHistory) === null || _p === void 0 ? void 0 : _p.map((e) => e)) || [];
-        message.interestAccumulated = (_q = object.interestAccumulated) !== null && _q !== void 0 ? _q : "";
+            (_k = object.currentCollateralisationRatio) !== null && _k !== void 0 ? _k : "";
+        message.collateralToBeAuctioned = (_l = object.collateralToBeAuctioned) !== null && _l !== void 0 ? _l : "";
+        message.liquidationTimestamp = (_m = object.liquidationTimestamp) !== null && _m !== void 0 ? _m : undefined;
+        message.selloffHistory = ((_o = object.selloffHistory) === null || _o === void 0 ? void 0 : _o.map((e) => e)) || [];
+        message.interestAccumulated = (_p = object.interestAccumulated) !== null && _p !== void 0 ? _p : "";
         message.borrowMetaData =
             object.borrowMetaData !== undefined && object.borrowMetaData !== null
                 ? exports.BorrowMetaData.fromPartial(object.borrowMetaData)

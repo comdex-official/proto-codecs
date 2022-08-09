@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,16 +25,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GaugeByTriggerDuration = exports.Gauge = exports.LiquidtyGaugeMetaData = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const _m0 = __importStar(require("protobufjs/minimal"));
 const duration_1 = require("../../../google/protobuf/duration");
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.rewards.v1beta1";
 function createBaseLiquidtyGaugeMetaData() {
     return { poolId: long_1.default.UZERO, isMasterPool: false, childPoolIds: [] };
 }
 exports.LiquidtyGaugeMetaData = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
@@ -30,7 +49,7 @@ exports.LiquidtyGaugeMetaData = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseLiquidtyGaugeMetaData();
         while (reader.pos < end) {
@@ -62,14 +81,12 @@ exports.LiquidtyGaugeMetaData = {
     },
     fromJSON(object) {
         return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             isMasterPool: isSet(object.isMasterPool)
                 ? Boolean(object.isMasterPool)
                 : false,
             childPoolIds: Array.isArray(object === null || object === void 0 ? void 0 : object.childPoolIds)
-                ? object.childPoolIds.map((e) => long_1.default.fromString(e))
+                ? object.childPoolIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -119,7 +136,7 @@ function createBaseGauge() {
     };
 }
 exports.Gauge = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -165,7 +182,7 @@ exports.Gauge = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseGauge();
         while (reader.pos < end) {
@@ -222,7 +239,7 @@ exports.Gauge = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             from: isSet(object.from) ? String(object.from) : "",
             createdAt: isSet(object.createdAt)
                 ? fromJsonTimestamp(object.createdAt)
@@ -231,7 +248,7 @@ exports.Gauge = {
                 ? fromJsonTimestamp(object.startTime)
                 : undefined,
             gaugeTypeId: isSet(object.gaugeTypeId)
-                ? long_1.default.fromString(object.gaugeTypeId)
+                ? long_1.default.fromValue(object.gaugeTypeId)
                 : long_1.default.UZERO,
             triggerDuration: isSet(object.triggerDuration)
                 ? duration_1.Duration.fromJSON(object.triggerDuration)
@@ -240,10 +257,10 @@ exports.Gauge = {
                 ? coin_1.Coin.fromJSON(object.depositAmount)
                 : undefined,
             totalTriggers: isSet(object.totalTriggers)
-                ? long_1.default.fromString(object.totalTriggers)
+                ? long_1.default.fromValue(object.totalTriggers)
                 : long_1.default.UZERO,
             triggeredCount: isSet(object.triggeredCount)
-                ? long_1.default.fromString(object.triggeredCount)
+                ? long_1.default.fromValue(object.triggeredCount)
                 : long_1.default.UZERO,
             distributedAmount: isSet(object.distributedAmount)
                 ? coin_1.Coin.fromJSON(object.distributedAmount)
@@ -253,7 +270,7 @@ exports.Gauge = {
             liquidityMetaData: isSet(object.liquidityMetaData)
                 ? exports.LiquidtyGaugeMetaData.fromJSON(object.liquidityMetaData)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -346,7 +363,7 @@ function createBaseGaugeByTriggerDuration() {
     return { triggerDuration: undefined, gaugeIds: [] };
 }
 exports.GaugeByTriggerDuration = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.triggerDuration !== undefined) {
             duration_1.Duration.encode(message.triggerDuration, writer.uint32(10).fork()).ldelim();
         }
@@ -358,7 +375,7 @@ exports.GaugeByTriggerDuration = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseGaugeByTriggerDuration();
         while (reader.pos < end) {
@@ -391,7 +408,7 @@ exports.GaugeByTriggerDuration = {
                 ? duration_1.Duration.fromJSON(object.triggerDuration)
                 : undefined,
             gaugeIds: Array.isArray(object === null || object === void 0 ? void 0 : object.gaugeIds)
-                ? object.gaugeIds.map((e) => long_1.default.fromString(e))
+                ? object.gaugeIds.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -444,9 +461,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

@@ -1,27 +1,46 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryRewardResponse = exports.QueryRewardRequest = exports.QueryRewardsResponse = exports.QueryRewardsRequest = exports.QueryGaugeByDurationResponse = exports.QueryGaugesByDurationRequest = exports.QueryGaugeByIdResponse = exports.QueryGaugeByIdRequest = exports.QueryAllGaugesResponse = exports.QueryAllGaugesRequest = exports.QueryEpochInfoByDurationResponse = exports.QueryEpochInfoByDurationRequest = exports.QueryAllEpochsInfoResponse = exports.QueryAllEpochsInfoRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryWhitelistedAppIdsVaultResponse = exports.QueryWhitelistedAppIdsVaultRequest = exports.QueryExternalRewardVaultsResponse = exports.QueryExternalRewardVaultsRequest = exports.QueryExternalRewardsLockersResponse = exports.QueryExternalRewardsLockersRequest = exports.QueryRewardResponse = exports.QueryRewardRequest = exports.QueryRewardsResponse = exports.QueryRewardsRequest = exports.QueryGaugeByDurationResponse = exports.QueryGaugesByDurationRequest = exports.QueryGaugeByIdResponse = exports.QueryGaugeByIdRequest = exports.QueryAllGaugesResponse = exports.QueryAllGaugesRequest = exports.QueryEpochInfoByDurationResponse = exports.QueryEpochInfoByDurationRequest = exports.QueryAllEpochsInfoResponse = exports.QueryAllEpochsInfoRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const params_1 = require("./params");
+const _m0 = __importStar(require("protobufjs/minimal"));
+const params_1 = require("../../../comdex/rewards/v1beta1/params");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-const epochs_1 = require("./epochs");
-const gauge_1 = require("./gauge");
-const rewards_1 = require("./rewards");
+const epochs_1 = require("../../../comdex/rewards/v1beta1/epochs");
+const gauge_1 = require("../../../comdex/rewards/v1beta1/gauge");
+const rewards_1 = require("../../../comdex/rewards/v1beta1/rewards");
 exports.protobufPackage = "comdex.rewards.v1beta1";
 function createBaseQueryParamsRequest() {
     return {};
 }
 exports.QueryParamsRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
@@ -50,14 +69,14 @@ function createBaseQueryParamsResponse() {
     return { params: undefined };
 }
 exports.QueryParamsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
@@ -97,14 +116,14 @@ function createBaseQueryAllEpochsInfoRequest() {
     return { pagination: undefined };
 }
 exports.QueryAllEpochsInfoRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllEpochsInfoRequest();
         while (reader.pos < end) {
@@ -148,7 +167,7 @@ function createBaseQueryAllEpochsInfoResponse() {
     return { epochs: [], pagination: undefined };
 }
 exports.QueryAllEpochsInfoResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.epochs) {
             epochs_1.EpochInfo.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -158,7 +177,7 @@ exports.QueryAllEpochsInfoResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllEpochsInfoResponse();
         while (reader.pos < end) {
@@ -216,14 +235,14 @@ function createBaseQueryEpochInfoByDurationRequest() {
     return { durationSeconds: long_1.default.UZERO };
 }
 exports.QueryEpochInfoByDurationRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.durationSeconds.isZero()) {
             writer.uint32(8).uint64(message.durationSeconds);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryEpochInfoByDurationRequest();
         while (reader.pos < end) {
@@ -242,7 +261,7 @@ exports.QueryEpochInfoByDurationRequest = {
     fromJSON(object) {
         return {
             durationSeconds: isSet(object.durationSeconds)
-                ? long_1.default.fromString(object.durationSeconds)
+                ? long_1.default.fromValue(object.durationSeconds)
                 : long_1.default.UZERO,
         };
     },
@@ -265,14 +284,14 @@ function createBaseQueryEpochInfoByDurationResponse() {
     return { epoch: undefined };
 }
 exports.QueryEpochInfoByDurationResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.epoch !== undefined) {
             epochs_1.EpochInfo.encode(message.epoch, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryEpochInfoByDurationResponse();
         while (reader.pos < end) {
@@ -312,14 +331,14 @@ function createBaseQueryAllGaugesRequest() {
     return { pagination: undefined };
 }
 exports.QueryAllGaugesRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllGaugesRequest();
         while (reader.pos < end) {
@@ -363,7 +382,7 @@ function createBaseQueryAllGaugesResponse() {
     return { gauges: [], pagination: undefined };
 }
 exports.QueryAllGaugesResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.gauges) {
             gauge_1.Gauge.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -373,7 +392,7 @@ exports.QueryAllGaugesResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllGaugesResponse();
         while (reader.pos < end) {
@@ -431,14 +450,14 @@ function createBaseQueryGaugeByIdRequest() {
     return { gaugeId: long_1.default.UZERO };
 }
 exports.QueryGaugeByIdRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.gaugeId.isZero()) {
             writer.uint32(8).uint64(message.gaugeId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryGaugeByIdRequest();
         while (reader.pos < end) {
@@ -457,7 +476,7 @@ exports.QueryGaugeByIdRequest = {
     fromJSON(object) {
         return {
             gaugeId: isSet(object.gaugeId)
-                ? long_1.default.fromString(object.gaugeId)
+                ? long_1.default.fromValue(object.gaugeId)
                 : long_1.default.UZERO,
         };
     },
@@ -480,14 +499,14 @@ function createBaseQueryGaugeByIdResponse() {
     return { gauge: undefined };
 }
 exports.QueryGaugeByIdResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.gauge !== undefined) {
             gauge_1.Gauge.encode(message.gauge, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryGaugeByIdResponse();
         while (reader.pos < end) {
@@ -527,14 +546,14 @@ function createBaseQueryGaugesByDurationRequest() {
     return { durationSeconds: long_1.default.UZERO };
 }
 exports.QueryGaugesByDurationRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.durationSeconds.isZero()) {
             writer.uint32(8).uint64(message.durationSeconds);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryGaugesByDurationRequest();
         while (reader.pos < end) {
@@ -553,7 +572,7 @@ exports.QueryGaugesByDurationRequest = {
     fromJSON(object) {
         return {
             durationSeconds: isSet(object.durationSeconds)
-                ? long_1.default.fromString(object.durationSeconds)
+                ? long_1.default.fromValue(object.durationSeconds)
                 : long_1.default.UZERO,
         };
     },
@@ -576,14 +595,14 @@ function createBaseQueryGaugeByDurationResponse() {
     return { gauges: [] };
 }
 exports.QueryGaugeByDurationResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.gauges) {
             gauge_1.Gauge.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryGaugeByDurationResponse();
         while (reader.pos < end) {
@@ -627,14 +646,14 @@ function createBaseQueryRewardsRequest() {
     return { pagination: undefined };
 }
 exports.QueryRewardsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryRewardsRequest();
         while (reader.pos < end) {
@@ -678,7 +697,7 @@ function createBaseQueryRewardsResponse() {
     return { rewards: [], pagination: undefined };
 }
 exports.QueryRewardsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.rewards) {
             rewards_1.InternalRewards.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -688,7 +707,7 @@ exports.QueryRewardsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryRewardsResponse();
         while (reader.pos < end) {
@@ -747,14 +766,14 @@ function createBaseQueryRewardRequest() {
     return { id: long_1.default.UZERO };
 }
 exports.QueryRewardRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryRewardRequest();
         while (reader.pos < end) {
@@ -772,7 +791,7 @@ exports.QueryRewardRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -794,14 +813,14 @@ function createBaseQueryRewardResponse() {
     return { reward: undefined };
 }
 exports.QueryRewardResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.reward !== undefined) {
             rewards_1.InternalRewards.encode(message.reward, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryRewardResponse();
         while (reader.pos < end) {
@@ -841,6 +860,366 @@ exports.QueryRewardResponse = {
         return message;
     },
 };
+function createBaseQueryExternalRewardsLockersRequest() {
+    return { pagination: undefined };
+}
+exports.QueryExternalRewardsLockersRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryExternalRewardsLockersRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryExternalRewardsLockersRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryExternalRewardsLockersResponse() {
+    return { lockerExternalRewards: [], pagination: undefined };
+}
+exports.QueryExternalRewardsLockersResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.lockerExternalRewards) {
+            rewards_1.LockerExternalRewards.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryExternalRewardsLockersResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.lockerExternalRewards.push(rewards_1.LockerExternalRewards.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            lockerExternalRewards: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerExternalRewards)
+                ? object.lockerExternalRewards.map((e) => rewards_1.LockerExternalRewards.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.lockerExternalRewards) {
+            obj.lockerExternalRewards = message.lockerExternalRewards.map((e) => e ? rewards_1.LockerExternalRewards.toJSON(e) : undefined);
+        }
+        else {
+            obj.lockerExternalRewards = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryExternalRewardsLockersResponse();
+        message.lockerExternalRewards =
+            ((_a = object.lockerExternalRewards) === null || _a === void 0 ? void 0 : _a.map((e) => rewards_1.LockerExternalRewards.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryExternalRewardVaultsRequest() {
+    return { pagination: undefined };
+}
+exports.QueryExternalRewardVaultsRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryExternalRewardVaultsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryExternalRewardVaultsRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryExternalRewardVaultsResponse() {
+    return { vaultExternalRewards: [], pagination: undefined };
+}
+exports.QueryExternalRewardVaultsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.vaultExternalRewards) {
+            rewards_1.VaultExternalRewards.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryExternalRewardVaultsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.vaultExternalRewards.push(rewards_1.VaultExternalRewards.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            vaultExternalRewards: Array.isArray(object === null || object === void 0 ? void 0 : object.vaultExternalRewards)
+                ? object.vaultExternalRewards.map((e) => rewards_1.VaultExternalRewards.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.vaultExternalRewards) {
+            obj.vaultExternalRewards = message.vaultExternalRewards.map((e) => e ? rewards_1.VaultExternalRewards.toJSON(e) : undefined);
+        }
+        else {
+            obj.vaultExternalRewards = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryExternalRewardVaultsResponse();
+        message.vaultExternalRewards =
+            ((_a = object.vaultExternalRewards) === null || _a === void 0 ? void 0 : _a.map((e) => rewards_1.VaultExternalRewards.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryWhitelistedAppIdsVaultRequest() {
+    return { pagination: undefined };
+}
+exports.QueryWhitelistedAppIdsVaultRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryWhitelistedAppIdsVaultRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryWhitelistedAppIdsVaultRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryWhitelistedAppIdsVaultResponse() {
+    return { whitelistedAppIdsVault: undefined, pagination: undefined };
+}
+exports.QueryWhitelistedAppIdsVaultResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.whitelistedAppIdsVault !== undefined) {
+            rewards_1.WhitelistedAppIdsVault.encode(message.whitelistedAppIdsVault, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryWhitelistedAppIdsVaultResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.whitelistedAppIdsVault = rewards_1.WhitelistedAppIdsVault.decode(reader, reader.uint32());
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            whitelistedAppIdsVault: isSet(object.whitelistedAppIdsVault)
+                ? rewards_1.WhitelistedAppIdsVault.fromJSON(object.whitelistedAppIdsVault)
+                : undefined,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.whitelistedAppIdsVault !== undefined &&
+            (obj.whitelistedAppIdsVault = message.whitelistedAppIdsVault
+                ? rewards_1.WhitelistedAppIdsVault.toJSON(message.whitelistedAppIdsVault)
+                : undefined);
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryWhitelistedAppIdsVaultResponse();
+        message.whitelistedAppIdsVault =
+            object.whitelistedAppIdsVault !== undefined &&
+                object.whitelistedAppIdsVault !== null
+                ? rewards_1.WhitelistedAppIdsVault.fromPartial(object.whitelistedAppIdsVault)
+                : undefined;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -852,52 +1231,72 @@ class QueryClientImpl {
         this.QueryGaugeByDuration = this.QueryGaugeByDuration.bind(this);
         this.QueryRewards = this.QueryRewards.bind(this);
         this.QueryReward = this.QueryReward.bind(this);
+        this.QueryExternalRewardsLockers =
+            this.QueryExternalRewardsLockers.bind(this);
+        this.QueryExternalRewardVaults = this.QueryExternalRewardVaults.bind(this);
+        this.QueryWhitelistedAppIdsVault =
+            this.QueryWhitelistedAppIdsVault.bind(this);
     }
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "Params", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new _m0.Reader(data)));
     }
     QueryAllEpochsInfo(request) {
         const data = exports.QueryAllEpochsInfoRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryAllEpochsInfo", data);
-        return promise.then((data) => exports.QueryAllEpochsInfoResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAllEpochsInfoResponse.decode(new _m0.Reader(data)));
     }
     QueryEpochInfoByDuration(request) {
         const data = exports.QueryEpochInfoByDurationRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryEpochInfoByDuration", data);
-        return promise.then((data) => exports.QueryEpochInfoByDurationResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryEpochInfoByDurationResponse.decode(new _m0.Reader(data)));
     }
     QueryAllGauges(request) {
         const data = exports.QueryAllGaugesRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryAllGauges", data);
-        return promise.then((data) => exports.QueryAllGaugesResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAllGaugesResponse.decode(new _m0.Reader(data)));
     }
     QueryGaugeByID(request) {
         const data = exports.QueryGaugeByIdRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryGaugeByID", data);
-        return promise.then((data) => exports.QueryGaugeByIdResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryGaugeByIdResponse.decode(new _m0.Reader(data)));
     }
     QueryGaugeByDuration(request) {
         const data = exports.QueryGaugesByDurationRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryGaugeByDuration", data);
-        return promise.then((data) => exports.QueryGaugeByDurationResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryGaugeByDurationResponse.decode(new _m0.Reader(data)));
     }
     QueryRewards(request) {
         const data = exports.QueryRewardsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryRewards", data);
-        return promise.then((data) => exports.QueryRewardsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryRewardsResponse.decode(new _m0.Reader(data)));
     }
     QueryReward(request) {
         const data = exports.QueryRewardRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryReward", data);
-        return promise.then((data) => exports.QueryRewardResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryRewardResponse.decode(new _m0.Reader(data)));
+    }
+    QueryExternalRewardsLockers(request) {
+        const data = exports.QueryExternalRewardsLockersRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryExternalRewardsLockers", data);
+        return promise.then((data) => exports.QueryExternalRewardsLockersResponse.decode(new _m0.Reader(data)));
+    }
+    QueryExternalRewardVaults(request) {
+        const data = exports.QueryExternalRewardVaultsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryExternalRewardVaults", data);
+        return promise.then((data) => exports.QueryExternalRewardVaultsResponse.decode(new _m0.Reader(data)));
+    }
+    QueryWhitelistedAppIdsVault(request) {
+        const data = exports.QueryWhitelistedAppIdsVaultRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryWhitelistedAppIdsVault", data);
+        return promise.then((data) => exports.QueryWhitelistedAppIdsVaultResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

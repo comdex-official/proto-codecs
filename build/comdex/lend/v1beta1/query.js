@@ -386,12 +386,15 @@ exports.QueryAllLendByOwnerRequest = {
     },
 };
 function createBaseQueryAllLendByOwnerResponse() {
-    return { lends: [] };
+    return { lends: [], pagination: undefined };
 }
 exports.QueryAllLendByOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.lends) {
             lend_1.LendAsset.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -405,6 +408,9 @@ exports.QueryAllLendByOwnerResponse = {
                 case 1:
                     message.lends.push(lend_1.LendAsset.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -417,6 +423,9 @@ exports.QueryAllLendByOwnerResponse = {
             lends: Array.isArray(object === null || object === void 0 ? void 0 : object.lends)
                 ? object.lends.map((e) => lend_1.LendAsset.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -427,12 +436,20 @@ exports.QueryAllLendByOwnerResponse = {
         else {
             obj.lends = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryAllLendByOwnerResponse();
         message.lends = ((_a = object.lends) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.LendAsset.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -511,12 +528,15 @@ exports.QueryAllLendByOwnerAndPoolRequest = {
     },
 };
 function createBaseQueryAllLendByOwnerAndPoolResponse() {
-    return { lends: [] };
+    return { lends: [], pagination: undefined };
 }
 exports.QueryAllLendByOwnerAndPoolResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.lends) {
             lend_1.LendAsset.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -530,6 +550,9 @@ exports.QueryAllLendByOwnerAndPoolResponse = {
                 case 1:
                     message.lends.push(lend_1.LendAsset.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -542,6 +565,9 @@ exports.QueryAllLendByOwnerAndPoolResponse = {
             lends: Array.isArray(object === null || object === void 0 ? void 0 : object.lends)
                 ? object.lends.map((e) => lend_1.LendAsset.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -552,12 +578,20 @@ exports.QueryAllLendByOwnerAndPoolResponse = {
         else {
             obj.lends = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryAllLendByOwnerAndPoolResponse();
         message.lends = ((_a = object.lends) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.LendAsset.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -1724,12 +1758,15 @@ exports.QueryAllBorrowByOwnerRequest = {
     },
 };
 function createBaseQueryAllBorrowByOwnerResponse() {
-    return { borrows: [] };
+    return { borrows: [], pagination: undefined };
 }
 exports.QueryAllBorrowByOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.borrows) {
             lend_1.BorrowAsset.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1743,6 +1780,9 @@ exports.QueryAllBorrowByOwnerResponse = {
                 case 1:
                     message.borrows.push(lend_1.BorrowAsset.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1755,6 +1795,9 @@ exports.QueryAllBorrowByOwnerResponse = {
             borrows: Array.isArray(object === null || object === void 0 ? void 0 : object.borrows)
                 ? object.borrows.map((e) => lend_1.BorrowAsset.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -1765,6 +1808,10 @@ exports.QueryAllBorrowByOwnerResponse = {
         else {
             obj.borrows = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1772,6 +1819,10 @@ exports.QueryAllBorrowByOwnerResponse = {
         const message = createBaseQueryAllBorrowByOwnerResponse();
         message.borrows =
             ((_a = object.borrows) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.BorrowAsset.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -1850,12 +1901,15 @@ exports.QueryAllBorrowByOwnerAndPoolRequest = {
     },
 };
 function createBaseQueryAllBorrowByOwnerAndPoolResponse() {
-    return { borrows: [] };
+    return { borrows: [], pagination: undefined };
 }
 exports.QueryAllBorrowByOwnerAndPoolResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.borrows) {
             lend_1.BorrowAsset.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1869,6 +1923,9 @@ exports.QueryAllBorrowByOwnerAndPoolResponse = {
                 case 1:
                     message.borrows.push(lend_1.BorrowAsset.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1881,6 +1938,9 @@ exports.QueryAllBorrowByOwnerAndPoolResponse = {
             borrows: Array.isArray(object === null || object === void 0 ? void 0 : object.borrows)
                 ? object.borrows.map((e) => lend_1.BorrowAsset.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -1891,6 +1951,10 @@ exports.QueryAllBorrowByOwnerAndPoolResponse = {
         else {
             obj.borrows = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1898,11 +1962,15 @@ exports.QueryAllBorrowByOwnerAndPoolResponse = {
         const message = createBaseQueryAllBorrowByOwnerAndPoolResponse();
         message.borrows =
             ((_a = object.borrows) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.BorrowAsset.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryAssetStatsRequest() {
-    return { assetId: long_1.default.UZERO, poolId: long_1.default.UZERO, pagination: undefined };
+    return { assetId: long_1.default.UZERO, poolId: long_1.default.UZERO };
 }
 exports.QueryAssetStatsRequest = {
     encode(message, writer = _m0.Writer.create()) {
@@ -1911,9 +1979,6 @@ exports.QueryAssetStatsRequest = {
         }
         if (!message.poolId.isZero()) {
             writer.uint32(16).uint64(message.poolId);
-        }
-        if (message.pagination !== undefined) {
-            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -1930,9 +1995,6 @@ exports.QueryAssetStatsRequest = {
                 case 2:
                     message.poolId = reader.uint64();
                     break;
-                case 3:
-                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
-                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1946,9 +2008,6 @@ exports.QueryAssetStatsRequest = {
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
-            pagination: isSet(object.pagination)
-                ? pagination_1.PageRequest.fromJSON(object.pagination)
-                : undefined,
         };
     },
     toJSON(message) {
@@ -1957,10 +2016,6 @@ exports.QueryAssetStatsRequest = {
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         message.poolId !== undefined &&
             (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
-        message.pagination !== undefined &&
-            (obj.pagination = message.pagination
-                ? pagination_1.PageRequest.toJSON(message.pagination)
-                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1973,10 +2028,6 @@ exports.QueryAssetStatsRequest = {
             object.poolId !== undefined && object.poolId !== null
                 ? long_1.default.fromValue(object.poolId)
                 : long_1.default.UZERO;
-        message.pagination =
-            object.pagination !== undefined && object.pagination !== null
-                ? pagination_1.PageRequest.fromPartial(object.pagination)
-                : undefined;
         return message;
     },
 };
@@ -2032,15 +2083,12 @@ exports.QueryAssetStatsResponse = {
     },
 };
 function createBaseQueryModuleBalanceRequest() {
-    return { poolId: long_1.default.UZERO, pagination: undefined };
+    return { poolId: long_1.default.UZERO };
 }
 exports.QueryModuleBalanceRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
-        }
-        if (message.pagination !== undefined) {
-            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -2054,9 +2102,6 @@ exports.QueryModuleBalanceRequest = {
                 case 1:
                     message.poolId = reader.uint64();
                     break;
-                case 2:
-                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
-                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2067,19 +2112,12 @@ exports.QueryModuleBalanceRequest = {
     fromJSON(object) {
         return {
             poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
-            pagination: isSet(object.pagination)
-                ? pagination_1.PageRequest.fromJSON(object.pagination)
-                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.poolId !== undefined &&
             (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
-        message.pagination !== undefined &&
-            (obj.pagination = message.pagination
-                ? pagination_1.PageRequest.toJSON(message.pagination)
-                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -2088,10 +2126,6 @@ exports.QueryModuleBalanceRequest = {
             object.poolId !== undefined && object.poolId !== null
                 ? long_1.default.fromValue(object.poolId)
                 : long_1.default.UZERO;
-        message.pagination =
-            object.pagination !== undefined && object.pagination !== null
-                ? pagination_1.PageRequest.fromPartial(object.pagination)
-                : undefined;
         return message;
     },
 };

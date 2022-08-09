@@ -27,11 +27,11 @@ exports.AddAssetInAppProposal = exports.UpdateGovTimeInAppProposal = exports.Add
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 const asset_1 = require("../../../comdex/asset/v1beta1/asset");
-const app_1 = require("../../../comdex/asset/v1beta1/app");
 const pair_1 = require("../../../comdex/asset/v1beta1/pair");
+const app_1 = require("../../../comdex/asset/v1beta1/app");
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseAddAssetsProposal() {
-    return { title: "", description: "", assets: [] };
+    return { title: "", description: "", assets: undefined };
 }
 exports.AddAssetsProposal = {
     encode(message, writer = _m0.Writer.create()) {
@@ -41,8 +41,8 @@ exports.AddAssetsProposal = {
         if (message.description !== "") {
             writer.uint32(18).string(message.description);
         }
-        for (const v of message.assets) {
-            asset_1.Asset.encode(v, writer.uint32(26).fork()).ldelim();
+        if (message.assets !== undefined) {
+            asset_1.Asset.encode(message.assets, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -60,7 +60,7 @@ exports.AddAssetsProposal = {
                     message.description = reader.string();
                     break;
                 case 3:
-                    message.assets.push(asset_1.Asset.decode(reader, reader.uint32()));
+                    message.assets = asset_1.Asset.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -73,9 +73,7 @@ exports.AddAssetsProposal = {
         return {
             title: isSet(object.title) ? String(object.title) : "",
             description: isSet(object.description) ? String(object.description) : "",
-            assets: Array.isArray(object === null || object === void 0 ? void 0 : object.assets)
-                ? object.assets.map((e) => asset_1.Asset.fromJSON(e))
-                : [],
+            assets: isSet(object.assets) ? asset_1.Asset.fromJSON(object.assets) : undefined,
         };
     },
     toJSON(message) {
@@ -83,20 +81,19 @@ exports.AddAssetsProposal = {
         message.title !== undefined && (obj.title = message.title);
         message.description !== undefined &&
             (obj.description = message.description);
-        if (message.assets) {
-            obj.assets = message.assets.map((e) => (e ? asset_1.Asset.toJSON(e) : undefined));
-        }
-        else {
-            obj.assets = [];
-        }
+        message.assets !== undefined &&
+            (obj.assets = message.assets ? asset_1.Asset.toJSON(message.assets) : undefined);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b;
         const message = createBaseAddAssetsProposal();
         message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.assets = ((_c = object.assets) === null || _c === void 0 ? void 0 : _c.map((e) => asset_1.Asset.fromPartial(e))) || [];
+        message.assets =
+            object.assets !== undefined && object.assets !== null
+                ? asset_1.Asset.fromPartial(object.assets)
+                : undefined;
         return message;
     },
 };
@@ -168,7 +165,7 @@ exports.UpdateAssetProposal = {
     },
 };
 function createBaseAddPairsProposal() {
-    return { title: "", description: "", pairs: [] };
+    return { title: "", description: "", pairs: undefined };
 }
 exports.AddPairsProposal = {
     encode(message, writer = _m0.Writer.create()) {
@@ -178,8 +175,8 @@ exports.AddPairsProposal = {
         if (message.description !== "") {
             writer.uint32(18).string(message.description);
         }
-        for (const v of message.pairs) {
-            pair_1.Pair.encode(v, writer.uint32(26).fork()).ldelim();
+        if (message.pairs !== undefined) {
+            pair_1.Pair.encode(message.pairs, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -197,7 +194,7 @@ exports.AddPairsProposal = {
                     message.description = reader.string();
                     break;
                 case 3:
-                    message.pairs.push(pair_1.Pair.decode(reader, reader.uint32()));
+                    message.pairs = pair_1.Pair.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -210,9 +207,7 @@ exports.AddPairsProposal = {
         return {
             title: isSet(object.title) ? String(object.title) : "",
             description: isSet(object.description) ? String(object.description) : "",
-            pairs: Array.isArray(object === null || object === void 0 ? void 0 : object.pairs)
-                ? object.pairs.map((e) => pair_1.Pair.fromJSON(e))
-                : [],
+            pairs: isSet(object.pairs) ? pair_1.Pair.fromJSON(object.pairs) : undefined,
         };
     },
     toJSON(message) {
@@ -220,25 +215,24 @@ exports.AddPairsProposal = {
         message.title !== undefined && (obj.title = message.title);
         message.description !== undefined &&
             (obj.description = message.description);
-        if (message.pairs) {
-            obj.pairs = message.pairs.map((e) => (e ? pair_1.Pair.toJSON(e) : undefined));
-        }
-        else {
-            obj.pairs = [];
-        }
+        message.pairs !== undefined &&
+            (obj.pairs = message.pairs ? pair_1.Pair.toJSON(message.pairs) : undefined);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b;
         const message = createBaseAddPairsProposal();
         message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.pairs = ((_c = object.pairs) === null || _c === void 0 ? void 0 : _c.map((e) => pair_1.Pair.fromPartial(e))) || [];
+        message.pairs =
+            object.pairs !== undefined && object.pairs !== null
+                ? pair_1.Pair.fromPartial(object.pairs)
+                : undefined;
         return message;
     },
 };
 function createBaseAddAppProposal() {
-    return { title: "", description: "", app: [] };
+    return { title: "", description: "", app: undefined };
 }
 exports.AddAppProposal = {
     encode(message, writer = _m0.Writer.create()) {
@@ -248,8 +242,8 @@ exports.AddAppProposal = {
         if (message.description !== "") {
             writer.uint32(18).string(message.description);
         }
-        for (const v of message.app) {
-            app_1.AppData.encode(v, writer.uint32(26).fork()).ldelim();
+        if (message.app !== undefined) {
+            app_1.AppData.encode(message.app, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -267,7 +261,7 @@ exports.AddAppProposal = {
                     message.description = reader.string();
                     break;
                 case 3:
-                    message.app.push(app_1.AppData.decode(reader, reader.uint32()));
+                    message.app = app_1.AppData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -280,9 +274,7 @@ exports.AddAppProposal = {
         return {
             title: isSet(object.title) ? String(object.title) : "",
             description: isSet(object.description) ? String(object.description) : "",
-            app: Array.isArray(object === null || object === void 0 ? void 0 : object.app)
-                ? object.app.map((e) => app_1.AppData.fromJSON(e))
-                : [],
+            app: isSet(object.app) ? app_1.AppData.fromJSON(object.app) : undefined,
         };
     },
     toJSON(message) {
@@ -290,20 +282,19 @@ exports.AddAppProposal = {
         message.title !== undefined && (obj.title = message.title);
         message.description !== undefined &&
             (obj.description = message.description);
-        if (message.app) {
-            obj.app = message.app.map((e) => (e ? app_1.AppData.toJSON(e) : undefined));
-        }
-        else {
-            obj.app = [];
-        }
+        message.app !== undefined &&
+            (obj.app = message.app ? app_1.AppData.toJSON(message.app) : undefined);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b;
         const message = createBaseAddAppProposal();
         message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.app = ((_c = object.app) === null || _c === void 0 ? void 0 : _c.map((e) => app_1.AppData.fromPartial(e))) || [];
+        message.app =
+            object.app !== undefined && object.app !== null
+                ? app_1.AppData.fromPartial(object.app)
+                : undefined;
         return message;
     },
 };
@@ -379,7 +370,7 @@ exports.UpdateGovTimeInAppProposal = {
     },
 };
 function createBaseAddAssetInAppProposal() {
-    return { title: "", description: "", app: [] };
+    return { title: "", description: "", app: undefined };
 }
 exports.AddAssetInAppProposal = {
     encode(message, writer = _m0.Writer.create()) {
@@ -389,8 +380,8 @@ exports.AddAssetInAppProposal = {
         if (message.description !== "") {
             writer.uint32(18).string(message.description);
         }
-        for (const v of message.app) {
-            app_1.AppData.encode(v, writer.uint32(26).fork()).ldelim();
+        if (message.app !== undefined) {
+            app_1.AppData.encode(message.app, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -408,7 +399,7 @@ exports.AddAssetInAppProposal = {
                     message.description = reader.string();
                     break;
                 case 3:
-                    message.app.push(app_1.AppData.decode(reader, reader.uint32()));
+                    message.app = app_1.AppData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -421,9 +412,7 @@ exports.AddAssetInAppProposal = {
         return {
             title: isSet(object.title) ? String(object.title) : "",
             description: isSet(object.description) ? String(object.description) : "",
-            app: Array.isArray(object === null || object === void 0 ? void 0 : object.app)
-                ? object.app.map((e) => app_1.AppData.fromJSON(e))
-                : [],
+            app: isSet(object.app) ? app_1.AppData.fromJSON(object.app) : undefined,
         };
     },
     toJSON(message) {
@@ -431,20 +420,19 @@ exports.AddAssetInAppProposal = {
         message.title !== undefined && (obj.title = message.title);
         message.description !== undefined &&
             (obj.description = message.description);
-        if (message.app) {
-            obj.app = message.app.map((e) => (e ? app_1.AppData.toJSON(e) : undefined));
-        }
-        else {
-            obj.app = [];
-        }
+        message.app !== undefined &&
+            (obj.app = message.app ? app_1.AppData.toJSON(message.app) : undefined);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b;
         const message = createBaseAddAssetInAppProposal();
         message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.app = ((_c = object.app) === null || _c === void 0 ? void 0 : _c.map((e) => app_1.AppData.fromPartial(e))) || [];
+        message.app =
+            object.app !== undefined && object.app !== null
+                ? app_1.AppData.fromPartial(object.app)
+                : undefined;
         return message;
     },
 };

@@ -1,13 +1,13 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
-import { AppAndGovTime, AppData } from "../../../comdex/asset/v1beta1/app";
 import { Pair } from "../../../comdex/asset/v1beta1/pair";
+import { AppData, AppAndGovTime } from "../../../comdex/asset/v1beta1/app";
 export declare const protobufPackage = "comdex.asset.v1beta1";
 export interface AddAssetsProposal {
     title: string;
     description: string;
-    assets: Asset[];
+    assets?: Asset;
 }
 export interface UpdateAssetProposal {
     title: string;
@@ -17,12 +17,12 @@ export interface UpdateAssetProposal {
 export interface AddPairsProposal {
     title: string;
     description: string;
-    pairs: Pair[];
+    pairs?: Pair;
 }
 export interface AddAppProposal {
     title: string;
     description: string;
-    app: AppData[];
+    app?: AppData;
 }
 export interface UpdateGovTimeInAppProposal {
     title: string;
@@ -32,7 +32,7 @@ export interface UpdateGovTimeInAppProposal {
 export interface AddAssetInAppProposal {
     title: string;
     description: string;
-    app: AppData[];
+    app?: AppData;
 }
 export declare const AddAssetsProposal: {
     encode(message: AddAssetsProposal, writer?: _m0.Writer): _m0.Writer;
@@ -49,18 +49,11 @@ export declare const AddAssetsProposal: {
             decimals?: string | number | Long.Long | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
-        }[] | undefined;
+        } | undefined;
     } & {
         title?: string | undefined;
         description?: string | undefined;
         assets?: ({
-            id?: string | number | Long.Long | undefined;
-            name?: string | undefined;
-            denom?: string | undefined;
-            decimals?: string | number | Long.Long | undefined;
-            isOnChain?: boolean | undefined;
-            isOraclePriceRequired?: boolean | undefined;
-        }[] & ({
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             denom?: string | undefined;
@@ -125,7 +118,7 @@ export declare const AddAssetsProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["assets"][number]["id"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["assets"]["id"], keyof Long.Long>, never>) | undefined;
             name?: string | undefined;
             denom?: string | undefined;
             decimals?: string | number | (Long.Long & {
@@ -185,17 +178,10 @@ export declare const AddAssetsProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["assets"][number]["decimals"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["assets"]["decimals"], keyof Long.Long>, never>) | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
-        } & Record<Exclude<keyof I["assets"][number], keyof Asset>, never>)[] & Record<Exclude<keyof I["assets"], keyof {
-            id?: string | number | Long.Long | undefined;
-            name?: string | undefined;
-            denom?: string | undefined;
-            decimals?: string | number | Long.Long | undefined;
-            isOnChain?: boolean | undefined;
-            isOraclePriceRequired?: boolean | undefined;
-        }[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["assets"], keyof Asset>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AddAssetsProposal>, never>>(object: I): AddAssetsProposal;
 };
 export declare const UpdateAssetProposal: {
@@ -360,15 +346,11 @@ export declare const AddPairsProposal: {
             id?: string | number | Long.Long | undefined;
             assetIn?: string | number | Long.Long | undefined;
             assetOut?: string | number | Long.Long | undefined;
-        }[] | undefined;
+        } | undefined;
     } & {
         title?: string | undefined;
         description?: string | undefined;
         pairs?: ({
-            id?: string | number | Long.Long | undefined;
-            assetIn?: string | number | Long.Long | undefined;
-            assetOut?: string | number | Long.Long | undefined;
-        }[] & ({
             id?: string | number | Long.Long | undefined;
             assetIn?: string | number | Long.Long | undefined;
             assetOut?: string | number | Long.Long | undefined;
@@ -430,7 +412,7 @@ export declare const AddPairsProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pairs"][number]["id"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["pairs"]["id"], keyof Long.Long>, never>) | undefined;
             assetIn?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -488,7 +470,7 @@ export declare const AddPairsProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pairs"][number]["assetIn"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["pairs"]["assetIn"], keyof Long.Long>, never>) | undefined;
             assetOut?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -546,12 +528,8 @@ export declare const AddPairsProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pairs"][number]["assetOut"], keyof Long.Long>, never>) | undefined;
-        } & Record<Exclude<keyof I["pairs"][number], keyof Pair>, never>)[] & Record<Exclude<keyof I["pairs"], keyof {
-            id?: string | number | Long.Long | undefined;
-            assetIn?: string | number | Long.Long | undefined;
-            assetOut?: string | number | Long.Long | undefined;
-        }[]>, never>) | undefined;
+            } & Record<Exclude<keyof I["pairs"]["assetOut"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["pairs"], keyof Pair>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AddPairsProposal>, never>>(object: I): AddPairsProposal;
 };
 export declare const AddAppProposal: {
@@ -574,23 +552,11 @@ export declare const AddAppProposal: {
                 isGovToken?: boolean | undefined;
                 recipient?: string | undefined;
             }[] | undefined;
-        }[] | undefined;
+        } | undefined;
     } & {
         title?: string | undefined;
         description?: string | undefined;
         app?: ({
-            id?: string | number | Long.Long | undefined;
-            name?: string | undefined;
-            shortName?: string | undefined;
-            minGovDeposit?: string | undefined;
-            govTimeInSeconds?: number | undefined;
-            genesisToken?: {
-                assetId?: string | number | Long.Long | undefined;
-                genesisSupply?: string | undefined;
-                isGovToken?: boolean | undefined;
-                recipient?: string | undefined;
-            }[] | undefined;
-        }[] & ({
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
@@ -660,7 +626,7 @@ export declare const AddAppProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["app"][number]["id"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["app"]["id"], keyof Long.Long>, never>) | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
             minGovDeposit?: string | undefined;
@@ -733,29 +699,17 @@ export declare const AddAppProposal: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["app"][number]["genesisToken"][number]["assetId"], keyof Long.Long>, never>) | undefined;
+                } & Record<Exclude<keyof I["app"]["genesisToken"][number]["assetId"], keyof Long.Long>, never>) | undefined;
                 genesisSupply?: string | undefined;
                 isGovToken?: boolean | undefined;
                 recipient?: string | undefined;
-            } & Record<Exclude<keyof I["app"][number]["genesisToken"][number], keyof import("../../../comdex/asset/v1beta1/app").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"][number]["genesisToken"], keyof {
+            } & Record<Exclude<keyof I["app"]["genesisToken"][number], keyof import("../../../comdex/asset/v1beta1/app").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"]["genesisToken"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
                 isGovToken?: boolean | undefined;
                 recipient?: string | undefined;
             }[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["app"][number], keyof AppData>, never>)[] & Record<Exclude<keyof I["app"], keyof {
-            id?: string | number | Long.Long | undefined;
-            name?: string | undefined;
-            shortName?: string | undefined;
-            minGovDeposit?: string | undefined;
-            govTimeInSeconds?: number | undefined;
-            genesisToken?: {
-                assetId?: string | number | Long.Long | undefined;
-                genesisSupply?: string | undefined;
-                isGovToken?: boolean | undefined;
-                recipient?: string | undefined;
-            }[] | undefined;
-        }[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["app"], keyof AppData>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AddAppProposal>, never>>(object: I): AddAppProposal;
 };
 export declare const UpdateGovTimeInAppProposal: {
@@ -859,23 +813,11 @@ export declare const AddAssetInAppProposal: {
                 isGovToken?: boolean | undefined;
                 recipient?: string | undefined;
             }[] | undefined;
-        }[] | undefined;
+        } | undefined;
     } & {
         title?: string | undefined;
         description?: string | undefined;
         app?: ({
-            id?: string | number | Long.Long | undefined;
-            name?: string | undefined;
-            shortName?: string | undefined;
-            minGovDeposit?: string | undefined;
-            govTimeInSeconds?: number | undefined;
-            genesisToken?: {
-                assetId?: string | number | Long.Long | undefined;
-                genesisSupply?: string | undefined;
-                isGovToken?: boolean | undefined;
-                recipient?: string | undefined;
-            }[] | undefined;
-        }[] & ({
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
@@ -945,7 +887,7 @@ export declare const AddAssetInAppProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["app"][number]["id"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["app"]["id"], keyof Long.Long>, never>) | undefined;
             name?: string | undefined;
             shortName?: string | undefined;
             minGovDeposit?: string | undefined;
@@ -1018,29 +960,17 @@ export declare const AddAssetInAppProposal: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["app"][number]["genesisToken"][number]["assetId"], keyof Long.Long>, never>) | undefined;
+                } & Record<Exclude<keyof I["app"]["genesisToken"][number]["assetId"], keyof Long.Long>, never>) | undefined;
                 genesisSupply?: string | undefined;
                 isGovToken?: boolean | undefined;
                 recipient?: string | undefined;
-            } & Record<Exclude<keyof I["app"][number]["genesisToken"][number], keyof import("../../../comdex/asset/v1beta1/app").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"][number]["genesisToken"], keyof {
+            } & Record<Exclude<keyof I["app"]["genesisToken"][number], keyof import("../../../comdex/asset/v1beta1/app").MintGenesisToken>, never>)[] & Record<Exclude<keyof I["app"]["genesisToken"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
                 isGovToken?: boolean | undefined;
                 recipient?: string | undefined;
             }[]>, never>) | undefined;
-        } & Record<Exclude<keyof I["app"][number], keyof AppData>, never>)[] & Record<Exclude<keyof I["app"], keyof {
-            id?: string | number | Long.Long | undefined;
-            name?: string | undefined;
-            shortName?: string | undefined;
-            minGovDeposit?: string | undefined;
-            govTimeInSeconds?: number | undefined;
-            genesisToken?: {
-                assetId?: string | number | Long.Long | undefined;
-                genesisSupply?: string | undefined;
-                isGovToken?: boolean | undefined;
-                recipient?: string | undefined;
-            }[] | undefined;
-        }[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["app"], keyof AppData>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AddAssetInAppProposal>, never>>(object: I): AddAssetInAppProposal;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

@@ -1,8 +1,8 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { LiquidtyGaugeMetaData } from "./gauge";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import * as _m0 from "protobufjs/minimal";
 import { Duration } from "../../../google/protobuf/duration";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { LiquidtyGaugeMetaData } from "../../../comdex/rewards/v1beta1/gauge";
 export declare const protobufPackage = "comdex.rewards.v1beta1";
 export interface MsgCreateGauge {
     from: string;
@@ -1424,10 +1424,6 @@ export declare const ActivateExternalRewardsVaultResponse: {
 };
 export interface Msg {
     CreateGauge(request: MsgCreateGauge): Promise<MsgCreateGaugeResponse>;
-    Whitelist(request: WhitelistAsset): Promise<MsgWhitelistAssetResponse>;
-    RemoveWhitelist(request: RemoveWhitelistAsset): Promise<MsgRemoveWhitelistAssetResponse>;
-    WhitelistAppVault(request: WhitelistAppIdVault): Promise<MsgWhitelistAppIdVaultResponse>;
-    RemoveWhitelistAppVault(request: RemoveWhitelistAppIdVault): Promise<MsgRemoveWhitelistAppIdVaultResponse>;
     ExternalRewardsLockers(request: ActivateExternalRewardsLockers): Promise<ActivateExternalRewardsLockersResponse>;
     ExternalRewardsVault(request: ActivateExternalRewardsVault): Promise<ActivateExternalRewardsVaultResponse>;
 }
@@ -1435,10 +1431,6 @@ export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
     CreateGauge(request: MsgCreateGauge): Promise<MsgCreateGaugeResponse>;
-    Whitelist(request: WhitelistAsset): Promise<MsgWhitelistAssetResponse>;
-    RemoveWhitelist(request: RemoveWhitelistAsset): Promise<MsgRemoveWhitelistAssetResponse>;
-    WhitelistAppVault(request: WhitelistAppIdVault): Promise<MsgWhitelistAppIdVaultResponse>;
-    RemoveWhitelistAppVault(request: RemoveWhitelistAppIdVault): Promise<MsgRemoveWhitelistAppIdVaultResponse>;
     ExternalRewardsLockers(request: ActivateExternalRewardsLockers): Promise<ActivateExternalRewardsLockersResponse>;
     ExternalRewardsVault(request: ActivateExternalRewardsVault): Promise<ActivateExternalRewardsVaultResponse>;
 }

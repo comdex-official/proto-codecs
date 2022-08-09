@@ -490,6 +490,7 @@ export declare const AuctionControlByAppIdProposal: {
                 assetId?: string | number | Long.Long | undefined;
                 isSurplusAuction?: boolean | undefined;
                 isDebtAuction?: boolean | undefined;
+                isDistributor?: boolean | undefined;
                 isAuctionActive?: boolean | undefined;
                 assetOutOraclePrice?: boolean | undefined;
                 assetOutPrice?: string | number | Long.Long | undefined;
@@ -504,6 +505,7 @@ export declare const AuctionControlByAppIdProposal: {
                 assetId?: string | number | Long.Long | undefined;
                 isSurplusAuction?: boolean | undefined;
                 isDebtAuction?: boolean | undefined;
+                isDistributor?: boolean | undefined;
                 isAuctionActive?: boolean | undefined;
                 assetOutOraclePrice?: boolean | undefined;
                 assetOutPrice?: string | number | Long.Long | undefined;
@@ -571,6 +573,7 @@ export declare const AuctionControlByAppIdProposal: {
                 assetId?: string | number | Long.Long | undefined;
                 isSurplusAuction?: boolean | undefined;
                 isDebtAuction?: boolean | undefined;
+                isDistributor?: boolean | undefined;
                 isAuctionActive?: boolean | undefined;
                 assetOutOraclePrice?: boolean | undefined;
                 assetOutPrice?: string | number | Long.Long | undefined;
@@ -578,6 +581,7 @@ export declare const AuctionControlByAppIdProposal: {
                 assetId?: string | number | Long.Long | undefined;
                 isSurplusAuction?: boolean | undefined;
                 isDebtAuction?: boolean | undefined;
+                isDistributor?: boolean | undefined;
                 isAuctionActive?: boolean | undefined;
                 assetOutOraclePrice?: boolean | undefined;
                 assetOutPrice?: string | number | Long.Long | undefined;
@@ -642,6 +646,7 @@ export declare const AuctionControlByAppIdProposal: {
                 } & Record<Exclude<keyof I["collectorAuctionLookupTable"]["assetIdToAuctionLookup"][number]["assetId"], keyof Long.Long>, never>) | undefined;
                 isSurplusAuction?: boolean | undefined;
                 isDebtAuction?: boolean | undefined;
+                isDistributor?: boolean | undefined;
                 isAuctionActive?: boolean | undefined;
                 assetOutOraclePrice?: boolean | undefined;
                 assetOutPrice?: string | number | (Long.Long & {
@@ -706,6 +711,7 @@ export declare const AuctionControlByAppIdProposal: {
                 assetId?: string | number | Long.Long | undefined;
                 isSurplusAuction?: boolean | undefined;
                 isDebtAuction?: boolean | undefined;
+                isDistributor?: boolean | undefined;
                 isAuctionActive?: boolean | undefined;
                 assetOutOraclePrice?: boolean | undefined;
                 assetOutPrice?: string | number | Long.Long | undefined;

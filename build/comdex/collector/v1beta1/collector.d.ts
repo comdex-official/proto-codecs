@@ -51,6 +51,7 @@ export interface AssetIdToAuctionLookupTable {
     assetId: Long;
     isSurplusAuction: boolean;
     isDebtAuction: boolean;
+    isDistributor: boolean;
     isAuctionActive: boolean;
     assetOutOraclePrice: boolean;
     assetOutPrice: Long;
@@ -1624,6 +1625,7 @@ export declare const CollectorAuctionLookupTable: {
             assetId?: string | number | Long.Long | undefined;
             isSurplusAuction?: boolean | undefined;
             isDebtAuction?: boolean | undefined;
+            isDistributor?: boolean | undefined;
             isAuctionActive?: boolean | undefined;
             assetOutOraclePrice?: boolean | undefined;
             assetOutPrice?: string | number | Long.Long | undefined;
@@ -1691,6 +1693,7 @@ export declare const CollectorAuctionLookupTable: {
             assetId?: string | number | Long.Long | undefined;
             isSurplusAuction?: boolean | undefined;
             isDebtAuction?: boolean | undefined;
+            isDistributor?: boolean | undefined;
             isAuctionActive?: boolean | undefined;
             assetOutOraclePrice?: boolean | undefined;
             assetOutPrice?: string | number | Long.Long | undefined;
@@ -1698,6 +1701,7 @@ export declare const CollectorAuctionLookupTable: {
             assetId?: string | number | Long.Long | undefined;
             isSurplusAuction?: boolean | undefined;
             isDebtAuction?: boolean | undefined;
+            isDistributor?: boolean | undefined;
             isAuctionActive?: boolean | undefined;
             assetOutOraclePrice?: boolean | undefined;
             assetOutPrice?: string | number | Long.Long | undefined;
@@ -1762,6 +1766,7 @@ export declare const CollectorAuctionLookupTable: {
             } & Record<Exclude<keyof I["assetIdToAuctionLookup"][number]["assetId"], keyof Long.Long>, never>) | undefined;
             isSurplusAuction?: boolean | undefined;
             isDebtAuction?: boolean | undefined;
+            isDistributor?: boolean | undefined;
             isAuctionActive?: boolean | undefined;
             assetOutOraclePrice?: boolean | undefined;
             assetOutPrice?: string | number | (Long.Long & {
@@ -1826,6 +1831,7 @@ export declare const CollectorAuctionLookupTable: {
             assetId?: string | number | Long.Long | undefined;
             isSurplusAuction?: boolean | undefined;
             isDebtAuction?: boolean | undefined;
+            isDistributor?: boolean | undefined;
             isAuctionActive?: boolean | undefined;
             assetOutOraclePrice?: boolean | undefined;
             assetOutPrice?: string | number | Long.Long | undefined;
@@ -1841,6 +1847,7 @@ export declare const AssetIdToAuctionLookupTable: {
         assetId?: string | number | Long.Long | undefined;
         isSurplusAuction?: boolean | undefined;
         isDebtAuction?: boolean | undefined;
+        isDistributor?: boolean | undefined;
         isAuctionActive?: boolean | undefined;
         assetOutOraclePrice?: boolean | undefined;
         assetOutPrice?: string | number | Long.Long | undefined;
@@ -1905,6 +1912,7 @@ export declare const AssetIdToAuctionLookupTable: {
         } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
         isSurplusAuction?: boolean | undefined;
         isDebtAuction?: boolean | undefined;
+        isDistributor?: boolean | undefined;
         isAuctionActive?: boolean | undefined;
         assetOutOraclePrice?: boolean | undefined;
         assetOutPrice?: string | number | (Long.Long & {

@@ -1,9 +1,9 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.tokenmint.v1beta1";
 /** app_vault_type_id will be the key for  the KVStore for this value. */
 export interface TokenMint {
-    appMappingId: Long;
+    appId: Long;
     mintedTokens: MintedTokens[];
 }
 export interface MintedTokens {
@@ -18,7 +18,7 @@ export declare const TokenMint: {
     fromJSON(object: any): TokenMint;
     toJSON(message: TokenMint): unknown;
     fromPartial<I extends {
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         mintedTokens?: {
             assetId?: string | number | Long.Long | undefined;
             genesisSupply?: string | undefined;
@@ -26,7 +26,7 @@ export declare const TokenMint: {
             currentSupply?: string | undefined;
         }[] | undefined;
     } & {
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -83,7 +83,7 @@ export declare const TokenMint: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         mintedTokens?: ({
             assetId?: string | number | Long.Long | undefined;
             genesisSupply?: string | undefined;

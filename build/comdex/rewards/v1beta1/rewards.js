@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EpochTime = exports.WhitelistedAppIdsVault = exports.VaultExternalRewards = exports.LockerExternalRewards = exports.InternalRewards = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.rewards.v1beta1";
@@ -14,7 +33,7 @@ function createBaseInternalRewards() {
     return { appMappingID: long_1.default.UZERO, assetID: [] };
 }
 exports.InternalRewards = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appMappingID.isZero()) {
             writer.uint32(8).uint64(message.appMappingID);
         }
@@ -26,7 +45,7 @@ exports.InternalRewards = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseInternalRewards();
         while (reader.pos < end) {
@@ -56,10 +75,10 @@ exports.InternalRewards = {
     fromJSON(object) {
         return {
             appMappingID: isSet(object.appMappingID)
-                ? long_1.default.fromString(object.appMappingID)
+                ? long_1.default.fromValue(object.appMappingID)
                 : long_1.default.UZERO,
             assetID: Array.isArray(object === null || object === void 0 ? void 0 : object.assetID)
-                ? object.assetID.map((e) => long_1.default.fromString(e))
+                ? object.assetID.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -103,7 +122,7 @@ function createBaseLockerExternalRewards() {
     };
 }
 exports.LockerExternalRewards = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -143,7 +162,7 @@ exports.LockerExternalRewards = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseLockerExternalRewards();
         while (reader.pos < end) {
@@ -194,18 +213,18 @@ exports.LockerExternalRewards = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             totalRewards: isSet(object.totalRewards)
                 ? coin_1.Coin.fromJSON(object.totalRewards)
                 : undefined,
             durationDays: isSet(object.durationDays)
-                ? long_1.default.fromString(object.durationDays)
+                ? long_1.default.fromValue(object.durationDays)
                 : long_1.default.ZERO,
             isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
             availableRewards: isSet(object.availableRewards)
@@ -219,10 +238,10 @@ exports.LockerExternalRewards = {
                 ? fromJsonTimestamp(object.endTimestamp)
                 : undefined,
             minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
-                ? long_1.default.fromString(object.minLockupTimeSeconds)
+                ? long_1.default.fromValue(object.minLockupTimeSeconds)
                 : long_1.default.ZERO,
             epochId: isSet(object.epochId)
-                ? long_1.default.fromString(object.epochId)
+                ? long_1.default.fromValue(object.epochId)
                 : long_1.default.UZERO,
         };
     },
@@ -316,7 +335,7 @@ function createBaseVaultExternalRewards() {
     };
 }
 exports.VaultExternalRewards = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -356,7 +375,7 @@ exports.VaultExternalRewards = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseVaultExternalRewards();
         while (reader.pos < end) {
@@ -407,18 +426,18 @@ exports.VaultExternalRewards = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             totalRewards: isSet(object.totalRewards)
                 ? coin_1.Coin.fromJSON(object.totalRewards)
                 : undefined,
             durationDays: isSet(object.durationDays)
-                ? long_1.default.fromString(object.durationDays)
+                ? long_1.default.fromValue(object.durationDays)
                 : long_1.default.ZERO,
             isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
             availableRewards: isSet(object.availableRewards)
@@ -432,10 +451,10 @@ exports.VaultExternalRewards = {
                 ? fromJsonTimestamp(object.endTimestamp)
                 : undefined,
             minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
-                ? long_1.default.fromString(object.minLockupTimeSeconds)
+                ? long_1.default.fromValue(object.minLockupTimeSeconds)
                 : long_1.default.ZERO,
             epochId: isSet(object.epochId)
-                ? long_1.default.fromString(object.epochId)
+                ? long_1.default.fromValue(object.epochId)
                 : long_1.default.UZERO,
         };
     },
@@ -516,7 +535,7 @@ function createBaseWhitelistedAppIdsVault() {
     return { whitelistedAppMappingIdsVaults: [] };
 }
 exports.WhitelistedAppIdsVault = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         writer.uint32(10).fork();
         for (const v of message.whitelistedAppMappingIdsVaults) {
             writer.uint64(v);
@@ -525,7 +544,7 @@ exports.WhitelistedAppIdsVault = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseWhitelistedAppIdsVault();
         while (reader.pos < end) {
@@ -552,7 +571,7 @@ exports.WhitelistedAppIdsVault = {
     fromJSON(object) {
         return {
             whitelistedAppMappingIdsVaults: Array.isArray(object === null || object === void 0 ? void 0 : object.whitelistedAppMappingIdsVaults)
-                ? object.whitelistedAppMappingIdsVaults.map((e) => long_1.default.fromString(e))
+                ? object.whitelistedAppMappingIdsVaults.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -585,7 +604,7 @@ function createBaseEpochTime() {
     };
 }
 exports.EpochTime = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -601,7 +620,7 @@ exports.EpochTime = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseEpochTime();
         while (reader.pos < end) {
@@ -628,14 +647,14 @@ exports.EpochTime = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             startingTime: isSet(object.startingTime)
-                ? long_1.default.fromString(object.startingTime)
+                ? long_1.default.fromValue(object.startingTime)
                 : long_1.default.ZERO,
-            count: isSet(object.count) ? long_1.default.fromString(object.count) : long_1.default.UZERO,
+            count: isSet(object.count) ? long_1.default.fromValue(object.count) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -695,9 +714,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
