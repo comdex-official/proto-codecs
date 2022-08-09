@@ -10,7 +10,7 @@ export interface LockedVault {
   id: Long;
   appId: Long;
   appVaultTypeId: string;
-  originalVaultId: string;
+  originalVaultId: Long;
   extendedPairVaultId: Long;
   owner: string;
   amountIn: string;
@@ -53,7 +53,7 @@ function createBaseLockedVault(): LockedVault {
     id: Long.UZERO,
     appId: Long.UZERO,
     appVaultTypeId: "",
-    originalVaultId: "",
+    originalVaultId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     owner: "",
     amountIn: "",
@@ -86,8 +86,8 @@ export const LockedVault = {
     if (message.appVaultTypeId !== "") {
       writer.uint32(26).string(message.appVaultTypeId);
     }
-    if (message.originalVaultId !== "") {
-      writer.uint32(34).string(message.originalVaultId);
+    if (!message.originalVaultId.isZero()) {
+      writer.uint32(32).uint64(message.originalVaultId);
     }
     if (!message.extendedPairVaultId.isZero()) {
       writer.uint32(40).uint64(message.extendedPairVaultId);
@@ -160,7 +160,7 @@ export const LockedVault = {
           message.appVaultTypeId = reader.string();
           break;
         case 4:
-          message.originalVaultId = reader.string();
+          message.originalVaultId = reader.uint64() as Long;
           break;
         case 5:
           message.extendedPairVaultId = reader.uint64() as Long;
@@ -228,8 +228,8 @@ export const LockedVault = {
         ? String(object.appVaultTypeId)
         : "",
       originalVaultId: isSet(object.originalVaultId)
-        ? String(object.originalVaultId)
-        : "",
+        ? Long.fromValue(object.originalVaultId)
+        : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO,
@@ -279,7 +279,9 @@ export const LockedVault = {
     message.appVaultTypeId !== undefined &&
       (obj.appVaultTypeId = message.appVaultTypeId);
     message.originalVaultId !== undefined &&
-      (obj.originalVaultId = message.originalVaultId);
+      (obj.originalVaultId = (
+        message.originalVaultId || Long.UZERO
+      ).toString());
     message.extendedPairVaultId !== undefined &&
       (obj.extendedPairVaultId = (
         message.extendedPairVaultId || Long.UZERO
@@ -330,7 +332,10 @@ export const LockedVault = {
         ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.appVaultTypeId = object.appVaultTypeId ?? "";
-    message.originalVaultId = object.originalVaultId ?? "";
+    message.originalVaultId =
+      object.originalVaultId !== undefined && object.originalVaultId !== null
+        ? Long.fromValue(object.originalVaultId)
+        : Long.UZERO;
     message.extendedPairVaultId =
       object.extendedPairVaultId !== undefined &&
       object.extendedPairVaultId !== null

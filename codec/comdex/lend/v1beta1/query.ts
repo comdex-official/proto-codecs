@@ -54,6 +54,7 @@ export interface QueryAllLendByOwnerRequest {
 
 export interface QueryAllLendByOwnerResponse {
   lends: LendAsset[];
+  pagination?: PageResponse;
 }
 
 export interface QueryAllLendByOwnerAndPoolRequest {
@@ -64,6 +65,7 @@ export interface QueryAllLendByOwnerAndPoolRequest {
 
 export interface QueryAllLendByOwnerAndPoolResponse {
   lends: LendAsset[];
+  pagination?: PageResponse;
 }
 
 export interface QueryPairsRequest {
@@ -159,6 +161,7 @@ export interface QueryAllBorrowByOwnerRequest {
 
 export interface QueryAllBorrowByOwnerResponse {
   borrows: BorrowAsset[];
+  pagination?: PageResponse;
 }
 
 export interface QueryAllBorrowByOwnerAndPoolRequest {
@@ -169,12 +172,12 @@ export interface QueryAllBorrowByOwnerAndPoolRequest {
 
 export interface QueryAllBorrowByOwnerAndPoolResponse {
   borrows: BorrowAsset[];
+  pagination?: PageResponse;
 }
 
 export interface QueryAssetStatsRequest {
   assetId: Long;
   poolId: Long;
-  pagination?: PageRequest;
 }
 
 export interface QueryAssetStatsResponse {
@@ -183,7 +186,6 @@ export interface QueryAssetStatsResponse {
 
 export interface QueryModuleBalanceRequest {
   poolId: Long;
-  pagination?: PageRequest;
 }
 
 export interface QueryModuleBalanceResponse {
@@ -665,7 +667,7 @@ export const QueryAllLendByOwnerRequest = {
 };
 
 function createBaseQueryAllLendByOwnerResponse(): QueryAllLendByOwnerResponse {
-  return { lends: [] };
+  return { lends: [], pagination: undefined };
 }
 
 export const QueryAllLendByOwnerResponse = {
@@ -675,6 +677,12 @@ export const QueryAllLendByOwnerResponse = {
   ): _m0.Writer {
     for (const v of message.lends) {
       LendAsset.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -692,6 +700,9 @@ export const QueryAllLendByOwnerResponse = {
         case 1:
           message.lends.push(LendAsset.decode(reader, reader.uint32()));
           break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -705,6 +716,9 @@ export const QueryAllLendByOwnerResponse = {
       lends: Array.isArray(object?.lends)
         ? object.lends.map((e: any) => LendAsset.fromJSON(e))
         : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     };
   },
 
@@ -717,6 +731,10 @@ export const QueryAllLendByOwnerResponse = {
     } else {
       obj.lends = [];
     }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -725,6 +743,10 @@ export const QueryAllLendByOwnerResponse = {
   ): QueryAllLendByOwnerResponse {
     const message = createBaseQueryAllLendByOwnerResponse();
     message.lends = object.lends?.map((e) => LendAsset.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -817,7 +839,7 @@ export const QueryAllLendByOwnerAndPoolRequest = {
 };
 
 function createBaseQueryAllLendByOwnerAndPoolResponse(): QueryAllLendByOwnerAndPoolResponse {
-  return { lends: [] };
+  return { lends: [], pagination: undefined };
 }
 
 export const QueryAllLendByOwnerAndPoolResponse = {
@@ -827,6 +849,12 @@ export const QueryAllLendByOwnerAndPoolResponse = {
   ): _m0.Writer {
     for (const v of message.lends) {
       LendAsset.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -844,6 +872,9 @@ export const QueryAllLendByOwnerAndPoolResponse = {
         case 1:
           message.lends.push(LendAsset.decode(reader, reader.uint32()));
           break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -857,6 +888,9 @@ export const QueryAllLendByOwnerAndPoolResponse = {
       lends: Array.isArray(object?.lends)
         ? object.lends.map((e: any) => LendAsset.fromJSON(e))
         : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     };
   },
 
@@ -869,6 +903,10 @@ export const QueryAllLendByOwnerAndPoolResponse = {
     } else {
       obj.lends = [];
     }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -877,6 +915,10 @@ export const QueryAllLendByOwnerAndPoolResponse = {
   >(object: I): QueryAllLendByOwnerAndPoolResponse {
     const message = createBaseQueryAllLendByOwnerAndPoolResponse();
     message.lends = object.lends?.map((e) => LendAsset.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -2342,7 +2384,7 @@ export const QueryAllBorrowByOwnerRequest = {
 };
 
 function createBaseQueryAllBorrowByOwnerResponse(): QueryAllBorrowByOwnerResponse {
-  return { borrows: [] };
+  return { borrows: [], pagination: undefined };
 }
 
 export const QueryAllBorrowByOwnerResponse = {
@@ -2352,6 +2394,12 @@ export const QueryAllBorrowByOwnerResponse = {
   ): _m0.Writer {
     for (const v of message.borrows) {
       BorrowAsset.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -2369,6 +2417,9 @@ export const QueryAllBorrowByOwnerResponse = {
         case 1:
           message.borrows.push(BorrowAsset.decode(reader, reader.uint32()));
           break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2382,6 +2433,9 @@ export const QueryAllBorrowByOwnerResponse = {
       borrows: Array.isArray(object?.borrows)
         ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e))
         : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     };
   },
 
@@ -2394,6 +2448,10 @@ export const QueryAllBorrowByOwnerResponse = {
     } else {
       obj.borrows = [];
     }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -2403,6 +2461,10 @@ export const QueryAllBorrowByOwnerResponse = {
     const message = createBaseQueryAllBorrowByOwnerResponse();
     message.borrows =
       object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -2495,7 +2557,7 @@ export const QueryAllBorrowByOwnerAndPoolRequest = {
 };
 
 function createBaseQueryAllBorrowByOwnerAndPoolResponse(): QueryAllBorrowByOwnerAndPoolResponse {
-  return { borrows: [] };
+  return { borrows: [], pagination: undefined };
 }
 
 export const QueryAllBorrowByOwnerAndPoolResponse = {
@@ -2505,6 +2567,12 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
   ): _m0.Writer {
     for (const v of message.borrows) {
       BorrowAsset.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -2522,6 +2590,9 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
         case 1:
           message.borrows.push(BorrowAsset.decode(reader, reader.uint32()));
           break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2535,6 +2606,9 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
       borrows: Array.isArray(object?.borrows)
         ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e))
         : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     };
   },
 
@@ -2547,6 +2621,10 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
     } else {
       obj.borrows = [];
     }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -2556,12 +2634,16 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
     const message = createBaseQueryAllBorrowByOwnerAndPoolResponse();
     message.borrows =
       object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
 
 function createBaseQueryAssetStatsRequest(): QueryAssetStatsRequest {
-  return { assetId: Long.UZERO, poolId: Long.UZERO, pagination: undefined };
+  return { assetId: Long.UZERO, poolId: Long.UZERO };
 }
 
 export const QueryAssetStatsRequest = {
@@ -2574,9 +2656,6 @@ export const QueryAssetStatsRequest = {
     }
     if (!message.poolId.isZero()) {
       writer.uint32(16).uint64(message.poolId);
-    }
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -2597,9 +2676,6 @@ export const QueryAssetStatsRequest = {
         case 2:
           message.poolId = reader.uint64() as Long;
           break;
-        case 3:
-          message.pagination = PageRequest.decode(reader, reader.uint32());
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2614,9 +2690,6 @@ export const QueryAssetStatsRequest = {
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
     };
   },
 
@@ -2626,10 +2699,6 @@ export const QueryAssetStatsRequest = {
       (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.poolId !== undefined &&
       (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
     return obj;
   },
 
@@ -2645,10 +2714,6 @@ export const QueryAssetStatsRequest = {
       object.poolId !== undefined && object.poolId !== null
         ? Long.fromValue(object.poolId)
         : Long.UZERO;
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
     return message;
   },
 };
@@ -2719,7 +2784,7 @@ export const QueryAssetStatsResponse = {
 };
 
 function createBaseQueryModuleBalanceRequest(): QueryModuleBalanceRequest {
-  return { poolId: Long.UZERO, pagination: undefined };
+  return { poolId: Long.UZERO };
 }
 
 export const QueryModuleBalanceRequest = {
@@ -2729,9 +2794,6 @@ export const QueryModuleBalanceRequest = {
   ): _m0.Writer {
     if (!message.poolId.isZero()) {
       writer.uint32(8).uint64(message.poolId);
-    }
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -2749,9 +2811,6 @@ export const QueryModuleBalanceRequest = {
         case 1:
           message.poolId = reader.uint64() as Long;
           break;
-        case 2:
-          message.pagination = PageRequest.decode(reader, reader.uint32());
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2763,9 +2822,6 @@ export const QueryModuleBalanceRequest = {
   fromJSON(object: any): QueryModuleBalanceRequest {
     return {
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
     };
   },
 
@@ -2773,10 +2829,6 @@ export const QueryModuleBalanceRequest = {
     const obj: any = {};
     message.poolId !== undefined &&
       (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
     return obj;
   },
 
@@ -2788,10 +2840,6 @@ export const QueryModuleBalanceRequest = {
       object.poolId !== undefined && object.poolId !== null
         ? Long.fromValue(object.poolId)
         : Long.UZERO;
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
     return message;
   },
 };
