@@ -165,6 +165,11 @@ export interface AuctionParams {
   bidDurationSeconds: Long;
 }
 
+export interface ReservePoolRecordsForBorrow {
+  borrowingId: Long;
+  interestAccumulated: string;
+}
+
 function createBaseLendAsset(): LendAsset {
   return {
     lendingId: Long.UZERO,
@@ -2559,6 +2564,81 @@ export const AuctionParams = {
       object.bidDurationSeconds !== null
         ? Long.fromValue(object.bidDurationSeconds)
         : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseReservePoolRecordsForBorrow(): ReservePoolRecordsForBorrow {
+  return { borrowingId: Long.UZERO, interestAccumulated: "" };
+}
+
+export const ReservePoolRecordsForBorrow = {
+  encode(
+    message: ReservePoolRecordsForBorrow,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.borrowingId.isZero()) {
+      writer.uint32(8).uint64(message.borrowingId);
+    }
+    if (message.interestAccumulated !== "") {
+      writer.uint32(18).string(message.interestAccumulated);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): ReservePoolRecordsForBorrow {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseReservePoolRecordsForBorrow();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.borrowingId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.interestAccumulated = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ReservePoolRecordsForBorrow {
+    return {
+      borrowingId: isSet(object.borrowingId)
+        ? Long.fromValue(object.borrowingId)
+        : Long.UZERO,
+      interestAccumulated: isSet(object.interestAccumulated)
+        ? String(object.interestAccumulated)
+        : "",
+    };
+  },
+
+  toJSON(message: ReservePoolRecordsForBorrow): unknown {
+    const obj: any = {};
+    message.borrowingId !== undefined &&
+      (obj.borrowingId = (message.borrowingId || Long.UZERO).toString());
+    message.interestAccumulated !== undefined &&
+      (obj.interestAccumulated = message.interestAccumulated);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ReservePoolRecordsForBorrow>, I>>(
+    object: I
+  ): ReservePoolRecordsForBorrow {
+    const message = createBaseReservePoolRecordsForBorrow();
+    message.borrowingId =
+      object.borrowingId !== undefined && object.borrowingId !== null
+        ? Long.fromValue(object.borrowingId)
+        : Long.UZERO;
+    message.interestAccumulated = object.interestAccumulated ?? "";
     return message;
   },
 };
