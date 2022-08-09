@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenericParams = exports.Params = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const duration_1 = require("../../../google/protobuf/duration");
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
@@ -14,11 +33,11 @@ function createBaseParams() {
     return {};
 }
 exports.Params = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseParams();
         while (reader.pos < end) {
@@ -66,7 +85,7 @@ function createBaseGenericParams() {
     };
 }
 exports.GenericParams = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.batchSize.isZero()) {
             writer.uint32(8).uint64(message.batchSize);
         }
@@ -124,7 +143,7 @@ exports.GenericParams = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseGenericParams();
         while (reader.pos < end) {
@@ -194,10 +213,10 @@ exports.GenericParams = {
     fromJSON(object) {
         return {
             batchSize: isSet(object.batchSize)
-                ? long_1.default.fromString(object.batchSize)
+                ? long_1.default.fromValue(object.batchSize)
                 : long_1.default.UZERO,
             tickPrecision: isSet(object.tickPrecision)
-                ? long_1.default.fromString(object.tickPrecision)
+                ? long_1.default.fromValue(object.tickPrecision)
                 : long_1.default.UZERO,
             feeCollectorAddress: isSet(object.feeCollectorAddress)
                 ? String(object.feeCollectorAddress)
@@ -228,13 +247,13 @@ exports.GenericParams = {
                 ? String(object.withdrawFeeRate)
                 : "",
             depositExtraGas: isSet(object.depositExtraGas)
-                ? long_1.default.fromString(object.depositExtraGas)
+                ? long_1.default.fromValue(object.depositExtraGas)
                 : long_1.default.UZERO,
             withdrawExtraGas: isSet(object.withdrawExtraGas)
-                ? long_1.default.fromString(object.withdrawExtraGas)
+                ? long_1.default.fromValue(object.withdrawExtraGas)
                 : long_1.default.UZERO,
             orderExtraGas: isSet(object.orderExtraGas)
-                ? long_1.default.fromString(object.orderExtraGas)
+                ? long_1.default.fromValue(object.orderExtraGas)
                 : long_1.default.UZERO,
             swapFeeDistrDenom: isSet(object.swapFeeDistrDenom)
                 ? String(object.swapFeeDistrDenom)
@@ -242,7 +261,7 @@ exports.GenericParams = {
             swapFeeBurnRate: isSet(object.swapFeeBurnRate)
                 ? String(object.swapFeeBurnRate)
                 : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -342,9 +361,9 @@ exports.GenericParams = {
         return message;
     },
 };
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

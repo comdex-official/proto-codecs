@@ -1,37 +1,37 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
-import { TokenMint, MintedTokens } from "./mint";
+import { TokenMint, MintedTokens } from "../../../comdex/tokenmint/v1beta1/mint";
 export declare const protobufPackage = "comdex.tokenmint.v1beta1";
-export interface QueryAllTokenMintedForAllProductsRequest {
+export interface QueryAllTokenMintedForAllAppsRequest {
     pagination?: PageRequest;
 }
-export interface QueryAllTokenMintedForAllProductsResponse {
+export interface QueryAllTokenMintedForAllAppsResponse {
     tokenMint: TokenMint[];
     pagination?: PageResponse;
 }
-export interface QueryTokenMintedByProductRequest {
+export interface QueryTokenMintedByAppRequest {
     appId: Long;
     pagination?: PageRequest;
 }
-export interface QueryTokenMintedByProductResponse {
+export interface QueryTokenMintedByAppResponse {
     tokenMint?: TokenMint;
     pagination?: PageResponse;
 }
-export interface QueryTokenMintedByProductAndAssetRequest {
+export interface QueryTokenMintedByAppAndAssetRequest {
     appId: Long;
     assetId: Long;
     pagination?: PageRequest;
 }
-export interface QueryTokenMintedByProductAndAssetResponse {
+export interface QueryTokenMintedByAppAndAssetResponse {
     mintedTokens?: MintedTokens;
     pagination?: PageResponse;
 }
-export declare const QueryAllTokenMintedForAllProductsRequest: {
-    encode(message: QueryAllTokenMintedForAllProductsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllTokenMintedForAllProductsRequest;
-    fromJSON(object: any): QueryAllTokenMintedForAllProductsRequest;
-    toJSON(message: QueryAllTokenMintedForAllProductsRequest): unknown;
+export declare const QueryAllTokenMintedForAllAppsRequest: {
+    encode(message: QueryAllTokenMintedForAllAppsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllTokenMintedForAllAppsRequest;
+    fromJSON(object: any): QueryAllTokenMintedForAllAppsRequest;
+    toJSON(message: QueryAllTokenMintedForAllAppsRequest): unknown;
     fromPartial<I extends {
         pagination?: {
             key?: Uint8Array | undefined;
@@ -168,16 +168,16 @@ export declare const QueryAllTokenMintedForAllProductsRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, "pagination">, never>>(object: I): QueryAllTokenMintedForAllProductsRequest;
+    } & Record<Exclude<keyof I, "pagination">, never>>(object: I): QueryAllTokenMintedForAllAppsRequest;
 };
-export declare const QueryAllTokenMintedForAllProductsResponse: {
-    encode(message: QueryAllTokenMintedForAllProductsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllTokenMintedForAllProductsResponse;
-    fromJSON(object: any): QueryAllTokenMintedForAllProductsResponse;
-    toJSON(message: QueryAllTokenMintedForAllProductsResponse): unknown;
+export declare const QueryAllTokenMintedForAllAppsResponse: {
+    encode(message: QueryAllTokenMintedForAllAppsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllTokenMintedForAllAppsResponse;
+    fromJSON(object: any): QueryAllTokenMintedForAllAppsResponse;
+    toJSON(message: QueryAllTokenMintedForAllAppsResponse): unknown;
     fromPartial<I extends {
         tokenMint?: {
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             mintedTokens?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -191,7 +191,7 @@ export declare const QueryAllTokenMintedForAllProductsResponse: {
         } | undefined;
     } & {
         tokenMint?: ({
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             mintedTokens?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -199,7 +199,7 @@ export declare const QueryAllTokenMintedForAllProductsResponse: {
                 currentSupply?: string | undefined;
             }[] | undefined;
         }[] & ({
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             mintedTokens?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -207,7 +207,7 @@ export declare const QueryAllTokenMintedForAllProductsResponse: {
                 currentSupply?: string | undefined;
             }[] | undefined;
         } & {
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -264,7 +264,7 @@ export declare const QueryAllTokenMintedForAllProductsResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["tokenMint"][number]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["tokenMint"][number]["appId"], keyof Long.Long>, never>) | undefined;
             mintedTokens?: ({
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -344,7 +344,7 @@ export declare const QueryAllTokenMintedForAllProductsResponse: {
                 currentSupply?: string | undefined;
             }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["tokenMint"][number], keyof TokenMint>, never>)[] & Record<Exclude<keyof I["tokenMint"], keyof {
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             mintedTokens?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -416,13 +416,13 @@ export declare const QueryAllTokenMintedForAllProductsResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pagination"]["total"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryAllTokenMintedForAllProductsResponse>, never>>(object: I): QueryAllTokenMintedForAllProductsResponse;
+    } & Record<Exclude<keyof I, keyof QueryAllTokenMintedForAllAppsResponse>, never>>(object: I): QueryAllTokenMintedForAllAppsResponse;
 };
-export declare const QueryTokenMintedByProductRequest: {
-    encode(message: QueryTokenMintedByProductRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByProductRequest;
-    fromJSON(object: any): QueryTokenMintedByProductRequest;
-    toJSON(message: QueryTokenMintedByProductRequest): unknown;
+export declare const QueryTokenMintedByAppRequest: {
+    encode(message: QueryTokenMintedByAppRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByAppRequest;
+    fromJSON(object: any): QueryTokenMintedByAppRequest;
+    toJSON(message: QueryTokenMintedByAppRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
         pagination?: {
@@ -618,16 +618,16 @@ export declare const QueryTokenMintedByProductRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryTokenMintedByProductRequest>, never>>(object: I): QueryTokenMintedByProductRequest;
+    } & Record<Exclude<keyof I, keyof QueryTokenMintedByAppRequest>, never>>(object: I): QueryTokenMintedByAppRequest;
 };
-export declare const QueryTokenMintedByProductResponse: {
-    encode(message: QueryTokenMintedByProductResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByProductResponse;
-    fromJSON(object: any): QueryTokenMintedByProductResponse;
-    toJSON(message: QueryTokenMintedByProductResponse): unknown;
+export declare const QueryTokenMintedByAppResponse: {
+    encode(message: QueryTokenMintedByAppResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByAppResponse;
+    fromJSON(object: any): QueryTokenMintedByAppResponse;
+    toJSON(message: QueryTokenMintedByAppResponse): unknown;
     fromPartial<I extends {
         tokenMint?: {
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             mintedTokens?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -641,7 +641,7 @@ export declare const QueryTokenMintedByProductResponse: {
         } | undefined;
     } & {
         tokenMint?: ({
-            appMappingId?: string | number | Long.Long | undefined;
+            appId?: string | number | Long.Long | undefined;
             mintedTokens?: {
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -649,7 +649,7 @@ export declare const QueryTokenMintedByProductResponse: {
                 currentSupply?: string | undefined;
             }[] | undefined;
         } & {
-            appMappingId?: string | number | (Long.Long & {
+            appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
                 unsigned: boolean;
@@ -706,7 +706,7 @@ export declare const QueryTokenMintedByProductResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["tokenMint"]["appMappingId"], keyof Long.Long>, never>) | undefined;
+            } & Record<Exclude<keyof I["tokenMint"]["appId"], keyof Long.Long>, never>) | undefined;
             mintedTokens?: ({
                 assetId?: string | number | Long.Long | undefined;
                 genesisSupply?: string | undefined;
@@ -850,13 +850,13 @@ export declare const QueryTokenMintedByProductResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pagination"]["total"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryTokenMintedByProductResponse>, never>>(object: I): QueryTokenMintedByProductResponse;
+    } & Record<Exclude<keyof I, keyof QueryTokenMintedByAppResponse>, never>>(object: I): QueryTokenMintedByAppResponse;
 };
-export declare const QueryTokenMintedByProductAndAssetRequest: {
-    encode(message: QueryTokenMintedByProductAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByProductAndAssetRequest;
-    fromJSON(object: any): QueryTokenMintedByProductAndAssetRequest;
-    toJSON(message: QueryTokenMintedByProductAndAssetRequest): unknown;
+export declare const QueryTokenMintedByAppAndAssetRequest: {
+    encode(message: QueryTokenMintedByAppAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByAppAndAssetRequest;
+    fromJSON(object: any): QueryTokenMintedByAppAndAssetRequest;
+    toJSON(message: QueryTokenMintedByAppAndAssetRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
@@ -1111,13 +1111,13 @@ export declare const QueryTokenMintedByProductAndAssetRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryTokenMintedByProductAndAssetRequest>, never>>(object: I): QueryTokenMintedByProductAndAssetRequest;
+    } & Record<Exclude<keyof I, keyof QueryTokenMintedByAppAndAssetRequest>, never>>(object: I): QueryTokenMintedByAppAndAssetRequest;
 };
-export declare const QueryTokenMintedByProductAndAssetResponse: {
-    encode(message: QueryTokenMintedByProductAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByProductAndAssetResponse;
-    fromJSON(object: any): QueryTokenMintedByProductAndAssetResponse;
-    toJSON(message: QueryTokenMintedByProductAndAssetResponse): unknown;
+export declare const QueryTokenMintedByAppAndAssetResponse: {
+    encode(message: QueryTokenMintedByAppAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByAppAndAssetResponse;
+    fromJSON(object: any): QueryTokenMintedByAppAndAssetResponse;
+    toJSON(message: QueryTokenMintedByAppAndAssetResponse): unknown;
     fromPartial<I extends {
         mintedTokens?: {
             assetId?: string | number | Long.Long | undefined;
@@ -1262,19 +1262,19 @@ export declare const QueryTokenMintedByProductAndAssetResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pagination"]["total"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryTokenMintedByProductAndAssetResponse>, never>>(object: I): QueryTokenMintedByProductAndAssetResponse;
+    } & Record<Exclude<keyof I, keyof QueryTokenMintedByAppAndAssetResponse>, never>>(object: I): QueryTokenMintedByAppAndAssetResponse;
 };
 export interface Query {
-    QueryAllTokenMintedForAllProducts(request: QueryAllTokenMintedForAllProductsRequest): Promise<QueryAllTokenMintedForAllProductsResponse>;
-    QueryTokenMintedByProduct(request: QueryTokenMintedByProductRequest): Promise<QueryTokenMintedByProductResponse>;
-    QueryTokenMintedByProductAndAsset(request: QueryTokenMintedByProductAndAssetRequest): Promise<QueryTokenMintedByProductAndAssetResponse>;
+    QueryAllTokenMintedForAllApps(request: QueryAllTokenMintedForAllAppsRequest): Promise<QueryAllTokenMintedForAllAppsResponse>;
+    QueryTokenMintedByApp(request: QueryTokenMintedByAppRequest): Promise<QueryTokenMintedByAppResponse>;
+    QueryTokenMintedByAppAndAsset(request: QueryTokenMintedByAppAndAssetRequest): Promise<QueryTokenMintedByAppAndAssetResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
-    QueryAllTokenMintedForAllProducts(request: QueryAllTokenMintedForAllProductsRequest): Promise<QueryAllTokenMintedForAllProductsResponse>;
-    QueryTokenMintedByProduct(request: QueryTokenMintedByProductRequest): Promise<QueryTokenMintedByProductResponse>;
-    QueryTokenMintedByProductAndAsset(request: QueryTokenMintedByProductAndAssetRequest): Promise<QueryTokenMintedByProductAndAssetResponse>;
+    QueryAllTokenMintedForAllApps(request: QueryAllTokenMintedForAllAppsRequest): Promise<QueryAllTokenMintedForAllAppsResponse>;
+    QueryTokenMintedByApp(request: QueryTokenMintedByAppRequest): Promise<QueryTokenMintedByAppResponse>;
+    QueryTokenMintedByAppAndAsset(request: QueryTokenMintedByAppAndAssetRequest): Promise<QueryTokenMintedByAppAndAssetResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

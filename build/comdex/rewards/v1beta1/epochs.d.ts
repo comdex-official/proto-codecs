@@ -1,5 +1,5 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Duration } from "../../../google/protobuf/duration";
 export declare const protobufPackage = "comdex.rewards.v1beta1";
 export interface EpochInfo {

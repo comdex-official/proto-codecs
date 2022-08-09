@@ -4,13 +4,6 @@ export declare const protobufPackage = "comdex.locker.v1beta1";
 /** locker_id will be the key which will be derived from the LockerLookUpTable */
 export interface Locker {
     lockerId: string;
-    /**
-     * string deposited_amount = 3 [
-     *   (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
-     *   (gogoproto.moretags)   = "yaml:\"deposited_amount\"",
-     *   (gogoproto.nullable)   = false
-     * ];
-     */
     depositor: string;
     returnsAccumulated: string;
     netBalance: string;

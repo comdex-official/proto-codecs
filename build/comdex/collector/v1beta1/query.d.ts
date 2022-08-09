@@ -1448,6 +1448,7 @@ export declare const QueryAuctionMappingForAppAndAssetResponse: {
             assetId?: string | number | Long.Long | undefined;
             isSurplusAuction?: boolean | undefined;
             isDebtAuction?: boolean | undefined;
+            isDistributor?: boolean | undefined;
             isAuctionActive?: boolean | undefined;
             assetOutOraclePrice?: boolean | undefined;
             assetOutPrice?: string | number | Long.Long | undefined;
@@ -1457,6 +1458,7 @@ export declare const QueryAuctionMappingForAppAndAssetResponse: {
             assetId?: string | number | Long.Long | undefined;
             isSurplusAuction?: boolean | undefined;
             isDebtAuction?: boolean | undefined;
+            isDistributor?: boolean | undefined;
             isAuctionActive?: boolean | undefined;
             assetOutOraclePrice?: boolean | undefined;
             assetOutPrice?: string | number | Long.Long | undefined;
@@ -1521,6 +1523,7 @@ export declare const QueryAuctionMappingForAppAndAssetResponse: {
             } & Record<Exclude<keyof I["assetIdToAuctionLookupTable"]["assetId"], keyof Long.Long>, never>) | undefined;
             isSurplusAuction?: boolean | undefined;
             isDebtAuction?: boolean | undefined;
+            isDistributor?: boolean | undefined;
             isAuctionActive?: boolean | undefined;
             assetOutOraclePrice?: boolean | undefined;
             assetOutPrice?: string | number | (Long.Long & {

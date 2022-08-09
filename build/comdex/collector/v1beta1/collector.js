@@ -47,7 +47,7 @@ exports.CollectorData = {
             writer.uint32(26).string(message.collectedOpeningFee);
         }
         if (message.liquidationRewardsCollected !== "") {
-            writer.uint32(42).string(message.liquidationRewardsCollected);
+            writer.uint32(34).string(message.liquidationRewardsCollected);
         }
         return writer;
     },
@@ -67,7 +67,7 @@ exports.CollectorData = {
                 case 3:
                     message.collectedOpeningFee = reader.string();
                     break;
-                case 5:
+                case 4:
                     message.liquidationRewardsCollected = reader.string();
                     break;
                 default:
@@ -753,6 +753,7 @@ function createBaseAssetIdToAuctionLookupTable() {
         assetId: long_1.default.UZERO,
         isSurplusAuction: false,
         isDebtAuction: false,
+        isDistributor: false,
         isAuctionActive: false,
         assetOutOraclePrice: false,
         assetOutPrice: long_1.default.UZERO,
@@ -769,14 +770,17 @@ exports.AssetIdToAuctionLookupTable = {
         if (message.isDebtAuction === true) {
             writer.uint32(24).bool(message.isDebtAuction);
         }
+        if (message.isDistributor === true) {
+            writer.uint32(32).bool(message.isDistributor);
+        }
         if (message.isAuctionActive === true) {
-            writer.uint32(32).bool(message.isAuctionActive);
+            writer.uint32(40).bool(message.isAuctionActive);
         }
         if (message.assetOutOraclePrice === true) {
-            writer.uint32(40).bool(message.assetOutOraclePrice);
+            writer.uint32(48).bool(message.assetOutOraclePrice);
         }
         if (!message.assetOutPrice.isZero()) {
-            writer.uint32(48).uint64(message.assetOutPrice);
+            writer.uint32(56).uint64(message.assetOutPrice);
         }
         return writer;
     },
@@ -797,12 +801,15 @@ exports.AssetIdToAuctionLookupTable = {
                     message.isDebtAuction = reader.bool();
                     break;
                 case 4:
-                    message.isAuctionActive = reader.bool();
+                    message.isDistributor = reader.bool();
                     break;
                 case 5:
-                    message.assetOutOraclePrice = reader.bool();
+                    message.isAuctionActive = reader.bool();
                     break;
                 case 6:
+                    message.assetOutOraclePrice = reader.bool();
+                    break;
+                case 7:
                     message.assetOutPrice = reader.uint64();
                     break;
                 default:
@@ -823,6 +830,9 @@ exports.AssetIdToAuctionLookupTable = {
             isDebtAuction: isSet(object.isDebtAuction)
                 ? Boolean(object.isDebtAuction)
                 : false,
+            isDistributor: isSet(object.isDistributor)
+                ? Boolean(object.isDistributor)
+                : false,
             isAuctionActive: isSet(object.isAuctionActive)
                 ? Boolean(object.isAuctionActive)
                 : false,
@@ -842,6 +852,8 @@ exports.AssetIdToAuctionLookupTable = {
             (obj.isSurplusAuction = message.isSurplusAuction);
         message.isDebtAuction !== undefined &&
             (obj.isDebtAuction = message.isDebtAuction);
+        message.isDistributor !== undefined &&
+            (obj.isDistributor = message.isDistributor);
         message.isAuctionActive !== undefined &&
             (obj.isAuctionActive = message.isAuctionActive);
         message.assetOutOraclePrice !== undefined &&
@@ -851,7 +863,7 @@ exports.AssetIdToAuctionLookupTable = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         const message = createBaseAssetIdToAuctionLookupTable();
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
@@ -859,8 +871,9 @@ exports.AssetIdToAuctionLookupTable = {
                 : long_1.default.UZERO;
         message.isSurplusAuction = (_a = object.isSurplusAuction) !== null && _a !== void 0 ? _a : false;
         message.isDebtAuction = (_b = object.isDebtAuction) !== null && _b !== void 0 ? _b : false;
-        message.isAuctionActive = (_c = object.isAuctionActive) !== null && _c !== void 0 ? _c : false;
-        message.assetOutOraclePrice = (_d = object.assetOutOraclePrice) !== null && _d !== void 0 ? _d : false;
+        message.isDistributor = (_c = object.isDistributor) !== null && _c !== void 0 ? _c : false;
+        message.isAuctionActive = (_d = object.isAuctionActive) !== null && _d !== void 0 ? _d : false;
+        message.assetOutOraclePrice = (_e = object.assetOutOraclePrice) !== null && _e !== void 0 ? _e : false;
         message.assetOutPrice =
             object.assetOutPrice !== undefined && object.assetOutPrice !== null
                 ? long_1.default.fromValue(object.assetOutPrice)

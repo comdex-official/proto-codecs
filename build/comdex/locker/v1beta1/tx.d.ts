@@ -590,7 +590,6 @@ export declare const MsgWithdrawAssetResponse: {
 };
 /** For CLI Command & Proposals */
 export interface Msg {
-    MsgAddWhiteListedAsset(request: MsgAddWhiteListedAssetRequest): Promise<MsgAddWhiteListedAssetResponse>;
     MsgCreateLocker(request: MsgCreateLockerRequest): Promise<MsgCreateLockerResponse>;
     MsgDepositAsset(request: MsgDepositAssetRequest): Promise<MsgDepositAssetResponse>;
     MsgWithdrawAsset(request: MsgWithdrawAssetRequest): Promise<MsgWithdrawAssetResponse>;
@@ -598,7 +597,6 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
-    MsgAddWhiteListedAsset(request: MsgAddWhiteListedAssetRequest): Promise<MsgAddWhiteListedAssetResponse>;
     MsgCreateLocker(request: MsgCreateLockerRequest): Promise<MsgCreateLockerResponse>;
     MsgDepositAsset(request: MsgDepositAssetRequest): Promise<MsgDepositAssetResponse>;
     MsgWithdrawAsset(request: MsgWithdrawAssetRequest): Promise<MsgWithdrawAssetResponse>;

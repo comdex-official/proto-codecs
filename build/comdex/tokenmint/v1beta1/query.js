@@ -1,29 +1,48 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryTokenMintedByProductAndAssetResponse = exports.QueryTokenMintedByProductAndAssetRequest = exports.QueryTokenMintedByProductResponse = exports.QueryTokenMintedByProductRequest = exports.QueryAllTokenMintedForAllProductsResponse = exports.QueryAllTokenMintedForAllProductsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryTokenMintedByAppAndAssetResponse = exports.QueryTokenMintedByAppAndAssetRequest = exports.QueryTokenMintedByAppResponse = exports.QueryTokenMintedByAppRequest = exports.QueryAllTokenMintedForAllAppsResponse = exports.QueryAllTokenMintedForAllAppsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-const mint_1 = require("./mint");
+const mint_1 = require("../../../comdex/tokenmint/v1beta1/mint");
 exports.protobufPackage = "comdex.tokenmint.v1beta1";
-function createBaseQueryAllTokenMintedForAllProductsRequest() {
+function createBaseQueryAllTokenMintedForAllAppsRequest() {
     return { pagination: undefined };
 }
-exports.QueryAllTokenMintedForAllProductsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryAllTokenMintedForAllAppsRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryAllTokenMintedForAllProductsRequest();
+        const message = createBaseQueryAllTokenMintedForAllAppsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -53,7 +72,7 @@ exports.QueryAllTokenMintedForAllProductsRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryAllTokenMintedForAllProductsRequest();
+        const message = createBaseQueryAllTokenMintedForAllAppsRequest();
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageRequest.fromPartial(object.pagination)
@@ -61,11 +80,11 @@ exports.QueryAllTokenMintedForAllProductsRequest = {
         return message;
     },
 };
-function createBaseQueryAllTokenMintedForAllProductsResponse() {
+function createBaseQueryAllTokenMintedForAllAppsResponse() {
     return { tokenMint: [], pagination: undefined };
 }
-exports.QueryAllTokenMintedForAllProductsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryAllTokenMintedForAllAppsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.tokenMint) {
             mint_1.TokenMint.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -75,9 +94,9 @@ exports.QueryAllTokenMintedForAllProductsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryAllTokenMintedForAllProductsResponse();
+        const message = createBaseQueryAllTokenMintedForAllAppsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -120,7 +139,7 @@ exports.QueryAllTokenMintedForAllProductsResponse = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseQueryAllTokenMintedForAllProductsResponse();
+        const message = createBaseQueryAllTokenMintedForAllAppsResponse();
         message.tokenMint =
             ((_a = object.tokenMint) === null || _a === void 0 ? void 0 : _a.map((e) => mint_1.TokenMint.fromPartial(e))) || [];
         message.pagination =
@@ -130,11 +149,11 @@ exports.QueryAllTokenMintedForAllProductsResponse = {
         return message;
     },
 };
-function createBaseQueryTokenMintedByProductRequest() {
+function createBaseQueryTokenMintedByAppRequest() {
     return { appId: long_1.default.UZERO, pagination: undefined };
 }
-exports.QueryTokenMintedByProductRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryTokenMintedByAppRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -144,9 +163,9 @@ exports.QueryTokenMintedByProductRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTokenMintedByProductRequest();
+        const message = createBaseQueryTokenMintedByAppRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -182,7 +201,7 @@ exports.QueryTokenMintedByProductRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryTokenMintedByProductRequest();
+        const message = createBaseQueryTokenMintedByAppRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -194,11 +213,11 @@ exports.QueryTokenMintedByProductRequest = {
         return message;
     },
 };
-function createBaseQueryTokenMintedByProductResponse() {
+function createBaseQueryTokenMintedByAppResponse() {
     return { tokenMint: undefined, pagination: undefined };
 }
-exports.QueryTokenMintedByProductResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryTokenMintedByAppResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.tokenMint !== undefined) {
             mint_1.TokenMint.encode(message.tokenMint, writer.uint32(10).fork()).ldelim();
         }
@@ -208,9 +227,9 @@ exports.QueryTokenMintedByProductResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTokenMintedByProductResponse();
+        const message = createBaseQueryTokenMintedByAppResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -250,7 +269,7 @@ exports.QueryTokenMintedByProductResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryTokenMintedByProductResponse();
+        const message = createBaseQueryTokenMintedByAppResponse();
         message.tokenMint =
             object.tokenMint !== undefined && object.tokenMint !== null
                 ? mint_1.TokenMint.fromPartial(object.tokenMint)
@@ -262,11 +281,11 @@ exports.QueryTokenMintedByProductResponse = {
         return message;
     },
 };
-function createBaseQueryTokenMintedByProductAndAssetRequest() {
+function createBaseQueryTokenMintedByAppAndAssetRequest() {
     return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO, pagination: undefined };
 }
-exports.QueryTokenMintedByProductAndAssetRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryTokenMintedByAppAndAssetRequest = {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -279,9 +298,9 @@ exports.QueryTokenMintedByProductAndAssetRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTokenMintedByProductAndAssetRequest();
+        const message = createBaseQueryTokenMintedByAppAndAssetRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -325,7 +344,7 @@ exports.QueryTokenMintedByProductAndAssetRequest = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryTokenMintedByProductAndAssetRequest();
+        const message = createBaseQueryTokenMintedByAppAndAssetRequest();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -341,11 +360,11 @@ exports.QueryTokenMintedByProductAndAssetRequest = {
         return message;
     },
 };
-function createBaseQueryTokenMintedByProductAndAssetResponse() {
+function createBaseQueryTokenMintedByAppAndAssetResponse() {
     return { mintedTokens: undefined, pagination: undefined };
 }
-exports.QueryTokenMintedByProductAndAssetResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+exports.QueryTokenMintedByAppAndAssetResponse = {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.mintedTokens !== undefined) {
             mint_1.MintedTokens.encode(message.mintedTokens, writer.uint32(10).fork()).ldelim();
         }
@@ -355,9 +374,9 @@ exports.QueryTokenMintedByProductAndAssetResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryTokenMintedByProductAndAssetResponse();
+        const message = createBaseQueryTokenMintedByAppAndAssetResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -397,7 +416,7 @@ exports.QueryTokenMintedByProductAndAssetResponse = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseQueryTokenMintedByProductAndAssetResponse();
+        const message = createBaseQueryTokenMintedByAppAndAssetResponse();
         message.mintedTokens =
             object.mintedTokens !== undefined && object.mintedTokens !== null
                 ? mint_1.MintedTokens.fromPartial(object.mintedTokens)
@@ -412,32 +431,32 @@ exports.QueryTokenMintedByProductAndAssetResponse = {
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
-        this.QueryAllTokenMintedForAllProducts =
-            this.QueryAllTokenMintedForAllProducts.bind(this);
-        this.QueryTokenMintedByProduct = this.QueryTokenMintedByProduct.bind(this);
-        this.QueryTokenMintedByProductAndAsset =
-            this.QueryTokenMintedByProductAndAsset.bind(this);
+        this.QueryAllTokenMintedForAllApps =
+            this.QueryAllTokenMintedForAllApps.bind(this);
+        this.QueryTokenMintedByApp = this.QueryTokenMintedByApp.bind(this);
+        this.QueryTokenMintedByAppAndAsset =
+            this.QueryTokenMintedByAppAndAsset.bind(this);
     }
-    QueryAllTokenMintedForAllProducts(request) {
-        const data = exports.QueryAllTokenMintedForAllProductsRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.tokenmint.v1beta1.Query", "QueryAllTokenMintedForAllProducts", data);
-        return promise.then((data) => exports.QueryAllTokenMintedForAllProductsResponse.decode(new minimal_1.default.Reader(data)));
+    QueryAllTokenMintedForAllApps(request) {
+        const data = exports.QueryAllTokenMintedForAllAppsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.tokenmint.v1beta1.Query", "QueryAllTokenMintedForAllApps", data);
+        return promise.then((data) => exports.QueryAllTokenMintedForAllAppsResponse.decode(new _m0.Reader(data)));
     }
-    QueryTokenMintedByProduct(request) {
-        const data = exports.QueryTokenMintedByProductRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.tokenmint.v1beta1.Query", "QueryTokenMintedByProduct", data);
-        return promise.then((data) => exports.QueryTokenMintedByProductResponse.decode(new minimal_1.default.Reader(data)));
+    QueryTokenMintedByApp(request) {
+        const data = exports.QueryTokenMintedByAppRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.tokenmint.v1beta1.Query", "QueryTokenMintedByApp", data);
+        return promise.then((data) => exports.QueryTokenMintedByAppResponse.decode(new _m0.Reader(data)));
     }
-    QueryTokenMintedByProductAndAsset(request) {
-        const data = exports.QueryTokenMintedByProductAndAssetRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.tokenmint.v1beta1.Query", "QueryTokenMintedByProductAndAsset", data);
-        return promise.then((data) => exports.QueryTokenMintedByProductAndAssetResponse.decode(new minimal_1.default.Reader(data)));
+    QueryTokenMintedByAppAndAsset(request) {
+        const data = exports.QueryTokenMintedByAppAndAssetRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.tokenmint.v1beta1.Query", "QueryTokenMintedByAppAndAsset", data);
+        return promise.then((data) => exports.QueryTokenMintedByAppAndAssetResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

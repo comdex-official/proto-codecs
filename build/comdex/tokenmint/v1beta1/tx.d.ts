@@ -1,10 +1,10 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 export declare const protobufPackage = "comdex.tokenmint.v1beta1";
 /** Will become governance proposal- will trigger token minting & sending */
 export interface MsgMintNewTokensRequest {
     from: string;
-    appMappingId: Long;
+    appId: Long;
     assetId: Long;
 }
 export interface MsgMintNewTokensResponse {
@@ -16,11 +16,11 @@ export declare const MsgMintNewTokensRequest: {
     toJSON(message: MsgMintNewTokensRequest): unknown;
     fromPartial<I extends {
         from?: string | undefined;
-        appMappingId?: string | number | Long.Long | undefined;
+        appId?: string | number | Long.Long | undefined;
         assetId?: string | number | Long.Long | undefined;
     } & {
         from?: string | undefined;
-        appMappingId?: string | number | (Long.Long & {
+        appId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -77,7 +77,7 @@ export declare const MsgMintNewTokensRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         assetId?: string | number | (Long.Long & {
             high: number;
             low: number;

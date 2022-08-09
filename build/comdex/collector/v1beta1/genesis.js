@@ -27,14 +27,37 @@ exports.GenesisState = exports.protobufPackage = void 0;
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 const params_1 = require("../../../comdex/collector/v1beta1/params");
+const collector_1 = require("../../../comdex/collector/v1beta1/collector");
 exports.protobufPackage = "comdex.collector.v1beta1";
 function createBaseGenesisState() {
-    return { params: undefined };
+    return {
+        netFeeCollectedData: [],
+        appIdToAssetCollectorMapping: [],
+        collectorLookup: [],
+        collectorAuctionLookupTable: [],
+        appToDenomsMapping: [],
+        params: undefined,
+    };
 }
 exports.GenesisState = {
     encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.netFeeCollectedData) {
+            collector_1.NetFeeCollectedData.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        for (const v of message.appIdToAssetCollectorMapping) {
+            collector_1.AppIdToAssetCollectorMapping.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        for (const v of message.collectorLookup) {
+            collector_1.CollectorLookup.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        for (const v of message.collectorAuctionLookupTable) {
+            collector_1.CollectorAuctionLookupTable.encode(v, writer.uint32(34).fork()).ldelim();
+        }
+        for (const v of message.appToDenomsMapping) {
+            collector_1.AppToDenomsMapping.encode(v, writer.uint32(42).fork()).ldelim();
+        }
         if (message.params !== undefined) {
-            params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+            params_1.Params.encode(message.params, writer.uint32(50).fork()).ldelim();
         }
         return writer;
     },
@@ -46,6 +69,21 @@ exports.GenesisState = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    message.netFeeCollectedData.push(collector_1.NetFeeCollectedData.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.appIdToAssetCollectorMapping.push(collector_1.AppIdToAssetCollectorMapping.decode(reader, reader.uint32()));
+                    break;
+                case 3:
+                    message.collectorLookup.push(collector_1.CollectorLookup.decode(reader, reader.uint32()));
+                    break;
+                case 4:
+                    message.collectorAuctionLookupTable.push(collector_1.CollectorAuctionLookupTable.decode(reader, reader.uint32()));
+                    break;
+                case 5:
+                    message.appToDenomsMapping.push(collector_1.AppToDenomsMapping.decode(reader, reader.uint32()));
+                    break;
+                case 6:
                     message.params = params_1.Params.decode(reader, reader.uint32());
                     break;
                 default:
@@ -57,17 +95,74 @@ exports.GenesisState = {
     },
     fromJSON(object) {
         return {
+            netFeeCollectedData: Array.isArray(object === null || object === void 0 ? void 0 : object.netFeeCollectedData)
+                ? object.netFeeCollectedData.map((e) => collector_1.NetFeeCollectedData.fromJSON(e))
+                : [],
+            appIdToAssetCollectorMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.appIdToAssetCollectorMapping)
+                ? object.appIdToAssetCollectorMapping.map((e) => collector_1.AppIdToAssetCollectorMapping.fromJSON(e))
+                : [],
+            collectorLookup: Array.isArray(object === null || object === void 0 ? void 0 : object.collectorLookup)
+                ? object.collectorLookup.map((e) => collector_1.CollectorLookup.fromJSON(e))
+                : [],
+            collectorAuctionLookupTable: Array.isArray(object === null || object === void 0 ? void 0 : object.collectorAuctionLookupTable)
+                ? object.collectorAuctionLookupTable.map((e) => collector_1.CollectorAuctionLookupTable.fromJSON(e))
+                : [],
+            appToDenomsMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.appToDenomsMapping)
+                ? object.appToDenomsMapping.map((e) => collector_1.AppToDenomsMapping.fromJSON(e))
+                : [],
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
+        if (message.netFeeCollectedData) {
+            obj.netFeeCollectedData = message.netFeeCollectedData.map((e) => e ? collector_1.NetFeeCollectedData.toJSON(e) : undefined);
+        }
+        else {
+            obj.netFeeCollectedData = [];
+        }
+        if (message.appIdToAssetCollectorMapping) {
+            obj.appIdToAssetCollectorMapping =
+                message.appIdToAssetCollectorMapping.map((e) => e ? collector_1.AppIdToAssetCollectorMapping.toJSON(e) : undefined);
+        }
+        else {
+            obj.appIdToAssetCollectorMapping = [];
+        }
+        if (message.collectorLookup) {
+            obj.collectorLookup = message.collectorLookup.map((e) => e ? collector_1.CollectorLookup.toJSON(e) : undefined);
+        }
+        else {
+            obj.collectorLookup = [];
+        }
+        if (message.collectorAuctionLookupTable) {
+            obj.collectorAuctionLookupTable = message.collectorAuctionLookupTable.map((e) => (e ? collector_1.CollectorAuctionLookupTable.toJSON(e) : undefined));
+        }
+        else {
+            obj.collectorAuctionLookupTable = [];
+        }
+        if (message.appToDenomsMapping) {
+            obj.appToDenomsMapping = message.appToDenomsMapping.map((e) => e ? collector_1.AppToDenomsMapping.toJSON(e) : undefined);
+        }
+        else {
+            obj.appToDenomsMapping = [];
+        }
         message.params !== undefined &&
             (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
         return obj;
     },
     fromPartial(object) {
+        var _a, _b, _c, _d, _e;
         const message = createBaseGenesisState();
+        message.netFeeCollectedData =
+            ((_a = object.netFeeCollectedData) === null || _a === void 0 ? void 0 : _a.map((e) => collector_1.NetFeeCollectedData.fromPartial(e))) || [];
+        message.appIdToAssetCollectorMapping =
+            ((_b = object.appIdToAssetCollectorMapping) === null || _b === void 0 ? void 0 : _b.map((e) => collector_1.AppIdToAssetCollectorMapping.fromPartial(e))) || [];
+        message.collectorLookup =
+            ((_c = object.collectorLookup) === null || _c === void 0 ? void 0 : _c.map((e) => collector_1.CollectorLookup.fromPartial(e))) || [];
+        message.collectorAuctionLookupTable =
+            ((_d = object.collectorAuctionLookupTable) === null || _d === void 0 ? void 0 : _d.map((e) => collector_1.CollectorAuctionLookupTable.fromPartial(e))) || [];
+        message.appToDenomsMapping =
+            ((_e = object.appToDenomsMapping) === null || _e === void 0 ? void 0 : _e.map((e) => collector_1.AppToDenomsMapping.fromPartial(e))) || [];
         message.params =
             object.params !== undefined && object.params !== null
                 ? params_1.Params.fromPartial(object.params)

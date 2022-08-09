@@ -507,15 +507,9 @@ exports.MsgWithdrawAssetResponse = {
 class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
-        this.MsgAddWhiteListedAsset = this.MsgAddWhiteListedAsset.bind(this);
         this.MsgCreateLocker = this.MsgCreateLocker.bind(this);
         this.MsgDepositAsset = this.MsgDepositAsset.bind(this);
         this.MsgWithdrawAsset = this.MsgWithdrawAsset.bind(this);
-    }
-    MsgAddWhiteListedAsset(request) {
-        const data = exports.MsgAddWhiteListedAssetRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.locker.v1beta1.Msg", "MsgAddWhiteListedAsset", data);
-        return promise.then((data) => exports.MsgAddWhiteListedAssetResponse.decode(new _m0.Reader(data)));
     }
     MsgCreateLocker(request) {
         const data = exports.MsgCreateLockerRequest.encode(request).finish();

@@ -1,7 +1,7 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { OrderDirection } from "./liquidity";
+import { OrderDirection } from "../../../comdex/liquidity/v1beta1/liquidity";
 import { Duration } from "../../../google/protobuf/duration";
 export declare const protobufPackage = "comdex.liquidity.v1beta1";
 /** MsgCreatePair defines an SDK message for creating a pair. */

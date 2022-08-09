@@ -29,9 +29,17 @@ const _m0 = __importStar(require("protobufjs/minimal"));
 const params_1 = require("../../../comdex/asset/v1beta1/params");
 const asset_1 = require("../../../comdex/asset/v1beta1/asset");
 const pair_1 = require("../../../comdex/asset/v1beta1/pair");
+const app_1 = require("../../../comdex/asset/v1beta1/app");
+const extendedPairVault_1 = require("../../../comdex/asset/v1beta1/extendedPairVault");
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseGenesisState() {
-    return { assets: [], pairs: [], params: undefined };
+    return {
+        assets: [],
+        pairs: [],
+        appData: [],
+        extendedPairVault: [],
+        params: undefined,
+    };
 }
 exports.GenesisState = {
     encode(message, writer = _m0.Writer.create()) {
@@ -39,10 +47,16 @@ exports.GenesisState = {
             asset_1.Asset.encode(v, writer.uint32(10).fork()).ldelim();
         }
         for (const v of message.pairs) {
-            pair_1.Pair.encode(v, writer.uint32(26).fork()).ldelim();
+            pair_1.Pair.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        for (const v of message.appData) {
+            app_1.AppData.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        for (const v of message.extendedPairVault) {
+            extendedPairVault_1.ExtendedPairVault.encode(v, writer.uint32(34).fork()).ldelim();
         }
         if (message.params !== undefined) {
-            params_1.Params.encode(message.params, writer.uint32(34).fork()).ldelim();
+            params_1.Params.encode(message.params, writer.uint32(42).fork()).ldelim();
         }
         return writer;
     },
@@ -56,10 +70,16 @@ exports.GenesisState = {
                 case 1:
                     message.assets.push(asset_1.Asset.decode(reader, reader.uint32()));
                     break;
-                case 3:
+                case 2:
                     message.pairs.push(pair_1.Pair.decode(reader, reader.uint32()));
                     break;
+                case 3:
+                    message.appData.push(app_1.AppData.decode(reader, reader.uint32()));
+                    break;
                 case 4:
+                    message.extendedPairVault.push(extendedPairVault_1.ExtendedPairVault.decode(reader, reader.uint32()));
+                    break;
+                case 5:
                     message.params = params_1.Params.decode(reader, reader.uint32());
                     break;
                 default:
@@ -76,6 +96,12 @@ exports.GenesisState = {
                 : [],
             pairs: Array.isArray(object === null || object === void 0 ? void 0 : object.pairs)
                 ? object.pairs.map((e) => pair_1.Pair.fromJSON(e))
+                : [],
+            appData: Array.isArray(object === null || object === void 0 ? void 0 : object.appData)
+                ? object.appData.map((e) => app_1.AppData.fromJSON(e))
+                : [],
+            extendedPairVault: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPairVault)
+                ? object.extendedPairVault.map((e) => extendedPairVault_1.ExtendedPairVault.fromJSON(e))
                 : [],
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
         };
@@ -94,15 +120,31 @@ exports.GenesisState = {
         else {
             obj.pairs = [];
         }
+        if (message.appData) {
+            obj.appData = message.appData.map((e) => e ? app_1.AppData.toJSON(e) : undefined);
+        }
+        else {
+            obj.appData = [];
+        }
+        if (message.extendedPairVault) {
+            obj.extendedPairVault = message.extendedPairVault.map((e) => e ? extendedPairVault_1.ExtendedPairVault.toJSON(e) : undefined);
+        }
+        else {
+            obj.extendedPairVault = [];
+        }
         message.params !== undefined &&
             (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a, _b, _c, _d;
         const message = createBaseGenesisState();
         message.assets = ((_a = object.assets) === null || _a === void 0 ? void 0 : _a.map((e) => asset_1.Asset.fromPartial(e))) || [];
         message.pairs = ((_b = object.pairs) === null || _b === void 0 ? void 0 : _b.map((e) => pair_1.Pair.fromPartial(e))) || [];
+        message.appData = ((_c = object.appData) === null || _c === void 0 ? void 0 : _c.map((e) => app_1.AppData.fromPartial(e))) || [];
+        message.extendedPairVault =
+            ((_d = object.extendedPairVault) === null || _d === void 0 ? void 0 : _d.map((e) => extendedPairVault_1.ExtendedPairVault.fromPartial(e))) ||
+                [];
         message.params =
             object.params !== undefined && object.params !== null
                 ? params_1.Params.fromPartial(object.params)

@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,11 +25,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MsgClientImpl = exports.ActivateExternalRewardsVaultResponse = exports.ActivateExternalRewardsVault = exports.ActivateExternalRewardsLockersResponse = exports.ActivateExternalRewardsLockers = exports.MsgRemoveWhitelistAppIdVaultResponse = exports.MsgWhitelistAppIdVaultResponse = exports.RemoveWhitelistAppIdVault = exports.WhitelistAppIdVault = exports.MsgRemoveWhitelistAssetResponse = exports.MsgWhitelistAssetResponse = exports.RemoveWhitelistAsset = exports.WhitelistAsset = exports.MsgCreateGaugeResponse = exports.MsgCreateGauge = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const gauge_1 = require("./gauge");
-const coin_1 = require("../../../cosmos/base/v1beta1/coin");
+const _m0 = __importStar(require("protobufjs/minimal"));
 const duration_1 = require("../../../google/protobuf/duration");
+const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const timestamp_1 = require("../../../google/protobuf/timestamp");
+const gauge_1 = require("../../../comdex/rewards/v1beta1/gauge");
 exports.protobufPackage = "comdex.rewards.v1beta1";
 function createBaseMsgCreateGauge() {
     return {
@@ -25,7 +44,7 @@ function createBaseMsgCreateGauge() {
     };
 }
 exports.MsgCreateGauge = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
@@ -53,7 +72,7 @@ exports.MsgCreateGauge = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCreateGauge();
         while (reader.pos < end) {
@@ -94,7 +113,7 @@ exports.MsgCreateGauge = {
         return {
             from: isSet(object.from) ? String(object.from) : "",
             gaugeTypeId: isSet(object.gaugeTypeId)
-                ? long_1.default.fromString(object.gaugeTypeId)
+                ? long_1.default.fromValue(object.gaugeTypeId)
                 : long_1.default.UZERO,
             triggerDuration: isSet(object.triggerDuration)
                 ? duration_1.Duration.fromJSON(object.triggerDuration)
@@ -103,7 +122,7 @@ exports.MsgCreateGauge = {
                 ? coin_1.Coin.fromJSON(object.depositAmount)
                 : undefined,
             totalTriggers: isSet(object.totalTriggers)
-                ? long_1.default.fromString(object.totalTriggers)
+                ? long_1.default.fromValue(object.totalTriggers)
                 : long_1.default.UZERO,
             startTime: isSet(object.startTime)
                 ? fromJsonTimestamp(object.startTime)
@@ -111,7 +130,7 @@ exports.MsgCreateGauge = {
             liquidityMetaData: isSet(object.liquidityMetaData)
                 ? gauge_1.LiquidtyGaugeMetaData.fromJSON(object.liquidityMetaData)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -176,11 +195,11 @@ function createBaseMsgCreateGaugeResponse() {
     return {};
 }
 exports.MsgCreateGaugeResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCreateGaugeResponse();
         while (reader.pos < end) {
@@ -209,7 +228,7 @@ function createBaseWhitelistAsset() {
     return { appMappingId: long_1.default.UZERO, from: "", assetId: [] };
 }
 exports.WhitelistAsset = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -224,7 +243,7 @@ exports.WhitelistAsset = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseWhitelistAsset();
         while (reader.pos < end) {
@@ -257,11 +276,11 @@ exports.WhitelistAsset = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             from: isSet(object.from) ? String(object.from) : "",
             assetId: Array.isArray(object === null || object === void 0 ? void 0 : object.assetId)
-                ? object.assetId.map((e) => long_1.default.fromString(e))
+                ? object.assetId.map((e) => long_1.default.fromValue(e))
                 : [],
         };
     },
@@ -294,7 +313,7 @@ function createBaseRemoveWhitelistAsset() {
     return { appMappingId: long_1.default.UZERO, from: "", assetId: long_1.default.UZERO };
 }
 exports.RemoveWhitelistAsset = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -307,7 +326,7 @@ exports.RemoveWhitelistAsset = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRemoveWhitelistAsset();
         while (reader.pos < end) {
@@ -332,11 +351,11 @@ exports.RemoveWhitelistAsset = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             from: isSet(object.from) ? String(object.from) : "",
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
         };
     },
@@ -368,11 +387,11 @@ function createBaseMsgWhitelistAssetResponse() {
     return {};
 }
 exports.MsgWhitelistAssetResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWhitelistAssetResponse();
         while (reader.pos < end) {
@@ -401,11 +420,11 @@ function createBaseMsgRemoveWhitelistAssetResponse() {
     return {};
 }
 exports.MsgRemoveWhitelistAssetResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgRemoveWhitelistAssetResponse();
         while (reader.pos < end) {
@@ -434,7 +453,7 @@ function createBaseWhitelistAppIdVault() {
     return { appMappingId: long_1.default.UZERO, from: "" };
 }
 exports.WhitelistAppIdVault = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -444,7 +463,7 @@ exports.WhitelistAppIdVault = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseWhitelistAppIdVault();
         while (reader.pos < end) {
@@ -466,7 +485,7 @@ exports.WhitelistAppIdVault = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             from: isSet(object.from) ? String(object.from) : "",
         };
@@ -493,7 +512,7 @@ function createBaseRemoveWhitelistAppIdVault() {
     return { appMappingId: long_1.default.UZERO, from: "" };
 }
 exports.RemoveWhitelistAppIdVault = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -503,7 +522,7 @@ exports.RemoveWhitelistAppIdVault = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRemoveWhitelistAppIdVault();
         while (reader.pos < end) {
@@ -525,7 +544,7 @@ exports.RemoveWhitelistAppIdVault = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             from: isSet(object.from) ? String(object.from) : "",
         };
@@ -552,11 +571,11 @@ function createBaseMsgWhitelistAppIdVaultResponse() {
     return {};
 }
 exports.MsgWhitelistAppIdVaultResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWhitelistAppIdVaultResponse();
         while (reader.pos < end) {
@@ -585,11 +604,11 @@ function createBaseMsgRemoveWhitelistAppIdVaultResponse() {
     return {};
 }
 exports.MsgRemoveWhitelistAppIdVaultResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgRemoveWhitelistAppIdVaultResponse();
         while (reader.pos < end) {
@@ -625,7 +644,7 @@ function createBaseActivateExternalRewardsLockers() {
     };
 }
 exports.ActivateExternalRewardsLockers = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -647,7 +666,7 @@ exports.ActivateExternalRewardsLockers = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseActivateExternalRewardsLockers();
         while (reader.pos < end) {
@@ -681,20 +700,20 @@ exports.ActivateExternalRewardsLockers = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             assetId: isSet(object.assetId)
-                ? long_1.default.fromString(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             totalRewards: isSet(object.totalRewards)
                 ? coin_1.Coin.fromJSON(object.totalRewards)
                 : undefined,
             durationDays: isSet(object.durationDays)
-                ? long_1.default.fromString(object.durationDays)
+                ? long_1.default.fromValue(object.durationDays)
                 : long_1.default.ZERO,
             depositor: isSet(object.depositor) ? String(object.depositor) : "",
             minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
-                ? long_1.default.fromString(object.minLockupTimeSeconds)
+                ? long_1.default.fromValue(object.minLockupTimeSeconds)
                 : long_1.default.ZERO,
         };
     },
@@ -747,11 +766,11 @@ function createBaseActivateExternalRewardsLockersResponse() {
     return {};
 }
 exports.ActivateExternalRewardsLockersResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseActivateExternalRewardsLockersResponse();
         while (reader.pos < end) {
@@ -787,7 +806,7 @@ function createBaseActivateExternalRewardsVault() {
     };
 }
 exports.ActivateExternalRewardsVault = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appMappingId.isZero()) {
             writer.uint32(8).uint64(message.appMappingId);
         }
@@ -809,7 +828,7 @@ exports.ActivateExternalRewardsVault = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseActivateExternalRewardsVault();
         while (reader.pos < end) {
@@ -843,20 +862,20 @@ exports.ActivateExternalRewardsVault = {
     fromJSON(object) {
         return {
             appMappingId: isSet(object.appMappingId)
-                ? long_1.default.fromString(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
-                ? long_1.default.fromString(object.extendedPairId)
+                ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             totalRewards: isSet(object.totalRewards)
                 ? coin_1.Coin.fromJSON(object.totalRewards)
                 : undefined,
             durationDays: isSet(object.durationDays)
-                ? long_1.default.fromString(object.durationDays)
+                ? long_1.default.fromValue(object.durationDays)
                 : long_1.default.ZERO,
             depositor: isSet(object.depositor) ? String(object.depositor) : "",
             minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
-                ? long_1.default.fromString(object.minLockupTimeSeconds)
+                ? long_1.default.fromValue(object.minLockupTimeSeconds)
                 : long_1.default.ZERO,
         };
     },
@@ -909,11 +928,11 @@ function createBaseActivateExternalRewardsVaultResponse() {
     return {};
 }
 exports.ActivateExternalRewardsVaultResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseActivateExternalRewardsVaultResponse();
         while (reader.pos < end) {
@@ -942,47 +961,23 @@ class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
         this.CreateGauge = this.CreateGauge.bind(this);
-        this.Whitelist = this.Whitelist.bind(this);
-        this.RemoveWhitelist = this.RemoveWhitelist.bind(this);
-        this.WhitelistAppVault = this.WhitelistAppVault.bind(this);
-        this.RemoveWhitelistAppVault = this.RemoveWhitelistAppVault.bind(this);
         this.ExternalRewardsLockers = this.ExternalRewardsLockers.bind(this);
         this.ExternalRewardsVault = this.ExternalRewardsVault.bind(this);
     }
     CreateGauge(request) {
         const data = exports.MsgCreateGauge.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "CreateGauge", data);
-        return promise.then((data) => exports.MsgCreateGaugeResponse.decode(new minimal_1.default.Reader(data)));
-    }
-    Whitelist(request) {
-        const data = exports.WhitelistAsset.encode(request).finish();
-        const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "Whitelist", data);
-        return promise.then((data) => exports.MsgWhitelistAssetResponse.decode(new minimal_1.default.Reader(data)));
-    }
-    RemoveWhitelist(request) {
-        const data = exports.RemoveWhitelistAsset.encode(request).finish();
-        const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "RemoveWhitelist", data);
-        return promise.then((data) => exports.MsgRemoveWhitelistAssetResponse.decode(new minimal_1.default.Reader(data)));
-    }
-    WhitelistAppVault(request) {
-        const data = exports.WhitelistAppIdVault.encode(request).finish();
-        const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "WhitelistAppVault", data);
-        return promise.then((data) => exports.MsgWhitelistAppIdVaultResponse.decode(new minimal_1.default.Reader(data)));
-    }
-    RemoveWhitelistAppVault(request) {
-        const data = exports.RemoveWhitelistAppIdVault.encode(request).finish();
-        const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "RemoveWhitelistAppVault", data);
-        return promise.then((data) => exports.MsgRemoveWhitelistAppIdVaultResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCreateGaugeResponse.decode(new _m0.Reader(data)));
     }
     ExternalRewardsLockers(request) {
         const data = exports.ActivateExternalRewardsLockers.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "ExternalRewardsLockers", data);
-        return promise.then((data) => exports.ActivateExternalRewardsLockersResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ActivateExternalRewardsLockersResponse.decode(new _m0.Reader(data)));
     }
     ExternalRewardsVault(request) {
         const data = exports.ActivateExternalRewardsVault.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "ExternalRewardsVault", data);
-        return promise.then((data) => exports.ActivateExternalRewardsVaultResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ActivateExternalRewardsVaultResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
@@ -1010,9 +1005,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

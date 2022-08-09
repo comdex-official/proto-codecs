@@ -1,8 +1,8 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Params, GenericParams } from "./params";
-import { Pair, DepositRequest, WithdrawRequest, Order } from "./liquidity";
+import * as _m0 from "protobufjs/minimal";
+import { Params, GenericParams } from "../../../comdex/liquidity/v1beta1/params";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import { Pair, DepositRequest, WithdrawRequest, Order } from "../../../comdex/liquidity/v1beta1/liquidity";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
 export declare const protobufPackage = "comdex.liquidity.v1beta1";
@@ -3352,7 +3352,7 @@ export declare const QueryDepositRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] | undefined;
         pagination?: {
@@ -3377,7 +3377,7 @@ export declare const QueryDepositRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
@@ -3396,7 +3396,7 @@ export declare const QueryDepositRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -3607,7 +3607,7 @@ export declare const QueryDepositRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & Record<Exclude<keyof I["depositRequests"][number]["mintedPoolCoin"], keyof Coin>, never>) | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -3683,7 +3683,7 @@ export declare const QueryDepositRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
@@ -3961,7 +3961,7 @@ export declare const QueryDepositRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
@@ -3982,7 +3982,7 @@ export declare const QueryDepositRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -4193,7 +4193,7 @@ export declare const QueryDepositRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & Record<Exclude<keyof I["depositRequest"]["mintedPoolCoin"], keyof Coin>, never>) | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -4535,7 +4535,7 @@ export declare const QueryWithdrawRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] | undefined;
         pagination?: {
@@ -4556,7 +4556,7 @@ export declare const QueryWithdrawRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
@@ -4571,7 +4571,7 @@ export declare const QueryWithdrawRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -4769,7 +4769,7 @@ export declare const QueryWithdrawRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[]>, never>) | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -4841,7 +4841,7 @@ export declare const QueryWithdrawRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
@@ -5115,7 +5115,7 @@ export declare const QueryWithdrawRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
@@ -5132,7 +5132,7 @@ export declare const QueryWithdrawRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -5330,7 +5330,7 @@ export declare const QueryWithdrawRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[]>, never>) | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -5664,7 +5664,7 @@ export declare const QueryOrdersResponse: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -5682,7 +5682,7 @@ export declare const QueryOrdersResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] | undefined;
         pagination?: {
@@ -5695,7 +5695,7 @@ export declare const QueryOrdersResponse: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -5713,14 +5713,14 @@ export declare const QueryOrdersResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -5738,7 +5738,7 @@ export declare const QueryOrdersResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -5916,7 +5916,7 @@ export declare const QueryOrdersResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["orders"][number]["msgHeight"], keyof Long.Long>, never>) | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -6000,7 +6000,7 @@ export declare const QueryOrdersResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["orders"][number]["batchId"], keyof Long.Long>, never>) | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -6064,7 +6064,7 @@ export declare const QueryOrdersResponse: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -6082,7 +6082,7 @@ export declare const QueryOrdersResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
@@ -6348,7 +6348,7 @@ export declare const QueryOrderResponse: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -6366,7 +6366,7 @@ export declare const QueryOrderResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
@@ -6375,7 +6375,7 @@ export declare const QueryOrderResponse: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -6393,7 +6393,7 @@ export declare const QueryOrderResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -6571,7 +6571,7 @@ export declare const QueryOrderResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["order"]["msgHeight"], keyof Long.Long>, never>) | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -6655,7 +6655,7 @@ export declare const QueryOrderResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["order"]["batchId"], keyof Long.Long>, never>) | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
