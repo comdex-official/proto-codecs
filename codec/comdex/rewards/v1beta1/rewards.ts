@@ -11,6 +11,18 @@ export interface InternalRewards {
   assetID: Long[];
 }
 
+export interface LockerRewardsTracker {
+  lockerId: Long;
+  appMappingId: Long;
+  rewardsAccumulated: string;
+}
+
+export interface VaultInterestTracker {
+  vaultId: Long;
+  appMappingId: Long;
+  interestAccumulated: string;
+}
+
 export interface LockerExternalRewards {
   id: Long;
   appMappingId: Long;
@@ -132,6 +144,194 @@ export const InternalRewards = {
         ? Long.fromValue(object.appMappingID)
         : Long.UZERO;
     message.assetID = object.assetID?.map((e) => Long.fromValue(e)) || [];
+    return message;
+  },
+};
+
+function createBaseLockerRewardsTracker(): LockerRewardsTracker {
+  return {
+    lockerId: Long.UZERO,
+    appMappingId: Long.UZERO,
+    rewardsAccumulated: "",
+  };
+}
+
+export const LockerRewardsTracker = {
+  encode(
+    message: LockerRewardsTracker,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.lockerId.isZero()) {
+      writer.uint32(8).uint64(message.lockerId);
+    }
+    if (!message.appMappingId.isZero()) {
+      writer.uint32(16).uint64(message.appMappingId);
+    }
+    if (message.rewardsAccumulated !== "") {
+      writer.uint32(26).string(message.rewardsAccumulated);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): LockerRewardsTracker {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLockerRewardsTracker();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.lockerId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.appMappingId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.rewardsAccumulated = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LockerRewardsTracker {
+    return {
+      lockerId: isSet(object.lockerId)
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO,
+      appMappingId: isSet(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
+        : Long.UZERO,
+      rewardsAccumulated: isSet(object.rewardsAccumulated)
+        ? String(object.rewardsAccumulated)
+        : "",
+    };
+  },
+
+  toJSON(message: LockerRewardsTracker): unknown {
+    const obj: any = {};
+    message.lockerId !== undefined &&
+      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
+    message.appMappingId !== undefined &&
+      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.rewardsAccumulated !== undefined &&
+      (obj.rewardsAccumulated = message.rewardsAccumulated);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LockerRewardsTracker>, I>>(
+    object: I
+  ): LockerRewardsTracker {
+    const message = createBaseLockerRewardsTracker();
+    message.lockerId =
+      object.lockerId !== undefined && object.lockerId !== null
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO;
+    message.appMappingId =
+      object.appMappingId !== undefined && object.appMappingId !== null
+        ? Long.fromValue(object.appMappingId)
+        : Long.UZERO;
+    message.rewardsAccumulated = object.rewardsAccumulated ?? "";
+    return message;
+  },
+};
+
+function createBaseVaultInterestTracker(): VaultInterestTracker {
+  return {
+    vaultId: Long.UZERO,
+    appMappingId: Long.UZERO,
+    interestAccumulated: "",
+  };
+}
+
+export const VaultInterestTracker = {
+  encode(
+    message: VaultInterestTracker,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.vaultId.isZero()) {
+      writer.uint32(8).uint64(message.vaultId);
+    }
+    if (!message.appMappingId.isZero()) {
+      writer.uint32(16).uint64(message.appMappingId);
+    }
+    if (message.interestAccumulated !== "") {
+      writer.uint32(26).string(message.interestAccumulated);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): VaultInterestTracker {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseVaultInterestTracker();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.vaultId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.appMappingId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.interestAccumulated = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): VaultInterestTracker {
+    return {
+      vaultId: isSet(object.vaultId)
+        ? Long.fromValue(object.vaultId)
+        : Long.UZERO,
+      appMappingId: isSet(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
+        : Long.UZERO,
+      interestAccumulated: isSet(object.interestAccumulated)
+        ? String(object.interestAccumulated)
+        : "",
+    };
+  },
+
+  toJSON(message: VaultInterestTracker): unknown {
+    const obj: any = {};
+    message.vaultId !== undefined &&
+      (obj.vaultId = (message.vaultId || Long.UZERO).toString());
+    message.appMappingId !== undefined &&
+      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.interestAccumulated !== undefined &&
+      (obj.interestAccumulated = message.interestAccumulated);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<VaultInterestTracker>, I>>(
+    object: I
+  ): VaultInterestTracker {
+    const message = createBaseVaultInterestTracker();
+    message.vaultId =
+      object.vaultId !== undefined && object.vaultId !== null
+        ? Long.fromValue(object.vaultId)
+        : Long.UZERO;
+    message.appMappingId =
+      object.appMappingId !== undefined && object.appMappingId !== null
+        ? Long.fromValue(object.appMappingId)
+        : Long.UZERO;
+    message.interestAccumulated = object.interestAccumulated ?? "";
     return message;
   },
 };

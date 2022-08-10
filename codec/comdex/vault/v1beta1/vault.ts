@@ -7,7 +7,7 @@ export const protobufPackage = "comdex.vault.v1beta1";
 
 /** app_vault_type_id will be the key for  the KVStore for this value. */
 export interface Vault {
-  id: string;
+  id: Long;
   appId: Long;
   extendedPairVaultId: Long;
   owner: string;
@@ -31,7 +31,7 @@ export interface VaultToAppMapping {
 
 export interface ExtendedPairToVaultMapping {
   extendedPairId: Long;
-  vaultId: string;
+  vaultId: Long;
 }
 
 /** app_id is the key */
@@ -43,7 +43,7 @@ export interface AppExtendedPairVaultMapping {
 
 export interface ExtendedPairVaultMapping {
   extendedPairId: Long;
-  vaultIds: string[];
+  vaultIds: Long[];
   tokenMintedAmount: string;
   collateralLockedAmount: string;
 }
@@ -59,7 +59,7 @@ export interface MintedDataMap {
 }
 
 export interface StableMintVault {
-  id: string;
+  id: Long;
   amountIn: string;
   amountOut: string;
   appId: Long;
@@ -77,7 +77,7 @@ export interface PairStatisticData {
 
 function createBaseVault(): Vault {
   return {
-    id: "",
+    id: Long.UZERO,
     appId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     owner: "",
@@ -91,8 +91,8 @@ function createBaseVault(): Vault {
 
 export const Vault = {
   encode(message: Vault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.id !== "") {
-      writer.uint32(10).string(message.id);
+    if (!message.id.isZero()) {
+      writer.uint32(8).uint64(message.id);
     }
     if (!message.appId.isZero()) {
       writer.uint32(16).uint64(message.appId);
@@ -132,7 +132,7 @@ export const Vault = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.id = reader.string();
+          message.id = reader.uint64() as Long;
           break;
         case 2:
           message.appId = reader.uint64() as Long;
@@ -170,7 +170,7 @@ export const Vault = {
 
   fromJSON(object: any): Vault {
     return {
-      id: isSet(object.id) ? String(object.id) : "",
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       extendedPairVaultId: isSet(object.extendedPairVaultId)
         ? Long.fromValue(object.extendedPairVaultId)
@@ -192,7 +192,8 @@ export const Vault = {
 
   toJSON(message: Vault): unknown {
     const obj: any = {};
-    message.id !== undefined && (obj.id = message.id);
+    message.id !== undefined &&
+      (obj.id = (message.id || Long.UZERO).toString());
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
@@ -213,7 +214,10 @@ export const Vault = {
 
   fromPartial<I extends Exact<DeepPartial<Vault>, I>>(object: I): Vault {
     const message = createBaseVault();
-    message.id = object.id ?? "";
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO;
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
@@ -393,7 +397,7 @@ export const VaultToAppMapping = {
 };
 
 function createBaseExtendedPairToVaultMapping(): ExtendedPairToVaultMapping {
-  return { extendedPairId: Long.UZERO, vaultId: "" };
+  return { extendedPairId: Long.UZERO, vaultId: Long.UZERO };
 }
 
 export const ExtendedPairToVaultMapping = {
@@ -404,8 +408,8 @@ export const ExtendedPairToVaultMapping = {
     if (!message.extendedPairId.isZero()) {
       writer.uint32(8).uint64(message.extendedPairId);
     }
-    if (message.vaultId !== "") {
-      writer.uint32(18).string(message.vaultId);
+    if (!message.vaultId.isZero()) {
+      writer.uint32(16).uint64(message.vaultId);
     }
     return writer;
   },
@@ -424,7 +428,7 @@ export const ExtendedPairToVaultMapping = {
           message.extendedPairId = reader.uint64() as Long;
           break;
         case 2:
-          message.vaultId = reader.string();
+          message.vaultId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -439,7 +443,9 @@ export const ExtendedPairToVaultMapping = {
       extendedPairId: isSet(object.extendedPairId)
         ? Long.fromValue(object.extendedPairId)
         : Long.UZERO,
-      vaultId: isSet(object.vaultId) ? String(object.vaultId) : "",
+      vaultId: isSet(object.vaultId)
+        ? Long.fromValue(object.vaultId)
+        : Long.UZERO,
     };
   },
 
@@ -447,7 +453,8 @@ export const ExtendedPairToVaultMapping = {
     const obj: any = {};
     message.extendedPairId !== undefined &&
       (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
-    message.vaultId !== undefined && (obj.vaultId = message.vaultId);
+    message.vaultId !== undefined &&
+      (obj.vaultId = (message.vaultId || Long.UZERO).toString());
     return obj;
   },
 
@@ -459,7 +466,10 @@ export const ExtendedPairToVaultMapping = {
       object.extendedPairId !== undefined && object.extendedPairId !== null
         ? Long.fromValue(object.extendedPairId)
         : Long.UZERO;
-    message.vaultId = object.vaultId ?? "";
+    message.vaultId =
+      object.vaultId !== undefined && object.vaultId !== null
+        ? Long.fromValue(object.vaultId)
+        : Long.UZERO;
     return message;
   },
 };
@@ -581,9 +591,11 @@ export const ExtendedPairVaultMapping = {
     if (!message.extendedPairId.isZero()) {
       writer.uint32(8).uint64(message.extendedPairId);
     }
+    writer.uint32(18).fork();
     for (const v of message.vaultIds) {
-      writer.uint32(18).string(v!);
+      writer.uint64(v);
     }
+    writer.ldelim();
     if (message.tokenMintedAmount !== "") {
       writer.uint32(26).string(message.tokenMintedAmount);
     }
@@ -607,7 +619,14 @@ export const ExtendedPairVaultMapping = {
           message.extendedPairId = reader.uint64() as Long;
           break;
         case 2:
-          message.vaultIds.push(reader.string());
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.vaultIds.push(reader.uint64() as Long);
+            }
+          } else {
+            message.vaultIds.push(reader.uint64() as Long);
+          }
           break;
         case 3:
           message.tokenMintedAmount = reader.string();
@@ -629,7 +648,7 @@ export const ExtendedPairVaultMapping = {
         ? Long.fromValue(object.extendedPairId)
         : Long.UZERO,
       vaultIds: Array.isArray(object?.vaultIds)
-        ? object.vaultIds.map((e: any) => String(e))
+        ? object.vaultIds.map((e: any) => Long.fromValue(e))
         : [],
       tokenMintedAmount: isSet(object.tokenMintedAmount)
         ? String(object.tokenMintedAmount)
@@ -645,7 +664,7 @@ export const ExtendedPairVaultMapping = {
     message.extendedPairId !== undefined &&
       (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
     if (message.vaultIds) {
-      obj.vaultIds = message.vaultIds.map((e) => e);
+      obj.vaultIds = message.vaultIds.map((e) => (e || Long.UZERO).toString());
     } else {
       obj.vaultIds = [];
     }
@@ -664,7 +683,7 @@ export const ExtendedPairVaultMapping = {
       object.extendedPairId !== undefined && object.extendedPairId !== null
         ? Long.fromValue(object.extendedPairId)
         : Long.UZERO;
-    message.vaultIds = object.vaultIds?.map((e) => e) || [];
+    message.vaultIds = object.vaultIds?.map((e) => Long.fromValue(e)) || [];
     message.tokenMintedAmount = object.tokenMintedAmount ?? "";
     message.collateralLockedAmount = object.collateralLockedAmount ?? "";
     return message;
@@ -805,7 +824,7 @@ export const MintedDataMap = {
 
 function createBaseStableMintVault(): StableMintVault {
   return {
-    id: "",
+    id: Long.UZERO,
     amountIn: "",
     amountOut: "",
     appId: Long.UZERO,
@@ -819,8 +838,8 @@ export const StableMintVault = {
     message: StableMintVault,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.id !== "") {
-      writer.uint32(10).string(message.id);
+    if (!message.id.isZero()) {
+      writer.uint32(8).uint64(message.id);
     }
     if (message.amountIn !== "") {
       writer.uint32(18).string(message.amountIn);
@@ -851,7 +870,7 @@ export const StableMintVault = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.id = reader.string();
+          message.id = reader.uint64() as Long;
           break;
         case 2:
           message.amountIn = reader.string();
@@ -880,7 +899,7 @@ export const StableMintVault = {
 
   fromJSON(object: any): StableMintVault {
     return {
-      id: isSet(object.id) ? String(object.id) : "",
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
       amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
@@ -895,7 +914,8 @@ export const StableMintVault = {
 
   toJSON(message: StableMintVault): unknown {
     const obj: any = {};
-    message.id !== undefined && (obj.id = message.id);
+    message.id !== undefined &&
+      (obj.id = (message.id || Long.UZERO).toString());
     message.amountIn !== undefined && (obj.amountIn = message.amountIn);
     message.amountOut !== undefined && (obj.amountOut = message.amountOut);
     message.appId !== undefined &&
@@ -913,7 +933,10 @@ export const StableMintVault = {
     object: I
   ): StableMintVault {
     const message = createBaseStableMintVault();
-    message.id = object.id ?? "";
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO;
     message.amountIn = object.amountIn ?? "";
     message.amountOut = object.amountOut ?? "";
     message.appId =
