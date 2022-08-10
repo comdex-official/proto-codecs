@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EpochTime = exports.WhitelistedAppIdsVault = exports.VaultExternalRewards = exports.LockerExternalRewards = exports.InternalRewards = exports.protobufPackage = void 0;
+exports.EpochTime = exports.WhitelistedAppIdsVault = exports.VaultExternalRewards = exports.LockerExternalRewards = exports.VaultInterestTracker = exports.LockerRewardsTracker = exports.InternalRewards = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -102,6 +102,168 @@ exports.InternalRewards = {
                 ? long_1.default.fromValue(object.appMappingID)
                 : long_1.default.UZERO;
         message.assetID = ((_a = object.assetID) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        return message;
+    },
+};
+function createBaseLockerRewardsTracker() {
+    return {
+        lockerId: long_1.default.UZERO,
+        appMappingId: long_1.default.UZERO,
+        rewardsAccumulated: "",
+    };
+}
+exports.LockerRewardsTracker = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.lockerId.isZero()) {
+            writer.uint32(8).uint64(message.lockerId);
+        }
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (message.rewardsAccumulated !== "") {
+            writer.uint32(26).string(message.rewardsAccumulated);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseLockerRewardsTracker();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.lockerId = reader.uint64();
+                    break;
+                case 2:
+                    message.appMappingId = reader.uint64();
+                    break;
+                case 3:
+                    message.rewardsAccumulated = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            lockerId: isSet(object.lockerId)
+                ? long_1.default.fromValue(object.lockerId)
+                : long_1.default.UZERO,
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            rewardsAccumulated: isSet(object.rewardsAccumulated)
+                ? String(object.rewardsAccumulated)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.lockerId !== undefined &&
+            (obj.lockerId = (message.lockerId || long_1.default.UZERO).toString());
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.rewardsAccumulated !== undefined &&
+            (obj.rewardsAccumulated = message.rewardsAccumulated);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseLockerRewardsTracker();
+        message.lockerId =
+            object.lockerId !== undefined && object.lockerId !== null
+                ? long_1.default.fromValue(object.lockerId)
+                : long_1.default.UZERO;
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.rewardsAccumulated = (_a = object.rewardsAccumulated) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseVaultInterestTracker() {
+    return {
+        vaultId: long_1.default.UZERO,
+        appMappingId: long_1.default.UZERO,
+        interestAccumulated: "",
+    };
+}
+exports.VaultInterestTracker = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.vaultId.isZero()) {
+            writer.uint32(8).uint64(message.vaultId);
+        }
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(16).uint64(message.appMappingId);
+        }
+        if (message.interestAccumulated !== "") {
+            writer.uint32(26).string(message.interestAccumulated);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseVaultInterestTracker();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.vaultId = reader.uint64();
+                    break;
+                case 2:
+                    message.appMappingId = reader.uint64();
+                    break;
+                case 3:
+                    message.interestAccumulated = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            vaultId: isSet(object.vaultId)
+                ? long_1.default.fromValue(object.vaultId)
+                : long_1.default.UZERO,
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            interestAccumulated: isSet(object.interestAccumulated)
+                ? String(object.interestAccumulated)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.vaultId !== undefined &&
+            (obj.vaultId = (message.vaultId || long_1.default.UZERO).toString());
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.interestAccumulated !== undefined &&
+            (obj.interestAccumulated = message.interestAccumulated);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseVaultInterestTracker();
+        message.vaultId =
+            object.vaultId !== undefined && object.vaultId !== null
+                ? long_1.default.fromValue(object.vaultId)
+                : long_1.default.UZERO;
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.interestAccumulated = (_a = object.interestAccumulated) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };

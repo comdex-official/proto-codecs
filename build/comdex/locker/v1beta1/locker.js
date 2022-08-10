@@ -30,7 +30,7 @@ const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.locker.v1beta1";
 function createBaseLocker() {
     return {
-        lockerId: "",
+        lockerId: long_1.default.UZERO,
         depositor: "",
         returnsAccumulated: "",
         netBalance: "",
@@ -42,8 +42,8 @@ function createBaseLocker() {
 }
 exports.Locker = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.lockerId !== "") {
-            writer.uint32(10).string(message.lockerId);
+        if (!message.lockerId.isZero()) {
+            writer.uint32(8).uint64(message.lockerId);
         }
         if (message.depositor !== "") {
             writer.uint32(18).string(message.depositor);
@@ -76,7 +76,7 @@ exports.Locker = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.lockerId = reader.string();
+                    message.lockerId = reader.uint64();
                     break;
                 case 2:
                     message.depositor = reader.string();
@@ -108,7 +108,9 @@ exports.Locker = {
     },
     fromJSON(object) {
         return {
-            lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
+            lockerId: isSet(object.lockerId)
+                ? long_1.default.fromValue(object.lockerId)
+                : long_1.default.UZERO,
             depositor: isSet(object.depositor) ? String(object.depositor) : "",
             returnsAccumulated: isSet(object.returnsAccumulated)
                 ? String(object.returnsAccumulated)
@@ -126,7 +128,8 @@ exports.Locker = {
     },
     toJSON(message) {
         const obj = {};
-        message.lockerId !== undefined && (obj.lockerId = message.lockerId);
+        message.lockerId !== undefined &&
+            (obj.lockerId = (message.lockerId || long_1.default.UZERO).toString());
         message.depositor !== undefined && (obj.depositor = message.depositor);
         message.returnsAccumulated !== undefined &&
             (obj.returnsAccumulated = message.returnsAccumulated);
@@ -141,18 +144,21 @@ exports.Locker = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e;
         const message = createBaseLocker();
-        message.lockerId = (_a = object.lockerId) !== null && _a !== void 0 ? _a : "";
-        message.depositor = (_b = object.depositor) !== null && _b !== void 0 ? _b : "";
-        message.returnsAccumulated = (_c = object.returnsAccumulated) !== null && _c !== void 0 ? _c : "";
-        message.netBalance = (_d = object.netBalance) !== null && _d !== void 0 ? _d : "";
-        message.createdAt = (_e = object.createdAt) !== null && _e !== void 0 ? _e : undefined;
+        message.lockerId =
+            object.lockerId !== undefined && object.lockerId !== null
+                ? long_1.default.fromValue(object.lockerId)
+                : long_1.default.UZERO;
+        message.depositor = (_a = object.depositor) !== null && _a !== void 0 ? _a : "";
+        message.returnsAccumulated = (_b = object.returnsAccumulated) !== null && _b !== void 0 ? _b : "";
+        message.netBalance = (_c = object.netBalance) !== null && _c !== void 0 ? _c : "";
+        message.createdAt = (_d = object.createdAt) !== null && _d !== void 0 ? _d : undefined;
         message.assetDepositId =
             object.assetDepositId !== undefined && object.assetDepositId !== null
                 ? long_1.default.fromValue(object.assetDepositId)
                 : long_1.default.UZERO;
-        message.isLocked = (_f = object.isLocked) !== null && _f !== void 0 ? _f : false;
+        message.isLocked = (_e = object.isLocked) !== null && _e !== void 0 ? _e : false;
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -289,15 +295,15 @@ exports.LockerToAppMapping = {
     },
 };
 function createBaseAssetToLockerMapping() {
-    return { assetId: long_1.default.UZERO, lockerId: "", userData: [] };
+    return { assetId: long_1.default.UZERO, lockerId: long_1.default.UZERO, userData: [] };
 }
 exports.AssetToLockerMapping = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
-        if (message.lockerId !== "") {
-            writer.uint32(18).string(message.lockerId);
+        if (!message.lockerId.isZero()) {
+            writer.uint32(16).uint64(message.lockerId);
         }
         for (const v of message.userData) {
             exports.UserTxData.encode(v, writer.uint32(26).fork()).ldelim();
@@ -315,7 +321,7 @@ exports.AssetToLockerMapping = {
                     message.assetId = reader.uint64();
                     break;
                 case 2:
-                    message.lockerId = reader.string();
+                    message.lockerId = reader.uint64();
                     break;
                 case 3:
                     message.userData.push(exports.UserTxData.decode(reader, reader.uint32()));
@@ -332,7 +338,9 @@ exports.AssetToLockerMapping = {
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
-            lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
+            lockerId: isSet(object.lockerId)
+                ? long_1.default.fromValue(object.lockerId)
+                : long_1.default.UZERO,
             userData: Array.isArray(object === null || object === void 0 ? void 0 : object.userData)
                 ? object.userData.map((e) => exports.UserTxData.fromJSON(e))
                 : [],
@@ -342,7 +350,8 @@ exports.AssetToLockerMapping = {
         const obj = {};
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
-        message.lockerId !== undefined && (obj.lockerId = message.lockerId);
+        message.lockerId !== undefined &&
+            (obj.lockerId = (message.lockerId || long_1.default.UZERO).toString());
         if (message.userData) {
             obj.userData = message.userData.map((e) => e ? exports.UserTxData.toJSON(e) : undefined);
         }
@@ -352,15 +361,18 @@ exports.AssetToLockerMapping = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a;
         const message = createBaseAssetToLockerMapping();
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
-        message.lockerId = (_a = object.lockerId) !== null && _a !== void 0 ? _a : "";
+        message.lockerId =
+            object.lockerId !== undefined && object.lockerId !== null
+                ? long_1.default.fromValue(object.lockerId)
+                : long_1.default.UZERO;
         message.userData =
-            ((_b = object.userData) === null || _b === void 0 ? void 0 : _b.map((e) => exports.UserTxData.fromPartial(e))) || [];
+            ((_a = object.userData) === null || _a === void 0 ? void 0 : _a.map((e) => exports.UserTxData.fromPartial(e))) || [];
         return message;
     },
 };
@@ -525,9 +537,11 @@ exports.TokenToLockerMapping = {
         if (!message.assetId.isZero()) {
             writer.uint32(8).uint64(message.assetId);
         }
+        writer.uint32(18).fork();
         for (const v of message.lockerIds) {
-            writer.uint32(18).string(v);
+            writer.uint64(v);
         }
+        writer.ldelim();
         if (message.depositedAmount !== "") {
             writer.uint32(34).string(message.depositedAmount);
         }
@@ -544,7 +558,15 @@ exports.TokenToLockerMapping = {
                     message.assetId = reader.uint64();
                     break;
                 case 2:
-                    message.lockerIds.push(reader.string());
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.lockerIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.lockerIds.push(reader.uint64());
+                    }
                     break;
                 case 4:
                     message.depositedAmount = reader.string();
@@ -562,7 +584,7 @@ exports.TokenToLockerMapping = {
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
             lockerIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerIds)
-                ? object.lockerIds.map((e) => String(e))
+                ? object.lockerIds.map((e) => long_1.default.fromValue(e))
                 : [],
             depositedAmount: isSet(object.depositedAmount)
                 ? String(object.depositedAmount)
@@ -574,7 +596,7 @@ exports.TokenToLockerMapping = {
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         if (message.lockerIds) {
-            obj.lockerIds = message.lockerIds.map((e) => e);
+            obj.lockerIds = message.lockerIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
             obj.lockerIds = [];
@@ -590,7 +612,7 @@ exports.TokenToLockerMapping = {
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
-        message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
+        message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
         message.depositedAmount = (_b = object.depositedAmount) !== null && _b !== void 0 ? _b : "";
         return message;
     },
