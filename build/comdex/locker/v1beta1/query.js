@@ -33,12 +33,12 @@ const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const asset_1 = require("../../../comdex/asset/v1beta1/asset");
 exports.protobufPackage = "comdex.locker.v1beta1";
 function createBaseQueryLockerInfoRequest() {
-    return { id: "" };
+    return { id: long_1.default.UZERO };
 }
 exports.QueryLockerInfoRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.id !== "") {
-            writer.uint32(10).string(message.id);
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
@@ -50,7 +50,7 @@ exports.QueryLockerInfoRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.string();
+                    message.id = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -61,18 +61,21 @@ exports.QueryLockerInfoRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? String(object.id) : "",
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined && (obj.id = message.id);
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
-        var _a;
         const message = createBaseQueryLockerInfoRequest();
-        message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -128,7 +131,7 @@ exports.QueryLockerInfoResponse = {
     },
 };
 function createBaseQueryLockersByAppToAssetIDRequest() {
-    return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryLockersByAppToAssetIDRequest = {
     encode(message, writer = _m0.Writer.create()) {
@@ -137,6 +140,9 @@ exports.QueryLockersByAppToAssetIDRequest = {
         }
         if (!message.assetId.isZero()) {
             writer.uint32(16).uint64(message.assetId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -153,6 +159,9 @@ exports.QueryLockersByAppToAssetIDRequest = {
                 case 2:
                     message.assetId = reader.uint64();
                     break;
+                case 3:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -166,6 +175,9 @@ exports.QueryLockersByAppToAssetIDRequest = {
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -174,6 +186,10 @@ exports.QueryLockersByAppToAssetIDRequest = {
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -186,16 +202,25 @@ exports.QueryLockersByAppToAssetIDRequest = {
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryLockersByAppToAssetIDResponse() {
-    return { lockerIds: [] };
+    return { lockerIds: [], pagination: undefined };
 }
 exports.QueryLockersByAppToAssetIDResponse = {
     encode(message, writer = _m0.Writer.create()) {
+        writer.uint32(10).fork();
         for (const v of message.lockerIds) {
-            writer.uint32(10).string(v);
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -207,7 +232,18 @@ exports.QueryLockersByAppToAssetIDResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.lockerIds.push(reader.string());
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.lockerIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.lockerIds.push(reader.uint64());
+                    }
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -219,34 +255,48 @@ exports.QueryLockersByAppToAssetIDResponse = {
     fromJSON(object) {
         return {
             lockerIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerIds)
-                ? object.lockerIds.map((e) => String(e))
+                ? object.lockerIds.map((e) => long_1.default.fromValue(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.lockerIds) {
-            obj.lockerIds = message.lockerIds.map((e) => e);
+            obj.lockerIds = message.lockerIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
             obj.lockerIds = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryLockersByAppToAssetIDResponse();
-        message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
+        message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryLockerInfoByAppIDRequest() {
-    return { appId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryLockerInfoByAppIDRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -260,6 +310,9 @@ exports.QueryLockerInfoByAppIDRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -270,12 +323,19 @@ exports.QueryLockerInfoByAppIDRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -284,16 +344,25 @@ exports.QueryLockerInfoByAppIDRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryLockerInfoByAppIDResponse() {
-    return { lockerIds: [] };
+    return { lockerIds: [], pagination: undefined };
 }
 exports.QueryLockerInfoByAppIDResponse = {
     encode(message, writer = _m0.Writer.create()) {
+        writer.uint32(10).fork();
         for (const v of message.lockerIds) {
-            writer.uint32(10).string(v);
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -305,7 +374,18 @@ exports.QueryLockerInfoByAppIDResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.lockerIds.push(reader.string());
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.lockerIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.lockerIds.push(reader.uint64());
+                    }
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -317,24 +397,35 @@ exports.QueryLockerInfoByAppIDResponse = {
     fromJSON(object) {
         return {
             lockerIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerIds)
-                ? object.lockerIds.map((e) => String(e))
+                ? object.lockerIds.map((e) => long_1.default.fromValue(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.lockerIds) {
-            obj.lockerIds = message.lockerIds.map((e) => e);
+            obj.lockerIds = message.lockerIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
             obj.lockerIds = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryLockerInfoByAppIDResponse();
-        message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
+        message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -450,7 +541,7 @@ exports.QueryTotalDepositByAppAndAssetIDResponse = {
     },
 };
 function createBaseQueryOwnerLockerByAppIDbyOwnerRequest() {
-    return { appId: long_1.default.UZERO, owner: "" };
+    return { appId: long_1.default.UZERO, owner: "", pagination: undefined };
 }
 exports.QueryOwnerLockerByAppIDbyOwnerRequest = {
     encode(message, writer = _m0.Writer.create()) {
@@ -459,6 +550,9 @@ exports.QueryOwnerLockerByAppIDbyOwnerRequest = {
         }
         if (message.owner !== "") {
             writer.uint32(18).string(message.owner);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -475,6 +569,9 @@ exports.QueryOwnerLockerByAppIDbyOwnerRequest = {
                 case 2:
                     message.owner = reader.string();
                     break;
+                case 3:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -486,6 +583,9 @@ exports.QueryOwnerLockerByAppIDbyOwnerRequest = {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -493,6 +593,10 @@ exports.QueryOwnerLockerByAppIDbyOwnerRequest = {
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -503,16 +607,25 @@ exports.QueryOwnerLockerByAppIDbyOwnerRequest = {
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryOwnerLockerByAppIDbyOwnerResponse() {
-    return { lockerIds: [] };
+    return { lockerIds: [], pagination: undefined };
 }
 exports.QueryOwnerLockerByAppIDbyOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
+        writer.uint32(10).fork();
         for (const v of message.lockerIds) {
-            writer.uint32(10).string(v);
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -524,7 +637,18 @@ exports.QueryOwnerLockerByAppIDbyOwnerResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.lockerIds.push(reader.string());
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.lockerIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.lockerIds.push(reader.uint64());
+                    }
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -536,34 +660,48 @@ exports.QueryOwnerLockerByAppIDbyOwnerResponse = {
     fromJSON(object) {
         return {
             lockerIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerIds)
-                ? object.lockerIds.map((e) => String(e))
+                ? object.lockerIds.map((e) => long_1.default.fromValue(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.lockerIds) {
-            obj.lockerIds = message.lockerIds.map((e) => e);
+            obj.lockerIds = message.lockerIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
             obj.lockerIds = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryOwnerLockerByAppIDbyOwnerResponse();
-        message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
+        message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryOwnerLockerOfAllAppsByOwnerRequest() {
-    return { owner: "" };
+    return { owner: "", pagination: undefined };
 }
 exports.QueryOwnerLockerOfAllAppsByOwnerRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.owner !== "") {
-            writer.uint32(26).string(message.owner);
+            writer.uint32(10).string(message.owner);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -574,8 +712,11 @@ exports.QueryOwnerLockerOfAllAppsByOwnerRequest = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                case 3:
+                case 1:
                     message.owner = reader.string();
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -587,27 +728,43 @@ exports.QueryOwnerLockerOfAllAppsByOwnerRequest = {
     fromJSON(object) {
         return {
             owner: isSet(object.owner) ? String(object.owner) : "",
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.owner !== undefined && (obj.owner = message.owner);
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryOwnerLockerOfAllAppsByOwnerRequest();
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryOwnerLockerOfAllAppsByOwnerResponse() {
-    return { lockerIds: [] };
+    return { lockerIds: [], pagination: undefined };
 }
 exports.QueryOwnerLockerOfAllAppsByOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
+        writer.uint32(10).fork();
         for (const v of message.lockerIds) {
-            writer.uint32(10).string(v);
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -619,7 +776,18 @@ exports.QueryOwnerLockerOfAllAppsByOwnerResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.lockerIds.push(reader.string());
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.lockerIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.lockerIds.push(reader.uint64());
+                    }
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -631,24 +799,35 @@ exports.QueryOwnerLockerOfAllAppsByOwnerResponse = {
     fromJSON(object) {
         return {
             lockerIds: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerIds)
-                ? object.lockerIds.map((e) => String(e))
+                ? object.lockerIds.map((e) => long_1.default.fromValue(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.lockerIds) {
-            obj.lockerIds = message.lockerIds.map((e) => e);
+            obj.lockerIds = message.lockerIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
             obj.lockerIds = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryOwnerLockerOfAllAppsByOwnerResponse();
-        message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
+        message.lockerIds = ((_a = object.lockerIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -888,12 +1067,15 @@ exports.QueryOwnerLockerByAppToAssetIDbyOwnerRequest = {
     },
 };
 function createBaseQueryOwnerLockerByAppToAssetIDbyOwnerResponse() {
-    return { lockerInfo: [] };
+    return { lockerInfo: [], pagination: undefined };
 }
 exports.QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.lockerInfo) {
             locker_1.Locker.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -907,6 +1089,9 @@ exports.QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
                 case 1:
                     message.lockerInfo.push(locker_1.Locker.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -919,6 +1104,9 @@ exports.QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
             lockerInfo: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerInfo)
                 ? object.lockerInfo.map((e) => locker_1.Locker.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -929,6 +1117,10 @@ exports.QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
         else {
             obj.lockerInfo = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -936,11 +1128,15 @@ exports.QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
         const message = createBaseQueryOwnerLockerByAppToAssetIDbyOwnerResponse();
         message.lockerInfo =
             ((_a = object.lockerInfo) === null || _a === void 0 ? void 0 : _a.map((e) => locker_1.Locker.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryLockerByAppByOwnerRequest() {
-    return { appId: long_1.default.UZERO, owner: "" };
+    return { appId: long_1.default.UZERO, owner: "", pagination: undefined };
 }
 exports.QueryLockerByAppByOwnerRequest = {
     encode(message, writer = _m0.Writer.create()) {
@@ -949,6 +1145,9 @@ exports.QueryLockerByAppByOwnerRequest = {
         }
         if (message.owner !== "") {
             writer.uint32(18).string(message.owner);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -965,6 +1164,9 @@ exports.QueryLockerByAppByOwnerRequest = {
                 case 2:
                     message.owner = reader.string();
                     break;
+                case 3:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -976,6 +1178,9 @@ exports.QueryLockerByAppByOwnerRequest = {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -983,6 +1188,10 @@ exports.QueryLockerByAppByOwnerRequest = {
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -993,16 +1202,23 @@ exports.QueryLockerByAppByOwnerRequest = {
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryLockerByAppByOwnerResponse() {
-    return { lockerInfo: [] };
+    return { lockerInfo: [], pagination: undefined };
 }
 exports.QueryLockerByAppByOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.lockerInfo) {
             locker_1.Locker.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1016,6 +1232,9 @@ exports.QueryLockerByAppByOwnerResponse = {
                 case 1:
                     message.lockerInfo.push(locker_1.Locker.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1028,6 +1247,9 @@ exports.QueryLockerByAppByOwnerResponse = {
             lockerInfo: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerInfo)
                 ? object.lockerInfo.map((e) => locker_1.Locker.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -1038,6 +1260,10 @@ exports.QueryLockerByAppByOwnerResponse = {
         else {
             obj.lockerInfo = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1045,6 +1271,10 @@ exports.QueryLockerByAppByOwnerResponse = {
         const message = createBaseQueryLockerByAppByOwnerResponse();
         message.lockerInfo =
             ((_a = object.lockerInfo) === null || _a === void 0 ? void 0 : _a.map((e) => locker_1.Locker.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -1207,12 +1437,15 @@ exports.QueryLockerCountByAppToAssetIDRequest = {
     },
 };
 function createBaseQueryLockerCountByAppToAssetIDResponse() {
-    return { totalCount: long_1.default.UZERO };
+    return { totalCount: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryLockerCountByAppToAssetIDResponse = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.totalCount.isZero()) {
             writer.uint32(8).uint64(message.totalCount);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1226,6 +1459,9 @@ exports.QueryLockerCountByAppToAssetIDResponse = {
                 case 1:
                     message.totalCount = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1238,12 +1474,19 @@ exports.QueryLockerCountByAppToAssetIDResponse = {
             totalCount: isSet(object.totalCount)
                 ? long_1.default.fromValue(object.totalCount)
                 : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.totalCount !== undefined &&
             (obj.totalCount = (message.totalCount || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1252,16 +1495,23 @@ exports.QueryLockerCountByAppToAssetIDResponse = {
             object.totalCount !== undefined && object.totalCount !== null
                 ? long_1.default.fromValue(object.totalCount)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryWhiteListedAssetIDsByAppIDRequest() {
-    return { appId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryWhiteListedAssetIDsByAppIDRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1275,6 +1525,9 @@ exports.QueryWhiteListedAssetIDsByAppIDRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1285,12 +1538,19 @@ exports.QueryWhiteListedAssetIDsByAppIDRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1299,11 +1559,15 @@ exports.QueryWhiteListedAssetIDsByAppIDRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryWhiteListedAssetIDsByAppIDResponse() {
-    return { assetIds: [] };
+    return { assetIds: [], pagination: undefined };
 }
 exports.QueryWhiteListedAssetIDsByAppIDResponse = {
     encode(message, writer = _m0.Writer.create()) {
@@ -1312,6 +1576,9 @@ exports.QueryWhiteListedAssetIDsByAppIDResponse = {
             writer.uint64(v);
         }
         writer.ldelim();
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -1332,6 +1599,9 @@ exports.QueryWhiteListedAssetIDsByAppIDResponse = {
                         message.assetIds.push(reader.uint64());
                     }
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1344,6 +1614,9 @@ exports.QueryWhiteListedAssetIDsByAppIDResponse = {
             assetIds: Array.isArray(object === null || object === void 0 ? void 0 : object.assetIds)
                 ? object.assetIds.map((e) => long_1.default.fromValue(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -1354,20 +1627,31 @@ exports.QueryWhiteListedAssetIDsByAppIDResponse = {
         else {
             obj.assetIds = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryWhiteListedAssetIDsByAppIDResponse();
         message.assetIds = ((_a = object.assetIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryWhiteListedAssetByAllAppsRequest() {
-    return {};
+    return { pagination: undefined };
 }
 exports.QueryWhiteListedAssetByAllAppsRequest = {
-    encode(_, writer = _m0.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -1377,6 +1661,9 @@ exports.QueryWhiteListedAssetByAllAppsRequest = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 1:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1384,25 +1671,40 @@ exports.QueryWhiteListedAssetByAllAppsRequest = {
         }
         return message;
     },
-    fromJSON(_) {
-        return {};
+    fromJSON(object) {
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
     },
-    toJSON(_) {
+    toJSON(message) {
         const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
-    fromPartial(_) {
+    fromPartial(object) {
         const message = createBaseQueryWhiteListedAssetByAllAppsRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryWhiteListedAssetByAllAppsResponse() {
-    return { productToAllAsset: [] };
+    return { productToAllAsset: [], pagination: undefined };
 }
 exports.QueryWhiteListedAssetByAllAppsResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.productToAllAsset) {
             exports.AppToAllAsset.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1416,6 +1718,9 @@ exports.QueryWhiteListedAssetByAllAppsResponse = {
                 case 1:
                     message.productToAllAsset.push(exports.AppToAllAsset.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1428,6 +1733,9 @@ exports.QueryWhiteListedAssetByAllAppsResponse = {
             productToAllAsset: Array.isArray(object === null || object === void 0 ? void 0 : object.productToAllAsset)
                 ? object.productToAllAsset.map((e) => exports.AppToAllAsset.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -1438,6 +1746,10 @@ exports.QueryWhiteListedAssetByAllAppsResponse = {
         else {
             obj.productToAllAsset = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1445,6 +1757,10 @@ exports.QueryWhiteListedAssetByAllAppsResponse = {
         const message = createBaseQueryWhiteListedAssetByAllAppsResponse();
         message.productToAllAsset =
             ((_a = object.productToAllAsset) === null || _a === void 0 ? void 0 : _a.map((e) => exports.AppToAllAsset.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -1593,12 +1909,15 @@ exports.QueryParamsResponse = {
     },
 };
 function createBaseQueryLockerLookupTableByAppRequest() {
-    return { appId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryLockerLookupTableByAppRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1612,6 +1931,9 @@ exports.QueryLockerLookupTableByAppRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1622,12 +1944,19 @@ exports.QueryLockerLookupTableByAppRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1636,16 +1965,23 @@ exports.QueryLockerLookupTableByAppRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryLockerLookupTableByAppResponse() {
-    return { tokenToLockerMapping: [] };
+    return { tokenToLockerMapping: [], pagination: undefined };
 }
 exports.QueryLockerLookupTableByAppResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.tokenToLockerMapping) {
             locker_1.TokenToLockerMapping.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1659,6 +1995,9 @@ exports.QueryLockerLookupTableByAppResponse = {
                 case 1:
                     message.tokenToLockerMapping.push(locker_1.TokenToLockerMapping.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1671,6 +2010,9 @@ exports.QueryLockerLookupTableByAppResponse = {
             tokenToLockerMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.tokenToLockerMapping)
                 ? object.tokenToLockerMapping.map((e) => locker_1.TokenToLockerMapping.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -1681,6 +2023,10 @@ exports.QueryLockerLookupTableByAppResponse = {
         else {
             obj.tokenToLockerMapping = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1688,6 +2034,10 @@ exports.QueryLockerLookupTableByAppResponse = {
         const message = createBaseQueryLockerLookupTableByAppResponse();
         message.tokenToLockerMapping =
             ((_a = object.tokenToLockerMapping) === null || _a === void 0 ? void 0 : _a.map((e) => locker_1.TokenToLockerMapping.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -1806,12 +2156,15 @@ exports.QueryLockerLookupTableByAppAndAssetIDResponse = {
     },
 };
 function createBaseQueryLockerTotalDepositedByAppRequest() {
-    return { appId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryLockerTotalDepositedByAppRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1825,6 +2178,9 @@ exports.QueryLockerTotalDepositedByAppRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1835,12 +2191,19 @@ exports.QueryLockerTotalDepositedByAppRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1849,16 +2212,23 @@ exports.QueryLockerTotalDepositedByAppRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryLockerTotalDepositedByAppResponse() {
-    return { lockedDepositedAmountDataMap: [] };
+    return { lockedDepositedAmountDataMap: [], pagination: undefined };
 }
 exports.QueryLockerTotalDepositedByAppResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.lockedDepositedAmountDataMap) {
             locker_1.LockedDepositedAmountDataMap.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1872,6 +2242,9 @@ exports.QueryLockerTotalDepositedByAppResponse = {
                 case 1:
                     message.lockedDepositedAmountDataMap.push(locker_1.LockedDepositedAmountDataMap.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1884,6 +2257,9 @@ exports.QueryLockerTotalDepositedByAppResponse = {
             lockedDepositedAmountDataMap: Array.isArray(object === null || object === void 0 ? void 0 : object.lockedDepositedAmountDataMap)
                 ? object.lockedDepositedAmountDataMap.map((e) => locker_1.LockedDepositedAmountDataMap.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -1895,6 +2271,10 @@ exports.QueryLockerTotalDepositedByAppResponse = {
         else {
             obj.lockedDepositedAmountDataMap = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1902,6 +2282,10 @@ exports.QueryLockerTotalDepositedByAppResponse = {
         const message = createBaseQueryLockerTotalDepositedByAppResponse();
         message.lockedDepositedAmountDataMap =
             ((_a = object.lockedDepositedAmountDataMap) === null || _a === void 0 ? void 0 : _a.map((e) => locker_1.LockedDepositedAmountDataMap.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };

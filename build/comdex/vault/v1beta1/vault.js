@@ -30,7 +30,7 @@ const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.vault.v1beta1";
 function createBaseVault() {
     return {
-        id: "",
+        id: long_1.default.UZERO,
         appId: long_1.default.UZERO,
         extendedPairVaultId: long_1.default.UZERO,
         owner: "",
@@ -43,8 +43,8 @@ function createBaseVault() {
 }
 exports.Vault = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.id !== "") {
-            writer.uint32(10).string(message.id);
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
         }
         if (!message.appId.isZero()) {
             writer.uint32(16).uint64(message.appId);
@@ -80,7 +80,7 @@ exports.Vault = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.string();
+                    message.id = reader.uint64();
                     break;
                 case 2:
                     message.appId = reader.uint64();
@@ -115,7 +115,7 @@ exports.Vault = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? String(object.id) : "",
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             extendedPairVaultId: isSet(object.extendedPairVaultId)
                 ? long_1.default.fromValue(object.extendedPairVaultId)
@@ -136,7 +136,8 @@ exports.Vault = {
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined && (obj.id = message.id);
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.extendedPairVaultId !== undefined &&
@@ -153,9 +154,12 @@ exports.Vault = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f;
         const message = createBaseVault();
-        message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -165,12 +169,12 @@ exports.Vault = {
                 object.extendedPairVaultId !== null
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
-        message.owner = (_b = object.owner) !== null && _b !== void 0 ? _b : "";
-        message.amountIn = (_c = object.amountIn) !== null && _c !== void 0 ? _c : "";
-        message.amountOut = (_d = object.amountOut) !== null && _d !== void 0 ? _d : "";
-        message.createdAt = (_e = object.createdAt) !== null && _e !== void 0 ? _e : undefined;
-        message.interestAccumulated = (_f = object.interestAccumulated) !== null && _f !== void 0 ? _f : "";
-        message.closingFeeAccumulated = (_g = object.closingFeeAccumulated) !== null && _g !== void 0 ? _g : "";
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.amountIn = (_b = object.amountIn) !== null && _b !== void 0 ? _b : "";
+        message.amountOut = (_c = object.amountOut) !== null && _c !== void 0 ? _c : "";
+        message.createdAt = (_d = object.createdAt) !== null && _d !== void 0 ? _d : undefined;
+        message.interestAccumulated = (_e = object.interestAccumulated) !== null && _e !== void 0 ? _e : "";
+        message.closingFeeAccumulated = (_f = object.closingFeeAccumulated) !== null && _f !== void 0 ? _f : "";
         return message;
     },
 };
@@ -301,15 +305,15 @@ exports.VaultToAppMapping = {
     },
 };
 function createBaseExtendedPairToVaultMapping() {
-    return { extendedPairId: long_1.default.UZERO, vaultId: "" };
+    return { extendedPairId: long_1.default.UZERO, vaultId: long_1.default.UZERO };
 }
 exports.ExtendedPairToVaultMapping = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.extendedPairId.isZero()) {
             writer.uint32(8).uint64(message.extendedPairId);
         }
-        if (message.vaultId !== "") {
-            writer.uint32(18).string(message.vaultId);
+        if (!message.vaultId.isZero()) {
+            writer.uint32(16).uint64(message.vaultId);
         }
         return writer;
     },
@@ -324,7 +328,7 @@ exports.ExtendedPairToVaultMapping = {
                     message.extendedPairId = reader.uint64();
                     break;
                 case 2:
-                    message.vaultId = reader.string();
+                    message.vaultId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -338,24 +342,29 @@ exports.ExtendedPairToVaultMapping = {
             extendedPairId: isSet(object.extendedPairId)
                 ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
-            vaultId: isSet(object.vaultId) ? String(object.vaultId) : "",
+            vaultId: isSet(object.vaultId)
+                ? long_1.default.fromValue(object.vaultId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.extendedPairId !== undefined &&
             (obj.extendedPairId = (message.extendedPairId || long_1.default.UZERO).toString());
-        message.vaultId !== undefined && (obj.vaultId = message.vaultId);
+        message.vaultId !== undefined &&
+            (obj.vaultId = (message.vaultId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
-        var _a;
         const message = createBaseExtendedPairToVaultMapping();
         message.extendedPairId =
             object.extendedPairId !== undefined && object.extendedPairId !== null
                 ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO;
-        message.vaultId = (_a = object.vaultId) !== null && _a !== void 0 ? _a : "";
+        message.vaultId =
+            object.vaultId !== undefined && object.vaultId !== null
+                ? long_1.default.fromValue(object.vaultId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -452,9 +461,11 @@ exports.ExtendedPairVaultMapping = {
         if (!message.extendedPairId.isZero()) {
             writer.uint32(8).uint64(message.extendedPairId);
         }
+        writer.uint32(18).fork();
         for (const v of message.vaultIds) {
-            writer.uint32(18).string(v);
+            writer.uint64(v);
         }
+        writer.ldelim();
         if (message.tokenMintedAmount !== "") {
             writer.uint32(26).string(message.tokenMintedAmount);
         }
@@ -474,7 +485,15 @@ exports.ExtendedPairVaultMapping = {
                     message.extendedPairId = reader.uint64();
                     break;
                 case 2:
-                    message.vaultIds.push(reader.string());
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.vaultIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.vaultIds.push(reader.uint64());
+                    }
                     break;
                 case 3:
                     message.tokenMintedAmount = reader.string();
@@ -495,7 +514,7 @@ exports.ExtendedPairVaultMapping = {
                 ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
             vaultIds: Array.isArray(object === null || object === void 0 ? void 0 : object.vaultIds)
-                ? object.vaultIds.map((e) => String(e))
+                ? object.vaultIds.map((e) => long_1.default.fromValue(e))
                 : [],
             tokenMintedAmount: isSet(object.tokenMintedAmount)
                 ? String(object.tokenMintedAmount)
@@ -510,7 +529,7 @@ exports.ExtendedPairVaultMapping = {
         message.extendedPairId !== undefined &&
             (obj.extendedPairId = (message.extendedPairId || long_1.default.UZERO).toString());
         if (message.vaultIds) {
-            obj.vaultIds = message.vaultIds.map((e) => e);
+            obj.vaultIds = message.vaultIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
             obj.vaultIds = [];
@@ -528,7 +547,7 @@ exports.ExtendedPairVaultMapping = {
             object.extendedPairId !== undefined && object.extendedPairId !== null
                 ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO;
-        message.vaultIds = ((_a = object.vaultIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
+        message.vaultIds = ((_a = object.vaultIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
         message.tokenMintedAmount = (_b = object.tokenMintedAmount) !== null && _b !== void 0 ? _b : "";
         message.collateralLockedAmount = (_c = object.collateralLockedAmount) !== null && _c !== void 0 ? _c : "";
         return message;
@@ -648,7 +667,7 @@ exports.MintedDataMap = {
 };
 function createBaseStableMintVault() {
     return {
-        id: "",
+        id: long_1.default.UZERO,
         amountIn: "",
         amountOut: "",
         appId: long_1.default.UZERO,
@@ -658,8 +677,8 @@ function createBaseStableMintVault() {
 }
 exports.StableMintVault = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.id !== "") {
-            writer.uint32(10).string(message.id);
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
         }
         if (message.amountIn !== "") {
             writer.uint32(18).string(message.amountIn);
@@ -686,7 +705,7 @@ exports.StableMintVault = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.string();
+                    message.id = reader.uint64();
                     break;
                 case 2:
                     message.amountIn = reader.string();
@@ -712,7 +731,7 @@ exports.StableMintVault = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? String(object.id) : "",
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
             amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
@@ -726,7 +745,8 @@ exports.StableMintVault = {
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined && (obj.id = message.id);
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
         message.amountIn !== undefined && (obj.amountIn = message.amountIn);
         message.amountOut !== undefined && (obj.amountOut = message.amountOut);
         message.appId !== undefined &&
@@ -738,11 +758,14 @@ exports.StableMintVault = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         const message = createBaseStableMintVault();
-        message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
-        message.amountIn = (_b = object.amountIn) !== null && _b !== void 0 ? _b : "";
-        message.amountOut = (_c = object.amountOut) !== null && _c !== void 0 ? _c : "";
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.amountIn = (_a = object.amountIn) !== null && _a !== void 0 ? _a : "";
+        message.amountOut = (_b = object.amountOut) !== null && _b !== void 0 ? _b : "";
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -752,7 +775,7 @@ exports.StableMintVault = {
                 object.extendedPairVaultId !== null
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
-        message.createdAt = (_d = object.createdAt) !== null && _d !== void 0 ? _d : undefined;
+        message.createdAt = (_c = object.createdAt) !== null && _c !== void 0 ? _c : undefined;
         return message;
     },
 };

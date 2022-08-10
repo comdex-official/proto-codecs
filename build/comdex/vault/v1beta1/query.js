@@ -32,7 +32,7 @@ const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 exports.protobufPackage = "comdex.vault.v1beta1";
 function createBaseVaultInfo() {
     return {
-        id: "",
+        id: long_1.default.UZERO,
         extendedPairId: long_1.default.UZERO,
         owner: "",
         collateral: "",
@@ -47,8 +47,8 @@ function createBaseVaultInfo() {
 }
 exports.VaultInfo = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.id !== "") {
-            writer.uint32(10).string(message.id);
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
         }
         if (!message.extendedPairId.isZero()) {
             writer.uint32(16).uint64(message.extendedPairId);
@@ -90,7 +90,7 @@ exports.VaultInfo = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.string();
+                    message.id = reader.uint64();
                     break;
                 case 2:
                     message.extendedPairId = reader.uint64();
@@ -131,7 +131,7 @@ exports.VaultInfo = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? String(object.id) : "",
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
             extendedPairId: isSet(object.extendedPairId)
                 ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO,
@@ -158,7 +158,8 @@ exports.VaultInfo = {
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined && (obj.id = message.id);
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
         message.extendedPairId !== undefined &&
             (obj.extendedPairId = (message.extendedPairId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
@@ -178,32 +179,35 @@ exports.VaultInfo = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         const message = createBaseVaultInfo();
-        message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
         message.extendedPairId =
             object.extendedPairId !== undefined && object.extendedPairId !== null
                 ? long_1.default.fromValue(object.extendedPairId)
                 : long_1.default.UZERO;
-        message.owner = (_b = object.owner) !== null && _b !== void 0 ? _b : "";
-        message.collateral = (_c = object.collateral) !== null && _c !== void 0 ? _c : "";
-        message.debt = (_d = object.debt) !== null && _d !== void 0 ? _d : "";
-        message.collateralizationRatio = (_e = object.collateralizationRatio) !== null && _e !== void 0 ? _e : "";
-        message.extendedPairName = (_f = object.extendedPairName) !== null && _f !== void 0 ? _f : "";
-        message.interestRate = (_g = object.interestRate) !== null && _g !== void 0 ? _g : "";
-        message.assetInDenom = (_h = object.assetInDenom) !== null && _h !== void 0 ? _h : "";
-        message.assetOutDenom = (_j = object.assetOutDenom) !== null && _j !== void 0 ? _j : "";
-        message.minCr = (_k = object.minCr) !== null && _k !== void 0 ? _k : "";
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.collateral = (_b = object.collateral) !== null && _b !== void 0 ? _b : "";
+        message.debt = (_c = object.debt) !== null && _c !== void 0 ? _c : "";
+        message.collateralizationRatio = (_d = object.collateralizationRatio) !== null && _d !== void 0 ? _d : "";
+        message.extendedPairName = (_e = object.extendedPairName) !== null && _e !== void 0 ? _e : "";
+        message.interestRate = (_f = object.interestRate) !== null && _f !== void 0 ? _f : "";
+        message.assetInDenom = (_g = object.assetInDenom) !== null && _g !== void 0 ? _g : "";
+        message.assetOutDenom = (_h = object.assetOutDenom) !== null && _h !== void 0 ? _h : "";
+        message.minCr = (_j = object.minCr) !== null && _j !== void 0 ? _j : "";
         return message;
     },
 };
 function createBaseQueryVaultRequest() {
-    return { id: "" };
+    return { id: long_1.default.UZERO };
 }
 exports.QueryVaultRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.id !== "") {
-            writer.uint32(10).string(message.id);
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
@@ -215,7 +219,7 @@ exports.QueryVaultRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.string();
+                    message.id = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -226,18 +230,21 @@ exports.QueryVaultRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? String(object.id) : "",
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined && (obj.id = message.id);
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
-        var _a;
         const message = createBaseQueryVaultRequest();
-        message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -289,12 +296,12 @@ exports.QueryVaultResponse = {
     },
 };
 function createBaseQueryVaultInfoByVaultIDRequest() {
-    return { id: "" };
+    return { id: long_1.default.UZERO };
 }
 exports.QueryVaultInfoByVaultIDRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.id !== "") {
-            writer.uint32(10).string(message.id);
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
         }
         return writer;
     },
@@ -306,7 +313,7 @@ exports.QueryVaultInfoByVaultIDRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.id = reader.string();
+                    message.id = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -317,18 +324,21 @@ exports.QueryVaultInfoByVaultIDRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? String(object.id) : "",
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined && (obj.id = message.id);
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
-        var _a;
         const message = createBaseQueryVaultInfoByVaultIDRequest();
-        message.id = (_a = object.id) !== null && _a !== void 0 ? _a : "";
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -384,7 +394,7 @@ exports.QueryVaultInfoByVaultIDResponse = {
     },
 };
 function createBaseQueryVaultInfoOfOwnerByAppRequest() {
-    return { appId: long_1.default.UZERO, owner: "" };
+    return { appId: long_1.default.UZERO, owner: "", pagination: undefined };
 }
 exports.QueryVaultInfoOfOwnerByAppRequest = {
     encode(message, writer = _m0.Writer.create()) {
@@ -393,6 +403,9 @@ exports.QueryVaultInfoOfOwnerByAppRequest = {
         }
         if (message.owner !== "") {
             writer.uint32(18).string(message.owner);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
@@ -409,6 +422,9 @@ exports.QueryVaultInfoOfOwnerByAppRequest = {
                 case 2:
                     message.owner = reader.string();
                     break;
+                case 3:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -420,6 +436,9 @@ exports.QueryVaultInfoOfOwnerByAppRequest = {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             owner: isSet(object.owner) ? String(object.owner) : "",
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -427,6 +446,10 @@ exports.QueryVaultInfoOfOwnerByAppRequest = {
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.owner !== undefined && (obj.owner = message.owner);
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -437,6 +460,10 @@ exports.QueryVaultInfoOfOwnerByAppRequest = {
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
         message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -629,12 +656,15 @@ exports.QueryAllVaultsResponse = {
     },
 };
 function createBaseQueryAllVaultsByAppRequest() {
-    return { appId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryAllVaultsByAppRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -648,6 +678,9 @@ exports.QueryAllVaultsByAppRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -658,12 +691,19 @@ exports.QueryAllVaultsByAppRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -672,6 +712,10 @@ exports.QueryAllVaultsByAppRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -989,12 +1033,12 @@ exports.QueryVaultIDOfOwnerByExtendedPairAndAppRequest = {
     },
 };
 function createBaseQueryVaultIDOfOwnerByExtendedPairAndAppResponse() {
-    return { vaultId: "" };
+    return { vaultId: long_1.default.UZERO };
 }
 exports.QueryVaultIDOfOwnerByExtendedPairAndAppResponse = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.vaultId !== "") {
-            writer.uint32(10).string(message.vaultId);
+        if (!message.vaultId.isZero()) {
+            writer.uint32(8).uint64(message.vaultId);
         }
         return writer;
     },
@@ -1006,7 +1050,7 @@ exports.QueryVaultIDOfOwnerByExtendedPairAndAppResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.vaultId = reader.string();
+                    message.vaultId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1017,18 +1061,23 @@ exports.QueryVaultIDOfOwnerByExtendedPairAndAppResponse = {
     },
     fromJSON(object) {
         return {
-            vaultId: isSet(object.vaultId) ? String(object.vaultId) : "",
+            vaultId: isSet(object.vaultId)
+                ? long_1.default.fromValue(object.vaultId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.vaultId !== undefined && (obj.vaultId = message.vaultId);
+        message.vaultId !== undefined &&
+            (obj.vaultId = (message.vaultId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
-        var _a;
         const message = createBaseQueryVaultIDOfOwnerByExtendedPairAndAppResponse();
-        message.vaultId = (_a = object.vaultId) !== null && _a !== void 0 ? _a : "";
+        message.vaultId =
+            object.vaultId !== undefined && object.vaultId !== null
+                ? long_1.default.fromValue(object.vaultId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -1097,12 +1146,17 @@ exports.QueryVaultIdsByAppInAllExtendedPairsRequest = {
     },
 };
 function createBaseQueryVaultIdsByAppInAllExtendedPairsResponse() {
-    return { vaultIds: [] };
+    return { vaultIds: [], pagination: undefined };
 }
 exports.QueryVaultIdsByAppInAllExtendedPairsResponse = {
     encode(message, writer = _m0.Writer.create()) {
+        writer.uint32(10).fork();
         for (const v of message.vaultIds) {
-            writer.uint32(10).string(v);
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1114,7 +1168,18 @@ exports.QueryVaultIdsByAppInAllExtendedPairsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.vaultIds.push(reader.string());
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.vaultIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.vaultIds.push(reader.uint64());
+                    }
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1126,24 +1191,35 @@ exports.QueryVaultIdsByAppInAllExtendedPairsResponse = {
     fromJSON(object) {
         return {
             vaultIds: Array.isArray(object === null || object === void 0 ? void 0 : object.vaultIds)
-                ? object.vaultIds.map((e) => String(e))
+                ? object.vaultIds.map((e) => long_1.default.fromValue(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.vaultIds) {
-            obj.vaultIds = message.vaultIds.map((e) => e);
+            obj.vaultIds = message.vaultIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
             obj.vaultIds = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryVaultIdsByAppInAllExtendedPairsResponse();
-        message.vaultIds = ((_a = object.vaultIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
+        message.vaultIds = ((_a = object.vaultIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -1209,12 +1285,17 @@ exports.QueryAllVaultIdsByAnOwnerRequest = {
     },
 };
 function createBaseQueryAllVaultIdsByAnOwnerResponse() {
-    return { vaultIds: [] };
+    return { vaultIds: [], pagination: undefined };
 }
 exports.QueryAllVaultIdsByAnOwnerResponse = {
     encode(message, writer = _m0.Writer.create()) {
+        writer.uint32(10).fork();
         for (const v of message.vaultIds) {
-            writer.uint32(10).string(v);
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1226,7 +1307,18 @@ exports.QueryAllVaultIdsByAnOwnerResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.vaultIds.push(reader.string());
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.vaultIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.vaultIds.push(reader.uint64());
+                    }
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1238,24 +1330,35 @@ exports.QueryAllVaultIdsByAnOwnerResponse = {
     fromJSON(object) {
         return {
             vaultIds: Array.isArray(object === null || object === void 0 ? void 0 : object.vaultIds)
-                ? object.vaultIds.map((e) => String(e))
+                ? object.vaultIds.map((e) => long_1.default.fromValue(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.vaultIds) {
-            obj.vaultIds = message.vaultIds.map((e) => e);
+            obj.vaultIds = message.vaultIds.map((e) => (e || long_1.default.UZERO).toString());
         }
         else {
             obj.vaultIds = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryAllVaultIdsByAnOwnerResponse();
-        message.vaultIds = ((_a = object.vaultIds) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
+        message.vaultIds = ((_a = object.vaultIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -1452,12 +1555,15 @@ exports.QueryTokenMintedAssetWiseByAppRequest = {
     },
 };
 function createBaseQueryTokenMintedAssetWiseByAppResponse() {
-    return { mintedData: [] };
+    return { mintedData: [], pagination: undefined };
 }
 exports.QueryTokenMintedAssetWiseByAppResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.mintedData) {
             vault_1.MintedDataMap.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1471,6 +1577,9 @@ exports.QueryTokenMintedAssetWiseByAppResponse = {
                 case 1:
                     message.mintedData.push(vault_1.MintedDataMap.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1483,6 +1592,9 @@ exports.QueryTokenMintedAssetWiseByAppResponse = {
             mintedData: Array.isArray(object === null || object === void 0 ? void 0 : object.mintedData)
                 ? object.mintedData.map((e) => vault_1.MintedDataMap.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -1493,6 +1605,10 @@ exports.QueryTokenMintedAssetWiseByAppResponse = {
         else {
             obj.mintedData = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1500,19 +1616,20 @@ exports.QueryTokenMintedAssetWiseByAppResponse = {
         const message = createBaseQueryTokenMintedAssetWiseByAppResponse();
         message.mintedData =
             ((_a = object.mintedData) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.MintedDataMap.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryVaultCountByAppRequest() {
-    return { appId: long_1.default.UZERO, pagination: undefined };
+    return { appId: long_1.default.UZERO };
 }
 exports.QueryVaultCountByAppRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
-        }
-        if (message.pagination !== undefined) {
-            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -1526,9 +1643,6 @@ exports.QueryVaultCountByAppRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
-                case 2:
-                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
-                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1539,19 +1653,12 @@ exports.QueryVaultCountByAppRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            pagination: isSet(object.pagination)
-                ? pagination_1.PageRequest.fromJSON(object.pagination)
-                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        message.pagination !== undefined &&
-            (obj.pagination = message.pagination
-                ? pagination_1.PageRequest.toJSON(message.pagination)
-                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1560,10 +1667,6 @@ exports.QueryVaultCountByAppRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
-        message.pagination =
-            object.pagination !== undefined && object.pagination !== null
-                ? pagination_1.PageRequest.fromPartial(object.pagination)
-                : undefined;
         return message;
     },
 };
@@ -1941,7 +2044,7 @@ exports.QueryExtendedPairIDsByAppRequest = {
     },
 };
 function createBaseQueryExtendedPairIDsByAppResponse() {
-    return { extendedPairIds: [] };
+    return { extendedPairIds: [], pagination: undefined };
 }
 exports.QueryExtendedPairIDsByAppResponse = {
     encode(message, writer = _m0.Writer.create()) {
@@ -1950,6 +2053,9 @@ exports.QueryExtendedPairIDsByAppResponse = {
             writer.uint64(v);
         }
         writer.ldelim();
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -1970,6 +2076,9 @@ exports.QueryExtendedPairIDsByAppResponse = {
                         message.extendedPairIds.push(reader.uint64());
                     }
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1982,6 +2091,9 @@ exports.QueryExtendedPairIDsByAppResponse = {
             extendedPairIds: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPairIds)
                 ? object.extendedPairIds.map((e) => long_1.default.fromValue(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -1992,6 +2104,10 @@ exports.QueryExtendedPairIDsByAppResponse = {
         else {
             obj.extendedPairIds = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -1999,16 +2115,20 @@ exports.QueryExtendedPairIDsByAppResponse = {
         const message = createBaseQueryExtendedPairIDsByAppResponse();
         message.extendedPairIds =
             ((_a = object.extendedPairIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryStableVaultByVaultIDRequest() {
-    return { stableVaultId: "" };
+    return { stableVaultId: long_1.default.UZERO };
 }
 exports.QueryStableVaultByVaultIDRequest = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.stableVaultId !== "") {
-            writer.uint32(10).string(message.stableVaultId);
+        if (!message.stableVaultId.isZero()) {
+            writer.uint32(8).uint64(message.stableVaultId);
         }
         return writer;
     },
@@ -2020,7 +2140,7 @@ exports.QueryStableVaultByVaultIDRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.stableVaultId = reader.string();
+                    message.stableVaultId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -2032,20 +2152,22 @@ exports.QueryStableVaultByVaultIDRequest = {
     fromJSON(object) {
         return {
             stableVaultId: isSet(object.stableVaultId)
-                ? String(object.stableVaultId)
-                : "",
+                ? long_1.default.fromValue(object.stableVaultId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.stableVaultId !== undefined &&
-            (obj.stableVaultId = message.stableVaultId);
+            (obj.stableVaultId = (message.stableVaultId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
-        var _a;
         const message = createBaseQueryStableVaultByVaultIDRequest();
-        message.stableVaultId = (_a = object.stableVaultId) !== null && _a !== void 0 ? _a : "";
+        message.stableVaultId =
+            object.stableVaultId !== undefined && object.stableVaultId !== null
+                ? long_1.default.fromValue(object.stableVaultId)
+                : long_1.default.UZERO;
         return message;
     },
 };
@@ -2101,12 +2223,15 @@ exports.QueryStableVaultByVaultIDResponse = {
     },
 };
 function createBaseQueryStableVaultByAppRequest() {
-    return { appId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryStableVaultByAppRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -2120,6 +2245,9 @@ exports.QueryStableVaultByAppRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2130,12 +2258,19 @@ exports.QueryStableVaultByAppRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -2144,16 +2279,23 @@ exports.QueryStableVaultByAppRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryStableVaultByAppResponse() {
-    return { stableMintVault: [] };
+    return { stableMintVault: [], pagination: undefined };
 }
 exports.QueryStableVaultByAppResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.stableMintVault) {
             vault_1.StableMintVault.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -2167,6 +2309,9 @@ exports.QueryStableVaultByAppResponse = {
                 case 1:
                     message.stableMintVault.push(vault_1.StableMintVault.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2179,6 +2324,9 @@ exports.QueryStableVaultByAppResponse = {
             stableMintVault: Array.isArray(object === null || object === void 0 ? void 0 : object.stableMintVault)
                 ? object.stableMintVault.map((e) => vault_1.StableMintVault.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -2189,6 +2337,10 @@ exports.QueryStableVaultByAppResponse = {
         else {
             obj.stableMintVault = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -2196,6 +2348,10 @@ exports.QueryStableVaultByAppResponse = {
         const message = createBaseQueryStableVaultByAppResponse();
         message.stableMintVault =
             ((_a = object.stableMintVault) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.StableMintVault.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -2427,12 +2583,15 @@ exports.QueryExtendedPairVaultMappingByAppAndExtendedPairResponse = {
     },
 };
 function createBaseQueryExtendedPairVaultMappingByAppRequest() {
-    return { appId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryExtendedPairVaultMappingByAppRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -2446,6 +2605,9 @@ exports.QueryExtendedPairVaultMappingByAppRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2456,12 +2618,19 @@ exports.QueryExtendedPairVaultMappingByAppRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -2470,16 +2639,23 @@ exports.QueryExtendedPairVaultMappingByAppRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryExtendedPairVaultMappingByAppResponse() {
-    return { extendedPairVaultMapping: [] };
+    return { extendedPairVaultMapping: [], pagination: undefined };
 }
 exports.QueryExtendedPairVaultMappingByAppResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.extendedPairVaultMapping) {
             vault_1.ExtendedPairVaultMapping.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -2493,6 +2669,9 @@ exports.QueryExtendedPairVaultMappingByAppResponse = {
                 case 1:
                     message.extendedPairVaultMapping.push(vault_1.ExtendedPairVaultMapping.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2505,6 +2684,9 @@ exports.QueryExtendedPairVaultMappingByAppResponse = {
             extendedPairVaultMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedPairVaultMapping)
                 ? object.extendedPairVaultMapping.map((e) => vault_1.ExtendedPairVaultMapping.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -2515,6 +2697,10 @@ exports.QueryExtendedPairVaultMappingByAppResponse = {
         else {
             obj.extendedPairVaultMapping = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -2522,16 +2708,23 @@ exports.QueryExtendedPairVaultMappingByAppResponse = {
         const message = createBaseQueryExtendedPairVaultMappingByAppResponse();
         message.extendedPairVaultMapping =
             ((_a = object.extendedPairVaultMapping) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.ExtendedPairVaultMapping.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryTVLByAppOfAllExtendedPairsRequest() {
-    return { appId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryTVLByAppOfAllExtendedPairsRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -2545,6 +2738,9 @@ exports.QueryTVLByAppOfAllExtendedPairsRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2555,12 +2751,19 @@ exports.QueryTVLByAppOfAllExtendedPairsRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -2569,16 +2772,23 @@ exports.QueryTVLByAppOfAllExtendedPairsRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryTVLByAppOfAllExtendedPairsResponse() {
-    return { tvldata: [] };
+    return { tvldata: [], pagination: undefined };
 }
 exports.QueryTVLByAppOfAllExtendedPairsResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.tvldata) {
             vault_1.TvlLockedDataMap.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -2592,6 +2802,9 @@ exports.QueryTVLByAppOfAllExtendedPairsResponse = {
                 case 1:
                     message.tvldata.push(vault_1.TvlLockedDataMap.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2604,6 +2817,9 @@ exports.QueryTVLByAppOfAllExtendedPairsResponse = {
             tvldata: Array.isArray(object === null || object === void 0 ? void 0 : object.tvldata)
                 ? object.tvldata.map((e) => vault_1.TvlLockedDataMap.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -2614,6 +2830,10 @@ exports.QueryTVLByAppOfAllExtendedPairsResponse = {
         else {
             obj.tvldata = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -2621,6 +2841,10 @@ exports.QueryTVLByAppOfAllExtendedPairsResponse = {
         const message = createBaseQueryTVLByAppOfAllExtendedPairsResponse();
         message.tvldata =
             ((_a = object.tvldata) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.TvlLockedDataMap.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -2956,12 +3180,15 @@ exports.QueryUserExtendedPairTotalDataResponse = {
     },
 };
 function createBaseQueryPairsLockedAndMintedStatisticByAppRequest() {
-    return { appId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryPairsLockedAndMintedStatisticByAppRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -2975,6 +3202,9 @@ exports.QueryPairsLockedAndMintedStatisticByAppRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2985,12 +3215,19 @@ exports.QueryPairsLockedAndMintedStatisticByAppRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -2999,16 +3236,23 @@ exports.QueryPairsLockedAndMintedStatisticByAppRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryPairsLockedAndMintedStatisticByAppResponse() {
-    return { pairStatisticData: [] };
+    return { pairStatisticData: [], pagination: undefined };
 }
 exports.QueryPairsLockedAndMintedStatisticByAppResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.pairStatisticData) {
             vault_1.PairStatisticData.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -3022,6 +3266,9 @@ exports.QueryPairsLockedAndMintedStatisticByAppResponse = {
                 case 1:
                     message.pairStatisticData.push(vault_1.PairStatisticData.decode(reader, reader.uint32()));
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -3034,6 +3281,9 @@ exports.QueryPairsLockedAndMintedStatisticByAppResponse = {
             pairStatisticData: Array.isArray(object === null || object === void 0 ? void 0 : object.pairStatisticData)
                 ? object.pairStatisticData.map((e) => vault_1.PairStatisticData.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -3044,6 +3294,10 @@ exports.QueryPairsLockedAndMintedStatisticByAppResponse = {
         else {
             obj.pairStatisticData = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -3052,6 +3306,10 @@ exports.QueryPairsLockedAndMintedStatisticByAppResponse = {
         message.pairStatisticData =
             ((_a = object.pairStatisticData) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.PairStatisticData.fromPartial(e))) ||
                 [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
