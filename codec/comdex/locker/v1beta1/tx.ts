@@ -23,7 +23,7 @@ export interface MsgAddWhiteListedAssetResponse {}
 
 export interface MsgDepositAssetRequest {
   depositor: string;
-  lockerId: string;
+  lockerId: Long;
   amount: string;
   assetId: Long;
   appId: Long;
@@ -33,7 +33,7 @@ export interface MsgDepositAssetResponse {}
 
 export interface MsgWithdrawAssetRequest {
   depositor: string;
-  lockerId: string;
+  lockerId: Long;
   amount: string;
   assetId: Long;
   appId: Long;
@@ -317,7 +317,7 @@ export const MsgAddWhiteListedAssetResponse = {
 function createBaseMsgDepositAssetRequest(): MsgDepositAssetRequest {
   return {
     depositor: "",
-    lockerId: "",
+    lockerId: Long.UZERO,
     amount: "",
     assetId: Long.UZERO,
     appId: Long.UZERO,
@@ -332,8 +332,8 @@ export const MsgDepositAssetRequest = {
     if (message.depositor !== "") {
       writer.uint32(10).string(message.depositor);
     }
-    if (message.lockerId !== "") {
-      writer.uint32(18).string(message.lockerId);
+    if (!message.lockerId.isZero()) {
+      writer.uint32(16).uint64(message.lockerId);
     }
     if (message.amount !== "") {
       writer.uint32(26).string(message.amount);
@@ -361,7 +361,7 @@ export const MsgDepositAssetRequest = {
           message.depositor = reader.string();
           break;
         case 2:
-          message.lockerId = reader.string();
+          message.lockerId = reader.uint64() as Long;
           break;
         case 3:
           message.amount = reader.string();
@@ -383,7 +383,9 @@ export const MsgDepositAssetRequest = {
   fromJSON(object: any): MsgDepositAssetRequest {
     return {
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
+      lockerId: isSet(object.lockerId)
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
@@ -395,7 +397,8 @@ export const MsgDepositAssetRequest = {
   toJSON(message: MsgDepositAssetRequest): unknown {
     const obj: any = {};
     message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.lockerId !== undefined && (obj.lockerId = message.lockerId);
+    message.lockerId !== undefined &&
+      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
@@ -409,7 +412,10 @@ export const MsgDepositAssetRequest = {
   ): MsgDepositAssetRequest {
     const message = createBaseMsgDepositAssetRequest();
     message.depositor = object.depositor ?? "";
-    message.lockerId = object.lockerId ?? "";
+    message.lockerId =
+      object.lockerId !== undefined && object.lockerId !== null
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO;
     message.amount = object.amount ?? "";
     message.assetId =
       object.assetId !== undefined && object.assetId !== null
@@ -473,7 +479,7 @@ export const MsgDepositAssetResponse = {
 function createBaseMsgWithdrawAssetRequest(): MsgWithdrawAssetRequest {
   return {
     depositor: "",
-    lockerId: "",
+    lockerId: Long.UZERO,
     amount: "",
     assetId: Long.UZERO,
     appId: Long.UZERO,
@@ -488,8 +494,8 @@ export const MsgWithdrawAssetRequest = {
     if (message.depositor !== "") {
       writer.uint32(10).string(message.depositor);
     }
-    if (message.lockerId !== "") {
-      writer.uint32(18).string(message.lockerId);
+    if (!message.lockerId.isZero()) {
+      writer.uint32(16).uint64(message.lockerId);
     }
     if (message.amount !== "") {
       writer.uint32(26).string(message.amount);
@@ -517,7 +523,7 @@ export const MsgWithdrawAssetRequest = {
           message.depositor = reader.string();
           break;
         case 2:
-          message.lockerId = reader.string();
+          message.lockerId = reader.uint64() as Long;
           break;
         case 3:
           message.amount = reader.string();
@@ -539,7 +545,9 @@ export const MsgWithdrawAssetRequest = {
   fromJSON(object: any): MsgWithdrawAssetRequest {
     return {
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
+      lockerId: isSet(object.lockerId)
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
@@ -551,7 +559,8 @@ export const MsgWithdrawAssetRequest = {
   toJSON(message: MsgWithdrawAssetRequest): unknown {
     const obj: any = {};
     message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.lockerId !== undefined && (obj.lockerId = message.lockerId);
+    message.lockerId !== undefined &&
+      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
@@ -565,7 +574,10 @@ export const MsgWithdrawAssetRequest = {
   ): MsgWithdrawAssetRequest {
     const message = createBaseMsgWithdrawAssetRequest();
     message.depositor = object.depositor ?? "";
-    message.lockerId = object.lockerId ?? "";
+    message.lockerId =
+      object.lockerId !== undefined && object.lockerId !== null
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO;
     message.amount = object.amount ?? "";
     message.assetId =
       object.assetId !== undefined && object.assetId !== null

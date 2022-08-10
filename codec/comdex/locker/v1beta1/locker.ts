@@ -7,7 +7,7 @@ export const protobufPackage = "comdex.locker.v1beta1";
 
 /** locker_id will be the key which will be derived from the LockerLookUpTable */
 export interface Locker {
-  lockerId: string;
+  lockerId: Long;
   depositor: string;
   returnsAccumulated: string;
   netBalance: string;
@@ -32,7 +32,7 @@ export interface LockerToAppMapping {
 /** This is used inside LockerToAppMapping */
 export interface AssetToLockerMapping {
   assetId: Long;
-  lockerId: string;
+  lockerId: Long;
   userData: UserTxData[];
 }
 
@@ -52,7 +52,7 @@ export interface LockerLookupTable {
 
 export interface TokenToLockerMapping {
   assetId: Long;
-  lockerIds: string[];
+  lockerIds: Long[];
   depositedAmount: string;
 }
 
@@ -75,7 +75,7 @@ export interface LockerTotalRewardsByAssetAppWise {
 
 function createBaseLocker(): Locker {
   return {
-    lockerId: "",
+    lockerId: Long.UZERO,
     depositor: "",
     returnsAccumulated: "",
     netBalance: "",
@@ -91,8 +91,8 @@ export const Locker = {
     message: Locker,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.lockerId !== "") {
-      writer.uint32(10).string(message.lockerId);
+    if (!message.lockerId.isZero()) {
+      writer.uint32(8).uint64(message.lockerId);
     }
     if (message.depositor !== "") {
       writer.uint32(18).string(message.depositor);
@@ -129,7 +129,7 @@ export const Locker = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.lockerId = reader.string();
+          message.lockerId = reader.uint64() as Long;
           break;
         case 2:
           message.depositor = reader.string();
@@ -164,7 +164,9 @@ export const Locker = {
 
   fromJSON(object: any): Locker {
     return {
-      lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
+      lockerId: isSet(object.lockerId)
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       returnsAccumulated: isSet(object.returnsAccumulated)
         ? String(object.returnsAccumulated)
@@ -183,7 +185,8 @@ export const Locker = {
 
   toJSON(message: Locker): unknown {
     const obj: any = {};
-    message.lockerId !== undefined && (obj.lockerId = message.lockerId);
+    message.lockerId !== undefined &&
+      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
     message.depositor !== undefined && (obj.depositor = message.depositor);
     message.returnsAccumulated !== undefined &&
       (obj.returnsAccumulated = message.returnsAccumulated);
@@ -200,7 +203,10 @@ export const Locker = {
 
   fromPartial<I extends Exact<DeepPartial<Locker>, I>>(object: I): Locker {
     const message = createBaseLocker();
-    message.lockerId = object.lockerId ?? "";
+    message.lockerId =
+      object.lockerId !== undefined && object.lockerId !== null
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO;
     message.depositor = object.depositor ?? "";
     message.returnsAccumulated = object.returnsAccumulated ?? "";
     message.netBalance = object.netBalance ?? "";
@@ -380,7 +386,7 @@ export const LockerToAppMapping = {
 };
 
 function createBaseAssetToLockerMapping(): AssetToLockerMapping {
-  return { assetId: Long.UZERO, lockerId: "", userData: [] };
+  return { assetId: Long.UZERO, lockerId: Long.UZERO, userData: [] };
 }
 
 export const AssetToLockerMapping = {
@@ -391,8 +397,8 @@ export const AssetToLockerMapping = {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
-    if (message.lockerId !== "") {
-      writer.uint32(18).string(message.lockerId);
+    if (!message.lockerId.isZero()) {
+      writer.uint32(16).uint64(message.lockerId);
     }
     for (const v of message.userData) {
       UserTxData.encode(v!, writer.uint32(26).fork()).ldelim();
@@ -414,7 +420,7 @@ export const AssetToLockerMapping = {
           message.assetId = reader.uint64() as Long;
           break;
         case 2:
-          message.lockerId = reader.string();
+          message.lockerId = reader.uint64() as Long;
           break;
         case 3:
           message.userData.push(UserTxData.decode(reader, reader.uint32()));
@@ -432,7 +438,9 @@ export const AssetToLockerMapping = {
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
-      lockerId: isSet(object.lockerId) ? String(object.lockerId) : "",
+      lockerId: isSet(object.lockerId)
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO,
       userData: Array.isArray(object?.userData)
         ? object.userData.map((e: any) => UserTxData.fromJSON(e))
         : [],
@@ -443,7 +451,8 @@ export const AssetToLockerMapping = {
     const obj: any = {};
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.lockerId !== undefined && (obj.lockerId = message.lockerId);
+    message.lockerId !== undefined &&
+      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
     if (message.userData) {
       obj.userData = message.userData.map((e) =>
         e ? UserTxData.toJSON(e) : undefined
@@ -462,7 +471,10 @@ export const AssetToLockerMapping = {
       object.assetId !== undefined && object.assetId !== null
         ? Long.fromValue(object.assetId)
         : Long.UZERO;
-    message.lockerId = object.lockerId ?? "";
+    message.lockerId =
+      object.lockerId !== undefined && object.lockerId !== null
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO;
     message.userData =
       object.userData?.map((e) => UserTxData.fromPartial(e)) || [];
     return message;
@@ -662,9 +674,11 @@ export const TokenToLockerMapping = {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
+    writer.uint32(18).fork();
     for (const v of message.lockerIds) {
-      writer.uint32(18).string(v!);
+      writer.uint64(v);
     }
+    writer.ldelim();
     if (message.depositedAmount !== "") {
       writer.uint32(34).string(message.depositedAmount);
     }
@@ -685,7 +699,14 @@ export const TokenToLockerMapping = {
           message.assetId = reader.uint64() as Long;
           break;
         case 2:
-          message.lockerIds.push(reader.string());
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.lockerIds.push(reader.uint64() as Long);
+            }
+          } else {
+            message.lockerIds.push(reader.uint64() as Long);
+          }
           break;
         case 4:
           message.depositedAmount = reader.string();
@@ -704,7 +725,7 @@ export const TokenToLockerMapping = {
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
       lockerIds: Array.isArray(object?.lockerIds)
-        ? object.lockerIds.map((e: any) => String(e))
+        ? object.lockerIds.map((e: any) => Long.fromValue(e))
         : [],
       depositedAmount: isSet(object.depositedAmount)
         ? String(object.depositedAmount)
@@ -717,7 +738,9 @@ export const TokenToLockerMapping = {
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
     if (message.lockerIds) {
-      obj.lockerIds = message.lockerIds.map((e) => e);
+      obj.lockerIds = message.lockerIds.map((e) =>
+        (e || Long.UZERO).toString()
+      );
     } else {
       obj.lockerIds = [];
     }
@@ -734,7 +757,7 @@ export const TokenToLockerMapping = {
       object.assetId !== undefined && object.assetId !== null
         ? Long.fromValue(object.assetId)
         : Long.UZERO;
-    message.lockerIds = object.lockerIds?.map((e) => e) || [];
+    message.lockerIds = object.lockerIds?.map((e) => Long.fromValue(e)) || [];
     message.depositedAmount = object.depositedAmount ?? "";
     return message;
   },
