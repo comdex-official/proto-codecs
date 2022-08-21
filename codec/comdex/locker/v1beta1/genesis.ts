@@ -6,8 +6,8 @@ import {
   Locker,
   LockerProductAssetMapping,
   LockerTotalRewardsByAssetAppWise,
-  LockerLookupTable,
-  UserLockerAssetMapping,
+  LockerLookupTableData,
+  UserAppAssetLockerMapping,
 } from "../../../comdex/locker/v1beta1/locker";
 
 export const protobufPackage = "comdex.locker.v1beta1";
@@ -16,8 +16,8 @@ export interface GenesisState {
   lockers: Locker[];
   lockerProductAssetMapping: LockerProductAssetMapping[];
   lockerTotalRewardsByAssetAppWise: LockerTotalRewardsByAssetAppWise[];
-  lockerLookupTable: LockerLookupTable[];
-  userLockerAssetMapping: UserLockerAssetMapping[];
+  lockerLookupTable: LockerLookupTableData[];
+  userLockerAssetMapping: UserAppAssetLockerMapping[];
   params?: Params;
 }
 
@@ -50,10 +50,10 @@ export const GenesisState = {
       ).ldelim();
     }
     for (const v of message.lockerLookupTable) {
-      LockerLookupTable.encode(v!, writer.uint32(34).fork()).ldelim();
+      LockerLookupTableData.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     for (const v of message.userLockerAssetMapping) {
-      UserLockerAssetMapping.encode(v!, writer.uint32(42).fork()).ldelim();
+      UserAppAssetLockerMapping.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(50).fork()).ldelim();
@@ -83,12 +83,12 @@ export const GenesisState = {
           break;
         case 4:
           message.lockerLookupTable.push(
-            LockerLookupTable.decode(reader, reader.uint32())
+            LockerLookupTableData.decode(reader, reader.uint32())
           );
           break;
         case 5:
           message.userLockerAssetMapping.push(
-            UserLockerAssetMapping.decode(reader, reader.uint32())
+            UserAppAssetLockerMapping.decode(reader, reader.uint32())
           );
           break;
         case 6:
@@ -123,12 +123,12 @@ export const GenesisState = {
         : [],
       lockerLookupTable: Array.isArray(object?.lockerLookupTable)
         ? object.lockerLookupTable.map((e: any) =>
-            LockerLookupTable.fromJSON(e)
+            LockerLookupTableData.fromJSON(e)
           )
         : [],
       userLockerAssetMapping: Array.isArray(object?.userLockerAssetMapping)
         ? object.userLockerAssetMapping.map((e: any) =>
-            UserLockerAssetMapping.fromJSON(e)
+            UserAppAssetLockerMapping.fromJSON(e)
           )
         : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
@@ -161,14 +161,14 @@ export const GenesisState = {
     }
     if (message.lockerLookupTable) {
       obj.lockerLookupTable = message.lockerLookupTable.map((e) =>
-        e ? LockerLookupTable.toJSON(e) : undefined
+        e ? LockerLookupTableData.toJSON(e) : undefined
       );
     } else {
       obj.lockerLookupTable = [];
     }
     if (message.userLockerAssetMapping) {
       obj.userLockerAssetMapping = message.userLockerAssetMapping.map((e) =>
-        e ? UserLockerAssetMapping.toJSON(e) : undefined
+        e ? UserAppAssetLockerMapping.toJSON(e) : undefined
       );
     } else {
       obj.userLockerAssetMapping = [];
@@ -192,11 +192,12 @@ export const GenesisState = {
         LockerTotalRewardsByAssetAppWise.fromPartial(e)
       ) || [];
     message.lockerLookupTable =
-      object.lockerLookupTable?.map((e) => LockerLookupTable.fromPartial(e)) ||
-      [];
+      object.lockerLookupTable?.map((e) =>
+        LockerLookupTableData.fromPartial(e)
+      ) || [];
     message.userLockerAssetMapping =
       object.userLockerAssetMapping?.map((e) =>
-        UserLockerAssetMapping.fromPartial(e)
+        UserAppAssetLockerMapping.fromPartial(e)
       ) || [];
     message.params =
       object.params !== undefined && object.params !== null

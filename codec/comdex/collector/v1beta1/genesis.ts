@@ -3,10 +3,10 @@ import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/collector/v1beta1/params";
 import {
-  NetFeeCollectedData,
-  AppIdToAssetCollectorMapping,
-  CollectorLookup,
-  CollectorAuctionLookupTable,
+  AppAssetIdToFeeCollectedData,
+  AppToAssetIdCollectorMapping,
+  CollectorLookupTableData,
+  AppAssetIdToAuctionLookupTable,
   AppToDenomsMapping,
 } from "../../../comdex/collector/v1beta1/collector";
 
@@ -14,10 +14,10 @@ export const protobufPackage = "comdex.collector.v1beta1";
 
 /** GenesisState defines the collector module's genesis state. */
 export interface GenesisState {
-  netFeeCollectedData: NetFeeCollectedData[];
-  appIdToAssetCollectorMapping: AppIdToAssetCollectorMapping[];
-  collectorLookup: CollectorLookup[];
-  collectorAuctionLookupTable: CollectorAuctionLookupTable[];
+  netFeeCollectedData: AppAssetIdToFeeCollectedData[];
+  appIdToAssetCollectorMapping: AppToAssetIdCollectorMapping[];
+  collectorLookup: CollectorLookupTableData[];
+  collectorAuctionLookupTable: AppAssetIdToAuctionLookupTable[];
   appToDenomsMapping: AppToDenomsMapping[];
   /** this line is used by starport scaffolding # genesis/proto/state */
   params?: Params;
@@ -40,19 +40,25 @@ export const GenesisState = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.netFeeCollectedData) {
-      NetFeeCollectedData.encode(v!, writer.uint32(10).fork()).ldelim();
+      AppAssetIdToFeeCollectedData.encode(
+        v!,
+        writer.uint32(10).fork()
+      ).ldelim();
     }
     for (const v of message.appIdToAssetCollectorMapping) {
-      AppIdToAssetCollectorMapping.encode(
+      AppToAssetIdCollectorMapping.encode(
         v!,
         writer.uint32(18).fork()
       ).ldelim();
     }
     for (const v of message.collectorLookup) {
-      CollectorLookup.encode(v!, writer.uint32(26).fork()).ldelim();
+      CollectorLookupTableData.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     for (const v of message.collectorAuctionLookupTable) {
-      CollectorAuctionLookupTable.encode(v!, writer.uint32(34).fork()).ldelim();
+      AppAssetIdToAuctionLookupTable.encode(
+        v!,
+        writer.uint32(34).fork()
+      ).ldelim();
     }
     for (const v of message.appToDenomsMapping) {
       AppToDenomsMapping.encode(v!, writer.uint32(42).fork()).ldelim();
@@ -72,22 +78,22 @@ export const GenesisState = {
       switch (tag >>> 3) {
         case 1:
           message.netFeeCollectedData.push(
-            NetFeeCollectedData.decode(reader, reader.uint32())
+            AppAssetIdToFeeCollectedData.decode(reader, reader.uint32())
           );
           break;
         case 2:
           message.appIdToAssetCollectorMapping.push(
-            AppIdToAssetCollectorMapping.decode(reader, reader.uint32())
+            AppToAssetIdCollectorMapping.decode(reader, reader.uint32())
           );
           break;
         case 3:
           message.collectorLookup.push(
-            CollectorLookup.decode(reader, reader.uint32())
+            CollectorLookupTableData.decode(reader, reader.uint32())
           );
           break;
         case 4:
           message.collectorAuctionLookupTable.push(
-            CollectorAuctionLookupTable.decode(reader, reader.uint32())
+            AppAssetIdToAuctionLookupTable.decode(reader, reader.uint32())
           );
           break;
         case 5:
@@ -110,24 +116,26 @@ export const GenesisState = {
     return {
       netFeeCollectedData: Array.isArray(object?.netFeeCollectedData)
         ? object.netFeeCollectedData.map((e: any) =>
-            NetFeeCollectedData.fromJSON(e)
+            AppAssetIdToFeeCollectedData.fromJSON(e)
           )
         : [],
       appIdToAssetCollectorMapping: Array.isArray(
         object?.appIdToAssetCollectorMapping
       )
         ? object.appIdToAssetCollectorMapping.map((e: any) =>
-            AppIdToAssetCollectorMapping.fromJSON(e)
+            AppToAssetIdCollectorMapping.fromJSON(e)
           )
         : [],
       collectorLookup: Array.isArray(object?.collectorLookup)
-        ? object.collectorLookup.map((e: any) => CollectorLookup.fromJSON(e))
+        ? object.collectorLookup.map((e: any) =>
+            CollectorLookupTableData.fromJSON(e)
+          )
         : [],
       collectorAuctionLookupTable: Array.isArray(
         object?.collectorAuctionLookupTable
       )
         ? object.collectorAuctionLookupTable.map((e: any) =>
-            CollectorAuctionLookupTable.fromJSON(e)
+            AppAssetIdToAuctionLookupTable.fromJSON(e)
           )
         : [],
       appToDenomsMapping: Array.isArray(object?.appToDenomsMapping)
@@ -143,7 +151,7 @@ export const GenesisState = {
     const obj: any = {};
     if (message.netFeeCollectedData) {
       obj.netFeeCollectedData = message.netFeeCollectedData.map((e) =>
-        e ? NetFeeCollectedData.toJSON(e) : undefined
+        e ? AppAssetIdToFeeCollectedData.toJSON(e) : undefined
       );
     } else {
       obj.netFeeCollectedData = [];
@@ -151,21 +159,21 @@ export const GenesisState = {
     if (message.appIdToAssetCollectorMapping) {
       obj.appIdToAssetCollectorMapping =
         message.appIdToAssetCollectorMapping.map((e) =>
-          e ? AppIdToAssetCollectorMapping.toJSON(e) : undefined
+          e ? AppToAssetIdCollectorMapping.toJSON(e) : undefined
         );
     } else {
       obj.appIdToAssetCollectorMapping = [];
     }
     if (message.collectorLookup) {
       obj.collectorLookup = message.collectorLookup.map((e) =>
-        e ? CollectorLookup.toJSON(e) : undefined
+        e ? CollectorLookupTableData.toJSON(e) : undefined
       );
     } else {
       obj.collectorLookup = [];
     }
     if (message.collectorAuctionLookupTable) {
       obj.collectorAuctionLookupTable = message.collectorAuctionLookupTable.map(
-        (e) => (e ? CollectorAuctionLookupTable.toJSON(e) : undefined)
+        (e) => (e ? AppAssetIdToAuctionLookupTable.toJSON(e) : undefined)
       );
     } else {
       obj.collectorAuctionLookupTable = [];
@@ -188,17 +196,19 @@ export const GenesisState = {
     const message = createBaseGenesisState();
     message.netFeeCollectedData =
       object.netFeeCollectedData?.map((e) =>
-        NetFeeCollectedData.fromPartial(e)
+        AppAssetIdToFeeCollectedData.fromPartial(e)
       ) || [];
     message.appIdToAssetCollectorMapping =
       object.appIdToAssetCollectorMapping?.map((e) =>
-        AppIdToAssetCollectorMapping.fromPartial(e)
+        AppToAssetIdCollectorMapping.fromPartial(e)
       ) || [];
     message.collectorLookup =
-      object.collectorLookup?.map((e) => CollectorLookup.fromPartial(e)) || [];
+      object.collectorLookup?.map((e) =>
+        CollectorLookupTableData.fromPartial(e)
+      ) || [];
     message.collectorAuctionLookupTable =
       object.collectorAuctionLookupTable?.map((e) =>
-        CollectorAuctionLookupTable.fromPartial(e)
+        AppAssetIdToAuctionLookupTable.fromPartial(e)
       ) || [];
     message.appToDenomsMapping =
       object.appToDenomsMapping?.map((e) =>

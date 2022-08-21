@@ -63,6 +63,16 @@ export interface MsgCloseRequest {
 
 export interface MsgCloseResponse {}
 
+export interface MsgDepositAndDrawRequest {
+  from: string;
+  appId: Long;
+  extendedPairVaultId: Long;
+  userVaultId: Long;
+  amount: string;
+}
+
+export interface MsgDepositAndDrawResponse {}
+
 export interface MsgCreateStableMintRequest {
   from: string;
   appId: Long;
@@ -1030,6 +1040,171 @@ export const MsgCloseResponse = {
   },
 };
 
+function createBaseMsgDepositAndDrawRequest(): MsgDepositAndDrawRequest {
+  return {
+    from: "",
+    appId: Long.UZERO,
+    extendedPairVaultId: Long.UZERO,
+    userVaultId: Long.UZERO,
+    amount: "",
+  };
+}
+
+export const MsgDepositAndDrawRequest = {
+  encode(
+    message: MsgDepositAndDrawRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.from !== "") {
+      writer.uint32(10).string(message.from);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
+    }
+    if (!message.extendedPairVaultId.isZero()) {
+      writer.uint32(24).uint64(message.extendedPairVaultId);
+    }
+    if (!message.userVaultId.isZero()) {
+      writer.uint32(32).uint64(message.userVaultId);
+    }
+    if (message.amount !== "") {
+      writer.uint32(42).string(message.amount);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgDepositAndDrawRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgDepositAndDrawRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.from = reader.string();
+          break;
+        case 2:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.extendedPairVaultId = reader.uint64() as Long;
+          break;
+        case 4:
+          message.userVaultId = reader.uint64() as Long;
+          break;
+        case 5:
+          message.amount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDepositAndDrawRequest {
+    return {
+      from: isSet(object.from) ? String(object.from) : "",
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId)
+        ? Long.fromValue(object.extendedPairVaultId)
+        : Long.UZERO,
+      userVaultId: isSet(object.userVaultId)
+        ? Long.fromValue(object.userVaultId)
+        : Long.UZERO,
+      amount: isSet(object.amount) ? String(object.amount) : "",
+    };
+  },
+
+  toJSON(message: MsgDepositAndDrawRequest): unknown {
+    const obj: any = {};
+    message.from !== undefined && (obj.from = message.from);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.extendedPairVaultId !== undefined &&
+      (obj.extendedPairVaultId = (
+        message.extendedPairVaultId || Long.UZERO
+      ).toString());
+    message.userVaultId !== undefined &&
+      (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
+    message.amount !== undefined && (obj.amount = message.amount);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositAndDrawRequest>, I>>(
+    object: I
+  ): MsgDepositAndDrawRequest {
+    const message = createBaseMsgDepositAndDrawRequest();
+    message.from = object.from ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.extendedPairVaultId =
+      object.extendedPairVaultId !== undefined &&
+      object.extendedPairVaultId !== null
+        ? Long.fromValue(object.extendedPairVaultId)
+        : Long.UZERO;
+    message.userVaultId =
+      object.userVaultId !== undefined && object.userVaultId !== null
+        ? Long.fromValue(object.userVaultId)
+        : Long.UZERO;
+    message.amount = object.amount ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgDepositAndDrawResponse(): MsgDepositAndDrawResponse {
+  return {};
+}
+
+export const MsgDepositAndDrawResponse = {
+  encode(
+    _: MsgDepositAndDrawResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgDepositAndDrawResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgDepositAndDrawResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDepositAndDrawResponse {
+    return {};
+  },
+
+  toJSON(_: MsgDepositAndDrawResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositAndDrawResponse>, I>>(
+    _: I
+  ): MsgDepositAndDrawResponse {
+    const message = createBaseMsgDepositAndDrawResponse();
+    return message;
+  },
+};
+
 function createBaseMsgCreateStableMintRequest(): MsgCreateStableMintRequest {
   return {
     from: "",
@@ -1516,6 +1691,9 @@ export interface Msg {
   MsgDraw(request: MsgDrawRequest): Promise<MsgDrawResponse>;
   MsgRepay(request: MsgRepayRequest): Promise<MsgRepayResponse>;
   MsgClose(request: MsgCloseRequest): Promise<MsgCloseResponse>;
+  MsgDepositAndDraw(
+    request: MsgDepositAndDrawRequest
+  ): Promise<MsgDepositAndDrawResponse>;
   MsgCreateStableMint(
     request: MsgCreateStableMintRequest
   ): Promise<MsgCreateStableMintResponse>;
@@ -1537,6 +1715,7 @@ export class MsgClientImpl implements Msg {
     this.MsgDraw = this.MsgDraw.bind(this);
     this.MsgRepay = this.MsgRepay.bind(this);
     this.MsgClose = this.MsgClose.bind(this);
+    this.MsgDepositAndDraw = this.MsgDepositAndDraw.bind(this);
     this.MsgCreateStableMint = this.MsgCreateStableMint.bind(this);
     this.MsgDepositStableMint = this.MsgDepositStableMint.bind(this);
     this.MsgWithdrawStableMint = this.MsgWithdrawStableMint.bind(this);
@@ -1608,6 +1787,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCloseResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  MsgDepositAndDraw(
+    request: MsgDepositAndDrawRequest
+  ): Promise<MsgDepositAndDrawResponse> {
+    const data = MsgDepositAndDrawRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.vault.v1beta1.Msg",
+      "MsgDepositAndDraw",
+      data
+    );
+    return promise.then((data) =>
+      MsgDepositAndDrawResponse.decode(new _m0.Reader(data))
     );
   }
 

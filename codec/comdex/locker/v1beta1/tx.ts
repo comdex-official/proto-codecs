@@ -41,6 +41,15 @@ export interface MsgWithdrawAssetRequest {
 
 export interface MsgWithdrawAssetResponse {}
 
+export interface MsgCloseLockerRequest {
+  depositor: string;
+  appId: Long;
+  assetId: Long;
+  lockerId: Long;
+}
+
+export interface MsgCloseLockerResponse {}
+
 function createBaseMsgCreateLockerRequest(): MsgCreateLockerRequest {
   return { depositor: "", amount: "", assetId: Long.UZERO, appId: Long.UZERO };
 }
@@ -638,6 +647,158 @@ export const MsgWithdrawAssetResponse = {
   },
 };
 
+function createBaseMsgCloseLockerRequest(): MsgCloseLockerRequest {
+  return {
+    depositor: "",
+    appId: Long.UZERO,
+    assetId: Long.UZERO,
+    lockerId: Long.UZERO,
+  };
+}
+
+export const MsgCloseLockerRequest = {
+  encode(
+    message: MsgCloseLockerRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.depositor !== "") {
+      writer.uint32(10).string(message.depositor);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
+    }
+    if (!message.assetId.isZero()) {
+      writer.uint32(24).uint64(message.assetId);
+    }
+    if (!message.lockerId.isZero()) {
+      writer.uint32(32).uint64(message.lockerId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgCloseLockerRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCloseLockerRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.depositor = reader.string();
+          break;
+        case 2:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 4:
+          message.lockerId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCloseLockerRequest {
+    return {
+      depositor: isSet(object.depositor) ? String(object.depositor) : "",
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+      lockerId: isSet(object.lockerId)
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: MsgCloseLockerRequest): unknown {
+    const obj: any = {};
+    message.depositor !== undefined && (obj.depositor = message.depositor);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.lockerId !== undefined &&
+      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCloseLockerRequest>, I>>(
+    object: I
+  ): MsgCloseLockerRequest {
+    const message = createBaseMsgCloseLockerRequest();
+    message.depositor = object.depositor ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    message.lockerId =
+      object.lockerId !== undefined && object.lockerId !== null
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseMsgCloseLockerResponse(): MsgCloseLockerResponse {
+  return {};
+}
+
+export const MsgCloseLockerResponse = {
+  encode(
+    _: MsgCloseLockerResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgCloseLockerResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCloseLockerResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCloseLockerResponse {
+    return {};
+  },
+
+  toJSON(_: MsgCloseLockerResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCloseLockerResponse>, I>>(
+    _: I
+  ): MsgCloseLockerResponse {
+    const message = createBaseMsgCloseLockerResponse();
+    return message;
+  },
+};
+
 /** For CLI Command & Proposals */
 export interface Msg {
   MsgCreateLocker(
@@ -649,6 +810,9 @@ export interface Msg {
   MsgWithdrawAsset(
     request: MsgWithdrawAssetRequest
   ): Promise<MsgWithdrawAssetResponse>;
+  MsgCloseLocker(
+    request: MsgCloseLockerRequest
+  ): Promise<MsgCloseLockerResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -658,6 +822,7 @@ export class MsgClientImpl implements Msg {
     this.MsgCreateLocker = this.MsgCreateLocker.bind(this);
     this.MsgDepositAsset = this.MsgDepositAsset.bind(this);
     this.MsgWithdrawAsset = this.MsgWithdrawAsset.bind(this);
+    this.MsgCloseLocker = this.MsgCloseLocker.bind(this);
   }
   MsgCreateLocker(
     request: MsgCreateLockerRequest
@@ -698,6 +863,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgWithdrawAssetResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  MsgCloseLocker(
+    request: MsgCloseLockerRequest
+  ): Promise<MsgCloseLockerResponse> {
+    const data = MsgCloseLockerRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.locker.v1beta1.Msg",
+      "MsgCloseLocker",
+      data
+    );
+    return promise.then((data) =>
+      MsgCloseLockerResponse.decode(new _m0.Reader(data))
     );
   }
 }

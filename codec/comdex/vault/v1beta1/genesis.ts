@@ -4,8 +4,8 @@ import * as _m0 from "protobufjs/minimal";
 import {
   Vault,
   StableMintVault,
-  AppExtendedPairVaultMapping,
-  UserVaultAssetMapping,
+  AppExtendedPairVaultMappingData,
+  OwnerAppExtendedPairVaultMappingData,
 } from "../../../comdex/vault/v1beta1/vault";
 
 export const protobufPackage = "comdex.vault.v1beta1";
@@ -13,8 +13,8 @@ export const protobufPackage = "comdex.vault.v1beta1";
 export interface GenesisState {
   vaults: Vault[];
   stableMintVault: StableMintVault[];
-  appExtendedPairVaultMapping: AppExtendedPairVaultMapping[];
-  userVaultAssetMapping: UserVaultAssetMapping[];
+  appExtendedPairVaultMapping: AppExtendedPairVaultMappingData[];
+  userVaultAssetMapping: OwnerAppExtendedPairVaultMappingData[];
 }
 
 function createBaseGenesisState(): GenesisState {
@@ -38,10 +38,16 @@ export const GenesisState = {
       StableMintVault.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     for (const v of message.appExtendedPairVaultMapping) {
-      AppExtendedPairVaultMapping.encode(v!, writer.uint32(26).fork()).ldelim();
+      AppExtendedPairVaultMappingData.encode(
+        v!,
+        writer.uint32(26).fork()
+      ).ldelim();
     }
     for (const v of message.userVaultAssetMapping) {
-      UserVaultAssetMapping.encode(v!, writer.uint32(34).fork()).ldelim();
+      OwnerAppExtendedPairVaultMappingData.encode(
+        v!,
+        writer.uint32(34).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -63,12 +69,12 @@ export const GenesisState = {
           break;
         case 3:
           message.appExtendedPairVaultMapping.push(
-            AppExtendedPairVaultMapping.decode(reader, reader.uint32())
+            AppExtendedPairVaultMappingData.decode(reader, reader.uint32())
           );
           break;
         case 4:
           message.userVaultAssetMapping.push(
-            UserVaultAssetMapping.decode(reader, reader.uint32())
+            OwnerAppExtendedPairVaultMappingData.decode(reader, reader.uint32())
           );
           break;
         default:
@@ -91,12 +97,12 @@ export const GenesisState = {
         object?.appExtendedPairVaultMapping
       )
         ? object.appExtendedPairVaultMapping.map((e: any) =>
-            AppExtendedPairVaultMapping.fromJSON(e)
+            AppExtendedPairVaultMappingData.fromJSON(e)
           )
         : [],
       userVaultAssetMapping: Array.isArray(object?.userVaultAssetMapping)
         ? object.userVaultAssetMapping.map((e: any) =>
-            UserVaultAssetMapping.fromJSON(e)
+            OwnerAppExtendedPairVaultMappingData.fromJSON(e)
           )
         : [],
     };
@@ -118,14 +124,14 @@ export const GenesisState = {
     }
     if (message.appExtendedPairVaultMapping) {
       obj.appExtendedPairVaultMapping = message.appExtendedPairVaultMapping.map(
-        (e) => (e ? AppExtendedPairVaultMapping.toJSON(e) : undefined)
+        (e) => (e ? AppExtendedPairVaultMappingData.toJSON(e) : undefined)
       );
     } else {
       obj.appExtendedPairVaultMapping = [];
     }
     if (message.userVaultAssetMapping) {
       obj.userVaultAssetMapping = message.userVaultAssetMapping.map((e) =>
-        e ? UserVaultAssetMapping.toJSON(e) : undefined
+        e ? OwnerAppExtendedPairVaultMappingData.toJSON(e) : undefined
       );
     } else {
       obj.userVaultAssetMapping = [];
@@ -142,11 +148,11 @@ export const GenesisState = {
       object.stableMintVault?.map((e) => StableMintVault.fromPartial(e)) || [];
     message.appExtendedPairVaultMapping =
       object.appExtendedPairVaultMapping?.map((e) =>
-        AppExtendedPairVaultMapping.fromPartial(e)
+        AppExtendedPairVaultMappingData.fromPartial(e)
       ) || [];
     message.userVaultAssetMapping =
       object.userVaultAssetMapping?.map((e) =>
-        UserVaultAssetMapping.fromPartial(e)
+        OwnerAppExtendedPairVaultMappingData.fromPartial(e)
       ) || [];
     return message;
   },

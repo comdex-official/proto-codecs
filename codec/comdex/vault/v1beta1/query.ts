@@ -4,10 +4,10 @@ import * as _m0 from "protobufjs/minimal";
 import {
   Vault,
   StableMintVault,
-  ExtendedPairVaultMapping,
-  UserVaultAssetMapping,
+  AppExtendedPairVaultMappingData,
   MintedDataMap,
   TvlLockedDataMap,
+  OwnerAppExtendedPairVaultMappingData,
   PairStatisticData,
 } from "../../../comdex/vault/v1beta1/vault";
 import {
@@ -210,7 +210,7 @@ export interface QueryExtendedPairVaultMappingByAppAndExtendedPairRequest {
 }
 
 export interface QueryExtendedPairVaultMappingByAppAndExtendedPairResponse {
-  extendedPairVaultMapping?: ExtendedPairVaultMapping;
+  extendedPairVaultMapping?: AppExtendedPairVaultMappingData;
 }
 
 export interface QueryExtendedPairVaultMappingByAppRequest {
@@ -219,7 +219,7 @@ export interface QueryExtendedPairVaultMappingByAppRequest {
 }
 
 export interface QueryExtendedPairVaultMappingByAppResponse {
-  extendedPairVaultMapping: ExtendedPairVaultMapping[];
+  extendedPairVaultMapping: AppExtendedPairVaultMappingData[];
   pagination?: PageResponse;
 }
 
@@ -258,7 +258,7 @@ export interface QueryUserExtendedPairTotalDataRequest {
 }
 
 export interface QueryUserExtendedPairTotalDataResponse {
-  userTotalData?: UserVaultAssetMapping;
+  userTotalData: OwnerAppExtendedPairVaultMappingData[];
 }
 
 export interface QueryPairsLockedAndMintedStatisticByAppRequest {
@@ -3362,7 +3362,7 @@ export const QueryExtendedPairVaultMappingByAppAndExtendedPairResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.extendedPairVaultMapping !== undefined) {
-      ExtendedPairVaultMapping.encode(
+      AppExtendedPairVaultMappingData.encode(
         message.extendedPairVaultMapping,
         writer.uint32(10).fork()
       ).ldelim();
@@ -3382,10 +3382,8 @@ export const QueryExtendedPairVaultMappingByAppAndExtendedPairResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.extendedPairVaultMapping = ExtendedPairVaultMapping.decode(
-            reader,
-            reader.uint32()
-          );
+          message.extendedPairVaultMapping =
+            AppExtendedPairVaultMappingData.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -3400,7 +3398,9 @@ export const QueryExtendedPairVaultMappingByAppAndExtendedPairResponse = {
   ): QueryExtendedPairVaultMappingByAppAndExtendedPairResponse {
     return {
       extendedPairVaultMapping: isSet(object.extendedPairVaultMapping)
-        ? ExtendedPairVaultMapping.fromJSON(object.extendedPairVaultMapping)
+        ? AppExtendedPairVaultMappingData.fromJSON(
+            object.extendedPairVaultMapping
+          )
         : undefined,
     };
   },
@@ -3411,7 +3411,9 @@ export const QueryExtendedPairVaultMappingByAppAndExtendedPairResponse = {
     const obj: any = {};
     message.extendedPairVaultMapping !== undefined &&
       (obj.extendedPairVaultMapping = message.extendedPairVaultMapping
-        ? ExtendedPairVaultMapping.toJSON(message.extendedPairVaultMapping)
+        ? AppExtendedPairVaultMappingData.toJSON(
+            message.extendedPairVaultMapping
+          )
         : undefined);
     return obj;
   },
@@ -3427,7 +3429,9 @@ export const QueryExtendedPairVaultMappingByAppAndExtendedPairResponse = {
     message.extendedPairVaultMapping =
       object.extendedPairVaultMapping !== undefined &&
       object.extendedPairVaultMapping !== null
-        ? ExtendedPairVaultMapping.fromPartial(object.extendedPairVaultMapping)
+        ? AppExtendedPairVaultMappingData.fromPartial(
+            object.extendedPairVaultMapping
+          )
         : undefined;
     return message;
   },
@@ -3521,7 +3525,10 @@ export const QueryExtendedPairVaultMappingByAppResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.extendedPairVaultMapping) {
-      ExtendedPairVaultMapping.encode(v!, writer.uint32(10).fork()).ldelim();
+      AppExtendedPairVaultMappingData.encode(
+        v!,
+        writer.uint32(10).fork()
+      ).ldelim();
     }
     if (message.pagination !== undefined) {
       PageResponse.encode(
@@ -3544,7 +3551,7 @@ export const QueryExtendedPairVaultMappingByAppResponse = {
       switch (tag >>> 3) {
         case 1:
           message.extendedPairVaultMapping.push(
-            ExtendedPairVaultMapping.decode(reader, reader.uint32())
+            AppExtendedPairVaultMappingData.decode(reader, reader.uint32())
           );
           break;
         case 2:
@@ -3562,7 +3569,7 @@ export const QueryExtendedPairVaultMappingByAppResponse = {
     return {
       extendedPairVaultMapping: Array.isArray(object?.extendedPairVaultMapping)
         ? object.extendedPairVaultMapping.map((e: any) =>
-            ExtendedPairVaultMapping.fromJSON(e)
+            AppExtendedPairVaultMappingData.fromJSON(e)
           )
         : [],
       pagination: isSet(object.pagination)
@@ -3575,7 +3582,7 @@ export const QueryExtendedPairVaultMappingByAppResponse = {
     const obj: any = {};
     if (message.extendedPairVaultMapping) {
       obj.extendedPairVaultMapping = message.extendedPairVaultMapping.map((e) =>
-        e ? ExtendedPairVaultMapping.toJSON(e) : undefined
+        e ? AppExtendedPairVaultMappingData.toJSON(e) : undefined
       );
     } else {
       obj.extendedPairVaultMapping = [];
@@ -3593,7 +3600,7 @@ export const QueryExtendedPairVaultMappingByAppResponse = {
     const message = createBaseQueryExtendedPairVaultMappingByAppResponse();
     message.extendedPairVaultMapping =
       object.extendedPairVaultMapping?.map((e) =>
-        ExtendedPairVaultMapping.fromPartial(e)
+        AppExtendedPairVaultMappingData.fromPartial(e)
       ) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -4116,7 +4123,7 @@ export const QueryUserExtendedPairTotalDataRequest = {
 };
 
 function createBaseQueryUserExtendedPairTotalDataResponse(): QueryUserExtendedPairTotalDataResponse {
-  return { userTotalData: undefined };
+  return { userTotalData: [] };
 }
 
 export const QueryUserExtendedPairTotalDataResponse = {
@@ -4124,9 +4131,9 @@ export const QueryUserExtendedPairTotalDataResponse = {
     message: QueryUserExtendedPairTotalDataResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.userTotalData !== undefined) {
-      UserVaultAssetMapping.encode(
-        message.userTotalData,
+    for (const v of message.userTotalData) {
+      OwnerAppExtendedPairVaultMappingData.encode(
+        v!,
         writer.uint32(10).fork()
       ).ldelim();
     }
@@ -4144,9 +4151,8 @@ export const QueryUserExtendedPairTotalDataResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.userTotalData = UserVaultAssetMapping.decode(
-            reader,
-            reader.uint32()
+          message.userTotalData.push(
+            OwnerAppExtendedPairVaultMappingData.decode(reader, reader.uint32())
           );
           break;
         default:
@@ -4159,18 +4165,23 @@ export const QueryUserExtendedPairTotalDataResponse = {
 
   fromJSON(object: any): QueryUserExtendedPairTotalDataResponse {
     return {
-      userTotalData: isSet(object.userTotalData)
-        ? UserVaultAssetMapping.fromJSON(object.userTotalData)
-        : undefined,
+      userTotalData: Array.isArray(object?.userTotalData)
+        ? object.userTotalData.map((e: any) =>
+            OwnerAppExtendedPairVaultMappingData.fromJSON(e)
+          )
+        : [],
     };
   },
 
   toJSON(message: QueryUserExtendedPairTotalDataResponse): unknown {
     const obj: any = {};
-    message.userTotalData !== undefined &&
-      (obj.userTotalData = message.userTotalData
-        ? UserVaultAssetMapping.toJSON(message.userTotalData)
-        : undefined);
+    if (message.userTotalData) {
+      obj.userTotalData = message.userTotalData.map((e) =>
+        e ? OwnerAppExtendedPairVaultMappingData.toJSON(e) : undefined
+      );
+    } else {
+      obj.userTotalData = [];
+    }
     return obj;
   },
 
@@ -4179,9 +4190,9 @@ export const QueryUserExtendedPairTotalDataResponse = {
   >(object: I): QueryUserExtendedPairTotalDataResponse {
     const message = createBaseQueryUserExtendedPairTotalDataResponse();
     message.userTotalData =
-      object.userTotalData !== undefined && object.userTotalData !== null
-        ? UserVaultAssetMapping.fromPartial(object.userTotalData)
-        : undefined;
+      object.userTotalData?.map((e) =>
+        OwnerAppExtendedPairVaultMappingData.fromPartial(e)
+      ) || [];
     return message;
   },
 };

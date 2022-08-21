@@ -23,6 +23,7 @@ export interface MintGenesisToken {
 export interface AppAndGovTime {
   appId: Long;
   govTimeInSeconds: number;
+  minGovDeposit: string;
 }
 
 function createBaseAppData(): AppData {
@@ -246,7 +247,7 @@ export const MintGenesisToken = {
 };
 
 function createBaseAppAndGovTime(): AppAndGovTime {
-  return { appId: Long.UZERO, govTimeInSeconds: 0 };
+  return { appId: Long.UZERO, govTimeInSeconds: 0, minGovDeposit: "" };
 }
 
 export const AppAndGovTime = {
@@ -259,6 +260,9 @@ export const AppAndGovTime = {
     }
     if (message.govTimeInSeconds !== 0) {
       writer.uint32(17).double(message.govTimeInSeconds);
+    }
+    if (message.minGovDeposit !== "") {
+      writer.uint32(26).string(message.minGovDeposit);
     }
     return writer;
   },
@@ -276,6 +280,9 @@ export const AppAndGovTime = {
         case 2:
           message.govTimeInSeconds = reader.double();
           break;
+        case 3:
+          message.minGovDeposit = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -290,6 +297,9 @@ export const AppAndGovTime = {
       govTimeInSeconds: isSet(object.govTimeInSeconds)
         ? Number(object.govTimeInSeconds)
         : 0,
+      minGovDeposit: isSet(object.minGovDeposit)
+        ? String(object.minGovDeposit)
+        : "",
     };
   },
 
@@ -299,6 +309,8 @@ export const AppAndGovTime = {
       (obj.appId = (message.appId || Long.UZERO).toString());
     message.govTimeInSeconds !== undefined &&
       (obj.govTimeInSeconds = message.govTimeInSeconds);
+    message.minGovDeposit !== undefined &&
+      (obj.minGovDeposit = message.minGovDeposit);
     return obj;
   },
 
@@ -311,6 +323,7 @@ export const AppAndGovTime = {
         ? Long.fromValue(object.appId)
         : Long.UZERO;
     message.govTimeInSeconds = object.govTimeInSeconds ?? 0;
+    message.minGovDeposit = object.minGovDeposit ?? "";
     return message;
   },
 };

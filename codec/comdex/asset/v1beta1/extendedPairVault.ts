@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
+import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -21,6 +22,8 @@ export interface ExtendedPairVault {
   assetOutOraclePrice: boolean;
   assetOutPrice: Long;
   minUsdValueLeft: Long;
+  blockHeight: Long;
+  blockTime?: Date;
 }
 
 function createBaseExtendedPairVault(): ExtendedPairVault {
@@ -41,6 +44,8 @@ function createBaseExtendedPairVault(): ExtendedPairVault {
     assetOutOraclePrice: false,
     assetOutPrice: Long.UZERO,
     minUsdValueLeft: Long.UZERO,
+    blockHeight: Long.ZERO,
+    blockTime: undefined,
   };
 }
 
@@ -96,6 +101,15 @@ export const ExtendedPairVault = {
     }
     if (!message.minUsdValueLeft.isZero()) {
       writer.uint32(128).uint64(message.minUsdValueLeft);
+    }
+    if (!message.blockHeight.isZero()) {
+      writer.uint32(136).int64(message.blockHeight);
+    }
+    if (message.blockTime !== undefined) {
+      Timestamp.encode(
+        toTimestamp(message.blockTime),
+        writer.uint32(146).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -155,6 +169,14 @@ export const ExtendedPairVault = {
         case 16:
           message.minUsdValueLeft = reader.uint64() as Long;
           break;
+        case 17:
+          message.blockHeight = reader.int64() as Long;
+          break;
+        case 18:
+          message.blockTime = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -195,6 +217,12 @@ export const ExtendedPairVault = {
       minUsdValueLeft: isSet(object.minUsdValueLeft)
         ? Long.fromValue(object.minUsdValueLeft)
         : Long.UZERO,
+      blockHeight: isSet(object.blockHeight)
+        ? Long.fromValue(object.blockHeight)
+        : Long.ZERO,
+      blockTime: isSet(object.blockTime)
+        ? fromJsonTimestamp(object.blockTime)
+        : undefined,
     };
   },
 
@@ -230,6 +258,10 @@ export const ExtendedPairVault = {
       (obj.minUsdValueLeft = (
         message.minUsdValueLeft || Long.UZERO
       ).toString());
+    message.blockHeight !== undefined &&
+      (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
+    message.blockTime !== undefined &&
+      (obj.blockTime = message.blockTime.toISOString());
     return obj;
   },
 
@@ -268,6 +300,11 @@ export const ExtendedPairVault = {
       object.minUsdValueLeft !== undefined && object.minUsdValueLeft !== null
         ? Long.fromValue(object.minUsdValueLeft)
         : Long.UZERO;
+    message.blockHeight =
+      object.blockHeight !== undefined && object.blockHeight !== null
+        ? Long.fromValue(object.blockHeight)
+        : Long.ZERO;
+    message.blockTime = object.blockTime ?? undefined;
     return message;
   },
 };
@@ -300,6 +337,32 @@ export type Exact<P, I extends P> = P extends Builtin
         Exclude<keyof I, KeysOfUnion<P>>,
         never
       >;
+
+function toTimestamp(date: Date): Timestamp {
+  const seconds = numberToLong(date.getTime() / 1_000);
+  const nanos = (date.getTime() % 1_000) * 1_000_000;
+  return { seconds, nanos };
+}
+
+function fromTimestamp(t: Timestamp): Date {
+  let millis = t.seconds.toNumber() * 1_000;
+  millis += t.nanos / 1_000_000;
+  return new Date(millis);
+}
+
+function fromJsonTimestamp(o: any): Date {
+  if (o instanceof Date) {
+    return o;
+  } else if (typeof o === "string") {
+    return new Date(o);
+  } else {
+    return fromTimestamp(Timestamp.fromJSON(o));
+  }
+}
+
+function numberToLong(number: number) {
+  return Long.fromNumber(number);
+}
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
