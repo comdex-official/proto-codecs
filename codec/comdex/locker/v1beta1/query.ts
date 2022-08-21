@@ -3,7 +3,7 @@ import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import {
   Locker,
-  TokenToLockerMapping,
+  LockerLookupTableData,
   LockerTotalRewardsByAssetAppWise,
   UserTxData,
   LockedDepositedAmountDataMap,
@@ -96,7 +96,7 @@ export interface QueryOwnerLockerByAppToAssetIDbyOwnerRequest {
 }
 
 export interface QueryOwnerLockerByAppToAssetIDbyOwnerResponse {
-  lockerInfo: Locker[];
+  lockerInfo?: Locker;
   pagination?: PageResponse;
 }
 
@@ -165,7 +165,7 @@ export interface QueryLockerLookupTableByAppRequest {
 }
 
 export interface QueryLockerLookupTableByAppResponse {
-  tokenToLockerMapping: TokenToLockerMapping[];
+  tokenToLockerMapping: LockerLookupTableData[];
   pagination?: PageResponse;
 }
 
@@ -175,7 +175,7 @@ export interface QueryLockerLookupTableByAppAndAssetIDRequest {
 }
 
 export interface QueryLockerLookupTableByAppAndAssetIDResponse {
-  tokenToLockerMapping?: TokenToLockerMapping;
+  tokenToLockerMapping?: LockerLookupTableData;
 }
 
 export interface QueryLockerTotalDepositedByAppRequest {
@@ -1477,7 +1477,7 @@ export const QueryOwnerLockerByAppToAssetIDbyOwnerRequest = {
 };
 
 function createBaseQueryOwnerLockerByAppToAssetIDbyOwnerResponse(): QueryOwnerLockerByAppToAssetIDbyOwnerResponse {
-  return { lockerInfo: [], pagination: undefined };
+  return { lockerInfo: undefined, pagination: undefined };
 }
 
 export const QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
@@ -1485,8 +1485,8 @@ export const QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
     message: QueryOwnerLockerByAppToAssetIDbyOwnerResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    for (const v of message.lockerInfo) {
-      Locker.encode(v!, writer.uint32(10).fork()).ldelim();
+    if (message.lockerInfo !== undefined) {
+      Locker.encode(message.lockerInfo, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
       PageResponse.encode(
@@ -1508,7 +1508,7 @@ export const QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.lockerInfo.push(Locker.decode(reader, reader.uint32()));
+          message.lockerInfo = Locker.decode(reader, reader.uint32());
           break;
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
@@ -1523,9 +1523,9 @@ export const QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
 
   fromJSON(object: any): QueryOwnerLockerByAppToAssetIDbyOwnerResponse {
     return {
-      lockerInfo: Array.isArray(object?.lockerInfo)
-        ? object.lockerInfo.map((e: any) => Locker.fromJSON(e))
-        : [],
+      lockerInfo: isSet(object.lockerInfo)
+        ? Locker.fromJSON(object.lockerInfo)
+        : undefined,
       pagination: isSet(object.pagination)
         ? PageResponse.fromJSON(object.pagination)
         : undefined,
@@ -1534,13 +1534,10 @@ export const QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
 
   toJSON(message: QueryOwnerLockerByAppToAssetIDbyOwnerResponse): unknown {
     const obj: any = {};
-    if (message.lockerInfo) {
-      obj.lockerInfo = message.lockerInfo.map((e) =>
-        e ? Locker.toJSON(e) : undefined
-      );
-    } else {
-      obj.lockerInfo = [];
-    }
+    message.lockerInfo !== undefined &&
+      (obj.lockerInfo = message.lockerInfo
+        ? Locker.toJSON(message.lockerInfo)
+        : undefined);
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
         ? PageResponse.toJSON(message.pagination)
@@ -1556,7 +1553,9 @@ export const QueryOwnerLockerByAppToAssetIDbyOwnerResponse = {
   >(object: I): QueryOwnerLockerByAppToAssetIDbyOwnerResponse {
     const message = createBaseQueryOwnerLockerByAppToAssetIDbyOwnerResponse();
     message.lockerInfo =
-      object.lockerInfo?.map((e) => Locker.fromPartial(e)) || [];
+      object.lockerInfo !== undefined && object.lockerInfo !== null
+        ? Locker.fromPartial(object.lockerInfo)
+        : undefined;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -2604,7 +2603,7 @@ export const QueryLockerLookupTableByAppResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.tokenToLockerMapping) {
-      TokenToLockerMapping.encode(v!, writer.uint32(10).fork()).ldelim();
+      LockerLookupTableData.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
       PageResponse.encode(
@@ -2627,7 +2626,7 @@ export const QueryLockerLookupTableByAppResponse = {
       switch (tag >>> 3) {
         case 1:
           message.tokenToLockerMapping.push(
-            TokenToLockerMapping.decode(reader, reader.uint32())
+            LockerLookupTableData.decode(reader, reader.uint32())
           );
           break;
         case 2:
@@ -2645,7 +2644,7 @@ export const QueryLockerLookupTableByAppResponse = {
     return {
       tokenToLockerMapping: Array.isArray(object?.tokenToLockerMapping)
         ? object.tokenToLockerMapping.map((e: any) =>
-            TokenToLockerMapping.fromJSON(e)
+            LockerLookupTableData.fromJSON(e)
           )
         : [],
       pagination: isSet(object.pagination)
@@ -2658,7 +2657,7 @@ export const QueryLockerLookupTableByAppResponse = {
     const obj: any = {};
     if (message.tokenToLockerMapping) {
       obj.tokenToLockerMapping = message.tokenToLockerMapping.map((e) =>
-        e ? TokenToLockerMapping.toJSON(e) : undefined
+        e ? LockerLookupTableData.toJSON(e) : undefined
       );
     } else {
       obj.tokenToLockerMapping = [];
@@ -2676,7 +2675,7 @@ export const QueryLockerLookupTableByAppResponse = {
     const message = createBaseQueryLockerLookupTableByAppResponse();
     message.tokenToLockerMapping =
       object.tokenToLockerMapping?.map((e) =>
-        TokenToLockerMapping.fromPartial(e)
+        LockerLookupTableData.fromPartial(e)
       ) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
@@ -2775,7 +2774,7 @@ export const QueryLockerLookupTableByAppAndAssetIDResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.tokenToLockerMapping !== undefined) {
-      TokenToLockerMapping.encode(
+      LockerLookupTableData.encode(
         message.tokenToLockerMapping,
         writer.uint32(10).fork()
       ).ldelim();
@@ -2794,7 +2793,7 @@ export const QueryLockerLookupTableByAppAndAssetIDResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.tokenToLockerMapping = TokenToLockerMapping.decode(
+          message.tokenToLockerMapping = LockerLookupTableData.decode(
             reader,
             reader.uint32()
           );
@@ -2810,7 +2809,7 @@ export const QueryLockerLookupTableByAppAndAssetIDResponse = {
   fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIDResponse {
     return {
       tokenToLockerMapping: isSet(object.tokenToLockerMapping)
-        ? TokenToLockerMapping.fromJSON(object.tokenToLockerMapping)
+        ? LockerLookupTableData.fromJSON(object.tokenToLockerMapping)
         : undefined,
     };
   },
@@ -2819,7 +2818,7 @@ export const QueryLockerLookupTableByAppAndAssetIDResponse = {
     const obj: any = {};
     message.tokenToLockerMapping !== undefined &&
       (obj.tokenToLockerMapping = message.tokenToLockerMapping
-        ? TokenToLockerMapping.toJSON(message.tokenToLockerMapping)
+        ? LockerLookupTableData.toJSON(message.tokenToLockerMapping)
         : undefined);
     return obj;
   },
@@ -2834,7 +2833,7 @@ export const QueryLockerLookupTableByAppAndAssetIDResponse = {
     message.tokenToLockerMapping =
       object.tokenToLockerMapping !== undefined &&
       object.tokenToLockerMapping !== null
-        ? TokenToLockerMapping.fromPartial(object.tokenToLockerMapping)
+        ? LockerLookupTableData.fromPartial(object.tokenToLockerMapping)
         : undefined;
     return message;
   },

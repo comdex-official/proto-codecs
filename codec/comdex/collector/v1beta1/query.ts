@@ -3,10 +3,14 @@ import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/collector/v1beta1/params";
 import {
-  CollectorLookupTable,
+  PageRequest,
+  PageResponse,
+} from "../../../cosmos/base/query/v1beta1/pagination";
+import {
+  CollectorLookupTableData,
   CollectorData,
-  AssetIdToAuctionLookupTable,
-  AssetIdToFeeCollected,
+  AppAssetIdToAuctionLookupTable,
+  AppAssetIdToFeeCollectedData,
 } from "../../../comdex/collector/v1beta1/collector";
 
 export const protobufPackage = "comdex.collector.v1beta1";
@@ -22,10 +26,12 @@ export interface QueryParamsResponse {
 
 export interface QueryCollectorLookupByAppRequest {
   appId: Long;
+  pagination?: PageRequest;
 }
 
 export interface QueryCollectorLookupByAppResponse {
-  collectorLookup: CollectorLookupTable[];
+  collectorLookup: CollectorLookupTableData[];
+  pagination?: PageResponse;
 }
 
 export interface QueryCollectorLookupByAppAndAssetRequest {
@@ -34,7 +40,7 @@ export interface QueryCollectorLookupByAppAndAssetRequest {
 }
 
 export interface QueryCollectorLookupByAppAndAssetResponse {
-  collectorLookup?: CollectorLookupTable;
+  collectorLookup?: CollectorLookupTableData;
 }
 
 export interface QueryCollectorDataByAppAndAssetRequest {
@@ -52,7 +58,7 @@ export interface QueryAuctionMappingForAppAndAssetRequest {
 }
 
 export interface QueryAuctionMappingForAppAndAssetResponse {
-  assetIdToAuctionLookupTable?: AssetIdToAuctionLookupTable;
+  assetIdToAuctionLookupTable?: AppAssetIdToAuctionLookupTable;
 }
 
 export interface QueryNetFeeCollectedForAppAndAssetRequest {
@@ -61,7 +67,7 @@ export interface QueryNetFeeCollectedForAppAndAssetRequest {
 }
 
 export interface QueryNetFeeCollectedForAppAndAssetResponse {
-  assetIdToFeeCollected?: AssetIdToFeeCollected;
+  assetIdToFeeCollected?: AppAssetIdToFeeCollectedData;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -167,7 +173,7 @@ export const QueryParamsResponse = {
 };
 
 function createBaseQueryCollectorLookupByAppRequest(): QueryCollectorLookupByAppRequest {
-  return { appId: Long.UZERO };
+  return { appId: Long.UZERO, pagination: undefined };
 }
 
 export const QueryCollectorLookupByAppRequest = {
@@ -177,6 +183,9 @@ export const QueryCollectorLookupByAppRequest = {
   ): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
+    }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -194,6 +203,9 @@ export const QueryCollectorLookupByAppRequest = {
         case 1:
           message.appId = reader.uint64() as Long;
           break;
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -205,6 +217,9 @@ export const QueryCollectorLookupByAppRequest = {
   fromJSON(object: any): QueryCollectorLookupByAppRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
     };
   },
 
@@ -212,6 +227,10 @@ export const QueryCollectorLookupByAppRequest = {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -223,12 +242,16 @@ export const QueryCollectorLookupByAppRequest = {
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
         : Long.UZERO;
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
 
 function createBaseQueryCollectorLookupByAppResponse(): QueryCollectorLookupByAppResponse {
-  return { collectorLookup: [] };
+  return { collectorLookup: [], pagination: undefined };
 }
 
 export const QueryCollectorLookupByAppResponse = {
@@ -237,7 +260,13 @@ export const QueryCollectorLookupByAppResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.collectorLookup) {
-      CollectorLookupTable.encode(v!, writer.uint32(10).fork()).ldelim();
+      CollectorLookupTableData.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -254,8 +283,11 @@ export const QueryCollectorLookupByAppResponse = {
       switch (tag >>> 3) {
         case 1:
           message.collectorLookup.push(
-            CollectorLookupTable.decode(reader, reader.uint32())
+            CollectorLookupTableData.decode(reader, reader.uint32())
           );
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -269,9 +301,12 @@ export const QueryCollectorLookupByAppResponse = {
     return {
       collectorLookup: Array.isArray(object?.collectorLookup)
         ? object.collectorLookup.map((e: any) =>
-            CollectorLookupTable.fromJSON(e)
+            CollectorLookupTableData.fromJSON(e)
           )
         : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
     };
   },
 
@@ -279,11 +314,15 @@ export const QueryCollectorLookupByAppResponse = {
     const obj: any = {};
     if (message.collectorLookup) {
       obj.collectorLookup = message.collectorLookup.map((e) =>
-        e ? CollectorLookupTable.toJSON(e) : undefined
+        e ? CollectorLookupTableData.toJSON(e) : undefined
       );
     } else {
       obj.collectorLookup = [];
     }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
     return obj;
   },
 
@@ -292,8 +331,13 @@ export const QueryCollectorLookupByAppResponse = {
   >(object: I): QueryCollectorLookupByAppResponse {
     const message = createBaseQueryCollectorLookupByAppResponse();
     message.collectorLookup =
-      object.collectorLookup?.map((e) => CollectorLookupTable.fromPartial(e)) ||
-      [];
+      object.collectorLookup?.map((e) =>
+        CollectorLookupTableData.fromPartial(e)
+      ) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
     return message;
   },
 };
@@ -384,7 +428,7 @@ export const QueryCollectorLookupByAppAndAssetResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.collectorLookup !== undefined) {
-      CollectorLookupTable.encode(
+      CollectorLookupTableData.encode(
         message.collectorLookup,
         writer.uint32(10).fork()
       ).ldelim();
@@ -403,7 +447,7 @@ export const QueryCollectorLookupByAppAndAssetResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.collectorLookup = CollectorLookupTable.decode(
+          message.collectorLookup = CollectorLookupTableData.decode(
             reader,
             reader.uint32()
           );
@@ -419,7 +463,7 @@ export const QueryCollectorLookupByAppAndAssetResponse = {
   fromJSON(object: any): QueryCollectorLookupByAppAndAssetResponse {
     return {
       collectorLookup: isSet(object.collectorLookup)
-        ? CollectorLookupTable.fromJSON(object.collectorLookup)
+        ? CollectorLookupTableData.fromJSON(object.collectorLookup)
         : undefined,
     };
   },
@@ -428,7 +472,7 @@ export const QueryCollectorLookupByAppAndAssetResponse = {
     const obj: any = {};
     message.collectorLookup !== undefined &&
       (obj.collectorLookup = message.collectorLookup
-        ? CollectorLookupTable.toJSON(message.collectorLookup)
+        ? CollectorLookupTableData.toJSON(message.collectorLookup)
         : undefined);
     return obj;
   },
@@ -439,7 +483,7 @@ export const QueryCollectorLookupByAppAndAssetResponse = {
     const message = createBaseQueryCollectorLookupByAppAndAssetResponse();
     message.collectorLookup =
       object.collectorLookup !== undefined && object.collectorLookup !== null
-        ? CollectorLookupTable.fromPartial(object.collectorLookup)
+        ? CollectorLookupTableData.fromPartial(object.collectorLookup)
         : undefined;
     return message;
   },
@@ -675,7 +719,7 @@ export const QueryAuctionMappingForAppAndAssetResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.assetIdToAuctionLookupTable !== undefined) {
-      AssetIdToAuctionLookupTable.encode(
+      AppAssetIdToAuctionLookupTable.encode(
         message.assetIdToAuctionLookupTable,
         writer.uint32(10).fork()
       ).ldelim();
@@ -695,7 +739,7 @@ export const QueryAuctionMappingForAppAndAssetResponse = {
       switch (tag >>> 3) {
         case 1:
           message.assetIdToAuctionLookupTable =
-            AssetIdToAuctionLookupTable.decode(reader, reader.uint32());
+            AppAssetIdToAuctionLookupTable.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -708,7 +752,7 @@ export const QueryAuctionMappingForAppAndAssetResponse = {
   fromJSON(object: any): QueryAuctionMappingForAppAndAssetResponse {
     return {
       assetIdToAuctionLookupTable: isSet(object.assetIdToAuctionLookupTable)
-        ? AssetIdToAuctionLookupTable.fromJSON(
+        ? AppAssetIdToAuctionLookupTable.fromJSON(
             object.assetIdToAuctionLookupTable
           )
         : undefined,
@@ -719,7 +763,7 @@ export const QueryAuctionMappingForAppAndAssetResponse = {
     const obj: any = {};
     message.assetIdToAuctionLookupTable !== undefined &&
       (obj.assetIdToAuctionLookupTable = message.assetIdToAuctionLookupTable
-        ? AssetIdToAuctionLookupTable.toJSON(
+        ? AppAssetIdToAuctionLookupTable.toJSON(
             message.assetIdToAuctionLookupTable
           )
         : undefined);
@@ -733,7 +777,7 @@ export const QueryAuctionMappingForAppAndAssetResponse = {
     message.assetIdToAuctionLookupTable =
       object.assetIdToAuctionLookupTable !== undefined &&
       object.assetIdToAuctionLookupTable !== null
-        ? AssetIdToAuctionLookupTable.fromPartial(
+        ? AppAssetIdToAuctionLookupTable.fromPartial(
             object.assetIdToAuctionLookupTable
           )
         : undefined;
@@ -827,7 +871,7 @@ export const QueryNetFeeCollectedForAppAndAssetResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.assetIdToFeeCollected !== undefined) {
-      AssetIdToFeeCollected.encode(
+      AppAssetIdToFeeCollectedData.encode(
         message.assetIdToFeeCollected,
         writer.uint32(10).fork()
       ).ldelim();
@@ -846,7 +890,7 @@ export const QueryNetFeeCollectedForAppAndAssetResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.assetIdToFeeCollected = AssetIdToFeeCollected.decode(
+          message.assetIdToFeeCollected = AppAssetIdToFeeCollectedData.decode(
             reader,
             reader.uint32()
           );
@@ -862,7 +906,7 @@ export const QueryNetFeeCollectedForAppAndAssetResponse = {
   fromJSON(object: any): QueryNetFeeCollectedForAppAndAssetResponse {
     return {
       assetIdToFeeCollected: isSet(object.assetIdToFeeCollected)
-        ? AssetIdToFeeCollected.fromJSON(object.assetIdToFeeCollected)
+        ? AppAssetIdToFeeCollectedData.fromJSON(object.assetIdToFeeCollected)
         : undefined,
     };
   },
@@ -871,7 +915,7 @@ export const QueryNetFeeCollectedForAppAndAssetResponse = {
     const obj: any = {};
     message.assetIdToFeeCollected !== undefined &&
       (obj.assetIdToFeeCollected = message.assetIdToFeeCollected
-        ? AssetIdToFeeCollected.toJSON(message.assetIdToFeeCollected)
+        ? AppAssetIdToFeeCollectedData.toJSON(message.assetIdToFeeCollected)
         : undefined);
     return obj;
   },
@@ -883,7 +927,7 @@ export const QueryNetFeeCollectedForAppAndAssetResponse = {
     message.assetIdToFeeCollected =
       object.assetIdToFeeCollected !== undefined &&
       object.assetIdToFeeCollected !== null
-        ? AssetIdToFeeCollected.fromPartial(object.assetIdToFeeCollected)
+        ? AppAssetIdToFeeCollectedData.fromPartial(object.assetIdToFeeCollected)
         : undefined;
     return message;
   },

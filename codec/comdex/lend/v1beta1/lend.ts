@@ -170,6 +170,16 @@ export interface ReservePoolRecordsForBorrow {
   interestAccumulated: string;
 }
 
+export interface BorrowInterestTracker {
+  borrowingId: Long;
+  interestAccumulated: string;
+}
+
+export interface LendRewardsTracker {
+  lendingId: Long;
+  rewardsAccumulated: string;
+}
+
 function createBaseLendAsset(): LendAsset {
   return {
     lendingId: Long.UZERO,
@@ -2639,6 +2649,153 @@ export const ReservePoolRecordsForBorrow = {
         ? Long.fromValue(object.borrowingId)
         : Long.UZERO;
     message.interestAccumulated = object.interestAccumulated ?? "";
+    return message;
+  },
+};
+
+function createBaseBorrowInterestTracker(): BorrowInterestTracker {
+  return { borrowingId: Long.UZERO, interestAccumulated: "" };
+}
+
+export const BorrowInterestTracker = {
+  encode(
+    message: BorrowInterestTracker,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.borrowingId.isZero()) {
+      writer.uint32(8).uint64(message.borrowingId);
+    }
+    if (message.interestAccumulated !== "") {
+      writer.uint32(18).string(message.interestAccumulated);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): BorrowInterestTracker {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBorrowInterestTracker();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.borrowingId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.interestAccumulated = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BorrowInterestTracker {
+    return {
+      borrowingId: isSet(object.borrowingId)
+        ? Long.fromValue(object.borrowingId)
+        : Long.UZERO,
+      interestAccumulated: isSet(object.interestAccumulated)
+        ? String(object.interestAccumulated)
+        : "",
+    };
+  },
+
+  toJSON(message: BorrowInterestTracker): unknown {
+    const obj: any = {};
+    message.borrowingId !== undefined &&
+      (obj.borrowingId = (message.borrowingId || Long.UZERO).toString());
+    message.interestAccumulated !== undefined &&
+      (obj.interestAccumulated = message.interestAccumulated);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BorrowInterestTracker>, I>>(
+    object: I
+  ): BorrowInterestTracker {
+    const message = createBaseBorrowInterestTracker();
+    message.borrowingId =
+      object.borrowingId !== undefined && object.borrowingId !== null
+        ? Long.fromValue(object.borrowingId)
+        : Long.UZERO;
+    message.interestAccumulated = object.interestAccumulated ?? "";
+    return message;
+  },
+};
+
+function createBaseLendRewardsTracker(): LendRewardsTracker {
+  return { lendingId: Long.UZERO, rewardsAccumulated: "" };
+}
+
+export const LendRewardsTracker = {
+  encode(
+    message: LendRewardsTracker,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.lendingId.isZero()) {
+      writer.uint32(8).uint64(message.lendingId);
+    }
+    if (message.rewardsAccumulated !== "") {
+      writer.uint32(18).string(message.rewardsAccumulated);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): LendRewardsTracker {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLendRewardsTracker();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.lendingId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.rewardsAccumulated = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LendRewardsTracker {
+    return {
+      lendingId: isSet(object.lendingId)
+        ? Long.fromValue(object.lendingId)
+        : Long.UZERO,
+      rewardsAccumulated: isSet(object.rewardsAccumulated)
+        ? String(object.rewardsAccumulated)
+        : "",
+    };
+  },
+
+  toJSON(message: LendRewardsTracker): unknown {
+    const obj: any = {};
+    message.lendingId !== undefined &&
+      (obj.lendingId = (message.lendingId || Long.UZERO).toString());
+    message.rewardsAccumulated !== undefined &&
+      (obj.rewardsAccumulated = message.rewardsAccumulated);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LendRewardsTracker>, I>>(
+    object: I
+  ): LendRewardsTracker {
+    const message = createBaseLendRewardsTracker();
+    message.lendingId =
+      object.lendingId !== undefined && object.lendingId !== null
+        ? Long.fromValue(object.lendingId)
+        : Long.UZERO;
+    message.rewardsAccumulated = object.rewardsAccumulated ?? "";
     return message;
   },
 };
