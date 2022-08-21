@@ -1,7 +1,8 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/collector/v1beta1/params";
-import { CollectorLookupTable, CollectorData, AssetIdToAuctionLookupTable, AssetIdToFeeCollected } from "../../../comdex/collector/v1beta1/collector";
+import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import { CollectorLookupTableData, CollectorData, AppAssetIdToAuctionLookupTable, AppAssetIdToFeeCollectedData } from "../../../comdex/collector/v1beta1/collector";
 export declare const protobufPackage = "comdex.collector.v1beta1";
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
@@ -13,16 +14,18 @@ export interface QueryParamsResponse {
 }
 export interface QueryCollectorLookupByAppRequest {
     appId: Long;
+    pagination?: PageRequest;
 }
 export interface QueryCollectorLookupByAppResponse {
-    collectorLookup: CollectorLookupTable[];
+    collectorLookup: CollectorLookupTableData[];
+    pagination?: PageResponse;
 }
 export interface QueryCollectorLookupByAppAndAssetRequest {
     appId: Long;
     assetId: Long;
 }
 export interface QueryCollectorLookupByAppAndAssetResponse {
-    collectorLookup?: CollectorLookupTable;
+    collectorLookup?: CollectorLookupTableData;
 }
 export interface QueryCollectorDataByAppAndAssetRequest {
     appId: Long;
@@ -36,14 +39,14 @@ export interface QueryAuctionMappingForAppAndAssetRequest {
     assetId: Long;
 }
 export interface QueryAuctionMappingForAppAndAssetResponse {
-    assetIdToAuctionLookupTable?: AssetIdToAuctionLookupTable;
+    assetIdToAuctionLookupTable?: AppAssetIdToAuctionLookupTable;
 }
 export interface QueryNetFeeCollectedForAppAndAssetRequest {
     appId: Long;
     assetId: Long;
 }
 export interface QueryNetFeeCollectedForAppAndAssetResponse {
-    assetIdToFeeCollected?: AssetIdToFeeCollected;
+    assetIdToFeeCollected?: AppAssetIdToFeeCollectedData;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
@@ -70,6 +73,13 @@ export declare const QueryCollectorLookupByAppRequest: {
     toJSON(message: QueryCollectorLookupByAppRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
+        pagination?: {
+            key?: Uint8Array | undefined;
+            offset?: string | number | Long.Long | undefined;
+            limit?: string | number | Long.Long | undefined;
+            countTotal?: boolean | undefined;
+            reverse?: boolean | undefined;
+        } | undefined;
     } & {
         appId?: string | number | (Long.Long & {
             high: number;
@@ -129,7 +139,134 @@ export declare const QueryCollectorLookupByAppRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryCollectorLookupByAppRequest;
+        pagination?: ({
+            key?: Uint8Array | undefined;
+            offset?: string | number | Long.Long | undefined;
+            limit?: string | number | Long.Long | undefined;
+            countTotal?: boolean | undefined;
+            reverse?: boolean | undefined;
+        } & {
+            key?: Uint8Array | undefined;
+            offset?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["pagination"]["offset"], keyof Long.Long>, never>) | undefined;
+            limit?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["pagination"]["limit"], keyof Long.Long>, never>) | undefined;
+            countTotal?: boolean | undefined;
+            reverse?: boolean | undefined;
+        } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof QueryCollectorLookupByAppRequest>, never>>(object: I): QueryCollectorLookupByAppRequest;
 };
 export declare const QueryCollectorLookupByAppResponse: {
     encode(message: QueryCollectorLookupByAppResponse, writer?: _m0.Writer): _m0.Writer;
@@ -147,7 +284,13 @@ export declare const QueryCollectorLookupByAppResponse: {
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
             debtLotSize?: string | number | Long.Long | undefined;
+            blockHeight?: string | number | Long.Long | undefined;
+            blockTime?: Date | undefined;
         }[] | undefined;
+        pagination?: {
+            nextKey?: Uint8Array | undefined;
+            total?: string | number | Long.Long | undefined;
+        } | undefined;
     } & {
         collectorLookup?: ({
             appId?: string | number | Long.Long | undefined;
@@ -159,6 +302,8 @@ export declare const QueryCollectorLookupByAppResponse: {
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
             debtLotSize?: string | number | Long.Long | undefined;
+            blockHeight?: string | number | Long.Long | undefined;
+            blockTime?: Date | undefined;
         }[] & ({
             appId?: string | number | Long.Long | undefined;
             collectorAssetId?: string | number | Long.Long | undefined;
@@ -169,6 +314,8 @@ export declare const QueryCollectorLookupByAppResponse: {
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
             debtLotSize?: string | number | Long.Long | undefined;
+            blockHeight?: string | number | Long.Long | undefined;
+            blockTime?: Date | undefined;
         } & {
             appId?: string | number | (Long.Long & {
                 high: number;
@@ -578,7 +725,66 @@ export declare const QueryCollectorLookupByAppResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["collectorLookup"][number]["debtLotSize"], keyof Long.Long>, never>) | undefined;
-        } & Record<Exclude<keyof I["collectorLookup"][number], keyof CollectorLookupTable>, never>)[] & Record<Exclude<keyof I["collectorLookup"], keyof {
+            blockHeight?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["collectorLookup"][number]["blockHeight"], keyof Long.Long>, never>) | undefined;
+            blockTime?: Date | undefined;
+        } & Record<Exclude<keyof I["collectorLookup"][number], keyof CollectorLookupTableData>, never>)[] & Record<Exclude<keyof I["collectorLookup"], keyof {
             appId?: string | number | Long.Long | undefined;
             collectorAssetId?: string | number | Long.Long | undefined;
             secondaryAssetId?: string | number | Long.Long | undefined;
@@ -588,8 +794,74 @@ export declare const QueryCollectorLookupByAppResponse: {
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
             debtLotSize?: string | number | Long.Long | undefined;
+            blockHeight?: string | number | Long.Long | undefined;
+            blockTime?: Date | undefined;
         }[]>, never>) | undefined;
-    } & Record<Exclude<keyof I, "collectorLookup">, never>>(object: I): QueryCollectorLookupByAppResponse;
+        pagination?: ({
+            nextKey?: Uint8Array | undefined;
+            total?: string | number | Long.Long | undefined;
+        } & {
+            nextKey?: Uint8Array | undefined;
+            total?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["pagination"]["total"], keyof Long.Long>, never>) | undefined;
+        } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof QueryCollectorLookupByAppResponse>, never>>(object: I): QueryCollectorLookupByAppResponse;
 };
 export declare const QueryCollectorLookupByAppAndAssetRequest: {
     encode(message: QueryCollectorLookupByAppAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
@@ -734,6 +1006,8 @@ export declare const QueryCollectorLookupByAppAndAssetResponse: {
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
             debtLotSize?: string | number | Long.Long | undefined;
+            blockHeight?: string | number | Long.Long | undefined;
+            blockTime?: Date | undefined;
         } | undefined;
     } & {
         collectorLookup?: ({
@@ -746,6 +1020,8 @@ export declare const QueryCollectorLookupByAppAndAssetResponse: {
             lotSize?: string | number | Long.Long | undefined;
             bidFactor?: string | undefined;
             debtLotSize?: string | number | Long.Long | undefined;
+            blockHeight?: string | number | Long.Long | undefined;
+            blockTime?: Date | undefined;
         } & {
             appId?: string | number | (Long.Long & {
                 high: number;
@@ -1155,7 +1431,66 @@ export declare const QueryCollectorLookupByAppAndAssetResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["collectorLookup"]["debtLotSize"], keyof Long.Long>, never>) | undefined;
-        } & Record<Exclude<keyof I["collectorLookup"], keyof CollectorLookupTable>, never>) | undefined;
+            blockHeight?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["collectorLookup"]["blockHeight"], keyof Long.Long>, never>) | undefined;
+            blockTime?: Date | undefined;
+        } & Record<Exclude<keyof I["collectorLookup"], keyof CollectorLookupTableData>, never>) | undefined;
     } & Record<Exclude<keyof I, "collectorLookup">, never>>(object: I): QueryCollectorLookupByAppAndAssetResponse;
 };
 export declare const QueryCollectorDataByAppAndAssetRequest: {
@@ -1445,6 +1780,7 @@ export declare const QueryAuctionMappingForAppAndAssetResponse: {
     toJSON(message: QueryAuctionMappingForAppAndAssetResponse): unknown;
     fromPartial<I extends {
         assetIdToAuctionLookupTable?: {
+            appId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
             isSurplusAuction?: boolean | undefined;
             isDebtAuction?: boolean | undefined;
@@ -1455,6 +1791,7 @@ export declare const QueryAuctionMappingForAppAndAssetResponse: {
         } | undefined;
     } & {
         assetIdToAuctionLookupTable?: ({
+            appId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
             isSurplusAuction?: boolean | undefined;
             isDebtAuction?: boolean | undefined;
@@ -1463,6 +1800,64 @@ export declare const QueryAuctionMappingForAppAndAssetResponse: {
             assetOutOraclePrice?: boolean | undefined;
             assetOutPrice?: string | number | Long.Long | undefined;
         } & {
+            appId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["assetIdToAuctionLookupTable"]["appId"], keyof Long.Long>, never>) | undefined;
             assetId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1584,7 +1979,7 @@ export declare const QueryAuctionMappingForAppAndAssetResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["assetIdToAuctionLookupTable"]["assetOutPrice"], keyof Long.Long>, never>) | undefined;
-        } & Record<Exclude<keyof I["assetIdToAuctionLookupTable"], keyof AssetIdToAuctionLookupTable>, never>) | undefined;
+        } & Record<Exclude<keyof I["assetIdToAuctionLookupTable"], keyof AppAssetIdToAuctionLookupTable>, never>) | undefined;
     } & Record<Exclude<keyof I, "assetIdToAuctionLookupTable">, never>>(object: I): QueryAuctionMappingForAppAndAssetResponse;
 };
 export declare const QueryNetFeeCollectedForAppAndAssetRequest: {
@@ -1721,14 +2116,74 @@ export declare const QueryNetFeeCollectedForAppAndAssetResponse: {
     toJSON(message: QueryNetFeeCollectedForAppAndAssetResponse): unknown;
     fromPartial<I extends {
         assetIdToFeeCollected?: {
+            appId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
             netFeesCollected?: string | undefined;
         } | undefined;
     } & {
         assetIdToFeeCollected?: ({
+            appId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
             netFeesCollected?: string | undefined;
         } & {
+            appId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["assetIdToFeeCollected"]["appId"], keyof Long.Long>, never>) | undefined;
             assetId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1788,7 +2243,7 @@ export declare const QueryNetFeeCollectedForAppAndAssetResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["assetIdToFeeCollected"]["assetId"], keyof Long.Long>, never>) | undefined;
             netFeesCollected?: string | undefined;
-        } & Record<Exclude<keyof I["assetIdToFeeCollected"], keyof AssetIdToFeeCollected>, never>) | undefined;
+        } & Record<Exclude<keyof I["assetIdToFeeCollected"], keyof AppAssetIdToFeeCollectedData>, never>) | undefined;
     } & Record<Exclude<keyof I, "assetIdToFeeCollected">, never>>(object: I): QueryNetFeeCollectedForAppAndAssetResponse;
 };
 /** Query defines the gRPC querier service. */

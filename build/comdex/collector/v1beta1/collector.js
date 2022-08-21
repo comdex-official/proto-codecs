@@ -22,10 +22,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AssetIdToAuctionLookupTable = exports.CollectorAuctionLookupTable = exports.AppToDenomsMapping = exports.CollectorLookup = exports.CollectorLookupTable = exports.AssetIdCollectorMapping = exports.AppIdToAssetCollectorMapping = exports.AssetIdToFeeCollected = exports.NetFeeCollectedData = exports.CollectorData = exports.protobufPackage = void 0;
+exports.AppAssetIdToAuctionLookupTable = exports.AppToDenomsMapping = exports.CollectorLookupTableData = exports.AppToAssetIdCollectorMapping = exports.AppAssetIdToFeeCollectedData = exports.CollectorData = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
+const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.collector.v1beta1";
 function createBaseCollectorData() {
     return {
@@ -116,23 +117,26 @@ exports.CollectorData = {
         return message;
     },
 };
-function createBaseNetFeeCollectedData() {
-    return { appId: long_1.default.UZERO, assetIdToFeeCollected: [] };
+function createBaseAppAssetIdToFeeCollectedData() {
+    return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO, netFeesCollected: "" };
 }
-exports.NetFeeCollectedData = {
+exports.AppAssetIdToFeeCollectedData = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
-        for (const v of message.assetIdToFeeCollected) {
-            exports.AssetIdToFeeCollected.encode(v, writer.uint32(18).fork()).ldelim();
+        if (!message.assetId.isZero()) {
+            writer.uint32(16).uint64(message.assetId);
+        }
+        if (message.netFeesCollected !== "") {
+            writer.uint32(26).string(message.netFeesCollected);
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseNetFeeCollectedData();
+        const message = createBaseAppAssetIdToFeeCollectedData();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -140,71 +144,9 @@ exports.NetFeeCollectedData = {
                     message.appId = reader.uint64();
                     break;
                 case 2:
-                    message.assetIdToFeeCollected.push(exports.AssetIdToFeeCollected.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            assetIdToFeeCollected: Array.isArray(object === null || object === void 0 ? void 0 : object.assetIdToFeeCollected)
-                ? object.assetIdToFeeCollected.map((e) => exports.AssetIdToFeeCollected.fromJSON(e))
-                : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        if (message.assetIdToFeeCollected) {
-            obj.assetIdToFeeCollected = message.assetIdToFeeCollected.map((e) => e ? exports.AssetIdToFeeCollected.toJSON(e) : undefined);
-        }
-        else {
-            obj.assetIdToFeeCollected = [];
-        }
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseNetFeeCollectedData();
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        message.assetIdToFeeCollected =
-            ((_a = object.assetIdToFeeCollected) === null || _a === void 0 ? void 0 : _a.map((e) => exports.AssetIdToFeeCollected.fromPartial(e))) || [];
-        return message;
-    },
-};
-function createBaseAssetIdToFeeCollected() {
-    return { assetId: long_1.default.UZERO, netFeesCollected: "" };
-}
-exports.AssetIdToFeeCollected = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (!message.assetId.isZero()) {
-            writer.uint32(8).uint64(message.assetId);
-        }
-        if (message.netFeesCollected !== "") {
-            writer.uint32(18).string(message.netFeesCollected);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseAssetIdToFeeCollected();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
                     message.assetId = reader.uint64();
                     break;
-                case 2:
+                case 3:
                     message.netFeesCollected = reader.string();
                     break;
                 default:
@@ -216,6 +158,7 @@ exports.AssetIdToFeeCollected = {
     },
     fromJSON(object) {
         return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
@@ -226,6 +169,8 @@ exports.AssetIdToFeeCollected = {
     },
     toJSON(message) {
         const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         message.netFeesCollected !== undefined &&
@@ -234,7 +179,11 @@ exports.AssetIdToFeeCollected = {
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseAssetIdToFeeCollected();
+        const message = createBaseAppAssetIdToFeeCollectedData();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
@@ -243,23 +192,26 @@ exports.AssetIdToFeeCollected = {
         return message;
     },
 };
-function createBaseAppIdToAssetCollectorMapping() {
-    return { appId: long_1.default.UZERO, assetCollector: [] };
+function createBaseAppToAssetIdCollectorMapping() {
+    return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO, collector: undefined };
 }
-exports.AppIdToAssetCollectorMapping = {
+exports.AppToAssetIdCollectorMapping = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
-        for (const v of message.assetCollector) {
-            exports.AssetIdCollectorMapping.encode(v, writer.uint32(18).fork()).ldelim();
+        if (!message.assetId.isZero()) {
+            writer.uint32(16).uint64(message.assetId);
+        }
+        if (message.collector !== undefined) {
+            exports.CollectorData.encode(message.collector, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseAppIdToAssetCollectorMapping();
+        const message = createBaseAppToAssetIdCollectorMapping();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -267,71 +219,9 @@ exports.AppIdToAssetCollectorMapping = {
                     message.appId = reader.uint64();
                     break;
                 case 2:
-                    message.assetCollector.push(exports.AssetIdCollectorMapping.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            assetCollector: Array.isArray(object === null || object === void 0 ? void 0 : object.assetCollector)
-                ? object.assetCollector.map((e) => exports.AssetIdCollectorMapping.fromJSON(e))
-                : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        if (message.assetCollector) {
-            obj.assetCollector = message.assetCollector.map((e) => e ? exports.AssetIdCollectorMapping.toJSON(e) : undefined);
-        }
-        else {
-            obj.assetCollector = [];
-        }
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseAppIdToAssetCollectorMapping();
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        message.assetCollector =
-            ((_a = object.assetCollector) === null || _a === void 0 ? void 0 : _a.map((e) => exports.AssetIdCollectorMapping.fromPartial(e))) || [];
-        return message;
-    },
-};
-function createBaseAssetIdCollectorMapping() {
-    return { assetId: long_1.default.UZERO, collector: undefined };
-}
-exports.AssetIdCollectorMapping = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (!message.assetId.isZero()) {
-            writer.uint32(8).uint64(message.assetId);
-        }
-        if (message.collector !== undefined) {
-            exports.CollectorData.encode(message.collector, writer.uint32(18).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseAssetIdCollectorMapping();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
                     message.assetId = reader.uint64();
                     break;
-                case 2:
+                case 3:
                     message.collector = exports.CollectorData.decode(reader, reader.uint32());
                     break;
                 default:
@@ -343,6 +233,7 @@ exports.AssetIdCollectorMapping = {
     },
     fromJSON(object) {
         return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
@@ -353,6 +244,8 @@ exports.AssetIdCollectorMapping = {
     },
     toJSON(message) {
         const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         message.collector !== undefined &&
@@ -362,7 +255,11 @@ exports.AssetIdCollectorMapping = {
         return obj;
     },
     fromPartial(object) {
-        const message = createBaseAssetIdCollectorMapping();
+        const message = createBaseAppToAssetIdCollectorMapping();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
@@ -374,7 +271,7 @@ exports.AssetIdCollectorMapping = {
         return message;
     },
 };
-function createBaseCollectorLookupTable() {
+function createBaseCollectorLookupTableData() {
     return {
         appId: long_1.default.UZERO,
         collectorAssetId: long_1.default.UZERO,
@@ -385,9 +282,11 @@ function createBaseCollectorLookupTable() {
         lotSize: long_1.default.UZERO,
         bidFactor: "",
         debtLotSize: long_1.default.UZERO,
+        blockHeight: long_1.default.ZERO,
+        blockTime: undefined,
     };
 }
-exports.CollectorLookupTable = {
+exports.CollectorLookupTableData = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
@@ -416,12 +315,18 @@ exports.CollectorLookupTable = {
         if (!message.debtLotSize.isZero()) {
             writer.uint32(72).uint64(message.debtLotSize);
         }
+        if (!message.blockHeight.isZero()) {
+            writer.uint32(80).int64(message.blockHeight);
+        }
+        if (message.blockTime !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.blockTime), writer.uint32(90).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseCollectorLookupTable();
+        const message = createBaseCollectorLookupTableData();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -451,6 +356,12 @@ exports.CollectorLookupTable = {
                     break;
                 case 9:
                     message.debtLotSize = reader.uint64();
+                    break;
+                case 10:
+                    message.blockHeight = reader.int64();
+                    break;
+                case 11:
+                    message.blockTime = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -484,6 +395,12 @@ exports.CollectorLookupTable = {
             debtLotSize: isSet(object.debtLotSize)
                 ? long_1.default.fromValue(object.debtLotSize)
                 : long_1.default.UZERO,
+            blockHeight: isSet(object.blockHeight)
+                ? long_1.default.fromValue(object.blockHeight)
+                : long_1.default.ZERO,
+            blockTime: isSet(object.blockTime)
+                ? fromJsonTimestamp(object.blockTime)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -505,11 +422,15 @@ exports.CollectorLookupTable = {
         message.bidFactor !== undefined && (obj.bidFactor = message.bidFactor);
         message.debtLotSize !== undefined &&
             (obj.debtLotSize = (message.debtLotSize || long_1.default.UZERO).toString());
+        message.blockHeight !== undefined &&
+            (obj.blockHeight = (message.blockHeight || long_1.default.ZERO).toString());
+        message.blockTime !== undefined &&
+            (obj.blockTime = message.blockTime.toISOString());
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
-        const message = createBaseCollectorLookupTable();
+        var _a, _b, _c;
+        const message = createBaseCollectorLookupTableData();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
@@ -540,72 +461,11 @@ exports.CollectorLookupTable = {
             object.debtLotSize !== undefined && object.debtLotSize !== null
                 ? long_1.default.fromValue(object.debtLotSize)
                 : long_1.default.UZERO;
-        return message;
-    },
-};
-function createBaseCollectorLookup() {
-    return { appId: long_1.default.UZERO, assetRateInfo: [] };
-}
-exports.CollectorLookup = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (!message.appId.isZero()) {
-            writer.uint32(8).uint64(message.appId);
-        }
-        for (const v of message.assetRateInfo) {
-            exports.CollectorLookupTable.encode(v, writer.uint32(18).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseCollectorLookup();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.appId = reader.uint64();
-                    break;
-                case 2:
-                    message.assetRateInfo.push(exports.CollectorLookupTable.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            assetRateInfo: Array.isArray(object === null || object === void 0 ? void 0 : object.assetRateInfo)
-                ? object.assetRateInfo.map((e) => exports.CollectorLookupTable.fromJSON(e))
-                : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        if (message.assetRateInfo) {
-            obj.assetRateInfo = message.assetRateInfo.map((e) => e ? exports.CollectorLookupTable.toJSON(e) : undefined);
-        }
-        else {
-            obj.assetRateInfo = [];
-        }
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseCollectorLookup();
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        message.assetRateInfo =
-            ((_a = object.assetRateInfo) === null || _a === void 0 ? void 0 : _a.map((e) => exports.CollectorLookupTable.fromPartial(e))) ||
-                [];
+        message.blockHeight =
+            object.blockHeight !== undefined && object.blockHeight !== null
+                ? long_1.default.fromValue(object.blockHeight)
+                : long_1.default.ZERO;
+        message.blockTime = (_c = object.blockTime) !== null && _c !== void 0 ? _c : undefined;
         return message;
     },
 };
@@ -683,73 +543,9 @@ exports.AppToDenomsMapping = {
         return message;
     },
 };
-function createBaseCollectorAuctionLookupTable() {
-    return { appId: long_1.default.UZERO, assetIdToAuctionLookup: [] };
-}
-exports.CollectorAuctionLookupTable = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (!message.appId.isZero()) {
-            writer.uint32(8).uint64(message.appId);
-        }
-        for (const v of message.assetIdToAuctionLookup) {
-            exports.AssetIdToAuctionLookupTable.encode(v, writer.uint32(18).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseCollectorAuctionLookupTable();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.appId = reader.uint64();
-                    break;
-                case 2:
-                    message.assetIdToAuctionLookup.push(exports.AssetIdToAuctionLookupTable.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            assetIdToAuctionLookup: Array.isArray(object === null || object === void 0 ? void 0 : object.assetIdToAuctionLookup)
-                ? object.assetIdToAuctionLookup.map((e) => exports.AssetIdToAuctionLookupTable.fromJSON(e))
-                : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        if (message.assetIdToAuctionLookup) {
-            obj.assetIdToAuctionLookup = message.assetIdToAuctionLookup.map((e) => e ? exports.AssetIdToAuctionLookupTable.toJSON(e) : undefined);
-        }
-        else {
-            obj.assetIdToAuctionLookup = [];
-        }
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseCollectorAuctionLookupTable();
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        message.assetIdToAuctionLookup =
-            ((_a = object.assetIdToAuctionLookup) === null || _a === void 0 ? void 0 : _a.map((e) => exports.AssetIdToAuctionLookupTable.fromPartial(e))) || [];
-        return message;
-    },
-};
-function createBaseAssetIdToAuctionLookupTable() {
+function createBaseAppAssetIdToAuctionLookupTable() {
     return {
+        appId: long_1.default.UZERO,
         assetId: long_1.default.UZERO,
         isSurplusAuction: false,
         isDebtAuction: false,
@@ -759,57 +555,63 @@ function createBaseAssetIdToAuctionLookupTable() {
         assetOutPrice: long_1.default.UZERO,
     };
 }
-exports.AssetIdToAuctionLookupTable = {
+exports.AppAssetIdToAuctionLookupTable = {
     encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
         if (!message.assetId.isZero()) {
-            writer.uint32(8).uint64(message.assetId);
+            writer.uint32(16).uint64(message.assetId);
         }
         if (message.isSurplusAuction === true) {
-            writer.uint32(16).bool(message.isSurplusAuction);
+            writer.uint32(24).bool(message.isSurplusAuction);
         }
         if (message.isDebtAuction === true) {
-            writer.uint32(24).bool(message.isDebtAuction);
+            writer.uint32(32).bool(message.isDebtAuction);
         }
         if (message.isDistributor === true) {
-            writer.uint32(32).bool(message.isDistributor);
+            writer.uint32(40).bool(message.isDistributor);
         }
         if (message.isAuctionActive === true) {
-            writer.uint32(40).bool(message.isAuctionActive);
+            writer.uint32(48).bool(message.isAuctionActive);
         }
         if (message.assetOutOraclePrice === true) {
-            writer.uint32(48).bool(message.assetOutOraclePrice);
+            writer.uint32(56).bool(message.assetOutOraclePrice);
         }
         if (!message.assetOutPrice.isZero()) {
-            writer.uint32(56).uint64(message.assetOutPrice);
+            writer.uint32(64).uint64(message.assetOutPrice);
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseAssetIdToAuctionLookupTable();
+        const message = createBaseAppAssetIdToAuctionLookupTable();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.assetId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
-                    message.isSurplusAuction = reader.bool();
+                    message.assetId = reader.uint64();
                     break;
                 case 3:
-                    message.isDebtAuction = reader.bool();
+                    message.isSurplusAuction = reader.bool();
                     break;
                 case 4:
-                    message.isDistributor = reader.bool();
+                    message.isDebtAuction = reader.bool();
                     break;
                 case 5:
-                    message.isAuctionActive = reader.bool();
+                    message.isDistributor = reader.bool();
                     break;
                 case 6:
-                    message.assetOutOraclePrice = reader.bool();
+                    message.isAuctionActive = reader.bool();
                     break;
                 case 7:
+                    message.assetOutOraclePrice = reader.bool();
+                    break;
+                case 8:
                     message.assetOutPrice = reader.uint64();
                     break;
                 default:
@@ -821,6 +623,7 @@ exports.AssetIdToAuctionLookupTable = {
     },
     fromJSON(object) {
         return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
@@ -846,6 +649,8 @@ exports.AssetIdToAuctionLookupTable = {
     },
     toJSON(message) {
         const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         message.isSurplusAuction !== undefined &&
@@ -864,7 +669,11 @@ exports.AssetIdToAuctionLookupTable = {
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e;
-        const message = createBaseAssetIdToAuctionLookupTable();
+        const message = createBaseAppAssetIdToAuctionLookupTable();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
@@ -881,6 +690,30 @@ exports.AssetIdToAuctionLookupTable = {
         return message;
     },
 };
+function toTimestamp(date) {
+    const seconds = numberToLong(date.getTime() / 1000);
+    const nanos = (date.getTime() % 1000) * 1000000;
+    return { seconds, nanos };
+}
+function fromTimestamp(t) {
+    let millis = t.seconds.toNumber() * 1000;
+    millis += t.nanos / 1000000;
+    return new Date(millis);
+}
+function fromJsonTimestamp(o) {
+    if (o instanceof Date) {
+        return o;
+    }
+    else if (typeof o === "string") {
+        return new Date(o);
+    }
+    else {
+        return fromTimestamp(timestamp_1.Timestamp.fromJSON(o));
+    }
+}
+function numberToLong(number) {
+    return long_1.default.fromNumber(number);
+}
 if (_m0.util.Long !== long_1.default) {
     _m0.util.Long = long_1.default;
     _m0.configure();

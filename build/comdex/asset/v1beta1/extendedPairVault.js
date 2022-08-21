@@ -26,6 +26,7 @@ exports.ExtendedPairVault = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
+const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.asset.v1beta1";
 function createBaseExtendedPairVault() {
     return {
@@ -45,6 +46,8 @@ function createBaseExtendedPairVault() {
         assetOutOraclePrice: false,
         assetOutPrice: long_1.default.UZERO,
         minUsdValueLeft: long_1.default.UZERO,
+        blockHeight: long_1.default.ZERO,
+        blockTime: undefined,
     };
 }
 exports.ExtendedPairVault = {
@@ -96,6 +99,12 @@ exports.ExtendedPairVault = {
         }
         if (!message.minUsdValueLeft.isZero()) {
             writer.uint32(128).uint64(message.minUsdValueLeft);
+        }
+        if (!message.blockHeight.isZero()) {
+            writer.uint32(136).int64(message.blockHeight);
+        }
+        if (message.blockTime !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.blockTime), writer.uint32(146).fork()).ldelim();
         }
         return writer;
     },
@@ -154,6 +163,12 @@ exports.ExtendedPairVault = {
                 case 16:
                     message.minUsdValueLeft = reader.uint64();
                     break;
+                case 17:
+                    message.blockHeight = reader.int64();
+                    break;
+                case 18:
+                    message.blockTime = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -193,6 +208,12 @@ exports.ExtendedPairVault = {
             minUsdValueLeft: isSet(object.minUsdValueLeft)
                 ? long_1.default.fromValue(object.minUsdValueLeft)
                 : long_1.default.UZERO,
+            blockHeight: isSet(object.blockHeight)
+                ? long_1.default.fromValue(object.blockHeight)
+                : long_1.default.ZERO,
+            blockTime: isSet(object.blockTime)
+                ? fromJsonTimestamp(object.blockTime)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -225,10 +246,14 @@ exports.ExtendedPairVault = {
             (obj.assetOutPrice = (message.assetOutPrice || long_1.default.UZERO).toString());
         message.minUsdValueLeft !== undefined &&
             (obj.minUsdValueLeft = (message.minUsdValueLeft || long_1.default.UZERO).toString());
+        message.blockHeight !== undefined &&
+            (obj.blockHeight = (message.blockHeight || long_1.default.ZERO).toString());
+        message.blockTime !== undefined &&
+            (obj.blockTime = message.blockTime.toISOString());
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
         const message = createBaseExtendedPairVault();
         message.id =
             object.id !== undefined && object.id !== null
@@ -261,9 +286,38 @@ exports.ExtendedPairVault = {
             object.minUsdValueLeft !== undefined && object.minUsdValueLeft !== null
                 ? long_1.default.fromValue(object.minUsdValueLeft)
                 : long_1.default.UZERO;
+        message.blockHeight =
+            object.blockHeight !== undefined && object.blockHeight !== null
+                ? long_1.default.fromValue(object.blockHeight)
+                : long_1.default.ZERO;
+        message.blockTime = (_m = object.blockTime) !== null && _m !== void 0 ? _m : undefined;
         return message;
     },
 };
+function toTimestamp(date) {
+    const seconds = numberToLong(date.getTime() / 1000);
+    const nanos = (date.getTime() % 1000) * 1000000;
+    return { seconds, nanos };
+}
+function fromTimestamp(t) {
+    let millis = t.seconds.toNumber() * 1000;
+    millis += t.nanos / 1000000;
+    return new Date(millis);
+}
+function fromJsonTimestamp(o) {
+    if (o instanceof Date) {
+        return o;
+    }
+    else if (typeof o === "string") {
+        return new Date(o);
+    }
+    else {
+        return fromTimestamp(timestamp_1.Timestamp.fromJSON(o));
+    }
+}
+function numberToLong(number) {
+    return long_1.default.fromNumber(number);
+}
 if (_m0.util.Long !== long_1.default) {
     _m0.util.Long = long_1.default;
     _m0.configure();

@@ -18,6 +18,7 @@ export interface MintGenesisToken {
 export interface AppAndGovTime {
     appId: Long;
     govTimeInSeconds: number;
+    minGovDeposit: string;
 }
 export declare const AppData: {
     encode(message: AppData, writer?: _m0.Writer): _m0.Writer;
@@ -261,6 +262,7 @@ export declare const AppAndGovTime: {
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
         govTimeInSeconds?: number | undefined;
+        minGovDeposit?: string | undefined;
     } & {
         appId?: string | number | (Long.Long & {
             high: number;
@@ -321,6 +323,7 @@ export declare const AppAndGovTime: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
         govTimeInSeconds?: number | undefined;
+        minGovDeposit?: string | undefined;
     } & Record<Exclude<keyof I, keyof AppAndGovTime>, never>>(object: I): AppAndGovTime;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
