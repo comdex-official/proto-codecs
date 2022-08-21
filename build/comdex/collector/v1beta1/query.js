@@ -27,6 +27,7 @@ exports.QueryClientImpl = exports.QueryNetFeeCollectedForAppAndAssetResponse = e
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 const params_1 = require("../../../comdex/collector/v1beta1/params");
+const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 const collector_1 = require("../../../comdex/collector/v1beta1/collector");
 exports.protobufPackage = "comdex.collector.v1beta1";
 function createBaseQueryParamsRequest() {
@@ -110,12 +111,15 @@ exports.QueryParamsResponse = {
     },
 };
 function createBaseQueryCollectorLookupByAppRequest() {
-    return { appId: long_1.default.UZERO };
+    return { appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryCollectorLookupByAppRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -129,6 +133,9 @@ exports.QueryCollectorLookupByAppRequest = {
                 case 1:
                     message.appId = reader.uint64();
                     break;
+                case 2:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -139,12 +146,19 @@ exports.QueryCollectorLookupByAppRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -153,16 +167,23 @@ exports.QueryCollectorLookupByAppRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
 function createBaseQueryCollectorLookupByAppResponse() {
-    return { collectorLookup: [] };
+    return { collectorLookup: [], pagination: undefined };
 }
 exports.QueryCollectorLookupByAppResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.collectorLookup) {
-            collector_1.CollectorLookupTable.encode(v, writer.uint32(10).fork()).ldelim();
+            collector_1.CollectorLookupTableData.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -174,7 +195,10 @@ exports.QueryCollectorLookupByAppResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.collectorLookup.push(collector_1.CollectorLookupTable.decode(reader, reader.uint32()));
+                    message.collectorLookup.push(collector_1.CollectorLookupTableData.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -186,26 +210,36 @@ exports.QueryCollectorLookupByAppResponse = {
     fromJSON(object) {
         return {
             collectorLookup: Array.isArray(object === null || object === void 0 ? void 0 : object.collectorLookup)
-                ? object.collectorLookup.map((e) => collector_1.CollectorLookupTable.fromJSON(e))
+                ? object.collectorLookup.map((e) => collector_1.CollectorLookupTableData.fromJSON(e))
                 : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.collectorLookup) {
-            obj.collectorLookup = message.collectorLookup.map((e) => e ? collector_1.CollectorLookupTable.toJSON(e) : undefined);
+            obj.collectorLookup = message.collectorLookup.map((e) => e ? collector_1.CollectorLookupTableData.toJSON(e) : undefined);
         }
         else {
             obj.collectorLookup = [];
         }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryCollectorLookupByAppResponse();
         message.collectorLookup =
-            ((_a = object.collectorLookup) === null || _a === void 0 ? void 0 : _a.map((e) => collector_1.CollectorLookupTable.fromPartial(e))) ||
-                [];
+            ((_a = object.collectorLookup) === null || _a === void 0 ? void 0 : _a.map((e) => collector_1.CollectorLookupTableData.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
         return message;
     },
 };
@@ -277,7 +311,7 @@ function createBaseQueryCollectorLookupByAppAndAssetResponse() {
 exports.QueryCollectorLookupByAppAndAssetResponse = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.collectorLookup !== undefined) {
-            collector_1.CollectorLookupTable.encode(message.collectorLookup, writer.uint32(10).fork()).ldelim();
+            collector_1.CollectorLookupTableData.encode(message.collectorLookup, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -289,7 +323,7 @@ exports.QueryCollectorLookupByAppAndAssetResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.collectorLookup = collector_1.CollectorLookupTable.decode(reader, reader.uint32());
+                    message.collectorLookup = collector_1.CollectorLookupTableData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -301,7 +335,7 @@ exports.QueryCollectorLookupByAppAndAssetResponse = {
     fromJSON(object) {
         return {
             collectorLookup: isSet(object.collectorLookup)
-                ? collector_1.CollectorLookupTable.fromJSON(object.collectorLookup)
+                ? collector_1.CollectorLookupTableData.fromJSON(object.collectorLookup)
                 : undefined,
         };
     },
@@ -309,7 +343,7 @@ exports.QueryCollectorLookupByAppAndAssetResponse = {
         const obj = {};
         message.collectorLookup !== undefined &&
             (obj.collectorLookup = message.collectorLookup
-                ? collector_1.CollectorLookupTable.toJSON(message.collectorLookup)
+                ? collector_1.CollectorLookupTableData.toJSON(message.collectorLookup)
                 : undefined);
         return obj;
     },
@@ -317,7 +351,7 @@ exports.QueryCollectorLookupByAppAndAssetResponse = {
         const message = createBaseQueryCollectorLookupByAppAndAssetResponse();
         message.collectorLookup =
             object.collectorLookup !== undefined && object.collectorLookup !== null
-                ? collector_1.CollectorLookupTable.fromPartial(object.collectorLookup)
+                ? collector_1.CollectorLookupTableData.fromPartial(object.collectorLookup)
                 : undefined;
         return message;
     },
@@ -503,7 +537,7 @@ function createBaseQueryAuctionMappingForAppAndAssetResponse() {
 exports.QueryAuctionMappingForAppAndAssetResponse = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.assetIdToAuctionLookupTable !== undefined) {
-            collector_1.AssetIdToAuctionLookupTable.encode(message.assetIdToAuctionLookupTable, writer.uint32(10).fork()).ldelim();
+            collector_1.AppAssetIdToAuctionLookupTable.encode(message.assetIdToAuctionLookupTable, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -516,7 +550,7 @@ exports.QueryAuctionMappingForAppAndAssetResponse = {
             switch (tag >>> 3) {
                 case 1:
                     message.assetIdToAuctionLookupTable =
-                        collector_1.AssetIdToAuctionLookupTable.decode(reader, reader.uint32());
+                        collector_1.AppAssetIdToAuctionLookupTable.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -528,7 +562,7 @@ exports.QueryAuctionMappingForAppAndAssetResponse = {
     fromJSON(object) {
         return {
             assetIdToAuctionLookupTable: isSet(object.assetIdToAuctionLookupTable)
-                ? collector_1.AssetIdToAuctionLookupTable.fromJSON(object.assetIdToAuctionLookupTable)
+                ? collector_1.AppAssetIdToAuctionLookupTable.fromJSON(object.assetIdToAuctionLookupTable)
                 : undefined,
         };
     },
@@ -536,7 +570,7 @@ exports.QueryAuctionMappingForAppAndAssetResponse = {
         const obj = {};
         message.assetIdToAuctionLookupTable !== undefined &&
             (obj.assetIdToAuctionLookupTable = message.assetIdToAuctionLookupTable
-                ? collector_1.AssetIdToAuctionLookupTable.toJSON(message.assetIdToAuctionLookupTable)
+                ? collector_1.AppAssetIdToAuctionLookupTable.toJSON(message.assetIdToAuctionLookupTable)
                 : undefined);
         return obj;
     },
@@ -545,7 +579,7 @@ exports.QueryAuctionMappingForAppAndAssetResponse = {
         message.assetIdToAuctionLookupTable =
             object.assetIdToAuctionLookupTable !== undefined &&
                 object.assetIdToAuctionLookupTable !== null
-                ? collector_1.AssetIdToAuctionLookupTable.fromPartial(object.assetIdToAuctionLookupTable)
+                ? collector_1.AppAssetIdToAuctionLookupTable.fromPartial(object.assetIdToAuctionLookupTable)
                 : undefined;
         return message;
     },
@@ -618,7 +652,7 @@ function createBaseQueryNetFeeCollectedForAppAndAssetResponse() {
 exports.QueryNetFeeCollectedForAppAndAssetResponse = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.assetIdToFeeCollected !== undefined) {
-            collector_1.AssetIdToFeeCollected.encode(message.assetIdToFeeCollected, writer.uint32(10).fork()).ldelim();
+            collector_1.AppAssetIdToFeeCollectedData.encode(message.assetIdToFeeCollected, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -630,7 +664,7 @@ exports.QueryNetFeeCollectedForAppAndAssetResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.assetIdToFeeCollected = collector_1.AssetIdToFeeCollected.decode(reader, reader.uint32());
+                    message.assetIdToFeeCollected = collector_1.AppAssetIdToFeeCollectedData.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -642,7 +676,7 @@ exports.QueryNetFeeCollectedForAppAndAssetResponse = {
     fromJSON(object) {
         return {
             assetIdToFeeCollected: isSet(object.assetIdToFeeCollected)
-                ? collector_1.AssetIdToFeeCollected.fromJSON(object.assetIdToFeeCollected)
+                ? collector_1.AppAssetIdToFeeCollectedData.fromJSON(object.assetIdToFeeCollected)
                 : undefined,
         };
     },
@@ -650,7 +684,7 @@ exports.QueryNetFeeCollectedForAppAndAssetResponse = {
         const obj = {};
         message.assetIdToFeeCollected !== undefined &&
             (obj.assetIdToFeeCollected = message.assetIdToFeeCollected
-                ? collector_1.AssetIdToFeeCollected.toJSON(message.assetIdToFeeCollected)
+                ? collector_1.AppAssetIdToFeeCollectedData.toJSON(message.assetIdToFeeCollected)
                 : undefined);
         return obj;
     },
@@ -659,7 +693,7 @@ exports.QueryNetFeeCollectedForAppAndAssetResponse = {
         message.assetIdToFeeCollected =
             object.assetIdToFeeCollected !== undefined &&
                 object.assetIdToFeeCollected !== null
-                ? collector_1.AssetIdToFeeCollected.fromPartial(object.assetIdToFeeCollected)
+                ? collector_1.AppAssetIdToFeeCollectedData.fromPartial(object.assetIdToFeeCollected)
                 : undefined;
         return message;
     },

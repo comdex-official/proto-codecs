@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgClientImpl = exports.MsgWithdrawStableMintResponse = exports.MsgWithdrawStableMintRequest = exports.MsgDepositStableMintResponse = exports.MsgDepositStableMintRequest = exports.MsgCreateStableMintResponse = exports.MsgCreateStableMintRequest = exports.MsgCloseResponse = exports.MsgCloseRequest = exports.MsgRepayResponse = exports.MsgRepayRequest = exports.MsgDrawResponse = exports.MsgDrawRequest = exports.MsgWithdrawResponse = exports.MsgWithdrawRequest = exports.MsgDepositResponse = exports.MsgDepositRequest = exports.MsgCreateResponse = exports.MsgCreateRequest = exports.protobufPackage = void 0;
+exports.MsgClientImpl = exports.MsgWithdrawStableMintResponse = exports.MsgWithdrawStableMintRequest = exports.MsgDepositStableMintResponse = exports.MsgDepositStableMintRequest = exports.MsgCreateStableMintResponse = exports.MsgCreateStableMintRequest = exports.MsgDepositAndDrawResponse = exports.MsgDepositAndDrawRequest = exports.MsgCloseResponse = exports.MsgCloseRequest = exports.MsgRepayResponse = exports.MsgRepayRequest = exports.MsgDrawResponse = exports.MsgDrawRequest = exports.MsgWithdrawResponse = exports.MsgWithdrawRequest = exports.MsgDepositResponse = exports.MsgDepositRequest = exports.MsgCreateResponse = exports.MsgCreateRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -827,6 +827,142 @@ exports.MsgCloseResponse = {
         return message;
     },
 };
+function createBaseMsgDepositAndDrawRequest() {
+    return {
+        from: "",
+        appId: long_1.default.UZERO,
+        extendedPairVaultId: long_1.default.UZERO,
+        userVaultId: long_1.default.UZERO,
+        amount: "",
+    };
+}
+exports.MsgDepositAndDrawRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.from !== "") {
+            writer.uint32(10).string(message.from);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
+        }
+        if (!message.extendedPairVaultId.isZero()) {
+            writer.uint32(24).uint64(message.extendedPairVaultId);
+        }
+        if (!message.userVaultId.isZero()) {
+            writer.uint32(32).uint64(message.userVaultId);
+        }
+        if (message.amount !== "") {
+            writer.uint32(42).string(message.amount);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgDepositAndDrawRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.from = reader.string();
+                    break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
+                case 3:
+                    message.extendedPairVaultId = reader.uint64();
+                    break;
+                case 4:
+                    message.userVaultId = reader.uint64();
+                    break;
+                case 5:
+                    message.amount = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            extendedPairVaultId: isSet(object.extendedPairVaultId)
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO,
+            userVaultId: isSet(object.userVaultId)
+                ? long_1.default.fromValue(object.userVaultId)
+                : long_1.default.UZERO,
+            amount: isSet(object.amount) ? String(object.amount) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.from !== undefined && (obj.from = message.from);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.extendedPairVaultId !== undefined &&
+            (obj.extendedPairVaultId = (message.extendedPairVaultId || long_1.default.UZERO).toString());
+        message.userVaultId !== undefined &&
+            (obj.userVaultId = (message.userVaultId || long_1.default.UZERO).toString());
+        message.amount !== undefined && (obj.amount = message.amount);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseMsgDepositAndDrawRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.extendedPairVaultId =
+            object.extendedPairVaultId !== undefined &&
+                object.extendedPairVaultId !== null
+                ? long_1.default.fromValue(object.extendedPairVaultId)
+                : long_1.default.UZERO;
+        message.userVaultId =
+            object.userVaultId !== undefined && object.userVaultId !== null
+                ? long_1.default.fromValue(object.userVaultId)
+                : long_1.default.UZERO;
+        message.amount = (_b = object.amount) !== null && _b !== void 0 ? _b : "";
+        return message;
+    },
+};
+function createBaseMsgDepositAndDrawResponse() {
+    return {};
+}
+exports.MsgDepositAndDrawResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgDepositAndDrawResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgDepositAndDrawResponse();
+        return message;
+    },
+};
 function createBaseMsgCreateStableMintRequest() {
     return {
         from: "",
@@ -1228,6 +1364,7 @@ class MsgClientImpl {
         this.MsgDraw = this.MsgDraw.bind(this);
         this.MsgRepay = this.MsgRepay.bind(this);
         this.MsgClose = this.MsgClose.bind(this);
+        this.MsgDepositAndDraw = this.MsgDepositAndDraw.bind(this);
         this.MsgCreateStableMint = this.MsgCreateStableMint.bind(this);
         this.MsgDepositStableMint = this.MsgDepositStableMint.bind(this);
         this.MsgWithdrawStableMint = this.MsgWithdrawStableMint.bind(this);
@@ -1261,6 +1398,11 @@ class MsgClientImpl {
         const data = exports.MsgCloseRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Msg", "MsgClose", data);
         return promise.then((data) => exports.MsgCloseResponse.decode(new _m0.Reader(data)));
+    }
+    MsgDepositAndDraw(request) {
+        const data = exports.MsgDepositAndDrawRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Msg", "MsgDepositAndDraw", data);
+        return promise.then((data) => exports.MsgDepositAndDrawResponse.decode(new _m0.Reader(data)));
     }
     MsgCreateStableMint(request) {
         const data = exports.MsgCreateStableMintRequest.encode(request).finish();

@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LockerTotalRewardsByAssetAppWise = exports.LockedDepositedAmountDataMap = exports.LockerProductAssetMapping = exports.TokenToLockerMapping = exports.LockerLookupTable = exports.UserTxData = exports.AssetToLockerMapping = exports.LockerToAppMapping = exports.UserLockerAssetMapping = exports.Locker = exports.protobufPackage = void 0;
+exports.LockerTotalRewardsByAssetAppWise = exports.LockedDepositedAmountDataMap = exports.LockerProductAssetMapping = exports.LockerLookupTableData = exports.UserTxData = exports.UserAppAssetLockerMapping = exports.Locker = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -38,6 +38,8 @@ function createBaseLocker() {
         assetDepositId: long_1.default.UZERO,
         isLocked: false,
         appId: long_1.default.UZERO,
+        blockHeight: long_1.default.ZERO,
+        blockTime: undefined,
     };
 }
 exports.Locker = {
@@ -65,6 +67,12 @@ exports.Locker = {
         }
         if (!message.appId.isZero()) {
             writer.uint32(64).uint64(message.appId);
+        }
+        if (!message.blockHeight.isZero()) {
+            writer.uint32(72).int64(message.blockHeight);
+        }
+        if (message.blockTime !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.blockTime), writer.uint32(82).fork()).ldelim();
         }
         return writer;
     },
@@ -99,6 +107,12 @@ exports.Locker = {
                 case 8:
                     message.appId = reader.uint64();
                     break;
+                case 9:
+                    message.blockHeight = reader.int64();
+                    break;
+                case 10:
+                    message.blockTime = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -124,6 +138,12 @@ exports.Locker = {
                 : long_1.default.UZERO,
             isLocked: isSet(object.isLocked) ? Boolean(object.isLocked) : false,
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            blockHeight: isSet(object.blockHeight)
+                ? long_1.default.fromValue(object.blockHeight)
+                : long_1.default.ZERO,
+            blockTime: isSet(object.blockTime)
+                ? fromJsonTimestamp(object.blockTime)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -141,10 +161,14 @@ exports.Locker = {
         message.isLocked !== undefined && (obj.isLocked = message.isLocked);
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.blockHeight !== undefined &&
+            (obj.blockHeight = (message.blockHeight || long_1.default.ZERO).toString());
+        message.blockTime !== undefined &&
+            (obj.blockTime = message.blockTime.toISOString());
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         const message = createBaseLocker();
         message.lockerId =
             object.lockerId !== undefined && object.lockerId !== null
@@ -163,26 +187,46 @@ exports.Locker = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.blockHeight =
+            object.blockHeight !== undefined && object.blockHeight !== null
+                ? long_1.default.fromValue(object.blockHeight)
+                : long_1.default.ZERO;
+        message.blockTime = (_f = object.blockTime) !== null && _f !== void 0 ? _f : undefined;
         return message;
     },
 };
-function createBaseUserLockerAssetMapping() {
-    return { owner: "", lockerAppMapping: [] };
+function createBaseUserAppAssetLockerMapping() {
+    return {
+        owner: "",
+        appId: long_1.default.UZERO,
+        assetId: long_1.default.UZERO,
+        lockerId: long_1.default.UZERO,
+        userData: [],
+    };
 }
-exports.UserLockerAssetMapping = {
+exports.UserAppAssetLockerMapping = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.owner !== "") {
             writer.uint32(10).string(message.owner);
         }
-        for (const v of message.lockerAppMapping) {
-            exports.LockerToAppMapping.encode(v, writer.uint32(18).fork()).ldelim();
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
+        }
+        if (!message.assetId.isZero()) {
+            writer.uint32(24).uint64(message.assetId);
+        }
+        if (!message.lockerId.isZero()) {
+            writer.uint32(32).uint64(message.lockerId);
+        }
+        for (const v of message.userData) {
+            exports.UserTxData.encode(v, writer.uint32(42).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseUserLockerAssetMapping();
+        const message = createBaseUserAppAssetLockerMapping();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -190,140 +234,15 @@ exports.UserLockerAssetMapping = {
                     message.owner = reader.string();
                     break;
                 case 2:
-                    message.lockerAppMapping.push(exports.LockerToAppMapping.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            owner: isSet(object.owner) ? String(object.owner) : "",
-            lockerAppMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerAppMapping)
-                ? object.lockerAppMapping.map((e) => exports.LockerToAppMapping.fromJSON(e))
-                : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.owner !== undefined && (obj.owner = message.owner);
-        if (message.lockerAppMapping) {
-            obj.lockerAppMapping = message.lockerAppMapping.map((e) => e ? exports.LockerToAppMapping.toJSON(e) : undefined);
-        }
-        else {
-            obj.lockerAppMapping = [];
-        }
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b;
-        const message = createBaseUserLockerAssetMapping();
-        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
-        message.lockerAppMapping =
-            ((_b = object.lockerAppMapping) === null || _b === void 0 ? void 0 : _b.map((e) => exports.LockerToAppMapping.fromPartial(e))) ||
-                [];
-        return message;
-    },
-};
-function createBaseLockerToAppMapping() {
-    return { appId: long_1.default.UZERO, userAssetLocker: [] };
-}
-exports.LockerToAppMapping = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (!message.appId.isZero()) {
-            writer.uint32(8).uint64(message.appId);
-        }
-        for (const v of message.userAssetLocker) {
-            exports.AssetToLockerMapping.encode(v, writer.uint32(18).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseLockerToAppMapping();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
                     message.appId = reader.uint64();
                     break;
-                case 2:
-                    message.userAssetLocker.push(exports.AssetToLockerMapping.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            userAssetLocker: Array.isArray(object === null || object === void 0 ? void 0 : object.userAssetLocker)
-                ? object.userAssetLocker.map((e) => exports.AssetToLockerMapping.fromJSON(e))
-                : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        if (message.userAssetLocker) {
-            obj.userAssetLocker = message.userAssetLocker.map((e) => e ? exports.AssetToLockerMapping.toJSON(e) : undefined);
-        }
-        else {
-            obj.userAssetLocker = [];
-        }
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseLockerToAppMapping();
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        message.userAssetLocker =
-            ((_a = object.userAssetLocker) === null || _a === void 0 ? void 0 : _a.map((e) => exports.AssetToLockerMapping.fromPartial(e))) ||
-                [];
-        return message;
-    },
-};
-function createBaseAssetToLockerMapping() {
-    return { assetId: long_1.default.UZERO, lockerId: long_1.default.UZERO, userData: [] };
-}
-exports.AssetToLockerMapping = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (!message.assetId.isZero()) {
-            writer.uint32(8).uint64(message.assetId);
-        }
-        if (!message.lockerId.isZero()) {
-            writer.uint32(16).uint64(message.lockerId);
-        }
-        for (const v of message.userData) {
-            exports.UserTxData.encode(v, writer.uint32(26).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseAssetToLockerMapping();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
+                case 3:
                     message.assetId = reader.uint64();
                     break;
-                case 2:
+                case 4:
                     message.lockerId = reader.uint64();
                     break;
-                case 3:
+                case 5:
                     message.userData.push(exports.UserTxData.decode(reader, reader.uint32()));
                     break;
                 default:
@@ -335,6 +254,8 @@ exports.AssetToLockerMapping = {
     },
     fromJSON(object) {
         return {
+            owner: isSet(object.owner) ? String(object.owner) : "",
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
@@ -348,6 +269,9 @@ exports.AssetToLockerMapping = {
     },
     toJSON(message) {
         const obj = {};
+        message.owner !== undefined && (obj.owner = message.owner);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         message.lockerId !== undefined &&
@@ -361,8 +285,13 @@ exports.AssetToLockerMapping = {
         return obj;
     },
     fromPartial(object) {
-        var _a;
-        const message = createBaseAssetToLockerMapping();
+        var _a, _b;
+        const message = createBaseUserAppAssetLockerMapping();
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
@@ -372,7 +301,7 @@ exports.AssetToLockerMapping = {
                 ? long_1.default.fromValue(object.lockerId)
                 : long_1.default.UZERO;
         message.userData =
-            ((_a = object.userData) === null || _a === void 0 ? void 0 : _a.map((e) => exports.UserTxData.fromPartial(e))) || [];
+            ((_b = object.userData) === null || _b === void 0 ? void 0 : _b.map((e) => exports.UserTxData.fromPartial(e))) || [];
         return message;
     },
 };
@@ -449,95 +378,23 @@ exports.UserTxData = {
         return message;
     },
 };
-function createBaseLockerLookupTable() {
-    return { appId: long_1.default.UZERO, lockers: [], counter: long_1.default.UZERO };
+function createBaseLockerLookupTableData() {
+    return {
+        appId: long_1.default.UZERO,
+        assetId: long_1.default.UZERO,
+        lockerIds: [],
+        depositedAmount: "",
+    };
 }
-exports.LockerLookupTable = {
+exports.LockerLookupTableData = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
-        for (const v of message.lockers) {
-            exports.TokenToLockerMapping.encode(v, writer.uint32(18).fork()).ldelim();
-        }
-        if (!message.counter.isZero()) {
-            writer.uint32(24).uint64(message.counter);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseLockerLookupTable();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.appId = reader.uint64();
-                    break;
-                case 2:
-                    message.lockers.push(exports.TokenToLockerMapping.decode(reader, reader.uint32()));
-                    break;
-                case 3:
-                    message.counter = reader.uint64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            lockers: Array.isArray(object === null || object === void 0 ? void 0 : object.lockers)
-                ? object.lockers.map((e) => exports.TokenToLockerMapping.fromJSON(e))
-                : [],
-            counter: isSet(object.counter)
-                ? long_1.default.fromValue(object.counter)
-                : long_1.default.UZERO,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        if (message.lockers) {
-            obj.lockers = message.lockers.map((e) => e ? exports.TokenToLockerMapping.toJSON(e) : undefined);
-        }
-        else {
-            obj.lockers = [];
-        }
-        message.counter !== undefined &&
-            (obj.counter = (message.counter || long_1.default.UZERO).toString());
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseLockerLookupTable();
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        message.lockers =
-            ((_a = object.lockers) === null || _a === void 0 ? void 0 : _a.map((e) => exports.TokenToLockerMapping.fromPartial(e))) || [];
-        message.counter =
-            object.counter !== undefined && object.counter !== null
-                ? long_1.default.fromValue(object.counter)
-                : long_1.default.UZERO;
-        return message;
-    },
-};
-function createBaseTokenToLockerMapping() {
-    return { assetId: long_1.default.UZERO, lockerIds: [], depositedAmount: "" };
-}
-exports.TokenToLockerMapping = {
-    encode(message, writer = _m0.Writer.create()) {
         if (!message.assetId.isZero()) {
-            writer.uint32(8).uint64(message.assetId);
+            writer.uint32(16).uint64(message.assetId);
         }
-        writer.uint32(18).fork();
+        writer.uint32(26).fork();
         for (const v of message.lockerIds) {
             writer.uint64(v);
         }
@@ -550,14 +407,17 @@ exports.TokenToLockerMapping = {
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseTokenToLockerMapping();
+        const message = createBaseLockerLookupTableData();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.assetId = reader.uint64();
+                    message.appId = reader.uint64();
                     break;
                 case 2:
+                    message.assetId = reader.uint64();
+                    break;
+                case 3:
                     if ((tag & 7) === 2) {
                         const end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2) {
@@ -580,6 +440,7 @@ exports.TokenToLockerMapping = {
     },
     fromJSON(object) {
         return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
@@ -593,6 +454,8 @@ exports.TokenToLockerMapping = {
     },
     toJSON(message) {
         const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         if (message.lockerIds) {
@@ -607,7 +470,11 @@ exports.TokenToLockerMapping = {
     },
     fromPartial(object) {
         var _a, _b;
-        const message = createBaseTokenToLockerMapping();
+        const message = createBaseLockerLookupTableData();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
@@ -618,18 +485,16 @@ exports.TokenToLockerMapping = {
     },
 };
 function createBaseLockerProductAssetMapping() {
-    return { appId: long_1.default.UZERO, assetIds: [] };
+    return { appId: long_1.default.UZERO, assetId: long_1.default.UZERO };
 }
 exports.LockerProductAssetMapping = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
-        writer.uint32(18).fork();
-        for (const v of message.assetIds) {
-            writer.uint64(v);
+        if (!message.assetId.isZero()) {
+            writer.uint32(16).uint64(message.assetId);
         }
-        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -643,15 +508,7 @@ exports.LockerProductAssetMapping = {
                     message.appId = reader.uint64();
                     break;
                 case 2:
-                    if ((tag & 7) === 2) {
-                        const end2 = reader.uint32() + reader.pos;
-                        while (reader.pos < end2) {
-                            message.assetIds.push(reader.uint64());
-                        }
-                    }
-                    else {
-                        message.assetIds.push(reader.uint64());
-                    }
+                    message.assetId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -663,31 +520,29 @@ exports.LockerProductAssetMapping = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            assetIds: Array.isArray(object === null || object === void 0 ? void 0 : object.assetIds)
-                ? object.assetIds.map((e) => long_1.default.fromValue(e))
-                : [],
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        if (message.assetIds) {
-            obj.assetIds = message.assetIds.map((e) => (e || long_1.default.UZERO).toString());
-        }
-        else {
-            obj.assetIds = [];
-        }
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
-        var _a;
         const message = createBaseLockerProductAssetMapping();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
-        message.assetIds = ((_a = object.assetIds) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
         return message;
     },
 };

@@ -723,6 +723,7 @@ export declare const UpdateGovTimeInAppProposal: {
         govTime?: {
             appId?: string | number | Long.Long | undefined;
             govTimeInSeconds?: number | undefined;
+            minGovDeposit?: string | undefined;
         } | undefined;
     } & {
         title?: string | undefined;
@@ -730,6 +731,7 @@ export declare const UpdateGovTimeInAppProposal: {
         govTime?: ({
             appId?: string | number | Long.Long | undefined;
             govTimeInSeconds?: number | undefined;
+            minGovDeposit?: string | undefined;
         } & {
             appId?: string | number | (Long.Long & {
                 high: number;
@@ -790,6 +792,7 @@ export declare const UpdateGovTimeInAppProposal: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["govTime"]["appId"], keyof Long.Long>, never>) | undefined;
             govTimeInSeconds?: number | undefined;
+            minGovDeposit?: string | undefined;
         } & Record<Exclude<keyof I["govTime"], keyof AppAndGovTime>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof UpdateGovTimeInAppProposal>, never>>(object: I): UpdateGovTimeInAppProposal;
 };

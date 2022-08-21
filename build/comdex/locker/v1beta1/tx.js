@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgClientImpl = exports.MsgWithdrawAssetResponse = exports.MsgWithdrawAssetRequest = exports.MsgDepositAssetResponse = exports.MsgDepositAssetRequest = exports.MsgAddWhiteListedAssetResponse = exports.MsgAddWhiteListedAssetRequest = exports.MsgCreateLockerResponse = exports.MsgCreateLockerRequest = exports.protobufPackage = void 0;
+exports.MsgClientImpl = exports.MsgCloseLockerResponse = exports.MsgCloseLockerRequest = exports.MsgWithdrawAssetResponse = exports.MsgWithdrawAssetRequest = exports.MsgDepositAssetResponse = exports.MsgDepositAssetRequest = exports.MsgAddWhiteListedAssetResponse = exports.MsgAddWhiteListedAssetRequest = exports.MsgCreateLockerResponse = exports.MsgCreateLockerRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -516,12 +516,138 @@ exports.MsgWithdrawAssetResponse = {
         return message;
     },
 };
+function createBaseMsgCloseLockerRequest() {
+    return {
+        depositor: "",
+        appId: long_1.default.UZERO,
+        assetId: long_1.default.UZERO,
+        lockerId: long_1.default.UZERO,
+    };
+}
+exports.MsgCloseLockerRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.depositor !== "") {
+            writer.uint32(10).string(message.depositor);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
+        }
+        if (!message.assetId.isZero()) {
+            writer.uint32(24).uint64(message.assetId);
+        }
+        if (!message.lockerId.isZero()) {
+            writer.uint32(32).uint64(message.lockerId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgCloseLockerRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.depositor = reader.string();
+                    break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
+                case 3:
+                    message.assetId = reader.uint64();
+                    break;
+                case 4:
+                    message.lockerId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            depositor: isSet(object.depositor) ? String(object.depositor) : "",
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO,
+            lockerId: isSet(object.lockerId)
+                ? long_1.default.fromValue(object.lockerId)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.depositor !== undefined && (obj.depositor = message.depositor);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.lockerId !== undefined &&
+            (obj.lockerId = (message.lockerId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseMsgCloseLockerRequest();
+        message.depositor = (_a = object.depositor) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
+        message.lockerId =
+            object.lockerId !== undefined && object.lockerId !== null
+                ? long_1.default.fromValue(object.lockerId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseMsgCloseLockerResponse() {
+    return {};
+}
+exports.MsgCloseLockerResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgCloseLockerResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgCloseLockerResponse();
+        return message;
+    },
+};
 class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
         this.MsgCreateLocker = this.MsgCreateLocker.bind(this);
         this.MsgDepositAsset = this.MsgDepositAsset.bind(this);
         this.MsgWithdrawAsset = this.MsgWithdrawAsset.bind(this);
+        this.MsgCloseLocker = this.MsgCloseLocker.bind(this);
     }
     MsgCreateLocker(request) {
         const data = exports.MsgCreateLockerRequest.encode(request).finish();
@@ -537,6 +663,11 @@ class MsgClientImpl {
         const data = exports.MsgWithdrawAssetRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.locker.v1beta1.Msg", "MsgWithdrawAsset", data);
         return promise.then((data) => exports.MsgWithdrawAssetResponse.decode(new _m0.Reader(data)));
+    }
+    MsgCloseLocker(request) {
+        const data = exports.MsgCloseLockerRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.locker.v1beta1.Msg", "MsgCloseLocker", data);
+        return promise.then((data) => exports.MsgCloseLockerResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;

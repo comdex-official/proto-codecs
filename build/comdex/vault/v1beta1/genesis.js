@@ -45,10 +45,10 @@ exports.GenesisState = {
             vault_1.StableMintVault.encode(v, writer.uint32(18).fork()).ldelim();
         }
         for (const v of message.appExtendedPairVaultMapping) {
-            vault_1.AppExtendedPairVaultMapping.encode(v, writer.uint32(26).fork()).ldelim();
+            vault_1.AppExtendedPairVaultMappingData.encode(v, writer.uint32(26).fork()).ldelim();
         }
         for (const v of message.userVaultAssetMapping) {
-            vault_1.UserVaultAssetMapping.encode(v, writer.uint32(34).fork()).ldelim();
+            vault_1.OwnerAppExtendedPairVaultMappingData.encode(v, writer.uint32(34).fork()).ldelim();
         }
         return writer;
     },
@@ -66,10 +66,10 @@ exports.GenesisState = {
                     message.stableMintVault.push(vault_1.StableMintVault.decode(reader, reader.uint32()));
                     break;
                 case 3:
-                    message.appExtendedPairVaultMapping.push(vault_1.AppExtendedPairVaultMapping.decode(reader, reader.uint32()));
+                    message.appExtendedPairVaultMapping.push(vault_1.AppExtendedPairVaultMappingData.decode(reader, reader.uint32()));
                     break;
                 case 4:
-                    message.userVaultAssetMapping.push(vault_1.UserVaultAssetMapping.decode(reader, reader.uint32()));
+                    message.userVaultAssetMapping.push(vault_1.OwnerAppExtendedPairVaultMappingData.decode(reader, reader.uint32()));
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -87,10 +87,10 @@ exports.GenesisState = {
                 ? object.stableMintVault.map((e) => vault_1.StableMintVault.fromJSON(e))
                 : [],
             appExtendedPairVaultMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.appExtendedPairVaultMapping)
-                ? object.appExtendedPairVaultMapping.map((e) => vault_1.AppExtendedPairVaultMapping.fromJSON(e))
+                ? object.appExtendedPairVaultMapping.map((e) => vault_1.AppExtendedPairVaultMappingData.fromJSON(e))
                 : [],
             userVaultAssetMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.userVaultAssetMapping)
-                ? object.userVaultAssetMapping.map((e) => vault_1.UserVaultAssetMapping.fromJSON(e))
+                ? object.userVaultAssetMapping.map((e) => vault_1.OwnerAppExtendedPairVaultMappingData.fromJSON(e))
                 : [],
         };
     },
@@ -109,13 +109,13 @@ exports.GenesisState = {
             obj.stableMintVault = [];
         }
         if (message.appExtendedPairVaultMapping) {
-            obj.appExtendedPairVaultMapping = message.appExtendedPairVaultMapping.map((e) => (e ? vault_1.AppExtendedPairVaultMapping.toJSON(e) : undefined));
+            obj.appExtendedPairVaultMapping = message.appExtendedPairVaultMapping.map((e) => (e ? vault_1.AppExtendedPairVaultMappingData.toJSON(e) : undefined));
         }
         else {
             obj.appExtendedPairVaultMapping = [];
         }
         if (message.userVaultAssetMapping) {
-            obj.userVaultAssetMapping = message.userVaultAssetMapping.map((e) => e ? vault_1.UserVaultAssetMapping.toJSON(e) : undefined);
+            obj.userVaultAssetMapping = message.userVaultAssetMapping.map((e) => e ? vault_1.OwnerAppExtendedPairVaultMappingData.toJSON(e) : undefined);
         }
         else {
             obj.userVaultAssetMapping = [];
@@ -129,9 +129,9 @@ exports.GenesisState = {
         message.stableMintVault =
             ((_b = object.stableMintVault) === null || _b === void 0 ? void 0 : _b.map((e) => vault_1.StableMintVault.fromPartial(e))) || [];
         message.appExtendedPairVaultMapping =
-            ((_c = object.appExtendedPairVaultMapping) === null || _c === void 0 ? void 0 : _c.map((e) => vault_1.AppExtendedPairVaultMapping.fromPartial(e))) || [];
+            ((_c = object.appExtendedPairVaultMapping) === null || _c === void 0 ? void 0 : _c.map((e) => vault_1.AppExtendedPairVaultMappingData.fromPartial(e))) || [];
         message.userVaultAssetMapping =
-            ((_d = object.userVaultAssetMapping) === null || _d === void 0 ? void 0 : _d.map((e) => vault_1.UserVaultAssetMapping.fromPartial(e))) || [];
+            ((_d = object.userVaultAssetMapping) === null || _d === void 0 ? void 0 : _d.map((e) => vault_1.OwnerAppExtendedPairVaultMappingData.fromPartial(e))) || [];
         return message;
     },
 };

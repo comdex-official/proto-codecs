@@ -51,10 +51,10 @@ exports.GenesisState = {
             locker_1.LockerTotalRewardsByAssetAppWise.encode(v, writer.uint32(26).fork()).ldelim();
         }
         for (const v of message.lockerLookupTable) {
-            locker_1.LockerLookupTable.encode(v, writer.uint32(34).fork()).ldelim();
+            locker_1.LockerLookupTableData.encode(v, writer.uint32(34).fork()).ldelim();
         }
         for (const v of message.userLockerAssetMapping) {
-            locker_1.UserLockerAssetMapping.encode(v, writer.uint32(42).fork()).ldelim();
+            locker_1.UserAppAssetLockerMapping.encode(v, writer.uint32(42).fork()).ldelim();
         }
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(50).fork()).ldelim();
@@ -78,10 +78,10 @@ exports.GenesisState = {
                     message.lockerTotalRewardsByAssetAppWise.push(locker_1.LockerTotalRewardsByAssetAppWise.decode(reader, reader.uint32()));
                     break;
                 case 4:
-                    message.lockerLookupTable.push(locker_1.LockerLookupTable.decode(reader, reader.uint32()));
+                    message.lockerLookupTable.push(locker_1.LockerLookupTableData.decode(reader, reader.uint32()));
                     break;
                 case 5:
-                    message.userLockerAssetMapping.push(locker_1.UserLockerAssetMapping.decode(reader, reader.uint32()));
+                    message.userLockerAssetMapping.push(locker_1.UserAppAssetLockerMapping.decode(reader, reader.uint32()));
                     break;
                 case 6:
                     message.params = params_1.Params.decode(reader, reader.uint32());
@@ -105,10 +105,10 @@ exports.GenesisState = {
                 ? object.lockerTotalRewardsByAssetAppWise.map((e) => locker_1.LockerTotalRewardsByAssetAppWise.fromJSON(e))
                 : [],
             lockerLookupTable: Array.isArray(object === null || object === void 0 ? void 0 : object.lockerLookupTable)
-                ? object.lockerLookupTable.map((e) => locker_1.LockerLookupTable.fromJSON(e))
+                ? object.lockerLookupTable.map((e) => locker_1.LockerLookupTableData.fromJSON(e))
                 : [],
             userLockerAssetMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.userLockerAssetMapping)
-                ? object.userLockerAssetMapping.map((e) => locker_1.UserLockerAssetMapping.fromJSON(e))
+                ? object.userLockerAssetMapping.map((e) => locker_1.UserAppAssetLockerMapping.fromJSON(e))
                 : [],
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
         };
@@ -135,13 +135,13 @@ exports.GenesisState = {
             obj.lockerTotalRewardsByAssetAppWise = [];
         }
         if (message.lockerLookupTable) {
-            obj.lockerLookupTable = message.lockerLookupTable.map((e) => e ? locker_1.LockerLookupTable.toJSON(e) : undefined);
+            obj.lockerLookupTable = message.lockerLookupTable.map((e) => e ? locker_1.LockerLookupTableData.toJSON(e) : undefined);
         }
         else {
             obj.lockerLookupTable = [];
         }
         if (message.userLockerAssetMapping) {
-            obj.userLockerAssetMapping = message.userLockerAssetMapping.map((e) => e ? locker_1.UserLockerAssetMapping.toJSON(e) : undefined);
+            obj.userLockerAssetMapping = message.userLockerAssetMapping.map((e) => e ? locker_1.UserAppAssetLockerMapping.toJSON(e) : undefined);
         }
         else {
             obj.userLockerAssetMapping = [];
@@ -159,10 +159,9 @@ exports.GenesisState = {
         message.lockerTotalRewardsByAssetAppWise =
             ((_c = object.lockerTotalRewardsByAssetAppWise) === null || _c === void 0 ? void 0 : _c.map((e) => locker_1.LockerTotalRewardsByAssetAppWise.fromPartial(e))) || [];
         message.lockerLookupTable =
-            ((_d = object.lockerLookupTable) === null || _d === void 0 ? void 0 : _d.map((e) => locker_1.LockerLookupTable.fromPartial(e))) ||
-                [];
+            ((_d = object.lockerLookupTable) === null || _d === void 0 ? void 0 : _d.map((e) => locker_1.LockerLookupTableData.fromPartial(e))) || [];
         message.userLockerAssetMapping =
-            ((_e = object.userLockerAssetMapping) === null || _e === void 0 ? void 0 : _e.map((e) => locker_1.UserLockerAssetMapping.fromPartial(e))) || [];
+            ((_e = object.userLockerAssetMapping) === null || _e === void 0 ? void 0 : _e.map((e) => locker_1.UserAppAssetLockerMapping.fromPartial(e))) || [];
         message.params =
             object.params !== undefined && object.params !== null
                 ? params_1.Params.fromPartial(object.params)

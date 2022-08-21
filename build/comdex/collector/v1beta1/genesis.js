@@ -42,16 +42,16 @@ function createBaseGenesisState() {
 exports.GenesisState = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.netFeeCollectedData) {
-            collector_1.NetFeeCollectedData.encode(v, writer.uint32(10).fork()).ldelim();
+            collector_1.AppAssetIdToFeeCollectedData.encode(v, writer.uint32(10).fork()).ldelim();
         }
         for (const v of message.appIdToAssetCollectorMapping) {
-            collector_1.AppIdToAssetCollectorMapping.encode(v, writer.uint32(18).fork()).ldelim();
+            collector_1.AppToAssetIdCollectorMapping.encode(v, writer.uint32(18).fork()).ldelim();
         }
         for (const v of message.collectorLookup) {
-            collector_1.CollectorLookup.encode(v, writer.uint32(26).fork()).ldelim();
+            collector_1.CollectorLookupTableData.encode(v, writer.uint32(26).fork()).ldelim();
         }
         for (const v of message.collectorAuctionLookupTable) {
-            collector_1.CollectorAuctionLookupTable.encode(v, writer.uint32(34).fork()).ldelim();
+            collector_1.AppAssetIdToAuctionLookupTable.encode(v, writer.uint32(34).fork()).ldelim();
         }
         for (const v of message.appToDenomsMapping) {
             collector_1.AppToDenomsMapping.encode(v, writer.uint32(42).fork()).ldelim();
@@ -69,16 +69,16 @@ exports.GenesisState = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.netFeeCollectedData.push(collector_1.NetFeeCollectedData.decode(reader, reader.uint32()));
+                    message.netFeeCollectedData.push(collector_1.AppAssetIdToFeeCollectedData.decode(reader, reader.uint32()));
                     break;
                 case 2:
-                    message.appIdToAssetCollectorMapping.push(collector_1.AppIdToAssetCollectorMapping.decode(reader, reader.uint32()));
+                    message.appIdToAssetCollectorMapping.push(collector_1.AppToAssetIdCollectorMapping.decode(reader, reader.uint32()));
                     break;
                 case 3:
-                    message.collectorLookup.push(collector_1.CollectorLookup.decode(reader, reader.uint32()));
+                    message.collectorLookup.push(collector_1.CollectorLookupTableData.decode(reader, reader.uint32()));
                     break;
                 case 4:
-                    message.collectorAuctionLookupTable.push(collector_1.CollectorAuctionLookupTable.decode(reader, reader.uint32()));
+                    message.collectorAuctionLookupTable.push(collector_1.AppAssetIdToAuctionLookupTable.decode(reader, reader.uint32()));
                     break;
                 case 5:
                     message.appToDenomsMapping.push(collector_1.AppToDenomsMapping.decode(reader, reader.uint32()));
@@ -96,16 +96,16 @@ exports.GenesisState = {
     fromJSON(object) {
         return {
             netFeeCollectedData: Array.isArray(object === null || object === void 0 ? void 0 : object.netFeeCollectedData)
-                ? object.netFeeCollectedData.map((e) => collector_1.NetFeeCollectedData.fromJSON(e))
+                ? object.netFeeCollectedData.map((e) => collector_1.AppAssetIdToFeeCollectedData.fromJSON(e))
                 : [],
             appIdToAssetCollectorMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.appIdToAssetCollectorMapping)
-                ? object.appIdToAssetCollectorMapping.map((e) => collector_1.AppIdToAssetCollectorMapping.fromJSON(e))
+                ? object.appIdToAssetCollectorMapping.map((e) => collector_1.AppToAssetIdCollectorMapping.fromJSON(e))
                 : [],
             collectorLookup: Array.isArray(object === null || object === void 0 ? void 0 : object.collectorLookup)
-                ? object.collectorLookup.map((e) => collector_1.CollectorLookup.fromJSON(e))
+                ? object.collectorLookup.map((e) => collector_1.CollectorLookupTableData.fromJSON(e))
                 : [],
             collectorAuctionLookupTable: Array.isArray(object === null || object === void 0 ? void 0 : object.collectorAuctionLookupTable)
-                ? object.collectorAuctionLookupTable.map((e) => collector_1.CollectorAuctionLookupTable.fromJSON(e))
+                ? object.collectorAuctionLookupTable.map((e) => collector_1.AppAssetIdToAuctionLookupTable.fromJSON(e))
                 : [],
             appToDenomsMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.appToDenomsMapping)
                 ? object.appToDenomsMapping.map((e) => collector_1.AppToDenomsMapping.fromJSON(e))
@@ -116,26 +116,26 @@ exports.GenesisState = {
     toJSON(message) {
         const obj = {};
         if (message.netFeeCollectedData) {
-            obj.netFeeCollectedData = message.netFeeCollectedData.map((e) => e ? collector_1.NetFeeCollectedData.toJSON(e) : undefined);
+            obj.netFeeCollectedData = message.netFeeCollectedData.map((e) => e ? collector_1.AppAssetIdToFeeCollectedData.toJSON(e) : undefined);
         }
         else {
             obj.netFeeCollectedData = [];
         }
         if (message.appIdToAssetCollectorMapping) {
             obj.appIdToAssetCollectorMapping =
-                message.appIdToAssetCollectorMapping.map((e) => e ? collector_1.AppIdToAssetCollectorMapping.toJSON(e) : undefined);
+                message.appIdToAssetCollectorMapping.map((e) => e ? collector_1.AppToAssetIdCollectorMapping.toJSON(e) : undefined);
         }
         else {
             obj.appIdToAssetCollectorMapping = [];
         }
         if (message.collectorLookup) {
-            obj.collectorLookup = message.collectorLookup.map((e) => e ? collector_1.CollectorLookup.toJSON(e) : undefined);
+            obj.collectorLookup = message.collectorLookup.map((e) => e ? collector_1.CollectorLookupTableData.toJSON(e) : undefined);
         }
         else {
             obj.collectorLookup = [];
         }
         if (message.collectorAuctionLookupTable) {
-            obj.collectorAuctionLookupTable = message.collectorAuctionLookupTable.map((e) => (e ? collector_1.CollectorAuctionLookupTable.toJSON(e) : undefined));
+            obj.collectorAuctionLookupTable = message.collectorAuctionLookupTable.map((e) => (e ? collector_1.AppAssetIdToAuctionLookupTable.toJSON(e) : undefined));
         }
         else {
             obj.collectorAuctionLookupTable = [];
@@ -154,13 +154,13 @@ exports.GenesisState = {
         var _a, _b, _c, _d, _e;
         const message = createBaseGenesisState();
         message.netFeeCollectedData =
-            ((_a = object.netFeeCollectedData) === null || _a === void 0 ? void 0 : _a.map((e) => collector_1.NetFeeCollectedData.fromPartial(e))) || [];
+            ((_a = object.netFeeCollectedData) === null || _a === void 0 ? void 0 : _a.map((e) => collector_1.AppAssetIdToFeeCollectedData.fromPartial(e))) || [];
         message.appIdToAssetCollectorMapping =
-            ((_b = object.appIdToAssetCollectorMapping) === null || _b === void 0 ? void 0 : _b.map((e) => collector_1.AppIdToAssetCollectorMapping.fromPartial(e))) || [];
+            ((_b = object.appIdToAssetCollectorMapping) === null || _b === void 0 ? void 0 : _b.map((e) => collector_1.AppToAssetIdCollectorMapping.fromPartial(e))) || [];
         message.collectorLookup =
-            ((_c = object.collectorLookup) === null || _c === void 0 ? void 0 : _c.map((e) => collector_1.CollectorLookup.fromPartial(e))) || [];
+            ((_c = object.collectorLookup) === null || _c === void 0 ? void 0 : _c.map((e) => collector_1.CollectorLookupTableData.fromPartial(e))) || [];
         message.collectorAuctionLookupTable =
-            ((_d = object.collectorAuctionLookupTable) === null || _d === void 0 ? void 0 : _d.map((e) => collector_1.CollectorAuctionLookupTable.fromPartial(e))) || [];
+            ((_d = object.collectorAuctionLookupTable) === null || _d === void 0 ? void 0 : _d.map((e) => collector_1.AppAssetIdToAuctionLookupTable.fromPartial(e))) || [];
         message.appToDenomsMapping =
             ((_e = object.appToDenomsMapping) === null || _e === void 0 ? void 0 : _e.map((e) => collector_1.AppToDenomsMapping.fromPartial(e))) || [];
         message.params =

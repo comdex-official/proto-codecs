@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ReservePoolRecordsForBorrow = exports.AuctionParams = exports.DepositStats = exports.BalanceStats = exports.ModuleBalanceStats = exports.ModuleBalance = exports.StableBorrowMapping = exports.BorrowMapping = exports.LendMapping = exports.AssetRatesStats = exports.AssetStats = exports.LendIdToBorrowIdMapping = exports.UserBorrowIdMapping = exports.BorrowIdByOwnerAndPoolMapping = exports.LendIdByOwnerAndPoolMapping = exports.UserLendIdMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
+exports.LendRewardsTracker = exports.BorrowInterestTracker = exports.ReservePoolRecordsForBorrow = exports.AuctionParams = exports.DepositStats = exports.BalanceStats = exports.ModuleBalanceStats = exports.ModuleBalance = exports.StableBorrowMapping = exports.BorrowMapping = exports.LendMapping = exports.AssetRatesStats = exports.AssetStats = exports.LendIdToBorrowIdMapping = exports.UserBorrowIdMapping = exports.BorrowIdByOwnerAndPoolMapping = exports.LendIdByOwnerAndPoolMapping = exports.UserLendIdMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -2238,6 +2238,130 @@ exports.ReservePoolRecordsForBorrow = {
                 ? long_1.default.fromValue(object.borrowingId)
                 : long_1.default.UZERO;
         message.interestAccumulated = (_a = object.interestAccumulated) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseBorrowInterestTracker() {
+    return { borrowingId: long_1.default.UZERO, interestAccumulated: "" };
+}
+exports.BorrowInterestTracker = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.borrowingId.isZero()) {
+            writer.uint32(8).uint64(message.borrowingId);
+        }
+        if (message.interestAccumulated !== "") {
+            writer.uint32(18).string(message.interestAccumulated);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseBorrowInterestTracker();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.borrowingId = reader.uint64();
+                    break;
+                case 2:
+                    message.interestAccumulated = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            borrowingId: isSet(object.borrowingId)
+                ? long_1.default.fromValue(object.borrowingId)
+                : long_1.default.UZERO,
+            interestAccumulated: isSet(object.interestAccumulated)
+                ? String(object.interestAccumulated)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.borrowingId !== undefined &&
+            (obj.borrowingId = (message.borrowingId || long_1.default.UZERO).toString());
+        message.interestAccumulated !== undefined &&
+            (obj.interestAccumulated = message.interestAccumulated);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseBorrowInterestTracker();
+        message.borrowingId =
+            object.borrowingId !== undefined && object.borrowingId !== null
+                ? long_1.default.fromValue(object.borrowingId)
+                : long_1.default.UZERO;
+        message.interestAccumulated = (_a = object.interestAccumulated) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseLendRewardsTracker() {
+    return { lendingId: long_1.default.UZERO, rewardsAccumulated: "" };
+}
+exports.LendRewardsTracker = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.lendingId.isZero()) {
+            writer.uint32(8).uint64(message.lendingId);
+        }
+        if (message.rewardsAccumulated !== "") {
+            writer.uint32(18).string(message.rewardsAccumulated);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseLendRewardsTracker();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.lendingId = reader.uint64();
+                    break;
+                case 2:
+                    message.rewardsAccumulated = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            lendingId: isSet(object.lendingId)
+                ? long_1.default.fromValue(object.lendingId)
+                : long_1.default.UZERO,
+            rewardsAccumulated: isSet(object.rewardsAccumulated)
+                ? String(object.rewardsAccumulated)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.lendingId !== undefined &&
+            (obj.lendingId = (message.lendingId || long_1.default.UZERO).toString());
+        message.rewardsAccumulated !== undefined &&
+            (obj.rewardsAccumulated = message.rewardsAccumulated);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseLendRewardsTracker();
+        message.lendingId =
+            object.lendingId !== undefined && object.lendingId !== null
+                ? long_1.default.fromValue(object.lendingId)
+                : long_1.default.UZERO;
+        message.rewardsAccumulated = (_a = object.rewardsAccumulated) !== null && _a !== void 0 ? _a : "";
         return message;
     },
 };
