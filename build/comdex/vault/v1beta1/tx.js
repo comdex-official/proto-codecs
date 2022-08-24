@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgClientImpl = exports.MsgWithdrawStableMintResponse = exports.MsgWithdrawStableMintRequest = exports.MsgDepositStableMintResponse = exports.MsgDepositStableMintRequest = exports.MsgCreateStableMintResponse = exports.MsgCreateStableMintRequest = exports.MsgDepositAndDrawResponse = exports.MsgDepositAndDrawRequest = exports.MsgCloseResponse = exports.MsgCloseRequest = exports.MsgRepayResponse = exports.MsgRepayRequest = exports.MsgDrawResponse = exports.MsgDrawRequest = exports.MsgWithdrawResponse = exports.MsgWithdrawRequest = exports.MsgDepositResponse = exports.MsgDepositRequest = exports.MsgCreateResponse = exports.MsgCreateRequest = exports.protobufPackage = void 0;
+exports.MsgClientImpl = exports.MsgVaultInterestCalcResponse = exports.MsgVaultInterestCalcRequest = exports.MsgWithdrawStableMintResponse = exports.MsgWithdrawStableMintRequest = exports.MsgDepositStableMintResponse = exports.MsgDepositStableMintRequest = exports.MsgCreateStableMintResponse = exports.MsgCreateStableMintRequest = exports.MsgDepositAndDrawResponse = exports.MsgDepositAndDrawRequest = exports.MsgCloseResponse = exports.MsgCloseRequest = exports.MsgRepayResponse = exports.MsgRepayRequest = exports.MsgDrawResponse = exports.MsgDrawRequest = exports.MsgWithdrawResponse = exports.MsgWithdrawRequest = exports.MsgDepositResponse = exports.MsgDepositRequest = exports.MsgCreateResponse = exports.MsgCreateRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -1355,6 +1355,111 @@ exports.MsgWithdrawStableMintResponse = {
         return message;
     },
 };
+function createBaseMsgVaultInterestCalcRequest() {
+    return { from: "", appId: long_1.default.UZERO, userVaultId: long_1.default.UZERO };
+}
+exports.MsgVaultInterestCalcRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.from !== "") {
+            writer.uint32(10).string(message.from);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
+        }
+        if (!message.userVaultId.isZero()) {
+            writer.uint32(24).uint64(message.userVaultId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgVaultInterestCalcRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.from = reader.string();
+                    break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
+                case 3:
+                    message.userVaultId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            userVaultId: isSet(object.userVaultId)
+                ? long_1.default.fromValue(object.userVaultId)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.from !== undefined && (obj.from = message.from);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.userVaultId !== undefined &&
+            (obj.userVaultId = (message.userVaultId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseMsgVaultInterestCalcRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.userVaultId =
+            object.userVaultId !== undefined && object.userVaultId !== null
+                ? long_1.default.fromValue(object.userVaultId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseMsgVaultInterestCalcResponse() {
+    return {};
+}
+exports.MsgVaultInterestCalcResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgVaultInterestCalcResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgVaultInterestCalcResponse();
+        return message;
+    },
+};
 class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1368,6 +1473,7 @@ class MsgClientImpl {
         this.MsgCreateStableMint = this.MsgCreateStableMint.bind(this);
         this.MsgDepositStableMint = this.MsgDepositStableMint.bind(this);
         this.MsgWithdrawStableMint = this.MsgWithdrawStableMint.bind(this);
+        this.MsgVaultInterestCalc = this.MsgVaultInterestCalc.bind(this);
     }
     MsgCreate(request) {
         const data = exports.MsgCreateRequest.encode(request).finish();
@@ -1418,6 +1524,11 @@ class MsgClientImpl {
         const data = exports.MsgWithdrawStableMintRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Msg", "MsgWithdrawStableMint", data);
         return promise.then((data) => exports.MsgWithdrawStableMintResponse.decode(new _m0.Reader(data)));
+    }
+    MsgVaultInterestCalc(request) {
+        const data = exports.MsgVaultInterestCalcRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Msg", "MsgVaultInterestCalc", data);
+        return promise.then((data) => exports.MsgVaultInterestCalcResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
