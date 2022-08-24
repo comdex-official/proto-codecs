@@ -180,6 +180,24 @@ export interface LendRewardsTracker {
   rewardsAccumulated: string;
 }
 
+export interface AssetRanking {
+  assetId: Long;
+  apr: string;
+  amount: string;
+}
+
+export interface BorrowRanking {
+  first?: AssetRanking;
+  second?: AssetRanking;
+  third?: AssetRanking;
+}
+
+export interface DepositRanking {
+  first?: AssetRanking;
+  second?: AssetRanking;
+  third?: AssetRanking;
+}
+
 function createBaseLendAsset(): LendAsset {
   return {
     lendingId: Long.UZERO,
@@ -2796,6 +2814,276 @@ export const LendRewardsTracker = {
         ? Long.fromValue(object.lendingId)
         : Long.UZERO;
     message.rewardsAccumulated = object.rewardsAccumulated ?? "";
+    return message;
+  },
+};
+
+function createBaseAssetRanking(): AssetRanking {
+  return { assetId: Long.UZERO, apr: "", amount: "" };
+}
+
+export const AssetRanking = {
+  encode(
+    message: AssetRanking,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.assetId.isZero()) {
+      writer.uint32(8).uint64(message.assetId);
+    }
+    if (message.apr !== "") {
+      writer.uint32(18).string(message.apr);
+    }
+    if (message.amount !== "") {
+      writer.uint32(26).string(message.amount);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): AssetRanking {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAssetRanking();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.apr = reader.string();
+          break;
+        case 3:
+          message.amount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AssetRanking {
+    return {
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+      apr: isSet(object.apr) ? String(object.apr) : "",
+      amount: isSet(object.amount) ? String(object.amount) : "",
+    };
+  },
+
+  toJSON(message: AssetRanking): unknown {
+    const obj: any = {};
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.apr !== undefined && (obj.apr = message.apr);
+    message.amount !== undefined && (obj.amount = message.amount);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AssetRanking>, I>>(
+    object: I
+  ): AssetRanking {
+    const message = createBaseAssetRanking();
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    message.apr = object.apr ?? "";
+    message.amount = object.amount ?? "";
+    return message;
+  },
+};
+
+function createBaseBorrowRanking(): BorrowRanking {
+  return { first: undefined, second: undefined, third: undefined };
+}
+
+export const BorrowRanking = {
+  encode(
+    message: BorrowRanking,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.first !== undefined) {
+      AssetRanking.encode(message.first, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.second !== undefined) {
+      AssetRanking.encode(message.second, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.third !== undefined) {
+      AssetRanking.encode(message.third, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BorrowRanking {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBorrowRanking();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.first = AssetRanking.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.second = AssetRanking.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.third = AssetRanking.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BorrowRanking {
+    return {
+      first: isSet(object.first)
+        ? AssetRanking.fromJSON(object.first)
+        : undefined,
+      second: isSet(object.second)
+        ? AssetRanking.fromJSON(object.second)
+        : undefined,
+      third: isSet(object.third)
+        ? AssetRanking.fromJSON(object.third)
+        : undefined,
+    };
+  },
+
+  toJSON(message: BorrowRanking): unknown {
+    const obj: any = {};
+    message.first !== undefined &&
+      (obj.first = message.first
+        ? AssetRanking.toJSON(message.first)
+        : undefined);
+    message.second !== undefined &&
+      (obj.second = message.second
+        ? AssetRanking.toJSON(message.second)
+        : undefined);
+    message.third !== undefined &&
+      (obj.third = message.third
+        ? AssetRanking.toJSON(message.third)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BorrowRanking>, I>>(
+    object: I
+  ): BorrowRanking {
+    const message = createBaseBorrowRanking();
+    message.first =
+      object.first !== undefined && object.first !== null
+        ? AssetRanking.fromPartial(object.first)
+        : undefined;
+    message.second =
+      object.second !== undefined && object.second !== null
+        ? AssetRanking.fromPartial(object.second)
+        : undefined;
+    message.third =
+      object.third !== undefined && object.third !== null
+        ? AssetRanking.fromPartial(object.third)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseDepositRanking(): DepositRanking {
+  return { first: undefined, second: undefined, third: undefined };
+}
+
+export const DepositRanking = {
+  encode(
+    message: DepositRanking,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.first !== undefined) {
+      AssetRanking.encode(message.first, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.second !== undefined) {
+      AssetRanking.encode(message.second, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.third !== undefined) {
+      AssetRanking.encode(message.third, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DepositRanking {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDepositRanking();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.first = AssetRanking.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.second = AssetRanking.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.third = AssetRanking.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DepositRanking {
+    return {
+      first: isSet(object.first)
+        ? AssetRanking.fromJSON(object.first)
+        : undefined,
+      second: isSet(object.second)
+        ? AssetRanking.fromJSON(object.second)
+        : undefined,
+      third: isSet(object.third)
+        ? AssetRanking.fromJSON(object.third)
+        : undefined,
+    };
+  },
+
+  toJSON(message: DepositRanking): unknown {
+    const obj: any = {};
+    message.first !== undefined &&
+      (obj.first = message.first
+        ? AssetRanking.toJSON(message.first)
+        : undefined);
+    message.second !== undefined &&
+      (obj.second = message.second
+        ? AssetRanking.toJSON(message.second)
+        : undefined);
+    message.third !== undefined &&
+      (obj.third = message.third
+        ? AssetRanking.toJSON(message.third)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DepositRanking>, I>>(
+    object: I
+  ): DepositRanking {
+    const message = createBaseDepositRanking();
+    message.first =
+      object.first !== undefined && object.first !== null
+        ? AssetRanking.fromPartial(object.first)
+        : undefined;
+    message.second =
+      object.second !== undefined && object.second !== null
+        ? AssetRanking.fromPartial(object.second)
+        : undefined;
+    message.third =
+      object.third !== undefined && object.third !== null
+        ? AssetRanking.fromPartial(object.third)
+        : undefined;
     return message;
   },
 };
