@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgClientImpl = exports.MsgCloseLockerResponse = exports.MsgCloseLockerRequest = exports.MsgWithdrawAssetResponse = exports.MsgWithdrawAssetRequest = exports.MsgDepositAssetResponse = exports.MsgDepositAssetRequest = exports.MsgAddWhiteListedAssetResponse = exports.MsgAddWhiteListedAssetRequest = exports.MsgCreateLockerResponse = exports.MsgCreateLockerRequest = exports.protobufPackage = void 0;
+exports.MsgClientImpl = exports.MsgLockerRewardCalcResponse = exports.MsgLockerRewardCalcRequest = exports.MsgCloseLockerResponse = exports.MsgCloseLockerRequest = exports.MsgWithdrawAssetResponse = exports.MsgWithdrawAssetRequest = exports.MsgDepositAssetResponse = exports.MsgDepositAssetRequest = exports.MsgAddWhiteListedAssetResponse = exports.MsgAddWhiteListedAssetRequest = exports.MsgCreateLockerResponse = exports.MsgCreateLockerRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -641,6 +641,111 @@ exports.MsgCloseLockerResponse = {
         return message;
     },
 };
+function createBaseMsgLockerRewardCalcRequest() {
+    return { from: "", appId: long_1.default.UZERO, lockerId: long_1.default.UZERO };
+}
+exports.MsgLockerRewardCalcRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.from !== "") {
+            writer.uint32(10).string(message.from);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
+        }
+        if (!message.lockerId.isZero()) {
+            writer.uint32(24).uint64(message.lockerId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgLockerRewardCalcRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.from = reader.string();
+                    break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
+                case 3:
+                    message.lockerId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            from: isSet(object.from) ? String(object.from) : "",
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            lockerId: isSet(object.lockerId)
+                ? long_1.default.fromValue(object.lockerId)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.from !== undefined && (obj.from = message.from);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.lockerId !== undefined &&
+            (obj.lockerId = (message.lockerId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseMsgLockerRewardCalcRequest();
+        message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.lockerId =
+            object.lockerId !== undefined && object.lockerId !== null
+                ? long_1.default.fromValue(object.lockerId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseMsgLockerRewardCalcResponse() {
+    return {};
+}
+exports.MsgLockerRewardCalcResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgLockerRewardCalcResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgLockerRewardCalcResponse();
+        return message;
+    },
+};
 class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -648,6 +753,7 @@ class MsgClientImpl {
         this.MsgDepositAsset = this.MsgDepositAsset.bind(this);
         this.MsgWithdrawAsset = this.MsgWithdrawAsset.bind(this);
         this.MsgCloseLocker = this.MsgCloseLocker.bind(this);
+        this.MsgLockerRewardCalc = this.MsgLockerRewardCalc.bind(this);
     }
     MsgCreateLocker(request) {
         const data = exports.MsgCreateLockerRequest.encode(request).finish();
@@ -668,6 +774,11 @@ class MsgClientImpl {
         const data = exports.MsgCloseLockerRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.locker.v1beta1.Msg", "MsgCloseLocker", data);
         return promise.then((data) => exports.MsgCloseLockerResponse.decode(new _m0.Reader(data)));
+    }
+    MsgLockerRewardCalc(request) {
+        const data = exports.MsgLockerRewardCalcRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.locker.v1beta1.Msg", "MsgLockerRewardCalc", data);
+        return promise.then((data) => exports.MsgLockerRewardCalcResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
