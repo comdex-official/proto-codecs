@@ -17,6 +17,8 @@ import {
   ModuleBalance,
   DepositStats,
   AuctionParams,
+  DepositRanking,
+  BorrowRanking,
 } from "../../../comdex/lend/v1beta1/lend";
 
 export const protobufPackage = "comdex.lend.v1beta1";
@@ -228,6 +230,18 @@ export interface QueryAuctionParamRequest {
 
 export interface QueryAuctionParamResponse {
   auctionParams?: AuctionParams;
+}
+
+export interface QueryDepositRankingRequest {}
+
+export interface QueryDepositRankingResponse {
+  depositRanking?: DepositRanking;
+}
+
+export interface QueryBorrowRankingRequest {}
+
+export interface QueryBorrowRankingResponse {
+  borrowRanking?: BorrowRanking;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -3627,6 +3641,239 @@ export const QueryAuctionParamResponse = {
   },
 };
 
+function createBaseQueryDepositRankingRequest(): QueryDepositRankingRequest {
+  return {};
+}
+
+export const QueryDepositRankingRequest = {
+  encode(
+    _: QueryDepositRankingRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryDepositRankingRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryDepositRankingRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryDepositRankingRequest {
+    return {};
+  },
+
+  toJSON(_: QueryDepositRankingRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryDepositRankingRequest>, I>>(
+    _: I
+  ): QueryDepositRankingRequest {
+    const message = createBaseQueryDepositRankingRequest();
+    return message;
+  },
+};
+
+function createBaseQueryDepositRankingResponse(): QueryDepositRankingResponse {
+  return { depositRanking: undefined };
+}
+
+export const QueryDepositRankingResponse = {
+  encode(
+    message: QueryDepositRankingResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.depositRanking !== undefined) {
+      DepositRanking.encode(
+        message.depositRanking,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryDepositRankingResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryDepositRankingResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.depositRanking = DepositRanking.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryDepositRankingResponse {
+    return {
+      depositRanking: isSet(object.depositRanking)
+        ? DepositRanking.fromJSON(object.depositRanking)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryDepositRankingResponse): unknown {
+    const obj: any = {};
+    message.depositRanking !== undefined &&
+      (obj.depositRanking = message.depositRanking
+        ? DepositRanking.toJSON(message.depositRanking)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryDepositRankingResponse>, I>>(
+    object: I
+  ): QueryDepositRankingResponse {
+    const message = createBaseQueryDepositRankingResponse();
+    message.depositRanking =
+      object.depositRanking !== undefined && object.depositRanking !== null
+        ? DepositRanking.fromPartial(object.depositRanking)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryBorrowRankingRequest(): QueryBorrowRankingRequest {
+  return {};
+}
+
+export const QueryBorrowRankingRequest = {
+  encode(
+    _: QueryBorrowRankingRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryBorrowRankingRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryBorrowRankingRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryBorrowRankingRequest {
+    return {};
+  },
+
+  toJSON(_: QueryBorrowRankingRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowRankingRequest>, I>>(
+    _: I
+  ): QueryBorrowRankingRequest {
+    const message = createBaseQueryBorrowRankingRequest();
+    return message;
+  },
+};
+
+function createBaseQueryBorrowRankingResponse(): QueryBorrowRankingResponse {
+  return { borrowRanking: undefined };
+}
+
+export const QueryBorrowRankingResponse = {
+  encode(
+    message: QueryBorrowRankingResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.borrowRanking !== undefined) {
+      BorrowRanking.encode(
+        message.borrowRanking,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryBorrowRankingResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryBorrowRankingResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.borrowRanking = BorrowRanking.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryBorrowRankingResponse {
+    return {
+      borrowRanking: isSet(object.borrowRanking)
+        ? BorrowRanking.fromJSON(object.borrowRanking)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryBorrowRankingResponse): unknown {
+    const obj: any = {};
+    message.borrowRanking !== undefined &&
+      (obj.borrowRanking = message.borrowRanking
+        ? BorrowRanking.toJSON(message.borrowRanking)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowRankingResponse>, I>>(
+    object: I
+  ): QueryBorrowRankingResponse {
+    const message = createBaseQueryBorrowRankingResponse();
+    message.borrowRanking =
+      object.borrowRanking !== undefined && object.borrowRanking !== null
+        ? BorrowRanking.fromPartial(object.borrowRanking)
+        : undefined;
+    return message;
+  },
+};
+
 export interface Query {
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse>;
   QueryLend(request: QueryLendRequest): Promise<QueryLendResponse>;
@@ -3685,6 +3932,12 @@ export interface Query {
   QueryAuctionParams(
     request: QueryAuctionParamRequest
   ): Promise<QueryAuctionParamResponse>;
+  QueryDepositRanking(
+    request: QueryDepositRankingRequest
+  ): Promise<QueryDepositRankingResponse>;
+  QueryBorrowRanking(
+    request: QueryBorrowRankingRequest
+  ): Promise<QueryBorrowRankingResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3718,6 +3971,8 @@ export class QueryClientImpl implements Query {
     this.QueryBuyBackDepositStats = this.QueryBuyBackDepositStats.bind(this);
     this.QueryBorrowStats = this.QueryBorrowStats.bind(this);
     this.QueryAuctionParams = this.QueryAuctionParams.bind(this);
+    this.QueryDepositRanking = this.QueryDepositRanking.bind(this);
+    this.QueryBorrowRanking = this.QueryBorrowRanking.bind(this);
   }
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse> {
     const data = QueryLendsRequest.encode(request).finish();
@@ -4048,6 +4303,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAuctionParamResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryDepositRanking(
+    request: QueryDepositRankingRequest
+  ): Promise<QueryDepositRankingResponse> {
+    const data = QueryDepositRankingRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryDepositRanking",
+      data
+    );
+    return promise.then((data) =>
+      QueryDepositRankingResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryBorrowRanking(
+    request: QueryBorrowRankingRequest
+  ): Promise<QueryBorrowRankingResponse> {
+    const data = QueryBorrowRankingRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryBorrowRanking",
+      data
+    );
+    return promise.then((data) =>
+      QueryBorrowRankingResponse.decode(new _m0.Reader(data))
     );
   }
 }

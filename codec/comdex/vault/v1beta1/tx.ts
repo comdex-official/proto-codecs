@@ -102,6 +102,14 @@ export interface MsgWithdrawStableMintRequest {
 
 export interface MsgWithdrawStableMintResponse {}
 
+export interface MsgVaultInterestCalcRequest {
+  from: string;
+  appId: Long;
+  userVaultId: Long;
+}
+
+export interface MsgVaultInterestCalcResponse {}
+
 function createBaseMsgCreateRequest(): MsgCreateRequest {
   return {
     from: "",
@@ -1684,6 +1692,138 @@ export const MsgWithdrawStableMintResponse = {
   },
 };
 
+function createBaseMsgVaultInterestCalcRequest(): MsgVaultInterestCalcRequest {
+  return { from: "", appId: Long.UZERO, userVaultId: Long.UZERO };
+}
+
+export const MsgVaultInterestCalcRequest = {
+  encode(
+    message: MsgVaultInterestCalcRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.from !== "") {
+      writer.uint32(10).string(message.from);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
+    }
+    if (!message.userVaultId.isZero()) {
+      writer.uint32(24).uint64(message.userVaultId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgVaultInterestCalcRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgVaultInterestCalcRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.from = reader.string();
+          break;
+        case 2:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.userVaultId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgVaultInterestCalcRequest {
+    return {
+      from: isSet(object.from) ? String(object.from) : "",
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      userVaultId: isSet(object.userVaultId)
+        ? Long.fromValue(object.userVaultId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: MsgVaultInterestCalcRequest): unknown {
+    const obj: any = {};
+    message.from !== undefined && (obj.from = message.from);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.userVaultId !== undefined &&
+      (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgVaultInterestCalcRequest>, I>>(
+    object: I
+  ): MsgVaultInterestCalcRequest {
+    const message = createBaseMsgVaultInterestCalcRequest();
+    message.from = object.from ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.userVaultId =
+      object.userVaultId !== undefined && object.userVaultId !== null
+        ? Long.fromValue(object.userVaultId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseMsgVaultInterestCalcResponse(): MsgVaultInterestCalcResponse {
+  return {};
+}
+
+export const MsgVaultInterestCalcResponse = {
+  encode(
+    _: MsgVaultInterestCalcResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgVaultInterestCalcResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgVaultInterestCalcResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgVaultInterestCalcResponse {
+    return {};
+  },
+
+  toJSON(_: MsgVaultInterestCalcResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgVaultInterestCalcResponse>, I>>(
+    _: I
+  ): MsgVaultInterestCalcResponse {
+    const message = createBaseMsgVaultInterestCalcResponse();
+    return message;
+  },
+};
+
 export interface Msg {
   MsgCreate(request: MsgCreateRequest): Promise<MsgCreateResponse>;
   MsgDeposit(request: MsgDepositRequest): Promise<MsgDepositResponse>;
@@ -1703,6 +1843,9 @@ export interface Msg {
   MsgWithdrawStableMint(
     request: MsgWithdrawStableMintRequest
   ): Promise<MsgWithdrawStableMintResponse>;
+  MsgVaultInterestCalc(
+    request: MsgVaultInterestCalcRequest
+  ): Promise<MsgVaultInterestCalcResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1719,6 +1862,7 @@ export class MsgClientImpl implements Msg {
     this.MsgCreateStableMint = this.MsgCreateStableMint.bind(this);
     this.MsgDepositStableMint = this.MsgDepositStableMint.bind(this);
     this.MsgWithdrawStableMint = this.MsgWithdrawStableMint.bind(this);
+    this.MsgVaultInterestCalc = this.MsgVaultInterestCalc.bind(this);
   }
   MsgCreate(request: MsgCreateRequest): Promise<MsgCreateResponse> {
     const data = MsgCreateRequest.encode(request).finish();
@@ -1843,6 +1987,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgWithdrawStableMintResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  MsgVaultInterestCalc(
+    request: MsgVaultInterestCalcRequest
+  ): Promise<MsgVaultInterestCalcResponse> {
+    const data = MsgVaultInterestCalcRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.vault.v1beta1.Msg",
+      "MsgVaultInterestCalc",
+      data
+    );
+    return promise.then((data) =>
+      MsgVaultInterestCalcResponse.decode(new _m0.Reader(data))
     );
   }
 }

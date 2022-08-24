@@ -50,6 +50,14 @@ export interface MsgCloseLockerRequest {
 
 export interface MsgCloseLockerResponse {}
 
+export interface MsgLockerRewardCalcRequest {
+  from: string;
+  appId: Long;
+  lockerId: Long;
+}
+
+export interface MsgLockerRewardCalcResponse {}
+
 function createBaseMsgCreateLockerRequest(): MsgCreateLockerRequest {
   return { depositor: "", amount: "", assetId: Long.UZERO, appId: Long.UZERO };
 }
@@ -799,6 +807,138 @@ export const MsgCloseLockerResponse = {
   },
 };
 
+function createBaseMsgLockerRewardCalcRequest(): MsgLockerRewardCalcRequest {
+  return { from: "", appId: Long.UZERO, lockerId: Long.UZERO };
+}
+
+export const MsgLockerRewardCalcRequest = {
+  encode(
+    message: MsgLockerRewardCalcRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.from !== "") {
+      writer.uint32(10).string(message.from);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
+    }
+    if (!message.lockerId.isZero()) {
+      writer.uint32(24).uint64(message.lockerId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgLockerRewardCalcRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgLockerRewardCalcRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.from = reader.string();
+          break;
+        case 2:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.lockerId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgLockerRewardCalcRequest {
+    return {
+      from: isSet(object.from) ? String(object.from) : "",
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      lockerId: isSet(object.lockerId)
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: MsgLockerRewardCalcRequest): unknown {
+    const obj: any = {};
+    message.from !== undefined && (obj.from = message.from);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.lockerId !== undefined &&
+      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgLockerRewardCalcRequest>, I>>(
+    object: I
+  ): MsgLockerRewardCalcRequest {
+    const message = createBaseMsgLockerRewardCalcRequest();
+    message.from = object.from ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.lockerId =
+      object.lockerId !== undefined && object.lockerId !== null
+        ? Long.fromValue(object.lockerId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseMsgLockerRewardCalcResponse(): MsgLockerRewardCalcResponse {
+  return {};
+}
+
+export const MsgLockerRewardCalcResponse = {
+  encode(
+    _: MsgLockerRewardCalcResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgLockerRewardCalcResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgLockerRewardCalcResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgLockerRewardCalcResponse {
+    return {};
+  },
+
+  toJSON(_: MsgLockerRewardCalcResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgLockerRewardCalcResponse>, I>>(
+    _: I
+  ): MsgLockerRewardCalcResponse {
+    const message = createBaseMsgLockerRewardCalcResponse();
+    return message;
+  },
+};
+
 /** For CLI Command & Proposals */
 export interface Msg {
   MsgCreateLocker(
@@ -813,6 +953,9 @@ export interface Msg {
   MsgCloseLocker(
     request: MsgCloseLockerRequest
   ): Promise<MsgCloseLockerResponse>;
+  MsgLockerRewardCalc(
+    request: MsgLockerRewardCalcRequest
+  ): Promise<MsgLockerRewardCalcResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -823,6 +966,7 @@ export class MsgClientImpl implements Msg {
     this.MsgDepositAsset = this.MsgDepositAsset.bind(this);
     this.MsgWithdrawAsset = this.MsgWithdrawAsset.bind(this);
     this.MsgCloseLocker = this.MsgCloseLocker.bind(this);
+    this.MsgLockerRewardCalc = this.MsgLockerRewardCalc.bind(this);
   }
   MsgCreateLocker(
     request: MsgCreateLockerRequest
@@ -877,6 +1021,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCloseLockerResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  MsgLockerRewardCalc(
+    request: MsgLockerRewardCalcRequest
+  ): Promise<MsgLockerRewardCalcResponse> {
+    const data = MsgLockerRewardCalcRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.locker.v1beta1.Msg",
+      "MsgLockerRewardCalc",
+      data
+    );
+    return promise.then((data) =>
+      MsgLockerRewardCalcResponse.decode(new _m0.Reader(data))
     );
   }
 }
