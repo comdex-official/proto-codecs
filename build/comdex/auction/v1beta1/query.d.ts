@@ -154,7 +154,7 @@ export interface QueryDutchLendBiddingsResponse {
 }
 export interface QueryFilterDutchAuctionsRequest {
     appId: Long;
-    denom: string;
+    denom: string[];
     history: boolean;
     pagination?: PageRequest;
 }
@@ -11429,7 +11429,7 @@ export declare const QueryFilterDutchAuctionsRequest: {
     toJSON(message: QueryFilterDutchAuctionsRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
-        denom?: string | undefined;
+        denom?: string[] | undefined;
         history?: boolean | undefined;
         pagination?: {
             key?: Uint8Array | undefined;
@@ -11497,7 +11497,7 @@ export declare const QueryFilterDutchAuctionsRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-        denom?: string | undefined;
+        denom?: (string[] & string[] & Record<Exclude<keyof I["denom"], keyof string[]>, never>) | undefined;
         history?: boolean | undefined;
         pagination?: ({
             key?: Uint8Array | undefined;
