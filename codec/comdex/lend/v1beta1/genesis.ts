@@ -23,7 +23,6 @@ import { Params } from "../../../comdex/lend/v1beta1/params";
 
 export const protobufPackage = "comdex.lend.v1beta1";
 
-/** GenesisState defines the lend module's genesis state. */
 export interface GenesisState {
   borrowAsset: BorrowAsset[];
   userBorrowIdMapping: UserBorrowIdMapping[];
@@ -44,7 +43,6 @@ export interface GenesisState {
   extendedPair: ExtendedPair[];
   assetRatesStats: AssetRatesStats[];
   auctionParams: AuctionParams[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   params?: Params;
 }
 
