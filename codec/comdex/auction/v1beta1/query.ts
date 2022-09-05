@@ -201,7 +201,7 @@ export interface QueryDutchLendBiddingsResponse {
 
 export interface QueryFilterDutchAuctionsRequest {
   appId: Long;
-  denom: string;
+  denom: string[];
   history: boolean;
   pagination?: PageRequest;
 }
@@ -3007,7 +3007,7 @@ export const QueryDutchLendBiddingsResponse = {
 function createBaseQueryFilterDutchAuctionsRequest(): QueryFilterDutchAuctionsRequest {
   return {
     appId: Long.UZERO,
-    denom: "",
+    denom: [],
     history: false,
     pagination: undefined,
   };
@@ -3021,8 +3021,8 @@ export const QueryFilterDutchAuctionsRequest = {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
-    if (message.denom !== "") {
-      writer.uint32(18).string(message.denom);
+    for (const v of message.denom) {
+      writer.uint32(18).string(v!);
     }
     if (message.history === true) {
       writer.uint32(24).bool(message.history);
@@ -3047,7 +3047,7 @@ export const QueryFilterDutchAuctionsRequest = {
           message.appId = reader.uint64() as Long;
           break;
         case 2:
-          message.denom = reader.string();
+          message.denom.push(reader.string());
           break;
         case 3:
           message.history = reader.bool();
@@ -3066,7 +3066,9 @@ export const QueryFilterDutchAuctionsRequest = {
   fromJSON(object: any): QueryFilterDutchAuctionsRequest {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      denom: isSet(object.denom) ? String(object.denom) : "",
+      denom: Array.isArray(object?.denom)
+        ? object.denom.map((e: any) => String(e))
+        : [],
       history: isSet(object.history) ? Boolean(object.history) : false,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -3078,7 +3080,11 @@ export const QueryFilterDutchAuctionsRequest = {
     const obj: any = {};
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
-    message.denom !== undefined && (obj.denom = message.denom);
+    if (message.denom) {
+      obj.denom = message.denom.map((e) => e);
+    } else {
+      obj.denom = [];
+    }
     message.history !== undefined && (obj.history = message.history);
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
@@ -3095,7 +3101,7 @@ export const QueryFilterDutchAuctionsRequest = {
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
         : Long.UZERO;
-    message.denom = object.denom ?? "";
+    message.denom = object.denom?.map((e) => e) || [];
     message.history = object.history ?? false;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
