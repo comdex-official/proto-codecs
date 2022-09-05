@@ -2349,7 +2349,7 @@ exports.QueryDutchLendBiddingsResponse = {
 function createBaseQueryFilterDutchAuctionsRequest() {
     return {
         appId: long_1.default.UZERO,
-        denom: "",
+        denom: [],
         history: false,
         pagination: undefined,
     };
@@ -2359,8 +2359,8 @@ exports.QueryFilterDutchAuctionsRequest = {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
-        if (message.denom !== "") {
-            writer.uint32(18).string(message.denom);
+        for (const v of message.denom) {
+            writer.uint32(18).string(v);
         }
         if (message.history === true) {
             writer.uint32(24).bool(message.history);
@@ -2381,7 +2381,7 @@ exports.QueryFilterDutchAuctionsRequest = {
                     message.appId = reader.uint64();
                     break;
                 case 2:
-                    message.denom = reader.string();
+                    message.denom.push(reader.string());
                     break;
                 case 3:
                     message.history = reader.bool();
@@ -2399,7 +2399,9 @@ exports.QueryFilterDutchAuctionsRequest = {
     fromJSON(object) {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            denom: isSet(object.denom) ? String(object.denom) : "",
+            denom: Array.isArray(object === null || object === void 0 ? void 0 : object.denom)
+                ? object.denom.map((e) => String(e))
+                : [],
             history: isSet(object.history) ? Boolean(object.history) : false,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -2410,7 +2412,12 @@ exports.QueryFilterDutchAuctionsRequest = {
         const obj = {};
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        message.denom !== undefined && (obj.denom = message.denom);
+        if (message.denom) {
+            obj.denom = message.denom.map((e) => e);
+        }
+        else {
+            obj.denom = [];
+        }
         message.history !== undefined && (obj.history = message.history);
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
@@ -2425,7 +2432,7 @@ exports.QueryFilterDutchAuctionsRequest = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
-        message.denom = (_a = object.denom) !== null && _a !== void 0 ? _a : "";
+        message.denom = ((_a = object.denom) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
         message.history = (_b = object.history) !== null && _b !== void 0 ? _b : false;
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
