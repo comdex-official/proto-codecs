@@ -3,7 +3,6 @@ import * as _m0 from "protobufjs/minimal";
 import { BorrowMapping, LendMapping, DepositStats, BorrowAsset, UserBorrowIdMapping, BorrowIdByOwnerAndPoolMapping, LendAsset, Pool, AssetToPairMapping, UserLendIdMapping, LendIdByOwnerAndPoolMapping, LendIdToBorrowIdMapping, AssetStats, ExtendedPair, AssetRatesStats, AuctionParams } from "../../../comdex/lend/v1beta1/lend";
 import { Params } from "../../../comdex/lend/v1beta1/params";
 export declare const protobufPackage = "comdex.lend.v1beta1";
-/** GenesisState defines the lend module's genesis state. */
 export interface GenesisState {
     borrowAsset: BorrowAsset[];
     userBorrowIdMapping: UserBorrowIdMapping[];
@@ -24,7 +23,6 @@ export interface GenesisState {
     extendedPair: ExtendedPair[];
     assetRatesStats: AssetRatesStats[];
     auctionParams: AuctionParams[];
-    /** this line is used by starport scaffolding # genesis/proto/state */
     params?: Params;
 }
 export declare const GenesisState: {
@@ -54,6 +52,9 @@ export declare const GenesisState: {
             stableBorrowRate?: string | undefined;
             updatedAmountOut?: string | undefined;
             interestAccumulated?: string | undefined;
+            globalIndex?: string | undefined;
+            reserveGlobalIndex?: string | undefined;
+            lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
         }[] | undefined;
         userBorrowIdMapping?: {
@@ -82,6 +83,8 @@ export declare const GenesisState: {
             availableToBorrow?: string | undefined;
             rewardAccumulated?: string | undefined;
             appId?: string | number | Long.Long | undefined;
+            globalIndex?: string | undefined;
+            lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
         }[] | undefined;
         pool?: {
@@ -211,6 +214,9 @@ export declare const GenesisState: {
             stableBorrowRate?: string | undefined;
             updatedAmountOut?: string | undefined;
             interestAccumulated?: string | undefined;
+            globalIndex?: string | undefined;
+            reserveGlobalIndex?: string | undefined;
+            lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
         }[] & ({
             borrowingId?: string | number | Long.Long | undefined;
@@ -233,6 +239,9 @@ export declare const GenesisState: {
             stableBorrowRate?: string | undefined;
             updatedAmountOut?: string | undefined;
             interestAccumulated?: string | undefined;
+            globalIndex?: string | undefined;
+            reserveGlobalIndex?: string | undefined;
+            lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
         } & {
             borrowingId?: string | number | (Long.Long & {
@@ -435,6 +444,9 @@ export declare const GenesisState: {
             stableBorrowRate?: string | undefined;
             updatedAmountOut?: string | undefined;
             interestAccumulated?: string | undefined;
+            globalIndex?: string | undefined;
+            reserveGlobalIndex?: string | undefined;
+            lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
         } & Record<Exclude<keyof I["borrowAsset"][number], keyof BorrowAsset>, never>)[] & Record<Exclude<keyof I["borrowAsset"], keyof {
             borrowingId?: string | number | Long.Long | undefined;
@@ -457,6 +469,9 @@ export declare const GenesisState: {
             stableBorrowRate?: string | undefined;
             updatedAmountOut?: string | undefined;
             interestAccumulated?: string | undefined;
+            globalIndex?: string | undefined;
+            reserveGlobalIndex?: string | undefined;
+            lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
         }[]>, never>) | undefined;
         userBorrowIdMapping?: ({
@@ -736,6 +751,8 @@ export declare const GenesisState: {
             availableToBorrow?: string | undefined;
             rewardAccumulated?: string | undefined;
             appId?: string | number | Long.Long | undefined;
+            globalIndex?: string | undefined;
+            lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
         }[] & ({
             lendingId?: string | number | Long.Long | undefined;
@@ -751,6 +768,8 @@ export declare const GenesisState: {
             availableToBorrow?: string | undefined;
             rewardAccumulated?: string | undefined;
             appId?: string | number | Long.Long | undefined;
+            globalIndex?: string | undefined;
+            lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
         } & {
             lendingId?: string | number | (Long.Long & {
@@ -997,6 +1016,8 @@ export declare const GenesisState: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["lendAsset"][number]["appId"], keyof Long.Long>, never>) | undefined;
+            globalIndex?: string | undefined;
+            lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
         } & Record<Exclude<keyof I["lendAsset"][number], keyof LendAsset>, never>)[] & Record<Exclude<keyof I["lendAsset"], keyof {
             lendingId?: string | number | Long.Long | undefined;
@@ -1012,6 +1033,8 @@ export declare const GenesisState: {
             availableToBorrow?: string | undefined;
             rewardAccumulated?: string | undefined;
             appId?: string | number | Long.Long | undefined;
+            globalIndex?: string | undefined;
+            lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
         }[]>, never>) | undefined;
         pool?: ({

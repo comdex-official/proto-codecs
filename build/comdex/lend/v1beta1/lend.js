@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DepositRanking = exports.BorrowRanking = exports.AssetRanking = exports.LendRewardsTracker = exports.BorrowInterestTracker = exports.ReservePoolRecordsForBorrow = exports.AuctionParams = exports.DepositStats = exports.BalanceStats = exports.ModuleBalanceStats = exports.ModuleBalance = exports.StableBorrowMapping = exports.BorrowMapping = exports.LendMapping = exports.AssetRatesStats = exports.AssetStats = exports.LendIdToBorrowIdMapping = exports.UserBorrowIdMapping = exports.BorrowIdByOwnerAndPoolMapping = exports.LendIdByOwnerAndPoolMapping = exports.UserLendIdMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
+exports.LendRewardsTracker = exports.BorrowInterestTracker = exports.ReservePoolRecordsForBorrow = exports.AuctionParams = exports.DepositStats = exports.BalanceStats = exports.ModuleBalanceStats = exports.ModuleBalance = exports.StableBorrowMapping = exports.BorrowMapping = exports.LendMapping = exports.AssetRatesStats = exports.AssetStats = exports.LendIdToBorrowIdMapping = exports.UserBorrowIdMapping = exports.BorrowIdByOwnerAndPoolMapping = exports.LendIdByOwnerAndPoolMapping = exports.UserLendIdMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -41,6 +41,8 @@ function createBaseLendAsset() {
         availableToBorrow: "",
         rewardAccumulated: "",
         appId: long_1.default.UZERO,
+        globalIndex: "",
+        lastInteractionTime: undefined,
         cpoolName: "",
     };
 }
@@ -76,8 +78,14 @@ exports.LendAsset = {
         if (!message.appId.isZero()) {
             writer.uint32(80).uint64(message.appId);
         }
+        if (message.globalIndex !== "") {
+            writer.uint32(90).string(message.globalIndex);
+        }
+        if (message.lastInteractionTime !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.lastInteractionTime), writer.uint32(98).fork()).ldelim();
+        }
         if (message.cpoolName !== "") {
-            writer.uint32(90).string(message.cpoolName);
+            writer.uint32(106).string(message.cpoolName);
         }
         return writer;
     },
@@ -119,6 +127,12 @@ exports.LendAsset = {
                     message.appId = reader.uint64();
                     break;
                 case 11:
+                    message.globalIndex = reader.string();
+                    break;
+                case 12:
+                    message.lastInteractionTime = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                case 13:
                     message.cpoolName = reader.string();
                     break;
                 default:
@@ -154,6 +168,10 @@ exports.LendAsset = {
                 ? String(object.rewardAccumulated)
                 : "",
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            globalIndex: isSet(object.globalIndex) ? String(object.globalIndex) : "",
+            lastInteractionTime: isSet(object.lastInteractionTime)
+                ? fromJsonTimestamp(object.lastInteractionTime)
+                : undefined,
             cpoolName: isSet(object.cpoolName) ? String(object.cpoolName) : "",
         };
     },
@@ -180,11 +198,15 @@ exports.LendAsset = {
             (obj.rewardAccumulated = message.rewardAccumulated);
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.globalIndex !== undefined &&
+            (obj.globalIndex = message.globalIndex);
+        message.lastInteractionTime !== undefined &&
+            (obj.lastInteractionTime = message.lastInteractionTime.toISOString());
         message.cpoolName !== undefined && (obj.cpoolName = message.cpoolName);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         const message = createBaseLendAsset();
         message.lendingId =
             object.lendingId !== undefined && object.lendingId !== null
@@ -211,7 +233,9 @@ exports.LendAsset = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
-        message.cpoolName = (_f = object.cpoolName) !== null && _f !== void 0 ? _f : "";
+        message.globalIndex = (_f = object.globalIndex) !== null && _f !== void 0 ? _f : "";
+        message.lastInteractionTime = (_g = object.lastInteractionTime) !== null && _g !== void 0 ? _g : undefined;
+        message.cpoolName = (_h = object.cpoolName) !== null && _h !== void 0 ? _h : "";
         return message;
     },
 };
@@ -228,6 +252,9 @@ function createBaseBorrowAsset() {
         stableBorrowRate: "",
         updatedAmountOut: "",
         interestAccumulated: "",
+        globalIndex: "",
+        reserveGlobalIndex: "",
+        lastInteractionTime: undefined,
         cpoolName: "",
     };
 }
@@ -266,8 +293,17 @@ exports.BorrowAsset = {
         if (message.interestAccumulated !== "") {
             writer.uint32(90).string(message.interestAccumulated);
         }
+        if (message.globalIndex !== "") {
+            writer.uint32(98).string(message.globalIndex);
+        }
+        if (message.reserveGlobalIndex !== "") {
+            writer.uint32(106).string(message.reserveGlobalIndex);
+        }
+        if (message.lastInteractionTime !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.lastInteractionTime), writer.uint32(114).fork()).ldelim();
+        }
         if (message.cpoolName !== "") {
-            writer.uint32(98).string(message.cpoolName);
+            writer.uint32(122).string(message.cpoolName);
         }
         return writer;
     },
@@ -312,6 +348,15 @@ exports.BorrowAsset = {
                     message.interestAccumulated = reader.string();
                     break;
                 case 12:
+                    message.globalIndex = reader.string();
+                    break;
+                case 13:
+                    message.reserveGlobalIndex = reader.string();
+                    break;
+                case 14:
+                    message.lastInteractionTime = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                case 15:
                     message.cpoolName = reader.string();
                     break;
                 default:
@@ -354,6 +399,13 @@ exports.BorrowAsset = {
             interestAccumulated: isSet(object.interestAccumulated)
                 ? String(object.interestAccumulated)
                 : "",
+            globalIndex: isSet(object.globalIndex) ? String(object.globalIndex) : "",
+            reserveGlobalIndex: isSet(object.reserveGlobalIndex)
+                ? String(object.reserveGlobalIndex)
+                : "",
+            lastInteractionTime: isSet(object.lastInteractionTime)
+                ? fromJsonTimestamp(object.lastInteractionTime)
+                : undefined,
             cpoolName: isSet(object.cpoolName) ? String(object.cpoolName) : "",
         };
     },
@@ -387,11 +439,17 @@ exports.BorrowAsset = {
             (obj.updatedAmountOut = message.updatedAmountOut);
         message.interestAccumulated !== undefined &&
             (obj.interestAccumulated = message.interestAccumulated);
+        message.globalIndex !== undefined &&
+            (obj.globalIndex = message.globalIndex);
+        message.reserveGlobalIndex !== undefined &&
+            (obj.reserveGlobalIndex = message.reserveGlobalIndex);
+        message.lastInteractionTime !== undefined &&
+            (obj.lastInteractionTime = message.lastInteractionTime.toISOString());
         message.cpoolName !== undefined && (obj.cpoolName = message.cpoolName);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         const message = createBaseBorrowAsset();
         message.borrowingId =
             object.borrowingId !== undefined && object.borrowingId !== null
@@ -423,7 +481,10 @@ exports.BorrowAsset = {
         message.stableBorrowRate = (_c = object.stableBorrowRate) !== null && _c !== void 0 ? _c : "";
         message.updatedAmountOut = (_d = object.updatedAmountOut) !== null && _d !== void 0 ? _d : "";
         message.interestAccumulated = (_e = object.interestAccumulated) !== null && _e !== void 0 ? _e : "";
-        message.cpoolName = (_f = object.cpoolName) !== null && _f !== void 0 ? _f : "";
+        message.globalIndex = (_f = object.globalIndex) !== null && _f !== void 0 ? _f : "";
+        message.reserveGlobalIndex = (_g = object.reserveGlobalIndex) !== null && _g !== void 0 ? _g : "";
+        message.lastInteractionTime = (_h = object.lastInteractionTime) !== null && _h !== void 0 ? _h : undefined;
+        message.cpoolName = (_j = object.cpoolName) !== null && _j !== void 0 ? _j : "";
         return message;
     },
 };
@@ -2362,244 +2423,6 @@ exports.LendRewardsTracker = {
                 ? long_1.default.fromValue(object.lendingId)
                 : long_1.default.UZERO;
         message.rewardsAccumulated = (_a = object.rewardsAccumulated) !== null && _a !== void 0 ? _a : "";
-        return message;
-    },
-};
-function createBaseAssetRanking() {
-    return { assetId: long_1.default.UZERO, apr: "", amount: "" };
-}
-exports.AssetRanking = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (!message.assetId.isZero()) {
-            writer.uint32(8).uint64(message.assetId);
-        }
-        if (message.apr !== "") {
-            writer.uint32(18).string(message.apr);
-        }
-        if (message.amount !== "") {
-            writer.uint32(26).string(message.amount);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseAssetRanking();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.assetId = reader.uint64();
-                    break;
-                case 2:
-                    message.apr = reader.string();
-                    break;
-                case 3:
-                    message.amount = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            assetId: isSet(object.assetId)
-                ? long_1.default.fromValue(object.assetId)
-                : long_1.default.UZERO,
-            apr: isSet(object.apr) ? String(object.apr) : "",
-            amount: isSet(object.amount) ? String(object.amount) : "",
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.assetId !== undefined &&
-            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
-        message.apr !== undefined && (obj.apr = message.apr);
-        message.amount !== undefined && (obj.amount = message.amount);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b;
-        const message = createBaseAssetRanking();
-        message.assetId =
-            object.assetId !== undefined && object.assetId !== null
-                ? long_1.default.fromValue(object.assetId)
-                : long_1.default.UZERO;
-        message.apr = (_a = object.apr) !== null && _a !== void 0 ? _a : "";
-        message.amount = (_b = object.amount) !== null && _b !== void 0 ? _b : "";
-        return message;
-    },
-};
-function createBaseBorrowRanking() {
-    return { first: undefined, second: undefined, third: undefined };
-}
-exports.BorrowRanking = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.first !== undefined) {
-            exports.AssetRanking.encode(message.first, writer.uint32(10).fork()).ldelim();
-        }
-        if (message.second !== undefined) {
-            exports.AssetRanking.encode(message.second, writer.uint32(18).fork()).ldelim();
-        }
-        if (message.third !== undefined) {
-            exports.AssetRanking.encode(message.third, writer.uint32(26).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseBorrowRanking();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.first = exports.AssetRanking.decode(reader, reader.uint32());
-                    break;
-                case 2:
-                    message.second = exports.AssetRanking.decode(reader, reader.uint32());
-                    break;
-                case 3:
-                    message.third = exports.AssetRanking.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            first: isSet(object.first)
-                ? exports.AssetRanking.fromJSON(object.first)
-                : undefined,
-            second: isSet(object.second)
-                ? exports.AssetRanking.fromJSON(object.second)
-                : undefined,
-            third: isSet(object.third)
-                ? exports.AssetRanking.fromJSON(object.third)
-                : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.first !== undefined &&
-            (obj.first = message.first
-                ? exports.AssetRanking.toJSON(message.first)
-                : undefined);
-        message.second !== undefined &&
-            (obj.second = message.second
-                ? exports.AssetRanking.toJSON(message.second)
-                : undefined);
-        message.third !== undefined &&
-            (obj.third = message.third
-                ? exports.AssetRanking.toJSON(message.third)
-                : undefined);
-        return obj;
-    },
-    fromPartial(object) {
-        const message = createBaseBorrowRanking();
-        message.first =
-            object.first !== undefined && object.first !== null
-                ? exports.AssetRanking.fromPartial(object.first)
-                : undefined;
-        message.second =
-            object.second !== undefined && object.second !== null
-                ? exports.AssetRanking.fromPartial(object.second)
-                : undefined;
-        message.third =
-            object.third !== undefined && object.third !== null
-                ? exports.AssetRanking.fromPartial(object.third)
-                : undefined;
-        return message;
-    },
-};
-function createBaseDepositRanking() {
-    return { first: undefined, second: undefined, third: undefined };
-}
-exports.DepositRanking = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.first !== undefined) {
-            exports.AssetRanking.encode(message.first, writer.uint32(10).fork()).ldelim();
-        }
-        if (message.second !== undefined) {
-            exports.AssetRanking.encode(message.second, writer.uint32(18).fork()).ldelim();
-        }
-        if (message.third !== undefined) {
-            exports.AssetRanking.encode(message.third, writer.uint32(26).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseDepositRanking();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.first = exports.AssetRanking.decode(reader, reader.uint32());
-                    break;
-                case 2:
-                    message.second = exports.AssetRanking.decode(reader, reader.uint32());
-                    break;
-                case 3:
-                    message.third = exports.AssetRanking.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            first: isSet(object.first)
-                ? exports.AssetRanking.fromJSON(object.first)
-                : undefined,
-            second: isSet(object.second)
-                ? exports.AssetRanking.fromJSON(object.second)
-                : undefined,
-            third: isSet(object.third)
-                ? exports.AssetRanking.fromJSON(object.third)
-                : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.first !== undefined &&
-            (obj.first = message.first
-                ? exports.AssetRanking.toJSON(message.first)
-                : undefined);
-        message.second !== undefined &&
-            (obj.second = message.second
-                ? exports.AssetRanking.toJSON(message.second)
-                : undefined);
-        message.third !== undefined &&
-            (obj.third = message.third
-                ? exports.AssetRanking.toJSON(message.third)
-                : undefined);
-        return obj;
-    },
-    fromPartial(object) {
-        const message = createBaseDepositRanking();
-        message.first =
-            object.first !== undefined && object.first !== null
-                ? exports.AssetRanking.fromPartial(object.first)
-                : undefined;
-        message.second =
-            object.second !== undefined && object.second !== null
-                ? exports.AssetRanking.fromPartial(object.second)
-                : undefined;
-        message.third =
-            object.third !== undefined && object.third !== null
-                ? exports.AssetRanking.fromPartial(object.third)
-                : undefined;
         return message;
     },
 };
