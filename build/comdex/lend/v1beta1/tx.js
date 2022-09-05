@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgClientImpl = exports.MsgFundModuleAccountsResponse = exports.MsgBorrowAlternateResponse = exports.MsgCloseBorrowResponse = exports.MsgDrawResponse = exports.MsgDepositBorrowResponse = exports.MsgRepayResponse = exports.MsgBorrowResponse = exports.MsgCloseLendResponse = exports.MsgDepositResponse = exports.MsgWithdrawResponse = exports.MsgLendResponse = exports.MsgFundModuleAccounts = exports.MsgBorrowAlternate = exports.MsgCloseBorrow = exports.MsgDraw = exports.MsgDepositBorrow = exports.MsgRepay = exports.MsgBorrow = exports.MsgCloseLend = exports.MsgDeposit = exports.MsgWithdraw = exports.MsgLend = exports.protobufPackage = void 0;
+exports.MsgClientImpl = exports.MsgCalculateLendRewardsResponse = exports.MsgCalculateBorrowInterestResponse = exports.MsgFundModuleAccountsResponse = exports.MsgBorrowAlternateResponse = exports.MsgCloseBorrowResponse = exports.MsgDrawResponse = exports.MsgDepositBorrowResponse = exports.MsgRepayResponse = exports.MsgBorrowResponse = exports.MsgCloseLendResponse = exports.MsgDepositResponse = exports.MsgWithdrawResponse = exports.MsgLendResponse = exports.MsgCalculateLendRewards = exports.MsgCalculateBorrowInterest = exports.MsgFundModuleAccounts = exports.MsgBorrowAlternate = exports.MsgCloseBorrow = exports.MsgDraw = exports.MsgDepositBorrow = exports.MsgRepay = exports.MsgBorrow = exports.MsgCloseLend = exports.MsgDeposit = exports.MsgWithdraw = exports.MsgLend = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -961,6 +961,122 @@ exports.MsgFundModuleAccounts = {
         return message;
     },
 };
+function createBaseMsgCalculateBorrowInterest() {
+    return { borrower: "", borrowId: long_1.default.UZERO };
+}
+exports.MsgCalculateBorrowInterest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.borrower !== "") {
+            writer.uint32(10).string(message.borrower);
+        }
+        if (!message.borrowId.isZero()) {
+            writer.uint32(16).uint64(message.borrowId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgCalculateBorrowInterest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.borrower = reader.string();
+                    break;
+                case 2:
+                    message.borrowId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            borrower: isSet(object.borrower) ? String(object.borrower) : "",
+            borrowId: isSet(object.borrowId)
+                ? long_1.default.fromValue(object.borrowId)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.borrower !== undefined && (obj.borrower = message.borrower);
+        message.borrowId !== undefined &&
+            (obj.borrowId = (message.borrowId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseMsgCalculateBorrowInterest();
+        message.borrower = (_a = object.borrower) !== null && _a !== void 0 ? _a : "";
+        message.borrowId =
+            object.borrowId !== undefined && object.borrowId !== null
+                ? long_1.default.fromValue(object.borrowId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseMsgCalculateLendRewards() {
+    return { lender: "", lendId: long_1.default.UZERO };
+}
+exports.MsgCalculateLendRewards = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.lender !== "") {
+            writer.uint32(10).string(message.lender);
+        }
+        if (!message.lendId.isZero()) {
+            writer.uint32(16).uint64(message.lendId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgCalculateLendRewards();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.lender = reader.string();
+                    break;
+                case 2:
+                    message.lendId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            lender: isSet(object.lender) ? String(object.lender) : "",
+            lendId: isSet(object.lendId) ? long_1.default.fromValue(object.lendId) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.lender !== undefined && (obj.lender = message.lender);
+        message.lendId !== undefined &&
+            (obj.lendId = (message.lendId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseMsgCalculateLendRewards();
+        message.lender = (_a = object.lender) !== null && _a !== void 0 ? _a : "";
+        message.lendId =
+            object.lendId !== undefined && object.lendId !== null
+                ? long_1.default.fromValue(object.lendId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
 function createBaseMsgLendResponse() {
     return {};
 }
@@ -1324,6 +1440,72 @@ exports.MsgFundModuleAccountsResponse = {
         return message;
     },
 };
+function createBaseMsgCalculateBorrowInterestResponse() {
+    return {};
+}
+exports.MsgCalculateBorrowInterestResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgCalculateBorrowInterestResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgCalculateBorrowInterestResponse();
+        return message;
+    },
+};
+function createBaseMsgCalculateLendRewardsResponse() {
+    return {};
+}
+exports.MsgCalculateLendRewardsResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMsgCalculateLendRewardsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseMsgCalculateLendRewardsResponse();
+        return message;
+    },
+};
 class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1338,6 +1520,8 @@ class MsgClientImpl {
         this.CloseBorrow = this.CloseBorrow.bind(this);
         this.BorrowAlternate = this.BorrowAlternate.bind(this);
         this.FundModuleAccounts = this.FundModuleAccounts.bind(this);
+        this.CalculateBorrowInterest = this.CalculateBorrowInterest.bind(this);
+        this.CalculateLendRewards = this.CalculateLendRewards.bind(this);
     }
     Lend(request) {
         const data = exports.MsgLend.encode(request).finish();
@@ -1393,6 +1577,16 @@ class MsgClientImpl {
         const data = exports.MsgFundModuleAccounts.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "FundModuleAccounts", data);
         return promise.then((data) => exports.MsgFundModuleAccountsResponse.decode(new _m0.Reader(data)));
+    }
+    CalculateBorrowInterest(request) {
+        const data = exports.MsgCalculateBorrowInterest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "CalculateBorrowInterest", data);
+        return promise.then((data) => exports.MsgCalculateBorrowInterestResponse.decode(new _m0.Reader(data)));
+    }
+    CalculateLendRewards(request) {
+        const data = exports.MsgCalculateLendRewards.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "CalculateLendRewards", data);
+        return promise.then((data) => exports.MsgCalculateLendRewardsResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
