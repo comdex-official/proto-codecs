@@ -9,7 +9,6 @@ export const protobufPackage = "comdex.liquidation.v1beta1";
 export interface LockedVault {
   id: Long;
   appId: Long;
-  appVaultTypeId: string;
   originalVaultId: Long;
   extendedPairVaultId: Long;
   owner: string;
@@ -44,15 +43,10 @@ export interface LockedVaultToAppMapping {
   lockedVault: LockedVault[];
 }
 
-export interface WhitelistedAppIds {
-  whitelistedAppIds: Long[];
-}
-
 function createBaseLockedVault(): LockedVault {
   return {
     id: Long.UZERO,
     appId: Long.UZERO,
-    appVaultTypeId: "",
     originalVaultId: Long.UZERO,
     extendedPairVaultId: Long.UZERO,
     owner: "",
@@ -83,61 +77,58 @@ export const LockedVault = {
     if (!message.appId.isZero()) {
       writer.uint32(16).uint64(message.appId);
     }
-    if (message.appVaultTypeId !== "") {
-      writer.uint32(26).string(message.appVaultTypeId);
-    }
     if (!message.originalVaultId.isZero()) {
-      writer.uint32(32).uint64(message.originalVaultId);
+      writer.uint32(24).uint64(message.originalVaultId);
     }
     if (!message.extendedPairVaultId.isZero()) {
-      writer.uint32(40).uint64(message.extendedPairVaultId);
+      writer.uint32(32).uint64(message.extendedPairVaultId);
     }
     if (message.owner !== "") {
-      writer.uint32(50).string(message.owner);
+      writer.uint32(42).string(message.owner);
     }
     if (message.amountIn !== "") {
-      writer.uint32(58).string(message.amountIn);
+      writer.uint32(50).string(message.amountIn);
     }
     if (message.amountOut !== "") {
-      writer.uint32(66).string(message.amountOut);
+      writer.uint32(58).string(message.amountOut);
     }
     if (message.updatedAmountOut !== "") {
-      writer.uint32(74).string(message.updatedAmountOut);
+      writer.uint32(66).string(message.updatedAmountOut);
     }
     if (message.initiator !== "") {
-      writer.uint32(82).string(message.initiator);
+      writer.uint32(74).string(message.initiator);
     }
     if (message.isAuctionComplete === true) {
-      writer.uint32(88).bool(message.isAuctionComplete);
+      writer.uint32(80).bool(message.isAuctionComplete);
     }
     if (message.isAuctionInProgress === true) {
-      writer.uint32(96).bool(message.isAuctionInProgress);
+      writer.uint32(88).bool(message.isAuctionInProgress);
     }
     if (message.crAtLiquidation !== "") {
-      writer.uint32(106).string(message.crAtLiquidation);
+      writer.uint32(98).string(message.crAtLiquidation);
     }
     if (message.currentCollateralisationRatio !== "") {
-      writer.uint32(114).string(message.currentCollateralisationRatio);
+      writer.uint32(106).string(message.currentCollateralisationRatio);
     }
     if (message.collateralToBeAuctioned !== "") {
-      writer.uint32(122).string(message.collateralToBeAuctioned);
+      writer.uint32(114).string(message.collateralToBeAuctioned);
     }
     if (message.liquidationTimestamp !== undefined) {
       Timestamp.encode(
         toTimestamp(message.liquidationTimestamp),
-        writer.uint32(130).fork()
+        writer.uint32(122).fork()
       ).ldelim();
     }
     for (const v of message.selloffHistory) {
-      writer.uint32(138).string(v!);
+      writer.uint32(130).string(v!);
     }
     if (message.interestAccumulated !== "") {
-      writer.uint32(146).string(message.interestAccumulated);
+      writer.uint32(138).string(message.interestAccumulated);
     }
     if (message.borrowMetaData !== undefined) {
       BorrowMetaData.encode(
         message.borrowMetaData,
-        writer.uint32(154).fork()
+        writer.uint32(146).fork()
       ).ldelim();
     }
     return writer;
@@ -157,56 +148,53 @@ export const LockedVault = {
           message.appId = reader.uint64() as Long;
           break;
         case 3:
-          message.appVaultTypeId = reader.string();
-          break;
-        case 4:
           message.originalVaultId = reader.uint64() as Long;
           break;
-        case 5:
+        case 4:
           message.extendedPairVaultId = reader.uint64() as Long;
           break;
-        case 6:
+        case 5:
           message.owner = reader.string();
           break;
-        case 7:
+        case 6:
           message.amountIn = reader.string();
           break;
-        case 8:
+        case 7:
           message.amountOut = reader.string();
           break;
-        case 9:
+        case 8:
           message.updatedAmountOut = reader.string();
           break;
-        case 10:
+        case 9:
           message.initiator = reader.string();
           break;
-        case 11:
+        case 10:
           message.isAuctionComplete = reader.bool();
           break;
-        case 12:
+        case 11:
           message.isAuctionInProgress = reader.bool();
           break;
-        case 13:
+        case 12:
           message.crAtLiquidation = reader.string();
           break;
-        case 14:
+        case 13:
           message.currentCollateralisationRatio = reader.string();
           break;
-        case 15:
+        case 14:
           message.collateralToBeAuctioned = reader.string();
           break;
-        case 16:
+        case 15:
           message.liquidationTimestamp = fromTimestamp(
             Timestamp.decode(reader, reader.uint32())
           );
           break;
-        case 17:
+        case 16:
           message.selloffHistory.push(reader.string());
           break;
-        case 18:
+        case 17:
           message.interestAccumulated = reader.string();
           break;
-        case 19:
+        case 18:
           message.borrowMetaData = BorrowMetaData.decode(
             reader,
             reader.uint32()
@@ -224,9 +212,6 @@ export const LockedVault = {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      appVaultTypeId: isSet(object.appVaultTypeId)
-        ? String(object.appVaultTypeId)
-        : "",
       originalVaultId: isSet(object.originalVaultId)
         ? Long.fromValue(object.originalVaultId)
         : Long.UZERO,
@@ -276,8 +261,6 @@ export const LockedVault = {
       (obj.id = (message.id || Long.UZERO).toString());
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
-    message.appVaultTypeId !== undefined &&
-      (obj.appVaultTypeId = message.appVaultTypeId);
     message.originalVaultId !== undefined &&
       (obj.originalVaultId = (
         message.originalVaultId || Long.UZERO
@@ -331,7 +314,6 @@ export const LockedVault = {
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
         : Long.UZERO;
-    message.appVaultTypeId = object.appVaultTypeId ?? "";
     message.originalVaultId =
       object.originalVaultId !== undefined && object.originalVaultId !== null
         ? Long.fromValue(object.originalVaultId)
@@ -548,78 +530,6 @@ export const LockedVaultToAppMapping = {
         : Long.UZERO;
     message.lockedVault =
       object.lockedVault?.map((e) => LockedVault.fromPartial(e)) || [];
-    return message;
-  },
-};
-
-function createBaseWhitelistedAppIds(): WhitelistedAppIds {
-  return { whitelistedAppIds: [] };
-}
-
-export const WhitelistedAppIds = {
-  encode(
-    message: WhitelistedAppIds,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    writer.uint32(10).fork();
-    for (const v of message.whitelistedAppIds) {
-      writer.uint64(v);
-    }
-    writer.ldelim();
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): WhitelistedAppIds {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseWhitelistedAppIds();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.whitelistedAppIds.push(reader.uint64() as Long);
-            }
-          } else {
-            message.whitelistedAppIds.push(reader.uint64() as Long);
-          }
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): WhitelistedAppIds {
-    return {
-      whitelistedAppIds: Array.isArray(object?.whitelistedAppIds)
-        ? object.whitelistedAppIds.map((e: any) => Long.fromValue(e))
-        : [],
-    };
-  },
-
-  toJSON(message: WhitelistedAppIds): unknown {
-    const obj: any = {};
-    if (message.whitelistedAppIds) {
-      obj.whitelistedAppIds = message.whitelistedAppIds.map((e) =>
-        (e || Long.UZERO).toString()
-      );
-    } else {
-      obj.whitelistedAppIds = [];
-    }
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<WhitelistedAppIds>, I>>(
-    object: I
-  ): WhitelistedAppIds {
-    const message = createBaseWhitelistedAppIds();
-    message.whitelistedAppIds =
-      object.whitelistedAppIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };

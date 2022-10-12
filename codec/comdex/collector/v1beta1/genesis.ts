@@ -12,14 +12,12 @@ import {
 
 export const protobufPackage = "comdex.collector.v1beta1";
 
-/** GenesisState defines the collector module's genesis state. */
 export interface GenesisState {
   netFeeCollectedData: AppAssetIdToFeeCollectedData[];
   appIdToAssetCollectorMapping: AppToAssetIdCollectorMapping[];
   collectorLookup: CollectorLookupTableData[];
   collectorAuctionLookupTable: AppAssetIdToAuctionLookupTable[];
   appToDenomsMapping: AppToDenomsMapping[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   params?: Params;
 }
 

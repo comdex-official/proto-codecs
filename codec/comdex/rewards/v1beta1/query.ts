@@ -10,7 +10,6 @@ import { EpochInfo } from "../../../comdex/rewards/v1beta1/epochs";
 import { Gauge } from "../../../comdex/rewards/v1beta1/gauge";
 import {
   InternalRewards,
-  WhitelistedAppIdsVault,
   LockerExternalRewards,
   VaultExternalRewards,
 } from "../../../comdex/rewards/v1beta1/rewards";
@@ -85,7 +84,7 @@ export interface QueryRewardRequest {
 }
 
 export interface QueryRewardResponse {
-  reward?: InternalRewards;
+  reward: InternalRewards[];
 }
 
 export interface QueryExternalRewardsLockersRequest {
@@ -111,7 +110,7 @@ export interface QueryWhitelistedAppIdsVaultRequest {
 }
 
 export interface QueryWhitelistedAppIdsVaultResponse {
-  whitelistedAppIdsVault?: WhitelistedAppIdsVault;
+  whitelistedAppIdsVault: Long[];
   pagination?: PageResponse;
 }
 
@@ -1100,7 +1099,7 @@ export const QueryRewardRequest = {
 };
 
 function createBaseQueryRewardResponse(): QueryRewardResponse {
-  return { reward: undefined };
+  return { reward: [] };
 }
 
 export const QueryRewardResponse = {
@@ -1108,8 +1107,8 @@ export const QueryRewardResponse = {
     message: QueryRewardResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.reward !== undefined) {
-      InternalRewards.encode(message.reward, writer.uint32(10).fork()).ldelim();
+    for (const v of message.reward) {
+      InternalRewards.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -1122,7 +1121,7 @@ export const QueryRewardResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.reward = InternalRewards.decode(reader, reader.uint32());
+          message.reward.push(InternalRewards.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -1134,18 +1133,21 @@ export const QueryRewardResponse = {
 
   fromJSON(object: any): QueryRewardResponse {
     return {
-      reward: isSet(object.reward)
-        ? InternalRewards.fromJSON(object.reward)
-        : undefined,
+      reward: Array.isArray(object?.reward)
+        ? object.reward.map((e: any) => InternalRewards.fromJSON(e))
+        : [],
     };
   },
 
   toJSON(message: QueryRewardResponse): unknown {
     const obj: any = {};
-    message.reward !== undefined &&
-      (obj.reward = message.reward
-        ? InternalRewards.toJSON(message.reward)
-        : undefined);
+    if (message.reward) {
+      obj.reward = message.reward.map((e) =>
+        e ? InternalRewards.toJSON(e) : undefined
+      );
+    } else {
+      obj.reward = [];
+    }
     return obj;
   },
 
@@ -1154,9 +1156,7 @@ export const QueryRewardResponse = {
   ): QueryRewardResponse {
     const message = createBaseQueryRewardResponse();
     message.reward =
-      object.reward !== undefined && object.reward !== null
-        ? InternalRewards.fromPartial(object.reward)
-        : undefined;
+      object.reward?.map((e) => InternalRewards.fromPartial(e)) || [];
     return message;
   },
 };
@@ -1541,7 +1541,7 @@ export const QueryWhitelistedAppIdsVaultRequest = {
 };
 
 function createBaseQueryWhitelistedAppIdsVaultResponse(): QueryWhitelistedAppIdsVaultResponse {
-  return { whitelistedAppIdsVault: undefined, pagination: undefined };
+  return { whitelistedAppIdsVault: [], pagination: undefined };
 }
 
 export const QueryWhitelistedAppIdsVaultResponse = {
@@ -1549,12 +1549,11 @@ export const QueryWhitelistedAppIdsVaultResponse = {
     message: QueryWhitelistedAppIdsVaultResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.whitelistedAppIdsVault !== undefined) {
-      WhitelistedAppIdsVault.encode(
-        message.whitelistedAppIdsVault,
-        writer.uint32(10).fork()
-      ).ldelim();
+    writer.uint32(10).fork();
+    for (const v of message.whitelistedAppIdsVault) {
+      writer.uint64(v);
     }
+    writer.ldelim();
     if (message.pagination !== undefined) {
       PageResponse.encode(
         message.pagination,
@@ -1575,10 +1574,14 @@ export const QueryWhitelistedAppIdsVaultResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.whitelistedAppIdsVault = WhitelistedAppIdsVault.decode(
-            reader,
-            reader.uint32()
-          );
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.whitelistedAppIdsVault.push(reader.uint64() as Long);
+            }
+          } else {
+            message.whitelistedAppIdsVault.push(reader.uint64() as Long);
+          }
           break;
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
@@ -1593,9 +1596,9 @@ export const QueryWhitelistedAppIdsVaultResponse = {
 
   fromJSON(object: any): QueryWhitelistedAppIdsVaultResponse {
     return {
-      whitelistedAppIdsVault: isSet(object.whitelistedAppIdsVault)
-        ? WhitelistedAppIdsVault.fromJSON(object.whitelistedAppIdsVault)
-        : undefined,
+      whitelistedAppIdsVault: Array.isArray(object?.whitelistedAppIdsVault)
+        ? object.whitelistedAppIdsVault.map((e: any) => Long.fromValue(e))
+        : [],
       pagination: isSet(object.pagination)
         ? PageResponse.fromJSON(object.pagination)
         : undefined,
@@ -1604,10 +1607,13 @@ export const QueryWhitelistedAppIdsVaultResponse = {
 
   toJSON(message: QueryWhitelistedAppIdsVaultResponse): unknown {
     const obj: any = {};
-    message.whitelistedAppIdsVault !== undefined &&
-      (obj.whitelistedAppIdsVault = message.whitelistedAppIdsVault
-        ? WhitelistedAppIdsVault.toJSON(message.whitelistedAppIdsVault)
-        : undefined);
+    if (message.whitelistedAppIdsVault) {
+      obj.whitelistedAppIdsVault = message.whitelistedAppIdsVault.map((e) =>
+        (e || Long.UZERO).toString()
+      );
+    } else {
+      obj.whitelistedAppIdsVault = [];
+    }
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
         ? PageResponse.toJSON(message.pagination)
@@ -1620,10 +1626,7 @@ export const QueryWhitelistedAppIdsVaultResponse = {
   >(object: I): QueryWhitelistedAppIdsVaultResponse {
     const message = createBaseQueryWhitelistedAppIdsVaultResponse();
     message.whitelistedAppIdsVault =
-      object.whitelistedAppIdsVault !== undefined &&
-      object.whitelistedAppIdsVault !== null
-        ? WhitelistedAppIdsVault.fromPartial(object.whitelistedAppIdsVault)
-        : undefined;
+      object.whitelistedAppIdsVault?.map((e) => Long.fromValue(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)

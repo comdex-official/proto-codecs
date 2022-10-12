@@ -4,14 +4,22 @@ import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.liquidation.v1beta1";
 
-export interface Params {}
+export interface Params {
+  liquidationBatchSize: Long;
+}
 
 function createBaseParams(): Params {
-  return {};
+  return { liquidationBatchSize: Long.UZERO };
 }
 
 export const Params = {
-  encode(_: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: Params,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.liquidationBatchSize.isZero()) {
+      writer.uint32(8).uint64(message.liquidationBatchSize);
+    }
     return writer;
   },
 
@@ -22,6 +30,9 @@ export const Params = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.liquidationBatchSize = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -30,17 +41,30 @@ export const Params = {
     return message;
   },
 
-  fromJSON(_: any): Params {
-    return {};
+  fromJSON(object: any): Params {
+    return {
+      liquidationBatchSize: isSet(object.liquidationBatchSize)
+        ? Long.fromValue(object.liquidationBatchSize)
+        : Long.UZERO,
+    };
   },
 
-  toJSON(_: Params): unknown {
+  toJSON(message: Params): unknown {
     const obj: any = {};
+    message.liquidationBatchSize !== undefined &&
+      (obj.liquidationBatchSize = (
+        message.liquidationBatchSize || Long.UZERO
+      ).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Params>, I>>(_: I): Params {
+  fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
+    message.liquidationBatchSize =
+      object.liquidationBatchSize !== undefined &&
+      object.liquidationBatchSize !== null
+        ? Long.fromValue(object.liquidationBatchSize)
+        : Long.UZERO;
     return message;
   },
 };
@@ -77,4 +101,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

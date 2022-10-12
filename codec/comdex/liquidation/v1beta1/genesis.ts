@@ -1,29 +1,19 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-import {
-  WhitelistedAppIds,
-  LockedVault,
-  LockedVaultToAppMapping,
-} from "../../../comdex/liquidation/v1beta1/locked_vault";
 import { Params } from "../../../comdex/liquidation/v1beta1/params";
+import { LockedVault } from "../../../comdex/liquidation/v1beta1/locked_vault";
 
 export const protobufPackage = "comdex.liquidation.v1beta1";
 
 export interface GenesisState {
   lockedVault: LockedVault[];
-  lockedVaultToAppMapping: LockedVaultToAppMapping[];
-  whitelistedAppIds?: WhitelistedAppIds;
+  whitelistedApps: Long[];
   params?: Params;
 }
 
 function createBaseGenesisState(): GenesisState {
-  return {
-    lockedVault: [],
-    lockedVaultToAppMapping: [],
-    whitelistedAppIds: undefined,
-    params: undefined,
-  };
+  return { lockedVault: [], whitelistedApps: [], params: undefined };
 }
 
 export const GenesisState = {
@@ -34,15 +24,11 @@ export const GenesisState = {
     for (const v of message.lockedVault) {
       LockedVault.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    for (const v of message.lockedVaultToAppMapping) {
-      LockedVaultToAppMapping.encode(v!, writer.uint32(18).fork()).ldelim();
+    writer.uint32(18).fork();
+    for (const v of message.whitelistedApps) {
+      writer.uint64(v);
     }
-    if (message.whitelistedAppIds !== undefined) {
-      WhitelistedAppIds.encode(
-        message.whitelistedAppIds,
-        writer.uint32(26).fork()
-      ).ldelim();
-    }
+    writer.ldelim();
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(34).fork()).ldelim();
     }
@@ -60,15 +46,14 @@ export const GenesisState = {
           message.lockedVault.push(LockedVault.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.lockedVaultToAppMapping.push(
-            LockedVaultToAppMapping.decode(reader, reader.uint32())
-          );
-          break;
-        case 3:
-          message.whitelistedAppIds = WhitelistedAppIds.decode(
-            reader,
-            reader.uint32()
-          );
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.whitelistedApps.push(reader.uint64() as Long);
+            }
+          } else {
+            message.whitelistedApps.push(reader.uint64() as Long);
+          }
           break;
         case 4:
           message.params = Params.decode(reader, reader.uint32());
@@ -86,14 +71,9 @@ export const GenesisState = {
       lockedVault: Array.isArray(object?.lockedVault)
         ? object.lockedVault.map((e: any) => LockedVault.fromJSON(e))
         : [],
-      lockedVaultToAppMapping: Array.isArray(object?.lockedVaultToAppMapping)
-        ? object.lockedVaultToAppMapping.map((e: any) =>
-            LockedVaultToAppMapping.fromJSON(e)
-          )
+      whitelistedApps: Array.isArray(object?.whitelistedApps)
+        ? object.whitelistedApps.map((e: any) => Long.fromValue(e))
         : [],
-      whitelistedAppIds: isSet(object.whitelistedAppIds)
-        ? WhitelistedAppIds.fromJSON(object.whitelistedAppIds)
-        : undefined,
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
@@ -107,17 +87,13 @@ export const GenesisState = {
     } else {
       obj.lockedVault = [];
     }
-    if (message.lockedVaultToAppMapping) {
-      obj.lockedVaultToAppMapping = message.lockedVaultToAppMapping.map((e) =>
-        e ? LockedVaultToAppMapping.toJSON(e) : undefined
+    if (message.whitelistedApps) {
+      obj.whitelistedApps = message.whitelistedApps.map((e) =>
+        (e || Long.UZERO).toString()
       );
     } else {
-      obj.lockedVaultToAppMapping = [];
+      obj.whitelistedApps = [];
     }
-    message.whitelistedAppIds !== undefined &&
-      (obj.whitelistedAppIds = message.whitelistedAppIds
-        ? WhitelistedAppIds.toJSON(message.whitelistedAppIds)
-        : undefined);
     message.params !== undefined &&
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
@@ -129,15 +105,8 @@ export const GenesisState = {
     const message = createBaseGenesisState();
     message.lockedVault =
       object.lockedVault?.map((e) => LockedVault.fromPartial(e)) || [];
-    message.lockedVaultToAppMapping =
-      object.lockedVaultToAppMapping?.map((e) =>
-        LockedVaultToAppMapping.fromPartial(e)
-      ) || [];
-    message.whitelistedAppIds =
-      object.whitelistedAppIds !== undefined &&
-      object.whitelistedAppIds !== null
-        ? WhitelistedAppIds.fromPartial(object.whitelistedAppIds)
-        : undefined;
+    message.whitelistedApps =
+      object.whitelistedApps?.map((e) => Long.fromValue(e)) || [];
     message.params =
       object.params !== undefined && object.params !== null
         ? Params.fromPartial(object.params)
