@@ -12,6 +12,7 @@ import {
   InternalRewards,
   LockerExternalRewards,
   VaultExternalRewards,
+  LendExternalRewards,
 } from "../../../comdex/rewards/v1beta1/rewards";
 
 export const protobufPackage = "comdex.rewards.v1beta1";
@@ -111,6 +112,15 @@ export interface QueryWhitelistedAppIdsVaultRequest {
 
 export interface QueryWhitelistedAppIdsVaultResponse {
   whitelistedAppIdsVault: Long[];
+  pagination?: PageResponse;
+}
+
+export interface QueryExternalRewardLendsRequest {
+  pagination?: PageRequest;
+}
+
+export interface QueryExternalRewardLendsResponse {
+  lendExternalRewards: LendExternalRewards[];
   pagination?: PageResponse;
 }
 
@@ -1635,6 +1645,163 @@ export const QueryWhitelistedAppIdsVaultResponse = {
   },
 };
 
+function createBaseQueryExternalRewardLendsRequest(): QueryExternalRewardLendsRequest {
+  return { pagination: undefined };
+}
+
+export const QueryExternalRewardLendsRequest = {
+  encode(
+    message: QueryExternalRewardLendsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryExternalRewardLendsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryExternalRewardLendsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryExternalRewardLendsRequest {
+    return {
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryExternalRewardLendsRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryExternalRewardLendsRequest>, I>>(
+    object: I
+  ): QueryExternalRewardLendsRequest {
+    const message = createBaseQueryExternalRewardLendsRequest();
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryExternalRewardLendsResponse(): QueryExternalRewardLendsResponse {
+  return { lendExternalRewards: [], pagination: undefined };
+}
+
+export const QueryExternalRewardLendsResponse = {
+  encode(
+    message: QueryExternalRewardLendsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.lendExternalRewards) {
+      LendExternalRewards.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryExternalRewardLendsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryExternalRewardLendsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.lendExternalRewards.push(
+            LendExternalRewards.decode(reader, reader.uint32())
+          );
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryExternalRewardLendsResponse {
+    return {
+      lendExternalRewards: Array.isArray(object?.lendExternalRewards)
+        ? object.lendExternalRewards.map((e: any) =>
+            LendExternalRewards.fromJSON(e)
+          )
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryExternalRewardLendsResponse): unknown {
+    const obj: any = {};
+    if (message.lendExternalRewards) {
+      obj.lendExternalRewards = message.lendExternalRewards.map((e) =>
+        e ? LendExternalRewards.toJSON(e) : undefined
+      );
+    } else {
+      obj.lendExternalRewards = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryExternalRewardLendsResponse>, I>
+  >(object: I): QueryExternalRewardLendsResponse {
+    const message = createBaseQueryExternalRewardLendsResponse();
+    message.lendExternalRewards =
+      object.lendExternalRewards?.map((e) =>
+        LendExternalRewards.fromPartial(e)
+      ) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
@@ -1664,6 +1831,9 @@ export interface Query {
   QueryWhitelistedAppIdsVault(
     request: QueryWhitelistedAppIdsVaultRequest
   ): Promise<QueryWhitelistedAppIdsVaultResponse>;
+  QueryExternalRewardLends(
+    request: QueryExternalRewardLendsRequest
+  ): Promise<QueryExternalRewardLendsResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1683,6 +1853,7 @@ export class QueryClientImpl implements Query {
     this.QueryExternalRewardVaults = this.QueryExternalRewardVaults.bind(this);
     this.QueryWhitelistedAppIdsVault =
       this.QueryWhitelistedAppIdsVault.bind(this);
+    this.QueryExternalRewardLends = this.QueryExternalRewardLends.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -1829,6 +2000,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryWhitelistedAppIdsVaultResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryExternalRewardLends(
+    request: QueryExternalRewardLendsRequest
+  ): Promise<QueryExternalRewardLendsResponse> {
+    const data = QueryExternalRewardLendsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.rewards.v1beta1.Query",
+      "QueryExternalRewardLends",
+      data
+    );
+    return promise.then((data) =>
+      QueryExternalRewardLendsResponse.decode(new _m0.Reader(data))
     );
   }
 }

@@ -63,7 +63,7 @@ export interface EpochTime {
 export interface LendExternalRewards {
   id: Long;
   appMappingId: Long;
-  rewardsAssetPoolData: RewardsAssetPoolData[];
+  rewardsAssetPoolData?: RewardsAssetPoolData;
   totalRewards?: Coin;
   rewardAssetId: Long;
   durationDays: Long;
@@ -930,7 +930,7 @@ function createBaseLendExternalRewards(): LendExternalRewards {
   return {
     id: Long.UZERO,
     appMappingId: Long.UZERO,
-    rewardsAssetPoolData: [],
+    rewardsAssetPoolData: undefined,
     totalRewards: undefined,
     rewardAssetId: Long.UZERO,
     durationDays: Long.ZERO,
@@ -955,8 +955,11 @@ export const LendExternalRewards = {
     if (!message.appMappingId.isZero()) {
       writer.uint32(16).uint64(message.appMappingId);
     }
-    for (const v of message.rewardsAssetPoolData) {
-      RewardsAssetPoolData.encode(v!, writer.uint32(26).fork()).ldelim();
+    if (message.rewardsAssetPoolData !== undefined) {
+      RewardsAssetPoolData.encode(
+        message.rewardsAssetPoolData,
+        writer.uint32(26).fork()
+      ).ldelim();
     }
     if (message.totalRewards !== undefined) {
       Coin.encode(message.totalRewards, writer.uint32(34).fork()).ldelim();
@@ -1011,8 +1014,9 @@ export const LendExternalRewards = {
           message.appMappingId = reader.uint64() as Long;
           break;
         case 3:
-          message.rewardsAssetPoolData.push(
-            RewardsAssetPoolData.decode(reader, reader.uint32())
+          message.rewardsAssetPoolData = RewardsAssetPoolData.decode(
+            reader,
+            reader.uint32()
           );
           break;
         case 4:
@@ -1063,11 +1067,9 @@ export const LendExternalRewards = {
       appMappingId: isSet(object.appMappingId)
         ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
-      rewardsAssetPoolData: Array.isArray(object?.rewardsAssetPoolData)
-        ? object.rewardsAssetPoolData.map((e: any) =>
-            RewardsAssetPoolData.fromJSON(e)
-          )
-        : [],
+      rewardsAssetPoolData: isSet(object.rewardsAssetPoolData)
+        ? RewardsAssetPoolData.fromJSON(object.rewardsAssetPoolData)
+        : undefined,
       totalRewards: isSet(object.totalRewards)
         ? Coin.fromJSON(object.totalRewards)
         : undefined,
@@ -1103,13 +1105,10 @@ export const LendExternalRewards = {
       (obj.id = (message.id || Long.UZERO).toString());
     message.appMappingId !== undefined &&
       (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    if (message.rewardsAssetPoolData) {
-      obj.rewardsAssetPoolData = message.rewardsAssetPoolData.map((e) =>
-        e ? RewardsAssetPoolData.toJSON(e) : undefined
-      );
-    } else {
-      obj.rewardsAssetPoolData = [];
-    }
+    message.rewardsAssetPoolData !== undefined &&
+      (obj.rewardsAssetPoolData = message.rewardsAssetPoolData
+        ? RewardsAssetPoolData.toJSON(message.rewardsAssetPoolData)
+        : undefined);
     message.totalRewards !== undefined &&
       (obj.totalRewards = message.totalRewards
         ? Coin.toJSON(message.totalRewards)
@@ -1150,9 +1149,10 @@ export const LendExternalRewards = {
         ? Long.fromValue(object.appMappingId)
         : Long.UZERO;
     message.rewardsAssetPoolData =
-      object.rewardsAssetPoolData?.map((e) =>
-        RewardsAssetPoolData.fromPartial(e)
-      ) || [];
+      object.rewardsAssetPoolData !== undefined &&
+      object.rewardsAssetPoolData !== null
+        ? RewardsAssetPoolData.fromPartial(object.rewardsAssetPoolData)
+        : undefined;
     message.totalRewards =
       object.totalRewards !== undefined && object.totalRewards !== null
         ? Coin.fromPartial(object.totalRewards)
