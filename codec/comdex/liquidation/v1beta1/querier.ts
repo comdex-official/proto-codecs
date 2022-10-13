@@ -1,10 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-import {
-  LockedVault,
-  WhitelistedAppIds,
-} from "../../../comdex/liquidation/v1beta1/locked_vault";
+import { LockedVault } from "../../../comdex/liquidation/v1beta1/locked_vault";
 import {
   PageRequest,
   PageResponse,
@@ -14,6 +11,7 @@ import { Params } from "../../../comdex/liquidation/v1beta1/params";
 export const protobufPackage = "comdex.liquidation.v1beta1";
 
 export interface QueryLockedVaultRequest {
+  appID: Long;
   id: Long;
 }
 
@@ -78,11 +76,11 @@ export interface QueryLockedVaultsPairResponse {
 export interface QueryAppIdsRequest {}
 
 export interface QueryAppIdsResponse {
-  WhitelistedAppIds?: WhitelistedAppIds;
+  WhitelistedAppIds: Long[];
 }
 
 function createBaseQueryLockedVaultRequest(): QueryLockedVaultRequest {
-  return { id: Long.UZERO };
+  return { appID: Long.UZERO, id: Long.UZERO };
 }
 
 export const QueryLockedVaultRequest = {
@@ -90,8 +88,11 @@ export const QueryLockedVaultRequest = {
     message: QueryLockedVaultRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
+    if (!message.appID.isZero()) {
+      writer.uint32(8).uint64(message.appID);
+    }
     if (!message.id.isZero()) {
-      writer.uint32(8).uint64(message.id);
+      writer.uint32(16).uint64(message.id);
     }
     return writer;
   },
@@ -107,6 +108,9 @@ export const QueryLockedVaultRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          message.appID = reader.uint64() as Long;
+          break;
+        case 2:
           message.id = reader.uint64() as Long;
           break;
         default:
@@ -119,12 +123,15 @@ export const QueryLockedVaultRequest = {
 
   fromJSON(object: any): QueryLockedVaultRequest {
     return {
+      appID: isSet(object.appID) ? Long.fromValue(object.appID) : Long.UZERO,
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
 
   toJSON(message: QueryLockedVaultRequest): unknown {
     const obj: any = {};
+    message.appID !== undefined &&
+      (obj.appID = (message.appID || Long.UZERO).toString());
     message.id !== undefined &&
       (obj.id = (message.id || Long.UZERO).toString());
     return obj;
@@ -134,6 +141,10 @@ export const QueryLockedVaultRequest = {
     object: I
   ): QueryLockedVaultRequest {
     const message = createBaseQueryLockedVaultRequest();
+    message.appID =
+      object.appID !== undefined && object.appID !== null
+        ? Long.fromValue(object.appID)
+        : Long.UZERO;
     message.id =
       object.id !== undefined && object.id !== null
         ? Long.fromValue(object.id)
@@ -1158,7 +1169,7 @@ export const QueryAppIdsRequest = {
 };
 
 function createBaseQueryAppIdsResponse(): QueryAppIdsResponse {
-  return { WhitelistedAppIds: undefined };
+  return { WhitelistedAppIds: [] };
 }
 
 export const QueryAppIdsResponse = {
@@ -1166,12 +1177,11 @@ export const QueryAppIdsResponse = {
     message: QueryAppIdsResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.WhitelistedAppIds !== undefined) {
-      WhitelistedAppIds.encode(
-        message.WhitelistedAppIds,
-        writer.uint32(10).fork()
-      ).ldelim();
+    writer.uint32(10).fork();
+    for (const v of message.WhitelistedAppIds) {
+      writer.uint64(v);
     }
+    writer.ldelim();
     return writer;
   },
 
@@ -1183,10 +1193,14 @@ export const QueryAppIdsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.WhitelistedAppIds = WhitelistedAppIds.decode(
-            reader,
-            reader.uint32()
-          );
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.WhitelistedAppIds.push(reader.uint64() as Long);
+            }
+          } else {
+            message.WhitelistedAppIds.push(reader.uint64() as Long);
+          }
           break;
         default:
           reader.skipType(tag & 7);
@@ -1198,18 +1212,21 @@ export const QueryAppIdsResponse = {
 
   fromJSON(object: any): QueryAppIdsResponse {
     return {
-      WhitelistedAppIds: isSet(object.WhitelistedAppIds)
-        ? WhitelistedAppIds.fromJSON(object.WhitelistedAppIds)
-        : undefined,
+      WhitelistedAppIds: Array.isArray(object?.WhitelistedAppIds)
+        ? object.WhitelistedAppIds.map((e: any) => Long.fromValue(e))
+        : [],
     };
   },
 
   toJSON(message: QueryAppIdsResponse): unknown {
     const obj: any = {};
-    message.WhitelistedAppIds !== undefined &&
-      (obj.WhitelistedAppIds = message.WhitelistedAppIds
-        ? WhitelistedAppIds.toJSON(message.WhitelistedAppIds)
-        : undefined);
+    if (message.WhitelistedAppIds) {
+      obj.WhitelistedAppIds = message.WhitelistedAppIds.map((e) =>
+        (e || Long.UZERO).toString()
+      );
+    } else {
+      obj.WhitelistedAppIds = [];
+    }
     return obj;
   },
 
@@ -1218,10 +1235,7 @@ export const QueryAppIdsResponse = {
   ): QueryAppIdsResponse {
     const message = createBaseQueryAppIdsResponse();
     message.WhitelistedAppIds =
-      object.WhitelistedAppIds !== undefined &&
-      object.WhitelistedAppIds !== null
-        ? WhitelistedAppIds.fromPartial(object.WhitelistedAppIds)
-        : undefined;
+      object.WhitelistedAppIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };

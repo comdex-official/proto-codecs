@@ -8,7 +8,7 @@ export const protobufPackage = "comdex.rewards.v1beta1";
 
 export interface InternalRewards {
   appMappingID: Long;
-  assetID: Long[];
+  assetID: Long;
 }
 
 export interface LockerRewardsTracker {
@@ -53,10 +53,6 @@ export interface VaultExternalRewards {
   epochId: Long;
 }
 
-export interface WhitelistedAppIdsVault {
-  whitelistedAppMappingIdsVaults: Long[];
-}
-
 export interface EpochTime {
   id: Long;
   appMappingId: Long;
@@ -64,8 +60,29 @@ export interface EpochTime {
   count: Long;
 }
 
+export interface LendExternalRewards {
+  id: Long;
+  appMappingId: Long;
+  rewardsAssetPoolData?: RewardsAssetPoolData;
+  totalRewards?: Coin;
+  rewardAssetId: Long;
+  durationDays: Long;
+  isActive: boolean;
+  availableRewards?: Coin;
+  depositor: string;
+  startTimestamp?: Date;
+  endTimestamp?: Date;
+  minLockupTimeSeconds: Long;
+  epochId: Long;
+}
+
+export interface RewardsAssetPoolData {
+  cPoolId: Long;
+  assetId: Long[];
+}
+
 function createBaseInternalRewards(): InternalRewards {
-  return { appMappingID: Long.UZERO, assetID: [] };
+  return { appMappingID: Long.UZERO, assetID: Long.UZERO };
 }
 
 export const InternalRewards = {
@@ -76,11 +93,9 @@ export const InternalRewards = {
     if (!message.appMappingID.isZero()) {
       writer.uint32(8).uint64(message.appMappingID);
     }
-    writer.uint32(18).fork();
-    for (const v of message.assetID) {
-      writer.uint64(v);
+    if (!message.assetID.isZero()) {
+      writer.uint32(16).uint64(message.assetID);
     }
-    writer.ldelim();
     return writer;
   },
 
@@ -95,14 +110,7 @@ export const InternalRewards = {
           message.appMappingID = reader.uint64() as Long;
           break;
         case 2:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.assetID.push(reader.uint64() as Long);
-            }
-          } else {
-            message.assetID.push(reader.uint64() as Long);
-          }
+          message.assetID = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -117,9 +125,9 @@ export const InternalRewards = {
       appMappingID: isSet(object.appMappingID)
         ? Long.fromValue(object.appMappingID)
         : Long.UZERO,
-      assetID: Array.isArray(object?.assetID)
-        ? object.assetID.map((e: any) => Long.fromValue(e))
-        : [],
+      assetID: isSet(object.assetID)
+        ? Long.fromValue(object.assetID)
+        : Long.UZERO,
     };
   },
 
@@ -127,11 +135,8 @@ export const InternalRewards = {
     const obj: any = {};
     message.appMappingID !== undefined &&
       (obj.appMappingID = (message.appMappingID || Long.UZERO).toString());
-    if (message.assetID) {
-      obj.assetID = message.assetID.map((e) => (e || Long.UZERO).toString());
-    } else {
-      obj.assetID = [];
-    }
+    message.assetID !== undefined &&
+      (obj.assetID = (message.assetID || Long.UZERO).toString());
     return obj;
   },
 
@@ -143,7 +148,10 @@ export const InternalRewards = {
       object.appMappingID !== undefined && object.appMappingID !== null
         ? Long.fromValue(object.appMappingID)
         : Long.UZERO;
-    message.assetID = object.assetID?.map((e) => Long.fromValue(e)) || [];
+    message.assetID =
+      object.assetID !== undefined && object.assetID !== null
+        ? Long.fromValue(object.assetID)
+        : Long.UZERO;
     return message;
   },
 };
@@ -812,91 +820,6 @@ export const VaultExternalRewards = {
   },
 };
 
-function createBaseWhitelistedAppIdsVault(): WhitelistedAppIdsVault {
-  return { whitelistedAppMappingIdsVaults: [] };
-}
-
-export const WhitelistedAppIdsVault = {
-  encode(
-    message: WhitelistedAppIdsVault,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    writer.uint32(10).fork();
-    for (const v of message.whitelistedAppMappingIdsVaults) {
-      writer.uint64(v);
-    }
-    writer.ldelim();
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): WhitelistedAppIdsVault {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseWhitelistedAppIdsVault();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.whitelistedAppMappingIdsVaults.push(
-                reader.uint64() as Long
-              );
-            }
-          } else {
-            message.whitelistedAppMappingIdsVaults.push(
-              reader.uint64() as Long
-            );
-          }
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): WhitelistedAppIdsVault {
-    return {
-      whitelistedAppMappingIdsVaults: Array.isArray(
-        object?.whitelistedAppMappingIdsVaults
-      )
-        ? object.whitelistedAppMappingIdsVaults.map((e: any) =>
-            Long.fromValue(e)
-          )
-        : [],
-    };
-  },
-
-  toJSON(message: WhitelistedAppIdsVault): unknown {
-    const obj: any = {};
-    if (message.whitelistedAppMappingIdsVaults) {
-      obj.whitelistedAppMappingIdsVaults =
-        message.whitelistedAppMappingIdsVaults.map((e) =>
-          (e || Long.UZERO).toString()
-        );
-    } else {
-      obj.whitelistedAppMappingIdsVaults = [];
-    }
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<WhitelistedAppIdsVault>, I>>(
-    object: I
-  ): WhitelistedAppIdsVault {
-    const message = createBaseWhitelistedAppIdsVault();
-    message.whitelistedAppMappingIdsVaults =
-      object.whitelistedAppMappingIdsVaults?.map((e) => Long.fromValue(e)) ||
-      [];
-    return message;
-  },
-};
-
 function createBaseEpochTime(): EpochTime {
   return {
     id: Long.UZERO,
@@ -999,6 +922,353 @@ export const EpochTime = {
       object.count !== undefined && object.count !== null
         ? Long.fromValue(object.count)
         : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseLendExternalRewards(): LendExternalRewards {
+  return {
+    id: Long.UZERO,
+    appMappingId: Long.UZERO,
+    rewardsAssetPoolData: undefined,
+    totalRewards: undefined,
+    rewardAssetId: Long.UZERO,
+    durationDays: Long.ZERO,
+    isActive: false,
+    availableRewards: undefined,
+    depositor: "",
+    startTimestamp: undefined,
+    endTimestamp: undefined,
+    minLockupTimeSeconds: Long.ZERO,
+    epochId: Long.UZERO,
+  };
+}
+
+export const LendExternalRewards = {
+  encode(
+    message: LendExternalRewards,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.id.isZero()) {
+      writer.uint32(8).uint64(message.id);
+    }
+    if (!message.appMappingId.isZero()) {
+      writer.uint32(16).uint64(message.appMappingId);
+    }
+    if (message.rewardsAssetPoolData !== undefined) {
+      RewardsAssetPoolData.encode(
+        message.rewardsAssetPoolData,
+        writer.uint32(26).fork()
+      ).ldelim();
+    }
+    if (message.totalRewards !== undefined) {
+      Coin.encode(message.totalRewards, writer.uint32(34).fork()).ldelim();
+    }
+    if (!message.rewardAssetId.isZero()) {
+      writer.uint32(40).uint64(message.rewardAssetId);
+    }
+    if (!message.durationDays.isZero()) {
+      writer.uint32(48).int64(message.durationDays);
+    }
+    if (message.isActive === true) {
+      writer.uint32(56).bool(message.isActive);
+    }
+    if (message.availableRewards !== undefined) {
+      Coin.encode(message.availableRewards, writer.uint32(66).fork()).ldelim();
+    }
+    if (message.depositor !== "") {
+      writer.uint32(74).string(message.depositor);
+    }
+    if (message.startTimestamp !== undefined) {
+      Timestamp.encode(
+        toTimestamp(message.startTimestamp),
+        writer.uint32(82).fork()
+      ).ldelim();
+    }
+    if (message.endTimestamp !== undefined) {
+      Timestamp.encode(
+        toTimestamp(message.endTimestamp),
+        writer.uint32(90).fork()
+      ).ldelim();
+    }
+    if (!message.minLockupTimeSeconds.isZero()) {
+      writer.uint32(96).int64(message.minLockupTimeSeconds);
+    }
+    if (!message.epochId.isZero()) {
+      writer.uint32(104).uint64(message.epochId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): LendExternalRewards {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLendExternalRewards();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = reader.uint64() as Long;
+          break;
+        case 2:
+          message.appMappingId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.rewardsAssetPoolData = RewardsAssetPoolData.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        case 4:
+          message.totalRewards = Coin.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.rewardAssetId = reader.uint64() as Long;
+          break;
+        case 6:
+          message.durationDays = reader.int64() as Long;
+          break;
+        case 7:
+          message.isActive = reader.bool();
+          break;
+        case 8:
+          message.availableRewards = Coin.decode(reader, reader.uint32());
+          break;
+        case 9:
+          message.depositor = reader.string();
+          break;
+        case 10:
+          message.startTimestamp = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32())
+          );
+          break;
+        case 11:
+          message.endTimestamp = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32())
+          );
+          break;
+        case 12:
+          message.minLockupTimeSeconds = reader.int64() as Long;
+          break;
+        case 13:
+          message.epochId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LendExternalRewards {
+    return {
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      appMappingId: isSet(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
+        : Long.UZERO,
+      rewardsAssetPoolData: isSet(object.rewardsAssetPoolData)
+        ? RewardsAssetPoolData.fromJSON(object.rewardsAssetPoolData)
+        : undefined,
+      totalRewards: isSet(object.totalRewards)
+        ? Coin.fromJSON(object.totalRewards)
+        : undefined,
+      rewardAssetId: isSet(object.rewardAssetId)
+        ? Long.fromValue(object.rewardAssetId)
+        : Long.UZERO,
+      durationDays: isSet(object.durationDays)
+        ? Long.fromValue(object.durationDays)
+        : Long.ZERO,
+      isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
+      availableRewards: isSet(object.availableRewards)
+        ? Coin.fromJSON(object.availableRewards)
+        : undefined,
+      depositor: isSet(object.depositor) ? String(object.depositor) : "",
+      startTimestamp: isSet(object.startTimestamp)
+        ? fromJsonTimestamp(object.startTimestamp)
+        : undefined,
+      endTimestamp: isSet(object.endTimestamp)
+        ? fromJsonTimestamp(object.endTimestamp)
+        : undefined,
+      minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
+        ? Long.fromValue(object.minLockupTimeSeconds)
+        : Long.ZERO,
+      epochId: isSet(object.epochId)
+        ? Long.fromValue(object.epochId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: LendExternalRewards): unknown {
+    const obj: any = {};
+    message.id !== undefined &&
+      (obj.id = (message.id || Long.UZERO).toString());
+    message.appMappingId !== undefined &&
+      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.rewardsAssetPoolData !== undefined &&
+      (obj.rewardsAssetPoolData = message.rewardsAssetPoolData
+        ? RewardsAssetPoolData.toJSON(message.rewardsAssetPoolData)
+        : undefined);
+    message.totalRewards !== undefined &&
+      (obj.totalRewards = message.totalRewards
+        ? Coin.toJSON(message.totalRewards)
+        : undefined);
+    message.rewardAssetId !== undefined &&
+      (obj.rewardAssetId = (message.rewardAssetId || Long.UZERO).toString());
+    message.durationDays !== undefined &&
+      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+    message.isActive !== undefined && (obj.isActive = message.isActive);
+    message.availableRewards !== undefined &&
+      (obj.availableRewards = message.availableRewards
+        ? Coin.toJSON(message.availableRewards)
+        : undefined);
+    message.depositor !== undefined && (obj.depositor = message.depositor);
+    message.startTimestamp !== undefined &&
+      (obj.startTimestamp = message.startTimestamp.toISOString());
+    message.endTimestamp !== undefined &&
+      (obj.endTimestamp = message.endTimestamp.toISOString());
+    message.minLockupTimeSeconds !== undefined &&
+      (obj.minLockupTimeSeconds = (
+        message.minLockupTimeSeconds || Long.ZERO
+      ).toString());
+    message.epochId !== undefined &&
+      (obj.epochId = (message.epochId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LendExternalRewards>, I>>(
+    object: I
+  ): LendExternalRewards {
+    const message = createBaseLendExternalRewards();
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO;
+    message.appMappingId =
+      object.appMappingId !== undefined && object.appMappingId !== null
+        ? Long.fromValue(object.appMappingId)
+        : Long.UZERO;
+    message.rewardsAssetPoolData =
+      object.rewardsAssetPoolData !== undefined &&
+      object.rewardsAssetPoolData !== null
+        ? RewardsAssetPoolData.fromPartial(object.rewardsAssetPoolData)
+        : undefined;
+    message.totalRewards =
+      object.totalRewards !== undefined && object.totalRewards !== null
+        ? Coin.fromPartial(object.totalRewards)
+        : undefined;
+    message.rewardAssetId =
+      object.rewardAssetId !== undefined && object.rewardAssetId !== null
+        ? Long.fromValue(object.rewardAssetId)
+        : Long.UZERO;
+    message.durationDays =
+      object.durationDays !== undefined && object.durationDays !== null
+        ? Long.fromValue(object.durationDays)
+        : Long.ZERO;
+    message.isActive = object.isActive ?? false;
+    message.availableRewards =
+      object.availableRewards !== undefined && object.availableRewards !== null
+        ? Coin.fromPartial(object.availableRewards)
+        : undefined;
+    message.depositor = object.depositor ?? "";
+    message.startTimestamp = object.startTimestamp ?? undefined;
+    message.endTimestamp = object.endTimestamp ?? undefined;
+    message.minLockupTimeSeconds =
+      object.minLockupTimeSeconds !== undefined &&
+      object.minLockupTimeSeconds !== null
+        ? Long.fromValue(object.minLockupTimeSeconds)
+        : Long.ZERO;
+    message.epochId =
+      object.epochId !== undefined && object.epochId !== null
+        ? Long.fromValue(object.epochId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseRewardsAssetPoolData(): RewardsAssetPoolData {
+  return { cPoolId: Long.UZERO, assetId: [] };
+}
+
+export const RewardsAssetPoolData = {
+  encode(
+    message: RewardsAssetPoolData,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.cPoolId.isZero()) {
+      writer.uint32(8).uint64(message.cPoolId);
+    }
+    writer.uint32(18).fork();
+    for (const v of message.assetId) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): RewardsAssetPoolData {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRewardsAssetPoolData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.cPoolId = reader.uint64() as Long;
+          break;
+        case 2:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.assetId.push(reader.uint64() as Long);
+            }
+          } else {
+            message.assetId.push(reader.uint64() as Long);
+          }
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): RewardsAssetPoolData {
+    return {
+      cPoolId: isSet(object.cPoolId)
+        ? Long.fromValue(object.cPoolId)
+        : Long.UZERO,
+      assetId: Array.isArray(object?.assetId)
+        ? object.assetId.map((e: any) => Long.fromValue(e))
+        : [],
+    };
+  },
+
+  toJSON(message: RewardsAssetPoolData): unknown {
+    const obj: any = {};
+    message.cPoolId !== undefined &&
+      (obj.cPoolId = (message.cPoolId || Long.UZERO).toString());
+    if (message.assetId) {
+      obj.assetId = message.assetId.map((e) => (e || Long.UZERO).toString());
+    } else {
+      obj.assetId = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<RewardsAssetPoolData>, I>>(
+    object: I
+  ): RewardsAssetPoolData {
+    const message = createBaseRewardsAssetPoolData();
+    message.cPoolId =
+      object.cPoolId !== undefined && object.cPoolId !== null
+        ? Long.fromValue(object.cPoolId)
+        : Long.UZERO;
+    message.assetId = object.assetId?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };

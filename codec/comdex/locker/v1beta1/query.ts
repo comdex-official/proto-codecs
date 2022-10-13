@@ -13,7 +13,6 @@ import {
   PageResponse,
 } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "../../../comdex/locker/v1beta1/params";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
 
 export const protobufPackage = "comdex.locker.v1beta1";
@@ -195,17 +194,6 @@ export interface QueryLockerTotalRewardsByAssetAppWiseRequest {
 
 export interface QueryLockerTotalRewardsByAssetAppWiseResponse {
   totalRewards?: LockerTotalRewardsByAssetAppWise;
-}
-
-export interface QueryStateRequest {
-  address: string;
-  denom: string;
-  height: string;
-  target: string;
-}
-
-export interface QueryStateResponse {
-  amount?: Coin;
 }
 
 function createBaseQueryLockerInfoRequest(): QueryLockerInfoRequest {
@@ -3168,145 +3156,6 @@ export const QueryLockerTotalRewardsByAssetAppWiseResponse = {
   },
 };
 
-function createBaseQueryStateRequest(): QueryStateRequest {
-  return { address: "", denom: "", height: "", target: "" };
-}
-
-export const QueryStateRequest = {
-  encode(
-    message: QueryStateRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.address !== "") {
-      writer.uint32(10).string(message.address);
-    }
-    if (message.denom !== "") {
-      writer.uint32(18).string(message.denom);
-    }
-    if (message.height !== "") {
-      writer.uint32(26).string(message.height);
-    }
-    if (message.target !== "") {
-      writer.uint32(34).string(message.target);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryStateRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryStateRequest();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.address = reader.string();
-          break;
-        case 2:
-          message.denom = reader.string();
-          break;
-        case 3:
-          message.height = reader.string();
-          break;
-        case 4:
-          message.target = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryStateRequest {
-    return {
-      address: isSet(object.address) ? String(object.address) : "",
-      denom: isSet(object.denom) ? String(object.denom) : "",
-      height: isSet(object.height) ? String(object.height) : "",
-      target: isSet(object.target) ? String(object.target) : "",
-    };
-  },
-
-  toJSON(message: QueryStateRequest): unknown {
-    const obj: any = {};
-    message.address !== undefined && (obj.address = message.address);
-    message.denom !== undefined && (obj.denom = message.denom);
-    message.height !== undefined && (obj.height = message.height);
-    message.target !== undefined && (obj.target = message.target);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryStateRequest>, I>>(
-    object: I
-  ): QueryStateRequest {
-    const message = createBaseQueryStateRequest();
-    message.address = object.address ?? "";
-    message.denom = object.denom ?? "";
-    message.height = object.height ?? "";
-    message.target = object.target ?? "";
-    return message;
-  },
-};
-
-function createBaseQueryStateResponse(): QueryStateResponse {
-  return { amount: undefined };
-}
-
-export const QueryStateResponse = {
-  encode(
-    message: QueryStateResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.amount !== undefined) {
-      Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryStateResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryStateResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.amount = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryStateResponse {
-    return {
-      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
-    };
-  },
-
-  toJSON(message: QueryStateResponse): unknown {
-    const obj: any = {};
-    message.amount !== undefined &&
-      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<QueryStateResponse>, I>>(
-    object: I
-  ): QueryStateResponse {
-    const message = createBaseQueryStateResponse();
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? Coin.fromPartial(object.amount)
-        : undefined;
-    return message;
-  },
-};
-
 export interface Query {
   QueryLockerInfo(
     request: QueryLockerInfoRequest
@@ -3360,7 +3209,6 @@ export interface Query {
   QueryLockerTotalDepositedByApp(
     request: QueryLockerTotalDepositedByAppRequest
   ): Promise<QueryLockerTotalDepositedByAppResponse>;
-  QueryState(request: QueryStateRequest): Promise<QueryStateResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3398,7 +3246,6 @@ export class QueryClientImpl implements Query {
       this.QueryLockerTotalRewardsByAssetAppWise.bind(this);
     this.QueryLockerTotalDepositedByApp =
       this.QueryLockerTotalDepositedByApp.bind(this);
-    this.QueryState = this.QueryState.bind(this);
   }
   QueryLockerInfo(
     request: QueryLockerInfoRequest
@@ -3658,18 +3505,6 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryLockerTotalDepositedByAppResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  QueryState(request: QueryStateRequest): Promise<QueryStateResponse> {
-    const data = QueryStateRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.locker.v1beta1.Query",
-      "QueryState",
-      data
-    );
-    return promise.then((data) =>
-      QueryStateResponse.decode(new _m0.Reader(data))
     );
   }
 }
