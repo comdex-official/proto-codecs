@@ -1,51 +1,88 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+import * as _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.market.v1beta1";
 
-export interface Market {
-  symbol: string;
+export interface TimeWeightedAverage {
+  assetId: Long;
   scriptId: Long;
-  rates: Long;
+  twa: Long;
+  currentIndex: Long;
+  isPriceActive: boolean;
+  priceValue: Long[];
 }
 
-function createBaseMarket(): Market {
-  return { symbol: "", scriptId: Long.UZERO, rates: Long.UZERO };
+function createBaseTimeWeightedAverage(): TimeWeightedAverage {
+  return {
+    assetId: Long.UZERO,
+    scriptId: Long.UZERO,
+    twa: Long.UZERO,
+    currentIndex: Long.UZERO,
+    isPriceActive: false,
+    priceValue: [],
+  };
 }
 
-export const Market = {
+export const TimeWeightedAverage = {
   encode(
-    message: Market,
+    message: TimeWeightedAverage,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.symbol !== "") {
-      writer.uint32(10).string(message.symbol);
+    if (!message.assetId.isZero()) {
+      writer.uint32(8).uint64(message.assetId);
     }
     if (!message.scriptId.isZero()) {
       writer.uint32(16).uint64(message.scriptId);
     }
-    if (!message.rates.isZero()) {
-      writer.uint32(24).uint64(message.rates);
+    if (!message.twa.isZero()) {
+      writer.uint32(24).uint64(message.twa);
     }
+    if (!message.currentIndex.isZero()) {
+      writer.uint32(32).uint64(message.currentIndex);
+    }
+    if (message.isPriceActive === true) {
+      writer.uint32(40).bool(message.isPriceActive);
+    }
+    writer.uint32(50).fork();
+    for (const v of message.priceValue) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): Market {
+  decode(input: _m0.Reader | Uint8Array, length?: number): TimeWeightedAverage {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMarket();
+    const message = createBaseTimeWeightedAverage();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.symbol = reader.string();
+          message.assetId = reader.uint64() as Long;
           break;
         case 2:
           message.scriptId = reader.uint64() as Long;
           break;
         case 3:
-          message.rates = reader.uint64() as Long;
+          message.twa = reader.uint64() as Long;
+          break;
+        case 4:
+          message.currentIndex = reader.uint64() as Long;
+          break;
+        case 5:
+          message.isPriceActive = reader.bool();
+          break;
+        case 6:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.priceValue.push(reader.uint64() as Long);
+            }
+          } else {
+            message.priceValue.push(reader.uint64() as Long);
+          }
           break;
         default:
           reader.skipType(tag & 7);
@@ -55,37 +92,71 @@ export const Market = {
     return message;
   },
 
-  fromJSON(object: any): Market {
+  fromJSON(object: any): TimeWeightedAverage {
     return {
-      symbol: isSet(object.symbol) ? String(object.symbol) : "",
-      scriptId: isSet(object.scriptId)
-        ? Long.fromString(object.scriptId)
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
-      rates: isSet(object.rates) ? Long.fromString(object.rates) : Long.UZERO,
+      scriptId: isSet(object.scriptId)
+        ? Long.fromValue(object.scriptId)
+        : Long.UZERO,
+      twa: isSet(object.twa) ? Long.fromValue(object.twa) : Long.UZERO,
+      currentIndex: isSet(object.currentIndex)
+        ? Long.fromValue(object.currentIndex)
+        : Long.UZERO,
+      isPriceActive: isSet(object.isPriceActive)
+        ? Boolean(object.isPriceActive)
+        : false,
+      priceValue: Array.isArray(object?.priceValue)
+        ? object.priceValue.map((e: any) => Long.fromValue(e))
+        : [],
     };
   },
 
-  toJSON(message: Market): unknown {
+  toJSON(message: TimeWeightedAverage): unknown {
     const obj: any = {};
-    message.symbol !== undefined && (obj.symbol = message.symbol);
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.scriptId !== undefined &&
       (obj.scriptId = (message.scriptId || Long.UZERO).toString());
-    message.rates !== undefined &&
-      (obj.rates = (message.rates || Long.UZERO).toString());
+    message.twa !== undefined &&
+      (obj.twa = (message.twa || Long.UZERO).toString());
+    message.currentIndex !== undefined &&
+      (obj.currentIndex = (message.currentIndex || Long.UZERO).toString());
+    message.isPriceActive !== undefined &&
+      (obj.isPriceActive = message.isPriceActive);
+    if (message.priceValue) {
+      obj.priceValue = message.priceValue.map((e) =>
+        (e || Long.UZERO).toString()
+      );
+    } else {
+      obj.priceValue = [];
+    }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Market>, I>>(object: I): Market {
-    const message = createBaseMarket();
-    message.symbol = object.symbol ?? "";
+  fromPartial<I extends Exact<DeepPartial<TimeWeightedAverage>, I>>(
+    object: I
+  ): TimeWeightedAverage {
+    const message = createBaseTimeWeightedAverage();
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
     message.scriptId =
       object.scriptId !== undefined && object.scriptId !== null
         ? Long.fromValue(object.scriptId)
         : Long.UZERO;
-    message.rates =
-      object.rates !== undefined && object.rates !== null
-        ? Long.fromValue(object.rates)
+    message.twa =
+      object.twa !== undefined && object.twa !== null
+        ? Long.fromValue(object.twa)
         : Long.UZERO;
+    message.currentIndex =
+      object.currentIndex !== undefined && object.currentIndex !== null
+        ? Long.fromValue(object.currentIndex)
+        : Long.UZERO;
+    message.isPriceActive = object.isPriceActive ?? false;
+    message.priceValue = object.priceValue?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };
