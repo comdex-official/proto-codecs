@@ -19,7 +19,7 @@ export interface MsgCreateGaugeResponse {
 export interface WhitelistAsset {
     appMappingId: Long;
     from: string;
-    assetId: Long[];
+    assetId: Long;
 }
 export interface RemoveWhitelistAsset {
     appMappingId: Long;
@@ -474,7 +474,7 @@ export declare const WhitelistAsset: {
     fromPartial<I extends {
         appMappingId?: string | number | Long.Long | undefined;
         from?: string | undefined;
-        assetId?: (string | number | Long.Long)[] | undefined;
+        assetId?: string | number | Long.Long | undefined;
     } & {
         appMappingId?: string | number | (Long.Long & {
             high: number;
@@ -535,7 +535,7 @@ export declare const WhitelistAsset: {
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appMappingId"], keyof Long.Long>, never>) | undefined;
         from?: string | undefined;
-        assetId?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
+        assetId?: string | number | (Long.Long & {
             high: number;
             low: number;
             unsigned: boolean;
@@ -592,7 +592,7 @@ export declare const WhitelistAsset: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
-        } & Record<Exclude<keyof I["assetId"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["assetId"], keyof (string | number | Long.Long)[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof WhitelistAsset>, never>>(object: I): WhitelistAsset;
 };
 export declare const RemoveWhitelistAsset: {

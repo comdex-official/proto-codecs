@@ -22,14 +22,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryStateResponse = exports.QueryStateRequest = exports.QueryLockerTotalRewardsByAssetAppWiseResponse = exports.QueryLockerTotalRewardsByAssetAppWiseRequest = exports.QueryLockerTotalDepositedByAppResponse = exports.QueryLockerTotalDepositedByAppRequest = exports.QueryLockerLookupTableByAppAndAssetIDResponse = exports.QueryLockerLookupTableByAppAndAssetIDRequest = exports.QueryLockerLookupTableByAppResponse = exports.QueryLockerLookupTableByAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.AppToAllAsset = exports.QueryWhiteListedAssetByAllAppsResponse = exports.QueryWhiteListedAssetByAllAppsRequest = exports.QueryWhiteListedAssetIDsByAppIDResponse = exports.QueryWhiteListedAssetIDsByAppIDRequest = exports.QueryLockerCountByAppToAssetIDResponse = exports.QueryLockerCountByAppToAssetIDRequest = exports.QueryLockerCountByAppIDResponse = exports.QueryLockerCountByAppIDRequest = exports.QueryLockerByAppByOwnerResponse = exports.QueryLockerByAppByOwnerRequest = exports.QueryOwnerLockerByAppToAssetIDbyOwnerResponse = exports.QueryOwnerLockerByAppToAssetIDbyOwnerRequest = exports.QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse = exports.QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest = exports.QueryOwnerLockerOfAllAppsByOwnerResponse = exports.QueryOwnerLockerOfAllAppsByOwnerRequest = exports.QueryOwnerLockerByAppIDbyOwnerResponse = exports.QueryOwnerLockerByAppIDbyOwnerRequest = exports.QueryTotalDepositByAppAndAssetIDResponse = exports.QueryTotalDepositByAppAndAssetIDRequest = exports.QueryLockerInfoByAppIDResponse = exports.QueryLockerInfoByAppIDRequest = exports.QueryLockersByAppToAssetIDResponse = exports.QueryLockersByAppToAssetIDRequest = exports.QueryLockerInfoResponse = exports.QueryLockerInfoRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryLockerTotalRewardsByAssetAppWiseResponse = exports.QueryLockerTotalRewardsByAssetAppWiseRequest = exports.QueryLockerTotalDepositedByAppResponse = exports.QueryLockerTotalDepositedByAppRequest = exports.QueryLockerLookupTableByAppAndAssetIDResponse = exports.QueryLockerLookupTableByAppAndAssetIDRequest = exports.QueryLockerLookupTableByAppResponse = exports.QueryLockerLookupTableByAppRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.AppToAllAsset = exports.QueryWhiteListedAssetByAllAppsResponse = exports.QueryWhiteListedAssetByAllAppsRequest = exports.QueryWhiteListedAssetIDsByAppIDResponse = exports.QueryWhiteListedAssetIDsByAppIDRequest = exports.QueryLockerCountByAppToAssetIDResponse = exports.QueryLockerCountByAppToAssetIDRequest = exports.QueryLockerCountByAppIDResponse = exports.QueryLockerCountByAppIDRequest = exports.QueryLockerByAppByOwnerResponse = exports.QueryLockerByAppByOwnerRequest = exports.QueryOwnerLockerByAppToAssetIDbyOwnerResponse = exports.QueryOwnerLockerByAppToAssetIDbyOwnerRequest = exports.QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse = exports.QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest = exports.QueryOwnerLockerOfAllAppsByOwnerResponse = exports.QueryOwnerLockerOfAllAppsByOwnerRequest = exports.QueryOwnerLockerByAppIDbyOwnerResponse = exports.QueryOwnerLockerByAppIDbyOwnerRequest = exports.QueryTotalDepositByAppAndAssetIDResponse = exports.QueryTotalDepositByAppAndAssetIDRequest = exports.QueryLockerInfoByAppIDResponse = exports.QueryLockerInfoByAppIDRequest = exports.QueryLockersByAppToAssetIDResponse = exports.QueryLockersByAppToAssetIDRequest = exports.QueryLockerInfoResponse = exports.QueryLockerInfoRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 const locker_1 = require("../../../comdex/locker/v1beta1/locker");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
 const params_1 = require("../../../comdex/locker/v1beta1/params");
-const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const asset_1 = require("../../../comdex/asset/v1beta1/asset");
 exports.protobufPackage = "comdex.locker.v1beta1";
 function createBaseQueryLockerInfoRequest() {
@@ -2401,124 +2400,6 @@ exports.QueryLockerTotalRewardsByAssetAppWiseResponse = {
         return message;
     },
 };
-function createBaseQueryStateRequest() {
-    return { address: "", denom: "", height: "", target: "" };
-}
-exports.QueryStateRequest = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.address !== "") {
-            writer.uint32(10).string(message.address);
-        }
-        if (message.denom !== "") {
-            writer.uint32(18).string(message.denom);
-        }
-        if (message.height !== "") {
-            writer.uint32(26).string(message.height);
-        }
-        if (message.target !== "") {
-            writer.uint32(34).string(message.target);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryStateRequest();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.address = reader.string();
-                    break;
-                case 2:
-                    message.denom = reader.string();
-                    break;
-                case 3:
-                    message.height = reader.string();
-                    break;
-                case 4:
-                    message.target = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            address: isSet(object.address) ? String(object.address) : "",
-            denom: isSet(object.denom) ? String(object.denom) : "",
-            height: isSet(object.height) ? String(object.height) : "",
-            target: isSet(object.target) ? String(object.target) : "",
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.address !== undefined && (obj.address = message.address);
-        message.denom !== undefined && (obj.denom = message.denom);
-        message.height !== undefined && (obj.height = message.height);
-        message.target !== undefined && (obj.target = message.target);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b, _c, _d;
-        const message = createBaseQueryStateRequest();
-        message.address = (_a = object.address) !== null && _a !== void 0 ? _a : "";
-        message.denom = (_b = object.denom) !== null && _b !== void 0 ? _b : "";
-        message.height = (_c = object.height) !== null && _c !== void 0 ? _c : "";
-        message.target = (_d = object.target) !== null && _d !== void 0 ? _d : "";
-        return message;
-    },
-};
-function createBaseQueryStateResponse() {
-    return { amount: undefined };
-}
-exports.QueryStateResponse = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.amount !== undefined) {
-            coin_1.Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryStateResponse();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.amount = coin_1.Coin.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.amount !== undefined &&
-            (obj.amount = message.amount ? coin_1.Coin.toJSON(message.amount) : undefined);
-        return obj;
-    },
-    fromPartial(object) {
-        const message = createBaseQueryStateResponse();
-        message.amount =
-            object.amount !== undefined && object.amount !== null
-                ? coin_1.Coin.fromPartial(object.amount)
-                : undefined;
-        return message;
-    },
-};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2553,7 +2434,6 @@ class QueryClientImpl {
             this.QueryLockerTotalRewardsByAssetAppWise.bind(this);
         this.QueryLockerTotalDepositedByApp =
             this.QueryLockerTotalDepositedByApp.bind(this);
-        this.QueryState = this.QueryState.bind(this);
     }
     QueryLockerInfo(request) {
         const data = exports.QueryLockerInfoRequest.encode(request).finish();
@@ -2644,11 +2524,6 @@ class QueryClientImpl {
         const data = exports.QueryLockerTotalDepositedByAppRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryLockerTotalDepositedByApp", data);
         return promise.then((data) => exports.QueryLockerTotalDepositedByAppResponse.decode(new _m0.Reader(data)));
-    }
-    QueryState(request) {
-        const data = exports.QueryStateRequest.encode(request).finish();
-        const promise = this.rpc.request("comdex.locker.v1beta1.Query", "QueryState", data);
-        return promise.then((data) => exports.QueryStateResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;

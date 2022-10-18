@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,23 +25,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueryClientImpl = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryMarketResponse = exports.QueryMarketRequest = exports.QueryMarketsResponse = exports.QueryMarketsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-const market_1 = require("./market");
-const params_1 = require("./params");
+const market_1 = require("../../../comdex/market/v1beta1/market");
+const params_1 = require("../../../comdex/market/v1beta1/params");
 exports.protobufPackage = "comdex.market.v1beta1";
 function createBaseQueryMarketsRequest() {
     return { pagination: undefined };
 }
 exports.QueryMarketsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pagination !== undefined) {
             pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryMarketsRequest();
         while (reader.pos < end) {
@@ -63,12 +82,12 @@ exports.QueryMarketsRequest = {
     },
 };
 function createBaseQueryMarketsResponse() {
-    return { markets: [], pagination: undefined };
+    return { timeWeightedAverage: [], pagination: undefined };
 }
 exports.QueryMarketsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        for (const v of message.markets) {
-            market_1.Market.encode(v, writer.uint32(10).fork()).ldelim();
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.timeWeightedAverage) {
+            market_1.TimeWeightedAverage.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
             pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -76,14 +95,14 @@ exports.QueryMarketsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryMarketsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.markets.push(market_1.Market.decode(reader, reader.uint32()));
+                    message.timeWeightedAverage.push(market_1.TimeWeightedAverage.decode(reader, reader.uint32()));
                     break;
                 case 2:
                     message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
@@ -97,8 +116,8 @@ exports.QueryMarketsResponse = {
     },
     fromJSON(object) {
         return {
-            markets: Array.isArray(object === null || object === void 0 ? void 0 : object.markets)
-                ? object.markets.map((e) => market_1.Market.fromJSON(e))
+            timeWeightedAverage: Array.isArray(object === null || object === void 0 ? void 0 : object.timeWeightedAverage)
+                ? object.timeWeightedAverage.map((e) => market_1.TimeWeightedAverage.fromJSON(e))
                 : [],
             pagination: isSet(object.pagination)
                 ? pagination_1.PageResponse.fromJSON(object.pagination)
@@ -107,11 +126,11 @@ exports.QueryMarketsResponse = {
     },
     toJSON(message) {
         const obj = {};
-        if (message.markets) {
-            obj.markets = message.markets.map((e) => e ? market_1.Market.toJSON(e) : undefined);
+        if (message.timeWeightedAverage) {
+            obj.timeWeightedAverage = message.timeWeightedAverage.map((e) => e ? market_1.TimeWeightedAverage.toJSON(e) : undefined);
         }
         else {
-            obj.markets = [];
+            obj.timeWeightedAverage = [];
         }
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
@@ -122,7 +141,8 @@ exports.QueryMarketsResponse = {
     fromPartial(object) {
         var _a;
         const message = createBaseQueryMarketsResponse();
-        message.markets = ((_a = object.markets) === null || _a === void 0 ? void 0 : _a.map((e) => market_1.Market.fromPartial(e))) || [];
+        message.timeWeightedAverage =
+            ((_a = object.timeWeightedAverage) === null || _a === void 0 ? void 0 : _a.map((e) => market_1.TimeWeightedAverage.fromPartial(e))) || [];
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageResponse.fromPartial(object.pagination)
@@ -131,24 +151,24 @@ exports.QueryMarketsResponse = {
     },
 };
 function createBaseQueryMarketRequest() {
-    return { symbol: "" };
+    return { assetID: long_1.default.UZERO };
 }
 exports.QueryMarketRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.symbol !== "") {
-            writer.uint32(10).string(message.symbol);
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.assetID.isZero()) {
+            writer.uint32(8).uint64(message.assetID);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryMarketRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.symbol = reader.string();
+                    message.assetID = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -159,40 +179,45 @@ exports.QueryMarketRequest = {
     },
     fromJSON(object) {
         return {
-            symbol: isSet(object.symbol) ? String(object.symbol) : "",
+            assetID: isSet(object.assetID)
+                ? long_1.default.fromValue(object.assetID)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.symbol !== undefined && (obj.symbol = message.symbol);
+        message.assetID !== undefined &&
+            (obj.assetID = (message.assetID || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
-        var _a;
         const message = createBaseQueryMarketRequest();
-        message.symbol = (_a = object.symbol) !== null && _a !== void 0 ? _a : "";
+        message.assetID =
+            object.assetID !== undefined && object.assetID !== null
+                ? long_1.default.fromValue(object.assetID)
+                : long_1.default.UZERO;
         return message;
     },
 };
 function createBaseQueryMarketResponse() {
-    return { market: undefined };
+    return { timeWeightedAverage: undefined };
 }
 exports.QueryMarketResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.market !== undefined) {
-            market_1.Market.encode(message.market, writer.uint32(10).fork()).ldelim();
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.timeWeightedAverage !== undefined) {
+            market_1.TimeWeightedAverage.encode(message.timeWeightedAverage, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryMarketResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.market = market_1.Market.decode(reader, reader.uint32());
+                    message.timeWeightedAverage = market_1.TimeWeightedAverage.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -203,20 +228,25 @@ exports.QueryMarketResponse = {
     },
     fromJSON(object) {
         return {
-            market: isSet(object.market) ? market_1.Market.fromJSON(object.market) : undefined,
+            timeWeightedAverage: isSet(object.timeWeightedAverage)
+                ? market_1.TimeWeightedAverage.fromJSON(object.timeWeightedAverage)
+                : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.market !== undefined &&
-            (obj.market = message.market ? market_1.Market.toJSON(message.market) : undefined);
+        message.timeWeightedAverage !== undefined &&
+            (obj.timeWeightedAverage = message.timeWeightedAverage
+                ? market_1.TimeWeightedAverage.toJSON(message.timeWeightedAverage)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = createBaseQueryMarketResponse();
-        message.market =
-            object.market !== undefined && object.market !== null
-                ? market_1.Market.fromPartial(object.market)
+        message.timeWeightedAverage =
+            object.timeWeightedAverage !== undefined &&
+                object.timeWeightedAverage !== null
+                ? market_1.TimeWeightedAverage.fromPartial(object.timeWeightedAverage)
                 : undefined;
         return message;
     },
@@ -225,11 +255,11 @@ function createBaseQueryParamsRequest() {
     return {};
 }
 exports.QueryParamsRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
@@ -258,14 +288,14 @@ function createBaseQueryParamsResponse() {
     return { params: undefined };
 }
 exports.QueryParamsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
@@ -311,23 +341,23 @@ class QueryClientImpl {
     QueryMarkets(request) {
         const data = exports.QueryMarketsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.market.v1beta1.Query", "QueryMarkets", data);
-        return promise.then((data) => exports.QueryMarketsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryMarketsResponse.decode(new _m0.Reader(data)));
     }
     QueryMarket(request) {
         const data = exports.QueryMarketRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.market.v1beta1.Query", "QueryMarket", data);
-        return promise.then((data) => exports.QueryMarketResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryMarketResponse.decode(new _m0.Reader(data)));
     }
     QueryParams(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.market.v1beta1.Query", "QueryParams", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

@@ -225,7 +225,7 @@ exports.MsgCreateGaugeResponse = {
     },
 };
 function createBaseWhitelistAsset() {
-    return { appMappingId: long_1.default.UZERO, from: "", assetId: [] };
+    return { appMappingId: long_1.default.UZERO, from: "", assetId: long_1.default.UZERO };
 }
 exports.WhitelistAsset = {
     encode(message, writer = _m0.Writer.create()) {
@@ -235,11 +235,9 @@ exports.WhitelistAsset = {
         if (message.from !== "") {
             writer.uint32(18).string(message.from);
         }
-        writer.uint32(26).fork();
-        for (const v of message.assetId) {
-            writer.uint64(v);
+        if (!message.assetId.isZero()) {
+            writer.uint32(24).uint64(message.assetId);
         }
-        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -256,15 +254,7 @@ exports.WhitelistAsset = {
                     message.from = reader.string();
                     break;
                 case 3:
-                    if ((tag & 7) === 2) {
-                        const end2 = reader.uint32() + reader.pos;
-                        while (reader.pos < end2) {
-                            message.assetId.push(reader.uint64());
-                        }
-                    }
-                    else {
-                        message.assetId.push(reader.uint64());
-                    }
+                    message.assetId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -279,9 +269,9 @@ exports.WhitelistAsset = {
                 ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
             from: isSet(object.from) ? String(object.from) : "",
-            assetId: Array.isArray(object === null || object === void 0 ? void 0 : object.assetId)
-                ? object.assetId.map((e) => long_1.default.fromValue(e))
-                : [],
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -289,23 +279,22 @@ exports.WhitelistAsset = {
         message.appMappingId !== undefined &&
             (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
         message.from !== undefined && (obj.from = message.from);
-        if (message.assetId) {
-            obj.assetId = message.assetId.map((e) => (e || long_1.default.UZERO).toString());
-        }
-        else {
-            obj.assetId = [];
-        }
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a;
         const message = createBaseWhitelistAsset();
         message.appMappingId =
             object.appMappingId !== undefined && object.appMappingId !== null
                 ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO;
         message.from = (_a = object.from) !== null && _a !== void 0 ? _a : "";
-        message.assetId = ((_b = object.assetId) === null || _b === void 0 ? void 0 : _b.map((e) => long_1.default.fromValue(e))) || [];
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
         return message;
     },
 };
