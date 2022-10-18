@@ -3,7 +3,6 @@ import * as _m0 from "protobufjs/minimal";
 import { Locker, LockerLookupTableData, LockerTotalRewardsByAssetAppWise, UserTxData, LockedDepositedAmountDataMap } from "../../../comdex/locker/v1beta1/locker";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Params } from "../../../comdex/locker/v1beta1/params";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
 export declare const protobufPackage = "comdex.locker.v1beta1";
 export interface QueryLockerInfoRequest {
@@ -148,15 +147,6 @@ export interface QueryLockerTotalRewardsByAssetAppWiseRequest {
 }
 export interface QueryLockerTotalRewardsByAssetAppWiseResponse {
     totalRewards?: LockerTotalRewardsByAssetAppWise;
-}
-export interface QueryStateRequest {
-    address: string;
-    denom: string;
-    height: string;
-    target: string;
-}
-export interface QueryStateResponse {
-    amount?: Coin;
 }
 export declare const QueryLockerInfoRequest: {
     encode(message: QueryLockerInfoRequest, writer?: _m0.Writer): _m0.Writer;
@@ -6373,43 +6363,6 @@ export declare const QueryLockerTotalRewardsByAssetAppWiseResponse: {
         } & Record<Exclude<keyof I["totalRewards"], keyof LockerTotalRewardsByAssetAppWise>, never>) | undefined;
     } & Record<Exclude<keyof I, "totalRewards">, never>>(object: I): QueryLockerTotalRewardsByAssetAppWiseResponse;
 };
-export declare const QueryStateRequest: {
-    encode(message: QueryStateRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStateRequest;
-    fromJSON(object: any): QueryStateRequest;
-    toJSON(message: QueryStateRequest): unknown;
-    fromPartial<I extends {
-        address?: string | undefined;
-        denom?: string | undefined;
-        height?: string | undefined;
-        target?: string | undefined;
-    } & {
-        address?: string | undefined;
-        denom?: string | undefined;
-        height?: string | undefined;
-        target?: string | undefined;
-    } & Record<Exclude<keyof I, keyof QueryStateRequest>, never>>(object: I): QueryStateRequest;
-};
-export declare const QueryStateResponse: {
-    encode(message: QueryStateResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryStateResponse;
-    fromJSON(object: any): QueryStateResponse;
-    toJSON(message: QueryStateResponse): unknown;
-    fromPartial<I extends {
-        amount?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
-    } & {
-        amount?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & Record<Exclude<keyof I["amount"], keyof Coin>, never>) | undefined;
-    } & Record<Exclude<keyof I, "amount">, never>>(object: I): QueryStateResponse;
-};
 export interface Query {
     QueryLockerInfo(request: QueryLockerInfoRequest): Promise<QueryLockerInfoResponse>;
     QueryLockersByAppToAssetID(request: QueryLockersByAppToAssetIDRequest): Promise<QueryLockersByAppToAssetIDResponse>;
@@ -6429,7 +6382,6 @@ export interface Query {
     QueryLockerLookupTableByAppAndAssetID(request: QueryLockerLookupTableByAppAndAssetIDRequest): Promise<QueryLockerLookupTableByAppAndAssetIDResponse>;
     QueryLockerTotalRewardsByAssetAppWise(request: QueryLockerTotalRewardsByAssetAppWiseRequest): Promise<QueryLockerTotalRewardsByAssetAppWiseResponse>;
     QueryLockerTotalDepositedByApp(request: QueryLockerTotalDepositedByAppRequest): Promise<QueryLockerTotalDepositedByAppResponse>;
-    QueryState(request: QueryStateRequest): Promise<QueryStateResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -6452,7 +6404,6 @@ export declare class QueryClientImpl implements Query {
     QueryLockerLookupTableByAppAndAssetID(request: QueryLockerLookupTableByAppAndAssetIDRequest): Promise<QueryLockerLookupTableByAppAndAssetIDResponse>;
     QueryLockerTotalRewardsByAssetAppWise(request: QueryLockerTotalRewardsByAssetAppWiseRequest): Promise<QueryLockerTotalRewardsByAssetAppWiseResponse>;
     QueryLockerTotalDepositedByApp(request: QueryLockerTotalDepositedByAppRequest): Promise<QueryLockerTotalDepositedByAppResponse>;
-    QueryState(request: QueryStateRequest): Promise<QueryStateResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

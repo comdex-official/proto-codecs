@@ -3,14 +3,12 @@ import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/collector/v1beta1/params";
 import { AppAssetIdToFeeCollectedData, AppToAssetIdCollectorMapping, CollectorLookupTableData, AppAssetIdToAuctionLookupTable, AppToDenomsMapping } from "../../../comdex/collector/v1beta1/collector";
 export declare const protobufPackage = "comdex.collector.v1beta1";
-/** GenesisState defines the collector module's genesis state. */
 export interface GenesisState {
     netFeeCollectedData: AppAssetIdToFeeCollectedData[];
     appIdToAssetCollectorMapping: AppToAssetIdCollectorMapping[];
     collectorLookup: CollectorLookupTableData[];
     collectorAuctionLookupTable: AppAssetIdToAuctionLookupTable[];
     appToDenomsMapping: AppToDenomsMapping[];
-    /** this line is used by starport scaffolding # genesis/proto/state */
     params?: Params;
 }
 export declare const GenesisState: {
