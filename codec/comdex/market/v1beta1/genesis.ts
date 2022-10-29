@@ -1,16 +1,16 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Market } from "./market";
+import * as _m0 from "protobufjs/minimal";
+import { TimeWeightedAverage } from "../../../comdex/market/v1beta1/market";
 
 export const protobufPackage = "comdex.market.v1beta1";
 
 export interface GenesisState {
-  markets: Market[];
+  timeWeightedAverage: TimeWeightedAverage[];
 }
 
 function createBaseGenesisState(): GenesisState {
-  return { markets: [] };
+  return { timeWeightedAverage: [] };
 }
 
 export const GenesisState = {
@@ -18,8 +18,8 @@ export const GenesisState = {
     message: GenesisState,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    for (const v of message.markets) {
-      Market.encode(v!, writer.uint32(10).fork()).ldelim();
+    for (const v of message.timeWeightedAverage) {
+      TimeWeightedAverage.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -32,7 +32,9 @@ export const GenesisState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.markets.push(Market.decode(reader, reader.uint32()));
+          message.timeWeightedAverage.push(
+            TimeWeightedAverage.decode(reader, reader.uint32())
+          );
           break;
         default:
           reader.skipType(tag & 7);
@@ -44,20 +46,22 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      markets: Array.isArray(object?.markets)
-        ? object.markets.map((e: any) => Market.fromJSON(e))
+      timeWeightedAverage: Array.isArray(object?.timeWeightedAverage)
+        ? object.timeWeightedAverage.map((e: any) =>
+            TimeWeightedAverage.fromJSON(e)
+          )
         : [],
     };
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
-    if (message.markets) {
-      obj.markets = message.markets.map((e) =>
-        e ? Market.toJSON(e) : undefined
+    if (message.timeWeightedAverage) {
+      obj.timeWeightedAverage = message.timeWeightedAverage.map((e) =>
+        e ? TimeWeightedAverage.toJSON(e) : undefined
       );
     } else {
-      obj.markets = [];
+      obj.timeWeightedAverage = [];
     }
     return obj;
   },
@@ -66,7 +70,10 @@ export const GenesisState = {
     object: I
   ): GenesisState {
     const message = createBaseGenesisState();
-    message.markets = object.markets?.map((e) => Market.fromPartial(e)) || [];
+    message.timeWeightedAverage =
+      object.timeWeightedAverage?.map((e) =>
+        TimeWeightedAverage.fromPartial(e)
+      ) || [];
     return message;
   },
 };

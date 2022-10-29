@@ -24,7 +24,7 @@ export interface MsgCreateGaugeResponse {}
 export interface WhitelistAsset {
   appMappingId: Long;
   from: string;
-  assetId: Long[];
+  assetId: Long;
 }
 
 export interface RemoveWhitelistAsset {
@@ -305,7 +305,7 @@ export const MsgCreateGaugeResponse = {
 };
 
 function createBaseWhitelistAsset(): WhitelistAsset {
-  return { appMappingId: Long.UZERO, from: "", assetId: [] };
+  return { appMappingId: Long.UZERO, from: "", assetId: Long.UZERO };
 }
 
 export const WhitelistAsset = {
@@ -319,11 +319,9 @@ export const WhitelistAsset = {
     if (message.from !== "") {
       writer.uint32(18).string(message.from);
     }
-    writer.uint32(26).fork();
-    for (const v of message.assetId) {
-      writer.uint64(v);
+    if (!message.assetId.isZero()) {
+      writer.uint32(24).uint64(message.assetId);
     }
-    writer.ldelim();
     return writer;
   },
 
@@ -341,14 +339,7 @@ export const WhitelistAsset = {
           message.from = reader.string();
           break;
         case 3:
-          if ((tag & 7) === 2) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.assetId.push(reader.uint64() as Long);
-            }
-          } else {
-            message.assetId.push(reader.uint64() as Long);
-          }
+          message.assetId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -364,9 +355,9 @@ export const WhitelistAsset = {
         ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
-      assetId: Array.isArray(object?.assetId)
-        ? object.assetId.map((e: any) => Long.fromValue(e))
-        : [],
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
     };
   },
 
@@ -375,11 +366,8 @@ export const WhitelistAsset = {
     message.appMappingId !== undefined &&
       (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
     message.from !== undefined && (obj.from = message.from);
-    if (message.assetId) {
-      obj.assetId = message.assetId.map((e) => (e || Long.UZERO).toString());
-    } else {
-      obj.assetId = [];
-    }
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
     return obj;
   },
 
@@ -392,7 +380,10 @@ export const WhitelistAsset = {
         ? Long.fromValue(object.appMappingId)
         : Long.UZERO;
     message.from = object.from ?? "";
-    message.assetId = object.assetId?.map((e) => Long.fromValue(e)) || [];
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
     return message;
   },
 };
