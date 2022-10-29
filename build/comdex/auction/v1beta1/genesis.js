@@ -37,6 +37,7 @@ function createBaseGenesisState() {
         protocolStatistics: [],
         auctionParams: [],
         params: undefined,
+        UserBiddingID: long_1.default.UZERO,
     };
 }
 exports.GenesisState = {
@@ -58,6 +59,9 @@ exports.GenesisState = {
         }
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(50).fork()).ldelim();
+        }
+        if (!message.UserBiddingID.isZero()) {
+            writer.uint32(56).uint64(message.UserBiddingID);
         }
         return writer;
     },
@@ -86,6 +90,9 @@ exports.GenesisState = {
                 case 6:
                     message.params = params_1.Params.decode(reader, reader.uint32());
                     break;
+                case 7:
+                    message.UserBiddingID = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -111,6 +118,9 @@ exports.GenesisState = {
                 ? object.auctionParams.map((e) => auction_1.AuctionParams.fromJSON(e))
                 : [],
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+            UserBiddingID: isSet(object.UserBiddingID)
+                ? long_1.default.fromValue(object.UserBiddingID)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -147,6 +157,8 @@ exports.GenesisState = {
         }
         message.params !== undefined &&
             (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
+        message.UserBiddingID !== undefined &&
+            (obj.UserBiddingID = (message.UserBiddingID || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -166,6 +178,10 @@ exports.GenesisState = {
             object.params !== undefined && object.params !== null
                 ? params_1.Params.fromPartial(object.params)
                 : undefined;
+        message.UserBiddingID =
+            object.UserBiddingID !== undefined && object.UserBiddingID !== null
+                ? long_1.default.fromValue(object.UserBiddingID)
+                : long_1.default.UZERO;
         return message;
     },
 };

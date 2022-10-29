@@ -33,7 +33,7 @@ function createBaseAppData() {
         name: "",
         shortName: "",
         minGovDeposit: "",
-        govTimeInSeconds: long_1.default.UZERO,
+        govTimeInSeconds: 0,
         genesisToken: [],
     };
 }
@@ -51,8 +51,8 @@ exports.AppData = {
         if (message.minGovDeposit !== "") {
             writer.uint32(34).string(message.minGovDeposit);
         }
-        if (!message.govTimeInSeconds.isZero()) {
-            writer.uint32(40).uint64(message.govTimeInSeconds);
+        if (message.govTimeInSeconds !== 0) {
+            writer.uint32(41).double(message.govTimeInSeconds);
         }
         for (const v of message.genesisToken) {
             exports.MintGenesisToken.encode(v, writer.uint32(50).fork()).ldelim();
@@ -79,7 +79,7 @@ exports.AppData = {
                     message.minGovDeposit = reader.string();
                     break;
                 case 5:
-                    message.govTimeInSeconds = reader.uint64();
+                    message.govTimeInSeconds = reader.double();
                     break;
                 case 6:
                     message.genesisToken.push(exports.MintGenesisToken.decode(reader, reader.uint32()));
@@ -100,8 +100,8 @@ exports.AppData = {
                 ? String(object.minGovDeposit)
                 : "",
             govTimeInSeconds: isSet(object.govTimeInSeconds)
-                ? long_1.default.fromValue(object.govTimeInSeconds)
-                : long_1.default.UZERO,
+                ? Number(object.govTimeInSeconds)
+                : 0,
             genesisToken: Array.isArray(object === null || object === void 0 ? void 0 : object.genesisToken)
                 ? object.genesisToken.map((e) => exports.MintGenesisToken.fromJSON(e))
                 : [],
@@ -116,7 +116,7 @@ exports.AppData = {
         message.minGovDeposit !== undefined &&
             (obj.minGovDeposit = message.minGovDeposit);
         message.govTimeInSeconds !== undefined &&
-            (obj.govTimeInSeconds = (message.govTimeInSeconds || long_1.default.UZERO).toString());
+            (obj.govTimeInSeconds = message.govTimeInSeconds);
         if (message.genesisToken) {
             obj.genesisToken = message.genesisToken.map((e) => e ? exports.MintGenesisToken.toJSON(e) : undefined);
         }
@@ -126,7 +126,7 @@ exports.AppData = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         const message = createBaseAppData();
         message.id =
             object.id !== undefined && object.id !== null
@@ -135,12 +135,9 @@ exports.AppData = {
         message.name = (_a = object.name) !== null && _a !== void 0 ? _a : "";
         message.shortName = (_b = object.shortName) !== null && _b !== void 0 ? _b : "";
         message.minGovDeposit = (_c = object.minGovDeposit) !== null && _c !== void 0 ? _c : "";
-        message.govTimeInSeconds =
-            object.govTimeInSeconds !== undefined && object.govTimeInSeconds !== null
-                ? long_1.default.fromValue(object.govTimeInSeconds)
-                : long_1.default.UZERO;
+        message.govTimeInSeconds = (_d = object.govTimeInSeconds) !== null && _d !== void 0 ? _d : 0;
         message.genesisToken =
-            ((_d = object.genesisToken) === null || _d === void 0 ? void 0 : _d.map((e) => exports.MintGenesisToken.fromPartial(e))) || [];
+            ((_e = object.genesisToken) === null || _e === void 0 ? void 0 : _e.map((e) => exports.MintGenesisToken.fromPartial(e))) || [];
         return message;
     },
 };
@@ -230,15 +227,15 @@ exports.MintGenesisToken = {
     },
 };
 function createBaseAppAndGovTime() {
-    return { appId: long_1.default.UZERO, govTimeInSeconds: long_1.default.UZERO, minGovDeposit: "" };
+    return { appId: long_1.default.UZERO, govTimeInSeconds: 0, minGovDeposit: "" };
 }
 exports.AppAndGovTime = {
     encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
-        if (!message.govTimeInSeconds.isZero()) {
-            writer.uint32(16).uint64(message.govTimeInSeconds);
+        if (message.govTimeInSeconds !== 0) {
+            writer.uint32(17).double(message.govTimeInSeconds);
         }
         if (message.minGovDeposit !== "") {
             writer.uint32(26).string(message.minGovDeposit);
@@ -256,7 +253,7 @@ exports.AppAndGovTime = {
                     message.appId = reader.uint64();
                     break;
                 case 2:
-                    message.govTimeInSeconds = reader.uint64();
+                    message.govTimeInSeconds = reader.double();
                     break;
                 case 3:
                     message.minGovDeposit = reader.string();
@@ -272,8 +269,8 @@ exports.AppAndGovTime = {
         return {
             appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             govTimeInSeconds: isSet(object.govTimeInSeconds)
-                ? long_1.default.fromValue(object.govTimeInSeconds)
-                : long_1.default.UZERO,
+                ? Number(object.govTimeInSeconds)
+                : 0,
             minGovDeposit: isSet(object.minGovDeposit)
                 ? String(object.minGovDeposit)
                 : "",
@@ -284,23 +281,20 @@ exports.AppAndGovTime = {
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.govTimeInSeconds !== undefined &&
-            (obj.govTimeInSeconds = (message.govTimeInSeconds || long_1.default.UZERO).toString());
+            (obj.govTimeInSeconds = message.govTimeInSeconds);
         message.minGovDeposit !== undefined &&
             (obj.minGovDeposit = message.minGovDeposit);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseAppAndGovTime();
         message.appId =
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
-        message.govTimeInSeconds =
-            object.govTimeInSeconds !== undefined && object.govTimeInSeconds !== null
-                ? long_1.default.fromValue(object.govTimeInSeconds)
-                : long_1.default.UZERO;
-        message.minGovDeposit = (_a = object.minGovDeposit) !== null && _a !== void 0 ? _a : "";
+        message.govTimeInSeconds = (_a = object.govTimeInSeconds) !== null && _a !== void 0 ? _a : 0;
+        message.minGovDeposit = (_b = object.minGovDeposit) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };

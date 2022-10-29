@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddAuctionParamsProposal = exports.AddAssetRatesParams = exports.AddAssetToPairProposal = exports.UpdateLendPairsProposal = exports.AddPoolsProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
+exports.AddAuctionParamsProposal = exports.AddAssetRatesStats = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -166,77 +166,6 @@ exports.AddPoolsProposal = {
         return message;
     },
 };
-function createBaseUpdateLendPairsProposal() {
-    return { title: "", description: "", pairs: undefined };
-}
-exports.UpdateLendPairsProposal = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.title !== "") {
-            writer.uint32(10).string(message.title);
-        }
-        if (message.description !== "") {
-            writer.uint32(18).string(message.description);
-        }
-        if (message.pairs !== undefined) {
-            lend_1.ExtendedPair.encode(message.pairs, writer.uint32(26).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseUpdateLendPairsProposal();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.title = reader.string();
-                    break;
-                case 2:
-                    message.description = reader.string();
-                    break;
-                case 3:
-                    message.pairs = lend_1.ExtendedPair.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            title: isSet(object.title) ? String(object.title) : "",
-            description: isSet(object.description) ? String(object.description) : "",
-            pairs: isSet(object.pairs)
-                ? lend_1.ExtendedPair.fromJSON(object.pairs)
-                : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.title !== undefined && (obj.title = message.title);
-        message.description !== undefined &&
-            (obj.description = message.description);
-        message.pairs !== undefined &&
-            (obj.pairs = message.pairs
-                ? lend_1.ExtendedPair.toJSON(message.pairs)
-                : undefined);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a, _b;
-        const message = createBaseUpdateLendPairsProposal();
-        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
-        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.pairs =
-            object.pairs !== undefined && object.pairs !== null
-                ? lend_1.ExtendedPair.fromPartial(object.pairs)
-                : undefined;
-        return message;
-    },
-};
 function createBaseAddAssetToPairProposal() {
     return { title: "", description: "", AssetToPairMapping: undefined };
 }
@@ -309,10 +238,10 @@ exports.AddAssetToPairProposal = {
         return message;
     },
 };
-function createBaseAddAssetRatesParams() {
-    return { title: "", description: "", AssetRatesParams: undefined };
+function createBaseAddAssetRatesStats() {
+    return { title: "", description: "", AssetRatesStats: undefined };
 }
-exports.AddAssetRatesParams = {
+exports.AddAssetRatesStats = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
@@ -320,15 +249,15 @@ exports.AddAssetRatesParams = {
         if (message.description !== "") {
             writer.uint32(18).string(message.description);
         }
-        if (message.AssetRatesParams !== undefined) {
-            lend_1.AssetRatesParams.encode(message.AssetRatesParams, writer.uint32(26).fork()).ldelim();
+        if (message.AssetRatesStats !== undefined) {
+            lend_1.AssetRatesStats.encode(message.AssetRatesStats, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseAddAssetRatesParams();
+        const message = createBaseAddAssetRatesStats();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -339,7 +268,7 @@ exports.AddAssetRatesParams = {
                     message.description = reader.string();
                     break;
                 case 3:
-                    message.AssetRatesParams = lend_1.AssetRatesParams.decode(reader, reader.uint32());
+                    message.AssetRatesStats = lend_1.AssetRatesStats.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -352,8 +281,8 @@ exports.AddAssetRatesParams = {
         return {
             title: isSet(object.title) ? String(object.title) : "",
             description: isSet(object.description) ? String(object.description) : "",
-            AssetRatesParams: isSet(object.AssetRatesParams)
-                ? lend_1.AssetRatesParams.fromJSON(object.AssetRatesParams)
+            AssetRatesStats: isSet(object.AssetRatesStats)
+                ? lend_1.AssetRatesStats.fromJSON(object.AssetRatesStats)
                 : undefined,
         };
     },
@@ -362,20 +291,20 @@ exports.AddAssetRatesParams = {
         message.title !== undefined && (obj.title = message.title);
         message.description !== undefined &&
             (obj.description = message.description);
-        message.AssetRatesParams !== undefined &&
-            (obj.AssetRatesParams = message.AssetRatesParams
-                ? lend_1.AssetRatesParams.toJSON(message.AssetRatesParams)
+        message.AssetRatesStats !== undefined &&
+            (obj.AssetRatesStats = message.AssetRatesStats
+                ? lend_1.AssetRatesStats.toJSON(message.AssetRatesStats)
                 : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a, _b;
-        const message = createBaseAddAssetRatesParams();
+        const message = createBaseAddAssetRatesStats();
         message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.AssetRatesParams =
-            object.AssetRatesParams !== undefined && object.AssetRatesParams !== null
-                ? lend_1.AssetRatesParams.fromPartial(object.AssetRatesParams)
+        message.AssetRatesStats =
+            object.AssetRatesStats !== undefined && object.AssetRatesStats !== null
+                ? lend_1.AssetRatesStats.fromPartial(object.AssetRatesStats)
                 : undefined;
         return message;
     },
