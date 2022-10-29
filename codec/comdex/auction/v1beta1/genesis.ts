@@ -19,6 +19,7 @@ export interface GenesisState {
   protocolStatistics: ProtocolStatistics[];
   auctionParams: AuctionParams[];
   params?: Params;
+  UserBiddingID: Long;
 }
 
 function createBaseGenesisState(): GenesisState {
@@ -29,6 +30,7 @@ function createBaseGenesisState(): GenesisState {
     protocolStatistics: [],
     auctionParams: [],
     params: undefined,
+    UserBiddingID: Long.UZERO,
   };
 }
 
@@ -54,6 +56,9 @@ export const GenesisState = {
     }
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(50).fork()).ldelim();
+    }
+    if (!message.UserBiddingID.isZero()) {
+      writer.uint32(56).uint64(message.UserBiddingID);
     }
     return writer;
   },
@@ -91,6 +96,9 @@ export const GenesisState = {
         case 6:
           message.params = Params.decode(reader, reader.uint32());
           break;
+        case 7:
+          message.UserBiddingID = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -119,6 +127,9 @@ export const GenesisState = {
         ? object.auctionParams.map((e: any) => AuctionParams.fromJSON(e))
         : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+      UserBiddingID: isSet(object.UserBiddingID)
+        ? Long.fromValue(object.UserBiddingID)
+        : Long.UZERO,
     };
   },
 
@@ -161,6 +172,8 @@ export const GenesisState = {
     }
     message.params !== undefined &&
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    message.UserBiddingID !== undefined &&
+      (obj.UserBiddingID = (message.UserBiddingID || Long.UZERO).toString());
     return obj;
   },
 
@@ -184,6 +197,10 @@ export const GenesisState = {
       object.params !== undefined && object.params !== null
         ? Params.fromPartial(object.params)
         : undefined;
+    message.UserBiddingID =
+      object.UserBiddingID !== undefined && object.UserBiddingID !== null
+        ? Long.fromValue(object.UserBiddingID)
+        : Long.UZERO;
     return message;
   },
 };
