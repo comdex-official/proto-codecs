@@ -9,12 +9,13 @@ import {
 import {
   LendAsset,
   ExtendedPair,
-  AssetRatesParams,
+  AssetRatesStats,
   Pool,
   AssetToPairMapping,
   BorrowAsset,
-  PoolAssetLBMapping,
-  ReserveBuybackAssetData,
+  AssetStats,
+  ModuleBalance,
+  DepositStats,
   AuctionParams,
 } from "../../../comdex/lend/v1beta1/lend";
 
@@ -84,21 +85,21 @@ export interface QueryPairResponse {
   ExtendedPair?: ExtendedPair;
 }
 
-export interface QueryAssetRatesParamsRequest {
+export interface QueryAssetRatesStatsRequest {
   pagination?: PageRequest;
 }
 
-export interface QueryAssetRatesParamsResponse {
-  AssetRatesParams: AssetRatesParams[];
+export interface QueryAssetRatesStatsResponse {
+  AssetRatesStats: AssetRatesStats[];
   pagination?: PageResponse;
 }
 
-export interface QueryAssetRatesParamRequest {
+export interface QueryAssetRatesStatRequest {
   id: Long;
 }
 
-export interface QueryAssetRatesParamResponse {
-  AssetRatesparams?: AssetRatesParams;
+export interface QueryAssetRatesStatResponse {
+  AssetRatesStat?: AssetRatesStats;
 }
 
 export interface QueryPoolsRequest {
@@ -174,21 +175,51 @@ export interface QueryAllBorrowByOwnerAndPoolResponse {
   pagination?: PageResponse;
 }
 
-export interface QueryPoolAssetLBMappingRequest {
+export interface QueryAssetStatsRequest {
   assetId: Long;
   poolId: Long;
 }
 
-export interface QueryPoolAssetLBMappingResponse {
-  PoolAssetLBMapping?: PoolAssetLBMapping;
+export interface QueryAssetStatsResponse {
+  AssetStats?: AssetStats;
 }
 
-export interface QueryReserveBuybackAssetDataRequest {
-  assetId: Long;
+export interface QueryModuleBalanceRequest {
+  poolId: Long;
 }
 
-export interface QueryReserveBuybackAssetDataResponse {
-  ReserveBuybackAssetData?: ReserveBuybackAssetData;
+export interface QueryModuleBalanceResponse {
+  ModuleBalance?: ModuleBalance;
+}
+
+export interface QueryDepositStatsRequest {}
+
+export interface QueryDepositStatsResponse {
+  DepositStats?: DepositStats;
+}
+
+export interface QueryUserDepositStatsRequest {}
+
+export interface QueryUserDepositStatsResponse {
+  UserDepositStats?: DepositStats;
+}
+
+export interface QueryReserveDepositStatsRequest {}
+
+export interface QueryReserveDepositStatsResponse {
+  ReserveDepositStats?: DepositStats;
+}
+
+export interface QueryBuyBackDepositStatsRequest {}
+
+export interface QueryBuyBackDepositStatsResponse {
+  BuyBackDepositStats?: DepositStats;
+}
+
+export interface QueryBorrowStatsRequest {}
+
+export interface QueryBorrowStatsResponse {
+  BorrowStats?: DepositStats;
 }
 
 export interface QueryAuctionParamRequest {
@@ -1162,13 +1193,13 @@ export const QueryPairResponse = {
   },
 };
 
-function createBaseQueryAssetRatesParamsRequest(): QueryAssetRatesParamsRequest {
+function createBaseQueryAssetRatesStatsRequest(): QueryAssetRatesStatsRequest {
   return { pagination: undefined };
 }
 
-export const QueryAssetRatesParamsRequest = {
+export const QueryAssetRatesStatsRequest = {
   encode(
-    message: QueryAssetRatesParamsRequest,
+    message: QueryAssetRatesStatsRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.pagination !== undefined) {
@@ -1180,10 +1211,10 @@ export const QueryAssetRatesParamsRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryAssetRatesParamsRequest {
+  ): QueryAssetRatesStatsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAssetRatesParamsRequest();
+    const message = createBaseQueryAssetRatesStatsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1198,7 +1229,7 @@ export const QueryAssetRatesParamsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAssetRatesParamsRequest {
+  fromJSON(object: any): QueryAssetRatesStatsRequest {
     return {
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -1206,7 +1237,7 @@ export const QueryAssetRatesParamsRequest = {
     };
   },
 
-  toJSON(message: QueryAssetRatesParamsRequest): unknown {
+  toJSON(message: QueryAssetRatesStatsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
@@ -1215,10 +1246,10 @@ export const QueryAssetRatesParamsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamsRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesStatsRequest>, I>>(
     object: I
-  ): QueryAssetRatesParamsRequest {
-    const message = createBaseQueryAssetRatesParamsRequest();
+  ): QueryAssetRatesStatsRequest {
+    const message = createBaseQueryAssetRatesStatsRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -1227,17 +1258,17 @@ export const QueryAssetRatesParamsRequest = {
   },
 };
 
-function createBaseQueryAssetRatesParamsResponse(): QueryAssetRatesParamsResponse {
-  return { AssetRatesParams: [], pagination: undefined };
+function createBaseQueryAssetRatesStatsResponse(): QueryAssetRatesStatsResponse {
+  return { AssetRatesStats: [], pagination: undefined };
 }
 
-export const QueryAssetRatesParamsResponse = {
+export const QueryAssetRatesStatsResponse = {
   encode(
-    message: QueryAssetRatesParamsResponse,
+    message: QueryAssetRatesStatsResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    for (const v of message.AssetRatesParams) {
-      AssetRatesParams.encode(v!, writer.uint32(10).fork()).ldelim();
+    for (const v of message.AssetRatesStats) {
+      AssetRatesStats.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
       PageResponse.encode(
@@ -1251,16 +1282,16 @@ export const QueryAssetRatesParamsResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryAssetRatesParamsResponse {
+  ): QueryAssetRatesStatsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAssetRatesParamsResponse();
+    const message = createBaseQueryAssetRatesStatsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.AssetRatesParams.push(
-            AssetRatesParams.decode(reader, reader.uint32())
+          message.AssetRatesStats.push(
+            AssetRatesStats.decode(reader, reader.uint32())
           );
           break;
         case 2:
@@ -1274,10 +1305,10 @@ export const QueryAssetRatesParamsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryAssetRatesParamsResponse {
+  fromJSON(object: any): QueryAssetRatesStatsResponse {
     return {
-      AssetRatesParams: Array.isArray(object?.AssetRatesParams)
-        ? object.AssetRatesParams.map((e: any) => AssetRatesParams.fromJSON(e))
+      AssetRatesStats: Array.isArray(object?.AssetRatesStats)
+        ? object.AssetRatesStats.map((e: any) => AssetRatesStats.fromJSON(e))
         : [],
       pagination: isSet(object.pagination)
         ? PageResponse.fromJSON(object.pagination)
@@ -1285,14 +1316,14 @@ export const QueryAssetRatesParamsResponse = {
     };
   },
 
-  toJSON(message: QueryAssetRatesParamsResponse): unknown {
+  toJSON(message: QueryAssetRatesStatsResponse): unknown {
     const obj: any = {};
-    if (message.AssetRatesParams) {
-      obj.AssetRatesParams = message.AssetRatesParams.map((e) =>
-        e ? AssetRatesParams.toJSON(e) : undefined
+    if (message.AssetRatesStats) {
+      obj.AssetRatesStats = message.AssetRatesStats.map((e) =>
+        e ? AssetRatesStats.toJSON(e) : undefined
       );
     } else {
-      obj.AssetRatesParams = [];
+      obj.AssetRatesStats = [];
     }
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
@@ -1301,13 +1332,12 @@ export const QueryAssetRatesParamsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamsResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesStatsResponse>, I>>(
     object: I
-  ): QueryAssetRatesParamsResponse {
-    const message = createBaseQueryAssetRatesParamsResponse();
-    message.AssetRatesParams =
-      object.AssetRatesParams?.map((e) => AssetRatesParams.fromPartial(e)) ||
-      [];
+  ): QueryAssetRatesStatsResponse {
+    const message = createBaseQueryAssetRatesStatsResponse();
+    message.AssetRatesStats =
+      object.AssetRatesStats?.map((e) => AssetRatesStats.fromPartial(e)) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageResponse.fromPartial(object.pagination)
@@ -1316,13 +1346,13 @@ export const QueryAssetRatesParamsResponse = {
   },
 };
 
-function createBaseQueryAssetRatesParamRequest(): QueryAssetRatesParamRequest {
+function createBaseQueryAssetRatesStatRequest(): QueryAssetRatesStatRequest {
   return { id: Long.UZERO };
 }
 
-export const QueryAssetRatesParamRequest = {
+export const QueryAssetRatesStatRequest = {
   encode(
-    message: QueryAssetRatesParamRequest,
+    message: QueryAssetRatesStatRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.id.isZero()) {
@@ -1334,10 +1364,10 @@ export const QueryAssetRatesParamRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryAssetRatesParamRequest {
+  ): QueryAssetRatesStatRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAssetRatesParamRequest();
+    const message = createBaseQueryAssetRatesStatRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1352,23 +1382,23 @@ export const QueryAssetRatesParamRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryAssetRatesParamRequest {
+  fromJSON(object: any): QueryAssetRatesStatRequest {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryAssetRatesParamRequest): unknown {
+  toJSON(message: QueryAssetRatesStatRequest): unknown {
     const obj: any = {};
     message.id !== undefined &&
       (obj.id = (message.id || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesStatRequest>, I>>(
     object: I
-  ): QueryAssetRatesParamRequest {
-    const message = createBaseQueryAssetRatesParamRequest();
+  ): QueryAssetRatesStatRequest {
+    const message = createBaseQueryAssetRatesStatRequest();
     message.id =
       object.id !== undefined && object.id !== null
         ? Long.fromValue(object.id)
@@ -1377,18 +1407,18 @@ export const QueryAssetRatesParamRequest = {
   },
 };
 
-function createBaseQueryAssetRatesParamResponse(): QueryAssetRatesParamResponse {
-  return { AssetRatesparams: undefined };
+function createBaseQueryAssetRatesStatResponse(): QueryAssetRatesStatResponse {
+  return { AssetRatesStat: undefined };
 }
 
-export const QueryAssetRatesParamResponse = {
+export const QueryAssetRatesStatResponse = {
   encode(
-    message: QueryAssetRatesParamResponse,
+    message: QueryAssetRatesStatResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.AssetRatesparams !== undefined) {
-      AssetRatesParams.encode(
-        message.AssetRatesparams,
+    if (message.AssetRatesStat !== undefined) {
+      AssetRatesStats.encode(
+        message.AssetRatesStat,
         writer.uint32(10).fork()
       ).ldelim();
     }
@@ -1398,15 +1428,15 @@ export const QueryAssetRatesParamResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryAssetRatesParamResponse {
+  ): QueryAssetRatesStatResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryAssetRatesParamResponse();
+    const message = createBaseQueryAssetRatesStatResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.AssetRatesparams = AssetRatesParams.decode(
+          message.AssetRatesStat = AssetRatesStats.decode(
             reader,
             reader.uint32()
           );
@@ -1419,30 +1449,30 @@ export const QueryAssetRatesParamResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryAssetRatesParamResponse {
+  fromJSON(object: any): QueryAssetRatesStatResponse {
     return {
-      AssetRatesparams: isSet(object.AssetRatesparams)
-        ? AssetRatesParams.fromJSON(object.AssetRatesparams)
+      AssetRatesStat: isSet(object.AssetRatesStat)
+        ? AssetRatesStats.fromJSON(object.AssetRatesStat)
         : undefined,
     };
   },
 
-  toJSON(message: QueryAssetRatesParamResponse): unknown {
+  toJSON(message: QueryAssetRatesStatResponse): unknown {
     const obj: any = {};
-    message.AssetRatesparams !== undefined &&
-      (obj.AssetRatesparams = message.AssetRatesparams
-        ? AssetRatesParams.toJSON(message.AssetRatesparams)
+    message.AssetRatesStat !== undefined &&
+      (obj.AssetRatesStat = message.AssetRatesStat
+        ? AssetRatesStats.toJSON(message.AssetRatesStat)
         : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesStatResponse>, I>>(
     object: I
-  ): QueryAssetRatesParamResponse {
-    const message = createBaseQueryAssetRatesParamResponse();
-    message.AssetRatesparams =
-      object.AssetRatesparams !== undefined && object.AssetRatesparams !== null
-        ? AssetRatesParams.fromPartial(object.AssetRatesparams)
+  ): QueryAssetRatesStatResponse {
+    const message = createBaseQueryAssetRatesStatResponse();
+    message.AssetRatesStat =
+      object.AssetRatesStat !== undefined && object.AssetRatesStat !== null
+        ? AssetRatesStats.fromPartial(object.AssetRatesStat)
         : undefined;
     return message;
   },
@@ -2612,13 +2642,13 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
   },
 };
 
-function createBaseQueryPoolAssetLBMappingRequest(): QueryPoolAssetLBMappingRequest {
+function createBaseQueryAssetStatsRequest(): QueryAssetStatsRequest {
   return { assetId: Long.UZERO, poolId: Long.UZERO };
 }
 
-export const QueryPoolAssetLBMappingRequest = {
+export const QueryAssetStatsRequest = {
   encode(
-    message: QueryPoolAssetLBMappingRequest,
+    message: QueryAssetStatsRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.assetId.isZero()) {
@@ -2633,10 +2663,10 @@ export const QueryPoolAssetLBMappingRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryPoolAssetLBMappingRequest {
+  ): QueryAssetStatsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPoolAssetLBMappingRequest();
+    const message = createBaseQueryAssetStatsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -2654,7 +2684,7 @@ export const QueryPoolAssetLBMappingRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryPoolAssetLBMappingRequest {
+  fromJSON(object: any): QueryAssetStatsRequest {
     return {
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
@@ -2663,7 +2693,7 @@ export const QueryPoolAssetLBMappingRequest = {
     };
   },
 
-  toJSON(message: QueryPoolAssetLBMappingRequest): unknown {
+  toJSON(message: QueryAssetStatsRequest): unknown {
     const obj: any = {};
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
@@ -2672,10 +2702,10 @@ export const QueryPoolAssetLBMappingRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPoolAssetLBMappingRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAssetStatsRequest>, I>>(
     object: I
-  ): QueryPoolAssetLBMappingRequest {
-    const message = createBaseQueryPoolAssetLBMappingRequest();
+  ): QueryAssetStatsRequest {
+    const message = createBaseQueryAssetStatsRequest();
     message.assetId =
       object.assetId !== undefined && object.assetId !== null
         ? Long.fromValue(object.assetId)
@@ -2688,20 +2718,17 @@ export const QueryPoolAssetLBMappingRequest = {
   },
 };
 
-function createBaseQueryPoolAssetLBMappingResponse(): QueryPoolAssetLBMappingResponse {
-  return { PoolAssetLBMapping: undefined };
+function createBaseQueryAssetStatsResponse(): QueryAssetStatsResponse {
+  return { AssetStats: undefined };
 }
 
-export const QueryPoolAssetLBMappingResponse = {
+export const QueryAssetStatsResponse = {
   encode(
-    message: QueryPoolAssetLBMappingResponse,
+    message: QueryAssetStatsResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.PoolAssetLBMapping !== undefined) {
-      PoolAssetLBMapping.encode(
-        message.PoolAssetLBMapping,
-        writer.uint32(10).fork()
-      ).ldelim();
+    if (message.AssetStats !== undefined) {
+      AssetStats.encode(message.AssetStats, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -2709,18 +2736,15 @@ export const QueryPoolAssetLBMappingResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryPoolAssetLBMappingResponse {
+  ): QueryAssetStatsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPoolAssetLBMappingResponse();
+    const message = createBaseQueryAssetStatsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.PoolAssetLBMapping = PoolAssetLBMapping.decode(
-            reader,
-            reader.uint32()
-          );
+          message.AssetStats = AssetStats.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2730,47 +2754,46 @@ export const QueryPoolAssetLBMappingResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryPoolAssetLBMappingResponse {
+  fromJSON(object: any): QueryAssetStatsResponse {
     return {
-      PoolAssetLBMapping: isSet(object.PoolAssetLBMapping)
-        ? PoolAssetLBMapping.fromJSON(object.PoolAssetLBMapping)
+      AssetStats: isSet(object.AssetStats)
+        ? AssetStats.fromJSON(object.AssetStats)
         : undefined,
     };
   },
 
-  toJSON(message: QueryPoolAssetLBMappingResponse): unknown {
+  toJSON(message: QueryAssetStatsResponse): unknown {
     const obj: any = {};
-    message.PoolAssetLBMapping !== undefined &&
-      (obj.PoolAssetLBMapping = message.PoolAssetLBMapping
-        ? PoolAssetLBMapping.toJSON(message.PoolAssetLBMapping)
+    message.AssetStats !== undefined &&
+      (obj.AssetStats = message.AssetStats
+        ? AssetStats.toJSON(message.AssetStats)
         : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPoolAssetLBMappingResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAssetStatsResponse>, I>>(
     object: I
-  ): QueryPoolAssetLBMappingResponse {
-    const message = createBaseQueryPoolAssetLBMappingResponse();
-    message.PoolAssetLBMapping =
-      object.PoolAssetLBMapping !== undefined &&
-      object.PoolAssetLBMapping !== null
-        ? PoolAssetLBMapping.fromPartial(object.PoolAssetLBMapping)
+  ): QueryAssetStatsResponse {
+    const message = createBaseQueryAssetStatsResponse();
+    message.AssetStats =
+      object.AssetStats !== undefined && object.AssetStats !== null
+        ? AssetStats.fromPartial(object.AssetStats)
         : undefined;
     return message;
   },
 };
 
-function createBaseQueryReserveBuybackAssetDataRequest(): QueryReserveBuybackAssetDataRequest {
-  return { assetId: Long.UZERO };
+function createBaseQueryModuleBalanceRequest(): QueryModuleBalanceRequest {
+  return { poolId: Long.UZERO };
 }
 
-export const QueryReserveBuybackAssetDataRequest = {
+export const QueryModuleBalanceRequest = {
   encode(
-    message: QueryReserveBuybackAssetDataRequest,
+    message: QueryModuleBalanceRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.assetId.isZero()) {
-      writer.uint32(8).uint64(message.assetId);
+    if (!message.poolId.isZero()) {
+      writer.uint32(8).uint64(message.poolId);
     }
     return writer;
   },
@@ -2778,15 +2801,15 @@ export const QueryReserveBuybackAssetDataRequest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryReserveBuybackAssetDataRequest {
+  ): QueryModuleBalanceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryReserveBuybackAssetDataRequest();
+    const message = createBaseQueryModuleBalanceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.assetId = reader.uint64() as Long;
+          message.poolId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -2796,45 +2819,43 @@ export const QueryReserveBuybackAssetDataRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryReserveBuybackAssetDataRequest {
+  fromJSON(object: any): QueryModuleBalanceRequest {
     return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryReserveBuybackAssetDataRequest): unknown {
+  toJSON(message: QueryModuleBalanceRequest): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryReserveBuybackAssetDataRequest>, I>
-  >(object: I): QueryReserveBuybackAssetDataRequest {
-    const message = createBaseQueryReserveBuybackAssetDataRequest();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
+  fromPartial<I extends Exact<DeepPartial<QueryModuleBalanceRequest>, I>>(
+    object: I
+  ): QueryModuleBalanceRequest {
+    const message = createBaseQueryModuleBalanceRequest();
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
         : Long.UZERO;
     return message;
   },
 };
 
-function createBaseQueryReserveBuybackAssetDataResponse(): QueryReserveBuybackAssetDataResponse {
-  return { ReserveBuybackAssetData: undefined };
+function createBaseQueryModuleBalanceResponse(): QueryModuleBalanceResponse {
+  return { ModuleBalance: undefined };
 }
 
-export const QueryReserveBuybackAssetDataResponse = {
+export const QueryModuleBalanceResponse = {
   encode(
-    message: QueryReserveBuybackAssetDataResponse,
+    message: QueryModuleBalanceResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.ReserveBuybackAssetData !== undefined) {
-      ReserveBuybackAssetData.encode(
-        message.ReserveBuybackAssetData,
+    if (message.ModuleBalance !== undefined) {
+      ModuleBalance.encode(
+        message.ModuleBalance,
         writer.uint32(10).fork()
       ).ldelim();
     }
@@ -2844,15 +2865,245 @@ export const QueryReserveBuybackAssetDataResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): QueryReserveBuybackAssetDataResponse {
+  ): QueryModuleBalanceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryReserveBuybackAssetDataResponse();
+    const message = createBaseQueryModuleBalanceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.ReserveBuybackAssetData = ReserveBuybackAssetData.decode(
+          message.ModuleBalance = ModuleBalance.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryModuleBalanceResponse {
+    return {
+      ModuleBalance: isSet(object.ModuleBalance)
+        ? ModuleBalance.fromJSON(object.ModuleBalance)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryModuleBalanceResponse): unknown {
+    const obj: any = {};
+    message.ModuleBalance !== undefined &&
+      (obj.ModuleBalance = message.ModuleBalance
+        ? ModuleBalance.toJSON(message.ModuleBalance)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryModuleBalanceResponse>, I>>(
+    object: I
+  ): QueryModuleBalanceResponse {
+    const message = createBaseQueryModuleBalanceResponse();
+    message.ModuleBalance =
+      object.ModuleBalance !== undefined && object.ModuleBalance !== null
+        ? ModuleBalance.fromPartial(object.ModuleBalance)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryDepositStatsRequest(): QueryDepositStatsRequest {
+  return {};
+}
+
+export const QueryDepositStatsRequest = {
+  encode(
+    _: QueryDepositStatsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryDepositStatsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryDepositStatsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryDepositStatsRequest {
+    return {};
+  },
+
+  toJSON(_: QueryDepositStatsRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryDepositStatsRequest>, I>>(
+    _: I
+  ): QueryDepositStatsRequest {
+    const message = createBaseQueryDepositStatsRequest();
+    return message;
+  },
+};
+
+function createBaseQueryDepositStatsResponse(): QueryDepositStatsResponse {
+  return { DepositStats: undefined };
+}
+
+export const QueryDepositStatsResponse = {
+  encode(
+    message: QueryDepositStatsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.DepositStats !== undefined) {
+      DepositStats.encode(
+        message.DepositStats,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryDepositStatsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryDepositStatsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.DepositStats = DepositStats.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryDepositStatsResponse {
+    return {
+      DepositStats: isSet(object.DepositStats)
+        ? DepositStats.fromJSON(object.DepositStats)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryDepositStatsResponse): unknown {
+    const obj: any = {};
+    message.DepositStats !== undefined &&
+      (obj.DepositStats = message.DepositStats
+        ? DepositStats.toJSON(message.DepositStats)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryDepositStatsResponse>, I>>(
+    object: I
+  ): QueryDepositStatsResponse {
+    const message = createBaseQueryDepositStatsResponse();
+    message.DepositStats =
+      object.DepositStats !== undefined && object.DepositStats !== null
+        ? DepositStats.fromPartial(object.DepositStats)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryUserDepositStatsRequest(): QueryUserDepositStatsRequest {
+  return {};
+}
+
+export const QueryUserDepositStatsRequest = {
+  encode(
+    _: QueryUserDepositStatsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryUserDepositStatsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryUserDepositStatsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryUserDepositStatsRequest {
+    return {};
+  },
+
+  toJSON(_: QueryUserDepositStatsRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryUserDepositStatsRequest>, I>>(
+    _: I
+  ): QueryUserDepositStatsRequest {
+    const message = createBaseQueryUserDepositStatsRequest();
+    return message;
+  },
+};
+
+function createBaseQueryUserDepositStatsResponse(): QueryUserDepositStatsResponse {
+  return { UserDepositStats: undefined };
+}
+
+export const QueryUserDepositStatsResponse = {
+  encode(
+    message: QueryUserDepositStatsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.UserDepositStats !== undefined) {
+      DepositStats.encode(
+        message.UserDepositStats,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryUserDepositStatsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryUserDepositStatsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.UserDepositStats = DepositStats.decode(
             reader,
             reader.uint32()
           );
@@ -2865,31 +3116,383 @@ export const QueryReserveBuybackAssetDataResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryReserveBuybackAssetDataResponse {
+  fromJSON(object: any): QueryUserDepositStatsResponse {
     return {
-      ReserveBuybackAssetData: isSet(object.ReserveBuybackAssetData)
-        ? ReserveBuybackAssetData.fromJSON(object.ReserveBuybackAssetData)
+      UserDepositStats: isSet(object.UserDepositStats)
+        ? DepositStats.fromJSON(object.UserDepositStats)
         : undefined,
     };
   },
 
-  toJSON(message: QueryReserveBuybackAssetDataResponse): unknown {
+  toJSON(message: QueryUserDepositStatsResponse): unknown {
     const obj: any = {};
-    message.ReserveBuybackAssetData !== undefined &&
-      (obj.ReserveBuybackAssetData = message.ReserveBuybackAssetData
-        ? ReserveBuybackAssetData.toJSON(message.ReserveBuybackAssetData)
+    message.UserDepositStats !== undefined &&
+      (obj.UserDepositStats = message.UserDepositStats
+        ? DepositStats.toJSON(message.UserDepositStats)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryUserDepositStatsResponse>, I>>(
+    object: I
+  ): QueryUserDepositStatsResponse {
+    const message = createBaseQueryUserDepositStatsResponse();
+    message.UserDepositStats =
+      object.UserDepositStats !== undefined && object.UserDepositStats !== null
+        ? DepositStats.fromPartial(object.UserDepositStats)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryReserveDepositStatsRequest(): QueryReserveDepositStatsRequest {
+  return {};
+}
+
+export const QueryReserveDepositStatsRequest = {
+  encode(
+    _: QueryReserveDepositStatsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryReserveDepositStatsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryReserveDepositStatsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryReserveDepositStatsRequest {
+    return {};
+  },
+
+  toJSON(_: QueryReserveDepositStatsRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryReserveDepositStatsRequest>, I>>(
+    _: I
+  ): QueryReserveDepositStatsRequest {
+    const message = createBaseQueryReserveDepositStatsRequest();
+    return message;
+  },
+};
+
+function createBaseQueryReserveDepositStatsResponse(): QueryReserveDepositStatsResponse {
+  return { ReserveDepositStats: undefined };
+}
+
+export const QueryReserveDepositStatsResponse = {
+  encode(
+    message: QueryReserveDepositStatsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.ReserveDepositStats !== undefined) {
+      DepositStats.encode(
+        message.ReserveDepositStats,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryReserveDepositStatsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryReserveDepositStatsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.ReserveDepositStats = DepositStats.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryReserveDepositStatsResponse {
+    return {
+      ReserveDepositStats: isSet(object.ReserveDepositStats)
+        ? DepositStats.fromJSON(object.ReserveDepositStats)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryReserveDepositStatsResponse): unknown {
+    const obj: any = {};
+    message.ReserveDepositStats !== undefined &&
+      (obj.ReserveDepositStats = message.ReserveDepositStats
+        ? DepositStats.toJSON(message.ReserveDepositStats)
         : undefined);
     return obj;
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<QueryReserveBuybackAssetDataResponse>, I>
-  >(object: I): QueryReserveBuybackAssetDataResponse {
-    const message = createBaseQueryReserveBuybackAssetDataResponse();
-    message.ReserveBuybackAssetData =
-      object.ReserveBuybackAssetData !== undefined &&
-      object.ReserveBuybackAssetData !== null
-        ? ReserveBuybackAssetData.fromPartial(object.ReserveBuybackAssetData)
+    I extends Exact<DeepPartial<QueryReserveDepositStatsResponse>, I>
+  >(object: I): QueryReserveDepositStatsResponse {
+    const message = createBaseQueryReserveDepositStatsResponse();
+    message.ReserveDepositStats =
+      object.ReserveDepositStats !== undefined &&
+      object.ReserveDepositStats !== null
+        ? DepositStats.fromPartial(object.ReserveDepositStats)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryBuyBackDepositStatsRequest(): QueryBuyBackDepositStatsRequest {
+  return {};
+}
+
+export const QueryBuyBackDepositStatsRequest = {
+  encode(
+    _: QueryBuyBackDepositStatsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryBuyBackDepositStatsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryBuyBackDepositStatsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryBuyBackDepositStatsRequest {
+    return {};
+  },
+
+  toJSON(_: QueryBuyBackDepositStatsRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBuyBackDepositStatsRequest>, I>>(
+    _: I
+  ): QueryBuyBackDepositStatsRequest {
+    const message = createBaseQueryBuyBackDepositStatsRequest();
+    return message;
+  },
+};
+
+function createBaseQueryBuyBackDepositStatsResponse(): QueryBuyBackDepositStatsResponse {
+  return { BuyBackDepositStats: undefined };
+}
+
+export const QueryBuyBackDepositStatsResponse = {
+  encode(
+    message: QueryBuyBackDepositStatsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.BuyBackDepositStats !== undefined) {
+      DepositStats.encode(
+        message.BuyBackDepositStats,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryBuyBackDepositStatsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryBuyBackDepositStatsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.BuyBackDepositStats = DepositStats.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryBuyBackDepositStatsResponse {
+    return {
+      BuyBackDepositStats: isSet(object.BuyBackDepositStats)
+        ? DepositStats.fromJSON(object.BuyBackDepositStats)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryBuyBackDepositStatsResponse): unknown {
+    const obj: any = {};
+    message.BuyBackDepositStats !== undefined &&
+      (obj.BuyBackDepositStats = message.BuyBackDepositStats
+        ? DepositStats.toJSON(message.BuyBackDepositStats)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryBuyBackDepositStatsResponse>, I>
+  >(object: I): QueryBuyBackDepositStatsResponse {
+    const message = createBaseQueryBuyBackDepositStatsResponse();
+    message.BuyBackDepositStats =
+      object.BuyBackDepositStats !== undefined &&
+      object.BuyBackDepositStats !== null
+        ? DepositStats.fromPartial(object.BuyBackDepositStats)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryBorrowStatsRequest(): QueryBorrowStatsRequest {
+  return {};
+}
+
+export const QueryBorrowStatsRequest = {
+  encode(
+    _: QueryBorrowStatsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryBorrowStatsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryBorrowStatsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryBorrowStatsRequest {
+    return {};
+  },
+
+  toJSON(_: QueryBorrowStatsRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowStatsRequest>, I>>(
+    _: I
+  ): QueryBorrowStatsRequest {
+    const message = createBaseQueryBorrowStatsRequest();
+    return message;
+  },
+};
+
+function createBaseQueryBorrowStatsResponse(): QueryBorrowStatsResponse {
+  return { BorrowStats: undefined };
+}
+
+export const QueryBorrowStatsResponse = {
+  encode(
+    message: QueryBorrowStatsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.BorrowStats !== undefined) {
+      DepositStats.encode(
+        message.BorrowStats,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryBorrowStatsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryBorrowStatsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.BorrowStats = DepositStats.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryBorrowStatsResponse {
+    return {
+      BorrowStats: isSet(object.BorrowStats)
+        ? DepositStats.fromJSON(object.BorrowStats)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryBorrowStatsResponse): unknown {
+    const obj: any = {};
+    message.BorrowStats !== undefined &&
+      (obj.BorrowStats = message.BorrowStats
+        ? DepositStats.toJSON(message.BorrowStats)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowStatsResponse>, I>>(
+    object: I
+  ): QueryBorrowStatsResponse {
+    const message = createBaseQueryBorrowStatsResponse();
+    message.BorrowStats =
+      object.BorrowStats !== undefined && object.BorrowStats !== null
+        ? DepositStats.fromPartial(object.BorrowStats)
         : undefined;
     return message;
   },
@@ -3036,12 +3639,12 @@ export interface Query {
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
   QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
-  QueryAssetRatesParams(
-    request: QueryAssetRatesParamsRequest
-  ): Promise<QueryAssetRatesParamsResponse>;
-  QueryAssetRatesParam(
-    request: QueryAssetRatesParamRequest
-  ): Promise<QueryAssetRatesParamResponse>;
+  QueryAssetRatesStats(
+    request: QueryAssetRatesStatsRequest
+  ): Promise<QueryAssetRatesStatsResponse>;
+  QueryAssetRatesStat(
+    request: QueryAssetRatesStatRequest
+  ): Promise<QueryAssetRatesStatResponse>;
   QueryPools(request: QueryPoolsRequest): Promise<QueryPoolsResponse>;
   QueryPool(request: QueryPoolRequest): Promise<QueryPoolResponse>;
   QueryAssetToPairMappings(
@@ -3058,12 +3661,27 @@ export interface Query {
   QueryAllBorrowByOwnerAndPool(
     request: QueryAllBorrowByOwnerAndPoolRequest
   ): Promise<QueryAllBorrowByOwnerAndPoolResponse>;
-  QueryPoolAssetLBMapping(
-    request: QueryPoolAssetLBMappingRequest
-  ): Promise<QueryPoolAssetLBMappingResponse>;
-  QueryReserveBuybackAssetData(
-    request: QueryReserveBuybackAssetDataRequest
-  ): Promise<QueryReserveBuybackAssetDataResponse>;
+  QueryAssetStats(
+    request: QueryAssetStatsRequest
+  ): Promise<QueryAssetStatsResponse>;
+  QueryModuleBalance(
+    request: QueryModuleBalanceRequest
+  ): Promise<QueryModuleBalanceResponse>;
+  QueryDepositStats(
+    request: QueryDepositStatsRequest
+  ): Promise<QueryDepositStatsResponse>;
+  QueryUserDepositStats(
+    request: QueryUserDepositStatsRequest
+  ): Promise<QueryUserDepositStatsResponse>;
+  QueryReserveDepositStats(
+    request: QueryReserveDepositStatsRequest
+  ): Promise<QueryReserveDepositStatsResponse>;
+  QueryBuyBackDepositStats(
+    request: QueryBuyBackDepositStatsRequest
+  ): Promise<QueryBuyBackDepositStatsResponse>;
+  QueryBorrowStats(
+    request: QueryBorrowStatsRequest
+  ): Promise<QueryBorrowStatsResponse>;
   QueryAuctionParams(
     request: QueryAuctionParamRequest
   ): Promise<QueryAuctionParamResponse>;
@@ -3081,8 +3699,8 @@ export class QueryClientImpl implements Query {
     this.Params = this.Params.bind(this);
     this.QueryPairs = this.QueryPairs.bind(this);
     this.QueryPair = this.QueryPair.bind(this);
-    this.QueryAssetRatesParams = this.QueryAssetRatesParams.bind(this);
-    this.QueryAssetRatesParam = this.QueryAssetRatesParam.bind(this);
+    this.QueryAssetRatesStats = this.QueryAssetRatesStats.bind(this);
+    this.QueryAssetRatesStat = this.QueryAssetRatesStat.bind(this);
     this.QueryPools = this.QueryPools.bind(this);
     this.QueryPool = this.QueryPool.bind(this);
     this.QueryAssetToPairMappings = this.QueryAssetToPairMappings.bind(this);
@@ -3092,9 +3710,13 @@ export class QueryClientImpl implements Query {
     this.QueryAllBorrowByOwner = this.QueryAllBorrowByOwner.bind(this);
     this.QueryAllBorrowByOwnerAndPool =
       this.QueryAllBorrowByOwnerAndPool.bind(this);
-    this.QueryPoolAssetLBMapping = this.QueryPoolAssetLBMapping.bind(this);
-    this.QueryReserveBuybackAssetData =
-      this.QueryReserveBuybackAssetData.bind(this);
+    this.QueryAssetStats = this.QueryAssetStats.bind(this);
+    this.QueryModuleBalance = this.QueryModuleBalance.bind(this);
+    this.QueryDepositStats = this.QueryDepositStats.bind(this);
+    this.QueryUserDepositStats = this.QueryUserDepositStats.bind(this);
+    this.QueryReserveDepositStats = this.QueryReserveDepositStats.bind(this);
+    this.QueryBuyBackDepositStats = this.QueryBuyBackDepositStats.bind(this);
+    this.QueryBorrowStats = this.QueryBorrowStats.bind(this);
     this.QueryAuctionParams = this.QueryAuctionParams.bind(this);
   }
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse> {
@@ -3185,31 +3807,31 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryAssetRatesParams(
-    request: QueryAssetRatesParamsRequest
-  ): Promise<QueryAssetRatesParamsResponse> {
-    const data = QueryAssetRatesParamsRequest.encode(request).finish();
+  QueryAssetRatesStats(
+    request: QueryAssetRatesStatsRequest
+  ): Promise<QueryAssetRatesStatsResponse> {
+    const data = QueryAssetRatesStatsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.lend.v1beta1.Query",
-      "QueryAssetRatesParams",
+      "QueryAssetRatesStats",
       data
     );
     return promise.then((data) =>
-      QueryAssetRatesParamsResponse.decode(new _m0.Reader(data))
+      QueryAssetRatesStatsResponse.decode(new _m0.Reader(data))
     );
   }
 
-  QueryAssetRatesParam(
-    request: QueryAssetRatesParamRequest
-  ): Promise<QueryAssetRatesParamResponse> {
-    const data = QueryAssetRatesParamRequest.encode(request).finish();
+  QueryAssetRatesStat(
+    request: QueryAssetRatesStatRequest
+  ): Promise<QueryAssetRatesStatResponse> {
+    const data = QueryAssetRatesStatRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.lend.v1beta1.Query",
-      "QueryAssetRatesParam",
+      "QueryAssetRatesStat",
       data
     );
     return promise.then((data) =>
-      QueryAssetRatesParamResponse.decode(new _m0.Reader(data))
+      QueryAssetRatesStatResponse.decode(new _m0.Reader(data))
     );
   }
 
@@ -3317,31 +3939,101 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryPoolAssetLBMapping(
-    request: QueryPoolAssetLBMappingRequest
-  ): Promise<QueryPoolAssetLBMappingResponse> {
-    const data = QueryPoolAssetLBMappingRequest.encode(request).finish();
+  QueryAssetStats(
+    request: QueryAssetStatsRequest
+  ): Promise<QueryAssetStatsResponse> {
+    const data = QueryAssetStatsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.lend.v1beta1.Query",
-      "QueryPoolAssetLBMapping",
+      "QueryAssetStats",
       data
     );
     return promise.then((data) =>
-      QueryPoolAssetLBMappingResponse.decode(new _m0.Reader(data))
+      QueryAssetStatsResponse.decode(new _m0.Reader(data))
     );
   }
 
-  QueryReserveBuybackAssetData(
-    request: QueryReserveBuybackAssetDataRequest
-  ): Promise<QueryReserveBuybackAssetDataResponse> {
-    const data = QueryReserveBuybackAssetDataRequest.encode(request).finish();
+  QueryModuleBalance(
+    request: QueryModuleBalanceRequest
+  ): Promise<QueryModuleBalanceResponse> {
+    const data = QueryModuleBalanceRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.lend.v1beta1.Query",
-      "QueryReserveBuybackAssetData",
+      "QueryModuleBalance",
       data
     );
     return promise.then((data) =>
-      QueryReserveBuybackAssetDataResponse.decode(new _m0.Reader(data))
+      QueryModuleBalanceResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryDepositStats(
+    request: QueryDepositStatsRequest
+  ): Promise<QueryDepositStatsResponse> {
+    const data = QueryDepositStatsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryDepositStats",
+      data
+    );
+    return promise.then((data) =>
+      QueryDepositStatsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryUserDepositStats(
+    request: QueryUserDepositStatsRequest
+  ): Promise<QueryUserDepositStatsResponse> {
+    const data = QueryUserDepositStatsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryUserDepositStats",
+      data
+    );
+    return promise.then((data) =>
+      QueryUserDepositStatsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryReserveDepositStats(
+    request: QueryReserveDepositStatsRequest
+  ): Promise<QueryReserveDepositStatsResponse> {
+    const data = QueryReserveDepositStatsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryReserveDepositStats",
+      data
+    );
+    return promise.then((data) =>
+      QueryReserveDepositStatsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryBuyBackDepositStats(
+    request: QueryBuyBackDepositStatsRequest
+  ): Promise<QueryBuyBackDepositStatsResponse> {
+    const data = QueryBuyBackDepositStatsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryBuyBackDepositStats",
+      data
+    );
+    return promise.then((data) =>
+      QueryBuyBackDepositStatsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryBorrowStats(
+    request: QueryBorrowStatsRequest
+  ): Promise<QueryBorrowStatsResponse> {
+    const data = QueryBorrowStatsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryBorrowStats",
+      data
+    );
+    return promise.then((data) =>
+      QueryBorrowStatsResponse.decode(new _m0.Reader(data))
     );
   }
 
