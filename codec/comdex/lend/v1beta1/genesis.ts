@@ -2,72 +2,51 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import {
-  BorrowMapping,
-  LendMapping,
-  DepositStats,
   BorrowAsset,
-  UserBorrowIdMapping,
-  BorrowIdByOwnerAndPoolMapping,
+  BorrowInterestTracker,
   LendAsset,
   Pool,
   AssetToPairMapping,
-  UserLendIdMapping,
-  LendIdByOwnerAndPoolMapping,
-  LendIdToBorrowIdMapping,
-  AssetStats,
+  PoolAssetLBMapping,
+  LendRewardsTracker,
+  UserAssetLendBorrowMapping,
+  ReserveBuybackAssetData,
   ExtendedPair,
-  AssetRatesStats,
   AuctionParams,
+  AssetRatesParams,
 } from "../../../comdex/lend/v1beta1/lend";
-import { Params } from "../../../comdex/lend/v1beta1/params";
 
 export const protobufPackage = "comdex.lend.v1beta1";
 
 export interface GenesisState {
   borrowAsset: BorrowAsset[];
-  userBorrowIdMapping: UserBorrowIdMapping[];
-  borrowIdByOwnerAndPoolMapping: BorrowIdByOwnerAndPoolMapping[];
-  borrowMapping?: BorrowMapping;
+  borrowInterestTracker: BorrowInterestTracker[];
   lendAsset: LendAsset[];
   pool: Pool[];
   assetToPairMapping: AssetToPairMapping[];
-  userLendIdMapping: UserLendIdMapping[];
-  lendIdByOwnerAndPoolMapping: LendIdByOwnerAndPoolMapping[];
-  lendIdToBorrowIdMapping: LendIdToBorrowIdMapping[];
-  assetStats: AssetStats[];
-  lendMapping?: LendMapping;
-  userDepositStats?: DepositStats;
-  reserveDepositStats?: DepositStats;
-  buyBackDepositStats?: DepositStats;
-  borrowDepositStats?: DepositStats;
+  poolAssetLBMapping: PoolAssetLBMapping[];
+  lendRewardsTracker: LendRewardsTracker[];
+  userAssetLendBorrowMapping: UserAssetLendBorrowMapping[];
+  reserveBuybackAssetData: ReserveBuybackAssetData[];
   extendedPair: ExtendedPair[];
-  assetRatesStats: AssetRatesStats[];
   auctionParams: AuctionParams[];
-  params?: Params;
+  assetRatesParams: AssetRatesParams[];
 }
 
 function createBaseGenesisState(): GenesisState {
   return {
     borrowAsset: [],
-    userBorrowIdMapping: [],
-    borrowIdByOwnerAndPoolMapping: [],
-    borrowMapping: undefined,
+    borrowInterestTracker: [],
     lendAsset: [],
     pool: [],
     assetToPairMapping: [],
-    userLendIdMapping: [],
-    lendIdByOwnerAndPoolMapping: [],
-    lendIdToBorrowIdMapping: [],
-    assetStats: [],
-    lendMapping: undefined,
-    userDepositStats: undefined,
-    reserveDepositStats: undefined,
-    buyBackDepositStats: undefined,
-    borrowDepositStats: undefined,
+    poolAssetLBMapping: [],
+    lendRewardsTracker: [],
+    userAssetLendBorrowMapping: [],
+    reserveBuybackAssetData: [],
     extendedPair: [],
-    assetRatesStats: [],
     auctionParams: [],
-    params: undefined,
+    assetRatesParams: [],
   };
 }
 
@@ -79,83 +58,38 @@ export const GenesisState = {
     for (const v of message.borrowAsset) {
       BorrowAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    for (const v of message.userBorrowIdMapping) {
-      UserBorrowIdMapping.encode(v!, writer.uint32(18).fork()).ldelim();
-    }
-    for (const v of message.borrowIdByOwnerAndPoolMapping) {
-      BorrowIdByOwnerAndPoolMapping.encode(
-        v!,
-        writer.uint32(26).fork()
-      ).ldelim();
-    }
-    if (message.borrowMapping !== undefined) {
-      BorrowMapping.encode(
-        message.borrowMapping,
-        writer.uint32(34).fork()
-      ).ldelim();
+    for (const v of message.borrowInterestTracker) {
+      BorrowInterestTracker.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     for (const v of message.lendAsset) {
-      LendAsset.encode(v!, writer.uint32(42).fork()).ldelim();
+      LendAsset.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     for (const v of message.pool) {
-      Pool.encode(v!, writer.uint32(50).fork()).ldelim();
+      Pool.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     for (const v of message.assetToPairMapping) {
-      AssetToPairMapping.encode(v!, writer.uint32(58).fork()).ldelim();
+      AssetToPairMapping.encode(v!, writer.uint32(42).fork()).ldelim();
     }
-    for (const v of message.userLendIdMapping) {
-      UserLendIdMapping.encode(v!, writer.uint32(66).fork()).ldelim();
+    for (const v of message.poolAssetLBMapping) {
+      PoolAssetLBMapping.encode(v!, writer.uint32(50).fork()).ldelim();
     }
-    for (const v of message.lendIdByOwnerAndPoolMapping) {
-      LendIdByOwnerAndPoolMapping.encode(v!, writer.uint32(74).fork()).ldelim();
+    for (const v of message.lendRewardsTracker) {
+      LendRewardsTracker.encode(v!, writer.uint32(58).fork()).ldelim();
     }
-    for (const v of message.lendIdToBorrowIdMapping) {
-      LendIdToBorrowIdMapping.encode(v!, writer.uint32(82).fork()).ldelim();
+    for (const v of message.userAssetLendBorrowMapping) {
+      UserAssetLendBorrowMapping.encode(v!, writer.uint32(66).fork()).ldelim();
     }
-    for (const v of message.assetStats) {
-      AssetStats.encode(v!, writer.uint32(90).fork()).ldelim();
-    }
-    if (message.lendMapping !== undefined) {
-      LendMapping.encode(
-        message.lendMapping,
-        writer.uint32(98).fork()
-      ).ldelim();
-    }
-    if (message.userDepositStats !== undefined) {
-      DepositStats.encode(
-        message.userDepositStats,
-        writer.uint32(106).fork()
-      ).ldelim();
-    }
-    if (message.reserveDepositStats !== undefined) {
-      DepositStats.encode(
-        message.reserveDepositStats,
-        writer.uint32(114).fork()
-      ).ldelim();
-    }
-    if (message.buyBackDepositStats !== undefined) {
-      DepositStats.encode(
-        message.buyBackDepositStats,
-        writer.uint32(122).fork()
-      ).ldelim();
-    }
-    if (message.borrowDepositStats !== undefined) {
-      DepositStats.encode(
-        message.borrowDepositStats,
-        writer.uint32(130).fork()
-      ).ldelim();
+    for (const v of message.reserveBuybackAssetData) {
+      ReserveBuybackAssetData.encode(v!, writer.uint32(74).fork()).ldelim();
     }
     for (const v of message.extendedPair) {
-      ExtendedPair.encode(v!, writer.uint32(138).fork()).ldelim();
-    }
-    for (const v of message.assetRatesStats) {
-      AssetRatesStats.encode(v!, writer.uint32(146).fork()).ldelim();
+      ExtendedPair.encode(v!, writer.uint32(82).fork()).ldelim();
     }
     for (const v of message.auctionParams) {
-      AuctionParams.encode(v!, writer.uint32(154).fork()).ldelim();
+      AuctionParams.encode(v!, writer.uint32(90).fork()).ldelim();
     }
-    if (message.params !== undefined) {
-      Params.encode(message.params, writer.uint32(162).fork()).ldelim();
+    for (const v of message.assetRatesParams) {
+      AssetRatesParams.encode(v!, writer.uint32(98).fork()).ldelim();
     }
     return writer;
   },
@@ -171,91 +105,55 @@ export const GenesisState = {
           message.borrowAsset.push(BorrowAsset.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.userBorrowIdMapping.push(
-            UserBorrowIdMapping.decode(reader, reader.uint32())
+          message.borrowInterestTracker.push(
+            BorrowInterestTracker.decode(reader, reader.uint32())
           );
           break;
         case 3:
-          message.borrowIdByOwnerAndPoolMapping.push(
-            BorrowIdByOwnerAndPoolMapping.decode(reader, reader.uint32())
-          );
-          break;
-        case 4:
-          message.borrowMapping = BorrowMapping.decode(reader, reader.uint32());
-          break;
-        case 5:
           message.lendAsset.push(LendAsset.decode(reader, reader.uint32()));
           break;
-        case 6:
+        case 4:
           message.pool.push(Pool.decode(reader, reader.uint32()));
           break;
-        case 7:
+        case 5:
           message.assetToPairMapping.push(
             AssetToPairMapping.decode(reader, reader.uint32())
           );
           break;
+        case 6:
+          message.poolAssetLBMapping.push(
+            PoolAssetLBMapping.decode(reader, reader.uint32())
+          );
+          break;
+        case 7:
+          message.lendRewardsTracker.push(
+            LendRewardsTracker.decode(reader, reader.uint32())
+          );
+          break;
         case 8:
-          message.userLendIdMapping.push(
-            UserLendIdMapping.decode(reader, reader.uint32())
+          message.userAssetLendBorrowMapping.push(
+            UserAssetLendBorrowMapping.decode(reader, reader.uint32())
           );
           break;
         case 9:
-          message.lendIdByOwnerAndPoolMapping.push(
-            LendIdByOwnerAndPoolMapping.decode(reader, reader.uint32())
+          message.reserveBuybackAssetData.push(
+            ReserveBuybackAssetData.decode(reader, reader.uint32())
           );
           break;
         case 10:
-          message.lendIdToBorrowIdMapping.push(
-            LendIdToBorrowIdMapping.decode(reader, reader.uint32())
-          );
-          break;
-        case 11:
-          message.assetStats.push(AssetStats.decode(reader, reader.uint32()));
-          break;
-        case 12:
-          message.lendMapping = LendMapping.decode(reader, reader.uint32());
-          break;
-        case 13:
-          message.userDepositStats = DepositStats.decode(
-            reader,
-            reader.uint32()
-          );
-          break;
-        case 14:
-          message.reserveDepositStats = DepositStats.decode(
-            reader,
-            reader.uint32()
-          );
-          break;
-        case 15:
-          message.buyBackDepositStats = DepositStats.decode(
-            reader,
-            reader.uint32()
-          );
-          break;
-        case 16:
-          message.borrowDepositStats = DepositStats.decode(
-            reader,
-            reader.uint32()
-          );
-          break;
-        case 17:
           message.extendedPair.push(
             ExtendedPair.decode(reader, reader.uint32())
           );
           break;
-        case 18:
-          message.assetRatesStats.push(
-            AssetRatesStats.decode(reader, reader.uint32())
-          );
-          break;
-        case 19:
+        case 11:
           message.auctionParams.push(
             AuctionParams.decode(reader, reader.uint32())
           );
           break;
-        case 20:
-          message.params = Params.decode(reader, reader.uint32());
+        case 12:
+          message.assetRatesParams.push(
+            AssetRatesParams.decode(reader, reader.uint32())
+          );
           break;
         default:
           reader.skipType(tag & 7);
@@ -270,21 +168,11 @@ export const GenesisState = {
       borrowAsset: Array.isArray(object?.borrowAsset)
         ? object.borrowAsset.map((e: any) => BorrowAsset.fromJSON(e))
         : [],
-      userBorrowIdMapping: Array.isArray(object?.userBorrowIdMapping)
-        ? object.userBorrowIdMapping.map((e: any) =>
-            UserBorrowIdMapping.fromJSON(e)
+      borrowInterestTracker: Array.isArray(object?.borrowInterestTracker)
+        ? object.borrowInterestTracker.map((e: any) =>
+            BorrowInterestTracker.fromJSON(e)
           )
         : [],
-      borrowIdByOwnerAndPoolMapping: Array.isArray(
-        object?.borrowIdByOwnerAndPoolMapping
-      )
-        ? object.borrowIdByOwnerAndPoolMapping.map((e: any) =>
-            BorrowIdByOwnerAndPoolMapping.fromJSON(e)
-          )
-        : [],
-      borrowMapping: isSet(object.borrowMapping)
-        ? BorrowMapping.fromJSON(object.borrowMapping)
-        : undefined,
       lendAsset: Array.isArray(object?.lendAsset)
         ? object.lendAsset.map((e: any) => LendAsset.fromJSON(e))
         : [],
@@ -296,51 +184,37 @@ export const GenesisState = {
             AssetToPairMapping.fromJSON(e)
           )
         : [],
-      userLendIdMapping: Array.isArray(object?.userLendIdMapping)
-        ? object.userLendIdMapping.map((e: any) =>
-            UserLendIdMapping.fromJSON(e)
+      poolAssetLBMapping: Array.isArray(object?.poolAssetLBMapping)
+        ? object.poolAssetLBMapping.map((e: any) =>
+            PoolAssetLBMapping.fromJSON(e)
           )
         : [],
-      lendIdByOwnerAndPoolMapping: Array.isArray(
-        object?.lendIdByOwnerAndPoolMapping
+      lendRewardsTracker: Array.isArray(object?.lendRewardsTracker)
+        ? object.lendRewardsTracker.map((e: any) =>
+            LendRewardsTracker.fromJSON(e)
+          )
+        : [],
+      userAssetLendBorrowMapping: Array.isArray(
+        object?.userAssetLendBorrowMapping
       )
-        ? object.lendIdByOwnerAndPoolMapping.map((e: any) =>
-            LendIdByOwnerAndPoolMapping.fromJSON(e)
+        ? object.userAssetLendBorrowMapping.map((e: any) =>
+            UserAssetLendBorrowMapping.fromJSON(e)
           )
         : [],
-      lendIdToBorrowIdMapping: Array.isArray(object?.lendIdToBorrowIdMapping)
-        ? object.lendIdToBorrowIdMapping.map((e: any) =>
-            LendIdToBorrowIdMapping.fromJSON(e)
+      reserveBuybackAssetData: Array.isArray(object?.reserveBuybackAssetData)
+        ? object.reserveBuybackAssetData.map((e: any) =>
+            ReserveBuybackAssetData.fromJSON(e)
           )
         : [],
-      assetStats: Array.isArray(object?.assetStats)
-        ? object.assetStats.map((e: any) => AssetStats.fromJSON(e))
-        : [],
-      lendMapping: isSet(object.lendMapping)
-        ? LendMapping.fromJSON(object.lendMapping)
-        : undefined,
-      userDepositStats: isSet(object.userDepositStats)
-        ? DepositStats.fromJSON(object.userDepositStats)
-        : undefined,
-      reserveDepositStats: isSet(object.reserveDepositStats)
-        ? DepositStats.fromJSON(object.reserveDepositStats)
-        : undefined,
-      buyBackDepositStats: isSet(object.buyBackDepositStats)
-        ? DepositStats.fromJSON(object.buyBackDepositStats)
-        : undefined,
-      borrowDepositStats: isSet(object.borrowDepositStats)
-        ? DepositStats.fromJSON(object.borrowDepositStats)
-        : undefined,
       extendedPair: Array.isArray(object?.extendedPair)
         ? object.extendedPair.map((e: any) => ExtendedPair.fromJSON(e))
-        : [],
-      assetRatesStats: Array.isArray(object?.assetRatesStats)
-        ? object.assetRatesStats.map((e: any) => AssetRatesStats.fromJSON(e))
         : [],
       auctionParams: Array.isArray(object?.auctionParams)
         ? object.auctionParams.map((e: any) => AuctionParams.fromJSON(e))
         : [],
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+      assetRatesParams: Array.isArray(object?.assetRatesParams)
+        ? object.assetRatesParams.map((e: any) => AssetRatesParams.fromJSON(e))
+        : [],
     };
   },
 
@@ -353,25 +227,13 @@ export const GenesisState = {
     } else {
       obj.borrowAsset = [];
     }
-    if (message.userBorrowIdMapping) {
-      obj.userBorrowIdMapping = message.userBorrowIdMapping.map((e) =>
-        e ? UserBorrowIdMapping.toJSON(e) : undefined
+    if (message.borrowInterestTracker) {
+      obj.borrowInterestTracker = message.borrowInterestTracker.map((e) =>
+        e ? BorrowInterestTracker.toJSON(e) : undefined
       );
     } else {
-      obj.userBorrowIdMapping = [];
+      obj.borrowInterestTracker = [];
     }
-    if (message.borrowIdByOwnerAndPoolMapping) {
-      obj.borrowIdByOwnerAndPoolMapping =
-        message.borrowIdByOwnerAndPoolMapping.map((e) =>
-          e ? BorrowIdByOwnerAndPoolMapping.toJSON(e) : undefined
-        );
-    } else {
-      obj.borrowIdByOwnerAndPoolMapping = [];
-    }
-    message.borrowMapping !== undefined &&
-      (obj.borrowMapping = message.borrowMapping
-        ? BorrowMapping.toJSON(message.borrowMapping)
-        : undefined);
     if (message.lendAsset) {
       obj.lendAsset = message.lendAsset.map((e) =>
         e ? LendAsset.toJSON(e) : undefined
@@ -391,67 +253,40 @@ export const GenesisState = {
     } else {
       obj.assetToPairMapping = [];
     }
-    if (message.userLendIdMapping) {
-      obj.userLendIdMapping = message.userLendIdMapping.map((e) =>
-        e ? UserLendIdMapping.toJSON(e) : undefined
+    if (message.poolAssetLBMapping) {
+      obj.poolAssetLBMapping = message.poolAssetLBMapping.map((e) =>
+        e ? PoolAssetLBMapping.toJSON(e) : undefined
       );
     } else {
-      obj.userLendIdMapping = [];
+      obj.poolAssetLBMapping = [];
     }
-    if (message.lendIdByOwnerAndPoolMapping) {
-      obj.lendIdByOwnerAndPoolMapping = message.lendIdByOwnerAndPoolMapping.map(
-        (e) => (e ? LendIdByOwnerAndPoolMapping.toJSON(e) : undefined)
+    if (message.lendRewardsTracker) {
+      obj.lendRewardsTracker = message.lendRewardsTracker.map((e) =>
+        e ? LendRewardsTracker.toJSON(e) : undefined
       );
     } else {
-      obj.lendIdByOwnerAndPoolMapping = [];
+      obj.lendRewardsTracker = [];
     }
-    if (message.lendIdToBorrowIdMapping) {
-      obj.lendIdToBorrowIdMapping = message.lendIdToBorrowIdMapping.map((e) =>
-        e ? LendIdToBorrowIdMapping.toJSON(e) : undefined
+    if (message.userAssetLendBorrowMapping) {
+      obj.userAssetLendBorrowMapping = message.userAssetLendBorrowMapping.map(
+        (e) => (e ? UserAssetLendBorrowMapping.toJSON(e) : undefined)
       );
     } else {
-      obj.lendIdToBorrowIdMapping = [];
+      obj.userAssetLendBorrowMapping = [];
     }
-    if (message.assetStats) {
-      obj.assetStats = message.assetStats.map((e) =>
-        e ? AssetStats.toJSON(e) : undefined
+    if (message.reserveBuybackAssetData) {
+      obj.reserveBuybackAssetData = message.reserveBuybackAssetData.map((e) =>
+        e ? ReserveBuybackAssetData.toJSON(e) : undefined
       );
     } else {
-      obj.assetStats = [];
+      obj.reserveBuybackAssetData = [];
     }
-    message.lendMapping !== undefined &&
-      (obj.lendMapping = message.lendMapping
-        ? LendMapping.toJSON(message.lendMapping)
-        : undefined);
-    message.userDepositStats !== undefined &&
-      (obj.userDepositStats = message.userDepositStats
-        ? DepositStats.toJSON(message.userDepositStats)
-        : undefined);
-    message.reserveDepositStats !== undefined &&
-      (obj.reserveDepositStats = message.reserveDepositStats
-        ? DepositStats.toJSON(message.reserveDepositStats)
-        : undefined);
-    message.buyBackDepositStats !== undefined &&
-      (obj.buyBackDepositStats = message.buyBackDepositStats
-        ? DepositStats.toJSON(message.buyBackDepositStats)
-        : undefined);
-    message.borrowDepositStats !== undefined &&
-      (obj.borrowDepositStats = message.borrowDepositStats
-        ? DepositStats.toJSON(message.borrowDepositStats)
-        : undefined);
     if (message.extendedPair) {
       obj.extendedPair = message.extendedPair.map((e) =>
         e ? ExtendedPair.toJSON(e) : undefined
       );
     } else {
       obj.extendedPair = [];
-    }
-    if (message.assetRatesStats) {
-      obj.assetRatesStats = message.assetRatesStats.map((e) =>
-        e ? AssetRatesStats.toJSON(e) : undefined
-      );
-    } else {
-      obj.assetRatesStats = [];
     }
     if (message.auctionParams) {
       obj.auctionParams = message.auctionParams.map((e) =>
@@ -460,8 +295,13 @@ export const GenesisState = {
     } else {
       obj.auctionParams = [];
     }
-    message.params !== undefined &&
-      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    if (message.assetRatesParams) {
+      obj.assetRatesParams = message.assetRatesParams.map((e) =>
+        e ? AssetRatesParams.toJSON(e) : undefined
+      );
+    } else {
+      obj.assetRatesParams = [];
+    }
     return obj;
   },
 
@@ -471,18 +311,10 @@ export const GenesisState = {
     const message = createBaseGenesisState();
     message.borrowAsset =
       object.borrowAsset?.map((e) => BorrowAsset.fromPartial(e)) || [];
-    message.userBorrowIdMapping =
-      object.userBorrowIdMapping?.map((e) =>
-        UserBorrowIdMapping.fromPartial(e)
+    message.borrowInterestTracker =
+      object.borrowInterestTracker?.map((e) =>
+        BorrowInterestTracker.fromPartial(e)
       ) || [];
-    message.borrowIdByOwnerAndPoolMapping =
-      object.borrowIdByOwnerAndPoolMapping?.map((e) =>
-        BorrowIdByOwnerAndPoolMapping.fromPartial(e)
-      ) || [];
-    message.borrowMapping =
-      object.borrowMapping !== undefined && object.borrowMapping !== null
-        ? BorrowMapping.fromPartial(object.borrowMapping)
-        : undefined;
     message.lendAsset =
       object.lendAsset?.map((e) => LendAsset.fromPartial(e)) || [];
     message.pool = object.pool?.map((e) => Pool.fromPartial(e)) || [];
@@ -490,52 +322,29 @@ export const GenesisState = {
       object.assetToPairMapping?.map((e) =>
         AssetToPairMapping.fromPartial(e)
       ) || [];
-    message.userLendIdMapping =
-      object.userLendIdMapping?.map((e) => UserLendIdMapping.fromPartial(e)) ||
-      [];
-    message.lendIdByOwnerAndPoolMapping =
-      object.lendIdByOwnerAndPoolMapping?.map((e) =>
-        LendIdByOwnerAndPoolMapping.fromPartial(e)
+    message.poolAssetLBMapping =
+      object.poolAssetLBMapping?.map((e) =>
+        PoolAssetLBMapping.fromPartial(e)
       ) || [];
-    message.lendIdToBorrowIdMapping =
-      object.lendIdToBorrowIdMapping?.map((e) =>
-        LendIdToBorrowIdMapping.fromPartial(e)
+    message.lendRewardsTracker =
+      object.lendRewardsTracker?.map((e) =>
+        LendRewardsTracker.fromPartial(e)
       ) || [];
-    message.assetStats =
-      object.assetStats?.map((e) => AssetStats.fromPartial(e)) || [];
-    message.lendMapping =
-      object.lendMapping !== undefined && object.lendMapping !== null
-        ? LendMapping.fromPartial(object.lendMapping)
-        : undefined;
-    message.userDepositStats =
-      object.userDepositStats !== undefined && object.userDepositStats !== null
-        ? DepositStats.fromPartial(object.userDepositStats)
-        : undefined;
-    message.reserveDepositStats =
-      object.reserveDepositStats !== undefined &&
-      object.reserveDepositStats !== null
-        ? DepositStats.fromPartial(object.reserveDepositStats)
-        : undefined;
-    message.buyBackDepositStats =
-      object.buyBackDepositStats !== undefined &&
-      object.buyBackDepositStats !== null
-        ? DepositStats.fromPartial(object.buyBackDepositStats)
-        : undefined;
-    message.borrowDepositStats =
-      object.borrowDepositStats !== undefined &&
-      object.borrowDepositStats !== null
-        ? DepositStats.fromPartial(object.borrowDepositStats)
-        : undefined;
+    message.userAssetLendBorrowMapping =
+      object.userAssetLendBorrowMapping?.map((e) =>
+        UserAssetLendBorrowMapping.fromPartial(e)
+      ) || [];
+    message.reserveBuybackAssetData =
+      object.reserveBuybackAssetData?.map((e) =>
+        ReserveBuybackAssetData.fromPartial(e)
+      ) || [];
     message.extendedPair =
       object.extendedPair?.map((e) => ExtendedPair.fromPartial(e)) || [];
-    message.assetRatesStats =
-      object.assetRatesStats?.map((e) => AssetRatesStats.fromPartial(e)) || [];
     message.auctionParams =
       object.auctionParams?.map((e) => AuctionParams.fromPartial(e)) || [];
-    message.params =
-      object.params !== undefined && object.params !== null
-        ? Params.fromPartial(object.params)
-        : undefined;
+    message.assetRatesParams =
+      object.assetRatesParams?.map((e) => AssetRatesParams.fromPartial(e)) ||
+      [];
     return message;
   },
 };
@@ -572,8 +381,4 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
-}
-
-function isSet(value: any): boolean {
-  return value !== null && value !== undefined;
 }

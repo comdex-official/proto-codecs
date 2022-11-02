@@ -5,7 +5,7 @@ import {
   ExtendedPair,
   Pool,
   AssetToPairMapping,
-  AssetRatesStats,
+  AssetRatesParams,
   AuctionParams,
 } from "../../../comdex/lend/v1beta1/lend";
 
@@ -29,10 +29,10 @@ export interface AddAssetToPairProposal {
   AssetToPairMapping?: AssetToPairMapping;
 }
 
-export interface AddAssetRatesStats {
+export interface AddAssetRatesParams {
   title: string;
   description: string;
-  AssetRatesStats?: AssetRatesStats;
+  AssetRatesParams?: AssetRatesParams;
 }
 
 export interface AddAuctionParamsProposal {
@@ -290,13 +290,13 @@ export const AddAssetToPairProposal = {
   },
 };
 
-function createBaseAddAssetRatesStats(): AddAssetRatesStats {
-  return { title: "", description: "", AssetRatesStats: undefined };
+function createBaseAddAssetRatesParams(): AddAssetRatesParams {
+  return { title: "", description: "", AssetRatesParams: undefined };
 }
 
-export const AddAssetRatesStats = {
+export const AddAssetRatesParams = {
   encode(
-    message: AddAssetRatesStats,
+    message: AddAssetRatesParams,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.title !== "") {
@@ -305,19 +305,19 @@ export const AddAssetRatesStats = {
     if (message.description !== "") {
       writer.uint32(18).string(message.description);
     }
-    if (message.AssetRatesStats !== undefined) {
-      AssetRatesStats.encode(
-        message.AssetRatesStats,
+    if (message.AssetRatesParams !== undefined) {
+      AssetRatesParams.encode(
+        message.AssetRatesParams,
         writer.uint32(26).fork()
       ).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetRatesStats {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetRatesParams {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseAddAssetRatesStats();
+    const message = createBaseAddAssetRatesParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -328,7 +328,7 @@ export const AddAssetRatesStats = {
           message.description = reader.string();
           break;
         case 3:
-          message.AssetRatesStats = AssetRatesStats.decode(
+          message.AssetRatesParams = AssetRatesParams.decode(
             reader,
             reader.uint32()
           );
@@ -341,37 +341,37 @@ export const AddAssetRatesStats = {
     return message;
   },
 
-  fromJSON(object: any): AddAssetRatesStats {
+  fromJSON(object: any): AddAssetRatesParams {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      AssetRatesStats: isSet(object.AssetRatesStats)
-        ? AssetRatesStats.fromJSON(object.AssetRatesStats)
+      AssetRatesParams: isSet(object.AssetRatesParams)
+        ? AssetRatesParams.fromJSON(object.AssetRatesParams)
         : undefined,
     };
   },
 
-  toJSON(message: AddAssetRatesStats): unknown {
+  toJSON(message: AddAssetRatesParams): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined &&
       (obj.description = message.description);
-    message.AssetRatesStats !== undefined &&
-      (obj.AssetRatesStats = message.AssetRatesStats
-        ? AssetRatesStats.toJSON(message.AssetRatesStats)
+    message.AssetRatesParams !== undefined &&
+      (obj.AssetRatesParams = message.AssetRatesParams
+        ? AssetRatesParams.toJSON(message.AssetRatesParams)
         : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddAssetRatesStats>, I>>(
+  fromPartial<I extends Exact<DeepPartial<AddAssetRatesParams>, I>>(
     object: I
-  ): AddAssetRatesStats {
-    const message = createBaseAddAssetRatesStats();
+  ): AddAssetRatesParams {
+    const message = createBaseAddAssetRatesParams();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.AssetRatesStats =
-      object.AssetRatesStats !== undefined && object.AssetRatesStats !== null
-        ? AssetRatesStats.fromPartial(object.AssetRatesStats)
+    message.AssetRatesParams =
+      object.AssetRatesParams !== undefined && object.AssetRatesParams !== null
+        ? AssetRatesParams.fromPartial(object.AssetRatesParams)
         : undefined;
     return message;
   },
