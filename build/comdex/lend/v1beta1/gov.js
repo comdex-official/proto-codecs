@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddAuctionParamsProposal = exports.AddAssetRatesStats = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
+exports.AddAuctionParamsProposal = exports.AddAssetRatesParams = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -238,10 +238,10 @@ exports.AddAssetToPairProposal = {
         return message;
     },
 };
-function createBaseAddAssetRatesStats() {
-    return { title: "", description: "", AssetRatesStats: undefined };
+function createBaseAddAssetRatesParams() {
+    return { title: "", description: "", AssetRatesParams: undefined };
 }
-exports.AddAssetRatesStats = {
+exports.AddAssetRatesParams = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.title !== "") {
             writer.uint32(10).string(message.title);
@@ -249,15 +249,15 @@ exports.AddAssetRatesStats = {
         if (message.description !== "") {
             writer.uint32(18).string(message.description);
         }
-        if (message.AssetRatesStats !== undefined) {
-            lend_1.AssetRatesStats.encode(message.AssetRatesStats, writer.uint32(26).fork()).ldelim();
+        if (message.AssetRatesParams !== undefined) {
+            lend_1.AssetRatesParams.encode(message.AssetRatesParams, writer.uint32(26).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseAddAssetRatesStats();
+        const message = createBaseAddAssetRatesParams();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -268,7 +268,7 @@ exports.AddAssetRatesStats = {
                     message.description = reader.string();
                     break;
                 case 3:
-                    message.AssetRatesStats = lend_1.AssetRatesStats.decode(reader, reader.uint32());
+                    message.AssetRatesParams = lend_1.AssetRatesParams.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -281,8 +281,8 @@ exports.AddAssetRatesStats = {
         return {
             title: isSet(object.title) ? String(object.title) : "",
             description: isSet(object.description) ? String(object.description) : "",
-            AssetRatesStats: isSet(object.AssetRatesStats)
-                ? lend_1.AssetRatesStats.fromJSON(object.AssetRatesStats)
+            AssetRatesParams: isSet(object.AssetRatesParams)
+                ? lend_1.AssetRatesParams.fromJSON(object.AssetRatesParams)
                 : undefined,
         };
     },
@@ -291,20 +291,20 @@ exports.AddAssetRatesStats = {
         message.title !== undefined && (obj.title = message.title);
         message.description !== undefined &&
             (obj.description = message.description);
-        message.AssetRatesStats !== undefined &&
-            (obj.AssetRatesStats = message.AssetRatesStats
-                ? lend_1.AssetRatesStats.toJSON(message.AssetRatesStats)
+        message.AssetRatesParams !== undefined &&
+            (obj.AssetRatesParams = message.AssetRatesParams
+                ? lend_1.AssetRatesParams.toJSON(message.AssetRatesParams)
                 : undefined);
         return obj;
     },
     fromPartial(object) {
         var _a, _b;
-        const message = createBaseAddAssetRatesStats();
+        const message = createBaseAddAssetRatesParams();
         message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
-        message.AssetRatesStats =
-            object.AssetRatesStats !== undefined && object.AssetRatesStats !== null
-                ? lend_1.AssetRatesStats.fromPartial(object.AssetRatesStats)
+        message.AssetRatesParams =
+            object.AssetRatesParams !== undefined && object.AssetRatesParams !== null
+                ? lend_1.AssetRatesParams.fromPartial(object.AssetRatesParams)
                 : undefined;
         return message;
     },
