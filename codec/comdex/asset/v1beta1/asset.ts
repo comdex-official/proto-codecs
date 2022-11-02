@@ -8,7 +8,7 @@ export interface Asset {
   id: Long;
   name: string;
   denom: string;
-  decimals: Long;
+  decimals: string;
   isOnChain: boolean;
   isOraclePriceRequired: boolean;
 }
@@ -18,7 +18,7 @@ function createBaseAsset(): Asset {
     id: Long.UZERO,
     name: "",
     denom: "",
-    decimals: Long.ZERO,
+    decimals: "",
     isOnChain: false,
     isOraclePriceRequired: false,
   };
@@ -35,8 +35,8 @@ export const Asset = {
     if (message.denom !== "") {
       writer.uint32(26).string(message.denom);
     }
-    if (!message.decimals.isZero()) {
-      writer.uint32(32).int64(message.decimals);
+    if (message.decimals !== "") {
+      writer.uint32(34).string(message.decimals);
     }
     if (message.isOnChain === true) {
       writer.uint32(40).bool(message.isOnChain);
@@ -64,7 +64,7 @@ export const Asset = {
           message.denom = reader.string();
           break;
         case 4:
-          message.decimals = reader.int64() as Long;
+          message.decimals = reader.string();
           break;
         case 5:
           message.isOnChain = reader.bool();
@@ -85,9 +85,7 @@ export const Asset = {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       name: isSet(object.name) ? String(object.name) : "",
       denom: isSet(object.denom) ? String(object.denom) : "",
-      decimals: isSet(object.decimals)
-        ? Long.fromValue(object.decimals)
-        : Long.ZERO,
+      decimals: isSet(object.decimals) ? String(object.decimals) : "",
       isOnChain: isSet(object.isOnChain) ? Boolean(object.isOnChain) : false,
       isOraclePriceRequired: isSet(object.isOraclePriceRequired)
         ? Boolean(object.isOraclePriceRequired)
@@ -101,8 +99,7 @@ export const Asset = {
       (obj.id = (message.id || Long.UZERO).toString());
     message.name !== undefined && (obj.name = message.name);
     message.denom !== undefined && (obj.denom = message.denom);
-    message.decimals !== undefined &&
-      (obj.decimals = (message.decimals || Long.ZERO).toString());
+    message.decimals !== undefined && (obj.decimals = message.decimals);
     message.isOnChain !== undefined && (obj.isOnChain = message.isOnChain);
     message.isOraclePriceRequired !== undefined &&
       (obj.isOraclePriceRequired = message.isOraclePriceRequired);
@@ -117,10 +114,7 @@ export const Asset = {
         : Long.UZERO;
     message.name = object.name ?? "";
     message.denom = object.denom ?? "";
-    message.decimals =
-      object.decimals !== undefined && object.decimals !== null
-        ? Long.fromValue(object.decimals)
-        : Long.ZERO;
+    message.decimals = object.decimals ?? "";
     message.isOnChain = object.isOnChain ?? false;
     message.isOraclePriceRequired = object.isOraclePriceRequired ?? false;
     return message;

@@ -74,20 +74,14 @@ export interface MsgBorrowAlternate {
 }
 
 export interface MsgFundModuleAccounts {
-  moduleName: string;
+  poolId: Long;
   assetId: Long;
   lender: string;
   amount?: Coin;
 }
 
-export interface MsgCalculateBorrowInterest {
+export interface MsgCalculateInterestAndRewards {
   borrower: string;
-  borrowId: Long;
-}
-
-export interface MsgCalculateLendRewards {
-  lender: string;
-  lendId: Long;
 }
 
 export interface MsgLendResponse {}
@@ -112,9 +106,7 @@ export interface MsgBorrowAlternateResponse {}
 
 export interface MsgFundModuleAccountsResponse {}
 
-export interface MsgCalculateBorrowInterestResponse {}
-
-export interface MsgCalculateLendRewardsResponse {}
+export interface MsgCalculateInterestAndRewardsResponse {}
 
 function createBaseMsgLend(): MsgLend {
   return {
@@ -1063,7 +1055,12 @@ export const MsgBorrowAlternate = {
 };
 
 function createBaseMsgFundModuleAccounts(): MsgFundModuleAccounts {
-  return { moduleName: "", assetId: Long.UZERO, lender: "", amount: undefined };
+  return {
+    poolId: Long.UZERO,
+    assetId: Long.UZERO,
+    lender: "",
+    amount: undefined,
+  };
 }
 
 export const MsgFundModuleAccounts = {
@@ -1071,8 +1068,8 @@ export const MsgFundModuleAccounts = {
     message: MsgFundModuleAccounts,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.moduleName !== "") {
-      writer.uint32(10).string(message.moduleName);
+    if (!message.poolId.isZero()) {
+      writer.uint32(8).uint64(message.poolId);
     }
     if (!message.assetId.isZero()) {
       writer.uint32(16).uint64(message.assetId);
@@ -1097,7 +1094,7 @@ export const MsgFundModuleAccounts = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.moduleName = reader.string();
+          message.poolId = reader.uint64() as Long;
           break;
         case 2:
           message.assetId = reader.uint64() as Long;
@@ -1118,7 +1115,7 @@ export const MsgFundModuleAccounts = {
 
   fromJSON(object: any): MsgFundModuleAccounts {
     return {
-      moduleName: isSet(object.moduleName) ? String(object.moduleName) : "",
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       assetId: isSet(object.assetId)
         ? Long.fromValue(object.assetId)
         : Long.UZERO,
@@ -1129,7 +1126,8 @@ export const MsgFundModuleAccounts = {
 
   toJSON(message: MsgFundModuleAccounts): unknown {
     const obj: any = {};
-    message.moduleName !== undefined && (obj.moduleName = message.moduleName);
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
     message.assetId !== undefined &&
       (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.lender !== undefined && (obj.lender = message.lender);
@@ -1142,7 +1140,10 @@ export const MsgFundModuleAccounts = {
     object: I
   ): MsgFundModuleAccounts {
     const message = createBaseMsgFundModuleAccounts();
-    message.moduleName = object.moduleName ?? "";
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
     message.assetId =
       object.assetId !== undefined && object.assetId !== null
         ? Long.fromValue(object.assetId)
@@ -1156,20 +1157,17 @@ export const MsgFundModuleAccounts = {
   },
 };
 
-function createBaseMsgCalculateBorrowInterest(): MsgCalculateBorrowInterest {
-  return { borrower: "", borrowId: Long.UZERO };
+function createBaseMsgCalculateInterestAndRewards(): MsgCalculateInterestAndRewards {
+  return { borrower: "" };
 }
 
-export const MsgCalculateBorrowInterest = {
+export const MsgCalculateInterestAndRewards = {
   encode(
-    message: MsgCalculateBorrowInterest,
+    message: MsgCalculateInterestAndRewards,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.borrower !== "") {
       writer.uint32(10).string(message.borrower);
-    }
-    if (!message.borrowId.isZero()) {
-      writer.uint32(16).uint64(message.borrowId);
     }
     return writer;
   },
@@ -1177,19 +1175,16 @@ export const MsgCalculateBorrowInterest = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): MsgCalculateBorrowInterest {
+  ): MsgCalculateInterestAndRewards {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCalculateBorrowInterest();
+    const message = createBaseMsgCalculateInterestAndRewards();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.borrower = reader.string();
           break;
-        case 2:
-          message.borrowId = reader.uint64() as Long;
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1198,102 +1193,23 @@ export const MsgCalculateBorrowInterest = {
     return message;
   },
 
-  fromJSON(object: any): MsgCalculateBorrowInterest {
+  fromJSON(object: any): MsgCalculateInterestAndRewards {
     return {
       borrower: isSet(object.borrower) ? String(object.borrower) : "",
-      borrowId: isSet(object.borrowId)
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO,
     };
   },
 
-  toJSON(message: MsgCalculateBorrowInterest): unknown {
+  toJSON(message: MsgCalculateInterestAndRewards): unknown {
     const obj: any = {};
     message.borrower !== undefined && (obj.borrower = message.borrower);
-    message.borrowId !== undefined &&
-      (obj.borrowId = (message.borrowId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCalculateBorrowInterest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<MsgCalculateInterestAndRewards>, I>>(
     object: I
-  ): MsgCalculateBorrowInterest {
-    const message = createBaseMsgCalculateBorrowInterest();
+  ): MsgCalculateInterestAndRewards {
+    const message = createBaseMsgCalculateInterestAndRewards();
     message.borrower = object.borrower ?? "";
-    message.borrowId =
-      object.borrowId !== undefined && object.borrowId !== null
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO;
-    return message;
-  },
-};
-
-function createBaseMsgCalculateLendRewards(): MsgCalculateLendRewards {
-  return { lender: "", lendId: Long.UZERO };
-}
-
-export const MsgCalculateLendRewards = {
-  encode(
-    message: MsgCalculateLendRewards,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    if (message.lender !== "") {
-      writer.uint32(10).string(message.lender);
-    }
-    if (!message.lendId.isZero()) {
-      writer.uint32(16).uint64(message.lendId);
-    }
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCalculateLendRewards {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCalculateLendRewards();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.lender = reader.string();
-          break;
-        case 2:
-          message.lendId = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgCalculateLendRewards {
-    return {
-      lender: isSet(object.lender) ? String(object.lender) : "",
-      lendId: isSet(object.lendId) ? Long.fromValue(object.lendId) : Long.UZERO,
-    };
-  },
-
-  toJSON(message: MsgCalculateLendRewards): unknown {
-    const obj: any = {};
-    message.lender !== undefined && (obj.lender = message.lender);
-    message.lendId !== undefined &&
-      (obj.lendId = (message.lendId || Long.UZERO).toString());
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<MsgCalculateLendRewards>, I>>(
-    object: I
-  ): MsgCalculateLendRewards {
-    const message = createBaseMsgCalculateLendRewards();
-    message.lender = object.lender ?? "";
-    message.lendId =
-      object.lendId !== undefined && object.lendId !== null
-        ? Long.fromValue(object.lendId)
-        : Long.UZERO;
     return message;
   },
 };
@@ -1797,13 +1713,13 @@ export const MsgFundModuleAccountsResponse = {
   },
 };
 
-function createBaseMsgCalculateBorrowInterestResponse(): MsgCalculateBorrowInterestResponse {
+function createBaseMsgCalculateInterestAndRewardsResponse(): MsgCalculateInterestAndRewardsResponse {
   return {};
 }
 
-export const MsgCalculateBorrowInterestResponse = {
+export const MsgCalculateInterestAndRewardsResponse = {
   encode(
-    _: MsgCalculateBorrowInterestResponse,
+    _: MsgCalculateInterestAndRewardsResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     return writer;
@@ -1812,10 +1728,10 @@ export const MsgCalculateBorrowInterestResponse = {
   decode(
     input: _m0.Reader | Uint8Array,
     length?: number
-  ): MsgCalculateBorrowInterestResponse {
+  ): MsgCalculateInterestAndRewardsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCalculateBorrowInterestResponse();
+    const message = createBaseMsgCalculateInterestAndRewardsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1827,66 +1743,19 @@ export const MsgCalculateBorrowInterestResponse = {
     return message;
   },
 
-  fromJSON(_: any): MsgCalculateBorrowInterestResponse {
+  fromJSON(_: any): MsgCalculateInterestAndRewardsResponse {
     return {};
   },
 
-  toJSON(_: MsgCalculateBorrowInterestResponse): unknown {
+  toJSON(_: MsgCalculateInterestAndRewardsResponse): unknown {
     const obj: any = {};
     return obj;
   },
 
   fromPartial<
-    I extends Exact<DeepPartial<MsgCalculateBorrowInterestResponse>, I>
-  >(_: I): MsgCalculateBorrowInterestResponse {
-    const message = createBaseMsgCalculateBorrowInterestResponse();
-    return message;
-  },
-};
-
-function createBaseMsgCalculateLendRewardsResponse(): MsgCalculateLendRewardsResponse {
-  return {};
-}
-
-export const MsgCalculateLendRewardsResponse = {
-  encode(
-    _: MsgCalculateLendRewardsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
-    return writer;
-  },
-
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCalculateLendRewardsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseMsgCalculateLendRewardsResponse();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(_: any): MsgCalculateLendRewardsResponse {
-    return {};
-  },
-
-  toJSON(_: MsgCalculateLendRewardsResponse): unknown {
-    const obj: any = {};
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<MsgCalculateLendRewardsResponse>, I>>(
-    _: I
-  ): MsgCalculateLendRewardsResponse {
-    const message = createBaseMsgCalculateLendRewardsResponse();
+    I extends Exact<DeepPartial<MsgCalculateInterestAndRewardsResponse>, I>
+  >(_: I): MsgCalculateInterestAndRewardsResponse {
+    const message = createBaseMsgCalculateInterestAndRewardsResponse();
     return message;
   },
 };
@@ -1915,12 +1784,9 @@ export interface Msg {
   FundModuleAccounts(
     request: MsgFundModuleAccounts
   ): Promise<MsgFundModuleAccountsResponse>;
-  CalculateBorrowInterest(
-    request: MsgCalculateBorrowInterest
-  ): Promise<MsgCalculateBorrowInterestResponse>;
-  CalculateLendRewards(
-    request: MsgCalculateLendRewards
-  ): Promise<MsgCalculateLendRewardsResponse>;
+  CalculateInterestAndRewards(
+    request: MsgCalculateInterestAndRewards
+  ): Promise<MsgCalculateInterestAndRewardsResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1938,8 +1804,8 @@ export class MsgClientImpl implements Msg {
     this.CloseBorrow = this.CloseBorrow.bind(this);
     this.BorrowAlternate = this.BorrowAlternate.bind(this);
     this.FundModuleAccounts = this.FundModuleAccounts.bind(this);
-    this.CalculateBorrowInterest = this.CalculateBorrowInterest.bind(this);
-    this.CalculateLendRewards = this.CalculateLendRewards.bind(this);
+    this.CalculateInterestAndRewards =
+      this.CalculateInterestAndRewards.bind(this);
   }
   Lend(request: MsgLend): Promise<MsgLendResponse> {
     const data = MsgLend.encode(request).finish();
@@ -2057,31 +1923,17 @@ export class MsgClientImpl implements Msg {
     );
   }
 
-  CalculateBorrowInterest(
-    request: MsgCalculateBorrowInterest
-  ): Promise<MsgCalculateBorrowInterestResponse> {
-    const data = MsgCalculateBorrowInterest.encode(request).finish();
+  CalculateInterestAndRewards(
+    request: MsgCalculateInterestAndRewards
+  ): Promise<MsgCalculateInterestAndRewardsResponse> {
+    const data = MsgCalculateInterestAndRewards.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.lend.v1beta1.Msg",
-      "CalculateBorrowInterest",
+      "CalculateInterestAndRewards",
       data
     );
     return promise.then((data) =>
-      MsgCalculateBorrowInterestResponse.decode(new _m0.Reader(data))
-    );
-  }
-
-  CalculateLendRewards(
-    request: MsgCalculateLendRewards
-  ): Promise<MsgCalculateLendRewardsResponse> {
-    const data = MsgCalculateLendRewards.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "CalculateLendRewards",
-      data
-    );
-    return promise.then((data) =>
-      MsgCalculateLendRewardsResponse.decode(new _m0.Reader(data))
+      MsgCalculateInterestAndRewardsResponse.decode(new _m0.Reader(data))
     );
   }
 }
