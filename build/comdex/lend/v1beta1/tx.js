@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgClientImpl = exports.MsgCalculateLendRewardsResponse = exports.MsgCalculateBorrowInterestResponse = exports.MsgFundModuleAccountsResponse = exports.MsgBorrowAlternateResponse = exports.MsgCloseBorrowResponse = exports.MsgDrawResponse = exports.MsgDepositBorrowResponse = exports.MsgRepayResponse = exports.MsgBorrowResponse = exports.MsgCloseLendResponse = exports.MsgDepositResponse = exports.MsgWithdrawResponse = exports.MsgLendResponse = exports.MsgCalculateLendRewards = exports.MsgCalculateBorrowInterest = exports.MsgFundModuleAccounts = exports.MsgBorrowAlternate = exports.MsgCloseBorrow = exports.MsgDraw = exports.MsgDepositBorrow = exports.MsgRepay = exports.MsgBorrow = exports.MsgCloseLend = exports.MsgDeposit = exports.MsgWithdraw = exports.MsgLend = exports.protobufPackage = void 0;
+exports.MsgClientImpl = exports.MsgCalculateInterestAndRewardsResponse = exports.MsgFundModuleAccountsResponse = exports.MsgBorrowAlternateResponse = exports.MsgCloseBorrowResponse = exports.MsgDrawResponse = exports.MsgDepositBorrowResponse = exports.MsgRepayResponse = exports.MsgBorrowResponse = exports.MsgCloseLendResponse = exports.MsgDepositResponse = exports.MsgWithdrawResponse = exports.MsgLendResponse = exports.MsgCalculateInterestAndRewards = exports.MsgFundModuleAccounts = exports.MsgBorrowAlternate = exports.MsgCloseBorrow = exports.MsgDraw = exports.MsgDepositBorrow = exports.MsgRepay = exports.MsgBorrow = exports.MsgCloseLend = exports.MsgDeposit = exports.MsgWithdraw = exports.MsgLend = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -881,12 +881,17 @@ exports.MsgBorrowAlternate = {
     },
 };
 function createBaseMsgFundModuleAccounts() {
-    return { moduleName: "", assetId: long_1.default.UZERO, lender: "", amount: undefined };
+    return {
+        poolId: long_1.default.UZERO,
+        assetId: long_1.default.UZERO,
+        lender: "",
+        amount: undefined,
+    };
 }
 exports.MsgFundModuleAccounts = {
     encode(message, writer = _m0.Writer.create()) {
-        if (message.moduleName !== "") {
-            writer.uint32(10).string(message.moduleName);
+        if (!message.poolId.isZero()) {
+            writer.uint32(8).uint64(message.poolId);
         }
         if (!message.assetId.isZero()) {
             writer.uint32(16).uint64(message.assetId);
@@ -907,7 +912,7 @@ exports.MsgFundModuleAccounts = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.moduleName = reader.string();
+                    message.poolId = reader.uint64();
                     break;
                 case 2:
                     message.assetId = reader.uint64();
@@ -927,7 +932,7 @@ exports.MsgFundModuleAccounts = {
     },
     fromJSON(object) {
         return {
-            moduleName: isSet(object.moduleName) ? String(object.moduleName) : "",
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             assetId: isSet(object.assetId)
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
@@ -937,7 +942,8 @@ exports.MsgFundModuleAccounts = {
     },
     toJSON(message) {
         const obj = {};
-        message.moduleName !== undefined && (obj.moduleName = message.moduleName);
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
         message.assetId !== undefined &&
             (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         message.lender !== undefined && (obj.lender = message.lender);
@@ -946,14 +952,17 @@ exports.MsgFundModuleAccounts = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b;
+        var _a;
         const message = createBaseMsgFundModuleAccounts();
-        message.moduleName = (_a = object.moduleName) !== null && _a !== void 0 ? _a : "";
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
                 ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
-        message.lender = (_b = object.lender) !== null && _b !== void 0 ? _b : "";
+        message.lender = (_a = object.lender) !== null && _a !== void 0 ? _a : "";
         message.amount =
             object.amount !== undefined && object.amount !== null
                 ? coin_1.Coin.fromPartial(object.amount)
@@ -961,31 +970,25 @@ exports.MsgFundModuleAccounts = {
         return message;
     },
 };
-function createBaseMsgCalculateBorrowInterest() {
-    return { borrower: "", borrowId: long_1.default.UZERO };
+function createBaseMsgCalculateInterestAndRewards() {
+    return { borrower: "" };
 }
-exports.MsgCalculateBorrowInterest = {
+exports.MsgCalculateInterestAndRewards = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.borrower !== "") {
             writer.uint32(10).string(message.borrower);
-        }
-        if (!message.borrowId.isZero()) {
-            writer.uint32(16).uint64(message.borrowId);
         }
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgCalculateBorrowInterest();
+        const message = createBaseMsgCalculateInterestAndRewards();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
                     message.borrower = reader.string();
-                    break;
-                case 2:
-                    message.borrowId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -997,83 +1000,17 @@ exports.MsgCalculateBorrowInterest = {
     fromJSON(object) {
         return {
             borrower: isSet(object.borrower) ? String(object.borrower) : "",
-            borrowId: isSet(object.borrowId)
-                ? long_1.default.fromValue(object.borrowId)
-                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.borrower !== undefined && (obj.borrower = message.borrower);
-        message.borrowId !== undefined &&
-            (obj.borrowId = (message.borrowId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         var _a;
-        const message = createBaseMsgCalculateBorrowInterest();
+        const message = createBaseMsgCalculateInterestAndRewards();
         message.borrower = (_a = object.borrower) !== null && _a !== void 0 ? _a : "";
-        message.borrowId =
-            object.borrowId !== undefined && object.borrowId !== null
-                ? long_1.default.fromValue(object.borrowId)
-                : long_1.default.UZERO;
-        return message;
-    },
-};
-function createBaseMsgCalculateLendRewards() {
-    return { lender: "", lendId: long_1.default.UZERO };
-}
-exports.MsgCalculateLendRewards = {
-    encode(message, writer = _m0.Writer.create()) {
-        if (message.lender !== "") {
-            writer.uint32(10).string(message.lender);
-        }
-        if (!message.lendId.isZero()) {
-            writer.uint32(16).uint64(message.lendId);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgCalculateLendRewards();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.lender = reader.string();
-                    break;
-                case 2:
-                    message.lendId = reader.uint64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            lender: isSet(object.lender) ? String(object.lender) : "",
-            lendId: isSet(object.lendId) ? long_1.default.fromValue(object.lendId) : long_1.default.UZERO,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.lender !== undefined && (obj.lender = message.lender);
-        message.lendId !== undefined &&
-            (obj.lendId = (message.lendId || long_1.default.UZERO).toString());
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseMsgCalculateLendRewards();
-        message.lender = (_a = object.lender) !== null && _a !== void 0 ? _a : "";
-        message.lendId =
-            object.lendId !== undefined && object.lendId !== null
-                ? long_1.default.fromValue(object.lendId)
-                : long_1.default.UZERO;
         return message;
     },
 };
@@ -1440,17 +1377,17 @@ exports.MsgFundModuleAccountsResponse = {
         return message;
     },
 };
-function createBaseMsgCalculateBorrowInterestResponse() {
+function createBaseMsgCalculateInterestAndRewardsResponse() {
     return {};
 }
-exports.MsgCalculateBorrowInterestResponse = {
+exports.MsgCalculateInterestAndRewardsResponse = {
     encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
         const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgCalculateBorrowInterestResponse();
+        const message = createBaseMsgCalculateInterestAndRewardsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -1469,40 +1406,7 @@ exports.MsgCalculateBorrowInterestResponse = {
         return obj;
     },
     fromPartial(_) {
-        const message = createBaseMsgCalculateBorrowInterestResponse();
-        return message;
-    },
-};
-function createBaseMsgCalculateLendRewardsResponse() {
-    return {};
-}
-exports.MsgCalculateLendRewardsResponse = {
-    encode(_, writer = _m0.Writer.create()) {
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseMsgCalculateLendRewardsResponse();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(_) {
-        return {};
-    },
-    toJSON(_) {
-        const obj = {};
-        return obj;
-    },
-    fromPartial(_) {
-        const message = createBaseMsgCalculateLendRewardsResponse();
+        const message = createBaseMsgCalculateInterestAndRewardsResponse();
         return message;
     },
 };
@@ -1520,8 +1424,8 @@ class MsgClientImpl {
         this.CloseBorrow = this.CloseBorrow.bind(this);
         this.BorrowAlternate = this.BorrowAlternate.bind(this);
         this.FundModuleAccounts = this.FundModuleAccounts.bind(this);
-        this.CalculateBorrowInterest = this.CalculateBorrowInterest.bind(this);
-        this.CalculateLendRewards = this.CalculateLendRewards.bind(this);
+        this.CalculateInterestAndRewards =
+            this.CalculateInterestAndRewards.bind(this);
     }
     Lend(request) {
         const data = exports.MsgLend.encode(request).finish();
@@ -1578,15 +1482,10 @@ class MsgClientImpl {
         const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "FundModuleAccounts", data);
         return promise.then((data) => exports.MsgFundModuleAccountsResponse.decode(new _m0.Reader(data)));
     }
-    CalculateBorrowInterest(request) {
-        const data = exports.MsgCalculateBorrowInterest.encode(request).finish();
-        const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "CalculateBorrowInterest", data);
-        return promise.then((data) => exports.MsgCalculateBorrowInterestResponse.decode(new _m0.Reader(data)));
-    }
-    CalculateLendRewards(request) {
-        const data = exports.MsgCalculateLendRewards.encode(request).finish();
-        const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "CalculateLendRewards", data);
-        return promise.then((data) => exports.MsgCalculateLendRewardsResponse.decode(new _m0.Reader(data)));
+    CalculateInterestAndRewards(request) {
+        const data = exports.MsgCalculateInterestAndRewards.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "CalculateInterestAndRewards", data);
+        return promise.then((data) => exports.MsgCalculateInterestAndRewardsResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
