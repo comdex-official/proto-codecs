@@ -11,6 +11,7 @@ export interface Asset {
   decimals: string;
   isOnChain: boolean;
   isOraclePriceRequired: boolean;
+  isCdpMintable: boolean;
 }
 
 function createBaseAsset(): Asset {
@@ -21,6 +22,7 @@ function createBaseAsset(): Asset {
     decimals: "",
     isOnChain: false,
     isOraclePriceRequired: false,
+    isCdpMintable: false,
   };
 }
 
@@ -43,6 +45,9 @@ export const Asset = {
     }
     if (message.isOraclePriceRequired === true) {
       writer.uint32(48).bool(message.isOraclePriceRequired);
+    }
+    if (message.isCdpMintable === true) {
+      writer.uint32(56).bool(message.isCdpMintable);
     }
     return writer;
   },
@@ -72,6 +77,9 @@ export const Asset = {
         case 6:
           message.isOraclePriceRequired = reader.bool();
           break;
+        case 7:
+          message.isCdpMintable = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -90,6 +98,9 @@ export const Asset = {
       isOraclePriceRequired: isSet(object.isOraclePriceRequired)
         ? Boolean(object.isOraclePriceRequired)
         : false,
+      isCdpMintable: isSet(object.isCdpMintable)
+        ? Boolean(object.isCdpMintable)
+        : false,
     };
   },
 
@@ -103,6 +114,8 @@ export const Asset = {
     message.isOnChain !== undefined && (obj.isOnChain = message.isOnChain);
     message.isOraclePriceRequired !== undefined &&
       (obj.isOraclePriceRequired = message.isOraclePriceRequired);
+    message.isCdpMintable !== undefined &&
+      (obj.isCdpMintable = message.isCdpMintable);
     return obj;
   },
 
@@ -117,6 +130,7 @@ export const Asset = {
     message.decimals = object.decimals ?? "";
     message.isOnChain = object.isOnChain ?? false;
     message.isOraclePriceRequired = object.isOraclePriceRequired ?? false;
+    message.isCdpMintable = object.isCdpMintable ?? false;
     return message;
   },
 };
