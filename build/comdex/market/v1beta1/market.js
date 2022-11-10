@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -35,6 +39,7 @@ function createBaseTimeWeightedAverage() {
         currentIndex: long_1.default.UZERO,
         isPriceActive: false,
         priceValue: [],
+        discardedHeightDiff: long_1.default.ZERO,
     };
 }
 exports.TimeWeightedAverage = {
@@ -59,6 +64,9 @@ exports.TimeWeightedAverage = {
             writer.uint64(v);
         }
         writer.ldelim();
+        if (!message.discardedHeightDiff.isZero()) {
+            writer.uint32(56).int64(message.discardedHeightDiff);
+        }
         return writer;
     },
     decode(input, length) {
@@ -94,6 +102,9 @@ exports.TimeWeightedAverage = {
                         message.priceValue.push(reader.uint64());
                     }
                     break;
+                case 7:
+                    message.discardedHeightDiff = reader.int64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -119,6 +130,9 @@ exports.TimeWeightedAverage = {
             priceValue: Array.isArray(object === null || object === void 0 ? void 0 : object.priceValue)
                 ? object.priceValue.map((e) => long_1.default.fromValue(e))
                 : [],
+            discardedHeightDiff: isSet(object.discardedHeightDiff)
+                ? long_1.default.fromValue(object.discardedHeightDiff)
+                : long_1.default.ZERO,
         };
     },
     toJSON(message) {
@@ -139,6 +153,8 @@ exports.TimeWeightedAverage = {
         else {
             obj.priceValue = [];
         }
+        message.discardedHeightDiff !== undefined &&
+            (obj.discardedHeightDiff = (message.discardedHeightDiff || long_1.default.ZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -162,6 +178,11 @@ exports.TimeWeightedAverage = {
                 : long_1.default.UZERO;
         message.isPriceActive = (_a = object.isPriceActive) !== null && _a !== void 0 ? _a : false;
         message.priceValue = ((_b = object.priceValue) === null || _b === void 0 ? void 0 : _b.map((e) => long_1.default.fromValue(e))) || [];
+        message.discardedHeightDiff =
+            object.discardedHeightDiff !== undefined &&
+                object.discardedHeightDiff !== null
+                ? long_1.default.fromValue(object.discardedHeightDiff)
+                : long_1.default.ZERO;
         return message;
     },
 };

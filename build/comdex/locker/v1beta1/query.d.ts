@@ -4402,6 +4402,7 @@ export declare const QueryWhiteListedAssetByAllAppsResponse: {
                 decimals?: string | undefined;
                 isOnChain?: boolean | undefined;
                 isOraclePriceRequired?: boolean | undefined;
+                isCdpMintable?: boolean | undefined;
             }[] | undefined;
         }[] | undefined;
         pagination?: {
@@ -4418,6 +4419,7 @@ export declare const QueryWhiteListedAssetByAllAppsResponse: {
                 decimals?: string | undefined;
                 isOnChain?: boolean | undefined;
                 isOraclePriceRequired?: boolean | undefined;
+                isCdpMintable?: boolean | undefined;
             }[] | undefined;
         }[] & ({
             appId?: string | number | Long.Long | undefined;
@@ -4428,6 +4430,7 @@ export declare const QueryWhiteListedAssetByAllAppsResponse: {
                 decimals?: string | undefined;
                 isOnChain?: boolean | undefined;
                 isOraclePriceRequired?: boolean | undefined;
+                isCdpMintable?: boolean | undefined;
             }[] | undefined;
         } & {
             appId?: string | number | (Long.Long & {
@@ -4495,6 +4498,7 @@ export declare const QueryWhiteListedAssetByAllAppsResponse: {
                 decimals?: string | undefined;
                 isOnChain?: boolean | undefined;
                 isOraclePriceRequired?: boolean | undefined;
+                isCdpMintable?: boolean | undefined;
             }[] & ({
                 id?: string | number | Long.Long | undefined;
                 name?: string | undefined;
@@ -4502,6 +4506,7 @@ export declare const QueryWhiteListedAssetByAllAppsResponse: {
                 decimals?: string | undefined;
                 isOnChain?: boolean | undefined;
                 isOraclePriceRequired?: boolean | undefined;
+                isCdpMintable?: boolean | undefined;
             } & {
                 id?: string | number | (Long.Long & {
                     high: number;
@@ -4566,6 +4571,7 @@ export declare const QueryWhiteListedAssetByAllAppsResponse: {
                 decimals?: string | undefined;
                 isOnChain?: boolean | undefined;
                 isOraclePriceRequired?: boolean | undefined;
+                isCdpMintable?: boolean | undefined;
             } & Record<Exclude<keyof I["productToAllAsset"][number]["assets"][number], keyof Asset>, never>)[] & Record<Exclude<keyof I["productToAllAsset"][number]["assets"], keyof {
                 id?: string | number | Long.Long | undefined;
                 name?: string | undefined;
@@ -4573,6 +4579,7 @@ export declare const QueryWhiteListedAssetByAllAppsResponse: {
                 decimals?: string | undefined;
                 isOnChain?: boolean | undefined;
                 isOraclePriceRequired?: boolean | undefined;
+                isCdpMintable?: boolean | undefined;
             }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["productToAllAsset"][number], keyof AppToAllAsset>, never>)[] & Record<Exclude<keyof I["productToAllAsset"], keyof {
             appId?: string | number | Long.Long | undefined;
@@ -4583,6 +4590,7 @@ export declare const QueryWhiteListedAssetByAllAppsResponse: {
                 decimals?: string | undefined;
                 isOnChain?: boolean | undefined;
                 isOraclePriceRequired?: boolean | undefined;
+                isCdpMintable?: boolean | undefined;
             }[] | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
@@ -4665,6 +4673,7 @@ export declare const AppToAllAsset: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         }[] | undefined;
     } & {
         appId?: string | number | (Long.Long & {
@@ -4732,6 +4741,7 @@ export declare const AppToAllAsset: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
@@ -4739,6 +4749,7 @@ export declare const AppToAllAsset: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -4803,6 +4814,7 @@ export declare const AppToAllAsset: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & Record<Exclude<keyof I["assets"][number], keyof Asset>, never>)[] & Record<Exclude<keyof I["assets"], keyof {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
@@ -4810,6 +4822,7 @@ export declare const AppToAllAsset: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AppToAllAsset>, never>>(object: I): AppToAllAsset;
 };

@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -35,6 +39,7 @@ function createBaseAsset() {
         decimals: "",
         isOnChain: false,
         isOraclePriceRequired: false,
+        isCdpMintable: false,
     };
 }
 exports.Asset = {
@@ -56,6 +61,9 @@ exports.Asset = {
         }
         if (message.isOraclePriceRequired === true) {
             writer.uint32(48).bool(message.isOraclePriceRequired);
+        }
+        if (message.isCdpMintable === true) {
+            writer.uint32(56).bool(message.isCdpMintable);
         }
         return writer;
     },
@@ -84,6 +92,9 @@ exports.Asset = {
                 case 6:
                     message.isOraclePriceRequired = reader.bool();
                     break;
+                case 7:
+                    message.isCdpMintable = reader.bool();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -101,6 +112,9 @@ exports.Asset = {
             isOraclePriceRequired: isSet(object.isOraclePriceRequired)
                 ? Boolean(object.isOraclePriceRequired)
                 : false,
+            isCdpMintable: isSet(object.isCdpMintable)
+                ? Boolean(object.isCdpMintable)
+                : false,
         };
     },
     toJSON(message) {
@@ -113,10 +127,12 @@ exports.Asset = {
         message.isOnChain !== undefined && (obj.isOnChain = message.isOnChain);
         message.isOraclePriceRequired !== undefined &&
             (obj.isOraclePriceRequired = message.isOraclePriceRequired);
+        message.isCdpMintable !== undefined &&
+            (obj.isCdpMintable = message.isCdpMintable);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         const message = createBaseAsset();
         message.id =
             object.id !== undefined && object.id !== null
@@ -127,6 +143,7 @@ exports.Asset = {
         message.decimals = (_c = object.decimals) !== null && _c !== void 0 ? _c : "";
         message.isOnChain = (_d = object.isOnChain) !== null && _d !== void 0 ? _d : false;
         message.isOraclePriceRequired = (_e = object.isOraclePriceRequired) !== null && _e !== void 0 ? _e : false;
+        message.isCdpMintable = (_f = object.isCdpMintable) !== null && _f !== void 0 ? _f : false;
         return message;
     },
 };
