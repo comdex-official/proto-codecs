@@ -11,6 +11,7 @@ export interface TimeWeightedAverage {
   currentIndex: Long;
   isPriceActive: boolean;
   priceValue: Long[];
+  discardedHeightDiff: Long;
 }
 
 function createBaseTimeWeightedAverage(): TimeWeightedAverage {
@@ -21,6 +22,7 @@ function createBaseTimeWeightedAverage(): TimeWeightedAverage {
     currentIndex: Long.UZERO,
     isPriceActive: false,
     priceValue: [],
+    discardedHeightDiff: Long.ZERO,
   };
 }
 
@@ -49,6 +51,9 @@ export const TimeWeightedAverage = {
       writer.uint64(v);
     }
     writer.ldelim();
+    if (!message.discardedHeightDiff.isZero()) {
+      writer.uint32(56).int64(message.discardedHeightDiff);
+    }
     return writer;
   },
 
@@ -84,6 +89,9 @@ export const TimeWeightedAverage = {
             message.priceValue.push(reader.uint64() as Long);
           }
           break;
+        case 7:
+          message.discardedHeightDiff = reader.int64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -110,6 +118,9 @@ export const TimeWeightedAverage = {
       priceValue: Array.isArray(object?.priceValue)
         ? object.priceValue.map((e: any) => Long.fromValue(e))
         : [],
+      discardedHeightDiff: isSet(object.discardedHeightDiff)
+        ? Long.fromValue(object.discardedHeightDiff)
+        : Long.ZERO,
     };
   },
 
@@ -132,6 +143,10 @@ export const TimeWeightedAverage = {
     } else {
       obj.priceValue = [];
     }
+    message.discardedHeightDiff !== undefined &&
+      (obj.discardedHeightDiff = (
+        message.discardedHeightDiff || Long.ZERO
+      ).toString());
     return obj;
   },
 
@@ -157,6 +172,11 @@ export const TimeWeightedAverage = {
         : Long.UZERO;
     message.isPriceActive = object.isPriceActive ?? false;
     message.priceValue = object.priceValue?.map((e) => Long.fromValue(e)) || [];
+    message.discardedHeightDiff =
+      object.discardedHeightDiff !== undefined &&
+      object.discardedHeightDiff !== null
+        ? Long.fromValue(object.discardedHeightDiff)
+        : Long.ZERO;
     return message;
   },
 };

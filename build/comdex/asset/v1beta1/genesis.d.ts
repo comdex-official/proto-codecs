@@ -26,6 +26,7 @@ export declare const GenesisState: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         }[] | undefined;
         pairs?: {
             id?: string | number | Long.Long | undefined;
@@ -74,6 +75,7 @@ export declare const GenesisState: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
@@ -81,6 +83,7 @@ export declare const GenesisState: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -145,6 +148,7 @@ export declare const GenesisState: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & Record<Exclude<keyof I["assets"][number], keyof Asset>, never>)[] & Record<Exclude<keyof I["assets"], keyof {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
@@ -152,6 +156,7 @@ export declare const GenesisState: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         }[]>, never>) | undefined;
         pairs?: ({
             id?: string | number | Long.Long | undefined;
