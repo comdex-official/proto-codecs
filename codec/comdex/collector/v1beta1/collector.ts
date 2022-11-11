@@ -28,12 +28,12 @@ export interface CollectorLookupTableData {
   appId: Long;
   collectorAssetId: Long;
   secondaryAssetId: Long;
-  surplusThreshold: Long;
-  debtThreshold: Long;
+  surplusThreshold: string;
+  debtThreshold: string;
   lockerSavingRate: string;
-  lotSize: Long;
+  lotSize: string;
   bidFactor: string;
-  debtLotSize: Long;
+  debtLotSize: string;
   blockHeight: Long;
   blockTime?: Date;
 }
@@ -342,12 +342,12 @@ function createBaseCollectorLookupTableData(): CollectorLookupTableData {
     appId: Long.UZERO,
     collectorAssetId: Long.UZERO,
     secondaryAssetId: Long.UZERO,
-    surplusThreshold: Long.UZERO,
-    debtThreshold: Long.UZERO,
+    surplusThreshold: "",
+    debtThreshold: "",
     lockerSavingRate: "",
-    lotSize: Long.UZERO,
+    lotSize: "",
     bidFactor: "",
-    debtLotSize: Long.UZERO,
+    debtLotSize: "",
     blockHeight: Long.ZERO,
     blockTime: undefined,
   };
@@ -367,23 +367,23 @@ export const CollectorLookupTableData = {
     if (!message.secondaryAssetId.isZero()) {
       writer.uint32(24).uint64(message.secondaryAssetId);
     }
-    if (!message.surplusThreshold.isZero()) {
-      writer.uint32(32).uint64(message.surplusThreshold);
+    if (message.surplusThreshold !== "") {
+      writer.uint32(34).string(message.surplusThreshold);
     }
-    if (!message.debtThreshold.isZero()) {
-      writer.uint32(40).uint64(message.debtThreshold);
+    if (message.debtThreshold !== "") {
+      writer.uint32(42).string(message.debtThreshold);
     }
     if (message.lockerSavingRate !== "") {
       writer.uint32(50).string(message.lockerSavingRate);
     }
-    if (!message.lotSize.isZero()) {
-      writer.uint32(56).uint64(message.lotSize);
+    if (message.lotSize !== "") {
+      writer.uint32(58).string(message.lotSize);
     }
     if (message.bidFactor !== "") {
       writer.uint32(66).string(message.bidFactor);
     }
-    if (!message.debtLotSize.isZero()) {
-      writer.uint32(72).uint64(message.debtLotSize);
+    if (message.debtLotSize !== "") {
+      writer.uint32(74).string(message.debtLotSize);
     }
     if (!message.blockHeight.isZero()) {
       writer.uint32(80).int64(message.blockHeight);
@@ -417,22 +417,22 @@ export const CollectorLookupTableData = {
           message.secondaryAssetId = reader.uint64() as Long;
           break;
         case 4:
-          message.surplusThreshold = reader.uint64() as Long;
+          message.surplusThreshold = reader.string();
           break;
         case 5:
-          message.debtThreshold = reader.uint64() as Long;
+          message.debtThreshold = reader.string();
           break;
         case 6:
           message.lockerSavingRate = reader.string();
           break;
         case 7:
-          message.lotSize = reader.uint64() as Long;
+          message.lotSize = reader.string();
           break;
         case 8:
           message.bidFactor = reader.string();
           break;
         case 9:
-          message.debtLotSize = reader.uint64() as Long;
+          message.debtLotSize = reader.string();
           break;
         case 10:
           message.blockHeight = reader.int64() as Long;
@@ -460,21 +460,17 @@ export const CollectorLookupTableData = {
         ? Long.fromValue(object.secondaryAssetId)
         : Long.UZERO,
       surplusThreshold: isSet(object.surplusThreshold)
-        ? Long.fromValue(object.surplusThreshold)
-        : Long.UZERO,
+        ? String(object.surplusThreshold)
+        : "",
       debtThreshold: isSet(object.debtThreshold)
-        ? Long.fromValue(object.debtThreshold)
-        : Long.UZERO,
+        ? String(object.debtThreshold)
+        : "",
       lockerSavingRate: isSet(object.lockerSavingRate)
         ? String(object.lockerSavingRate)
         : "",
-      lotSize: isSet(object.lotSize)
-        ? Long.fromValue(object.lotSize)
-        : Long.UZERO,
+      lotSize: isSet(object.lotSize) ? String(object.lotSize) : "",
       bidFactor: isSet(object.bidFactor) ? String(object.bidFactor) : "",
-      debtLotSize: isSet(object.debtLotSize)
-        ? Long.fromValue(object.debtLotSize)
-        : Long.UZERO,
+      debtLotSize: isSet(object.debtLotSize) ? String(object.debtLotSize) : "",
       blockHeight: isSet(object.blockHeight)
         ? Long.fromValue(object.blockHeight)
         : Long.ZERO,
@@ -497,18 +493,15 @@ export const CollectorLookupTableData = {
         message.secondaryAssetId || Long.UZERO
       ).toString());
     message.surplusThreshold !== undefined &&
-      (obj.surplusThreshold = (
-        message.surplusThreshold || Long.UZERO
-      ).toString());
+      (obj.surplusThreshold = message.surplusThreshold);
     message.debtThreshold !== undefined &&
-      (obj.debtThreshold = (message.debtThreshold || Long.UZERO).toString());
+      (obj.debtThreshold = message.debtThreshold);
     message.lockerSavingRate !== undefined &&
       (obj.lockerSavingRate = message.lockerSavingRate);
-    message.lotSize !== undefined &&
-      (obj.lotSize = (message.lotSize || Long.UZERO).toString());
+    message.lotSize !== undefined && (obj.lotSize = message.lotSize);
     message.bidFactor !== undefined && (obj.bidFactor = message.bidFactor);
     message.debtLotSize !== undefined &&
-      (obj.debtLotSize = (message.debtLotSize || Long.UZERO).toString());
+      (obj.debtLotSize = message.debtLotSize);
     message.blockHeight !== undefined &&
       (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
     message.blockTime !== undefined &&
@@ -532,24 +525,12 @@ export const CollectorLookupTableData = {
       object.secondaryAssetId !== undefined && object.secondaryAssetId !== null
         ? Long.fromValue(object.secondaryAssetId)
         : Long.UZERO;
-    message.surplusThreshold =
-      object.surplusThreshold !== undefined && object.surplusThreshold !== null
-        ? Long.fromValue(object.surplusThreshold)
-        : Long.UZERO;
-    message.debtThreshold =
-      object.debtThreshold !== undefined && object.debtThreshold !== null
-        ? Long.fromValue(object.debtThreshold)
-        : Long.UZERO;
+    message.surplusThreshold = object.surplusThreshold ?? "";
+    message.debtThreshold = object.debtThreshold ?? "";
     message.lockerSavingRate = object.lockerSavingRate ?? "";
-    message.lotSize =
-      object.lotSize !== undefined && object.lotSize !== null
-        ? Long.fromValue(object.lotSize)
-        : Long.UZERO;
+    message.lotSize = object.lotSize ?? "";
     message.bidFactor = object.bidFactor ?? "";
-    message.debtLotSize =
-      object.debtLotSize !== undefined && object.debtLotSize !== null
-        ? Long.fromValue(object.debtLotSize)
-        : Long.UZERO;
+    message.debtLotSize = object.debtLotSize ?? "";
     message.blockHeight =
       object.blockHeight !== undefined && object.blockHeight !== null
         ? Long.fromValue(object.blockHeight)
