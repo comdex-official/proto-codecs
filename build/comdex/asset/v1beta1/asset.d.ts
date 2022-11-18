@@ -8,6 +8,7 @@ export interface Asset {
     decimals: string;
     isOnChain: boolean;
     isOraclePriceRequired: boolean;
+    isCdpMintable: boolean;
 }
 export declare const Asset: {
     encode(message: Asset, writer?: _m0.Writer): _m0.Writer;
@@ -21,6 +22,7 @@ export declare const Asset: {
         decimals?: string | undefined;
         isOnChain?: boolean | undefined;
         isOraclePriceRequired?: boolean | undefined;
+        isCdpMintable?: boolean | undefined;
     } & {
         id?: string | number | (Long.Long & {
             high: number;
@@ -85,6 +87,7 @@ export declare const Asset: {
         decimals?: string | undefined;
         isOnChain?: boolean | undefined;
         isOraclePriceRequired?: boolean | undefined;
+        isCdpMintable?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof Asset>, never>>(object: I): Asset;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
