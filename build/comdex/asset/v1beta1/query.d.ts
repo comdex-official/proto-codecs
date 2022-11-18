@@ -244,6 +244,7 @@ export declare const QueryAssetsResponse: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -257,6 +258,7 @@ export declare const QueryAssetsResponse: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
@@ -264,6 +266,7 @@ export declare const QueryAssetsResponse: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -328,6 +331,7 @@ export declare const QueryAssetsResponse: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & Record<Exclude<keyof I["assets"][number], keyof Asset>, never>)[] & Record<Exclude<keyof I["assets"], keyof {
             id?: string | number | Long.Long | undefined;
             name?: string | undefined;
@@ -335,6 +339,7 @@ export declare const QueryAssetsResponse: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -483,6 +488,7 @@ export declare const QueryAssetResponse: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } | undefined;
     } & {
         asset?: ({
@@ -492,6 +498,7 @@ export declare const QueryAssetResponse: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -556,6 +563,7 @@ export declare const QueryAssetResponse: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & Record<Exclude<keyof I["asset"], keyof Asset>, never>) | undefined;
     } & Record<Exclude<keyof I, "asset">, never>>(object: I): QueryAssetResponse;
 };

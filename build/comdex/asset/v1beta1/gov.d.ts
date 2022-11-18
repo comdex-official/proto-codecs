@@ -54,6 +54,7 @@ export declare const AddAssetsProposal: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } | undefined;
     } & {
         title?: string | undefined;
@@ -65,6 +66,7 @@ export declare const AddAssetsProposal: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -129,6 +131,7 @@ export declare const AddAssetsProposal: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & Record<Exclude<keyof I["assets"], keyof Asset>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AddAssetsProposal>, never>>(object: I): AddAssetsProposal;
 };
@@ -147,6 +150,7 @@ export declare const UpdateAssetProposal: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } | undefined;
     } & {
         title?: string | undefined;
@@ -158,6 +162,7 @@ export declare const UpdateAssetProposal: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -222,6 +227,7 @@ export declare const UpdateAssetProposal: {
             decimals?: string | undefined;
             isOnChain?: boolean | undefined;
             isOraclePriceRequired?: boolean | undefined;
+            isCdpMintable?: boolean | undefined;
         } & Record<Exclude<keyof I["asset"], keyof Asset>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof UpdateAssetProposal>, never>>(object: I): UpdateAssetProposal;
 };
