@@ -18,6 +18,7 @@ export interface LendAsset {
   globalIndex: string;
   lastInteractionTime?: Date;
   cpoolName: string;
+  totalRewards: string;
 }
 
 export interface BorrowAsset {
@@ -42,7 +43,6 @@ export interface Pool {
   poolId: Long;
   moduleName: string;
   cpoolName: string;
-  reserveFunds: Long;
   assetData: AssetDataPoolMapping[];
 }
 
@@ -58,7 +58,7 @@ export interface AssetDataPoolMapping {
   assetId: Long;
   /** 1 for main_asset, 2 for 1st transit_asset, 3 for 2nd transit_asset */
   assetTransitType: Long;
-  supplyCap: Long;
+  supplyCap: string;
 }
 
 export interface ExtendedPair {
@@ -162,6 +162,7 @@ function createBaseLendAsset(): LendAsset {
     globalIndex: "",
     lastInteractionTime: undefined,
     cpoolName: "",
+    totalRewards: "",
   };
 }
 
@@ -208,6 +209,9 @@ export const LendAsset = {
     }
     if (message.cpoolName !== "") {
       writer.uint32(90).string(message.cpoolName);
+    }
+    if (message.totalRewards !== "") {
+      writer.uint32(98).string(message.totalRewards);
     }
     return writer;
   },
@@ -256,6 +260,9 @@ export const LendAsset = {
         case 11:
           message.cpoolName = reader.string();
           break;
+        case 12:
+          message.totalRewards = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -289,6 +296,9 @@ export const LendAsset = {
         ? fromJsonTimestamp(object.lastInteractionTime)
         : undefined,
       cpoolName: isSet(object.cpoolName) ? String(object.cpoolName) : "",
+      totalRewards: isSet(object.totalRewards)
+        ? String(object.totalRewards)
+        : "",
     };
   },
 
@@ -316,6 +326,8 @@ export const LendAsset = {
     message.lastInteractionTime !== undefined &&
       (obj.lastInteractionTime = message.lastInteractionTime.toISOString());
     message.cpoolName !== undefined && (obj.cpoolName = message.cpoolName);
+    message.totalRewards !== undefined &&
+      (obj.totalRewards = message.totalRewards);
     return obj;
   },
 
@@ -349,6 +361,7 @@ export const LendAsset = {
     message.globalIndex = object.globalIndex ?? "";
     message.lastInteractionTime = object.lastInteractionTime ?? undefined;
     message.cpoolName = object.cpoolName ?? "";
+    message.totalRewards = object.totalRewards ?? "";
     return message;
   },
 };
@@ -626,13 +639,7 @@ export const BorrowAsset = {
 };
 
 function createBasePool(): Pool {
-  return {
-    poolId: Long.UZERO,
-    moduleName: "",
-    cpoolName: "",
-    reserveFunds: Long.UZERO,
-    assetData: [],
-  };
+  return { poolId: Long.UZERO, moduleName: "", cpoolName: "", assetData: [] };
 }
 
 export const Pool = {
@@ -646,11 +653,8 @@ export const Pool = {
     if (message.cpoolName !== "") {
       writer.uint32(26).string(message.cpoolName);
     }
-    if (!message.reserveFunds.isZero()) {
-      writer.uint32(32).uint64(message.reserveFunds);
-    }
     for (const v of message.assetData) {
-      AssetDataPoolMapping.encode(v!, writer.uint32(42).fork()).ldelim();
+      AssetDataPoolMapping.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -672,9 +676,6 @@ export const Pool = {
           message.cpoolName = reader.string();
           break;
         case 4:
-          message.reserveFunds = reader.uint64() as Long;
-          break;
-        case 5:
           message.assetData.push(
             AssetDataPoolMapping.decode(reader, reader.uint32())
           );
@@ -692,9 +693,6 @@ export const Pool = {
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       moduleName: isSet(object.moduleName) ? String(object.moduleName) : "",
       cpoolName: isSet(object.cpoolName) ? String(object.cpoolName) : "",
-      reserveFunds: isSet(object.reserveFunds)
-        ? Long.fromValue(object.reserveFunds)
-        : Long.UZERO,
       assetData: Array.isArray(object?.assetData)
         ? object.assetData.map((e: any) => AssetDataPoolMapping.fromJSON(e))
         : [],
@@ -707,8 +705,6 @@ export const Pool = {
       (obj.poolId = (message.poolId || Long.UZERO).toString());
     message.moduleName !== undefined && (obj.moduleName = message.moduleName);
     message.cpoolName !== undefined && (obj.cpoolName = message.cpoolName);
-    message.reserveFunds !== undefined &&
-      (obj.reserveFunds = (message.reserveFunds || Long.UZERO).toString());
     if (message.assetData) {
       obj.assetData = message.assetData.map((e) =>
         e ? AssetDataPoolMapping.toJSON(e) : undefined
@@ -727,10 +723,6 @@ export const Pool = {
         : Long.UZERO;
     message.moduleName = object.moduleName ?? "";
     message.cpoolName = object.cpoolName ?? "";
-    message.reserveFunds =
-      object.reserveFunds !== undefined && object.reserveFunds !== null
-        ? Long.fromValue(object.reserveFunds)
-        : Long.UZERO;
     message.assetData =
       object.assetData?.map((e) => AssetDataPoolMapping.fromPartial(e)) || [];
     return message;
@@ -845,11 +837,7 @@ export const UserAssetLendBorrowMapping = {
 };
 
 function createBaseAssetDataPoolMapping(): AssetDataPoolMapping {
-  return {
-    assetId: Long.UZERO,
-    assetTransitType: Long.UZERO,
-    supplyCap: Long.UZERO,
-  };
+  return { assetId: Long.UZERO, assetTransitType: Long.UZERO, supplyCap: "" };
 }
 
 export const AssetDataPoolMapping = {
@@ -863,8 +851,8 @@ export const AssetDataPoolMapping = {
     if (!message.assetTransitType.isZero()) {
       writer.uint32(16).uint64(message.assetTransitType);
     }
-    if (!message.supplyCap.isZero()) {
-      writer.uint32(24).uint64(message.supplyCap);
+    if (message.supplyCap !== "") {
+      writer.uint32(26).string(message.supplyCap);
     }
     return writer;
   },
@@ -886,7 +874,7 @@ export const AssetDataPoolMapping = {
           message.assetTransitType = reader.uint64() as Long;
           break;
         case 3:
-          message.supplyCap = reader.uint64() as Long;
+          message.supplyCap = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -904,9 +892,7 @@ export const AssetDataPoolMapping = {
       assetTransitType: isSet(object.assetTransitType)
         ? Long.fromValue(object.assetTransitType)
         : Long.UZERO,
-      supplyCap: isSet(object.supplyCap)
-        ? Long.fromValue(object.supplyCap)
-        : Long.UZERO,
+      supplyCap: isSet(object.supplyCap) ? String(object.supplyCap) : "",
     };
   },
 
@@ -918,8 +904,7 @@ export const AssetDataPoolMapping = {
       (obj.assetTransitType = (
         message.assetTransitType || Long.UZERO
       ).toString());
-    message.supplyCap !== undefined &&
-      (obj.supplyCap = (message.supplyCap || Long.UZERO).toString());
+    message.supplyCap !== undefined && (obj.supplyCap = message.supplyCap);
     return obj;
   },
 
@@ -935,10 +920,7 @@ export const AssetDataPoolMapping = {
       object.assetTransitType !== undefined && object.assetTransitType !== null
         ? Long.fromValue(object.assetTransitType)
         : Long.UZERO;
-    message.supplyCap =
-      object.supplyCap !== undefined && object.supplyCap !== null
-        ? Long.fromValue(object.supplyCap)
-        : Long.UZERO;
+    message.supplyCap = object.supplyCap ?? "";
     return message;
   },
 };
