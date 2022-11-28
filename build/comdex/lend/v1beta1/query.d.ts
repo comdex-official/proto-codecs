@@ -332,6 +332,7 @@ export declare const QueryLendsResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -353,6 +354,7 @@ export declare const QueryLendsResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         }[] & ({
             lendingId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
@@ -368,6 +370,7 @@ export declare const QueryLendsResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         } & {
             lendingId?: string | number | (Long.Long & {
                 high: number;
@@ -614,6 +617,7 @@ export declare const QueryLendsResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         } & Record<Exclude<keyof I["lends"][number], keyof LendAsset>, never>)[] & Record<Exclude<keyof I["lends"], keyof {
             lendingId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
@@ -629,6 +633,7 @@ export declare const QueryLendsResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -785,6 +790,7 @@ export declare const QueryLendResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         } | undefined;
     } & {
         lend?: ({
@@ -802,6 +808,7 @@ export declare const QueryLendResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         } & {
             lendingId?: string | number | (Long.Long & {
                 high: number;
@@ -1048,6 +1055,7 @@ export declare const QueryLendResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         } & Record<Exclude<keyof I["lend"], keyof LendAsset>, never>) | undefined;
     } & Record<Exclude<keyof I, "lend">, never>>(object: I): QueryLendResponse;
 };
@@ -1217,6 +1225,7 @@ export declare const QueryAllLendByOwnerResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -1238,6 +1247,7 @@ export declare const QueryAllLendByOwnerResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         }[] & ({
             lendingId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
@@ -1253,6 +1263,7 @@ export declare const QueryAllLendByOwnerResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         } & {
             lendingId?: string | number | (Long.Long & {
                 high: number;
@@ -1499,6 +1510,7 @@ export declare const QueryAllLendByOwnerResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         } & Record<Exclude<keyof I["lends"][number], keyof LendAsset>, never>)[] & Record<Exclude<keyof I["lends"], keyof {
             lendingId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
@@ -1514,6 +1526,7 @@ export declare const QueryAllLendByOwnerResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -1806,6 +1819,7 @@ export declare const QueryAllLendByOwnerAndPoolResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -1827,6 +1841,7 @@ export declare const QueryAllLendByOwnerAndPoolResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         }[] & ({
             lendingId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
@@ -1842,6 +1857,7 @@ export declare const QueryAllLendByOwnerAndPoolResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         } & {
             lendingId?: string | number | (Long.Long & {
                 high: number;
@@ -2088,6 +2104,7 @@ export declare const QueryAllLendByOwnerAndPoolResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         } & Record<Exclude<keyof I["lends"][number], keyof LendAsset>, never>)[] & Record<Exclude<keyof I["lends"], keyof {
             lendingId?: string | number | Long.Long | undefined;
             assetId?: string | number | Long.Long | undefined;
@@ -2103,6 +2120,7 @@ export declare const QueryAllLendByOwnerAndPoolResponse: {
             globalIndex?: string | undefined;
             lastInteractionTime?: Date | undefined;
             cpoolName?: string | undefined;
+            totalRewards?: string | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -3907,11 +3925,10 @@ export declare const QueryPoolsResponse: {
             poolId?: string | number | Long.Long | undefined;
             moduleName?: string | undefined;
             cpoolName?: string | undefined;
-            reserveFunds?: string | number | Long.Long | undefined;
             assetData?: {
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             }[] | undefined;
         }[] | undefined;
         pagination?: {
@@ -3923,21 +3940,19 @@ export declare const QueryPoolsResponse: {
             poolId?: string | number | Long.Long | undefined;
             moduleName?: string | undefined;
             cpoolName?: string | undefined;
-            reserveFunds?: string | number | Long.Long | undefined;
             assetData?: {
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             }[] | undefined;
         }[] & ({
             poolId?: string | number | Long.Long | undefined;
             moduleName?: string | undefined;
             cpoolName?: string | undefined;
-            reserveFunds?: string | number | Long.Long | undefined;
             assetData?: {
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             }[] | undefined;
         } & {
             poolId?: string | number | (Long.Long & {
@@ -4000,72 +4015,14 @@ export declare const QueryPoolsResponse: {
             } & Record<Exclude<keyof I["pools"][number]["poolId"], keyof Long.Long>, never>) | undefined;
             moduleName?: string | undefined;
             cpoolName?: string | undefined;
-            reserveFunds?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pools"][number]["reserveFunds"], keyof Long.Long>, never>) | undefined;
             assetData?: ({
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             }[] & ({
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             } & {
                 assetId?: string | number | (Long.Long & {
                     high: number;
@@ -4183,78 +4140,20 @@ export declare const QueryPoolsResponse: {
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["pools"][number]["assetData"][number]["assetTransitType"], keyof Long.Long>, never>) | undefined;
-                supplyCap?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["pools"][number]["assetData"][number]["supplyCap"], keyof Long.Long>, never>) | undefined;
+                supplyCap?: string | undefined;
             } & Record<Exclude<keyof I["pools"][number]["assetData"][number], keyof import("../../../comdex/lend/v1beta1/lend").AssetDataPoolMapping>, never>)[] & Record<Exclude<keyof I["pools"][number]["assetData"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["pools"][number], keyof Pool>, never>)[] & Record<Exclude<keyof I["pools"], keyof {
             poolId?: string | number | Long.Long | undefined;
             moduleName?: string | undefined;
             cpoolName?: string | undefined;
-            reserveFunds?: string | number | Long.Long | undefined;
             assetData?: {
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             }[] | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
@@ -4401,11 +4300,10 @@ export declare const QueryPoolResponse: {
             poolId?: string | number | Long.Long | undefined;
             moduleName?: string | undefined;
             cpoolName?: string | undefined;
-            reserveFunds?: string | number | Long.Long | undefined;
             assetData?: {
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             }[] | undefined;
         } | undefined;
     } & {
@@ -4413,11 +4311,10 @@ export declare const QueryPoolResponse: {
             poolId?: string | number | Long.Long | undefined;
             moduleName?: string | undefined;
             cpoolName?: string | undefined;
-            reserveFunds?: string | number | Long.Long | undefined;
             assetData?: {
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             }[] | undefined;
         } & {
             poolId?: string | number | (Long.Long & {
@@ -4480,72 +4377,14 @@ export declare const QueryPoolResponse: {
             } & Record<Exclude<keyof I["pool"]["poolId"], keyof Long.Long>, never>) | undefined;
             moduleName?: string | undefined;
             cpoolName?: string | undefined;
-            reserveFunds?: string | number | (Long.Long & {
-                high: number;
-                low: number;
-                unsigned: boolean;
-                add: (addend: string | number | Long.Long) => Long.Long;
-                and: (other: string | number | Long.Long) => Long.Long;
-                compare: (other: string | number | Long.Long) => number;
-                comp: (other: string | number | Long.Long) => number;
-                divide: (divisor: string | number | Long.Long) => Long.Long;
-                div: (divisor: string | number | Long.Long) => Long.Long;
-                equals: (other: string | number | Long.Long) => boolean;
-                eq: (other: string | number | Long.Long) => boolean;
-                getHighBits: () => number;
-                getHighBitsUnsigned: () => number;
-                getLowBits: () => number;
-                getLowBitsUnsigned: () => number;
-                getNumBitsAbs: () => number;
-                greaterThan: (other: string | number | Long.Long) => boolean;
-                gt: (other: string | number | Long.Long) => boolean;
-                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                gte: (other: string | number | Long.Long) => boolean;
-                isEven: () => boolean;
-                isNegative: () => boolean;
-                isOdd: () => boolean;
-                isPositive: () => boolean;
-                isZero: () => boolean;
-                lessThan: (other: string | number | Long.Long) => boolean;
-                lt: (other: string | number | Long.Long) => boolean;
-                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                lte: (other: string | number | Long.Long) => boolean;
-                modulo: (other: string | number | Long.Long) => Long.Long;
-                mod: (other: string | number | Long.Long) => Long.Long;
-                multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                mul: (multiplier: string | number | Long.Long) => Long.Long;
-                negate: () => Long.Long;
-                neg: () => Long.Long;
-                not: () => Long.Long;
-                notEquals: (other: string | number | Long.Long) => boolean;
-                neq: (other: string | number | Long.Long) => boolean;
-                or: (other: string | number | Long.Long) => Long.Long;
-                shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                shl: (numBits: number | Long.Long) => Long.Long;
-                shiftRight: (numBits: number | Long.Long) => Long.Long;
-                shr: (numBits: number | Long.Long) => Long.Long;
-                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                shru: (numBits: number | Long.Long) => Long.Long;
-                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                toInt: () => number;
-                toNumber: () => number;
-                toBytes: (le?: boolean | undefined) => number[];
-                toBytesLE: () => number[];
-                toBytesBE: () => number[];
-                toSigned: () => Long.Long;
-                toString: (radix?: number | undefined) => string;
-                toUnsigned: () => Long.Long;
-                xor: (other: string | number | Long.Long) => Long.Long;
-            } & Record<Exclude<keyof I["pool"]["reserveFunds"], keyof Long.Long>, never>) | undefined;
             assetData?: ({
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             }[] & ({
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             } & {
                 assetId?: string | number | (Long.Long & {
                     high: number;
@@ -4663,68 +4502,11 @@ export declare const QueryPoolResponse: {
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["pool"]["assetData"][number]["assetTransitType"], keyof Long.Long>, never>) | undefined;
-                supplyCap?: string | number | (Long.Long & {
-                    high: number;
-                    low: number;
-                    unsigned: boolean;
-                    add: (addend: string | number | Long.Long) => Long.Long;
-                    and: (other: string | number | Long.Long) => Long.Long;
-                    compare: (other: string | number | Long.Long) => number;
-                    comp: (other: string | number | Long.Long) => number;
-                    divide: (divisor: string | number | Long.Long) => Long.Long;
-                    div: (divisor: string | number | Long.Long) => Long.Long;
-                    equals: (other: string | number | Long.Long) => boolean;
-                    eq: (other: string | number | Long.Long) => boolean;
-                    getHighBits: () => number;
-                    getHighBitsUnsigned: () => number;
-                    getLowBits: () => number;
-                    getLowBitsUnsigned: () => number;
-                    getNumBitsAbs: () => number;
-                    greaterThan: (other: string | number | Long.Long) => boolean;
-                    gt: (other: string | number | Long.Long) => boolean;
-                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    gte: (other: string | number | Long.Long) => boolean;
-                    isEven: () => boolean;
-                    isNegative: () => boolean;
-                    isOdd: () => boolean;
-                    isPositive: () => boolean;
-                    isZero: () => boolean;
-                    lessThan: (other: string | number | Long.Long) => boolean;
-                    lt: (other: string | number | Long.Long) => boolean;
-                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
-                    lte: (other: string | number | Long.Long) => boolean;
-                    modulo: (other: string | number | Long.Long) => Long.Long;
-                    mod: (other: string | number | Long.Long) => Long.Long;
-                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
-                    mul: (multiplier: string | number | Long.Long) => Long.Long;
-                    negate: () => Long.Long;
-                    neg: () => Long.Long;
-                    not: () => Long.Long;
-                    notEquals: (other: string | number | Long.Long) => boolean;
-                    neq: (other: string | number | Long.Long) => boolean;
-                    or: (other: string | number | Long.Long) => Long.Long;
-                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
-                    shl: (numBits: number | Long.Long) => Long.Long;
-                    shiftRight: (numBits: number | Long.Long) => Long.Long;
-                    shr: (numBits: number | Long.Long) => Long.Long;
-                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
-                    shru: (numBits: number | Long.Long) => Long.Long;
-                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
-                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
-                    toInt: () => number;
-                    toNumber: () => number;
-                    toBytes: (le?: boolean | undefined) => number[];
-                    toBytesLE: () => number[];
-                    toBytesBE: () => number[];
-                    toSigned: () => Long.Long;
-                    toString: (radix?: number | undefined) => string;
-                    toUnsigned: () => Long.Long;
-                    xor: (other: string | number | Long.Long) => Long.Long;
-                } & Record<Exclude<keyof I["pool"]["assetData"][number]["supplyCap"], keyof Long.Long>, never>) | undefined;
+                supplyCap?: string | undefined;
             } & Record<Exclude<keyof I["pool"]["assetData"][number], keyof import("../../../comdex/lend/v1beta1/lend").AssetDataPoolMapping>, never>)[] & Record<Exclude<keyof I["pool"]["assetData"], keyof {
                 assetId?: string | number | Long.Long | undefined;
                 assetTransitType?: string | number | Long.Long | undefined;
-                supplyCap?: string | number | Long.Long | undefined;
+                supplyCap?: string | undefined;
             }[]>, never>) | undefined;
         } & Record<Exclude<keyof I["pool"], keyof Pool>, never>) | undefined;
     } & Record<Exclude<keyof I, "pool">, never>>(object: I): QueryPoolResponse;
