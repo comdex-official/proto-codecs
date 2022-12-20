@@ -8,6 +8,7 @@ import {
   VaultInterestTracker,
   LockerExternalRewards,
   VaultExternalRewards,
+  LendExternalRewards,
 } from "../../../comdex/rewards/v1beta1/rewards";
 import { EpochInfo } from "../../../comdex/rewards/v1beta1/epochs";
 import { Gauge, GaugeByTriggerDuration } from "../../../comdex/rewards/v1beta1/gauge";
@@ -26,6 +27,7 @@ export interface GenesisState {
   gauge: Gauge[];
   gaugeByTriggerDuration: GaugeByTriggerDuration[];
   params?: Params;
+  lendExternalRewards: LendExternalRewards[];
 }
 
 function createBaseGenesisState(): GenesisState {
@@ -40,6 +42,7 @@ function createBaseGenesisState(): GenesisState {
     gauge: [],
     gaugeByTriggerDuration: [],
     params: undefined,
+    lendExternalRewards: [],
   };
 }
 
@@ -79,6 +82,9 @@ export const GenesisState = {
     }
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(82).fork()).ldelim();
+    }
+    for (const v of message.lendExternalRewards) {
+      LendExternalRewards.encode(v!, writer.uint32(90).fork()).ldelim();
     }
     return writer;
   },
@@ -139,6 +145,11 @@ export const GenesisState = {
         case 10:
           message.params = Params.decode(reader, reader.uint32());
           break;
+        case 11:
+          message.lendExternalRewards.push(
+            LendExternalRewards.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -187,6 +198,11 @@ export const GenesisState = {
           )
         : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
+      lendExternalRewards: Array.isArray(object?.lendExternalRewards)
+        ? object.lendExternalRewards.map((e: any) =>
+            LendExternalRewards.fromJSON(e)
+          )
+        : [],
     };
   },
 
@@ -253,6 +269,13 @@ export const GenesisState = {
     }
     message.params !== undefined &&
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    if (message.lendExternalRewards) {
+      obj.lendExternalRewards = message.lendExternalRewards.map((e) =>
+        e ? LendExternalRewards.toJSON(e) : undefined
+      );
+    } else {
+      obj.lendExternalRewards = [];
+    }
     return obj;
   },
 
@@ -290,6 +313,10 @@ export const GenesisState = {
       object.params !== undefined && object.params !== null
         ? Params.fromPartial(object.params)
         : undefined;
+    message.lendExternalRewards =
+      object.lendExternalRewards?.map((e) =>
+        LendExternalRewards.fromPartial(e)
+      ) || [];
     return message;
   },
 };
