@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgClientImpl = exports.ActivateExternalRewardsVaultResponse = exports.ActivateExternalRewardsVault = exports.ActivateExternalRewardsLockersResponse = exports.ActivateExternalRewardsLockers = exports.MsgRemoveWhitelistAppIdVaultResponse = exports.MsgWhitelistAppIdVaultResponse = exports.RemoveWhitelistAppIdVault = exports.WhitelistAppIdVault = exports.MsgRemoveWhitelistAssetResponse = exports.MsgWhitelistAssetResponse = exports.RemoveWhitelistAsset = exports.WhitelistAsset = exports.MsgCreateGaugeResponse = exports.MsgCreateGauge = exports.protobufPackage = void 0;
+exports.MsgClientImpl = exports.ActivateExternalRewardsLendResponse = exports.ActivateExternalRewardsLend = exports.ActivateExternalRewardsVaultResponse = exports.ActivateExternalRewardsVault = exports.ActivateExternalRewardsLockersResponse = exports.ActivateExternalRewardsLockers = exports.MsgRemoveWhitelistAppIdVaultResponse = exports.MsgWhitelistAppIdVaultResponse = exports.RemoveWhitelistAppIdVault = exports.WhitelistAppIdVault = exports.MsgRemoveWhitelistAssetResponse = exports.MsgWhitelistAssetResponse = exports.RemoveWhitelistAsset = exports.WhitelistAsset = exports.MsgCreateGaugeResponse = exports.MsgCreateGauge = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -946,12 +946,251 @@ exports.ActivateExternalRewardsVaultResponse = {
         return message;
     },
 };
+function createBaseActivateExternalRewardsLend() {
+    return {
+        appMappingId: long_1.default.UZERO,
+        cPoolId: long_1.default.UZERO,
+        assetId: [],
+        cSwapAppId: long_1.default.UZERO,
+        cSwapMinLockAmount: long_1.default.UZERO,
+        totalRewards: undefined,
+        masterPoolId: long_1.default.ZERO,
+        durationDays: long_1.default.ZERO,
+        minLockupTimeSeconds: long_1.default.ZERO,
+        depositor: "",
+    };
+}
+exports.ActivateExternalRewardsLend = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(8).uint64(message.appMappingId);
+        }
+        if (!message.cPoolId.isZero()) {
+            writer.uint32(16).uint64(message.cPoolId);
+        }
+        writer.uint32(26).fork();
+        for (const v of message.assetId) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        if (!message.cSwapAppId.isZero()) {
+            writer.uint32(32).uint64(message.cSwapAppId);
+        }
+        if (!message.cSwapMinLockAmount.isZero()) {
+            writer.uint32(40).uint64(message.cSwapMinLockAmount);
+        }
+        if (message.totalRewards !== undefined) {
+            coin_1.Coin.encode(message.totalRewards, writer.uint32(50).fork()).ldelim();
+        }
+        if (!message.masterPoolId.isZero()) {
+            writer.uint32(56).int64(message.masterPoolId);
+        }
+        if (!message.durationDays.isZero()) {
+            writer.uint32(64).int64(message.durationDays);
+        }
+        if (!message.minLockupTimeSeconds.isZero()) {
+            writer.uint32(72).int64(message.minLockupTimeSeconds);
+        }
+        if (message.depositor !== "") {
+            writer.uint32(82).string(message.depositor);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseActivateExternalRewardsLend();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appMappingId = reader.uint64();
+                    break;
+                case 2:
+                    message.cPoolId = reader.uint64();
+                    break;
+                case 3:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.assetId.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.assetId.push(reader.uint64());
+                    }
+                    break;
+                case 4:
+                    message.cSwapAppId = reader.uint64();
+                    break;
+                case 5:
+                    message.cSwapMinLockAmount = reader.uint64();
+                    break;
+                case 6:
+                    message.totalRewards = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 7:
+                    message.masterPoolId = reader.int64();
+                    break;
+                case 8:
+                    message.durationDays = reader.int64();
+                    break;
+                case 9:
+                    message.minLockupTimeSeconds = reader.int64();
+                    break;
+                case 10:
+                    message.depositor = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO,
+            cPoolId: isSet(object.cPoolId)
+                ? long_1.default.fromValue(object.cPoolId)
+                : long_1.default.UZERO,
+            assetId: Array.isArray(object === null || object === void 0 ? void 0 : object.assetId)
+                ? object.assetId.map((e) => long_1.default.fromValue(e))
+                : [],
+            cSwapAppId: isSet(object.cSwapAppId)
+                ? long_1.default.fromValue(object.cSwapAppId)
+                : long_1.default.UZERO,
+            cSwapMinLockAmount: isSet(object.cSwapMinLockAmount)
+                ? long_1.default.fromValue(object.cSwapMinLockAmount)
+                : long_1.default.UZERO,
+            totalRewards: isSet(object.totalRewards)
+                ? coin_1.Coin.fromJSON(object.totalRewards)
+                : undefined,
+            masterPoolId: isSet(object.masterPoolId)
+                ? long_1.default.fromValue(object.masterPoolId)
+                : long_1.default.ZERO,
+            durationDays: isSet(object.durationDays)
+                ? long_1.default.fromValue(object.durationDays)
+                : long_1.default.ZERO,
+            minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
+                ? long_1.default.fromValue(object.minLockupTimeSeconds)
+                : long_1.default.ZERO,
+            depositor: isSet(object.depositor) ? String(object.depositor) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.cPoolId !== undefined &&
+            (obj.cPoolId = (message.cPoolId || long_1.default.UZERO).toString());
+        if (message.assetId) {
+            obj.assetId = message.assetId.map((e) => (e || long_1.default.UZERO).toString());
+        }
+        else {
+            obj.assetId = [];
+        }
+        message.cSwapAppId !== undefined &&
+            (obj.cSwapAppId = (message.cSwapAppId || long_1.default.UZERO).toString());
+        message.cSwapMinLockAmount !== undefined &&
+            (obj.cSwapMinLockAmount = (message.cSwapMinLockAmount || long_1.default.UZERO).toString());
+        message.totalRewards !== undefined &&
+            (obj.totalRewards = message.totalRewards
+                ? coin_1.Coin.toJSON(message.totalRewards)
+                : undefined);
+        message.masterPoolId !== undefined &&
+            (obj.masterPoolId = (message.masterPoolId || long_1.default.ZERO).toString());
+        message.durationDays !== undefined &&
+            (obj.durationDays = (message.durationDays || long_1.default.ZERO).toString());
+        message.minLockupTimeSeconds !== undefined &&
+            (obj.minLockupTimeSeconds = (message.minLockupTimeSeconds || long_1.default.ZERO).toString());
+        message.depositor !== undefined && (obj.depositor = message.depositor);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseActivateExternalRewardsLend();
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
+                : long_1.default.UZERO;
+        message.cPoolId =
+            object.cPoolId !== undefined && object.cPoolId !== null
+                ? long_1.default.fromValue(object.cPoolId)
+                : long_1.default.UZERO;
+        message.assetId = ((_a = object.assetId) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.cSwapAppId =
+            object.cSwapAppId !== undefined && object.cSwapAppId !== null
+                ? long_1.default.fromValue(object.cSwapAppId)
+                : long_1.default.UZERO;
+        message.cSwapMinLockAmount =
+            object.cSwapMinLockAmount !== undefined &&
+                object.cSwapMinLockAmount !== null
+                ? long_1.default.fromValue(object.cSwapMinLockAmount)
+                : long_1.default.UZERO;
+        message.totalRewards =
+            object.totalRewards !== undefined && object.totalRewards !== null
+                ? coin_1.Coin.fromPartial(object.totalRewards)
+                : undefined;
+        message.masterPoolId =
+            object.masterPoolId !== undefined && object.masterPoolId !== null
+                ? long_1.default.fromValue(object.masterPoolId)
+                : long_1.default.ZERO;
+        message.durationDays =
+            object.durationDays !== undefined && object.durationDays !== null
+                ? long_1.default.fromValue(object.durationDays)
+                : long_1.default.ZERO;
+        message.minLockupTimeSeconds =
+            object.minLockupTimeSeconds !== undefined &&
+                object.minLockupTimeSeconds !== null
+                ? long_1.default.fromValue(object.minLockupTimeSeconds)
+                : long_1.default.ZERO;
+        message.depositor = (_b = object.depositor) !== null && _b !== void 0 ? _b : "";
+        return message;
+    },
+};
+function createBaseActivateExternalRewardsLendResponse() {
+    return {};
+}
+exports.ActivateExternalRewardsLendResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseActivateExternalRewardsLendResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseActivateExternalRewardsLendResponse();
+        return message;
+    },
+};
 class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
         this.CreateGauge = this.CreateGauge.bind(this);
         this.ExternalRewardsLockers = this.ExternalRewardsLockers.bind(this);
         this.ExternalRewardsVault = this.ExternalRewardsVault.bind(this);
+        this.ExternalRewardsLend = this.ExternalRewardsLend.bind(this);
     }
     CreateGauge(request) {
         const data = exports.MsgCreateGauge.encode(request).finish();
@@ -967,6 +1206,11 @@ class MsgClientImpl {
         const data = exports.ActivateExternalRewardsVault.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "ExternalRewardsVault", data);
         return promise.then((data) => exports.ActivateExternalRewardsVaultResponse.decode(new _m0.Reader(data)));
+    }
+    ExternalRewardsLend(request) {
+        const data = exports.ActivateExternalRewardsLend.encode(request).finish();
+        const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "ExternalRewardsLend", data);
+        return promise.then((data) => exports.ActivateExternalRewardsLendResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;

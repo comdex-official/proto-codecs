@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ModuleBalanceStats = exports.ModuleBalance = exports.LendRewardsTracker = exports.BorrowInterestTracker = exports.AuctionParams = exports.ReserveBuybackAssetData = exports.AssetRatesParams = exports.PoolAssetLBMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.UserAssetLendBorrowMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
+exports.AllReserveStats = exports.FundReserveBal = exports.FundModBal = exports.ReserveBal = exports.ModBal = exports.ModuleBalanceStats = exports.ModuleBalance = exports.LendRewardsTracker = exports.BorrowInterestTracker = exports.AuctionParams = exports.ReserveBuybackAssetData = exports.AssetRatesParams = exports.PoolAssetLBMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.UserAssetLendBorrowMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -1851,6 +1851,432 @@ exports.ModuleBalanceStats = {
             object.balance !== undefined && object.balance !== null
                 ? coin_1.Coin.fromPartial(object.balance)
                 : undefined;
+        return message;
+    },
+};
+function createBaseModBal() {
+    return { fundModuleBalance: [] };
+}
+exports.ModBal = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.fundModuleBalance) {
+            exports.FundModBal.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseModBal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.fundModuleBalance.push(exports.FundModBal.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            fundModuleBalance: Array.isArray(object === null || object === void 0 ? void 0 : object.fundModuleBalance)
+                ? object.fundModuleBalance.map((e) => exports.FundModBal.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.fundModuleBalance) {
+            obj.fundModuleBalance = message.fundModuleBalance.map((e) => e ? exports.FundModBal.toJSON(e) : undefined);
+        }
+        else {
+            obj.fundModuleBalance = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseModBal();
+        message.fundModuleBalance =
+            ((_a = object.fundModuleBalance) === null || _a === void 0 ? void 0 : _a.map((e) => exports.FundModBal.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseReserveBal() {
+    return { fundReserveBalance: [] };
+}
+exports.ReserveBal = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.fundReserveBalance) {
+            exports.FundReserveBal.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseReserveBal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.fundReserveBalance.push(exports.FundReserveBal.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            fundReserveBalance: Array.isArray(object === null || object === void 0 ? void 0 : object.fundReserveBalance)
+                ? object.fundReserveBalance.map((e) => exports.FundReserveBal.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.fundReserveBalance) {
+            obj.fundReserveBalance = message.fundReserveBalance.map((e) => e ? exports.FundReserveBal.toJSON(e) : undefined);
+        }
+        else {
+            obj.fundReserveBalance = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseReserveBal();
+        message.fundReserveBalance =
+            ((_a = object.fundReserveBalance) === null || _a === void 0 ? void 0 : _a.map((e) => exports.FundReserveBal.fromPartial(e))) ||
+                [];
+        return message;
+    },
+};
+function createBaseFundModBal() {
+    return {
+        assetId: long_1.default.UZERO,
+        poolId: long_1.default.UZERO,
+        amountIn: undefined,
+        depositTime: undefined,
+        funder: "",
+    };
+}
+exports.FundModBal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.assetId.isZero()) {
+            writer.uint32(8).uint64(message.assetId);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        if (message.amountIn !== undefined) {
+            coin_1.Coin.encode(message.amountIn, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.depositTime !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.depositTime), writer.uint32(34).fork()).ldelim();
+        }
+        if (message.funder !== "") {
+            writer.uint32(42).string(message.funder);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseFundModBal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.assetId = reader.uint64();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
+                    message.amountIn = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 4:
+                    message.depositTime = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                case 5:
+                    message.funder = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            amountIn: isSet(object.amountIn)
+                ? coin_1.Coin.fromJSON(object.amountIn)
+                : undefined,
+            depositTime: isSet(object.depositTime)
+                ? fromJsonTimestamp(object.depositTime)
+                : undefined,
+            funder: isSet(object.funder) ? String(object.funder) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.amountIn !== undefined &&
+            (obj.amountIn = message.amountIn
+                ? coin_1.Coin.toJSON(message.amountIn)
+                : undefined);
+        message.depositTime !== undefined &&
+            (obj.depositTime = message.depositTime.toISOString());
+        message.funder !== undefined && (obj.funder = message.funder);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseFundModBal();
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.amountIn =
+            object.amountIn !== undefined && object.amountIn !== null
+                ? coin_1.Coin.fromPartial(object.amountIn)
+                : undefined;
+        message.depositTime = (_a = object.depositTime) !== null && _a !== void 0 ? _a : undefined;
+        message.funder = (_b = object.funder) !== null && _b !== void 0 ? _b : "";
+        return message;
+    },
+};
+function createBaseFundReserveBal() {
+    return {
+        assetId: long_1.default.UZERO,
+        amountIn: undefined,
+        depositTime: undefined,
+        funder: "",
+    };
+}
+exports.FundReserveBal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.assetId.isZero()) {
+            writer.uint32(8).uint64(message.assetId);
+        }
+        if (message.amountIn !== undefined) {
+            coin_1.Coin.encode(message.amountIn, writer.uint32(18).fork()).ldelim();
+        }
+        if (message.depositTime !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.depositTime), writer.uint32(26).fork()).ldelim();
+        }
+        if (message.funder !== "") {
+            writer.uint32(34).string(message.funder);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseFundReserveBal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.assetId = reader.uint64();
+                    break;
+                case 2:
+                    message.amountIn = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 3:
+                    message.depositTime = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                case 4:
+                    message.funder = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO,
+            amountIn: isSet(object.amountIn)
+                ? coin_1.Coin.fromJSON(object.amountIn)
+                : undefined,
+            depositTime: isSet(object.depositTime)
+                ? fromJsonTimestamp(object.depositTime)
+                : undefined,
+            funder: isSet(object.funder) ? String(object.funder) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.amountIn !== undefined &&
+            (obj.amountIn = message.amountIn
+                ? coin_1.Coin.toJSON(message.amountIn)
+                : undefined);
+        message.depositTime !== undefined &&
+            (obj.depositTime = message.depositTime.toISOString());
+        message.funder !== undefined && (obj.funder = message.funder);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseFundReserveBal();
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
+        message.amountIn =
+            object.amountIn !== undefined && object.amountIn !== null
+                ? coin_1.Coin.fromPartial(object.amountIn)
+                : undefined;
+        message.depositTime = (_a = object.depositTime) !== null && _a !== void 0 ? _a : undefined;
+        message.funder = (_b = object.funder) !== null && _b !== void 0 ? _b : "";
+        return message;
+    },
+};
+function createBaseAllReserveStats() {
+    return {
+        assetId: long_1.default.UZERO,
+        amountOutFromReserveToLenders: "",
+        amountOutFromReserveForAuction: "",
+        amountInFromLiqPenalty: "",
+        amountInFromRepayments: "",
+        totalAmountOutToLenders: "",
+    };
+}
+exports.AllReserveStats = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.assetId.isZero()) {
+            writer.uint32(8).uint64(message.assetId);
+        }
+        if (message.amountOutFromReserveToLenders !== "") {
+            writer.uint32(18).string(message.amountOutFromReserveToLenders);
+        }
+        if (message.amountOutFromReserveForAuction !== "") {
+            writer.uint32(26).string(message.amountOutFromReserveForAuction);
+        }
+        if (message.amountInFromLiqPenalty !== "") {
+            writer.uint32(34).string(message.amountInFromLiqPenalty);
+        }
+        if (message.amountInFromRepayments !== "") {
+            writer.uint32(42).string(message.amountInFromRepayments);
+        }
+        if (message.totalAmountOutToLenders !== "") {
+            writer.uint32(50).string(message.totalAmountOutToLenders);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAllReserveStats();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.assetId = reader.uint64();
+                    break;
+                case 2:
+                    message.amountOutFromReserveToLenders = reader.string();
+                    break;
+                case 3:
+                    message.amountOutFromReserveForAuction = reader.string();
+                    break;
+                case 4:
+                    message.amountInFromLiqPenalty = reader.string();
+                    break;
+                case 5:
+                    message.amountInFromRepayments = reader.string();
+                    break;
+                case 6:
+                    message.totalAmountOutToLenders = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO,
+            amountOutFromReserveToLenders: isSet(object.amountOutFromReserveToLenders)
+                ? String(object.amountOutFromReserveToLenders)
+                : "",
+            amountOutFromReserveForAuction: isSet(object.amountOutFromReserveForAuction)
+                ? String(object.amountOutFromReserveForAuction)
+                : "",
+            amountInFromLiqPenalty: isSet(object.amountInFromLiqPenalty)
+                ? String(object.amountInFromLiqPenalty)
+                : "",
+            amountInFromRepayments: isSet(object.amountInFromRepayments)
+                ? String(object.amountInFromRepayments)
+                : "",
+            totalAmountOutToLenders: isSet(object.totalAmountOutToLenders)
+                ? String(object.totalAmountOutToLenders)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.amountOutFromReserveToLenders !== undefined &&
+            (obj.amountOutFromReserveToLenders =
+                message.amountOutFromReserveToLenders);
+        message.amountOutFromReserveForAuction !== undefined &&
+            (obj.amountOutFromReserveForAuction =
+                message.amountOutFromReserveForAuction);
+        message.amountInFromLiqPenalty !== undefined &&
+            (obj.amountInFromLiqPenalty = message.amountInFromLiqPenalty);
+        message.amountInFromRepayments !== undefined &&
+            (obj.amountInFromRepayments = message.amountInFromRepayments);
+        message.totalAmountOutToLenders !== undefined &&
+            (obj.totalAmountOutToLenders = message.totalAmountOutToLenders);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d, _e;
+        const message = createBaseAllReserveStats();
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
+        message.amountOutFromReserveToLenders =
+            (_a = object.amountOutFromReserveToLenders) !== null && _a !== void 0 ? _a : "";
+        message.amountOutFromReserveForAuction =
+            (_b = object.amountOutFromReserveForAuction) !== null && _b !== void 0 ? _b : "";
+        message.amountInFromLiqPenalty = (_c = object.amountInFromLiqPenalty) !== null && _c !== void 0 ? _c : "";
+        message.amountInFromRepayments = (_d = object.amountInFromRepayments) !== null && _d !== void 0 ? _d : "";
+        message.totalAmountOutToLenders = (_e = object.totalAmountOutToLenders) !== null && _e !== void 0 ? _e : "";
         return message;
     },
 };

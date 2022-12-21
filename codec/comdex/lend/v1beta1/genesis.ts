@@ -2,6 +2,8 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import {
+  ModBal,
+  ReserveBal,
   BorrowAsset,
   BorrowInterestTracker,
   LendAsset,
@@ -14,6 +16,7 @@ import {
   ExtendedPair,
   AuctionParams,
   AssetRatesParams,
+  AllReserveStats,
 } from "../../../comdex/lend/v1beta1/lend";
 
 export const protobufPackage = "comdex.lend.v1beta1";
@@ -31,6 +34,9 @@ export interface GenesisState {
   extendedPair: ExtendedPair[];
   auctionParams: AuctionParams[];
   assetRatesParams: AssetRatesParams[];
+  modBal?: ModBal;
+  reserveBal?: ReserveBal;
+  allReserveStats: AllReserveStats[];
 }
 
 function createBaseGenesisState(): GenesisState {
@@ -47,6 +53,9 @@ function createBaseGenesisState(): GenesisState {
     extendedPair: [],
     auctionParams: [],
     assetRatesParams: [],
+    modBal: undefined,
+    reserveBal: undefined,
+    allReserveStats: [],
   };
 }
 
@@ -90,6 +99,15 @@ export const GenesisState = {
     }
     for (const v of message.assetRatesParams) {
       AssetRatesParams.encode(v!, writer.uint32(98).fork()).ldelim();
+    }
+    if (message.modBal !== undefined) {
+      ModBal.encode(message.modBal, writer.uint32(106).fork()).ldelim();
+    }
+    if (message.reserveBal !== undefined) {
+      ReserveBal.encode(message.reserveBal, writer.uint32(114).fork()).ldelim();
+    }
+    for (const v of message.allReserveStats) {
+      AllReserveStats.encode(v!, writer.uint32(122).fork()).ldelim();
     }
     return writer;
   },
@@ -155,6 +173,17 @@ export const GenesisState = {
             AssetRatesParams.decode(reader, reader.uint32())
           );
           break;
+        case 13:
+          message.modBal = ModBal.decode(reader, reader.uint32());
+          break;
+        case 14:
+          message.reserveBal = ReserveBal.decode(reader, reader.uint32());
+          break;
+        case 15:
+          message.allReserveStats.push(
+            AllReserveStats.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -214,6 +243,13 @@ export const GenesisState = {
         : [],
       assetRatesParams: Array.isArray(object?.assetRatesParams)
         ? object.assetRatesParams.map((e: any) => AssetRatesParams.fromJSON(e))
+        : [],
+      modBal: isSet(object.modBal) ? ModBal.fromJSON(object.modBal) : undefined,
+      reserveBal: isSet(object.reserveBal)
+        ? ReserveBal.fromJSON(object.reserveBal)
+        : undefined,
+      allReserveStats: Array.isArray(object?.allReserveStats)
+        ? object.allReserveStats.map((e: any) => AllReserveStats.fromJSON(e))
         : [],
     };
   },
@@ -302,6 +338,19 @@ export const GenesisState = {
     } else {
       obj.assetRatesParams = [];
     }
+    message.modBal !== undefined &&
+      (obj.modBal = message.modBal ? ModBal.toJSON(message.modBal) : undefined);
+    message.reserveBal !== undefined &&
+      (obj.reserveBal = message.reserveBal
+        ? ReserveBal.toJSON(message.reserveBal)
+        : undefined);
+    if (message.allReserveStats) {
+      obj.allReserveStats = message.allReserveStats.map((e) =>
+        e ? AllReserveStats.toJSON(e) : undefined
+      );
+    } else {
+      obj.allReserveStats = [];
+    }
     return obj;
   },
 
@@ -345,6 +394,16 @@ export const GenesisState = {
     message.assetRatesParams =
       object.assetRatesParams?.map((e) => AssetRatesParams.fromPartial(e)) ||
       [];
+    message.modBal =
+      object.modBal !== undefined && object.modBal !== null
+        ? ModBal.fromPartial(object.modBal)
+        : undefined;
+    message.reserveBal =
+      object.reserveBal !== undefined && object.reserveBal !== null
+        ? ReserveBal.fromPartial(object.reserveBal)
+        : undefined;
+    message.allReserveStats =
+      object.allReserveStats?.map((e) => AllReserveStats.fromPartial(e)) || [];
     return message;
   },
 };
@@ -381,4 +440,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

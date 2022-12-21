@@ -7,8 +7,8 @@ import { Timestamp } from "../../../google/protobuf/timestamp";
 export const protobufPackage = "comdex.rewards.v1beta1";
 
 export interface InternalRewards {
-  appMappingID: Long;
-  assetID: Long;
+  appMappingId: Long;
+  assetId: Long;
 }
 
 export interface LockerRewardsTracker {
@@ -65,7 +65,7 @@ export interface LendExternalRewards {
   appMappingId: Long;
   rewardsAssetPoolData?: RewardsAssetPoolData;
   totalRewards?: Coin;
-  rewardAssetId: Long;
+  masterPoolId: Long;
   durationDays: Long;
   isActive: boolean;
   availableRewards?: Coin;
@@ -79,10 +79,12 @@ export interface LendExternalRewards {
 export interface RewardsAssetPoolData {
   cPoolId: Long;
   assetId: Long[];
+  cSwapAppId: Long;
+  cSwapMinLockAmount: Long;
 }
 
 function createBaseInternalRewards(): InternalRewards {
-  return { appMappingID: Long.UZERO, assetID: Long.UZERO };
+  return { appMappingId: Long.UZERO, assetId: Long.UZERO };
 }
 
 export const InternalRewards = {
@@ -90,11 +92,11 @@ export const InternalRewards = {
     message: InternalRewards,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (!message.appMappingID.isZero()) {
-      writer.uint32(8).uint64(message.appMappingID);
+    if (!message.appMappingId.isZero()) {
+      writer.uint32(8).uint64(message.appMappingId);
     }
-    if (!message.assetID.isZero()) {
-      writer.uint32(16).uint64(message.assetID);
+    if (!message.assetId.isZero()) {
+      writer.uint32(16).uint64(message.assetId);
     }
     return writer;
   },
@@ -107,10 +109,10 @@ export const InternalRewards = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.appMappingID = reader.uint64() as Long;
+          message.appMappingId = reader.uint64() as Long;
           break;
         case 2:
-          message.assetID = reader.uint64() as Long;
+          message.assetId = reader.uint64() as Long;
           break;
         default:
           reader.skipType(tag & 7);
@@ -122,21 +124,21 @@ export const InternalRewards = {
 
   fromJSON(object: any): InternalRewards {
     return {
-      appMappingID: isSet(object.appMappingID)
-        ? Long.fromValue(object.appMappingID)
+      appMappingId: isSet(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO,
-      assetID: isSet(object.assetID)
-        ? Long.fromValue(object.assetID)
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
         : Long.UZERO,
     };
   },
 
   toJSON(message: InternalRewards): unknown {
     const obj: any = {};
-    message.appMappingID !== undefined &&
-      (obj.appMappingID = (message.appMappingID || Long.UZERO).toString());
-    message.assetID !== undefined &&
-      (obj.assetID = (message.assetID || Long.UZERO).toString());
+    message.appMappingId !== undefined &&
+      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
     return obj;
   },
 
@@ -144,13 +146,13 @@ export const InternalRewards = {
     object: I
   ): InternalRewards {
     const message = createBaseInternalRewards();
-    message.appMappingID =
-      object.appMappingID !== undefined && object.appMappingID !== null
-        ? Long.fromValue(object.appMappingID)
+    message.appMappingId =
+      object.appMappingId !== undefined && object.appMappingId !== null
+        ? Long.fromValue(object.appMappingId)
         : Long.UZERO;
-    message.assetID =
-      object.assetID !== undefined && object.assetID !== null
-        ? Long.fromValue(object.assetID)
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
         : Long.UZERO;
     return message;
   },
@@ -932,7 +934,7 @@ function createBaseLendExternalRewards(): LendExternalRewards {
     appMappingId: Long.UZERO,
     rewardsAssetPoolData: undefined,
     totalRewards: undefined,
-    rewardAssetId: Long.UZERO,
+    masterPoolId: Long.ZERO,
     durationDays: Long.ZERO,
     isActive: false,
     availableRewards: undefined,
@@ -964,8 +966,8 @@ export const LendExternalRewards = {
     if (message.totalRewards !== undefined) {
       Coin.encode(message.totalRewards, writer.uint32(34).fork()).ldelim();
     }
-    if (!message.rewardAssetId.isZero()) {
-      writer.uint32(40).uint64(message.rewardAssetId);
+    if (!message.masterPoolId.isZero()) {
+      writer.uint32(40).int64(message.masterPoolId);
     }
     if (!message.durationDays.isZero()) {
       writer.uint32(48).int64(message.durationDays);
@@ -1023,7 +1025,7 @@ export const LendExternalRewards = {
           message.totalRewards = Coin.decode(reader, reader.uint32());
           break;
         case 5:
-          message.rewardAssetId = reader.uint64() as Long;
+          message.masterPoolId = reader.int64() as Long;
           break;
         case 6:
           message.durationDays = reader.int64() as Long;
@@ -1073,9 +1075,9 @@ export const LendExternalRewards = {
       totalRewards: isSet(object.totalRewards)
         ? Coin.fromJSON(object.totalRewards)
         : undefined,
-      rewardAssetId: isSet(object.rewardAssetId)
-        ? Long.fromValue(object.rewardAssetId)
-        : Long.UZERO,
+      masterPoolId: isSet(object.masterPoolId)
+        ? Long.fromValue(object.masterPoolId)
+        : Long.ZERO,
       durationDays: isSet(object.durationDays)
         ? Long.fromValue(object.durationDays)
         : Long.ZERO,
@@ -1113,8 +1115,8 @@ export const LendExternalRewards = {
       (obj.totalRewards = message.totalRewards
         ? Coin.toJSON(message.totalRewards)
         : undefined);
-    message.rewardAssetId !== undefined &&
-      (obj.rewardAssetId = (message.rewardAssetId || Long.UZERO).toString());
+    message.masterPoolId !== undefined &&
+      (obj.masterPoolId = (message.masterPoolId || Long.ZERO).toString());
     message.durationDays !== undefined &&
       (obj.durationDays = (message.durationDays || Long.ZERO).toString());
     message.isActive !== undefined && (obj.isActive = message.isActive);
@@ -1157,10 +1159,10 @@ export const LendExternalRewards = {
       object.totalRewards !== undefined && object.totalRewards !== null
         ? Coin.fromPartial(object.totalRewards)
         : undefined;
-    message.rewardAssetId =
-      object.rewardAssetId !== undefined && object.rewardAssetId !== null
-        ? Long.fromValue(object.rewardAssetId)
-        : Long.UZERO;
+    message.masterPoolId =
+      object.masterPoolId !== undefined && object.masterPoolId !== null
+        ? Long.fromValue(object.masterPoolId)
+        : Long.ZERO;
     message.durationDays =
       object.durationDays !== undefined && object.durationDays !== null
         ? Long.fromValue(object.durationDays)
@@ -1187,7 +1189,12 @@ export const LendExternalRewards = {
 };
 
 function createBaseRewardsAssetPoolData(): RewardsAssetPoolData {
-  return { cPoolId: Long.UZERO, assetId: [] };
+  return {
+    cPoolId: Long.UZERO,
+    assetId: [],
+    cSwapAppId: Long.UZERO,
+    cSwapMinLockAmount: Long.UZERO,
+  };
 }
 
 export const RewardsAssetPoolData = {
@@ -1203,6 +1210,12 @@ export const RewardsAssetPoolData = {
       writer.uint64(v);
     }
     writer.ldelim();
+    if (!message.cSwapAppId.isZero()) {
+      writer.uint32(24).uint64(message.cSwapAppId);
+    }
+    if (!message.cSwapMinLockAmount.isZero()) {
+      writer.uint32(32).uint64(message.cSwapMinLockAmount);
+    }
     return writer;
   },
 
@@ -1229,6 +1242,12 @@ export const RewardsAssetPoolData = {
             message.assetId.push(reader.uint64() as Long);
           }
           break;
+        case 3:
+          message.cSwapAppId = reader.uint64() as Long;
+          break;
+        case 4:
+          message.cSwapMinLockAmount = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1245,6 +1264,12 @@ export const RewardsAssetPoolData = {
       assetId: Array.isArray(object?.assetId)
         ? object.assetId.map((e: any) => Long.fromValue(e))
         : [],
+      cSwapAppId: isSet(object.cSwapAppId)
+        ? Long.fromValue(object.cSwapAppId)
+        : Long.UZERO,
+      cSwapMinLockAmount: isSet(object.cSwapMinLockAmount)
+        ? Long.fromValue(object.cSwapMinLockAmount)
+        : Long.UZERO,
     };
   },
 
@@ -1257,6 +1282,12 @@ export const RewardsAssetPoolData = {
     } else {
       obj.assetId = [];
     }
+    message.cSwapAppId !== undefined &&
+      (obj.cSwapAppId = (message.cSwapAppId || Long.UZERO).toString());
+    message.cSwapMinLockAmount !== undefined &&
+      (obj.cSwapMinLockAmount = (
+        message.cSwapMinLockAmount || Long.UZERO
+      ).toString());
     return obj;
   },
 
@@ -1269,6 +1300,15 @@ export const RewardsAssetPoolData = {
         ? Long.fromValue(object.cPoolId)
         : Long.UZERO;
     message.assetId = object.assetId?.map((e) => Long.fromValue(e)) || [];
+    message.cSwapAppId =
+      object.cSwapAppId !== undefined && object.cSwapAppId !== null
+        ? Long.fromValue(object.cSwapAppId)
+        : Long.UZERO;
+    message.cSwapMinLockAmount =
+      object.cSwapMinLockAmount !== undefined &&
+      object.cSwapMinLockAmount !== null
+        ? Long.fromValue(object.cSwapMinLockAmount)
+        : Long.UZERO;
     return message;
   },
 };

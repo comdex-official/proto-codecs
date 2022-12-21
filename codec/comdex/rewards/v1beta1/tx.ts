@@ -73,6 +73,21 @@ export interface ActivateExternalRewardsVault {
 
 export interface ActivateExternalRewardsVaultResponse {}
 
+export interface ActivateExternalRewardsLend {
+  appMappingId: Long;
+  cPoolId: Long;
+  assetId: Long[];
+  cSwapAppId: Long;
+  cSwapMinLockAmount: Long;
+  totalRewards?: Coin;
+  masterPoolId: Long;
+  durationDays: Long;
+  minLockupTimeSeconds: Long;
+  depositor: string;
+}
+
+export interface ActivateExternalRewardsLendResponse {}
+
 function createBaseMsgCreateGauge(): MsgCreateGauge {
   return {
     from: "",
@@ -1186,6 +1201,273 @@ export const ActivateExternalRewardsVaultResponse = {
   },
 };
 
+function createBaseActivateExternalRewardsLend(): ActivateExternalRewardsLend {
+  return {
+    appMappingId: Long.UZERO,
+    cPoolId: Long.UZERO,
+    assetId: [],
+    cSwapAppId: Long.UZERO,
+    cSwapMinLockAmount: Long.UZERO,
+    totalRewards: undefined,
+    masterPoolId: Long.ZERO,
+    durationDays: Long.ZERO,
+    minLockupTimeSeconds: Long.ZERO,
+    depositor: "",
+  };
+}
+
+export const ActivateExternalRewardsLend = {
+  encode(
+    message: ActivateExternalRewardsLend,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appMappingId.isZero()) {
+      writer.uint32(8).uint64(message.appMappingId);
+    }
+    if (!message.cPoolId.isZero()) {
+      writer.uint32(16).uint64(message.cPoolId);
+    }
+    writer.uint32(26).fork();
+    for (const v of message.assetId) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    if (!message.cSwapAppId.isZero()) {
+      writer.uint32(32).uint64(message.cSwapAppId);
+    }
+    if (!message.cSwapMinLockAmount.isZero()) {
+      writer.uint32(40).uint64(message.cSwapMinLockAmount);
+    }
+    if (message.totalRewards !== undefined) {
+      Coin.encode(message.totalRewards, writer.uint32(50).fork()).ldelim();
+    }
+    if (!message.masterPoolId.isZero()) {
+      writer.uint32(56).int64(message.masterPoolId);
+    }
+    if (!message.durationDays.isZero()) {
+      writer.uint32(64).int64(message.durationDays);
+    }
+    if (!message.minLockupTimeSeconds.isZero()) {
+      writer.uint32(72).int64(message.minLockupTimeSeconds);
+    }
+    if (message.depositor !== "") {
+      writer.uint32(82).string(message.depositor);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): ActivateExternalRewardsLend {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseActivateExternalRewardsLend();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appMappingId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.cPoolId = reader.uint64() as Long;
+          break;
+        case 3:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.assetId.push(reader.uint64() as Long);
+            }
+          } else {
+            message.assetId.push(reader.uint64() as Long);
+          }
+          break;
+        case 4:
+          message.cSwapAppId = reader.uint64() as Long;
+          break;
+        case 5:
+          message.cSwapMinLockAmount = reader.uint64() as Long;
+          break;
+        case 6:
+          message.totalRewards = Coin.decode(reader, reader.uint32());
+          break;
+        case 7:
+          message.masterPoolId = reader.int64() as Long;
+          break;
+        case 8:
+          message.durationDays = reader.int64() as Long;
+          break;
+        case 9:
+          message.minLockupTimeSeconds = reader.int64() as Long;
+          break;
+        case 10:
+          message.depositor = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ActivateExternalRewardsLend {
+    return {
+      appMappingId: isSet(object.appMappingId)
+        ? Long.fromValue(object.appMappingId)
+        : Long.UZERO,
+      cPoolId: isSet(object.cPoolId)
+        ? Long.fromValue(object.cPoolId)
+        : Long.UZERO,
+      assetId: Array.isArray(object?.assetId)
+        ? object.assetId.map((e: any) => Long.fromValue(e))
+        : [],
+      cSwapAppId: isSet(object.cSwapAppId)
+        ? Long.fromValue(object.cSwapAppId)
+        : Long.UZERO,
+      cSwapMinLockAmount: isSet(object.cSwapMinLockAmount)
+        ? Long.fromValue(object.cSwapMinLockAmount)
+        : Long.UZERO,
+      totalRewards: isSet(object.totalRewards)
+        ? Coin.fromJSON(object.totalRewards)
+        : undefined,
+      masterPoolId: isSet(object.masterPoolId)
+        ? Long.fromValue(object.masterPoolId)
+        : Long.ZERO,
+      durationDays: isSet(object.durationDays)
+        ? Long.fromValue(object.durationDays)
+        : Long.ZERO,
+      minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
+        ? Long.fromValue(object.minLockupTimeSeconds)
+        : Long.ZERO,
+      depositor: isSet(object.depositor) ? String(object.depositor) : "",
+    };
+  },
+
+  toJSON(message: ActivateExternalRewardsLend): unknown {
+    const obj: any = {};
+    message.appMappingId !== undefined &&
+      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.cPoolId !== undefined &&
+      (obj.cPoolId = (message.cPoolId || Long.UZERO).toString());
+    if (message.assetId) {
+      obj.assetId = message.assetId.map((e) => (e || Long.UZERO).toString());
+    } else {
+      obj.assetId = [];
+    }
+    message.cSwapAppId !== undefined &&
+      (obj.cSwapAppId = (message.cSwapAppId || Long.UZERO).toString());
+    message.cSwapMinLockAmount !== undefined &&
+      (obj.cSwapMinLockAmount = (
+        message.cSwapMinLockAmount || Long.UZERO
+      ).toString());
+    message.totalRewards !== undefined &&
+      (obj.totalRewards = message.totalRewards
+        ? Coin.toJSON(message.totalRewards)
+        : undefined);
+    message.masterPoolId !== undefined &&
+      (obj.masterPoolId = (message.masterPoolId || Long.ZERO).toString());
+    message.durationDays !== undefined &&
+      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+    message.minLockupTimeSeconds !== undefined &&
+      (obj.minLockupTimeSeconds = (
+        message.minLockupTimeSeconds || Long.ZERO
+      ).toString());
+    message.depositor !== undefined && (obj.depositor = message.depositor);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsLend>, I>>(
+    object: I
+  ): ActivateExternalRewardsLend {
+    const message = createBaseActivateExternalRewardsLend();
+    message.appMappingId =
+      object.appMappingId !== undefined && object.appMappingId !== null
+        ? Long.fromValue(object.appMappingId)
+        : Long.UZERO;
+    message.cPoolId =
+      object.cPoolId !== undefined && object.cPoolId !== null
+        ? Long.fromValue(object.cPoolId)
+        : Long.UZERO;
+    message.assetId = object.assetId?.map((e) => Long.fromValue(e)) || [];
+    message.cSwapAppId =
+      object.cSwapAppId !== undefined && object.cSwapAppId !== null
+        ? Long.fromValue(object.cSwapAppId)
+        : Long.UZERO;
+    message.cSwapMinLockAmount =
+      object.cSwapMinLockAmount !== undefined &&
+      object.cSwapMinLockAmount !== null
+        ? Long.fromValue(object.cSwapMinLockAmount)
+        : Long.UZERO;
+    message.totalRewards =
+      object.totalRewards !== undefined && object.totalRewards !== null
+        ? Coin.fromPartial(object.totalRewards)
+        : undefined;
+    message.masterPoolId =
+      object.masterPoolId !== undefined && object.masterPoolId !== null
+        ? Long.fromValue(object.masterPoolId)
+        : Long.ZERO;
+    message.durationDays =
+      object.durationDays !== undefined && object.durationDays !== null
+        ? Long.fromValue(object.durationDays)
+        : Long.ZERO;
+    message.minLockupTimeSeconds =
+      object.minLockupTimeSeconds !== undefined &&
+      object.minLockupTimeSeconds !== null
+        ? Long.fromValue(object.minLockupTimeSeconds)
+        : Long.ZERO;
+    message.depositor = object.depositor ?? "";
+    return message;
+  },
+};
+
+function createBaseActivateExternalRewardsLendResponse(): ActivateExternalRewardsLendResponse {
+  return {};
+}
+
+export const ActivateExternalRewardsLendResponse = {
+  encode(
+    _: ActivateExternalRewardsLendResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): ActivateExternalRewardsLendResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseActivateExternalRewardsLendResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ActivateExternalRewardsLendResponse {
+    return {};
+  },
+
+  toJSON(_: ActivateExternalRewardsLendResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<ActivateExternalRewardsLendResponse>, I>
+  >(_: I): ActivateExternalRewardsLendResponse {
+    const message = createBaseActivateExternalRewardsLendResponse();
+    return message;
+  },
+};
+
 export interface Msg {
   CreateGauge(request: MsgCreateGauge): Promise<MsgCreateGaugeResponse>;
   ExternalRewardsLockers(
@@ -1194,6 +1476,9 @@ export interface Msg {
   ExternalRewardsVault(
     request: ActivateExternalRewardsVault
   ): Promise<ActivateExternalRewardsVaultResponse>;
+  ExternalRewardsLend(
+    request: ActivateExternalRewardsLend
+  ): Promise<ActivateExternalRewardsLendResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1203,6 +1488,7 @@ export class MsgClientImpl implements Msg {
     this.CreateGauge = this.CreateGauge.bind(this);
     this.ExternalRewardsLockers = this.ExternalRewardsLockers.bind(this);
     this.ExternalRewardsVault = this.ExternalRewardsVault.bind(this);
+    this.ExternalRewardsLend = this.ExternalRewardsLend.bind(this);
   }
   CreateGauge(request: MsgCreateGauge): Promise<MsgCreateGaugeResponse> {
     const data = MsgCreateGauge.encode(request).finish();
@@ -1241,6 +1527,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       ActivateExternalRewardsVaultResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  ExternalRewardsLend(
+    request: ActivateExternalRewardsLend
+  ): Promise<ActivateExternalRewardsLendResponse> {
+    const data = ActivateExternalRewardsLend.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.rewards.v1beta1.Msg",
+      "ExternalRewardsLend",
+      data
+    );
+    return promise.then((data) =>
+      ActivateExternalRewardsLendResponse.decode(new _m0.Reader(data))
     );
   }
 }
