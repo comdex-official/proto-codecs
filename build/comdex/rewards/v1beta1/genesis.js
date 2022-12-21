@@ -43,6 +43,7 @@ function createBaseGenesisState() {
         gauge: [],
         gaugeByTriggerDuration: [],
         params: undefined,
+        lendExternalRewards: [],
     };
 }
 exports.GenesisState = {
@@ -78,6 +79,9 @@ exports.GenesisState = {
         }
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(82).fork()).ldelim();
+        }
+        for (const v of message.lendExternalRewards) {
+            rewards_1.LendExternalRewards.encode(v, writer.uint32(90).fork()).ldelim();
         }
         return writer;
     },
@@ -126,6 +130,9 @@ exports.GenesisState = {
                 case 10:
                     message.params = params_1.Params.decode(reader, reader.uint32());
                     break;
+                case 11:
+                    message.lendExternalRewards.push(rewards_1.LendExternalRewards.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -163,6 +170,9 @@ exports.GenesisState = {
                 ? object.gaugeByTriggerDuration.map((e) => gauge_1.GaugeByTriggerDuration.fromJSON(e))
                 : [],
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
+            lendExternalRewards: Array.isArray(object === null || object === void 0 ? void 0 : object.lendExternalRewards)
+                ? object.lendExternalRewards.map((e) => rewards_1.LendExternalRewards.fromJSON(e))
+                : [],
         };
     },
     toJSON(message) {
@@ -223,10 +233,16 @@ exports.GenesisState = {
         }
         message.params !== undefined &&
             (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
+        if (message.lendExternalRewards) {
+            obj.lendExternalRewards = message.lendExternalRewards.map((e) => e ? rewards_1.LendExternalRewards.toJSON(e) : undefined);
+        }
+        else {
+            obj.lendExternalRewards = [];
+        }
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         const message = createBaseGenesisState();
         message.internalRewards =
             ((_a = object.internalRewards) === null || _a === void 0 ? void 0 : _a.map((e) => rewards_1.InternalRewards.fromPartial(e))) || [];
@@ -248,6 +264,8 @@ exports.GenesisState = {
             object.params !== undefined && object.params !== null
                 ? params_1.Params.fromPartial(object.params)
                 : undefined;
+        message.lendExternalRewards =
+            ((_k = object.lendExternalRewards) === null || _k === void 0 ? void 0 : _k.map((e) => rewards_1.LendExternalRewards.fromPartial(e))) || [];
         return message;
     },
 };
