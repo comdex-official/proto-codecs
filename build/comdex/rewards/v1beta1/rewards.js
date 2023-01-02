@@ -30,15 +30,15 @@ const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.rewards.v1beta1";
 function createBaseInternalRewards() {
-    return { appMappingID: long_1.default.UZERO, assetID: long_1.default.UZERO };
+    return { appMappingId: long_1.default.UZERO, assetId: long_1.default.UZERO };
 }
 exports.InternalRewards = {
     encode(message, writer = _m0.Writer.create()) {
-        if (!message.appMappingID.isZero()) {
-            writer.uint32(8).uint64(message.appMappingID);
+        if (!message.appMappingId.isZero()) {
+            writer.uint32(8).uint64(message.appMappingId);
         }
-        if (!message.assetID.isZero()) {
-            writer.uint32(16).uint64(message.assetID);
+        if (!message.assetId.isZero()) {
+            writer.uint32(16).uint64(message.assetId);
         }
         return writer;
     },
@@ -50,10 +50,10 @@ exports.InternalRewards = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.appMappingID = reader.uint64();
+                    message.appMappingId = reader.uint64();
                     break;
                 case 2:
-                    message.assetID = reader.uint64();
+                    message.assetId = reader.uint64();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -64,31 +64,31 @@ exports.InternalRewards = {
     },
     fromJSON(object) {
         return {
-            appMappingID: isSet(object.appMappingID)
-                ? long_1.default.fromValue(object.appMappingID)
+            appMappingId: isSet(object.appMappingId)
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO,
-            assetID: isSet(object.assetID)
-                ? long_1.default.fromValue(object.assetID)
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.appMappingID !== undefined &&
-            (obj.appMappingID = (message.appMappingID || long_1.default.UZERO).toString());
-        message.assetID !== undefined &&
-            (obj.assetID = (message.assetID || long_1.default.UZERO).toString());
+        message.appMappingId !== undefined &&
+            (obj.appMappingId = (message.appMappingId || long_1.default.UZERO).toString());
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
         const message = createBaseInternalRewards();
-        message.appMappingID =
-            object.appMappingID !== undefined && object.appMappingID !== null
-                ? long_1.default.fromValue(object.appMappingID)
+        message.appMappingId =
+            object.appMappingId !== undefined && object.appMappingId !== null
+                ? long_1.default.fromValue(object.appMappingId)
                 : long_1.default.UZERO;
-        message.assetID =
-            object.assetID !== undefined && object.assetID !== null
-                ? long_1.default.fromValue(object.assetID)
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
                 : long_1.default.UZERO;
         return message;
     },
@@ -782,7 +782,7 @@ function createBaseLendExternalRewards() {
         appMappingId: long_1.default.UZERO,
         rewardsAssetPoolData: undefined,
         totalRewards: undefined,
-        rewardAssetId: long_1.default.UZERO,
+        masterPoolId: long_1.default.ZERO,
         durationDays: long_1.default.ZERO,
         isActive: false,
         availableRewards: undefined,
@@ -807,8 +807,8 @@ exports.LendExternalRewards = {
         if (message.totalRewards !== undefined) {
             coin_1.Coin.encode(message.totalRewards, writer.uint32(34).fork()).ldelim();
         }
-        if (!message.rewardAssetId.isZero()) {
-            writer.uint32(40).uint64(message.rewardAssetId);
+        if (!message.masterPoolId.isZero()) {
+            writer.uint32(40).int64(message.masterPoolId);
         }
         if (!message.durationDays.isZero()) {
             writer.uint32(48).int64(message.durationDays);
@@ -856,7 +856,7 @@ exports.LendExternalRewards = {
                     message.totalRewards = coin_1.Coin.decode(reader, reader.uint32());
                     break;
                 case 5:
-                    message.rewardAssetId = reader.uint64();
+                    message.masterPoolId = reader.int64();
                     break;
                 case 6:
                     message.durationDays = reader.int64();
@@ -901,9 +901,9 @@ exports.LendExternalRewards = {
             totalRewards: isSet(object.totalRewards)
                 ? coin_1.Coin.fromJSON(object.totalRewards)
                 : undefined,
-            rewardAssetId: isSet(object.rewardAssetId)
-                ? long_1.default.fromValue(object.rewardAssetId)
-                : long_1.default.UZERO,
+            masterPoolId: isSet(object.masterPoolId)
+                ? long_1.default.fromValue(object.masterPoolId)
+                : long_1.default.ZERO,
             durationDays: isSet(object.durationDays)
                 ? long_1.default.fromValue(object.durationDays)
                 : long_1.default.ZERO,
@@ -940,8 +940,8 @@ exports.LendExternalRewards = {
             (obj.totalRewards = message.totalRewards
                 ? coin_1.Coin.toJSON(message.totalRewards)
                 : undefined);
-        message.rewardAssetId !== undefined &&
-            (obj.rewardAssetId = (message.rewardAssetId || long_1.default.UZERO).toString());
+        message.masterPoolId !== undefined &&
+            (obj.masterPoolId = (message.masterPoolId || long_1.default.ZERO).toString());
         message.durationDays !== undefined &&
             (obj.durationDays = (message.durationDays || long_1.default.ZERO).toString());
         message.isActive !== undefined && (obj.isActive = message.isActive);
@@ -980,10 +980,10 @@ exports.LendExternalRewards = {
             object.totalRewards !== undefined && object.totalRewards !== null
                 ? coin_1.Coin.fromPartial(object.totalRewards)
                 : undefined;
-        message.rewardAssetId =
-            object.rewardAssetId !== undefined && object.rewardAssetId !== null
-                ? long_1.default.fromValue(object.rewardAssetId)
-                : long_1.default.UZERO;
+        message.masterPoolId =
+            object.masterPoolId !== undefined && object.masterPoolId !== null
+                ? long_1.default.fromValue(object.masterPoolId)
+                : long_1.default.ZERO;
         message.durationDays =
             object.durationDays !== undefined && object.durationDays !== null
                 ? long_1.default.fromValue(object.durationDays)
@@ -1009,7 +1009,12 @@ exports.LendExternalRewards = {
     },
 };
 function createBaseRewardsAssetPoolData() {
-    return { cPoolId: long_1.default.UZERO, assetId: [] };
+    return {
+        cPoolId: long_1.default.UZERO,
+        assetId: [],
+        cSwapAppId: long_1.default.UZERO,
+        cSwapMinLockAmount: long_1.default.UZERO,
+    };
 }
 exports.RewardsAssetPoolData = {
     encode(message, writer = _m0.Writer.create()) {
@@ -1021,6 +1026,12 @@ exports.RewardsAssetPoolData = {
             writer.uint64(v);
         }
         writer.ldelim();
+        if (!message.cSwapAppId.isZero()) {
+            writer.uint32(24).uint64(message.cSwapAppId);
+        }
+        if (!message.cSwapMinLockAmount.isZero()) {
+            writer.uint32(32).uint64(message.cSwapMinLockAmount);
+        }
         return writer;
     },
     decode(input, length) {
@@ -1044,6 +1055,12 @@ exports.RewardsAssetPoolData = {
                         message.assetId.push(reader.uint64());
                     }
                     break;
+                case 3:
+                    message.cSwapAppId = reader.uint64();
+                    break;
+                case 4:
+                    message.cSwapMinLockAmount = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1059,6 +1076,12 @@ exports.RewardsAssetPoolData = {
             assetId: Array.isArray(object === null || object === void 0 ? void 0 : object.assetId)
                 ? object.assetId.map((e) => long_1.default.fromValue(e))
                 : [],
+            cSwapAppId: isSet(object.cSwapAppId)
+                ? long_1.default.fromValue(object.cSwapAppId)
+                : long_1.default.UZERO,
+            cSwapMinLockAmount: isSet(object.cSwapMinLockAmount)
+                ? long_1.default.fromValue(object.cSwapMinLockAmount)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1071,6 +1094,10 @@ exports.RewardsAssetPoolData = {
         else {
             obj.assetId = [];
         }
+        message.cSwapAppId !== undefined &&
+            (obj.cSwapAppId = (message.cSwapAppId || long_1.default.UZERO).toString());
+        message.cSwapMinLockAmount !== undefined &&
+            (obj.cSwapMinLockAmount = (message.cSwapMinLockAmount || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -1081,6 +1108,15 @@ exports.RewardsAssetPoolData = {
                 ? long_1.default.fromValue(object.cPoolId)
                 : long_1.default.UZERO;
         message.assetId = ((_a = object.assetId) === null || _a === void 0 ? void 0 : _a.map((e) => long_1.default.fromValue(e))) || [];
+        message.cSwapAppId =
+            object.cSwapAppId !== undefined && object.cSwapAppId !== null
+                ? long_1.default.fromValue(object.cSwapAppId)
+                : long_1.default.UZERO;
+        message.cSwapMinLockAmount =
+            object.cSwapMinLockAmount !== undefined &&
+                object.cSwapMinLockAmount !== null
+                ? long_1.default.fromValue(object.cSwapMinLockAmount)
+                : long_1.default.UZERO;
         return message;
     },
 };
