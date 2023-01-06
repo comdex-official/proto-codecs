@@ -42,6 +42,9 @@ function createBaseGenesisState() {
         extendedPair: [],
         auctionParams: [],
         assetRatesParams: [],
+        modBal: undefined,
+        reserveBal: undefined,
+        allReserveStats: [],
     };
 }
 exports.GenesisState = {
@@ -81,6 +84,15 @@ exports.GenesisState = {
         }
         for (const v of message.assetRatesParams) {
             lend_1.AssetRatesParams.encode(v, writer.uint32(98).fork()).ldelim();
+        }
+        if (message.modBal !== undefined) {
+            lend_1.ModBal.encode(message.modBal, writer.uint32(106).fork()).ldelim();
+        }
+        if (message.reserveBal !== undefined) {
+            lend_1.ReserveBal.encode(message.reserveBal, writer.uint32(114).fork()).ldelim();
+        }
+        for (const v of message.allReserveStats) {
+            lend_1.AllReserveStats.encode(v, writer.uint32(122).fork()).ldelim();
         }
         return writer;
     },
@@ -127,6 +139,15 @@ exports.GenesisState = {
                 case 12:
                     message.assetRatesParams.push(lend_1.AssetRatesParams.decode(reader, reader.uint32()));
                     break;
+                case 13:
+                    message.modBal = lend_1.ModBal.decode(reader, reader.uint32());
+                    break;
+                case 14:
+                    message.reserveBal = lend_1.ReserveBal.decode(reader, reader.uint32());
+                    break;
+                case 15:
+                    message.allReserveStats.push(lend_1.AllReserveStats.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -171,6 +192,13 @@ exports.GenesisState = {
                 : [],
             assetRatesParams: Array.isArray(object === null || object === void 0 ? void 0 : object.assetRatesParams)
                 ? object.assetRatesParams.map((e) => lend_1.AssetRatesParams.fromJSON(e))
+                : [],
+            modBal: isSet(object.modBal) ? lend_1.ModBal.fromJSON(object.modBal) : undefined,
+            reserveBal: isSet(object.reserveBal)
+                ? lend_1.ReserveBal.fromJSON(object.reserveBal)
+                : undefined,
+            allReserveStats: Array.isArray(object === null || object === void 0 ? void 0 : object.allReserveStats)
+                ? object.allReserveStats.map((e) => lend_1.AllReserveStats.fromJSON(e))
                 : [],
         };
     },
@@ -248,10 +276,22 @@ exports.GenesisState = {
         else {
             obj.assetRatesParams = [];
         }
+        message.modBal !== undefined &&
+            (obj.modBal = message.modBal ? lend_1.ModBal.toJSON(message.modBal) : undefined);
+        message.reserveBal !== undefined &&
+            (obj.reserveBal = message.reserveBal
+                ? lend_1.ReserveBal.toJSON(message.reserveBal)
+                : undefined);
+        if (message.allReserveStats) {
+            obj.allReserveStats = message.allReserveStats.map((e) => e ? lend_1.AllReserveStats.toJSON(e) : undefined);
+        }
+        else {
+            obj.allReserveStats = [];
+        }
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
         const message = createBaseGenesisState();
         message.borrowAsset =
             ((_a = object.borrowAsset) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.BorrowAsset.fromPartial(e))) || [];
@@ -277,11 +317,24 @@ exports.GenesisState = {
         message.assetRatesParams =
             ((_m = object.assetRatesParams) === null || _m === void 0 ? void 0 : _m.map((e) => lend_1.AssetRatesParams.fromPartial(e))) ||
                 [];
+        message.modBal =
+            object.modBal !== undefined && object.modBal !== null
+                ? lend_1.ModBal.fromPartial(object.modBal)
+                : undefined;
+        message.reserveBal =
+            object.reserveBal !== undefined && object.reserveBal !== null
+                ? lend_1.ReserveBal.fromPartial(object.reserveBal)
+                : undefined;
+        message.allReserveStats =
+            ((_o = object.allReserveStats) === null || _o === void 0 ? void 0 : _o.map((e) => lend_1.AllReserveStats.fromPartial(e))) || [];
         return message;
     },
 };
 if (_m0.util.Long !== long_1.default) {
     _m0.util.Long = long_1.default;
     _m0.configure();
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=genesis.js.map

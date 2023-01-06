@@ -84,6 +84,12 @@ export interface MsgCalculateInterestAndRewards {
   borrower: string;
 }
 
+export interface MsgFundReserveAccounts {
+  assetId: Long;
+  lender: string;
+  amount?: Coin;
+}
+
 export interface MsgLendResponse {}
 
 export interface MsgWithdrawResponse {}
@@ -107,6 +113,8 @@ export interface MsgBorrowAlternateResponse {}
 export interface MsgFundModuleAccountsResponse {}
 
 export interface MsgCalculateInterestAndRewardsResponse {}
+
+export interface MsgFundReserveAccountsResponse {}
 
 function createBaseMsgLend(): MsgLend {
   return {
@@ -1214,6 +1222,91 @@ export const MsgCalculateInterestAndRewards = {
   },
 };
 
+function createBaseMsgFundReserveAccounts(): MsgFundReserveAccounts {
+  return { assetId: Long.UZERO, lender: "", amount: undefined };
+}
+
+export const MsgFundReserveAccounts = {
+  encode(
+    message: MsgFundReserveAccounts,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.assetId.isZero()) {
+      writer.uint32(8).uint64(message.assetId);
+    }
+    if (message.lender !== "") {
+      writer.uint32(18).string(message.lender);
+    }
+    if (message.amount !== undefined) {
+      Coin.encode(message.amount, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgFundReserveAccounts {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgFundReserveAccounts();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.lender = reader.string();
+          break;
+        case 3:
+          message.amount = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgFundReserveAccounts {
+    return {
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+      lender: isSet(object.lender) ? String(object.lender) : "",
+      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
+    };
+  },
+
+  toJSON(message: MsgFundReserveAccounts): unknown {
+    const obj: any = {};
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.lender !== undefined && (obj.lender = message.lender);
+    message.amount !== undefined &&
+      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgFundReserveAccounts>, I>>(
+    object: I
+  ): MsgFundReserveAccounts {
+    const message = createBaseMsgFundReserveAccounts();
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    message.lender = object.lender ?? "";
+    message.amount =
+      object.amount !== undefined && object.amount !== null
+        ? Coin.fromPartial(object.amount)
+        : undefined;
+    return message;
+  },
+};
+
 function createBaseMsgLendResponse(): MsgLendResponse {
   return {};
 }
@@ -1760,6 +1853,53 @@ export const MsgCalculateInterestAndRewardsResponse = {
   },
 };
 
+function createBaseMsgFundReserveAccountsResponse(): MsgFundReserveAccountsResponse {
+  return {};
+}
+
+export const MsgFundReserveAccountsResponse = {
+  encode(
+    _: MsgFundReserveAccountsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgFundReserveAccountsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgFundReserveAccountsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgFundReserveAccountsResponse {
+    return {};
+  },
+
+  toJSON(_: MsgFundReserveAccountsResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgFundReserveAccountsResponse>, I>>(
+    _: I
+  ): MsgFundReserveAccountsResponse {
+    const message = createBaseMsgFundReserveAccountsResponse();
+    return message;
+  },
+};
+
 export interface Msg {
   /** LendAsset defines a method for lending coins to the ModuleAccount. */
   Lend(request: MsgLend): Promise<MsgLendResponse>;
@@ -1787,6 +1927,9 @@ export interface Msg {
   CalculateInterestAndRewards(
     request: MsgCalculateInterestAndRewards
   ): Promise<MsgCalculateInterestAndRewardsResponse>;
+  FundReserveAccounts(
+    request: MsgFundReserveAccounts
+  ): Promise<MsgFundReserveAccountsResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1806,6 +1949,7 @@ export class MsgClientImpl implements Msg {
     this.FundModuleAccounts = this.FundModuleAccounts.bind(this);
     this.CalculateInterestAndRewards =
       this.CalculateInterestAndRewards.bind(this);
+    this.FundReserveAccounts = this.FundReserveAccounts.bind(this);
   }
   Lend(request: MsgLend): Promise<MsgLendResponse> {
     const data = MsgLend.encode(request).finish();
@@ -1934,6 +2078,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCalculateInterestAndRewardsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  FundReserveAccounts(
+    request: MsgFundReserveAccounts
+  ): Promise<MsgFundReserveAccountsResponse> {
+    const data = MsgFundReserveAccounts.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Msg",
+      "FundReserveAccounts",
+      data
+    );
+    return promise.then((data) =>
+      MsgFundReserveAccountsResponse.decode(new _m0.Reader(data))
     );
   }
 }

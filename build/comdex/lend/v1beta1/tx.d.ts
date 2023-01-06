@@ -69,6 +69,11 @@ export interface MsgFundModuleAccounts {
 export interface MsgCalculateInterestAndRewards {
     borrower: string;
 }
+export interface MsgFundReserveAccounts {
+    assetId: Long;
+    lender: string;
+    amount?: Coin;
+}
 export interface MsgLendResponse {
 }
 export interface MsgWithdrawResponse {
@@ -92,6 +97,8 @@ export interface MsgBorrowAlternateResponse {
 export interface MsgFundModuleAccountsResponse {
 }
 export interface MsgCalculateInterestAndRewardsResponse {
+}
+export interface MsgFundReserveAccountsResponse {
 }
 export declare const MsgLend: {
     encode(message: MsgLend, writer?: _m0.Writer): _m0.Writer;
@@ -1412,6 +1419,87 @@ export declare const MsgCalculateInterestAndRewards: {
         borrower?: string | undefined;
     } & Record<Exclude<keyof I, "borrower">, never>>(object: I): MsgCalculateInterestAndRewards;
 };
+export declare const MsgFundReserveAccounts: {
+    encode(message: MsgFundReserveAccounts, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFundReserveAccounts;
+    fromJSON(object: any): MsgFundReserveAccounts;
+    toJSON(message: MsgFundReserveAccounts): unknown;
+    fromPartial<I extends {
+        assetId?: string | number | Long.Long | undefined;
+        lender?: string | undefined;
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
+        assetId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["assetId"], keyof Long.Long>, never>) | undefined;
+        lender?: string | undefined;
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["amount"], keyof Coin>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgFundReserveAccounts>, never>>(object: I): MsgFundReserveAccounts;
+};
 export declare const MsgLendResponse: {
     encode(_: MsgLendResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLendResponse;
@@ -1496,6 +1584,13 @@ export declare const MsgCalculateInterestAndRewardsResponse: {
     toJSON(_: MsgCalculateInterestAndRewardsResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCalculateInterestAndRewardsResponse;
 };
+export declare const MsgFundReserveAccountsResponse: {
+    encode(_: MsgFundReserveAccountsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFundReserveAccountsResponse;
+    fromJSON(_: any): MsgFundReserveAccountsResponse;
+    toJSON(_: MsgFundReserveAccountsResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgFundReserveAccountsResponse;
+};
 export interface Msg {
     /** LendAsset defines a method for lending coins to the ModuleAccount. */
     Lend(request: MsgLend): Promise<MsgLendResponse>;
@@ -1517,6 +1612,7 @@ export interface Msg {
     /** FundModuleAccounts funds an existing module account */
     FundModuleAccounts(request: MsgFundModuleAccounts): Promise<MsgFundModuleAccountsResponse>;
     CalculateInterestAndRewards(request: MsgCalculateInterestAndRewards): Promise<MsgCalculateInterestAndRewardsResponse>;
+    FundReserveAccounts(request: MsgFundReserveAccounts): Promise<MsgFundReserveAccountsResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -1533,6 +1629,7 @@ export declare class MsgClientImpl implements Msg {
     BorrowAlternate(request: MsgBorrowAlternate): Promise<MsgBorrowAlternateResponse>;
     FundModuleAccounts(request: MsgFundModuleAccounts): Promise<MsgFundModuleAccountsResponse>;
     CalculateInterestAndRewards(request: MsgCalculateInterestAndRewards): Promise<MsgCalculateInterestAndRewardsResponse>;
+    FundReserveAccounts(request: MsgFundReserveAccounts): Promise<MsgFundReserveAccountsResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

@@ -17,7 +17,11 @@ import {
   ReserveBuybackAssetData,
   AuctionParams,
   ModuleBalance,
+  ModBal,
+  ReserveBal,
+  AllReserveStats,
 } from "../../../comdex/lend/v1beta1/lend";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "comdex.lend.v1beta1";
 
@@ -206,6 +210,35 @@ export interface QueryModuleBalanceRequest {
 
 export interface QueryModuleBalanceResponse {
   ModuleBalance?: ModuleBalance;
+}
+
+export interface QueryFundModBalRequest {}
+
+export interface QueryFundModBalResponse {
+  FundModBalance?: ModBal;
+}
+
+export interface QueryFundReserveBalRequest {}
+
+export interface QueryFundReserveBalResponse {
+  FundReserveBalance?: ReserveBal;
+}
+
+export interface QueryAllReserveStatsRequest {
+  assetId: Long;
+}
+
+export interface QueryAllReserveStatsResponse {
+  AllReserveStats?: AllReserveStats;
+}
+
+export interface QueryFundModBalByAssetPoolRequest {
+  assetId: Long;
+  poolId: Long;
+}
+
+export interface QueryFundModBalByAssetPoolResponse {
+  amount?: Coin;
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -3162,6 +3195,508 @@ export const QueryModuleBalanceResponse = {
   },
 };
 
+function createBaseQueryFundModBalRequest(): QueryFundModBalRequest {
+  return {};
+}
+
+export const QueryFundModBalRequest = {
+  encode(
+    _: QueryFundModBalRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryFundModBalRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFundModBalRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryFundModBalRequest {
+    return {};
+  },
+
+  toJSON(_: QueryFundModBalRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundModBalRequest>, I>>(
+    _: I
+  ): QueryFundModBalRequest {
+    const message = createBaseQueryFundModBalRequest();
+    return message;
+  },
+};
+
+function createBaseQueryFundModBalResponse(): QueryFundModBalResponse {
+  return { FundModBalance: undefined };
+}
+
+export const QueryFundModBalResponse = {
+  encode(
+    message: QueryFundModBalResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.FundModBalance !== undefined) {
+      ModBal.encode(message.FundModBalance, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryFundModBalResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFundModBalResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.FundModBalance = ModBal.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryFundModBalResponse {
+    return {
+      FundModBalance: isSet(object.FundModBalance)
+        ? ModBal.fromJSON(object.FundModBalance)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryFundModBalResponse): unknown {
+    const obj: any = {};
+    message.FundModBalance !== undefined &&
+      (obj.FundModBalance = message.FundModBalance
+        ? ModBal.toJSON(message.FundModBalance)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundModBalResponse>, I>>(
+    object: I
+  ): QueryFundModBalResponse {
+    const message = createBaseQueryFundModBalResponse();
+    message.FundModBalance =
+      object.FundModBalance !== undefined && object.FundModBalance !== null
+        ? ModBal.fromPartial(object.FundModBalance)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryFundReserveBalRequest(): QueryFundReserveBalRequest {
+  return {};
+}
+
+export const QueryFundReserveBalRequest = {
+  encode(
+    _: QueryFundReserveBalRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryFundReserveBalRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFundReserveBalRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryFundReserveBalRequest {
+    return {};
+  },
+
+  toJSON(_: QueryFundReserveBalRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundReserveBalRequest>, I>>(
+    _: I
+  ): QueryFundReserveBalRequest {
+    const message = createBaseQueryFundReserveBalRequest();
+    return message;
+  },
+};
+
+function createBaseQueryFundReserveBalResponse(): QueryFundReserveBalResponse {
+  return { FundReserveBalance: undefined };
+}
+
+export const QueryFundReserveBalResponse = {
+  encode(
+    message: QueryFundReserveBalResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.FundReserveBalance !== undefined) {
+      ReserveBal.encode(
+        message.FundReserveBalance,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryFundReserveBalResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFundReserveBalResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.FundReserveBalance = ReserveBal.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryFundReserveBalResponse {
+    return {
+      FundReserveBalance: isSet(object.FundReserveBalance)
+        ? ReserveBal.fromJSON(object.FundReserveBalance)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryFundReserveBalResponse): unknown {
+    const obj: any = {};
+    message.FundReserveBalance !== undefined &&
+      (obj.FundReserveBalance = message.FundReserveBalance
+        ? ReserveBal.toJSON(message.FundReserveBalance)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundReserveBalResponse>, I>>(
+    object: I
+  ): QueryFundReserveBalResponse {
+    const message = createBaseQueryFundReserveBalResponse();
+    message.FundReserveBalance =
+      object.FundReserveBalance !== undefined &&
+      object.FundReserveBalance !== null
+        ? ReserveBal.fromPartial(object.FundReserveBalance)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllReserveStatsRequest(): QueryAllReserveStatsRequest {
+  return { assetId: Long.UZERO };
+}
+
+export const QueryAllReserveStatsRequest = {
+  encode(
+    message: QueryAllReserveStatsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.assetId.isZero()) {
+      writer.uint32(8).uint64(message.assetId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAllReserveStatsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllReserveStatsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllReserveStatsRequest {
+    return {
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryAllReserveStatsRequest): unknown {
+    const obj: any = {};
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllReserveStatsRequest>, I>>(
+    object: I
+  ): QueryAllReserveStatsRequest {
+    const message = createBaseQueryAllReserveStatsRequest();
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryAllReserveStatsResponse(): QueryAllReserveStatsResponse {
+  return { AllReserveStats: undefined };
+}
+
+export const QueryAllReserveStatsResponse = {
+  encode(
+    message: QueryAllReserveStatsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.AllReserveStats !== undefined) {
+      AllReserveStats.encode(
+        message.AllReserveStats,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAllReserveStatsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllReserveStatsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.AllReserveStats = AllReserveStats.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllReserveStatsResponse {
+    return {
+      AllReserveStats: isSet(object.AllReserveStats)
+        ? AllReserveStats.fromJSON(object.AllReserveStats)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllReserveStatsResponse): unknown {
+    const obj: any = {};
+    message.AllReserveStats !== undefined &&
+      (obj.AllReserveStats = message.AllReserveStats
+        ? AllReserveStats.toJSON(message.AllReserveStats)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllReserveStatsResponse>, I>>(
+    object: I
+  ): QueryAllReserveStatsResponse {
+    const message = createBaseQueryAllReserveStatsResponse();
+    message.AllReserveStats =
+      object.AllReserveStats !== undefined && object.AllReserveStats !== null
+        ? AllReserveStats.fromPartial(object.AllReserveStats)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryFundModBalByAssetPoolRequest(): QueryFundModBalByAssetPoolRequest {
+  return { assetId: Long.UZERO, poolId: Long.UZERO };
+}
+
+export const QueryFundModBalByAssetPoolRequest = {
+  encode(
+    message: QueryFundModBalByAssetPoolRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.assetId.isZero()) {
+      writer.uint32(8).uint64(message.assetId);
+    }
+    if (!message.poolId.isZero()) {
+      writer.uint32(16).uint64(message.poolId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryFundModBalByAssetPoolRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFundModBalByAssetPoolRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.assetId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.poolId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryFundModBalByAssetPoolRequest {
+    return {
+      assetId: isSet(object.assetId)
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryFundModBalByAssetPoolRequest): unknown {
+    const obj: any = {};
+    message.assetId !== undefined &&
+      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryFundModBalByAssetPoolRequest>, I>
+  >(object: I): QueryFundModBalByAssetPoolRequest {
+    const message = createBaseQueryFundModBalByAssetPoolRequest();
+    message.assetId =
+      object.assetId !== undefined && object.assetId !== null
+        ? Long.fromValue(object.assetId)
+        : Long.UZERO;
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryFundModBalByAssetPoolResponse(): QueryFundModBalByAssetPoolResponse {
+  return { amount: undefined };
+}
+
+export const QueryFundModBalByAssetPoolResponse = {
+  encode(
+    message: QueryFundModBalByAssetPoolResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.amount !== undefined) {
+      Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryFundModBalByAssetPoolResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryFundModBalByAssetPoolResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.amount = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryFundModBalByAssetPoolResponse {
+    return {
+      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
+    };
+  },
+
+  toJSON(message: QueryFundModBalByAssetPoolResponse): unknown {
+    const obj: any = {};
+    message.amount !== undefined &&
+      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryFundModBalByAssetPoolResponse>, I>
+  >(object: I): QueryFundModBalByAssetPoolResponse {
+    const message = createBaseQueryFundModBalByAssetPoolResponse();
+    message.amount =
+      object.amount !== undefined && object.amount !== null
+        ? Coin.fromPartial(object.amount)
+        : undefined;
+    return message;
+  },
+};
+
 export interface Query {
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse>;
   QueryLend(request: QueryLendRequest): Promise<QueryLendResponse>;
@@ -3208,6 +3743,18 @@ export interface Query {
   QueryModuleBalance(
     request: QueryModuleBalanceRequest
   ): Promise<QueryModuleBalanceResponse>;
+  QueryFundModBal(
+    request: QueryFundModBalRequest
+  ): Promise<QueryFundModBalResponse>;
+  QueryFundReserveBal(
+    request: QueryFundReserveBalRequest
+  ): Promise<QueryFundReserveBalResponse>;
+  QueryAllReserveStats(
+    request: QueryAllReserveStatsRequest
+  ): Promise<QueryAllReserveStatsResponse>;
+  QueryFundModBalByAssetPool(
+    request: QueryFundModBalByAssetPoolRequest
+  ): Promise<QueryFundModBalByAssetPoolResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3238,6 +3785,11 @@ export class QueryClientImpl implements Query {
       this.QueryReserveBuybackAssetData.bind(this);
     this.QueryAuctionParams = this.QueryAuctionParams.bind(this);
     this.QueryModuleBalance = this.QueryModuleBalance.bind(this);
+    this.QueryFundModBal = this.QueryFundModBal.bind(this);
+    this.QueryFundReserveBal = this.QueryFundReserveBal.bind(this);
+    this.QueryAllReserveStats = this.QueryAllReserveStats.bind(this);
+    this.QueryFundModBalByAssetPool =
+      this.QueryFundModBalByAssetPool.bind(this);
   }
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse> {
     const data = QueryLendsRequest.encode(request).finish();
@@ -3512,6 +4064,62 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryModuleBalanceResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryFundModBal(
+    request: QueryFundModBalRequest
+  ): Promise<QueryFundModBalResponse> {
+    const data = QueryFundModBalRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryFundModBal",
+      data
+    );
+    return promise.then((data) =>
+      QueryFundModBalResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryFundReserveBal(
+    request: QueryFundReserveBalRequest
+  ): Promise<QueryFundReserveBalResponse> {
+    const data = QueryFundReserveBalRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryFundReserveBal",
+      data
+    );
+    return promise.then((data) =>
+      QueryFundReserveBalResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryAllReserveStats(
+    request: QueryAllReserveStatsRequest
+  ): Promise<QueryAllReserveStatsResponse> {
+    const data = QueryAllReserveStatsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryAllReserveStats",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllReserveStatsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryFundModBalByAssetPool(
+    request: QueryFundModBalByAssetPoolRequest
+  ): Promise<QueryFundModBalByAssetPoolResponse> {
+    const data = QueryFundModBalByAssetPoolRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryFundModBalByAssetPool",
+      data
+    );
+    return promise.then((data) =>
+      QueryFundModBalByAssetPoolResponse.decode(new _m0.Reader(data))
     );
   }
 }
