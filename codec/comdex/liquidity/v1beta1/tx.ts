@@ -1,12 +1,12 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import {
   OrderDirection,
   orderDirectionFromJSON,
   orderDirectionToJSON,
-} from "../../../comdex/liquidity/v1beta1/liquidity";
+} from "./liquidity";
 import { Duration } from "../../../google/protobuf/duration";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
@@ -37,6 +37,23 @@ export interface MsgCreatePool {
 
 /** MsgCreatePoolResponse defines the Msg/CreatePool response type. */
 export interface MsgCreatePoolResponse {}
+
+/** MsgCreateRangedPool defines an SDK message for creating a ranged pool. */
+export interface MsgCreateRangedPool {
+  /** creator specifies the bech32-encoded address that is the pool creator */
+  creator: string;
+  appId: Long;
+  /** pair_id specifies the pair id. */
+  pairId: Long;
+  /** deposit_coins specifies the amount of coins to deposit. */
+  depositCoins: Coin[];
+  minPrice: string;
+  maxPrice: string;
+  initialPrice: string;
+}
+
+/** MsgCreateRangedPoolResponse defines the Msg/CreateRangedPool response type. */
+export interface MsgCreateRangedPoolResponse {}
 
 /** MsgDeposit defines an SDK message for depositing coins to the pool */
 export interface MsgDeposit {
@@ -112,6 +129,32 @@ export interface MsgMarketOrder {
 /** MsgMarketOrderResponse defines the Msg/MarketOrder response type. */
 export interface MsgMarketOrderResponse {}
 
+/** MsgMMOrder defines an SDK message for making a MM(market making) order. */
+export interface MsgMMOrder {
+  /** orderer specifies the bech32-encoded address that makes an order */
+  orderer: string;
+  appId: Long;
+  /** pair_id specifies the pair id */
+  pairId: Long;
+  /** max_sell_price specifies the maximum sell price */
+  maxSellPrice: string;
+  /** min_sell_price specifies the minimum sell price */
+  minSellPrice: string;
+  /** sell_amount specifies the total amount of base coin of sell orders */
+  sellAmount: string;
+  /** max_buy_price specifies the maximum buy price */
+  maxBuyPrice: string;
+  /** min_buy_price specifies the minimum buy price */
+  minBuyPrice: string;
+  /** buy_amount specifies the total amount of base coin of buy orders */
+  buyAmount: string;
+  /** order_lifespan specifies the order lifespan */
+  orderLifespan?: Duration;
+}
+
+/** MsgMMOrderResponse defines the Msg/MMOrder response type. */
+export interface MsgMMOrderResponse {}
+
 /** MsgCancelOrder defines an SDK message for cancelling an order */
 export interface MsgCancelOrder {
   /** orderer specifies the bech32-encoded address that makes an order */
@@ -137,6 +180,18 @@ export interface MsgCancelAllOrders {
 
 /** MsgCancelAllOrdersResponse defines the Msg/CancelAllOrders response type. */
 export interface MsgCancelAllOrdersResponse {}
+
+/** MsgCancelMMOrder defines an SDK message for cancelling all market making orders */
+export interface MsgCancelMMOrder {
+  /** orderer specifies the bech32-encoded address that makes an order */
+  orderer: string;
+  appId: Long;
+  /** pair_id specifies the pair id to cancel orders */
+  pairId: Long;
+}
+
+/** MsgCancelMMOrderResponse defines the Msg/CancelMMOrder response type. */
+export interface MsgCancelMMOrderResponse {}
 
 /** MsgFarm defines a SDK message for farming coins (i.e without bonding) for incentivisation. */
 export interface MsgFarm {
@@ -225,7 +280,7 @@ export const MsgCreatePair = {
       quoteCoinDenom: isSet(object.quoteCoinDenom)
         ? String(object.quoteCoinDenom)
         : "",
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -362,11 +417,13 @@ export const MsgCreatePool = {
   fromJSON(object: any): MsgCreatePool {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
-      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
       depositCoins: Array.isArray(object?.depositCoins)
         ? object.depositCoins.map((e: any) => Coin.fromJSON(e))
         : [],
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -453,6 +510,191 @@ export const MsgCreatePoolResponse = {
   },
 };
 
+function createBaseMsgCreateRangedPool(): MsgCreateRangedPool {
+  return {
+    creator: "",
+    appId: Long.UZERO,
+    pairId: Long.UZERO,
+    depositCoins: [],
+    minPrice: "",
+    maxPrice: "",
+    initialPrice: "",
+  };
+}
+
+export const MsgCreateRangedPool = {
+  encode(
+    message: MsgCreateRangedPool,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
+    }
+    if (!message.pairId.isZero()) {
+      writer.uint32(24).uint64(message.pairId);
+    }
+    for (const v of message.depositCoins) {
+      Coin.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.minPrice !== "") {
+      writer.uint32(42).string(message.minPrice);
+    }
+    if (message.maxPrice !== "") {
+      writer.uint32(50).string(message.maxPrice);
+    }
+    if (message.initialPrice !== "") {
+      writer.uint32(58).string(message.initialPrice);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateRangedPool {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCreateRangedPool();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.pairId = reader.uint64() as Long;
+          break;
+        case 4:
+          message.depositCoins.push(Coin.decode(reader, reader.uint32()));
+          break;
+        case 5:
+          message.minPrice = reader.string();
+          break;
+        case 6:
+          message.maxPrice = reader.string();
+          break;
+        case 7:
+          message.initialPrice = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateRangedPool {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
+      depositCoins: Array.isArray(object?.depositCoins)
+        ? object.depositCoins.map((e: any) => Coin.fromJSON(e))
+        : [],
+      minPrice: isSet(object.minPrice) ? String(object.minPrice) : "",
+      maxPrice: isSet(object.maxPrice) ? String(object.maxPrice) : "",
+      initialPrice: isSet(object.initialPrice)
+        ? String(object.initialPrice)
+        : "",
+    };
+  },
+
+  toJSON(message: MsgCreateRangedPool): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.pairId !== undefined &&
+      (obj.pairId = (message.pairId || Long.UZERO).toString());
+    if (message.depositCoins) {
+      obj.depositCoins = message.depositCoins.map((e) =>
+        e ? Coin.toJSON(e) : undefined
+      );
+    } else {
+      obj.depositCoins = [];
+    }
+    message.minPrice !== undefined && (obj.minPrice = message.minPrice);
+    message.maxPrice !== undefined && (obj.maxPrice = message.maxPrice);
+    message.initialPrice !== undefined &&
+      (obj.initialPrice = message.initialPrice);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreateRangedPool>, I>>(
+    object: I
+  ): MsgCreateRangedPool {
+    const message = createBaseMsgCreateRangedPool();
+    message.creator = object.creator ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.pairId =
+      object.pairId !== undefined && object.pairId !== null
+        ? Long.fromValue(object.pairId)
+        : Long.UZERO;
+    message.depositCoins =
+      object.depositCoins?.map((e) => Coin.fromPartial(e)) || [];
+    message.minPrice = object.minPrice ?? "";
+    message.maxPrice = object.maxPrice ?? "";
+    message.initialPrice = object.initialPrice ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgCreateRangedPoolResponse(): MsgCreateRangedPoolResponse {
+  return {};
+}
+
+export const MsgCreateRangedPoolResponse = {
+  encode(
+    _: MsgCreateRangedPoolResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgCreateRangedPoolResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCreateRangedPoolResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCreateRangedPoolResponse {
+    return {};
+  },
+
+  toJSON(_: MsgCreateRangedPoolResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreateRangedPoolResponse>, I>>(
+    _: I
+  ): MsgCreateRangedPoolResponse {
+    const message = createBaseMsgCreateRangedPoolResponse();
+    return message;
+  },
+};
+
 function createBaseMsgDeposit(): MsgDeposit {
   return {
     depositor: "",
@@ -512,11 +754,13 @@ export const MsgDeposit = {
   fromJSON(object: any): MsgDeposit {
     return {
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
       depositCoins: Array.isArray(object?.depositCoins)
         ? object.depositCoins.map((e: any) => Coin.fromJSON(e))
         : [],
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -659,11 +903,13 @@ export const MsgWithdraw = {
   fromJSON(object: any): MsgWithdraw {
     return {
       withdrawer: isSet(object.withdrawer) ? String(object.withdrawer) : "",
-      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
       poolCoin: isSet(object.poolCoin)
         ? Coin.fromJSON(object.poolCoin)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -840,7 +1086,9 @@ export const MsgLimitOrder = {
   fromJSON(object: any): MsgLimitOrder {
     return {
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
-      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
       direction: isSet(object.direction)
         ? orderDirectionFromJSON(object.direction)
         : 0,
@@ -855,7 +1103,7 @@ export const MsgLimitOrder = {
       orderLifespan: isSet(object.orderLifespan)
         ? Duration.fromJSON(object.orderLifespan)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1046,7 +1294,9 @@ export const MsgMarketOrder = {
   fromJSON(object: any): MsgMarketOrder {
     return {
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
-      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
       direction: isSet(object.direction)
         ? orderDirectionFromJSON(object.direction)
         : 0,
@@ -1060,7 +1310,7 @@ export const MsgMarketOrder = {
       orderLifespan: isSet(object.orderLifespan)
         ? Duration.fromJSON(object.orderLifespan)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1162,6 +1412,222 @@ export const MsgMarketOrderResponse = {
   },
 };
 
+function createBaseMsgMMOrder(): MsgMMOrder {
+  return {
+    orderer: "",
+    appId: Long.UZERO,
+    pairId: Long.UZERO,
+    maxSellPrice: "",
+    minSellPrice: "",
+    sellAmount: "",
+    maxBuyPrice: "",
+    minBuyPrice: "",
+    buyAmount: "",
+    orderLifespan: undefined,
+  };
+}
+
+export const MsgMMOrder = {
+  encode(
+    message: MsgMMOrder,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.orderer !== "") {
+      writer.uint32(10).string(message.orderer);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
+    }
+    if (!message.pairId.isZero()) {
+      writer.uint32(24).uint64(message.pairId);
+    }
+    if (message.maxSellPrice !== "") {
+      writer.uint32(34).string(message.maxSellPrice);
+    }
+    if (message.minSellPrice !== "") {
+      writer.uint32(42).string(message.minSellPrice);
+    }
+    if (message.sellAmount !== "") {
+      writer.uint32(50).string(message.sellAmount);
+    }
+    if (message.maxBuyPrice !== "") {
+      writer.uint32(58).string(message.maxBuyPrice);
+    }
+    if (message.minBuyPrice !== "") {
+      writer.uint32(66).string(message.minBuyPrice);
+    }
+    if (message.buyAmount !== "") {
+      writer.uint32(74).string(message.buyAmount);
+    }
+    if (message.orderLifespan !== undefined) {
+      Duration.encode(message.orderLifespan, writer.uint32(82).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMMOrder {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgMMOrder();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.orderer = reader.string();
+          break;
+        case 2:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.pairId = reader.uint64() as Long;
+          break;
+        case 4:
+          message.maxSellPrice = reader.string();
+          break;
+        case 5:
+          message.minSellPrice = reader.string();
+          break;
+        case 6:
+          message.sellAmount = reader.string();
+          break;
+        case 7:
+          message.maxBuyPrice = reader.string();
+          break;
+        case 8:
+          message.minBuyPrice = reader.string();
+          break;
+        case 9:
+          message.buyAmount = reader.string();
+          break;
+        case 10:
+          message.orderLifespan = Duration.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgMMOrder {
+    return {
+      orderer: isSet(object.orderer) ? String(object.orderer) : "",
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
+      maxSellPrice: isSet(object.maxSellPrice)
+        ? String(object.maxSellPrice)
+        : "",
+      minSellPrice: isSet(object.minSellPrice)
+        ? String(object.minSellPrice)
+        : "",
+      sellAmount: isSet(object.sellAmount) ? String(object.sellAmount) : "",
+      maxBuyPrice: isSet(object.maxBuyPrice) ? String(object.maxBuyPrice) : "",
+      minBuyPrice: isSet(object.minBuyPrice) ? String(object.minBuyPrice) : "",
+      buyAmount: isSet(object.buyAmount) ? String(object.buyAmount) : "",
+      orderLifespan: isSet(object.orderLifespan)
+        ? Duration.fromJSON(object.orderLifespan)
+        : undefined,
+    };
+  },
+
+  toJSON(message: MsgMMOrder): unknown {
+    const obj: any = {};
+    message.orderer !== undefined && (obj.orderer = message.orderer);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.pairId !== undefined &&
+      (obj.pairId = (message.pairId || Long.UZERO).toString());
+    message.maxSellPrice !== undefined &&
+      (obj.maxSellPrice = message.maxSellPrice);
+    message.minSellPrice !== undefined &&
+      (obj.minSellPrice = message.minSellPrice);
+    message.sellAmount !== undefined && (obj.sellAmount = message.sellAmount);
+    message.maxBuyPrice !== undefined &&
+      (obj.maxBuyPrice = message.maxBuyPrice);
+    message.minBuyPrice !== undefined &&
+      (obj.minBuyPrice = message.minBuyPrice);
+    message.buyAmount !== undefined && (obj.buyAmount = message.buyAmount);
+    message.orderLifespan !== undefined &&
+      (obj.orderLifespan = message.orderLifespan
+        ? Duration.toJSON(message.orderLifespan)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgMMOrder>, I>>(
+    object: I
+  ): MsgMMOrder {
+    const message = createBaseMsgMMOrder();
+    message.orderer = object.orderer ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.pairId =
+      object.pairId !== undefined && object.pairId !== null
+        ? Long.fromValue(object.pairId)
+        : Long.UZERO;
+    message.maxSellPrice = object.maxSellPrice ?? "";
+    message.minSellPrice = object.minSellPrice ?? "";
+    message.sellAmount = object.sellAmount ?? "";
+    message.maxBuyPrice = object.maxBuyPrice ?? "";
+    message.minBuyPrice = object.minBuyPrice ?? "";
+    message.buyAmount = object.buyAmount ?? "";
+    message.orderLifespan =
+      object.orderLifespan !== undefined && object.orderLifespan !== null
+        ? Duration.fromPartial(object.orderLifespan)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseMsgMMOrderResponse(): MsgMMOrderResponse {
+  return {};
+}
+
+export const MsgMMOrderResponse = {
+  encode(
+    _: MsgMMOrderResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgMMOrderResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgMMOrderResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgMMOrderResponse {
+    return {};
+  },
+
+  toJSON(_: MsgMMOrderResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgMMOrderResponse>, I>>(
+    _: I
+  ): MsgMMOrderResponse {
+    const message = createBaseMsgMMOrderResponse();
+    return message;
+  },
+};
+
 function createBaseMsgCancelOrder(): MsgCancelOrder {
   return {
     orderer: "",
@@ -1221,11 +1687,13 @@ export const MsgCancelOrder = {
   fromJSON(object: any): MsgCancelOrder {
     return {
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
-      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
-      orderId: isSet(object.orderId)
-        ? Long.fromValue(object.orderId)
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      orderId: isSet(object.orderId)
+        ? Long.fromString(object.orderId)
+        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1367,9 +1835,9 @@ export const MsgCancelAllOrders = {
     return {
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
       pairIds: Array.isArray(object?.pairIds)
-        ? object.pairIds.map((e: any) => Long.fromValue(e))
+        ? object.pairIds.map((e: any) => Long.fromString(e))
         : [],
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -1447,6 +1915,135 @@ export const MsgCancelAllOrdersResponse = {
   },
 };
 
+function createBaseMsgCancelMMOrder(): MsgCancelMMOrder {
+  return { orderer: "", appId: Long.UZERO, pairId: Long.UZERO };
+}
+
+export const MsgCancelMMOrder = {
+  encode(
+    message: MsgCancelMMOrder,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.orderer !== "") {
+      writer.uint32(10).string(message.orderer);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
+    }
+    if (!message.pairId.isZero()) {
+      writer.uint32(24).uint64(message.pairId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelMMOrder {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCancelMMOrder();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.orderer = reader.string();
+          break;
+        case 2:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.pairId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCancelMMOrder {
+    return {
+      orderer: isSet(object.orderer) ? String(object.orderer) : "",
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: MsgCancelMMOrder): unknown {
+    const obj: any = {};
+    message.orderer !== undefined && (obj.orderer = message.orderer);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.pairId !== undefined &&
+      (obj.pairId = (message.pairId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCancelMMOrder>, I>>(
+    object: I
+  ): MsgCancelMMOrder {
+    const message = createBaseMsgCancelMMOrder();
+    message.orderer = object.orderer ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.pairId =
+      object.pairId !== undefined && object.pairId !== null
+        ? Long.fromValue(object.pairId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseMsgCancelMMOrderResponse(): MsgCancelMMOrderResponse {
+  return {};
+}
+
+export const MsgCancelMMOrderResponse = {
+  encode(
+    _: MsgCancelMMOrderResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgCancelMMOrderResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgCancelMMOrderResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCancelMMOrderResponse {
+    return {};
+  },
+
+  toJSON(_: MsgCancelMMOrderResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCancelMMOrderResponse>, I>>(
+    _: I
+  ): MsgCancelMMOrderResponse {
+    const message = createBaseMsgCancelMMOrderResponse();
+    return message;
+  },
+};
+
 function createBaseMsgFarm(): MsgFarm {
   return {
     appId: Long.UZERO,
@@ -1505,8 +2102,10 @@ export const MsgFarm = {
 
   fromJSON(object: any): MsgFarm {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
       farmer: isSet(object.farmer) ? String(object.farmer) : "",
       farmingPoolCoin: isSet(object.farmingPoolCoin)
         ? Coin.fromJSON(object.farmingPoolCoin)
@@ -1649,8 +2248,10 @@ export const MsgUnfarm = {
 
   fromJSON(object: any): MsgUnfarm {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
       farmer: isSet(object.farmer) ? String(object.farmer) : "",
       unfarmingPoolCoin: isSet(object.unfarmingPoolCoin)
         ? Coin.fromJSON(object.unfarmingPoolCoin)
@@ -1744,6 +2345,10 @@ export interface Msg {
   CreatePair(request: MsgCreatePair): Promise<MsgCreatePairResponse>;
   /** CreatePool defines a method for creating a pool */
   CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse>;
+  /** CreateRangePool defines a method for creating a ranged pool */
+  CreateRangedPool(
+    request: MsgCreateRangedPool
+  ): Promise<MsgCreateRangedPoolResponse>;
   /** Deposit defines a method for depositing coins to the pool */
   Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;
   /** Withdraw defines a method for withdrawing pool coin from the pool */
@@ -1752,12 +2357,16 @@ export interface Msg {
   LimitOrder(request: MsgLimitOrder): Promise<MsgLimitOrderResponse>;
   /** MarketOrder defines a method for making a market order */
   MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse>;
+  /** MsgMMOrder defines a method for making a MM(market making) order */
+  MMOrder(request: MsgMMOrder): Promise<MsgMMOrderResponse>;
   /** CancelOrder defines a method for cancelling an order */
   CancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse>;
   /** CancelAllOrders defines a method for cancelling all orders */
   CancelAllOrders(
     request: MsgCancelAllOrders
   ): Promise<MsgCancelAllOrdersResponse>;
+  /** CancelMMOrder defines a method for cancelling previously placed market making orders */
+  CancelMMOrder(request: MsgCancelMMOrder): Promise<MsgCancelMMOrderResponse>;
   /** MsgFarm defines a method to farm the pool token, for incentivization */
   Farm(request: MsgFarm): Promise<MsgFarmResponse>;
   /** Unfarm defines a method to unfarm the farmed pool token */
@@ -1770,12 +2379,15 @@ export class MsgClientImpl implements Msg {
     this.rpc = rpc;
     this.CreatePair = this.CreatePair.bind(this);
     this.CreatePool = this.CreatePool.bind(this);
+    this.CreateRangedPool = this.CreateRangedPool.bind(this);
     this.Deposit = this.Deposit.bind(this);
     this.Withdraw = this.Withdraw.bind(this);
     this.LimitOrder = this.LimitOrder.bind(this);
     this.MarketOrder = this.MarketOrder.bind(this);
+    this.MMOrder = this.MMOrder.bind(this);
     this.CancelOrder = this.CancelOrder.bind(this);
     this.CancelAllOrders = this.CancelAllOrders.bind(this);
+    this.CancelMMOrder = this.CancelMMOrder.bind(this);
     this.Farm = this.Farm.bind(this);
     this.Unfarm = this.Unfarm.bind(this);
   }
@@ -1800,6 +2412,20 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCreatePoolResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  CreateRangedPool(
+    request: MsgCreateRangedPool
+  ): Promise<MsgCreateRangedPoolResponse> {
+    const data = MsgCreateRangedPool.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Msg",
+      "CreateRangedPool",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateRangedPoolResponse.decode(new _m0.Reader(data))
     );
   }
 
@@ -1851,6 +2477,18 @@ export class MsgClientImpl implements Msg {
     );
   }
 
+  MMOrder(request: MsgMMOrder): Promise<MsgMMOrderResponse> {
+    const data = MsgMMOrder.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Msg",
+      "MMOrder",
+      data
+    );
+    return promise.then((data) =>
+      MsgMMOrderResponse.decode(new _m0.Reader(data))
+    );
+  }
+
   CancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse> {
     const data = MsgCancelOrder.encode(request).finish();
     const promise = this.rpc.request(
@@ -1874,6 +2512,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgCancelAllOrdersResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  CancelMMOrder(request: MsgCancelMMOrder): Promise<MsgCancelMMOrderResponse> {
+    const data = MsgCancelMMOrder.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Msg",
+      "CancelMMOrder",
+      data
+    );
+    return promise.then((data) =>
+      MsgCancelMMOrderResponse.decode(new _m0.Reader(data))
     );
   }
 
