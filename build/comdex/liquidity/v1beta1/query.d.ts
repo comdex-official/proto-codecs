@@ -1,8 +1,8 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Params, GenericParams } from "../../../comdex/liquidity/v1beta1/params";
+import _m0 from "protobufjs/minimal";
+import { Params, GenericParams } from "./params";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Pair, DepositRequest, WithdrawRequest, Order } from "../../../comdex/liquidity/v1beta1/liquidity";
+import { Pair, DepositRequest, WithdrawRequest, Order, PoolType } from "./liquidity";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
 export declare const protobufPackage = "comdex.liquidity.v1beta1";
@@ -148,10 +148,21 @@ export interface PoolResponse {
     pairId: Long;
     reserveAddress: string;
     poolCoinDenom: string;
-    balances: Coin[];
+    balances?: PoolBalances;
     lastDepositRequestId: Long;
     lastWithdrawRequestId: Long;
     appId: Long;
+    type: PoolType;
+    creator: string;
+    poolCoinSupply: string;
+    minPrice: string;
+    maxPrice: string;
+    price: string;
+    disabled: boolean;
+}
+export interface PoolBalances {
+    baseCoin?: Coin;
+    quoteCoin?: Coin;
 }
 /** QueryFarmerRequest is request type for the Query/Farmer RPC method. */
 export interface QueryFarmerRequest {
@@ -205,6 +216,32 @@ export interface QueryFarmedPoolCoinRequest {
 }
 export interface QueryFarmedPoolCoinResponse {
     coin?: Coin;
+}
+/** QueryOrderBooksRequest is request type for the Query/OrderBooks RPC method. */
+export interface QueryOrderBooksRequest {
+    appId: Long;
+    pairIds: Long[];
+    priceUnitPowers: number[];
+    numTicks: number;
+}
+/** QueryOrderBooksResponse is response type for Query/OrderBooks RPC method. */
+export interface QueryOrderBooksResponse {
+    pairs: OrderBookPairResponse[];
+}
+export interface OrderBookPairResponse {
+    pairId: Long;
+    basePrice: string;
+    orderBooks: OrderBookResponse[];
+}
+export interface OrderBookResponse {
+    priceUnit: string;
+    sells: OrderBookTickResponse[];
+    buys: OrderBookTickResponse[];
+}
+export interface OrderBookTickResponse {
+    price: string;
+    userOrderAmount: string;
+    poolOrderAmount: string;
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
@@ -326,6 +363,8 @@ export declare const QueryGenericParamsResponse: {
             swapFeeDistrDenom?: string | undefined;
             swapFeeBurnRate?: string | undefined;
             appId?: string | number | Long.Long | undefined;
+            maxNumMarketMakingOrderTicks?: string | number | Long.Long | undefined;
+            maxNumActivePoolsPerPair?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
         params?: ({
@@ -356,6 +395,8 @@ export declare const QueryGenericParamsResponse: {
             swapFeeDistrDenom?: string | undefined;
             swapFeeBurnRate?: string | undefined;
             appId?: string | number | Long.Long | undefined;
+            maxNumMarketMakingOrderTicks?: string | number | Long.Long | undefined;
+            maxNumActivePoolsPerPair?: string | number | Long.Long | undefined;
         } & {
             batchSize?: string | number | (Long.Long & {
                 high: number;
@@ -804,6 +845,122 @@ export declare const QueryGenericParamsResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["params"]["appId"], keyof Long.Long>, never>) | undefined;
+            maxNumMarketMakingOrderTicks?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["params"]["maxNumMarketMakingOrderTicks"], keyof Long.Long>, never>) | undefined;
+            maxNumActivePoolsPerPair?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["params"]["maxNumActivePoolsPerPair"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["params"], keyof GenericParams>, never>) | undefined;
     } & Record<Exclude<keyof I, "params">, never>>(object: I): QueryGenericParamsResponse;
 };
@@ -1082,12 +1239,25 @@ export declare const QueryPoolsResponse: {
             reserveAddress?: string | undefined;
             poolCoinDenom?: string | undefined;
             balances?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            }[] | undefined;
+                baseCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+                quoteCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
             lastDepositRequestId?: string | number | Long.Long | undefined;
             lastWithdrawRequestId?: string | number | Long.Long | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: PoolType | undefined;
+            creator?: string | undefined;
+            poolCoinSupply?: string | undefined;
+            minPrice?: string | undefined;
+            maxPrice?: string | undefined;
+            price?: string | undefined;
+            disabled?: boolean | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -1100,24 +1270,50 @@ export declare const QueryPoolsResponse: {
             reserveAddress?: string | undefined;
             poolCoinDenom?: string | undefined;
             balances?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            }[] | undefined;
+                baseCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+                quoteCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
             lastDepositRequestId?: string | number | Long.Long | undefined;
             lastWithdrawRequestId?: string | number | Long.Long | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: PoolType | undefined;
+            creator?: string | undefined;
+            poolCoinSupply?: string | undefined;
+            minPrice?: string | undefined;
+            maxPrice?: string | undefined;
+            price?: string | undefined;
+            disabled?: boolean | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             reserveAddress?: string | undefined;
             poolCoinDenom?: string | undefined;
             balances?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            }[] | undefined;
+                baseCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+                quoteCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
             lastDepositRequestId?: string | number | Long.Long | undefined;
             lastWithdrawRequestId?: string | number | Long.Long | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: PoolType | undefined;
+            creator?: string | undefined;
+            poolCoinSupply?: string | undefined;
+            minPrice?: string | undefined;
+            maxPrice?: string | undefined;
+            price?: string | undefined;
+            disabled?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -1238,18 +1434,30 @@ export declare const QueryPoolsResponse: {
             reserveAddress?: string | undefined;
             poolCoinDenom?: string | undefined;
             balances?: ({
-                denom?: string | undefined;
-                amount?: string | undefined;
-            }[] & ({
-                denom?: string | undefined;
-                amount?: string | undefined;
+                baseCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+                quoteCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
             } & {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & Record<Exclude<keyof I["pools"][number]["balances"][number], keyof Coin>, never>)[] & Record<Exclude<keyof I["pools"][number]["balances"], keyof {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            }[]>, never>) | undefined;
+                baseCoin?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & Record<Exclude<keyof I["pools"][number]["balances"]["baseCoin"], keyof Coin>, never>) | undefined;
+                quoteCoin?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & Record<Exclude<keyof I["pools"][number]["balances"]["quoteCoin"], keyof Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["pools"][number]["balances"], keyof PoolBalances>, never>) | undefined;
             lastDepositRequestId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1424,18 +1632,38 @@ export declare const QueryPoolsResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pools"][number]["appId"], keyof Long.Long>, never>) | undefined;
+            type?: PoolType | undefined;
+            creator?: string | undefined;
+            poolCoinSupply?: string | undefined;
+            minPrice?: string | undefined;
+            maxPrice?: string | undefined;
+            price?: string | undefined;
+            disabled?: boolean | undefined;
         } & Record<Exclude<keyof I["pools"][number], keyof PoolResponse>, never>)[] & Record<Exclude<keyof I["pools"], keyof {
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             reserveAddress?: string | undefined;
             poolCoinDenom?: string | undefined;
             balances?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            }[] | undefined;
+                baseCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+                quoteCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
             lastDepositRequestId?: string | number | Long.Long | undefined;
             lastWithdrawRequestId?: string | number | Long.Long | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: PoolType | undefined;
+            creator?: string | undefined;
+            poolCoinSupply?: string | undefined;
+            minPrice?: string | undefined;
+            maxPrice?: string | undefined;
+            price?: string | undefined;
+            disabled?: boolean | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -1642,12 +1870,25 @@ export declare const QueryPoolResponse: {
             reserveAddress?: string | undefined;
             poolCoinDenom?: string | undefined;
             balances?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            }[] | undefined;
+                baseCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+                quoteCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
             lastDepositRequestId?: string | number | Long.Long | undefined;
             lastWithdrawRequestId?: string | number | Long.Long | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: PoolType | undefined;
+            creator?: string | undefined;
+            poolCoinSupply?: string | undefined;
+            minPrice?: string | undefined;
+            maxPrice?: string | undefined;
+            price?: string | undefined;
+            disabled?: boolean | undefined;
         } | undefined;
     } & {
         pool?: ({
@@ -1656,12 +1897,25 @@ export declare const QueryPoolResponse: {
             reserveAddress?: string | undefined;
             poolCoinDenom?: string | undefined;
             balances?: {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            }[] | undefined;
+                baseCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+                quoteCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+            } | undefined;
             lastDepositRequestId?: string | number | Long.Long | undefined;
             lastWithdrawRequestId?: string | number | Long.Long | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: PoolType | undefined;
+            creator?: string | undefined;
+            poolCoinSupply?: string | undefined;
+            minPrice?: string | undefined;
+            maxPrice?: string | undefined;
+            price?: string | undefined;
+            disabled?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -1782,18 +2036,30 @@ export declare const QueryPoolResponse: {
             reserveAddress?: string | undefined;
             poolCoinDenom?: string | undefined;
             balances?: ({
-                denom?: string | undefined;
-                amount?: string | undefined;
-            }[] & ({
-                denom?: string | undefined;
-                amount?: string | undefined;
+                baseCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
+                quoteCoin?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } | undefined;
             } & {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            } & Record<Exclude<keyof I["pool"]["balances"][number], keyof Coin>, never>)[] & Record<Exclude<keyof I["pool"]["balances"], keyof {
-                denom?: string | undefined;
-                amount?: string | undefined;
-            }[]>, never>) | undefined;
+                baseCoin?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & Record<Exclude<keyof I["pool"]["balances"]["baseCoin"], keyof Coin>, never>) | undefined;
+                quoteCoin?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & Record<Exclude<keyof I["pool"]["balances"]["quoteCoin"], keyof Coin>, never>) | undefined;
+            } & Record<Exclude<keyof I["pool"]["balances"], keyof PoolBalances>, never>) | undefined;
             lastDepositRequestId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1968,6 +2234,13 @@ export declare const QueryPoolResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pool"]["appId"], keyof Long.Long>, never>) | undefined;
+            type?: PoolType | undefined;
+            creator?: string | undefined;
+            poolCoinSupply?: string | undefined;
+            minPrice?: string | undefined;
+            maxPrice?: string | undefined;
+            price?: string | undefined;
+            disabled?: boolean | undefined;
         } & Record<Exclude<keyof I["pool"], keyof PoolResponse>, never>) | undefined;
     } & Record<Exclude<keyof I, "pool">, never>>(object: I): QueryPoolResponse;
 };
@@ -3352,7 +3625,7 @@ export declare const QueryDepositRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] | undefined;
         pagination?: {
@@ -3377,7 +3650,7 @@ export declare const QueryDepositRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
@@ -3396,7 +3669,7 @@ export declare const QueryDepositRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -3607,7 +3880,7 @@ export declare const QueryDepositRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & Record<Exclude<keyof I["depositRequests"][number]["mintedPoolCoin"], keyof Coin>, never>) | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -3683,7 +3956,7 @@ export declare const QueryDepositRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
@@ -3961,7 +4234,7 @@ export declare const QueryDepositRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
@@ -3982,7 +4255,7 @@ export declare const QueryDepositRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -4193,7 +4466,7 @@ export declare const QueryDepositRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & Record<Exclude<keyof I["depositRequest"]["mintedPoolCoin"], keyof Coin>, never>) | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -4535,7 +4808,7 @@ export declare const QueryWithdrawRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] | undefined;
         pagination?: {
@@ -4556,7 +4829,7 @@ export declare const QueryWithdrawRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
@@ -4571,7 +4844,7 @@ export declare const QueryWithdrawRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -4769,7 +5042,7 @@ export declare const QueryWithdrawRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[]>, never>) | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -4841,7 +5114,7 @@ export declare const QueryWithdrawRequestsResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
@@ -5115,7 +5388,7 @@ export declare const QueryWithdrawRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } | undefined;
     } & {
@@ -5132,7 +5405,7 @@ export declare const QueryWithdrawRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -5330,7 +5603,7 @@ export declare const QueryWithdrawRequestResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[]>, never>) | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
+            status?: import("./liquidity").RequestStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -5664,7 +5937,7 @@ export declare const QueryOrdersResponse: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
+            direction?: import("./liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -5682,8 +5955,9 @@ export declare const QueryOrdersResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
+            status?: import("./liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: import("./liquidity").OrderType | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -5695,7 +5969,7 @@ export declare const QueryOrdersResponse: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
+            direction?: import("./liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -5713,14 +5987,15 @@ export declare const QueryOrdersResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
+            status?: import("./liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: import("./liquidity").OrderType | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
+            direction?: import("./liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -5738,8 +6013,9 @@ export declare const QueryOrdersResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
+            status?: import("./liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: import("./liquidity").OrderType | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -5916,7 +6192,7 @@ export declare const QueryOrdersResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["orders"][number]["msgHeight"], keyof Long.Long>, never>) | undefined;
             orderer?: string | undefined;
-            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
+            direction?: import("./liquidity").OrderDirection | undefined;
             offerCoin?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -6000,7 +6276,7 @@ export declare const QueryOrdersResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["orders"][number]["batchId"], keyof Long.Long>, never>) | undefined;
             expireAt?: Date | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
+            status?: import("./liquidity").OrderStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -6059,12 +6335,13 @@ export declare const QueryOrdersResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["orders"][number]["appId"], keyof Long.Long>, never>) | undefined;
+            type?: import("./liquidity").OrderType | undefined;
         } & Record<Exclude<keyof I["orders"][number], keyof Order>, never>)[] & Record<Exclude<keyof I["orders"], keyof {
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
+            direction?: import("./liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -6082,8 +6359,9 @@ export declare const QueryOrdersResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
+            status?: import("./liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: import("./liquidity").OrderType | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -6348,7 +6626,7 @@ export declare const QueryOrderResponse: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
+            direction?: import("./liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -6366,8 +6644,9 @@ export declare const QueryOrderResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
+            status?: import("./liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: import("./liquidity").OrderType | undefined;
         } | undefined;
     } & {
         order?: ({
@@ -6375,7 +6654,7 @@ export declare const QueryOrderResponse: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
+            direction?: import("./liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -6393,8 +6672,9 @@ export declare const QueryOrderResponse: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
+            status?: import("./liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
+            type?: import("./liquidity").OrderType | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -6571,7 +6851,7 @@ export declare const QueryOrderResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["order"]["msgHeight"], keyof Long.Long>, never>) | undefined;
             orderer?: string | undefined;
-            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
+            direction?: import("./liquidity").OrderDirection | undefined;
             offerCoin?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -6655,7 +6935,7 @@ export declare const QueryOrderResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["order"]["batchId"], keyof Long.Long>, never>) | undefined;
             expireAt?: Date | undefined;
-            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
+            status?: import("./liquidity").OrderStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -6714,6 +6994,7 @@ export declare const QueryOrderResponse: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["order"]["appId"], keyof Long.Long>, never>) | undefined;
+            type?: import("./liquidity").OrderType | undefined;
         } & Record<Exclude<keyof I["order"], keyof Order>, never>) | undefined;
     } & Record<Exclude<keyof I, "order">, never>>(object: I): QueryOrderResponse;
 };
@@ -6991,12 +7272,25 @@ export declare const PoolResponse: {
         reserveAddress?: string | undefined;
         poolCoinDenom?: string | undefined;
         balances?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        }[] | undefined;
+            baseCoin?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            quoteCoin?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+        } | undefined;
         lastDepositRequestId?: string | number | Long.Long | undefined;
         lastWithdrawRequestId?: string | number | Long.Long | undefined;
         appId?: string | number | Long.Long | undefined;
+        type?: PoolType | undefined;
+        creator?: string | undefined;
+        poolCoinSupply?: string | undefined;
+        minPrice?: string | undefined;
+        maxPrice?: string | undefined;
+        price?: string | undefined;
+        disabled?: boolean | undefined;
     } & {
         id?: string | number | (Long.Long & {
             high: number;
@@ -7117,18 +7411,30 @@ export declare const PoolResponse: {
         reserveAddress?: string | undefined;
         poolCoinDenom?: string | undefined;
         balances?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        }[] & ({
-            denom?: string | undefined;
-            amount?: string | undefined;
+            baseCoin?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            quoteCoin?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
         } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & Record<Exclude<keyof I["balances"][number], keyof Coin>, never>)[] & Record<Exclude<keyof I["balances"], keyof {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        }[]>, never>) | undefined;
+            baseCoin?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & Record<Exclude<keyof I["balances"]["baseCoin"], keyof Coin>, never>) | undefined;
+            quoteCoin?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & Record<Exclude<keyof I["balances"]["quoteCoin"], keyof Coin>, never>) | undefined;
+        } & Record<Exclude<keyof I["balances"], keyof PoolBalances>, never>) | undefined;
         lastDepositRequestId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -7303,7 +7609,45 @@ export declare const PoolResponse: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        type?: PoolType | undefined;
+        creator?: string | undefined;
+        poolCoinSupply?: string | undefined;
+        minPrice?: string | undefined;
+        maxPrice?: string | undefined;
+        price?: string | undefined;
+        disabled?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof PoolResponse>, never>>(object: I): PoolResponse;
+};
+export declare const PoolBalances: {
+    encode(message: PoolBalances, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolBalances;
+    fromJSON(object: any): PoolBalances;
+    toJSON(message: PoolBalances): unknown;
+    fromPartial<I extends {
+        baseCoin?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+        quoteCoin?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
+        baseCoin?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["baseCoin"], keyof Coin>, never>) | undefined;
+        quoteCoin?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["quoteCoin"], keyof Coin>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof PoolBalances>, never>>(object: I): PoolBalances;
 };
 export declare const QueryFarmerRequest: {
     encode(message: QueryFarmerRequest, writer?: _m0.Writer): _m0.Writer;
@@ -8805,6 +9149,571 @@ export declare const QueryFarmedPoolCoinResponse: {
         } & Record<Exclude<keyof I["coin"], keyof Coin>, never>) | undefined;
     } & Record<Exclude<keyof I, "coin">, never>>(object: I): QueryFarmedPoolCoinResponse;
 };
+export declare const QueryOrderBooksRequest: {
+    encode(message: QueryOrderBooksRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOrderBooksRequest;
+    fromJSON(object: any): QueryOrderBooksRequest;
+    toJSON(message: QueryOrderBooksRequest): unknown;
+    fromPartial<I extends {
+        appId?: string | number | Long.Long | undefined;
+        pairIds?: (string | number | Long.Long)[] | undefined;
+        priceUnitPowers?: number[] | undefined;
+        numTicks?: number | undefined;
+    } & {
+        appId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        pairIds?: ((string | number | Long.Long)[] & (string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["pairIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["pairIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
+        priceUnitPowers?: (number[] & number[] & Record<Exclude<keyof I["priceUnitPowers"], keyof number[]>, never>) | undefined;
+        numTicks?: number | undefined;
+    } & Record<Exclude<keyof I, keyof QueryOrderBooksRequest>, never>>(object: I): QueryOrderBooksRequest;
+};
+export declare const QueryOrderBooksResponse: {
+    encode(message: QueryOrderBooksResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOrderBooksResponse;
+    fromJSON(object: any): QueryOrderBooksResponse;
+    toJSON(message: QueryOrderBooksResponse): unknown;
+    fromPartial<I extends {
+        pairs?: {
+            pairId?: string | number | Long.Long | undefined;
+            basePrice?: string | undefined;
+            orderBooks?: {
+                priceUnit?: string | undefined;
+                sells?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+                buys?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        }[] | undefined;
+    } & {
+        pairs?: ({
+            pairId?: string | number | Long.Long | undefined;
+            basePrice?: string | undefined;
+            orderBooks?: {
+                priceUnit?: string | undefined;
+                sells?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+                buys?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        }[] & ({
+            pairId?: string | number | Long.Long | undefined;
+            basePrice?: string | undefined;
+            orderBooks?: {
+                priceUnit?: string | undefined;
+                sells?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+                buys?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        } & {
+            pairId?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["pairs"][number]["pairId"], keyof Long.Long>, never>) | undefined;
+            basePrice?: string | undefined;
+            orderBooks?: ({
+                priceUnit?: string | undefined;
+                sells?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+                buys?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+            }[] & ({
+                priceUnit?: string | undefined;
+                sells?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+                buys?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+            } & {
+                priceUnit?: string | undefined;
+                sells?: ({
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] & ({
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                } & {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                } & Record<Exclude<keyof I["pairs"][number]["orderBooks"][number]["sells"][number], keyof OrderBookTickResponse>, never>)[] & Record<Exclude<keyof I["pairs"][number]["orderBooks"][number]["sells"], keyof {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[]>, never>) | undefined;
+                buys?: ({
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] & ({
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                } & {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                } & Record<Exclude<keyof I["pairs"][number]["orderBooks"][number]["buys"][number], keyof OrderBookTickResponse>, never>)[] & Record<Exclude<keyof I["pairs"][number]["orderBooks"][number]["buys"], keyof {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[]>, never>) | undefined;
+            } & Record<Exclude<keyof I["pairs"][number]["orderBooks"][number], keyof OrderBookResponse>, never>)[] & Record<Exclude<keyof I["pairs"][number]["orderBooks"], keyof {
+                priceUnit?: string | undefined;
+                sells?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+                buys?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+            }[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["pairs"][number], keyof OrderBookPairResponse>, never>)[] & Record<Exclude<keyof I["pairs"], keyof {
+            pairId?: string | number | Long.Long | undefined;
+            basePrice?: string | undefined;
+            orderBooks?: {
+                priceUnit?: string | undefined;
+                sells?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+                buys?: {
+                    price?: string | undefined;
+                    userOrderAmount?: string | undefined;
+                    poolOrderAmount?: string | undefined;
+                }[] | undefined;
+            }[] | undefined;
+        }[]>, never>) | undefined;
+    } & Record<Exclude<keyof I, "pairs">, never>>(object: I): QueryOrderBooksResponse;
+};
+export declare const OrderBookPairResponse: {
+    encode(message: OrderBookPairResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): OrderBookPairResponse;
+    fromJSON(object: any): OrderBookPairResponse;
+    toJSON(message: OrderBookPairResponse): unknown;
+    fromPartial<I extends {
+        pairId?: string | number | Long.Long | undefined;
+        basePrice?: string | undefined;
+        orderBooks?: {
+            priceUnit?: string | undefined;
+            sells?: {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[] | undefined;
+            buys?: {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[] | undefined;
+        }[] | undefined;
+    } & {
+        pairId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
+        basePrice?: string | undefined;
+        orderBooks?: ({
+            priceUnit?: string | undefined;
+            sells?: {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[] | undefined;
+            buys?: {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[] | undefined;
+        }[] & ({
+            priceUnit?: string | undefined;
+            sells?: {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[] | undefined;
+            buys?: {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[] | undefined;
+        } & {
+            priceUnit?: string | undefined;
+            sells?: ({
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[] & ({
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            } & {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            } & Record<Exclude<keyof I["orderBooks"][number]["sells"][number], keyof OrderBookTickResponse>, never>)[] & Record<Exclude<keyof I["orderBooks"][number]["sells"], keyof {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[]>, never>) | undefined;
+            buys?: ({
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[] & ({
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            } & {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            } & Record<Exclude<keyof I["orderBooks"][number]["buys"][number], keyof OrderBookTickResponse>, never>)[] & Record<Exclude<keyof I["orderBooks"][number]["buys"], keyof {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["orderBooks"][number], keyof OrderBookResponse>, never>)[] & Record<Exclude<keyof I["orderBooks"], keyof {
+            priceUnit?: string | undefined;
+            sells?: {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[] | undefined;
+            buys?: {
+                price?: string | undefined;
+                userOrderAmount?: string | undefined;
+                poolOrderAmount?: string | undefined;
+            }[] | undefined;
+        }[]>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof OrderBookPairResponse>, never>>(object: I): OrderBookPairResponse;
+};
+export declare const OrderBookResponse: {
+    encode(message: OrderBookResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): OrderBookResponse;
+    fromJSON(object: any): OrderBookResponse;
+    toJSON(message: OrderBookResponse): unknown;
+    fromPartial<I extends {
+        priceUnit?: string | undefined;
+        sells?: {
+            price?: string | undefined;
+            userOrderAmount?: string | undefined;
+            poolOrderAmount?: string | undefined;
+        }[] | undefined;
+        buys?: {
+            price?: string | undefined;
+            userOrderAmount?: string | undefined;
+            poolOrderAmount?: string | undefined;
+        }[] | undefined;
+    } & {
+        priceUnit?: string | undefined;
+        sells?: ({
+            price?: string | undefined;
+            userOrderAmount?: string | undefined;
+            poolOrderAmount?: string | undefined;
+        }[] & ({
+            price?: string | undefined;
+            userOrderAmount?: string | undefined;
+            poolOrderAmount?: string | undefined;
+        } & {
+            price?: string | undefined;
+            userOrderAmount?: string | undefined;
+            poolOrderAmount?: string | undefined;
+        } & Record<Exclude<keyof I["sells"][number], keyof OrderBookTickResponse>, never>)[] & Record<Exclude<keyof I["sells"], keyof {
+            price?: string | undefined;
+            userOrderAmount?: string | undefined;
+            poolOrderAmount?: string | undefined;
+        }[]>, never>) | undefined;
+        buys?: ({
+            price?: string | undefined;
+            userOrderAmount?: string | undefined;
+            poolOrderAmount?: string | undefined;
+        }[] & ({
+            price?: string | undefined;
+            userOrderAmount?: string | undefined;
+            poolOrderAmount?: string | undefined;
+        } & {
+            price?: string | undefined;
+            userOrderAmount?: string | undefined;
+            poolOrderAmount?: string | undefined;
+        } & Record<Exclude<keyof I["buys"][number], keyof OrderBookTickResponse>, never>)[] & Record<Exclude<keyof I["buys"], keyof {
+            price?: string | undefined;
+            userOrderAmount?: string | undefined;
+            poolOrderAmount?: string | undefined;
+        }[]>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof OrderBookResponse>, never>>(object: I): OrderBookResponse;
+};
+export declare const OrderBookTickResponse: {
+    encode(message: OrderBookTickResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): OrderBookTickResponse;
+    fromJSON(object: any): OrderBookTickResponse;
+    toJSON(message: OrderBookTickResponse): unknown;
+    fromPartial<I extends {
+        price?: string | undefined;
+        userOrderAmount?: string | undefined;
+        poolOrderAmount?: string | undefined;
+    } & {
+        price?: string | undefined;
+        userOrderAmount?: string | undefined;
+        poolOrderAmount?: string | undefined;
+    } & Record<Exclude<keyof I, keyof OrderBookTickResponse>, never>>(object: I): OrderBookTickResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Params returns parameters of the module. */
@@ -8845,6 +9754,7 @@ export interface Query {
     PoolIncentives(request: QueryPoolsIncentivesRequest): Promise<QueryPoolIncentivesResponse>;
     /** FarmedPoolCoin returns the total farmed pool coins. */
     FarmedPoolCoin(request: QueryFarmedPoolCoinRequest): Promise<QueryFarmedPoolCoinResponse>;
+    OrderBooks(request: QueryOrderBooksRequest): Promise<QueryOrderBooksResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -8868,6 +9778,7 @@ export declare class QueryClientImpl implements Query {
     DeserializePoolCoin(request: QueryDeserializePoolCoinRequest): Promise<QueryDeserializePoolCoinResponse>;
     PoolIncentives(request: QueryPoolsIncentivesRequest): Promise<QueryPoolIncentivesResponse>;
     FarmedPoolCoin(request: QueryFarmedPoolCoinRequest): Promise<QueryFarmedPoolCoinResponse>;
+    OrderBooks(request: QueryOrderBooksRequest): Promise<QueryOrderBooksResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

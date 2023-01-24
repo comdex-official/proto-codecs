@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -25,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenesisState = exports.AppGenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
-const params_1 = require("../../../comdex/liquidity/v1beta1/params");
-const liquidity_1 = require("../../../comdex/liquidity/v1beta1/liquidity");
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const params_1 = require("./params");
+const liquidity_1 = require("./liquidity");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
 function createBaseAppGenesisState() {
     return {
@@ -42,10 +23,11 @@ function createBaseAppGenesisState() {
         orders: [],
         activeFarmers: [],
         queuedFarmers: [],
+        marketMakingOrderIndexes: [],
     };
 }
 exports.AppGenesisState = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -79,10 +61,13 @@ exports.AppGenesisState = {
         for (const v of message.queuedFarmers) {
             liquidity_1.QueuedFarmer.encode(v, writer.uint32(90).fork()).ldelim();
         }
+        for (const v of message.marketMakingOrderIndexes) {
+            liquidity_1.MMOrderIndex.encode(v, writer.uint32(98).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAppGenesisState();
         while (reader.pos < end) {
@@ -121,6 +106,9 @@ exports.AppGenesisState = {
                 case 11:
                     message.queuedFarmers.push(liquidity_1.QueuedFarmer.decode(reader, reader.uint32()));
                     break;
+                case 12:
+                    message.marketMakingOrderIndexes.push(liquidity_1.MMOrderIndex.decode(reader, reader.uint32()));
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -130,15 +118,15 @@ exports.AppGenesisState = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             genericParams: isSet(object.genericParams)
                 ? params_1.GenericParams.fromJSON(object.genericParams)
                 : undefined,
             lastPairId: isSet(object.lastPairId)
-                ? long_1.default.fromValue(object.lastPairId)
+                ? long_1.default.fromString(object.lastPairId)
                 : long_1.default.UZERO,
             lastPoolId: isSet(object.lastPoolId)
-                ? long_1.default.fromValue(object.lastPoolId)
+                ? long_1.default.fromString(object.lastPoolId)
                 : long_1.default.UZERO,
             pairs: Array.isArray(object === null || object === void 0 ? void 0 : object.pairs)
                 ? object.pairs.map((e) => liquidity_1.Pair.fromJSON(e))
@@ -160,6 +148,9 @@ exports.AppGenesisState = {
                 : [],
             queuedFarmers: Array.isArray(object === null || object === void 0 ? void 0 : object.queuedFarmers)
                 ? object.queuedFarmers.map((e) => liquidity_1.QueuedFarmer.fromJSON(e))
+                : [],
+            marketMakingOrderIndexes: Array.isArray(object === null || object === void 0 ? void 0 : object.marketMakingOrderIndexes)
+                ? object.marketMakingOrderIndexes.map((e) => liquidity_1.MMOrderIndex.fromJSON(e))
                 : [],
         };
     },
@@ -217,10 +208,16 @@ exports.AppGenesisState = {
         else {
             obj.queuedFarmers = [];
         }
+        if (message.marketMakingOrderIndexes) {
+            obj.marketMakingOrderIndexes = message.marketMakingOrderIndexes.map((e) => e ? liquidity_1.MMOrderIndex.toJSON(e) : undefined);
+        }
+        else {
+            obj.marketMakingOrderIndexes = [];
+        }
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         const message = createBaseAppGenesisState();
         message.appId =
             object.appId !== undefined && object.appId !== null
@@ -249,6 +246,8 @@ exports.AppGenesisState = {
             ((_f = object.activeFarmers) === null || _f === void 0 ? void 0 : _f.map((e) => liquidity_1.ActiveFarmer.fromPartial(e))) || [];
         message.queuedFarmers =
             ((_g = object.queuedFarmers) === null || _g === void 0 ? void 0 : _g.map((e) => liquidity_1.QueuedFarmer.fromPartial(e))) || [];
+        message.marketMakingOrderIndexes =
+            ((_h = object.marketMakingOrderIndexes) === null || _h === void 0 ? void 0 : _h.map((e) => liquidity_1.MMOrderIndex.fromPartial(e))) || [];
         return message;
     },
 };
@@ -256,7 +255,7 @@ function createBaseGenesisState() {
     return { params: undefined, appGenesisState: [] };
 }
 exports.GenesisState = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
@@ -266,7 +265,7 @@ exports.GenesisState = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseGenesisState();
         while (reader.pos < end) {
@@ -317,9 +316,9 @@ exports.GenesisState = {
         return message;
     },
 };
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

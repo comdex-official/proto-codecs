@@ -1,34 +1,106 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueuedFarmer = exports.QueuedCoin = exports.ActiveFarmer = exports.Order = exports.WithdrawRequest = exports.DepositRequest = exports.Pool = exports.Pair = exports.addressTypeToJSON = exports.addressTypeFromJSON = exports.AddressType = exports.orderStatusToJSON = exports.orderStatusFromJSON = exports.OrderStatus = exports.requestStatusToJSON = exports.requestStatusFromJSON = exports.RequestStatus = exports.orderDirectionToJSON = exports.orderDirectionFromJSON = exports.OrderDirection = exports.protobufPackage = void 0;
+exports.QueuedFarmer = exports.QueuedCoin = exports.ActiveFarmer = exports.MMOrderIndex = exports.Order = exports.WithdrawRequest = exports.DepositRequest = exports.Pool = exports.Pair = exports.addressTypeToJSON = exports.addressTypeFromJSON = exports.AddressType = exports.orderStatusToJSON = exports.orderStatusFromJSON = exports.OrderStatus = exports.requestStatusToJSON = exports.requestStatusFromJSON = exports.RequestStatus = exports.orderDirectionToJSON = exports.orderDirectionFromJSON = exports.OrderDirection = exports.orderTypeToJSON = exports.orderTypeFromJSON = exports.OrderType = exports.poolTypeToJSON = exports.poolTypeFromJSON = exports.PoolType = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
+/** PoolType enumerates pool types. */
+var PoolType;
+(function (PoolType) {
+    /** POOL_TYPE_UNSPECIFIED - POOL_TYPE_UNSPECIFIED specifies unknown pool type */
+    PoolType[PoolType["POOL_TYPE_UNSPECIFIED"] = 0] = "POOL_TYPE_UNSPECIFIED";
+    /** POOL_TYPE_BASIC - POOL_TYPE_BASIC specifies the basic pool type */
+    PoolType[PoolType["POOL_TYPE_BASIC"] = 1] = "POOL_TYPE_BASIC";
+    /** POOL_TYPE_RANGED - POOL_TYPE_RANGED specifies the ranged pool type */
+    PoolType[PoolType["POOL_TYPE_RANGED"] = 2] = "POOL_TYPE_RANGED";
+    PoolType[PoolType["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(PoolType = exports.PoolType || (exports.PoolType = {}));
+function poolTypeFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "POOL_TYPE_UNSPECIFIED":
+            return PoolType.POOL_TYPE_UNSPECIFIED;
+        case 1:
+        case "POOL_TYPE_BASIC":
+            return PoolType.POOL_TYPE_BASIC;
+        case 2:
+        case "POOL_TYPE_RANGED":
+            return PoolType.POOL_TYPE_RANGED;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return PoolType.UNRECOGNIZED;
+    }
+}
+exports.poolTypeFromJSON = poolTypeFromJSON;
+function poolTypeToJSON(object) {
+    switch (object) {
+        case PoolType.POOL_TYPE_UNSPECIFIED:
+            return "POOL_TYPE_UNSPECIFIED";
+        case PoolType.POOL_TYPE_BASIC:
+            return "POOL_TYPE_BASIC";
+        case PoolType.POOL_TYPE_RANGED:
+            return "POOL_TYPE_RANGED";
+        default:
+            return "UNKNOWN";
+    }
+}
+exports.poolTypeToJSON = poolTypeToJSON;
+/** OrderType enumerates order types. */
+var OrderType;
+(function (OrderType) {
+    /** ORDER_TYPE_UNSPECIFIED - ORDER_TYPE_UNSPECIFIED specifies unknown order type. */
+    OrderType[OrderType["ORDER_TYPE_UNSPECIFIED"] = 0] = "ORDER_TYPE_UNSPECIFIED";
+    /** ORDER_TYPE_LIMIT - ORDER_TYPE_LIMIT specifies limit order type. */
+    OrderType[OrderType["ORDER_TYPE_LIMIT"] = 1] = "ORDER_TYPE_LIMIT";
+    /** ORDER_TYPE_MARKET - ORDER_TYPE_MARKET specifies market order type. */
+    OrderType[OrderType["ORDER_TYPE_MARKET"] = 2] = "ORDER_TYPE_MARKET";
+    /** ORDER_TYPE_MM - ORDER_TYPE_MM specifies MM(market making) order type. */
+    OrderType[OrderType["ORDER_TYPE_MM"] = 3] = "ORDER_TYPE_MM";
+    OrderType[OrderType["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(OrderType = exports.OrderType || (exports.OrderType = {}));
+function orderTypeFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "ORDER_TYPE_UNSPECIFIED":
+            return OrderType.ORDER_TYPE_UNSPECIFIED;
+        case 1:
+        case "ORDER_TYPE_LIMIT":
+            return OrderType.ORDER_TYPE_LIMIT;
+        case 2:
+        case "ORDER_TYPE_MARKET":
+            return OrderType.ORDER_TYPE_MARKET;
+        case 3:
+        case "ORDER_TYPE_MM":
+            return OrderType.ORDER_TYPE_MM;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return OrderType.UNRECOGNIZED;
+    }
+}
+exports.orderTypeFromJSON = orderTypeFromJSON;
+function orderTypeToJSON(object) {
+    switch (object) {
+        case OrderType.ORDER_TYPE_UNSPECIFIED:
+            return "ORDER_TYPE_UNSPECIFIED";
+        case OrderType.ORDER_TYPE_LIMIT:
+            return "ORDER_TYPE_LIMIT";
+        case OrderType.ORDER_TYPE_MARKET:
+            return "ORDER_TYPE_MARKET";
+        case OrderType.ORDER_TYPE_MM:
+            return "ORDER_TYPE_MM";
+        default:
+            return "UNKNOWN";
+    }
+}
+exports.orderTypeToJSON = orderTypeToJSON;
 /** OrderDirection enumerates order directions. */
 var OrderDirection;
 (function (OrderDirection) {
@@ -66,9 +138,8 @@ function orderDirectionToJSON(object) {
             return "ORDER_DIRECTION_BUY";
         case OrderDirection.ORDER_DIRECTION_SELL:
             return "ORDER_DIRECTION_SELL";
-        case OrderDirection.UNRECOGNIZED:
         default:
-            return "UNRECOGNIZED";
+            return "UNKNOWN";
     }
 }
 exports.orderDirectionToJSON = orderDirectionToJSON;
@@ -116,9 +187,8 @@ function requestStatusToJSON(object) {
             return "REQUEST_STATUS_SUCCEEDED";
         case RequestStatus.REQUEST_STATUS_FAILED:
             return "REQUEST_STATUS_FAILED";
-        case RequestStatus.UNRECOGNIZED:
         default:
-            return "UNRECOGNIZED";
+            return "UNKNOWN";
     }
 }
 exports.requestStatusToJSON = requestStatusToJSON;
@@ -187,9 +257,8 @@ function orderStatusToJSON(object) {
             return "ORDER_STATUS_CANCELED";
         case OrderStatus.ORDER_STATUS_EXPIRED:
             return "ORDER_STATUS_EXPIRED";
-        case OrderStatus.UNRECOGNIZED:
         default:
-            return "UNRECOGNIZED";
+            return "UNKNOWN";
     }
 }
 exports.orderStatusToJSON = orderStatusToJSON;
@@ -223,9 +292,8 @@ function addressTypeToJSON(object) {
             return "ADDRESS_TYPE_32_BYTES";
         case AddressType.ADDRESS_TYPE_20_BYTES:
             return "ADDRESS_TYPE_20_BYTES";
-        case AddressType.UNRECOGNIZED:
         default:
-            return "UNRECOGNIZED";
+            return "UNKNOWN";
     }
 }
 exports.addressTypeToJSON = addressTypeToJSON;
@@ -243,7 +311,7 @@ function createBasePair() {
     };
 }
 exports.Pair = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -274,7 +342,7 @@ exports.Pair = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBasePair();
         while (reader.pos < end) {
@@ -316,7 +384,7 @@ exports.Pair = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
             baseCoinDenom: isSet(object.baseCoinDenom)
                 ? String(object.baseCoinDenom)
                 : "",
@@ -327,16 +395,16 @@ exports.Pair = {
                 ? String(object.escrowAddress)
                 : "",
             lastOrderId: isSet(object.lastOrderId)
-                ? long_1.default.fromValue(object.lastOrderId)
+                ? long_1.default.fromString(object.lastOrderId)
                 : long_1.default.UZERO,
             lastPrice: isSet(object.lastPrice) ? String(object.lastPrice) : "",
             currentBatchId: isSet(object.currentBatchId)
-                ? long_1.default.fromValue(object.currentBatchId)
+                ? long_1.default.fromString(object.currentBatchId)
                 : long_1.default.UZERO,
             swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
                 ? String(object.swapFeeCollectorAddress)
                 : "",
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -397,10 +465,14 @@ function createBasePool() {
         lastWithdrawRequestId: long_1.default.UZERO,
         disabled: false,
         appId: long_1.default.UZERO,
+        type: 0,
+        creator: "",
+        minPrice: "",
+        maxPrice: "",
     };
 }
 exports.Pool = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -425,10 +497,22 @@ exports.Pool = {
         if (!message.appId.isZero()) {
             writer.uint32(64).uint64(message.appId);
         }
+        if (message.type !== 0) {
+            writer.uint32(72).int32(message.type);
+        }
+        if (message.creator !== "") {
+            writer.uint32(82).string(message.creator);
+        }
+        if (message.minPrice !== "") {
+            writer.uint32(90).string(message.minPrice);
+        }
+        if (message.maxPrice !== "") {
+            writer.uint32(98).string(message.maxPrice);
+        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBasePool();
         while (reader.pos < end) {
@@ -458,6 +542,18 @@ exports.Pool = {
                 case 8:
                     message.appId = reader.uint64();
                     break;
+                case 9:
+                    message.type = reader.int32();
+                    break;
+                case 10:
+                    message.creator = reader.string();
+                    break;
+                case 11:
+                    message.minPrice = reader.string();
+                    break;
+                case 12:
+                    message.maxPrice = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -467,8 +563,10 @@ exports.Pool = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
-            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            pairId: isSet(object.pairId)
+                ? long_1.default.fromString(object.pairId)
+                : long_1.default.UZERO,
             reserveAddress: isSet(object.reserveAddress)
                 ? String(object.reserveAddress)
                 : "",
@@ -476,13 +574,17 @@ exports.Pool = {
                 ? String(object.poolCoinDenom)
                 : "",
             lastDepositRequestId: isSet(object.lastDepositRequestId)
-                ? long_1.default.fromValue(object.lastDepositRequestId)
+                ? long_1.default.fromString(object.lastDepositRequestId)
                 : long_1.default.UZERO,
             lastWithdrawRequestId: isSet(object.lastWithdrawRequestId)
-                ? long_1.default.fromValue(object.lastWithdrawRequestId)
+                ? long_1.default.fromString(object.lastWithdrawRequestId)
                 : long_1.default.UZERO,
             disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            type: isSet(object.type) ? poolTypeFromJSON(object.type) : 0,
+            creator: isSet(object.creator) ? String(object.creator) : "",
+            minPrice: isSet(object.minPrice) ? String(object.minPrice) : "",
+            maxPrice: isSet(object.maxPrice) ? String(object.maxPrice) : "",
         };
     },
     toJSON(message) {
@@ -502,10 +604,14 @@ exports.Pool = {
         message.disabled !== undefined && (obj.disabled = message.disabled);
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.type !== undefined && (obj.type = poolTypeToJSON(message.type));
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.minPrice !== undefined && (obj.minPrice = message.minPrice);
+        message.maxPrice !== undefined && (obj.maxPrice = message.maxPrice);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e, _f, _g;
         const message = createBasePool();
         message.id =
             object.id !== undefined && object.id !== null
@@ -532,6 +638,10 @@ exports.Pool = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.type = (_d = object.type) !== null && _d !== void 0 ? _d : 0;
+        message.creator = (_e = object.creator) !== null && _e !== void 0 ? _e : "";
+        message.minPrice = (_f = object.minPrice) !== null && _f !== void 0 ? _f : "";
+        message.maxPrice = (_g = object.maxPrice) !== null && _g !== void 0 ? _g : "";
         return message;
     },
 };
@@ -549,7 +659,7 @@ function createBaseDepositRequest() {
     };
 }
 exports.DepositRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -580,7 +690,7 @@ exports.DepositRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseDepositRequest();
         while (reader.pos < end) {
@@ -622,10 +732,12 @@ exports.DepositRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
-            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
             msgHeight: isSet(object.msgHeight)
-                ? long_1.default.fromValue(object.msgHeight)
+                ? long_1.default.fromString(object.msgHeight)
                 : long_1.default.ZERO,
             depositor: isSet(object.depositor) ? String(object.depositor) : "",
             depositCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.depositCoins)
@@ -638,7 +750,7 @@ exports.DepositRequest = {
                 ? coin_1.Coin.fromJSON(object.mintedPoolCoin)
                 : undefined,
             status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -717,7 +829,7 @@ function createBaseWithdrawRequest() {
     };
 }
 exports.WithdrawRequest = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -745,7 +857,7 @@ exports.WithdrawRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseWithdrawRequest();
         while (reader.pos < end) {
@@ -784,10 +896,12 @@ exports.WithdrawRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
-            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
             msgHeight: isSet(object.msgHeight)
-                ? long_1.default.fromValue(object.msgHeight)
+                ? long_1.default.fromString(object.msgHeight)
                 : long_1.default.ZERO,
             withdrawer: isSet(object.withdrawer) ? String(object.withdrawer) : "",
             poolCoin: isSet(object.poolCoin)
@@ -797,7 +911,7 @@ exports.WithdrawRequest = {
                 ? object.withdrawnCoins.map((e) => coin_1.Coin.fromJSON(e))
                 : [],
             status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -872,10 +986,11 @@ function createBaseOrder() {
         expireAt: undefined,
         status: 0,
         appId: long_1.default.UZERO,
+        type: 0,
     };
 }
 exports.Order = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -921,10 +1036,13 @@ exports.Order = {
         if (!message.appId.isZero()) {
             writer.uint32(120).uint64(message.appId);
         }
+        if (message.type !== 0) {
+            writer.uint32(128).int32(message.type);
+        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseOrder();
         while (reader.pos < end) {
@@ -975,6 +1093,9 @@ exports.Order = {
                 case 15:
                     message.appId = reader.uint64();
                     break;
+                case 16:
+                    message.type = reader.int32();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -984,10 +1105,12 @@ exports.Order = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
-            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
+            pairId: isSet(object.pairId)
+                ? long_1.default.fromString(object.pairId)
+                : long_1.default.UZERO,
             msgHeight: isSet(object.msgHeight)
-                ? long_1.default.fromValue(object.msgHeight)
+                ? long_1.default.fromString(object.msgHeight)
                 : long_1.default.ZERO,
             orderer: isSet(object.orderer) ? String(object.orderer) : "",
             direction: isSet(object.direction)
@@ -1006,13 +1129,14 @@ exports.Order = {
             amount: isSet(object.amount) ? String(object.amount) : "",
             openAmount: isSet(object.openAmount) ? String(object.openAmount) : "",
             batchId: isSet(object.batchId)
-                ? long_1.default.fromValue(object.batchId)
+                ? long_1.default.fromString(object.batchId)
                 : long_1.default.UZERO,
             expireAt: isSet(object.expireAt)
                 ? fromJsonTimestamp(object.expireAt)
                 : undefined,
             status: isSet(object.status) ? orderStatusFromJSON(object.status) : 0,
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            type: isSet(object.type) ? orderTypeFromJSON(object.type) : 0,
         };
     },
     toJSON(message) {
@@ -1049,10 +1173,11 @@ exports.Order = {
             (obj.status = orderStatusToJSON(message.status));
         message.appId !== undefined &&
             (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.type !== undefined && (obj.type = orderTypeToJSON(message.type));
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         const message = createBaseOrder();
         message.id =
             object.id !== undefined && object.id !== null
@@ -1094,6 +1219,105 @@ exports.Order = {
             object.appId !== undefined && object.appId !== null
                 ? long_1.default.fromValue(object.appId)
                 : long_1.default.UZERO;
+        message.type = (_h = object.type) !== null && _h !== void 0 ? _h : 0;
+        return message;
+    },
+};
+function createBaseMMOrderIndex() {
+    return { orderer: "", appId: long_1.default.UZERO, pairId: long_1.default.UZERO, orderIds: [] };
+}
+exports.MMOrderIndex = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.orderer !== "") {
+            writer.uint32(10).string(message.orderer);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
+        }
+        if (!message.pairId.isZero()) {
+            writer.uint32(24).uint64(message.pairId);
+        }
+        writer.uint32(34).fork();
+        for (const v of message.orderIds) {
+            writer.uint64(v);
+        }
+        writer.ldelim();
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMMOrderIndex();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.orderer = reader.string();
+                    break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
+                case 3:
+                    message.pairId = reader.uint64();
+                    break;
+                case 4:
+                    if ((tag & 7) === 2) {
+                        const end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2) {
+                            message.orderIds.push(reader.uint64());
+                        }
+                    }
+                    else {
+                        message.orderIds.push(reader.uint64());
+                    }
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            orderer: isSet(object.orderer) ? String(object.orderer) : "",
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            pairId: isSet(object.pairId)
+                ? long_1.default.fromString(object.pairId)
+                : long_1.default.UZERO,
+            orderIds: Array.isArray(object === null || object === void 0 ? void 0 : object.orderIds)
+                ? object.orderIds.map((e) => long_1.default.fromString(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.orderer !== undefined && (obj.orderer = message.orderer);
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pairId !== undefined &&
+            (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
+        if (message.orderIds) {
+            obj.orderIds = message.orderIds.map((e) => (e || long_1.default.UZERO).toString());
+        }
+        else {
+            obj.orderIds = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseMMOrderIndex();
+        message.orderer = (_a = object.orderer) !== null && _a !== void 0 ? _a : "";
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.pairId =
+            object.pairId !== undefined && object.pairId !== null
+                ? long_1.default.fromValue(object.pairId)
+                : long_1.default.UZERO;
+        message.orderIds = ((_b = object.orderIds) === null || _b === void 0 ? void 0 : _b.map((e) => long_1.default.fromValue(e))) || [];
         return message;
     },
 };
@@ -1106,7 +1330,7 @@ function createBaseActiveFarmer() {
     };
 }
 exports.ActiveFarmer = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -1122,7 +1346,7 @@ exports.ActiveFarmer = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseActiveFarmer();
         while (reader.pos < end) {
@@ -1149,8 +1373,10 @@ exports.ActiveFarmer = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
             farmer: isSet(object.farmer) ? String(object.farmer) : "",
             farmedPoolCoin: isSet(object.farmedPoolCoin)
                 ? coin_1.Coin.fromJSON(object.farmedPoolCoin)
@@ -1193,7 +1419,7 @@ function createBaseQueuedCoin() {
     return { farmedPoolCoin: undefined, createdAt: undefined };
 }
 exports.QueuedCoin = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.farmedPoolCoin !== undefined) {
             coin_1.Coin.encode(message.farmedPoolCoin, writer.uint32(10).fork()).ldelim();
         }
@@ -1203,7 +1429,7 @@ exports.QueuedCoin = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueuedCoin();
         while (reader.pos < end) {
@@ -1257,7 +1483,7 @@ function createBaseQueuedFarmer() {
     return { appId: long_1.default.UZERO, poolId: long_1.default.UZERO, farmer: "", queudCoins: [] };
 }
 exports.QueuedFarmer = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -1273,7 +1499,7 @@ exports.QueuedFarmer = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueuedFarmer();
         while (reader.pos < end) {
@@ -1300,8 +1526,10 @@ exports.QueuedFarmer = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
-            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId)
+                ? long_1.default.fromString(object.poolId)
+                : long_1.default.UZERO,
             farmer: isSet(object.farmer) ? String(object.farmer) : "",
             queudCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.queudCoins)
                 ? object.queudCoins.map((e) => exports.QueuedCoin.fromJSON(e))
@@ -1364,9 +1592,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

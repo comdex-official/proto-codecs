@@ -1,7 +1,7 @@
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import { OrderDirection } from "../../../comdex/liquidity/v1beta1/liquidity";
+import { OrderDirection } from "./liquidity";
 import { Duration } from "../../../google/protobuf/duration";
 export declare const protobufPackage = "comdex.liquidity.v1beta1";
 /** MsgCreatePair defines an SDK message for creating a pair. */
@@ -28,6 +28,22 @@ export interface MsgCreatePool {
 }
 /** MsgCreatePoolResponse defines the Msg/CreatePool response type. */
 export interface MsgCreatePoolResponse {
+}
+/** MsgCreateRangedPool defines an SDK message for creating a ranged pool. */
+export interface MsgCreateRangedPool {
+    /** creator specifies the bech32-encoded address that is the pool creator */
+    creator: string;
+    appId: Long;
+    /** pair_id specifies the pair id. */
+    pairId: Long;
+    /** deposit_coins specifies the amount of coins to deposit. */
+    depositCoins: Coin[];
+    minPrice: string;
+    maxPrice: string;
+    initialPrice: string;
+}
+/** MsgCreateRangedPoolResponse defines the Msg/CreateRangedPool response type. */
+export interface MsgCreateRangedPoolResponse {
 }
 /** MsgDeposit defines an SDK message for depositing coins to the pool */
 export interface MsgDeposit {
@@ -99,6 +115,31 @@ export interface MsgMarketOrder {
 /** MsgMarketOrderResponse defines the Msg/MarketOrder response type. */
 export interface MsgMarketOrderResponse {
 }
+/** MsgMMOrder defines an SDK message for making a MM(market making) order. */
+export interface MsgMMOrder {
+    /** orderer specifies the bech32-encoded address that makes an order */
+    orderer: string;
+    appId: Long;
+    /** pair_id specifies the pair id */
+    pairId: Long;
+    /** max_sell_price specifies the maximum sell price */
+    maxSellPrice: string;
+    /** min_sell_price specifies the minimum sell price */
+    minSellPrice: string;
+    /** sell_amount specifies the total amount of base coin of sell orders */
+    sellAmount: string;
+    /** max_buy_price specifies the maximum buy price */
+    maxBuyPrice: string;
+    /** min_buy_price specifies the minimum buy price */
+    minBuyPrice: string;
+    /** buy_amount specifies the total amount of base coin of buy orders */
+    buyAmount: string;
+    /** order_lifespan specifies the order lifespan */
+    orderLifespan?: Duration;
+}
+/** MsgMMOrderResponse defines the Msg/MMOrder response type. */
+export interface MsgMMOrderResponse {
+}
 /** MsgCancelOrder defines an SDK message for cancelling an order */
 export interface MsgCancelOrder {
     /** orderer specifies the bech32-encoded address that makes an order */
@@ -122,6 +163,17 @@ export interface MsgCancelAllOrders {
 }
 /** MsgCancelAllOrdersResponse defines the Msg/CancelAllOrders response type. */
 export interface MsgCancelAllOrdersResponse {
+}
+/** MsgCancelMMOrder defines an SDK message for cancelling all market making orders */
+export interface MsgCancelMMOrder {
+    /** orderer specifies the bech32-encoded address that makes an order */
+    orderer: string;
+    appId: Long;
+    /** pair_id specifies the pair id to cancel orders */
+    pairId: Long;
+}
+/** MsgCancelMMOrderResponse defines the Msg/CancelMMOrder response type. */
+export interface MsgCancelMMOrderResponse {
 }
 /** MsgFarm defines a SDK message for farming coins (i.e without bonding) for incentivisation. */
 export interface MsgFarm {
@@ -376,6 +428,165 @@ export declare const MsgCreatePoolResponse: {
     fromJSON(_: any): MsgCreatePoolResponse;
     toJSON(_: MsgCreatePoolResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCreatePoolResponse;
+};
+export declare const MsgCreateRangedPool: {
+    encode(message: MsgCreateRangedPool, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreateRangedPool;
+    fromJSON(object: any): MsgCreateRangedPool;
+    toJSON(message: MsgCreateRangedPool): unknown;
+    fromPartial<I extends {
+        creator?: string | undefined;
+        appId?: string | number | Long.Long | undefined;
+        pairId?: string | number | Long.Long | undefined;
+        depositCoins?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+        minPrice?: string | undefined;
+        maxPrice?: string | undefined;
+        initialPrice?: string | undefined;
+    } & {
+        creator?: string | undefined;
+        appId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        pairId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
+        depositCoins?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & Record<Exclude<keyof I["depositCoins"][number], keyof Coin>, never>)[] & Record<Exclude<keyof I["depositCoins"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>, never>) | undefined;
+        minPrice?: string | undefined;
+        maxPrice?: string | undefined;
+        initialPrice?: string | undefined;
+    } & Record<Exclude<keyof I, keyof MsgCreateRangedPool>, never>>(object: I): MsgCreateRangedPool;
+};
+export declare const MsgCreateRangedPoolResponse: {
+    encode(_: MsgCreateRangedPoolResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreateRangedPoolResponse;
+    fromJSON(_: any): MsgCreateRangedPoolResponse;
+    toJSON(_: MsgCreateRangedPoolResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCreateRangedPoolResponse;
 };
 export declare const MsgDeposit: {
     encode(message: MsgDeposit, writer?: _m0.Writer): _m0.Writer;
@@ -1121,6 +1332,222 @@ export declare const MsgMarketOrderResponse: {
     toJSON(_: MsgMarketOrderResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgMarketOrderResponse;
 };
+export declare const MsgMMOrder: {
+    encode(message: MsgMMOrder, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgMMOrder;
+    fromJSON(object: any): MsgMMOrder;
+    toJSON(message: MsgMMOrder): unknown;
+    fromPartial<I extends {
+        orderer?: string | undefined;
+        appId?: string | number | Long.Long | undefined;
+        pairId?: string | number | Long.Long | undefined;
+        maxSellPrice?: string | undefined;
+        minSellPrice?: string | undefined;
+        sellAmount?: string | undefined;
+        maxBuyPrice?: string | undefined;
+        minBuyPrice?: string | undefined;
+        buyAmount?: string | undefined;
+        orderLifespan?: {
+            seconds?: string | number | Long.Long | undefined;
+            nanos?: number | undefined;
+        } | undefined;
+    } & {
+        orderer?: string | undefined;
+        appId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        pairId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
+        maxSellPrice?: string | undefined;
+        minSellPrice?: string | undefined;
+        sellAmount?: string | undefined;
+        maxBuyPrice?: string | undefined;
+        minBuyPrice?: string | undefined;
+        buyAmount?: string | undefined;
+        orderLifespan?: ({
+            seconds?: string | number | Long.Long | undefined;
+            nanos?: number | undefined;
+        } & {
+            seconds?: string | number | (Long.Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long.Long) => Long.Long;
+                and: (other: string | number | Long.Long) => Long.Long;
+                compare: (other: string | number | Long.Long) => number;
+                comp: (other: string | number | Long.Long) => number;
+                divide: (divisor: string | number | Long.Long) => Long.Long;
+                div: (divisor: string | number | Long.Long) => Long.Long;
+                equals: (other: string | number | Long.Long) => boolean;
+                eq: (other: string | number | Long.Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long.Long) => boolean;
+                gt: (other: string | number | Long.Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                gte: (other: string | number | Long.Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                lessThan: (other: string | number | Long.Long) => boolean;
+                lt: (other: string | number | Long.Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                lte: (other: string | number | Long.Long) => boolean;
+                modulo: (other: string | number | Long.Long) => Long.Long;
+                mod: (other: string | number | Long.Long) => Long.Long;
+                multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                mul: (multiplier: string | number | Long.Long) => Long.Long;
+                negate: () => Long.Long;
+                neg: () => Long.Long;
+                not: () => Long.Long;
+                notEquals: (other: string | number | Long.Long) => boolean;
+                neq: (other: string | number | Long.Long) => boolean;
+                or: (other: string | number | Long.Long) => Long.Long;
+                shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                shl: (numBits: number | Long.Long) => Long.Long;
+                shiftRight: (numBits: number | Long.Long) => Long.Long;
+                shr: (numBits: number | Long.Long) => Long.Long;
+                shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                shru: (numBits: number | Long.Long) => Long.Long;
+                subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long.Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long.Long;
+                xor: (other: string | number | Long.Long) => Long.Long;
+            } & Record<Exclude<keyof I["orderLifespan"]["seconds"], keyof Long.Long>, never>) | undefined;
+            nanos?: number | undefined;
+        } & Record<Exclude<keyof I["orderLifespan"], keyof Duration>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgMMOrder>, never>>(object: I): MsgMMOrder;
+};
+export declare const MsgMMOrderResponse: {
+    encode(_: MsgMMOrderResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgMMOrderResponse;
+    fromJSON(_: any): MsgMMOrderResponse;
+    toJSON(_: MsgMMOrderResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgMMOrderResponse;
+};
 export declare const MsgCancelOrder: {
     encode(message: MsgCancelOrder, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelOrder;
@@ -1452,6 +1879,142 @@ export declare const MsgCancelAllOrdersResponse: {
     toJSON(_: MsgCancelAllOrdersResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCancelAllOrdersResponse;
 };
+export declare const MsgCancelMMOrder: {
+    encode(message: MsgCancelMMOrder, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelMMOrder;
+    fromJSON(object: any): MsgCancelMMOrder;
+    toJSON(message: MsgCancelMMOrder): unknown;
+    fromPartial<I extends {
+        orderer?: string | undefined;
+        appId?: string | number | Long.Long | undefined;
+        pairId?: string | number | Long.Long | undefined;
+    } & {
+        orderer?: string | undefined;
+        appId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
+        pairId?: string | number | (Long.Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long.Long) => Long.Long;
+            and: (other: string | number | Long.Long) => Long.Long;
+            compare: (other: string | number | Long.Long) => number;
+            comp: (other: string | number | Long.Long) => number;
+            divide: (divisor: string | number | Long.Long) => Long.Long;
+            div: (divisor: string | number | Long.Long) => Long.Long;
+            equals: (other: string | number | Long.Long) => boolean;
+            eq: (other: string | number | Long.Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long.Long) => boolean;
+            gt: (other: string | number | Long.Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+            gte: (other: string | number | Long.Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            lessThan: (other: string | number | Long.Long) => boolean;
+            lt: (other: string | number | Long.Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+            lte: (other: string | number | Long.Long) => boolean;
+            modulo: (other: string | number | Long.Long) => Long.Long;
+            mod: (other: string | number | Long.Long) => Long.Long;
+            multiply: (multiplier: string | number | Long.Long) => Long.Long;
+            mul: (multiplier: string | number | Long.Long) => Long.Long;
+            negate: () => Long.Long;
+            neg: () => Long.Long;
+            not: () => Long.Long;
+            notEquals: (other: string | number | Long.Long) => boolean;
+            neq: (other: string | number | Long.Long) => boolean;
+            or: (other: string | number | Long.Long) => Long.Long;
+            shiftLeft: (numBits: number | Long.Long) => Long.Long;
+            shl: (numBits: number | Long.Long) => Long.Long;
+            shiftRight: (numBits: number | Long.Long) => Long.Long;
+            shr: (numBits: number | Long.Long) => Long.Long;
+            shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+            shru: (numBits: number | Long.Long) => Long.Long;
+            subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+            sub: (subtrahend: string | number | Long.Long) => Long.Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long.Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long.Long;
+            xor: (other: string | number | Long.Long) => Long.Long;
+        } & Record<Exclude<keyof I["pairId"], keyof Long.Long>, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof MsgCancelMMOrder>, never>>(object: I): MsgCancelMMOrder;
+};
+export declare const MsgCancelMMOrderResponse: {
+    encode(_: MsgCancelMMOrderResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelMMOrderResponse;
+    fromJSON(_: any): MsgCancelMMOrderResponse;
+    toJSON(_: MsgCancelMMOrderResponse): unknown;
+    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCancelMMOrderResponse;
+};
 export declare const MsgFarm: {
     encode(message: MsgFarm, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFarm;
@@ -1752,6 +2315,8 @@ export interface Msg {
     CreatePair(request: MsgCreatePair): Promise<MsgCreatePairResponse>;
     /** CreatePool defines a method for creating a pool */
     CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse>;
+    /** CreateRangePool defines a method for creating a ranged pool */
+    CreateRangedPool(request: MsgCreateRangedPool): Promise<MsgCreateRangedPoolResponse>;
     /** Deposit defines a method for depositing coins to the pool */
     Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;
     /** Withdraw defines a method for withdrawing pool coin from the pool */
@@ -1760,10 +2325,14 @@ export interface Msg {
     LimitOrder(request: MsgLimitOrder): Promise<MsgLimitOrderResponse>;
     /** MarketOrder defines a method for making a market order */
     MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse>;
+    /** MsgMMOrder defines a method for making a MM(market making) order */
+    MMOrder(request: MsgMMOrder): Promise<MsgMMOrderResponse>;
     /** CancelOrder defines a method for cancelling an order */
     CancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse>;
     /** CancelAllOrders defines a method for cancelling all orders */
     CancelAllOrders(request: MsgCancelAllOrders): Promise<MsgCancelAllOrdersResponse>;
+    /** CancelMMOrder defines a method for cancelling previously placed market making orders */
+    CancelMMOrder(request: MsgCancelMMOrder): Promise<MsgCancelMMOrderResponse>;
     /** MsgFarm defines a method to farm the pool token, for incentivization */
     Farm(request: MsgFarm): Promise<MsgFarmResponse>;
     /** Unfarm defines a method to unfarm the farmed pool token */
@@ -1774,12 +2343,15 @@ export declare class MsgClientImpl implements Msg {
     constructor(rpc: Rpc);
     CreatePair(request: MsgCreatePair): Promise<MsgCreatePairResponse>;
     CreatePool(request: MsgCreatePool): Promise<MsgCreatePoolResponse>;
+    CreateRangedPool(request: MsgCreateRangedPool): Promise<MsgCreateRangedPoolResponse>;
     Deposit(request: MsgDeposit): Promise<MsgDepositResponse>;
     Withdraw(request: MsgWithdraw): Promise<MsgWithdrawResponse>;
     LimitOrder(request: MsgLimitOrder): Promise<MsgLimitOrderResponse>;
     MarketOrder(request: MsgMarketOrder): Promise<MsgMarketOrderResponse>;
+    MMOrder(request: MsgMMOrder): Promise<MsgMMOrderResponse>;
     CancelOrder(request: MsgCancelOrder): Promise<MsgCancelOrderResponse>;
     CancelAllOrders(request: MsgCancelAllOrders): Promise<MsgCancelAllOrdersResponse>;
+    CancelMMOrder(request: MsgCancelMMOrder): Promise<MsgCancelMMOrderResponse>;
     Farm(request: MsgFarm): Promise<MsgFarmResponse>;
     Unfarm(request: MsgUnfarm): Promise<MsgUnfarmResponse>;
 }
