@@ -18,6 +18,7 @@ export interface GenesisState {
   dutchAuction: DutchAuction[];
   protocolStatistics: ProtocolStatistics[];
   auctionParams: AuctionParams[];
+  dutchLendAuction: DutchAuction[];
   params?: Params;
   UserBiddingID: Long;
 }
@@ -29,6 +30,7 @@ function createBaseGenesisState(): GenesisState {
     dutchAuction: [],
     protocolStatistics: [],
     auctionParams: [],
+    dutchLendAuction: [],
     params: undefined,
     UserBiddingID: Long.UZERO,
   };
@@ -54,11 +56,14 @@ export const GenesisState = {
     for (const v of message.auctionParams) {
       AuctionParams.encode(v!, writer.uint32(42).fork()).ldelim();
     }
+    for (const v of message.dutchLendAuction) {
+      DutchAuction.encode(v!, writer.uint32(50).fork()).ldelim();
+    }
     if (message.params !== undefined) {
-      Params.encode(message.params, writer.uint32(50).fork()).ldelim();
+      Params.encode(message.params, writer.uint32(58).fork()).ldelim();
     }
     if (!message.UserBiddingID.isZero()) {
-      writer.uint32(56).uint64(message.UserBiddingID);
+      writer.uint32(64).uint64(message.UserBiddingID);
     }
     return writer;
   },
@@ -94,9 +99,14 @@ export const GenesisState = {
           );
           break;
         case 6:
-          message.params = Params.decode(reader, reader.uint32());
+          message.dutchLendAuction.push(
+            DutchAuction.decode(reader, reader.uint32())
+          );
           break;
         case 7:
+          message.params = Params.decode(reader, reader.uint32());
+          break;
+        case 8:
           message.UserBiddingID = reader.uint64() as Long;
           break;
         default:
@@ -125,6 +135,9 @@ export const GenesisState = {
         : [],
       auctionParams: Array.isArray(object?.auctionParams)
         ? object.auctionParams.map((e: any) => AuctionParams.fromJSON(e))
+        : [],
+      dutchLendAuction: Array.isArray(object?.dutchLendAuction)
+        ? object.dutchLendAuction.map((e: any) => DutchAuction.fromJSON(e))
         : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       UserBiddingID: isSet(object.UserBiddingID)
@@ -170,6 +183,13 @@ export const GenesisState = {
     } else {
       obj.auctionParams = [];
     }
+    if (message.dutchLendAuction) {
+      obj.dutchLendAuction = message.dutchLendAuction.map((e) =>
+        e ? DutchAuction.toJSON(e) : undefined
+      );
+    } else {
+      obj.dutchLendAuction = [];
+    }
     message.params !== undefined &&
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     message.UserBiddingID !== undefined &&
@@ -193,6 +213,8 @@ export const GenesisState = {
       ) || [];
     message.auctionParams =
       object.auctionParams?.map((e) => AuctionParams.fromPartial(e)) || [];
+    message.dutchLendAuction =
+      object.dutchLendAuction?.map((e) => DutchAuction.fromPartial(e)) || [];
     message.params =
       object.params !== undefined && object.params !== null
         ? Params.fromPartial(object.params)
