@@ -1,10 +1,101 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
+
+/** PoolType enumerates pool types. */
+export enum PoolType {
+  /** POOL_TYPE_UNSPECIFIED - POOL_TYPE_UNSPECIFIED specifies unknown pool type */
+  POOL_TYPE_UNSPECIFIED = 0,
+  /** POOL_TYPE_BASIC - POOL_TYPE_BASIC specifies the basic pool type */
+  POOL_TYPE_BASIC = 1,
+  /** POOL_TYPE_RANGED - POOL_TYPE_RANGED specifies the ranged pool type */
+  POOL_TYPE_RANGED = 2,
+  UNRECOGNIZED = -1,
+}
+
+export function poolTypeFromJSON(object: any): PoolType {
+  switch (object) {
+    case 0:
+    case "POOL_TYPE_UNSPECIFIED":
+      return PoolType.POOL_TYPE_UNSPECIFIED;
+    case 1:
+    case "POOL_TYPE_BASIC":
+      return PoolType.POOL_TYPE_BASIC;
+    case 2:
+    case "POOL_TYPE_RANGED":
+      return PoolType.POOL_TYPE_RANGED;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return PoolType.UNRECOGNIZED;
+  }
+}
+
+export function poolTypeToJSON(object: PoolType): string {
+  switch (object) {
+    case PoolType.POOL_TYPE_UNSPECIFIED:
+      return "POOL_TYPE_UNSPECIFIED";
+    case PoolType.POOL_TYPE_BASIC:
+      return "POOL_TYPE_BASIC";
+    case PoolType.POOL_TYPE_RANGED:
+      return "POOL_TYPE_RANGED";
+    default:
+      return "UNKNOWN";
+  }
+}
+
+/** OrderType enumerates order types. */
+export enum OrderType {
+  /** ORDER_TYPE_UNSPECIFIED - ORDER_TYPE_UNSPECIFIED specifies unknown order type. */
+  ORDER_TYPE_UNSPECIFIED = 0,
+  /** ORDER_TYPE_LIMIT - ORDER_TYPE_LIMIT specifies limit order type. */
+  ORDER_TYPE_LIMIT = 1,
+  /** ORDER_TYPE_MARKET - ORDER_TYPE_MARKET specifies market order type. */
+  ORDER_TYPE_MARKET = 2,
+  /** ORDER_TYPE_MM - ORDER_TYPE_MM specifies MM(market making) order type. */
+  ORDER_TYPE_MM = 3,
+  UNRECOGNIZED = -1,
+}
+
+export function orderTypeFromJSON(object: any): OrderType {
+  switch (object) {
+    case 0:
+    case "ORDER_TYPE_UNSPECIFIED":
+      return OrderType.ORDER_TYPE_UNSPECIFIED;
+    case 1:
+    case "ORDER_TYPE_LIMIT":
+      return OrderType.ORDER_TYPE_LIMIT;
+    case 2:
+    case "ORDER_TYPE_MARKET":
+      return OrderType.ORDER_TYPE_MARKET;
+    case 3:
+    case "ORDER_TYPE_MM":
+      return OrderType.ORDER_TYPE_MM;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return OrderType.UNRECOGNIZED;
+  }
+}
+
+export function orderTypeToJSON(object: OrderType): string {
+  switch (object) {
+    case OrderType.ORDER_TYPE_UNSPECIFIED:
+      return "ORDER_TYPE_UNSPECIFIED";
+    case OrderType.ORDER_TYPE_LIMIT:
+      return "ORDER_TYPE_LIMIT";
+    case OrderType.ORDER_TYPE_MARKET:
+      return "ORDER_TYPE_MARKET";
+    case OrderType.ORDER_TYPE_MM:
+      return "ORDER_TYPE_MM";
+    default:
+      return "UNKNOWN";
+  }
+}
 
 /** OrderDirection enumerates order directions. */
 export enum OrderDirection {
@@ -43,9 +134,8 @@ export function orderDirectionToJSON(object: OrderDirection): string {
       return "ORDER_DIRECTION_BUY";
     case OrderDirection.ORDER_DIRECTION_SELL:
       return "ORDER_DIRECTION_SELL";
-    case OrderDirection.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return "UNKNOWN";
   }
 }
 
@@ -93,9 +183,8 @@ export function requestStatusToJSON(object: RequestStatus): string {
       return "REQUEST_STATUS_SUCCEEDED";
     case RequestStatus.REQUEST_STATUS_FAILED:
       return "REQUEST_STATUS_FAILED";
-    case RequestStatus.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return "UNKNOWN";
   }
 }
 
@@ -164,9 +253,8 @@ export function orderStatusToJSON(object: OrderStatus): string {
       return "ORDER_STATUS_CANCELED";
     case OrderStatus.ORDER_STATUS_EXPIRED:
       return "ORDER_STATUS_EXPIRED";
-    case OrderStatus.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return "UNKNOWN";
   }
 }
 
@@ -200,9 +288,8 @@ export function addressTypeToJSON(object: AddressType): string {
       return "ADDRESS_TYPE_32_BYTES";
     case AddressType.ADDRESS_TYPE_20_BYTES:
       return "ADDRESS_TYPE_20_BYTES";
-    case AddressType.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return "UNKNOWN";
   }
 }
 
@@ -229,6 +316,10 @@ export interface Pool {
   lastWithdrawRequestId: Long;
   disabled: boolean;
   appId: Long;
+  type: PoolType;
+  creator: string;
+  minPrice: string;
+  maxPrice: string;
 }
 
 /** DepositRequest defines a deposit request. */
@@ -294,6 +385,19 @@ export interface Order {
   expireAt?: Date;
   status: OrderStatus;
   appId: Long;
+  /** type specifies the typo of the order */
+  type: OrderType;
+}
+
+/**
+ * MMOrderIndex defines an index type to quickly find market making orders
+ * from an orderer.
+ */
+export interface MMOrderIndex {
+  orderer: string;
+  appId: Long;
+  pairId: Long;
+  orderIds: Long[];
 }
 
 export interface ActiveFarmer {
@@ -405,7 +509,7 @@ export const Pair = {
 
   fromJSON(object: any): Pair {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
       baseCoinDenom: isSet(object.baseCoinDenom)
         ? String(object.baseCoinDenom)
         : "",
@@ -416,16 +520,16 @@ export const Pair = {
         ? String(object.escrowAddress)
         : "",
       lastOrderId: isSet(object.lastOrderId)
-        ? Long.fromValue(object.lastOrderId)
+        ? Long.fromString(object.lastOrderId)
         : Long.UZERO,
       lastPrice: isSet(object.lastPrice) ? String(object.lastPrice) : "",
       currentBatchId: isSet(object.currentBatchId)
-        ? Long.fromValue(object.currentBatchId)
+        ? Long.fromString(object.currentBatchId)
         : Long.UZERO,
       swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
         ? String(object.swapFeeCollectorAddress)
         : "",
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -488,6 +592,10 @@ function createBasePool(): Pool {
     lastWithdrawRequestId: Long.UZERO,
     disabled: false,
     appId: Long.UZERO,
+    type: 0,
+    creator: "",
+    minPrice: "",
+    maxPrice: "",
   };
 }
 
@@ -516,6 +624,18 @@ export const Pool = {
     }
     if (!message.appId.isZero()) {
       writer.uint32(64).uint64(message.appId);
+    }
+    if (message.type !== 0) {
+      writer.uint32(72).int32(message.type);
+    }
+    if (message.creator !== "") {
+      writer.uint32(82).string(message.creator);
+    }
+    if (message.minPrice !== "") {
+      writer.uint32(90).string(message.minPrice);
+    }
+    if (message.maxPrice !== "") {
+      writer.uint32(98).string(message.maxPrice);
     }
     return writer;
   },
@@ -551,6 +671,18 @@ export const Pool = {
         case 8:
           message.appId = reader.uint64() as Long;
           break;
+        case 9:
+          message.type = reader.int32() as any;
+          break;
+        case 10:
+          message.creator = reader.string();
+          break;
+        case 11:
+          message.minPrice = reader.string();
+          break;
+        case 12:
+          message.maxPrice = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -561,8 +693,10 @@ export const Pool = {
 
   fromJSON(object: any): Pool {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
       reserveAddress: isSet(object.reserveAddress)
         ? String(object.reserveAddress)
         : "",
@@ -570,13 +704,17 @@ export const Pool = {
         ? String(object.poolCoinDenom)
         : "",
       lastDepositRequestId: isSet(object.lastDepositRequestId)
-        ? Long.fromValue(object.lastDepositRequestId)
+        ? Long.fromString(object.lastDepositRequestId)
         : Long.UZERO,
       lastWithdrawRequestId: isSet(object.lastWithdrawRequestId)
-        ? Long.fromValue(object.lastWithdrawRequestId)
+        ? Long.fromString(object.lastWithdrawRequestId)
         : Long.UZERO,
       disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      type: isSet(object.type) ? poolTypeFromJSON(object.type) : 0,
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      minPrice: isSet(object.minPrice) ? String(object.minPrice) : "",
+      maxPrice: isSet(object.maxPrice) ? String(object.maxPrice) : "",
     };
   },
 
@@ -601,6 +739,10 @@ export const Pool = {
     message.disabled !== undefined && (obj.disabled = message.disabled);
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
+    message.type !== undefined && (obj.type = poolTypeToJSON(message.type));
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.minPrice !== undefined && (obj.minPrice = message.minPrice);
+    message.maxPrice !== undefined && (obj.maxPrice = message.maxPrice);
     return obj;
   },
 
@@ -631,6 +773,10 @@ export const Pool = {
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
         : Long.UZERO;
+    message.type = object.type ?? 0;
+    message.creator = object.creator ?? "";
+    message.minPrice = object.minPrice ?? "";
+    message.maxPrice = object.maxPrice ?? "";
     return message;
   },
 };
@@ -728,10 +874,12 @@ export const DepositRequest = {
 
   fromJSON(object: any): DepositRequest {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
       msgHeight: isSet(object.msgHeight)
-        ? Long.fromValue(object.msgHeight)
+        ? Long.fromString(object.msgHeight)
         : Long.ZERO,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       depositCoins: Array.isArray(object?.depositCoins)
@@ -744,7 +892,7 @@ export const DepositRequest = {
         ? Coin.fromJSON(object.mintedPoolCoin)
         : undefined,
       status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -902,10 +1050,12 @@ export const WithdrawRequest = {
 
   fromJSON(object: any): WithdrawRequest {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
       msgHeight: isSet(object.msgHeight)
-        ? Long.fromValue(object.msgHeight)
+        ? Long.fromString(object.msgHeight)
         : Long.ZERO,
       withdrawer: isSet(object.withdrawer) ? String(object.withdrawer) : "",
       poolCoin: isSet(object.poolCoin)
@@ -915,7 +1065,7 @@ export const WithdrawRequest = {
         ? object.withdrawnCoins.map((e: any) => Coin.fromJSON(e))
         : [],
       status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
     };
   },
 
@@ -995,6 +1145,7 @@ function createBaseOrder(): Order {
     expireAt: undefined,
     status: 0,
     appId: Long.UZERO,
+    type: 0,
   };
 }
 
@@ -1050,6 +1201,9 @@ export const Order = {
     }
     if (!message.appId.isZero()) {
       writer.uint32(120).uint64(message.appId);
+    }
+    if (message.type !== 0) {
+      writer.uint32(128).int32(message.type);
     }
     return writer;
   },
@@ -1108,6 +1262,9 @@ export const Order = {
         case 15:
           message.appId = reader.uint64() as Long;
           break;
+        case 16:
+          message.type = reader.int32() as any;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1118,10 +1275,12 @@ export const Order = {
 
   fromJSON(object: any): Order {
     return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
       msgHeight: isSet(object.msgHeight)
-        ? Long.fromValue(object.msgHeight)
+        ? Long.fromString(object.msgHeight)
         : Long.ZERO,
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
       direction: isSet(object.direction)
@@ -1140,13 +1299,14 @@ export const Order = {
       amount: isSet(object.amount) ? String(object.amount) : "",
       openAmount: isSet(object.openAmount) ? String(object.openAmount) : "",
       batchId: isSet(object.batchId)
-        ? Long.fromValue(object.batchId)
+        ? Long.fromString(object.batchId)
         : Long.UZERO,
       expireAt: isSet(object.expireAt)
         ? fromJsonTimestamp(object.expireAt)
         : undefined,
       status: isSet(object.status) ? orderStatusFromJSON(object.status) : 0,
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      type: isSet(object.type) ? orderTypeFromJSON(object.type) : 0,
     };
   },
 
@@ -1184,6 +1344,7 @@ export const Order = {
       (obj.status = orderStatusToJSON(message.status));
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
+    message.type !== undefined && (obj.type = orderTypeToJSON(message.type));
     return obj;
   },
 
@@ -1229,6 +1390,113 @@ export const Order = {
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
         : Long.UZERO;
+    message.type = object.type ?? 0;
+    return message;
+  },
+};
+
+function createBaseMMOrderIndex(): MMOrderIndex {
+  return { orderer: "", appId: Long.UZERO, pairId: Long.UZERO, orderIds: [] };
+}
+
+export const MMOrderIndex = {
+  encode(
+    message: MMOrderIndex,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.orderer !== "") {
+      writer.uint32(10).string(message.orderer);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
+    }
+    if (!message.pairId.isZero()) {
+      writer.uint32(24).uint64(message.pairId);
+    }
+    writer.uint32(34).fork();
+    for (const v of message.orderIds) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MMOrderIndex {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMMOrderIndex();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.orderer = reader.string();
+          break;
+        case 2:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.pairId = reader.uint64() as Long;
+          break;
+        case 4:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.orderIds.push(reader.uint64() as Long);
+            }
+          } else {
+            message.orderIds.push(reader.uint64() as Long);
+          }
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MMOrderIndex {
+    return {
+      orderer: isSet(object.orderer) ? String(object.orderer) : "",
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      pairId: isSet(object.pairId)
+        ? Long.fromString(object.pairId)
+        : Long.UZERO,
+      orderIds: Array.isArray(object?.orderIds)
+        ? object.orderIds.map((e: any) => Long.fromString(e))
+        : [],
+    };
+  },
+
+  toJSON(message: MMOrderIndex): unknown {
+    const obj: any = {};
+    message.orderer !== undefined && (obj.orderer = message.orderer);
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.pairId !== undefined &&
+      (obj.pairId = (message.pairId || Long.UZERO).toString());
+    if (message.orderIds) {
+      obj.orderIds = message.orderIds.map((e) => (e || Long.UZERO).toString());
+    } else {
+      obj.orderIds = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MMOrderIndex>, I>>(
+    object: I
+  ): MMOrderIndex {
+    const message = createBaseMMOrderIndex();
+    message.orderer = object.orderer ?? "";
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.pairId =
+      object.pairId !== undefined && object.pairId !== null
+        ? Long.fromValue(object.pairId)
+        : Long.UZERO;
+    message.orderIds = object.orderIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };
@@ -1291,8 +1559,10 @@ export const ActiveFarmer = {
 
   fromJSON(object: any): ActiveFarmer {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
       farmer: isSet(object.farmer) ? String(object.farmer) : "",
       farmedPoolCoin: isSet(object.farmedPoolCoin)
         ? Coin.fromJSON(object.farmedPoolCoin)
@@ -1467,8 +1737,10 @@ export const QueuedFarmer = {
 
   fromJSON(object: any): QueuedFarmer {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId)
+        ? Long.fromString(object.poolId)
+        : Long.UZERO,
       farmer: isSet(object.farmer) ? String(object.farmer) : "",
       queudCoins: Array.isArray(object?.queudCoins)
         ? object.queudCoins.map((e: any) => QueuedCoin.fromJSON(e))

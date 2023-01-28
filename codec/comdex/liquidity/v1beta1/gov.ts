@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 
@@ -89,7 +89,7 @@ export const UpdateGenericParamsProposal = {
 
   fromJSON(object: any): UpdateGenericParamsProposal {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       keys: Array.isArray(object?.keys)
         ? object.keys.map((e: any) => String(e))
         : [],
@@ -213,7 +213,7 @@ export const CreateNewLiquidityPairProposal = {
   fromJSON(object: any): CreateNewLiquidityPairProposal {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       baseCoinDenom: isSet(object.baseCoinDenom)
         ? String(object.baseCoinDenom)
         : "",

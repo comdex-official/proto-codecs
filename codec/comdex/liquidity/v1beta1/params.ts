@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Duration } from "../../../google/protobuf/duration";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 
@@ -29,6 +29,8 @@ export interface GenericParams {
   swapFeeDistrDenom: string;
   swapFeeBurnRate: string;
   appId: Long;
+  maxNumMarketMakingOrderTicks: Long;
+  maxNumActivePoolsPerPair: Long;
 }
 
 function createBaseParams(): Params {
@@ -90,6 +92,8 @@ function createBaseGenericParams(): GenericParams {
     swapFeeDistrDenom: "",
     swapFeeBurnRate: "",
     appId: Long.UZERO,
+    maxNumMarketMakingOrderTicks: Long.UZERO,
+    maxNumActivePoolsPerPair: Long.UZERO,
   };
 }
 
@@ -155,6 +159,12 @@ export const GenericParams = {
     if (!message.appId.isZero()) {
       writer.uint32(144).uint64(message.appId);
     }
+    if (!message.maxNumMarketMakingOrderTicks.isZero()) {
+      writer.uint32(152).uint64(message.maxNumMarketMakingOrderTicks);
+    }
+    if (!message.maxNumActivePoolsPerPair.isZero()) {
+      writer.uint32(160).uint64(message.maxNumActivePoolsPerPair);
+    }
     return writer;
   },
 
@@ -219,6 +229,12 @@ export const GenericParams = {
         case 18:
           message.appId = reader.uint64() as Long;
           break;
+        case 19:
+          message.maxNumMarketMakingOrderTicks = reader.uint64() as Long;
+          break;
+        case 20:
+          message.maxNumActivePoolsPerPair = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -230,10 +246,10 @@ export const GenericParams = {
   fromJSON(object: any): GenericParams {
     return {
       batchSize: isSet(object.batchSize)
-        ? Long.fromValue(object.batchSize)
+        ? Long.fromString(object.batchSize)
         : Long.UZERO,
       tickPrecision: isSet(object.tickPrecision)
-        ? Long.fromValue(object.tickPrecision)
+        ? Long.fromString(object.tickPrecision)
         : Long.UZERO,
       feeCollectorAddress: isSet(object.feeCollectorAddress)
         ? String(object.feeCollectorAddress)
@@ -264,13 +280,13 @@ export const GenericParams = {
         ? String(object.withdrawFeeRate)
         : "",
       depositExtraGas: isSet(object.depositExtraGas)
-        ? Long.fromValue(object.depositExtraGas)
+        ? Long.fromString(object.depositExtraGas)
         : Long.UZERO,
       withdrawExtraGas: isSet(object.withdrawExtraGas)
-        ? Long.fromValue(object.withdrawExtraGas)
+        ? Long.fromString(object.withdrawExtraGas)
         : Long.UZERO,
       orderExtraGas: isSet(object.orderExtraGas)
-        ? Long.fromValue(object.orderExtraGas)
+        ? Long.fromString(object.orderExtraGas)
         : Long.UZERO,
       swapFeeDistrDenom: isSet(object.swapFeeDistrDenom)
         ? String(object.swapFeeDistrDenom)
@@ -278,7 +294,13 @@ export const GenericParams = {
       swapFeeBurnRate: isSet(object.swapFeeBurnRate)
         ? String(object.swapFeeBurnRate)
         : "",
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      maxNumMarketMakingOrderTicks: isSet(object.maxNumMarketMakingOrderTicks)
+        ? Long.fromString(object.maxNumMarketMakingOrderTicks)
+        : Long.UZERO,
+      maxNumActivePoolsPerPair: isSet(object.maxNumActivePoolsPerPair)
+        ? Long.fromString(object.maxNumActivePoolsPerPair)
+        : Long.UZERO,
     };
   },
 
@@ -336,6 +358,14 @@ export const GenericParams = {
       (obj.swapFeeBurnRate = message.swapFeeBurnRate);
     message.appId !== undefined &&
       (obj.appId = (message.appId || Long.UZERO).toString());
+    message.maxNumMarketMakingOrderTicks !== undefined &&
+      (obj.maxNumMarketMakingOrderTicks = (
+        message.maxNumMarketMakingOrderTicks || Long.UZERO
+      ).toString());
+    message.maxNumActivePoolsPerPair !== undefined &&
+      (obj.maxNumActivePoolsPerPair = (
+        message.maxNumActivePoolsPerPair || Long.UZERO
+      ).toString());
     return obj;
   },
 
@@ -383,6 +413,16 @@ export const GenericParams = {
     message.appId =
       object.appId !== undefined && object.appId !== null
         ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.maxNumMarketMakingOrderTicks =
+      object.maxNumMarketMakingOrderTicks !== undefined &&
+      object.maxNumMarketMakingOrderTicks !== null
+        ? Long.fromValue(object.maxNumMarketMakingOrderTicks)
+        : Long.UZERO;
+    message.maxNumActivePoolsPerPair =
+      object.maxNumActivePoolsPerPair !== undefined &&
+      object.maxNumActivePoolsPerPair !== null
+        ? Long.fromValue(object.maxNumActivePoolsPerPair)
         : Long.UZERO;
     return message;
   },
