@@ -83,6 +83,22 @@ export interface RewardsAssetPoolData {
   cSwapMinLockAmount: Long;
 }
 
+export interface StableVaultExternalRewards {
+  id: Long;
+  appId: Long;
+  cswapAppId: Long;
+  commodoAppId: Long;
+  totalRewards?: Coin;
+  durationDays: Long;
+  isActive: boolean;
+  availableRewards?: Coin;
+  depositor: string;
+  startTimestamp?: Date;
+  endTimestamp?: Date;
+  acceptedBlockHeight: Long;
+  epochId: Long;
+}
+
 function createBaseInternalRewards(): InternalRewards {
   return { appMappingId: Long.UZERO, assetId: Long.UZERO };
 }
@@ -1308,6 +1324,258 @@ export const RewardsAssetPoolData = {
       object.cSwapMinLockAmount !== undefined &&
       object.cSwapMinLockAmount !== null
         ? Long.fromValue(object.cSwapMinLockAmount)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseStableVaultExternalRewards(): StableVaultExternalRewards {
+  return {
+    id: Long.UZERO,
+    appId: Long.UZERO,
+    cswapAppId: Long.UZERO,
+    commodoAppId: Long.UZERO,
+    totalRewards: undefined,
+    durationDays: Long.ZERO,
+    isActive: false,
+    availableRewards: undefined,
+    depositor: "",
+    startTimestamp: undefined,
+    endTimestamp: undefined,
+    acceptedBlockHeight: Long.ZERO,
+    epochId: Long.UZERO,
+  };
+}
+
+export const StableVaultExternalRewards = {
+  encode(
+    message: StableVaultExternalRewards,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.id.isZero()) {
+      writer.uint32(8).uint64(message.id);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
+    }
+    if (!message.cswapAppId.isZero()) {
+      writer.uint32(24).uint64(message.cswapAppId);
+    }
+    if (!message.commodoAppId.isZero()) {
+      writer.uint32(32).uint64(message.commodoAppId);
+    }
+    if (message.totalRewards !== undefined) {
+      Coin.encode(message.totalRewards, writer.uint32(42).fork()).ldelim();
+    }
+    if (!message.durationDays.isZero()) {
+      writer.uint32(48).int64(message.durationDays);
+    }
+    if (message.isActive === true) {
+      writer.uint32(56).bool(message.isActive);
+    }
+    if (message.availableRewards !== undefined) {
+      Coin.encode(message.availableRewards, writer.uint32(66).fork()).ldelim();
+    }
+    if (message.depositor !== "") {
+      writer.uint32(74).string(message.depositor);
+    }
+    if (message.startTimestamp !== undefined) {
+      Timestamp.encode(
+        toTimestamp(message.startTimestamp),
+        writer.uint32(82).fork()
+      ).ldelim();
+    }
+    if (message.endTimestamp !== undefined) {
+      Timestamp.encode(
+        toTimestamp(message.endTimestamp),
+        writer.uint32(90).fork()
+      ).ldelim();
+    }
+    if (!message.acceptedBlockHeight.isZero()) {
+      writer.uint32(96).int64(message.acceptedBlockHeight);
+    }
+    if (!message.epochId.isZero()) {
+      writer.uint32(104).uint64(message.epochId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): StableVaultExternalRewards {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseStableVaultExternalRewards();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = reader.uint64() as Long;
+          break;
+        case 2:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.cswapAppId = reader.uint64() as Long;
+          break;
+        case 4:
+          message.commodoAppId = reader.uint64() as Long;
+          break;
+        case 5:
+          message.totalRewards = Coin.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.durationDays = reader.int64() as Long;
+          break;
+        case 7:
+          message.isActive = reader.bool();
+          break;
+        case 8:
+          message.availableRewards = Coin.decode(reader, reader.uint32());
+          break;
+        case 9:
+          message.depositor = reader.string();
+          break;
+        case 10:
+          message.startTimestamp = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32())
+          );
+          break;
+        case 11:
+          message.endTimestamp = fromTimestamp(
+            Timestamp.decode(reader, reader.uint32())
+          );
+          break;
+        case 12:
+          message.acceptedBlockHeight = reader.int64() as Long;
+          break;
+        case 13:
+          message.epochId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): StableVaultExternalRewards {
+    return {
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      cswapAppId: isSet(object.cswapAppId)
+        ? Long.fromValue(object.cswapAppId)
+        : Long.UZERO,
+      commodoAppId: isSet(object.commodoAppId)
+        ? Long.fromValue(object.commodoAppId)
+        : Long.UZERO,
+      totalRewards: isSet(object.totalRewards)
+        ? Coin.fromJSON(object.totalRewards)
+        : undefined,
+      durationDays: isSet(object.durationDays)
+        ? Long.fromValue(object.durationDays)
+        : Long.ZERO,
+      isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
+      availableRewards: isSet(object.availableRewards)
+        ? Coin.fromJSON(object.availableRewards)
+        : undefined,
+      depositor: isSet(object.depositor) ? String(object.depositor) : "",
+      startTimestamp: isSet(object.startTimestamp)
+        ? fromJsonTimestamp(object.startTimestamp)
+        : undefined,
+      endTimestamp: isSet(object.endTimestamp)
+        ? fromJsonTimestamp(object.endTimestamp)
+        : undefined,
+      acceptedBlockHeight: isSet(object.acceptedBlockHeight)
+        ? Long.fromValue(object.acceptedBlockHeight)
+        : Long.ZERO,
+      epochId: isSet(object.epochId)
+        ? Long.fromValue(object.epochId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: StableVaultExternalRewards): unknown {
+    const obj: any = {};
+    message.id !== undefined &&
+      (obj.id = (message.id || Long.UZERO).toString());
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.cswapAppId !== undefined &&
+      (obj.cswapAppId = (message.cswapAppId || Long.UZERO).toString());
+    message.commodoAppId !== undefined &&
+      (obj.commodoAppId = (message.commodoAppId || Long.UZERO).toString());
+    message.totalRewards !== undefined &&
+      (obj.totalRewards = message.totalRewards
+        ? Coin.toJSON(message.totalRewards)
+        : undefined);
+    message.durationDays !== undefined &&
+      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+    message.isActive !== undefined && (obj.isActive = message.isActive);
+    message.availableRewards !== undefined &&
+      (obj.availableRewards = message.availableRewards
+        ? Coin.toJSON(message.availableRewards)
+        : undefined);
+    message.depositor !== undefined && (obj.depositor = message.depositor);
+    message.startTimestamp !== undefined &&
+      (obj.startTimestamp = message.startTimestamp.toISOString());
+    message.endTimestamp !== undefined &&
+      (obj.endTimestamp = message.endTimestamp.toISOString());
+    message.acceptedBlockHeight !== undefined &&
+      (obj.acceptedBlockHeight = (
+        message.acceptedBlockHeight || Long.ZERO
+      ).toString());
+    message.epochId !== undefined &&
+      (obj.epochId = (message.epochId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<StableVaultExternalRewards>, I>>(
+    object: I
+  ): StableVaultExternalRewards {
+    const message = createBaseStableVaultExternalRewards();
+    message.id =
+      object.id !== undefined && object.id !== null
+        ? Long.fromValue(object.id)
+        : Long.UZERO;
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.cswapAppId =
+      object.cswapAppId !== undefined && object.cswapAppId !== null
+        ? Long.fromValue(object.cswapAppId)
+        : Long.UZERO;
+    message.commodoAppId =
+      object.commodoAppId !== undefined && object.commodoAppId !== null
+        ? Long.fromValue(object.commodoAppId)
+        : Long.UZERO;
+    message.totalRewards =
+      object.totalRewards !== undefined && object.totalRewards !== null
+        ? Coin.fromPartial(object.totalRewards)
+        : undefined;
+    message.durationDays =
+      object.durationDays !== undefined && object.durationDays !== null
+        ? Long.fromValue(object.durationDays)
+        : Long.ZERO;
+    message.isActive = object.isActive ?? false;
+    message.availableRewards =
+      object.availableRewards !== undefined && object.availableRewards !== null
+        ? Coin.fromPartial(object.availableRewards)
+        : undefined;
+    message.depositor = object.depositor ?? "";
+    message.startTimestamp = object.startTimestamp ?? undefined;
+    message.endTimestamp = object.endTimestamp ?? undefined;
+    message.acceptedBlockHeight =
+      object.acceptedBlockHeight !== undefined &&
+      object.acceptedBlockHeight !== null
+        ? Long.fromValue(object.acceptedBlockHeight)
+        : Long.ZERO;
+    message.epochId =
+      object.epochId !== undefined && object.epochId !== null
+        ? Long.fromValue(object.epochId)
         : Long.UZERO;
     return message;
   },

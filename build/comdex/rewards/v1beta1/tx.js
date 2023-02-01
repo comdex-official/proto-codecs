@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MsgClientImpl = exports.ActivateExternalRewardsLendResponse = exports.ActivateExternalRewardsLend = exports.ActivateExternalRewardsVaultResponse = exports.ActivateExternalRewardsVault = exports.ActivateExternalRewardsLockersResponse = exports.ActivateExternalRewardsLockers = exports.MsgRemoveWhitelistAppIdVaultResponse = exports.MsgWhitelistAppIdVaultResponse = exports.RemoveWhitelistAppIdVault = exports.WhitelistAppIdVault = exports.MsgRemoveWhitelistAssetResponse = exports.MsgWhitelistAssetResponse = exports.RemoveWhitelistAsset = exports.WhitelistAsset = exports.MsgCreateGaugeResponse = exports.MsgCreateGauge = exports.protobufPackage = void 0;
+exports.MsgClientImpl = exports.ActivateExternalRewardsStableMintResponse = exports.ActivateExternalRewardsStableMint = exports.ActivateExternalRewardsLendResponse = exports.ActivateExternalRewardsLend = exports.ActivateExternalRewardsVaultResponse = exports.ActivateExternalRewardsVault = exports.ActivateExternalRewardsLockersResponse = exports.ActivateExternalRewardsLockers = exports.MsgRemoveWhitelistAppIdVaultResponse = exports.MsgWhitelistAppIdVaultResponse = exports.RemoveWhitelistAppIdVault = exports.WhitelistAppIdVault = exports.MsgRemoveWhitelistAssetResponse = exports.MsgWhitelistAssetResponse = exports.RemoveWhitelistAsset = exports.WhitelistAsset = exports.MsgCreateGaugeResponse = exports.MsgCreateGauge = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -1184,6 +1184,182 @@ exports.ActivateExternalRewardsLendResponse = {
         return message;
     },
 };
+function createBaseActivateExternalRewardsStableMint() {
+    return {
+        appId: long_1.default.UZERO,
+        cswapAppId: long_1.default.UZERO,
+        commodoAppId: long_1.default.UZERO,
+        totalRewards: undefined,
+        durationDays: long_1.default.ZERO,
+        depositor: "",
+        acceptedBlockHeight: long_1.default.ZERO,
+    };
+}
+exports.ActivateExternalRewardsStableMint = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        if (!message.cswapAppId.isZero()) {
+            writer.uint32(16).uint64(message.cswapAppId);
+        }
+        if (!message.commodoAppId.isZero()) {
+            writer.uint32(24).uint64(message.commodoAppId);
+        }
+        if (message.totalRewards !== undefined) {
+            coin_1.Coin.encode(message.totalRewards, writer.uint32(34).fork()).ldelim();
+        }
+        if (!message.durationDays.isZero()) {
+            writer.uint32(40).int64(message.durationDays);
+        }
+        if (message.depositor !== "") {
+            writer.uint32(50).string(message.depositor);
+        }
+        if (!message.acceptedBlockHeight.isZero()) {
+            writer.uint32(56).int64(message.acceptedBlockHeight);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseActivateExternalRewardsStableMint();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
+                    message.cswapAppId = reader.uint64();
+                    break;
+                case 3:
+                    message.commodoAppId = reader.uint64();
+                    break;
+                case 4:
+                    message.totalRewards = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 5:
+                    message.durationDays = reader.int64();
+                    break;
+                case 6:
+                    message.depositor = reader.string();
+                    break;
+                case 7:
+                    message.acceptedBlockHeight = reader.int64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            cswapAppId: isSet(object.cswapAppId)
+                ? long_1.default.fromValue(object.cswapAppId)
+                : long_1.default.UZERO,
+            commodoAppId: isSet(object.commodoAppId)
+                ? long_1.default.fromValue(object.commodoAppId)
+                : long_1.default.UZERO,
+            totalRewards: isSet(object.totalRewards)
+                ? coin_1.Coin.fromJSON(object.totalRewards)
+                : undefined,
+            durationDays: isSet(object.durationDays)
+                ? long_1.default.fromValue(object.durationDays)
+                : long_1.default.ZERO,
+            depositor: isSet(object.depositor) ? String(object.depositor) : "",
+            acceptedBlockHeight: isSet(object.acceptedBlockHeight)
+                ? long_1.default.fromValue(object.acceptedBlockHeight)
+                : long_1.default.ZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.cswapAppId !== undefined &&
+            (obj.cswapAppId = (message.cswapAppId || long_1.default.UZERO).toString());
+        message.commodoAppId !== undefined &&
+            (obj.commodoAppId = (message.commodoAppId || long_1.default.UZERO).toString());
+        message.totalRewards !== undefined &&
+            (obj.totalRewards = message.totalRewards
+                ? coin_1.Coin.toJSON(message.totalRewards)
+                : undefined);
+        message.durationDays !== undefined &&
+            (obj.durationDays = (message.durationDays || long_1.default.ZERO).toString());
+        message.depositor !== undefined && (obj.depositor = message.depositor);
+        message.acceptedBlockHeight !== undefined &&
+            (obj.acceptedBlockHeight = (message.acceptedBlockHeight || long_1.default.ZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseActivateExternalRewardsStableMint();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.cswapAppId =
+            object.cswapAppId !== undefined && object.cswapAppId !== null
+                ? long_1.default.fromValue(object.cswapAppId)
+                : long_1.default.UZERO;
+        message.commodoAppId =
+            object.commodoAppId !== undefined && object.commodoAppId !== null
+                ? long_1.default.fromValue(object.commodoAppId)
+                : long_1.default.UZERO;
+        message.totalRewards =
+            object.totalRewards !== undefined && object.totalRewards !== null
+                ? coin_1.Coin.fromPartial(object.totalRewards)
+                : undefined;
+        message.durationDays =
+            object.durationDays !== undefined && object.durationDays !== null
+                ? long_1.default.fromValue(object.durationDays)
+                : long_1.default.ZERO;
+        message.depositor = (_a = object.depositor) !== null && _a !== void 0 ? _a : "";
+        message.acceptedBlockHeight =
+            object.acceptedBlockHeight !== undefined &&
+                object.acceptedBlockHeight !== null
+                ? long_1.default.fromValue(object.acceptedBlockHeight)
+                : long_1.default.ZERO;
+        return message;
+    },
+};
+function createBaseActivateExternalRewardsStableMintResponse() {
+    return {};
+}
+exports.ActivateExternalRewardsStableMintResponse = {
+    encode(_, writer = _m0.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseActivateExternalRewardsStableMintResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = createBaseActivateExternalRewardsStableMintResponse();
+        return message;
+    },
+};
 class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1191,6 +1367,7 @@ class MsgClientImpl {
         this.ExternalRewardsLockers = this.ExternalRewardsLockers.bind(this);
         this.ExternalRewardsVault = this.ExternalRewardsVault.bind(this);
         this.ExternalRewardsLend = this.ExternalRewardsLend.bind(this);
+        this.ExternalRewardsStableMint = this.ExternalRewardsStableMint.bind(this);
     }
     CreateGauge(request) {
         const data = exports.MsgCreateGauge.encode(request).finish();
@@ -1211,6 +1388,11 @@ class MsgClientImpl {
         const data = exports.ActivateExternalRewardsLend.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "ExternalRewardsLend", data);
         return promise.then((data) => exports.ActivateExternalRewardsLendResponse.decode(new _m0.Reader(data)));
+    }
+    ExternalRewardsStableMint(request) {
+        const data = exports.ActivateExternalRewardsStableMint.encode(request).finish();
+        const promise = this.rpc.request("comdex.rewards.v1beta1.Msg", "ExternalRewardsStableMint", data);
+        return promise.then((data) => exports.ActivateExternalRewardsStableMintResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
