@@ -1,23 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -25,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateNewLiquidityPairProposal = exports.UpdateGenericParamsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "comdex.liquidity.v1beta1";
 function createBaseUpdateGenericParamsProposal() {
     return {
@@ -37,7 +18,7 @@ function createBaseUpdateGenericParamsProposal() {
     };
 }
 exports.UpdateGenericParamsProposal = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -56,7 +37,7 @@ exports.UpdateGenericParamsProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseUpdateGenericParamsProposal();
         while (reader.pos < end) {
@@ -86,7 +67,7 @@ exports.UpdateGenericParamsProposal = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             keys: Array.isArray(object === null || object === void 0 ? void 0 : object.keys)
                 ? object.keys.map((e) => String(e))
                 : [],
@@ -143,7 +124,7 @@ function createBaseCreateNewLiquidityPairProposal() {
     };
 }
 exports.CreateNewLiquidityPairProposal = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.from !== "") {
             writer.uint32(10).string(message.from);
         }
@@ -165,7 +146,7 @@ exports.CreateNewLiquidityPairProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseCreateNewLiquidityPairProposal();
         while (reader.pos < end) {
@@ -199,7 +180,7 @@ exports.CreateNewLiquidityPairProposal = {
     fromJSON(object) {
         return {
             from: isSet(object.from) ? String(object.from) : "",
-            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
             baseCoinDenom: isSet(object.baseCoinDenom)
                 ? String(object.baseCoinDenom)
                 : "",
@@ -239,9 +220,9 @@ exports.CreateNewLiquidityPairProposal = {
         return message;
     },
 };
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

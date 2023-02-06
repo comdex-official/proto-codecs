@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryExternalRewardLendsResponse = exports.QueryExternalRewardLendsRequest = exports.QueryWhitelistedAppIdsVaultResponse = exports.QueryWhitelistedAppIdsVaultRequest = exports.QueryExternalRewardVaultsResponse = exports.QueryExternalRewardVaultsRequest = exports.QueryExternalRewardsLockersResponse = exports.QueryExternalRewardsLockersRequest = exports.QueryRewardResponse = exports.QueryRewardRequest = exports.QueryRewardsResponse = exports.QueryRewardsRequest = exports.QueryGaugeByDurationResponse = exports.QueryGaugesByDurationRequest = exports.QueryGaugeByIdResponse = exports.QueryGaugeByIdRequest = exports.QueryAllGaugesResponse = exports.QueryAllGaugesRequest = exports.QueryEpochInfoByDurationResponse = exports.QueryEpochInfoByDurationRequest = exports.QueryAllEpochsInfoResponse = exports.QueryAllEpochsInfoRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryExtLendRewardsAPRResponse = exports.QueryExtLendRewardsAPRRequest = exports.QueryEpochTimeResponse = exports.QueryEpochTimeRequest = exports.QueryExternalRewardStableMintResponse = exports.QueryExternalRewardStableMintRequest = exports.QueryExternalRewardLendsResponse = exports.QueryExternalRewardLendsRequest = exports.QueryWhitelistedAppIdsVaultResponse = exports.QueryWhitelistedAppIdsVaultRequest = exports.QueryExternalRewardVaultsResponse = exports.QueryExternalRewardVaultsRequest = exports.QueryExternalRewardsLockersResponse = exports.QueryExternalRewardsLockersRequest = exports.QueryRewardResponse = exports.QueryRewardRequest = exports.QueryRewardsResponse = exports.QueryRewardsRequest = exports.QueryGaugeByDurationResponse = exports.QueryGaugesByDurationRequest = exports.QueryGaugeByIdResponse = exports.QueryGaugeByIdRequest = exports.QueryAllGaugesResponse = exports.QueryAllGaugesRequest = exports.QueryEpochInfoByDurationResponse = exports.QueryEpochInfoByDurationRequest = exports.QueryAllEpochsInfoResponse = exports.QueryAllEpochsInfoRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -1351,6 +1351,354 @@ exports.QueryExternalRewardLendsResponse = {
         return message;
     },
 };
+function createBaseQueryExternalRewardStableMintRequest() {
+    return { pagination: undefined };
+}
+exports.QueryExternalRewardStableMintRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryExternalRewardStableMintRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryExternalRewardStableMintRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryExternalRewardStableMintResponse() {
+    return { stableMintExternalRewards: [], pagination: undefined };
+}
+exports.QueryExternalRewardStableMintResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.stableMintExternalRewards) {
+            rewards_1.StableVaultExternalRewards.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryExternalRewardStableMintResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.stableMintExternalRewards.push(rewards_1.StableVaultExternalRewards.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            stableMintExternalRewards: Array.isArray(object === null || object === void 0 ? void 0 : object.stableMintExternalRewards)
+                ? object.stableMintExternalRewards.map((e) => rewards_1.StableVaultExternalRewards.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.stableMintExternalRewards) {
+            obj.stableMintExternalRewards = message.stableMintExternalRewards.map((e) => (e ? rewards_1.StableVaultExternalRewards.toJSON(e) : undefined));
+        }
+        else {
+            obj.stableMintExternalRewards = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryExternalRewardStableMintResponse();
+        message.stableMintExternalRewards =
+            ((_a = object.stableMintExternalRewards) === null || _a === void 0 ? void 0 : _a.map((e) => rewards_1.StableVaultExternalRewards.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryEpochTimeRequest() {
+    return { pagination: undefined };
+}
+exports.QueryEpochTimeRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryEpochTimeRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryEpochTimeRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryEpochTimeResponse() {
+    return { epochTime: [], pagination: undefined };
+}
+exports.QueryEpochTimeResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.epochTime) {
+            rewards_1.EpochTime.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryEpochTimeResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.epochTime.push(rewards_1.EpochTime.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            epochTime: Array.isArray(object === null || object === void 0 ? void 0 : object.epochTime)
+                ? object.epochTime.map((e) => rewards_1.EpochTime.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.epochTime) {
+            obj.epochTime = message.epochTime.map((e) => e ? rewards_1.EpochTime.toJSON(e) : undefined);
+        }
+        else {
+            obj.epochTime = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryEpochTimeResponse();
+        message.epochTime =
+            ((_a = object.epochTime) === null || _a === void 0 ? void 0 : _a.map((e) => rewards_1.EpochTime.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryExtLendRewardsAPRRequest() {
+    return { assetId: long_1.default.UZERO, cPoolId: long_1.default.UZERO };
+}
+exports.QueryExtLendRewardsAPRRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.assetId.isZero()) {
+            writer.uint32(8).uint64(message.assetId);
+        }
+        if (!message.cPoolId.isZero()) {
+            writer.uint32(16).uint64(message.cPoolId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryExtLendRewardsAPRRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.assetId = reader.uint64();
+                    break;
+                case 2:
+                    message.cPoolId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            assetId: isSet(object.assetId)
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO,
+            cPoolId: isSet(object.cPoolId)
+                ? long_1.default.fromValue(object.cPoolId)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.assetId !== undefined &&
+            (obj.assetId = (message.assetId || long_1.default.UZERO).toString());
+        message.cPoolId !== undefined &&
+            (obj.cPoolId = (message.cPoolId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryExtLendRewardsAPRRequest();
+        message.assetId =
+            object.assetId !== undefined && object.assetId !== null
+                ? long_1.default.fromValue(object.assetId)
+                : long_1.default.UZERO;
+        message.cPoolId =
+            object.cPoolId !== undefined && object.cPoolId !== null
+                ? long_1.default.fromValue(object.cPoolId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryExtLendRewardsAPRResponse() {
+    return { apr: "" };
+}
+exports.QueryExtLendRewardsAPRResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.apr !== "") {
+            writer.uint32(10).string(message.apr);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryExtLendRewardsAPRResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.apr = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            apr: isSet(object.apr) ? String(object.apr) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.apr !== undefined && (obj.apr = message.apr);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryExtLendRewardsAPRResponse();
+        message.apr = (_a = object.apr) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -1368,6 +1716,10 @@ class QueryClientImpl {
         this.QueryWhitelistedAppIdsVault =
             this.QueryWhitelistedAppIdsVault.bind(this);
         this.QueryExternalRewardLends = this.QueryExternalRewardLends.bind(this);
+        this.QueryExternalRewardStableMint =
+            this.QueryExternalRewardStableMint.bind(this);
+        this.QueryEpochTime = this.QueryEpochTime.bind(this);
+        this.QueryExtLendRewardsAPR = this.QueryExtLendRewardsAPR.bind(this);
     }
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
@@ -1428,6 +1780,21 @@ class QueryClientImpl {
         const data = exports.QueryExternalRewardLendsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryExternalRewardLends", data);
         return promise.then((data) => exports.QueryExternalRewardLendsResponse.decode(new _m0.Reader(data)));
+    }
+    QueryExternalRewardStableMint(request) {
+        const data = exports.QueryExternalRewardStableMintRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryExternalRewardStableMint", data);
+        return promise.then((data) => exports.QueryExternalRewardStableMintResponse.decode(new _m0.Reader(data)));
+    }
+    QueryEpochTime(request) {
+        const data = exports.QueryEpochTimeRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryEpochTime", data);
+        return promise.then((data) => exports.QueryEpochTimeResponse.decode(new _m0.Reader(data)));
+    }
+    QueryExtLendRewardsAPR(request) {
+        const data = exports.QueryExtLendRewardsAPRRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.rewards.v1beta1.Query", "QueryExtLendRewardsAPR", data);
+        return promise.then((data) => exports.QueryExtLendRewardsAPRResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;

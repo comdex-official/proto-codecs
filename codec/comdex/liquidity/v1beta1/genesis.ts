@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { GenericParams, Params } from "../../../comdex/liquidity/v1beta1/params";
+import _m0 from "protobufjs/minimal";
+import { GenericParams, Params } from "./params";
 import {
   Pair,
   Pool,
@@ -10,7 +10,8 @@ import {
   Order,
   ActiveFarmer,
   QueuedFarmer,
-} from "../../../comdex/liquidity/v1beta1/liquidity";
+  MMOrderIndex,
+} from "./liquidity";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 
@@ -26,6 +27,7 @@ export interface AppGenesisState {
   orders: Order[];
   activeFarmers: ActiveFarmer[];
   queuedFarmers: QueuedFarmer[];
+  marketMakingOrderIndexes: MMOrderIndex[];
 }
 
 /** GenesisState defines the liquidity module's genesis state. */
@@ -47,6 +49,7 @@ function createBaseAppGenesisState(): AppGenesisState {
     orders: [],
     activeFarmers: [],
     queuedFarmers: [],
+    marketMakingOrderIndexes: [],
   };
 }
 
@@ -90,6 +93,9 @@ export const AppGenesisState = {
     }
     for (const v of message.queuedFarmers) {
       QueuedFarmer.encode(v!, writer.uint32(90).fork()).ldelim();
+    }
+    for (const v of message.marketMakingOrderIndexes) {
+      MMOrderIndex.encode(v!, writer.uint32(98).fork()).ldelim();
     }
     return writer;
   },
@@ -142,6 +148,11 @@ export const AppGenesisState = {
             QueuedFarmer.decode(reader, reader.uint32())
           );
           break;
+        case 12:
+          message.marketMakingOrderIndexes.push(
+            MMOrderIndex.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -152,15 +163,15 @@ export const AppGenesisState = {
 
   fromJSON(object: any): AppGenesisState {
     return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
       genericParams: isSet(object.genericParams)
         ? GenericParams.fromJSON(object.genericParams)
         : undefined,
       lastPairId: isSet(object.lastPairId)
-        ? Long.fromValue(object.lastPairId)
+        ? Long.fromString(object.lastPairId)
         : Long.UZERO,
       lastPoolId: isSet(object.lastPoolId)
-        ? Long.fromValue(object.lastPoolId)
+        ? Long.fromString(object.lastPoolId)
         : Long.UZERO,
       pairs: Array.isArray(object?.pairs)
         ? object.pairs.map((e: any) => Pair.fromJSON(e))
@@ -182,6 +193,11 @@ export const AppGenesisState = {
         : [],
       queuedFarmers: Array.isArray(object?.queuedFarmers)
         ? object.queuedFarmers.map((e: any) => QueuedFarmer.fromJSON(e))
+        : [],
+      marketMakingOrderIndexes: Array.isArray(object?.marketMakingOrderIndexes)
+        ? object.marketMakingOrderIndexes.map((e: any) =>
+            MMOrderIndex.fromJSON(e)
+          )
         : [],
     };
   },
@@ -241,6 +257,13 @@ export const AppGenesisState = {
     } else {
       obj.queuedFarmers = [];
     }
+    if (message.marketMakingOrderIndexes) {
+      obj.marketMakingOrderIndexes = message.marketMakingOrderIndexes.map((e) =>
+        e ? MMOrderIndex.toJSON(e) : undefined
+      );
+    } else {
+      obj.marketMakingOrderIndexes = [];
+    }
     return obj;
   },
 
@@ -275,6 +298,10 @@ export const AppGenesisState = {
       object.activeFarmers?.map((e) => ActiveFarmer.fromPartial(e)) || [];
     message.queuedFarmers =
       object.queuedFarmers?.map((e) => QueuedFarmer.fromPartial(e)) || [];
+    message.marketMakingOrderIndexes =
+      object.marketMakingOrderIndexes?.map((e) =>
+        MMOrderIndex.fromPartial(e)
+      ) || [];
     return message;
   },
 };

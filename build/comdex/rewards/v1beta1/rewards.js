@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RewardsAssetPoolData = exports.LendExternalRewards = exports.EpochTime = exports.VaultExternalRewards = exports.LockerExternalRewards = exports.VaultInterestTracker = exports.LockerRewardsTracker = exports.InternalRewards = exports.protobufPackage = void 0;
+exports.StableVaultExternalRewards = exports.RewardsAssetPoolData = exports.LendExternalRewards = exports.EpochTime = exports.VaultExternalRewards = exports.LockerExternalRewards = exports.VaultInterestTracker = exports.LockerRewardsTracker = exports.InternalRewards = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -1116,6 +1116,233 @@ exports.RewardsAssetPoolData = {
             object.cSwapMinLockAmount !== undefined &&
                 object.cSwapMinLockAmount !== null
                 ? long_1.default.fromValue(object.cSwapMinLockAmount)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseStableVaultExternalRewards() {
+    return {
+        id: long_1.default.UZERO,
+        appId: long_1.default.UZERO,
+        cswapAppId: long_1.default.UZERO,
+        commodoAppId: long_1.default.UZERO,
+        totalRewards: undefined,
+        durationDays: long_1.default.ZERO,
+        isActive: false,
+        availableRewards: undefined,
+        depositor: "",
+        startTimestamp: undefined,
+        endTimestamp: undefined,
+        acceptedBlockHeight: long_1.default.ZERO,
+        epochId: long_1.default.UZERO,
+    };
+}
+exports.StableVaultExternalRewards = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.id.isZero()) {
+            writer.uint32(8).uint64(message.id);
+        }
+        if (!message.appId.isZero()) {
+            writer.uint32(16).uint64(message.appId);
+        }
+        if (!message.cswapAppId.isZero()) {
+            writer.uint32(24).uint64(message.cswapAppId);
+        }
+        if (!message.commodoAppId.isZero()) {
+            writer.uint32(32).uint64(message.commodoAppId);
+        }
+        if (message.totalRewards !== undefined) {
+            coin_1.Coin.encode(message.totalRewards, writer.uint32(42).fork()).ldelim();
+        }
+        if (!message.durationDays.isZero()) {
+            writer.uint32(48).int64(message.durationDays);
+        }
+        if (message.isActive === true) {
+            writer.uint32(56).bool(message.isActive);
+        }
+        if (message.availableRewards !== undefined) {
+            coin_1.Coin.encode(message.availableRewards, writer.uint32(66).fork()).ldelim();
+        }
+        if (message.depositor !== "") {
+            writer.uint32(74).string(message.depositor);
+        }
+        if (message.startTimestamp !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.startTimestamp), writer.uint32(82).fork()).ldelim();
+        }
+        if (message.endTimestamp !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.endTimestamp), writer.uint32(90).fork()).ldelim();
+        }
+        if (!message.acceptedBlockHeight.isZero()) {
+            writer.uint32(96).int64(message.acceptedBlockHeight);
+        }
+        if (!message.epochId.isZero()) {
+            writer.uint32(104).uint64(message.epochId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseStableVaultExternalRewards();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = reader.uint64();
+                    break;
+                case 2:
+                    message.appId = reader.uint64();
+                    break;
+                case 3:
+                    message.cswapAppId = reader.uint64();
+                    break;
+                case 4:
+                    message.commodoAppId = reader.uint64();
+                    break;
+                case 5:
+                    message.totalRewards = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 6:
+                    message.durationDays = reader.int64();
+                    break;
+                case 7:
+                    message.isActive = reader.bool();
+                    break;
+                case 8:
+                    message.availableRewards = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 9:
+                    message.depositor = reader.string();
+                    break;
+                case 10:
+                    message.startTimestamp = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                case 11:
+                    message.endTimestamp = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    break;
+                case 12:
+                    message.acceptedBlockHeight = reader.int64();
+                    break;
+                case 13:
+                    message.epochId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            cswapAppId: isSet(object.cswapAppId)
+                ? long_1.default.fromValue(object.cswapAppId)
+                : long_1.default.UZERO,
+            commodoAppId: isSet(object.commodoAppId)
+                ? long_1.default.fromValue(object.commodoAppId)
+                : long_1.default.UZERO,
+            totalRewards: isSet(object.totalRewards)
+                ? coin_1.Coin.fromJSON(object.totalRewards)
+                : undefined,
+            durationDays: isSet(object.durationDays)
+                ? long_1.default.fromValue(object.durationDays)
+                : long_1.default.ZERO,
+            isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
+            availableRewards: isSet(object.availableRewards)
+                ? coin_1.Coin.fromJSON(object.availableRewards)
+                : undefined,
+            depositor: isSet(object.depositor) ? String(object.depositor) : "",
+            startTimestamp: isSet(object.startTimestamp)
+                ? fromJsonTimestamp(object.startTimestamp)
+                : undefined,
+            endTimestamp: isSet(object.endTimestamp)
+                ? fromJsonTimestamp(object.endTimestamp)
+                : undefined,
+            acceptedBlockHeight: isSet(object.acceptedBlockHeight)
+                ? long_1.default.fromValue(object.acceptedBlockHeight)
+                : long_1.default.ZERO,
+            epochId: isSet(object.epochId)
+                ? long_1.default.fromValue(object.epochId)
+                : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined &&
+            (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.cswapAppId !== undefined &&
+            (obj.cswapAppId = (message.cswapAppId || long_1.default.UZERO).toString());
+        message.commodoAppId !== undefined &&
+            (obj.commodoAppId = (message.commodoAppId || long_1.default.UZERO).toString());
+        message.totalRewards !== undefined &&
+            (obj.totalRewards = message.totalRewards
+                ? coin_1.Coin.toJSON(message.totalRewards)
+                : undefined);
+        message.durationDays !== undefined &&
+            (obj.durationDays = (message.durationDays || long_1.default.ZERO).toString());
+        message.isActive !== undefined && (obj.isActive = message.isActive);
+        message.availableRewards !== undefined &&
+            (obj.availableRewards = message.availableRewards
+                ? coin_1.Coin.toJSON(message.availableRewards)
+                : undefined);
+        message.depositor !== undefined && (obj.depositor = message.depositor);
+        message.startTimestamp !== undefined &&
+            (obj.startTimestamp = message.startTimestamp.toISOString());
+        message.endTimestamp !== undefined &&
+            (obj.endTimestamp = message.endTimestamp.toISOString());
+        message.acceptedBlockHeight !== undefined &&
+            (obj.acceptedBlockHeight = (message.acceptedBlockHeight || long_1.default.ZERO).toString());
+        message.epochId !== undefined &&
+            (obj.epochId = (message.epochId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d;
+        const message = createBaseStableVaultExternalRewards();
+        message.id =
+            object.id !== undefined && object.id !== null
+                ? long_1.default.fromValue(object.id)
+                : long_1.default.UZERO;
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.cswapAppId =
+            object.cswapAppId !== undefined && object.cswapAppId !== null
+                ? long_1.default.fromValue(object.cswapAppId)
+                : long_1.default.UZERO;
+        message.commodoAppId =
+            object.commodoAppId !== undefined && object.commodoAppId !== null
+                ? long_1.default.fromValue(object.commodoAppId)
+                : long_1.default.UZERO;
+        message.totalRewards =
+            object.totalRewards !== undefined && object.totalRewards !== null
+                ? coin_1.Coin.fromPartial(object.totalRewards)
+                : undefined;
+        message.durationDays =
+            object.durationDays !== undefined && object.durationDays !== null
+                ? long_1.default.fromValue(object.durationDays)
+                : long_1.default.ZERO;
+        message.isActive = (_a = object.isActive) !== null && _a !== void 0 ? _a : false;
+        message.availableRewards =
+            object.availableRewards !== undefined && object.availableRewards !== null
+                ? coin_1.Coin.fromPartial(object.availableRewards)
+                : undefined;
+        message.depositor = (_b = object.depositor) !== null && _b !== void 0 ? _b : "";
+        message.startTimestamp = (_c = object.startTimestamp) !== null && _c !== void 0 ? _c : undefined;
+        message.endTimestamp = (_d = object.endTimestamp) !== null && _d !== void 0 ? _d : undefined;
+        message.acceptedBlockHeight =
+            object.acceptedBlockHeight !== undefined &&
+                object.acceptedBlockHeight !== null
+                ? long_1.default.fromValue(object.acceptedBlockHeight)
+                : long_1.default.ZERO;
+        message.epochId =
+            object.epochId !== undefined && object.epochId !== null
+                ? long_1.default.fromValue(object.epochId)
                 : long_1.default.UZERO;
         return message;
     },

@@ -36,6 +36,7 @@ function createBaseGenesisState() {
         dutchAuction: [],
         protocolStatistics: [],
         auctionParams: [],
+        dutchLendAuction: [],
         params: undefined,
         UserBiddingID: long_1.default.UZERO,
     };
@@ -57,11 +58,14 @@ exports.GenesisState = {
         for (const v of message.auctionParams) {
             auction_1.AuctionParams.encode(v, writer.uint32(42).fork()).ldelim();
         }
+        for (const v of message.dutchLendAuction) {
+            auction_1.DutchAuction.encode(v, writer.uint32(50).fork()).ldelim();
+        }
         if (message.params !== undefined) {
-            params_1.Params.encode(message.params, writer.uint32(50).fork()).ldelim();
+            params_1.Params.encode(message.params, writer.uint32(58).fork()).ldelim();
         }
         if (!message.UserBiddingID.isZero()) {
-            writer.uint32(56).uint64(message.UserBiddingID);
+            writer.uint32(64).uint64(message.UserBiddingID);
         }
         return writer;
     },
@@ -88,9 +92,12 @@ exports.GenesisState = {
                     message.auctionParams.push(auction_1.AuctionParams.decode(reader, reader.uint32()));
                     break;
                 case 6:
-                    message.params = params_1.Params.decode(reader, reader.uint32());
+                    message.dutchLendAuction.push(auction_1.DutchAuction.decode(reader, reader.uint32()));
                     break;
                 case 7:
+                    message.params = params_1.Params.decode(reader, reader.uint32());
+                    break;
+                case 8:
                     message.UserBiddingID = reader.uint64();
                     break;
                 default:
@@ -116,6 +123,9 @@ exports.GenesisState = {
                 : [],
             auctionParams: Array.isArray(object === null || object === void 0 ? void 0 : object.auctionParams)
                 ? object.auctionParams.map((e) => auction_1.AuctionParams.fromJSON(e))
+                : [],
+            dutchLendAuction: Array.isArray(object === null || object === void 0 ? void 0 : object.dutchLendAuction)
+                ? object.dutchLendAuction.map((e) => auction_1.DutchAuction.fromJSON(e))
                 : [],
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
             UserBiddingID: isSet(object.UserBiddingID)
@@ -155,6 +165,12 @@ exports.GenesisState = {
         else {
             obj.auctionParams = [];
         }
+        if (message.dutchLendAuction) {
+            obj.dutchLendAuction = message.dutchLendAuction.map((e) => e ? auction_1.DutchAuction.toJSON(e) : undefined);
+        }
+        else {
+            obj.dutchLendAuction = [];
+        }
         message.params !== undefined &&
             (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
         message.UserBiddingID !== undefined &&
@@ -162,7 +178,7 @@ exports.GenesisState = {
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         const message = createBaseGenesisState();
         message.surplusAuction =
             ((_a = object.surplusAuction) === null || _a === void 0 ? void 0 : _a.map((e) => auction_1.SurplusAuction.fromPartial(e))) || [];
@@ -174,6 +190,8 @@ exports.GenesisState = {
             ((_d = object.protocolStatistics) === null || _d === void 0 ? void 0 : _d.map((e) => auction_1.ProtocolStatistics.fromPartial(e))) || [];
         message.auctionParams =
             ((_e = object.auctionParams) === null || _e === void 0 ? void 0 : _e.map((e) => auction_1.AuctionParams.fromPartial(e))) || [];
+        message.dutchLendAuction =
+            ((_f = object.dutchLendAuction) === null || _f === void 0 ? void 0 : _f.map((e) => auction_1.DutchAuction.fromPartial(e))) || [];
         message.params =
             object.params !== undefined && object.params !== null
                 ? params_1.Params.fromPartial(object.params)

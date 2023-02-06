@@ -25,7 +25,6 @@ export interface MsgPlaceDutchBidRequest {
     auctionId: Long;
     bidder: string;
     amount?: Coin;
-    max: string;
     appId: Long;
     auctionMappingId: Long;
 }
@@ -35,7 +34,6 @@ export interface MsgPlaceDutchLendBidRequest {
     auctionId: Long;
     bidder: string;
     amount?: Coin;
-    max: string;
     appId: Long;
     auctionMappingId: Long;
 }
@@ -476,7 +474,6 @@ export declare const MsgPlaceDutchBidRequest: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
-        max?: string | undefined;
         appId?: string | number | Long.Long | undefined;
         auctionMappingId?: string | number | Long.Long | undefined;
     } & {
@@ -546,7 +543,6 @@ export declare const MsgPlaceDutchBidRequest: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & Record<Exclude<keyof I["amount"], keyof Coin>, never>) | undefined;
-        max?: string | undefined;
         appId?: string | number | (Long.Long & {
             high: number;
             low: number;
@@ -684,7 +680,6 @@ export declare const MsgPlaceDutchLendBidRequest: {
             denom?: string | undefined;
             amount?: string | undefined;
         } | undefined;
-        max?: string | undefined;
         appId?: string | number | Long.Long | undefined;
         auctionMappingId?: string | number | Long.Long | undefined;
     } & {
@@ -754,7 +749,6 @@ export declare const MsgPlaceDutchLendBidRequest: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & Record<Exclude<keyof I["amount"], keyof Coin>, never>) | undefined;
-        max?: string | undefined;
         appId?: string | number | (Long.Long & {
             high: number;
             low: number;
