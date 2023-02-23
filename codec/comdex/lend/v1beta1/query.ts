@@ -20,6 +20,8 @@ import {
   ModBal,
   ReserveBal,
   AllReserveStats,
+  PoolInterest,
+  PoolInterestB,
 } from "../../../comdex/lend/v1beta1/lend";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 
@@ -239,6 +241,18 @@ export interface QueryFundModBalByAssetPoolRequest {
 
 export interface QueryFundModBalByAssetPoolResponse {
   amount?: Coin;
+}
+
+export interface QueryLendInterestRequest {}
+
+export interface QueryLendInterestResponse {
+  poolInterest: PoolInterest[];
+}
+
+export interface QueryBorrowInterestRequest {}
+
+export interface QueryBorrowInterestResponse {
+  poolInterest: PoolInterestB[];
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -3697,6 +3711,236 @@ export const QueryFundModBalByAssetPoolResponse = {
   },
 };
 
+function createBaseQueryLendInterestRequest(): QueryLendInterestRequest {
+  return {};
+}
+
+export const QueryLendInterestRequest = {
+  encode(
+    _: QueryLendInterestRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryLendInterestRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryLendInterestRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryLendInterestRequest {
+    return {};
+  },
+
+  toJSON(_: QueryLendInterestRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryLendInterestRequest>, I>>(
+    _: I
+  ): QueryLendInterestRequest {
+    const message = createBaseQueryLendInterestRequest();
+    return message;
+  },
+};
+
+function createBaseQueryLendInterestResponse(): QueryLendInterestResponse {
+  return { poolInterest: [] };
+}
+
+export const QueryLendInterestResponse = {
+  encode(
+    message: QueryLendInterestResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.poolInterest) {
+      PoolInterest.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryLendInterestResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryLendInterestResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.poolInterest.push(
+            PoolInterest.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryLendInterestResponse {
+    return {
+      poolInterest: Array.isArray(object?.poolInterest)
+        ? object.poolInterest.map((e: any) => PoolInterest.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: QueryLendInterestResponse): unknown {
+    const obj: any = {};
+    if (message.poolInterest) {
+      obj.poolInterest = message.poolInterest.map((e) =>
+        e ? PoolInterest.toJSON(e) : undefined
+      );
+    } else {
+      obj.poolInterest = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryLendInterestResponse>, I>>(
+    object: I
+  ): QueryLendInterestResponse {
+    const message = createBaseQueryLendInterestResponse();
+    message.poolInterest =
+      object.poolInterest?.map((e) => PoolInterest.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseQueryBorrowInterestRequest(): QueryBorrowInterestRequest {
+  return {};
+}
+
+export const QueryBorrowInterestRequest = {
+  encode(
+    _: QueryBorrowInterestRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryBorrowInterestRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryBorrowInterestRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): QueryBorrowInterestRequest {
+    return {};
+  },
+
+  toJSON(_: QueryBorrowInterestRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowInterestRequest>, I>>(
+    _: I
+  ): QueryBorrowInterestRequest {
+    const message = createBaseQueryBorrowInterestRequest();
+    return message;
+  },
+};
+
+function createBaseQueryBorrowInterestResponse(): QueryBorrowInterestResponse {
+  return { poolInterest: [] };
+}
+
+export const QueryBorrowInterestResponse = {
+  encode(
+    message: QueryBorrowInterestResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.poolInterest) {
+      PoolInterestB.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryBorrowInterestResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryBorrowInterestResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.poolInterest.push(
+            PoolInterestB.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryBorrowInterestResponse {
+    return {
+      poolInterest: Array.isArray(object?.poolInterest)
+        ? object.poolInterest.map((e: any) => PoolInterestB.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: QueryBorrowInterestResponse): unknown {
+    const obj: any = {};
+    if (message.poolInterest) {
+      obj.poolInterest = message.poolInterest.map((e) =>
+        e ? PoolInterestB.toJSON(e) : undefined
+      );
+    } else {
+      obj.poolInterest = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowInterestResponse>, I>>(
+    object: I
+  ): QueryBorrowInterestResponse {
+    const message = createBaseQueryBorrowInterestResponse();
+    message.poolInterest =
+      object.poolInterest?.map((e) => PoolInterestB.fromPartial(e)) || [];
+    return message;
+  },
+};
+
 export interface Query {
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse>;
   QueryLend(request: QueryLendRequest): Promise<QueryLendResponse>;
@@ -3755,6 +3999,12 @@ export interface Query {
   QueryFundModBalByAssetPool(
     request: QueryFundModBalByAssetPoolRequest
   ): Promise<QueryFundModBalByAssetPoolResponse>;
+  QueryLendInterest(
+    request: QueryLendInterestRequest
+  ): Promise<QueryLendInterestResponse>;
+  QueryBorrowInterest(
+    request: QueryBorrowInterestRequest
+  ): Promise<QueryBorrowInterestResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -3790,6 +4040,8 @@ export class QueryClientImpl implements Query {
     this.QueryAllReserveStats = this.QueryAllReserveStats.bind(this);
     this.QueryFundModBalByAssetPool =
       this.QueryFundModBalByAssetPool.bind(this);
+    this.QueryLendInterest = this.QueryLendInterest.bind(this);
+    this.QueryBorrowInterest = this.QueryBorrowInterest.bind(this);
   }
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse> {
     const data = QueryLendsRequest.encode(request).finish();
@@ -4120,6 +4372,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryFundModBalByAssetPoolResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryLendInterest(
+    request: QueryLendInterestRequest
+  ): Promise<QueryLendInterestResponse> {
+    const data = QueryLendInterestRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryLendInterest",
+      data
+    );
+    return promise.then((data) =>
+      QueryLendInterestResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  QueryBorrowInterest(
+    request: QueryBorrowInterestRequest
+  ): Promise<QueryBorrowInterestResponse> {
+    const data = QueryBorrowInterestRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Query",
+      "QueryBorrowInterest",
+      data
+    );
+    return promise.then((data) =>
+      QueryBorrowInterestResponse.decode(new _m0.Reader(data))
     );
   }
 }
