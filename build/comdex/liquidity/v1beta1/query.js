@@ -1,15 +1,34 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.OrderBookTickResponse = exports.OrderBookResponse = exports.OrderBookPairResponse = exports.QueryOrderBooksResponse = exports.QueryOrderBooksRequest = exports.QueryFarmedPoolCoinResponse = exports.QueryFarmedPoolCoinRequest = exports.QueryPoolIncentivesResponse = exports.PoolIncentive = exports.QueryPoolsIncentivesRequest = exports.QueryDeserializePoolCoinResponse = exports.QueryDeserializePoolCoinRequest = exports.QueryFarmerResponse = exports.QueuedPoolCoin = exports.QueryFarmerRequest = exports.PoolBalances = exports.PoolResponse = exports.QueryOrdersByOrdererRequest = exports.QueryOrderResponse = exports.QueryOrderRequest = exports.QueryOrdersResponse = exports.QueryOrdersRequest = exports.QueryWithdrawRequestResponse = exports.QueryWithdrawRequestRequest = exports.QueryWithdrawRequestsResponse = exports.QueryWithdrawRequestsRequest = exports.QueryDepositRequestResponse = exports.QueryDepositRequestRequest = exports.QueryDepositRequestsResponse = exports.QueryDepositRequestsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryPoolByPoolCoinDenomRequest = exports.QueryPoolByReserveAddressRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryGenericParamsResponse = exports.QueryGenericParamsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryAllFarmedPoolCoinsResponse = exports.QueryAllFarmedPoolCoinsRequest = exports.TotalActiveAndQueuedPoolCoins = exports.OrderBookTickResponse = exports.OrderBookResponse = exports.OrderBookPairResponse = exports.QueryOrderBooksResponse = exports.QueryOrderBooksRequest = exports.QueryFarmedPoolCoinResponse = exports.QueryFarmedPoolCoinRequest = exports.QueryPoolIncentivesResponse = exports.PoolIncentive = exports.QueryPoolsIncentivesRequest = exports.QueryDeserializePoolCoinResponse = exports.QueryDeserializePoolCoinRequest = exports.QueryFarmerResponse = exports.QueuedPoolCoin = exports.QueryFarmerRequest = exports.PoolBalances = exports.PoolResponse = exports.QueryOrdersByOrdererRequest = exports.QueryOrderResponse = exports.QueryOrderRequest = exports.QueryOrdersResponse = exports.QueryOrdersRequest = exports.QueryWithdrawRequestResponse = exports.QueryWithdrawRequestRequest = exports.QueryWithdrawRequestsResponse = exports.QueryWithdrawRequestsRequest = exports.QueryDepositRequestResponse = exports.QueryDepositRequestRequest = exports.QueryDepositRequestsResponse = exports.QueryDepositRequestsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryPoolByPoolCoinDenomRequest = exports.QueryPoolByReserveAddressRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryGenericParamsResponse = exports.QueryGenericParamsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const params_1 = require("./params");
+const _m0 = __importStar(require("protobufjs/minimal"));
+const params_1 = require("../../../comdex/liquidity/v1beta1/params");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-const liquidity_1 = require("./liquidity");
+const liquidity_1 = require("../../../comdex/liquidity/v1beta1/liquidity");
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const duration_1 = require("../../../google/protobuf/duration");
 const timestamp_1 = require("../../../google/protobuf/timestamp");
@@ -18,11 +37,11 @@ function createBaseQueryParamsRequest() {
     return {};
 }
 exports.QueryParamsRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
@@ -51,14 +70,14 @@ function createBaseQueryParamsResponse() {
     return { params: undefined };
 }
 exports.QueryParamsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
@@ -98,14 +117,14 @@ function createBaseQueryGenericParamsRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryGenericParamsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryGenericParamsRequest();
         while (reader.pos < end) {
@@ -123,7 +142,7 @@ exports.QueryGenericParamsRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -145,14 +164,14 @@ function createBaseQueryGenericParamsResponse() {
     return { params: undefined };
 }
 exports.QueryGenericParamsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.params !== undefined) {
             params_1.GenericParams.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryGenericParamsResponse();
         while (reader.pos < end) {
@@ -201,7 +220,7 @@ function createBaseQueryPoolsRequest() {
     };
 }
 exports.QueryPoolsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.pairId.isZero()) {
             writer.uint32(8).uint64(message.pairId);
         }
@@ -217,7 +236,7 @@ exports.QueryPoolsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPoolsRequest();
         while (reader.pos < end) {
@@ -244,14 +263,12 @@ exports.QueryPoolsRequest = {
     },
     fromJSON(object) {
         return {
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             disabled: isSet(object.disabled) ? String(object.disabled) : "",
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -290,7 +307,7 @@ function createBaseQueryPoolsResponse() {
     return { pools: [], pagination: undefined };
 }
 exports.QueryPoolsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.pools) {
             exports.PoolResponse.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -300,7 +317,7 @@ exports.QueryPoolsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPoolsResponse();
         while (reader.pos < end) {
@@ -358,7 +375,7 @@ function createBaseQueryPoolRequest() {
     return { poolId: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryPoolRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
@@ -368,7 +385,7 @@ exports.QueryPoolRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPoolRequest();
         while (reader.pos < end) {
@@ -389,10 +406,8 @@ exports.QueryPoolRequest = {
     },
     fromJSON(object) {
         return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -420,14 +435,14 @@ function createBaseQueryPoolResponse() {
     return { pool: undefined };
 }
 exports.QueryPoolResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pool !== undefined) {
             exports.PoolResponse.encode(message.pool, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPoolResponse();
         while (reader.pos < end) {
@@ -467,7 +482,7 @@ function createBaseQueryPoolByReserveAddressRequest() {
     return { reserveAddress: "", appId: long_1.default.UZERO };
 }
 exports.QueryPoolByReserveAddressRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.reserveAddress !== "") {
             writer.uint32(10).string(message.reserveAddress);
         }
@@ -477,7 +492,7 @@ exports.QueryPoolByReserveAddressRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPoolByReserveAddressRequest();
         while (reader.pos < end) {
@@ -501,7 +516,7 @@ exports.QueryPoolByReserveAddressRequest = {
             reserveAddress: isSet(object.reserveAddress)
                 ? String(object.reserveAddress)
                 : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -527,7 +542,7 @@ function createBaseQueryPoolByPoolCoinDenomRequest() {
     return { poolCoinDenom: "", appId: long_1.default.UZERO };
 }
 exports.QueryPoolByPoolCoinDenomRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.poolCoinDenom !== "") {
             writer.uint32(10).string(message.poolCoinDenom);
         }
@@ -537,7 +552,7 @@ exports.QueryPoolByPoolCoinDenomRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPoolByPoolCoinDenomRequest();
         while (reader.pos < end) {
@@ -561,7 +576,7 @@ exports.QueryPoolByPoolCoinDenomRequest = {
             poolCoinDenom: isSet(object.poolCoinDenom)
                 ? String(object.poolCoinDenom)
                 : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -587,7 +602,7 @@ function createBaseQueryPairsRequest() {
     return { denoms: [], pagination: undefined, appId: long_1.default.UZERO };
 }
 exports.QueryPairsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.denoms) {
             writer.uint32(10).string(v);
         }
@@ -600,7 +615,7 @@ exports.QueryPairsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairsRequest();
         while (reader.pos < end) {
@@ -630,7 +645,7 @@ exports.QueryPairsRequest = {
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -668,7 +683,7 @@ function createBaseQueryPairsResponse() {
     return { pairs: [], pagination: undefined };
 }
 exports.QueryPairsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.pairs) {
             liquidity_1.Pair.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -678,7 +693,7 @@ exports.QueryPairsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairsResponse();
         while (reader.pos < end) {
@@ -736,7 +751,7 @@ function createBaseQueryPairRequest() {
     return { pairId: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryPairRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.pairId.isZero()) {
             writer.uint32(8).uint64(message.pairId);
         }
@@ -746,7 +761,7 @@ exports.QueryPairRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairRequest();
         while (reader.pos < end) {
@@ -767,10 +782,8 @@ exports.QueryPairRequest = {
     },
     fromJSON(object) {
         return {
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -798,14 +811,14 @@ function createBaseQueryPairResponse() {
     return { pair: undefined };
 }
 exports.QueryPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.pair !== undefined) {
             liquidity_1.Pair.encode(message.pair, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPairResponse();
         while (reader.pos < end) {
@@ -845,7 +858,7 @@ function createBaseQueryDepositRequestsRequest() {
     return { poolId: long_1.default.UZERO, appId: long_1.default.UZERO, pagination: undefined };
 }
 exports.QueryDepositRequestsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
@@ -858,7 +871,7 @@ exports.QueryDepositRequestsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDepositRequestsRequest();
         while (reader.pos < end) {
@@ -882,10 +895,8 @@ exports.QueryDepositRequestsRequest = {
     },
     fromJSON(object) {
         return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
@@ -924,7 +935,7 @@ function createBaseQueryDepositRequestsResponse() {
     return { depositRequests: [], pagination: undefined };
 }
 exports.QueryDepositRequestsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.depositRequests) {
             liquidity_1.DepositRequest.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -934,7 +945,7 @@ exports.QueryDepositRequestsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDepositRequestsResponse();
         while (reader.pos < end) {
@@ -993,7 +1004,7 @@ function createBaseQueryDepositRequestRequest() {
     return { poolId: long_1.default.UZERO, id: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryDepositRequestRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
@@ -1006,7 +1017,7 @@ exports.QueryDepositRequestRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDepositRequestRequest();
         while (reader.pos < end) {
@@ -1030,11 +1041,9 @@ exports.QueryDepositRequestRequest = {
     },
     fromJSON(object) {
         return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1068,14 +1077,14 @@ function createBaseQueryDepositRequestResponse() {
     return { depositRequest: undefined };
 }
 exports.QueryDepositRequestResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.depositRequest !== undefined) {
             liquidity_1.DepositRequest.encode(message.depositRequest, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDepositRequestResponse();
         while (reader.pos < end) {
@@ -1119,7 +1128,7 @@ function createBaseQueryWithdrawRequestsRequest() {
     return { poolId: long_1.default.UZERO, pagination: undefined, appId: long_1.default.UZERO };
 }
 exports.QueryWithdrawRequestsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
@@ -1132,7 +1141,7 @@ exports.QueryWithdrawRequestsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryWithdrawRequestsRequest();
         while (reader.pos < end) {
@@ -1156,13 +1165,11 @@ exports.QueryWithdrawRequestsRequest = {
     },
     fromJSON(object) {
         return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1198,7 +1205,7 @@ function createBaseQueryWithdrawRequestsResponse() {
     return { withdrawRequests: [], pagination: undefined };
 }
 exports.QueryWithdrawRequestsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.withdrawRequests) {
             liquidity_1.WithdrawRequest.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -1208,7 +1215,7 @@ exports.QueryWithdrawRequestsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryWithdrawRequestsResponse();
         while (reader.pos < end) {
@@ -1267,7 +1274,7 @@ function createBaseQueryWithdrawRequestRequest() {
     return { poolId: long_1.default.UZERO, id: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryWithdrawRequestRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
@@ -1280,7 +1287,7 @@ exports.QueryWithdrawRequestRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryWithdrawRequestRequest();
         while (reader.pos < end) {
@@ -1304,11 +1311,9 @@ exports.QueryWithdrawRequestRequest = {
     },
     fromJSON(object) {
         return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1342,14 +1347,14 @@ function createBaseQueryWithdrawRequestResponse() {
     return { withdrawRequest: undefined };
 }
 exports.QueryWithdrawRequestResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.withdrawRequest !== undefined) {
             liquidity_1.WithdrawRequest.encode(message.withdrawRequest, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryWithdrawRequestResponse();
         while (reader.pos < end) {
@@ -1393,7 +1398,7 @@ function createBaseQueryOrdersRequest() {
     return { pairId: long_1.default.UZERO, pagination: undefined, appId: long_1.default.UZERO };
 }
 exports.QueryOrdersRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.pairId.isZero()) {
             writer.uint32(8).uint64(message.pairId);
         }
@@ -1406,7 +1411,7 @@ exports.QueryOrdersRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryOrdersRequest();
         while (reader.pos < end) {
@@ -1430,13 +1435,11 @@ exports.QueryOrdersRequest = {
     },
     fromJSON(object) {
         return {
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1472,7 +1475,7 @@ function createBaseQueryOrdersResponse() {
     return { orders: [], pagination: undefined };
 }
 exports.QueryOrdersResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.orders) {
             liquidity_1.Order.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -1482,7 +1485,7 @@ exports.QueryOrdersResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryOrdersResponse();
         while (reader.pos < end) {
@@ -1540,7 +1543,7 @@ function createBaseQueryOrderRequest() {
     return { pairId: long_1.default.UZERO, id: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryOrderRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.pairId.isZero()) {
             writer.uint32(8).uint64(message.pairId);
         }
@@ -1553,7 +1556,7 @@ exports.QueryOrderRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryOrderRequest();
         while (reader.pos < end) {
@@ -1577,11 +1580,9 @@ exports.QueryOrderRequest = {
     },
     fromJSON(object) {
         return {
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1615,14 +1616,14 @@ function createBaseQueryOrderResponse() {
     return { order: undefined };
 }
 exports.QueryOrderResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.order !== undefined) {
             liquidity_1.Order.encode(message.order, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryOrderResponse();
         while (reader.pos < end) {
@@ -1667,7 +1668,7 @@ function createBaseQueryOrdersByOrdererRequest() {
     };
 }
 exports.QueryOrdersByOrdererRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.orderer !== "") {
             writer.uint32(10).string(message.orderer);
         }
@@ -1683,7 +1684,7 @@ exports.QueryOrdersByOrdererRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryOrdersByOrdererRequest();
         while (reader.pos < end) {
@@ -1711,13 +1712,11 @@ exports.QueryOrdersByOrdererRequest = {
     fromJSON(object) {
         return {
             orderer: isSet(object.orderer) ? String(object.orderer) : "",
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1772,7 +1771,7 @@ function createBasePoolResponse() {
     };
 }
 exports.PoolResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -1821,7 +1820,7 @@ exports.PoolResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBasePoolResponse();
         while (reader.pos < end) {
@@ -1881,10 +1880,8 @@ exports.PoolResponse = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             reserveAddress: isSet(object.reserveAddress)
                 ? String(object.reserveAddress)
                 : "",
@@ -1895,12 +1892,12 @@ exports.PoolResponse = {
                 ? exports.PoolBalances.fromJSON(object.balances)
                 : undefined,
             lastDepositRequestId: isSet(object.lastDepositRequestId)
-                ? long_1.default.fromString(object.lastDepositRequestId)
+                ? long_1.default.fromValue(object.lastDepositRequestId)
                 : long_1.default.UZERO,
             lastWithdrawRequestId: isSet(object.lastWithdrawRequestId)
-                ? long_1.default.fromString(object.lastWithdrawRequestId)
+                ? long_1.default.fromValue(object.lastWithdrawRequestId)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             type: isSet(object.type) ? (0, liquidity_1.poolTypeFromJSON)(object.type) : 0,
             creator: isSet(object.creator) ? String(object.creator) : "",
             poolCoinSupply: isSet(object.poolCoinSupply)
@@ -1987,7 +1984,7 @@ function createBasePoolBalances() {
     return { baseCoin: undefined, quoteCoin: undefined };
 }
 exports.PoolBalances = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.baseCoin !== undefined) {
             coin_1.Coin.encode(message.baseCoin, writer.uint32(10).fork()).ldelim();
         }
@@ -1997,7 +1994,7 @@ exports.PoolBalances = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBasePoolBalances();
         while (reader.pos < end) {
@@ -2055,7 +2052,7 @@ function createBaseQueryFarmerRequest() {
     return { appId: long_1.default.UZERO, poolId: long_1.default.UZERO, farmer: "" };
 }
 exports.QueryFarmerRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -2068,7 +2065,7 @@ exports.QueryFarmerRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryFarmerRequest();
         while (reader.pos < end) {
@@ -2092,10 +2089,8 @@ exports.QueryFarmerRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             farmer: isSet(object.farmer) ? String(object.farmer) : "",
         };
     },
@@ -2127,7 +2122,7 @@ function createBaseQueuedPoolCoin() {
     return { poolCoin: undefined, dequeAt: undefined };
 }
 exports.QueuedPoolCoin = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.poolCoin !== undefined) {
             coin_1.Coin.encode(message.poolCoin, writer.uint32(10).fork()).ldelim();
         }
@@ -2137,7 +2132,7 @@ exports.QueuedPoolCoin = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueuedPoolCoin();
         while (reader.pos < end) {
@@ -2191,7 +2186,7 @@ function createBaseQueryFarmerResponse() {
     return { activePoolCoin: undefined, queuedPoolCoin: [] };
 }
 exports.QueryFarmerResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.activePoolCoin !== undefined) {
             coin_1.Coin.encode(message.activePoolCoin, writer.uint32(10).fork()).ldelim();
         }
@@ -2201,7 +2196,7 @@ exports.QueryFarmerResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryFarmerResponse();
         while (reader.pos < end) {
@@ -2260,7 +2255,7 @@ function createBaseQueryDeserializePoolCoinRequest() {
     return { poolId: long_1.default.UZERO, poolCoinAmount: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryDeserializePoolCoinRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
@@ -2273,7 +2268,7 @@ exports.QueryDeserializePoolCoinRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDeserializePoolCoinRequest();
         while (reader.pos < end) {
@@ -2297,13 +2292,11 @@ exports.QueryDeserializePoolCoinRequest = {
     },
     fromJSON(object) {
         return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             poolCoinAmount: isSet(object.poolCoinAmount)
-                ? long_1.default.fromString(object.poolCoinAmount)
+                ? long_1.default.fromValue(object.poolCoinAmount)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2337,14 +2330,14 @@ function createBaseQueryDeserializePoolCoinResponse() {
     return { coins: [] };
 }
 exports.QueryDeserializePoolCoinResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.coins) {
             coin_1.Coin.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDeserializePoolCoinResponse();
         while (reader.pos < end) {
@@ -2388,14 +2381,14 @@ function createBaseQueryPoolsIncentivesRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryPoolsIncentivesRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPoolsIncentivesRequest();
         while (reader.pos < end) {
@@ -2413,7 +2406,7 @@ exports.QueryPoolsIncentivesRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2447,7 +2440,7 @@ function createBasePoolIncentive() {
     };
 }
 exports.PoolIncentive = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
@@ -2486,7 +2479,7 @@ exports.PoolIncentive = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBasePoolIncentive();
         while (reader.pos < end) {
@@ -2542,12 +2535,10 @@ exports.PoolIncentive = {
     },
     fromJSON(object) {
         return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             masterPool: isSet(object.masterPool) ? Boolean(object.masterPool) : false,
             childPoolIds: Array.isArray(object === null || object === void 0 ? void 0 : object.childPoolIds)
-                ? object.childPoolIds.map((e) => long_1.default.fromString(e))
+                ? object.childPoolIds.map((e) => long_1.default.fromValue(e))
                 : [],
             totalRewards: isSet(object.totalRewards)
                 ? coin_1.Coin.fromJSON(object.totalRewards)
@@ -2556,10 +2547,10 @@ exports.PoolIncentive = {
                 ? coin_1.Coin.fromJSON(object.distributedRewards)
                 : undefined,
             totalEpochs: isSet(object.totalEpochs)
-                ? long_1.default.fromString(object.totalEpochs)
+                ? long_1.default.fromValue(object.totalEpochs)
                 : long_1.default.UZERO,
             filledEpochs: isSet(object.filledEpochs)
-                ? long_1.default.fromString(object.filledEpochs)
+                ? long_1.default.fromValue(object.filledEpochs)
                 : long_1.default.UZERO,
             epochDuration: isSet(object.epochDuration)
                 ? duration_1.Duration.fromJSON(object.epochDuration)
@@ -2568,7 +2559,7 @@ exports.PoolIncentive = {
                 ? fromJsonTimestamp(object.nextDistribution)
                 : undefined,
             isSwapFee: isSet(object.isSwapFee) ? Boolean(object.isSwapFee) : false,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2649,14 +2640,14 @@ function createBaseQueryPoolIncentivesResponse() {
     return { poolIncentives: [] };
 }
 exports.QueryPoolIncentivesResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.poolIncentives) {
             exports.PoolIncentive.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryPoolIncentivesResponse();
         while (reader.pos < end) {
@@ -2701,7 +2692,7 @@ function createBaseQueryFarmedPoolCoinRequest() {
     return { poolId: long_1.default.UZERO, appId: long_1.default.UZERO };
 }
 exports.QueryFarmedPoolCoinRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
@@ -2711,7 +2702,7 @@ exports.QueryFarmedPoolCoinRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryFarmedPoolCoinRequest();
         while (reader.pos < end) {
@@ -2732,10 +2723,8 @@ exports.QueryFarmedPoolCoinRequest = {
     },
     fromJSON(object) {
         return {
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -2763,14 +2752,14 @@ function createBaseQueryFarmedPoolCoinResponse() {
     return { coin: undefined };
 }
 exports.QueryFarmedPoolCoinResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.coin !== undefined) {
             coin_1.Coin.encode(message.coin, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryFarmedPoolCoinResponse();
         while (reader.pos < end) {
@@ -2810,7 +2799,7 @@ function createBaseQueryOrderBooksRequest() {
     return { appId: long_1.default.UZERO, pairIds: [], priceUnitPowers: [], numTicks: 0 };
 }
 exports.QueryOrderBooksRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -2830,7 +2819,7 @@ exports.QueryOrderBooksRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryOrderBooksRequest();
         while (reader.pos < end) {
@@ -2873,9 +2862,9 @@ exports.QueryOrderBooksRequest = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             pairIds: Array.isArray(object === null || object === void 0 ? void 0 : object.pairIds)
-                ? object.pairIds.map((e) => long_1.default.fromString(e))
+                ? object.pairIds.map((e) => long_1.default.fromValue(e))
                 : [],
             priceUnitPowers: Array.isArray(object === null || object === void 0 ? void 0 : object.priceUnitPowers)
                 ? object.priceUnitPowers.map((e) => Number(e))
@@ -2920,14 +2909,14 @@ function createBaseQueryOrderBooksResponse() {
     return { pairs: [] };
 }
 exports.QueryOrderBooksResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         for (const v of message.pairs) {
             exports.OrderBookPairResponse.encode(v, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryOrderBooksResponse();
         while (reader.pos < end) {
@@ -2972,7 +2961,7 @@ function createBaseOrderBookPairResponse() {
     return { pairId: long_1.default.UZERO, basePrice: "", orderBooks: [] };
 }
 exports.OrderBookPairResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.pairId.isZero()) {
             writer.uint32(8).uint64(message.pairId);
         }
@@ -2985,7 +2974,7 @@ exports.OrderBookPairResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseOrderBookPairResponse();
         while (reader.pos < end) {
@@ -3009,9 +2998,7 @@ exports.OrderBookPairResponse = {
     },
     fromJSON(object) {
         return {
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             basePrice: isSet(object.basePrice) ? String(object.basePrice) : "",
             orderBooks: Array.isArray(object === null || object === void 0 ? void 0 : object.orderBooks)
                 ? object.orderBooks.map((e) => exports.OrderBookResponse.fromJSON(e))
@@ -3048,7 +3035,7 @@ function createBaseOrderBookResponse() {
     return { priceUnit: "", sells: [], buys: [] };
 }
 exports.OrderBookResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.priceUnit !== "") {
             writer.uint32(10).string(message.priceUnit);
         }
@@ -3061,7 +3048,7 @@ exports.OrderBookResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseOrderBookResponse();
         while (reader.pos < end) {
@@ -3126,7 +3113,7 @@ function createBaseOrderBookTickResponse() {
     return { price: "", userOrderAmount: "", poolOrderAmount: "" };
 }
 exports.OrderBookTickResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.price !== "") {
             writer.uint32(10).string(message.price);
         }
@@ -3139,7 +3126,7 @@ exports.OrderBookTickResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseOrderBookTickResponse();
         while (reader.pos < end) {
@@ -3190,6 +3177,205 @@ exports.OrderBookTickResponse = {
         return message;
     },
 };
+function createBaseTotalActiveAndQueuedPoolCoins() {
+    return {
+        poolId: long_1.default.UZERO,
+        totalActivePoolCoin: undefined,
+        totalQueuedPoolCoin: undefined,
+    };
+}
+exports.TotalActiveAndQueuedPoolCoins = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.poolId.isZero()) {
+            writer.uint32(8).uint64(message.poolId);
+        }
+        if (message.totalActivePoolCoin !== undefined) {
+            coin_1.Coin.encode(message.totalActivePoolCoin, writer.uint32(18).fork()).ldelim();
+        }
+        if (message.totalQueuedPoolCoin !== undefined) {
+            coin_1.Coin.encode(message.totalQueuedPoolCoin, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseTotalActiveAndQueuedPoolCoins();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.poolId = reader.uint64();
+                    break;
+                case 2:
+                    message.totalActivePoolCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                case 3:
+                    message.totalQueuedPoolCoin = coin_1.Coin.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            totalActivePoolCoin: isSet(object.totalActivePoolCoin)
+                ? coin_1.Coin.fromJSON(object.totalActivePoolCoin)
+                : undefined,
+            totalQueuedPoolCoin: isSet(object.totalQueuedPoolCoin)
+                ? coin_1.Coin.fromJSON(object.totalQueuedPoolCoin)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.totalActivePoolCoin !== undefined &&
+            (obj.totalActivePoolCoin = message.totalActivePoolCoin
+                ? coin_1.Coin.toJSON(message.totalActivePoolCoin)
+                : undefined);
+        message.totalQueuedPoolCoin !== undefined &&
+            (obj.totalQueuedPoolCoin = message.totalQueuedPoolCoin
+                ? coin_1.Coin.toJSON(message.totalQueuedPoolCoin)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseTotalActiveAndQueuedPoolCoins();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.totalActivePoolCoin =
+            object.totalActivePoolCoin !== undefined &&
+                object.totalActivePoolCoin !== null
+                ? coin_1.Coin.fromPartial(object.totalActivePoolCoin)
+                : undefined;
+        message.totalQueuedPoolCoin =
+            object.totalQueuedPoolCoin !== undefined &&
+                object.totalQueuedPoolCoin !== null
+                ? coin_1.Coin.fromPartial(object.totalQueuedPoolCoin)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryAllFarmedPoolCoinsRequest() {
+    return { appId: long_1.default.UZERO };
+}
+exports.QueryAllFarmedPoolCoinsRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllFarmedPoolCoinsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAllFarmedPoolCoinsRequest();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseQueryAllFarmedPoolCoinsResponse() {
+    return { appId: long_1.default.UZERO, totalActiveAndQueuedCoins: [] };
+}
+exports.QueryAllFarmedPoolCoinsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        for (const v of message.totalActiveAndQueuedCoins) {
+            exports.TotalActiveAndQueuedPoolCoins.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllFarmedPoolCoinsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
+                    message.totalActiveAndQueuedCoins.push(exports.TotalActiveAndQueuedPoolCoins.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            totalActiveAndQueuedCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.totalActiveAndQueuedCoins)
+                ? object.totalActiveAndQueuedCoins.map((e) => exports.TotalActiveAndQueuedPoolCoins.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        if (message.totalActiveAndQueuedCoins) {
+            obj.totalActiveAndQueuedCoins = message.totalActiveAndQueuedCoins.map((e) => (e ? exports.TotalActiveAndQueuedPoolCoins.toJSON(e) : undefined));
+        }
+        else {
+            obj.totalActiveAndQueuedCoins = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryAllFarmedPoolCoinsResponse();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.totalActiveAndQueuedCoins =
+            ((_a = object.totalActiveAndQueuedCoins) === null || _a === void 0 ? void 0 : _a.map((e) => exports.TotalActiveAndQueuedPoolCoins.fromPartial(e))) || [];
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -3212,107 +3398,114 @@ class QueryClientImpl {
         this.DeserializePoolCoin = this.DeserializePoolCoin.bind(this);
         this.PoolIncentives = this.PoolIncentives.bind(this);
         this.FarmedPoolCoin = this.FarmedPoolCoin.bind(this);
+        this.TotalActiveAndQueuedPoolCoin =
+            this.TotalActiveAndQueuedPoolCoin.bind(this);
         this.OrderBooks = this.OrderBooks.bind(this);
     }
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Params", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new _m0.Reader(data)));
     }
     GenericParams(request) {
         const data = exports.QueryGenericParamsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "GenericParams", data);
-        return promise.then((data) => exports.QueryGenericParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryGenericParamsResponse.decode(new _m0.Reader(data)));
     }
     Pools(request) {
         const data = exports.QueryPoolsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Pools", data);
-        return promise.then((data) => exports.QueryPoolsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPoolsResponse.decode(new _m0.Reader(data)));
     }
     Pool(request) {
         const data = exports.QueryPoolRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Pool", data);
-        return promise.then((data) => exports.QueryPoolResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPoolResponse.decode(new _m0.Reader(data)));
     }
     PoolByReserveAddress(request) {
         const data = exports.QueryPoolByReserveAddressRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolByReserveAddress", data);
-        return promise.then((data) => exports.QueryPoolResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPoolResponse.decode(new _m0.Reader(data)));
     }
     PoolByPoolCoinDenom(request) {
         const data = exports.QueryPoolByPoolCoinDenomRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolByPoolCoinDenom", data);
-        return promise.then((data) => exports.QueryPoolResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPoolResponse.decode(new _m0.Reader(data)));
     }
     Pairs(request) {
         const data = exports.QueryPairsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Pairs", data);
-        return promise.then((data) => exports.QueryPairsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPairsResponse.decode(new _m0.Reader(data)));
     }
     Pair(request) {
         const data = exports.QueryPairRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Pair", data);
-        return promise.then((data) => exports.QueryPairResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPairResponse.decode(new _m0.Reader(data)));
     }
     DepositRequests(request) {
         const data = exports.QueryDepositRequestsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "DepositRequests", data);
-        return promise.then((data) => exports.QueryDepositRequestsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryDepositRequestsResponse.decode(new _m0.Reader(data)));
     }
     DepositRequest(request) {
         const data = exports.QueryDepositRequestRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "DepositRequest", data);
-        return promise.then((data) => exports.QueryDepositRequestResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryDepositRequestResponse.decode(new _m0.Reader(data)));
     }
     WithdrawRequests(request) {
         const data = exports.QueryWithdrawRequestsRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "WithdrawRequests", data);
-        return promise.then((data) => exports.QueryWithdrawRequestsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryWithdrawRequestsResponse.decode(new _m0.Reader(data)));
     }
     WithdrawRequest(request) {
         const data = exports.QueryWithdrawRequestRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "WithdrawRequest", data);
-        return promise.then((data) => exports.QueryWithdrawRequestResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryWithdrawRequestResponse.decode(new _m0.Reader(data)));
     }
     Orders(request) {
         const data = exports.QueryOrdersRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Orders", data);
-        return promise.then((data) => exports.QueryOrdersResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryOrdersResponse.decode(new _m0.Reader(data)));
     }
     Order(request) {
         const data = exports.QueryOrderRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Order", data);
-        return promise.then((data) => exports.QueryOrderResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryOrderResponse.decode(new _m0.Reader(data)));
     }
     OrdersByOrderer(request) {
         const data = exports.QueryOrdersByOrdererRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "OrdersByOrderer", data);
-        return promise.then((data) => exports.QueryOrdersResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryOrdersResponse.decode(new _m0.Reader(data)));
     }
     Farmer(request) {
         const data = exports.QueryFarmerRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "Farmer", data);
-        return promise.then((data) => exports.QueryFarmerResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryFarmerResponse.decode(new _m0.Reader(data)));
     }
     DeserializePoolCoin(request) {
         const data = exports.QueryDeserializePoolCoinRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "DeserializePoolCoin", data);
-        return promise.then((data) => exports.QueryDeserializePoolCoinResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryDeserializePoolCoinResponse.decode(new _m0.Reader(data)));
     }
     PoolIncentives(request) {
         const data = exports.QueryPoolsIncentivesRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "PoolIncentives", data);
-        return promise.then((data) => exports.QueryPoolIncentivesResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPoolIncentivesResponse.decode(new _m0.Reader(data)));
     }
     FarmedPoolCoin(request) {
         const data = exports.QueryFarmedPoolCoinRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "FarmedPoolCoin", data);
-        return promise.then((data) => exports.QueryFarmedPoolCoinResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryFarmedPoolCoinResponse.decode(new _m0.Reader(data)));
+    }
+    TotalActiveAndQueuedPoolCoin(request) {
+        const data = exports.QueryAllFarmedPoolCoinsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "TotalActiveAndQueuedPoolCoin", data);
+        return promise.then((data) => exports.QueryAllFarmedPoolCoinsResponse.decode(new _m0.Reader(data)));
     }
     OrderBooks(request) {
         const data = exports.QueryOrderBooksRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Query", "OrderBooks", data);
-        return promise.then((data) => exports.QueryOrderBooksResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryOrderBooksResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
@@ -3340,9 +3533,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;

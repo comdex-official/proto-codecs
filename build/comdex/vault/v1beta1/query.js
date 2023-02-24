@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueryUserExtendedPairTotalDataResponse = exports.QueryUserExtendedPairTotalDataRequest = exports.QueryUserMyPositionByAppResponse = exports.QueryUserMyPositionByAppRequest = exports.QueryTVLByAppResponse = exports.QueryTVLByAppRequest = exports.QueryTVLByAppOfAllExtendedPairsResponse = exports.QueryTVLByAppOfAllExtendedPairsRequest = exports.QueryExtendedPairVaultMappingByAppResponse = exports.QueryExtendedPairVaultMappingByAppRequest = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairResponse = exports.QueryExtendedPairVaultMappingByAppAndExtendedPairRequest = exports.QueryStableVaultByAppAndExtendedPairResponse = exports.QueryStableVaultByAppAndExtendedPairRequest = exports.QueryStableVaultByAppResponse = exports.QueryStableVaultByAppRequest = exports.QueryStableVaultByVaultIDResponse = exports.QueryStableVaultByVaultIDRequest = exports.QueryExtendedPairIDsByAppResponse = exports.QueryExtendedPairIDsByAppRequest = exports.QueryTotalValueLockedByAppAndExtendedPairResponse = exports.QueryTotalValueLockedByAppAndExtendedPairRequest = exports.QueryVaultCountByAppAndExtendedPairResponse = exports.QueryVaultCountByAppAndExtendedPairRequest = exports.QueryVaultCountByAppResponse = exports.QueryVaultCountByAppRequest = exports.QueryTokenMintedAssetWiseByAppResponse = exports.QueryTokenMintedAssetWiseByAppRequest = exports.QueryTokenMintedByAppAndExtendedPairResponse = exports.QueryTokenMintedByAppAndExtendedPairRequest = exports.QueryAllVaultIdsByAnOwnerResponse = exports.QueryAllVaultIdsByAnOwnerRequest = exports.QueryVaultIdsByAppInAllExtendedPairsResponse = exports.QueryVaultIdsByAppInAllExtendedPairsRequest = exports.QueryVaultIDOfOwnerByExtendedPairAndAppResponse = exports.QueryVaultIDOfOwnerByExtendedPairAndAppRequest = exports.QueryAllVaultsByAppAndExtendedPairResponse = exports.QueryAllVaultsByAppAndExtendedPairRequest = exports.QueryAllVaultsByAppResponse = exports.QueryAllVaultsByAppRequest = exports.QueryAllVaultsResponse = exports.QueryAllVaultsRequest = exports.QueryVaultInfoOfOwnerByAppResponse = exports.QueryVaultInfoOfOwnerByAppRequest = exports.QueryVaultInfoByVaultIDResponse = exports.QueryVaultInfoByVaultIDRequest = exports.QueryVaultResponse = exports.QueryVaultRequest = exports.VaultInfo = exports.protobufPackage = void 0;
-exports.QueryClientImpl = exports.QueryPairsLockedAndMintedStatisticByAppResponse = exports.QueryPairsLockedAndMintedStatisticByAppRequest = void 0;
+exports.QueryClientImpl = exports.QueryAllStableMintVaultRewardsResponse = exports.QueryAllStableMintVaultRewardsRequest = exports.QueryPairsLockedAndMintedStatisticByAppResponse = exports.QueryPairsLockedAndMintedStatisticByAppRequest = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -3315,6 +3315,126 @@ exports.QueryPairsLockedAndMintedStatisticByAppResponse = {
         return message;
     },
 };
+function createBaseQueryAllStableMintVaultRewardsRequest() {
+    return { pagination: undefined };
+}
+exports.QueryAllStableMintVaultRewardsRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllStableMintVaultRewardsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = createBaseQueryAllStableMintVaultRewardsRequest();
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryAllStableMintVaultRewardsResponse() {
+    return { stableMintVaultRewards: [], pagination: undefined };
+}
+exports.QueryAllStableMintVaultRewardsResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.stableMintVaultRewards) {
+            vault_1.StableMintVaultRewards.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllStableMintVaultRewardsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.stableMintVaultRewards.push(vault_1.StableMintVaultRewards.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            stableMintVaultRewards: Array.isArray(object === null || object === void 0 ? void 0 : object.stableMintVaultRewards)
+                ? object.stableMintVaultRewards.map((e) => vault_1.StableMintVaultRewards.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.stableMintVaultRewards) {
+            obj.stableMintVaultRewards = message.stableMintVaultRewards.map((e) => e ? vault_1.StableMintVaultRewards.toJSON(e) : undefined);
+        }
+        else {
+            obj.stableMintVaultRewards = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryAllStableMintVaultRewardsResponse();
+        message.stableMintVaultRewards =
+            ((_a = object.stableMintVaultRewards) === null || _a === void 0 ? void 0 : _a.map((e) => vault_1.StableMintVaultRewards.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -3357,6 +3477,8 @@ class QueryClientImpl {
         this.QueryUserMyPositionByApp = this.QueryUserMyPositionByApp.bind(this);
         this.QueryPairsLockedAndMintedStatisticByApp =
             this.QueryPairsLockedAndMintedStatisticByApp.bind(this);
+        this.QueryAllStableMintVaultRewards =
+            this.QueryAllStableMintVaultRewards.bind(this);
     }
     QueryVault(request) {
         const data = exports.QueryVaultRequest.encode(request).finish();
@@ -3482,6 +3604,11 @@ class QueryClientImpl {
         const data = exports.QueryPairsLockedAndMintedStatisticByAppRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryPairsLockedAndMintedStatisticByApp", data);
         return promise.then((data) => exports.QueryPairsLockedAndMintedStatisticByAppResponse.decode(new _m0.Reader(data)));
+    }
+    QueryAllStableMintVaultRewards(request) {
+        const data = exports.QueryAllStableMintVaultRewardsRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.vault.v1beta1.Query", "QueryAllStableMintVaultRewards", data);
+        return promise.then((data) => exports.QueryAllStableMintVaultRewardsResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;

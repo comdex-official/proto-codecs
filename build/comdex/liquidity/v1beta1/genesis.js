@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,9 +25,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenesisState = exports.AppGenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const params_1 = require("./params");
-const liquidity_1 = require("./liquidity");
+const _m0 = __importStar(require("protobufjs/minimal"));
+const params_1 = require("../../../comdex/liquidity/v1beta1/params");
+const liquidity_1 = require("../../../comdex/liquidity/v1beta1/liquidity");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
 function createBaseAppGenesisState() {
     return {
@@ -27,7 +46,7 @@ function createBaseAppGenesisState() {
     };
 }
 exports.AppGenesisState = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -67,7 +86,7 @@ exports.AppGenesisState = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAppGenesisState();
         while (reader.pos < end) {
@@ -118,15 +137,15 @@ exports.AppGenesisState = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             genericParams: isSet(object.genericParams)
                 ? params_1.GenericParams.fromJSON(object.genericParams)
                 : undefined,
             lastPairId: isSet(object.lastPairId)
-                ? long_1.default.fromString(object.lastPairId)
+                ? long_1.default.fromValue(object.lastPairId)
                 : long_1.default.UZERO,
             lastPoolId: isSet(object.lastPoolId)
-                ? long_1.default.fromString(object.lastPoolId)
+                ? long_1.default.fromValue(object.lastPoolId)
                 : long_1.default.UZERO,
             pairs: Array.isArray(object === null || object === void 0 ? void 0 : object.pairs)
                 ? object.pairs.map((e) => liquidity_1.Pair.fromJSON(e))
@@ -255,7 +274,7 @@ function createBaseGenesisState() {
     return { params: undefined, appGenesisState: [] };
 }
 exports.GenesisState = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.params !== undefined) {
             params_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
         }
@@ -265,7 +284,7 @@ exports.GenesisState = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseGenesisState();
         while (reader.pos < end) {
@@ -316,9 +335,9 @@ exports.GenesisState = {
         return message;
     },
 };
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
