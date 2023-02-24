@@ -1,8 +1,11 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Params, GenericParams } from "./params";
-import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import * as _m0 from "protobufjs/minimal";
+import { Params, GenericParams } from "../../../comdex/liquidity/v1beta1/params";
+import {
+  PageRequest,
+  PageResponse,
+} from "../../../cosmos/base/query/v1beta1/pagination";
 import {
   Pair,
   DepositRequest,
@@ -11,7 +14,7 @@ import {
   PoolType,
   poolTypeFromJSON,
   poolTypeToJSON,
-} from "./liquidity";
+} from "../../../comdex/liquidity/v1beta1/liquidity";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
 import { Timestamp } from "../../../google/protobuf/timestamp";
@@ -298,6 +301,21 @@ export interface OrderBookTickResponse {
   poolOrderAmount: string;
 }
 
+export interface TotalActiveAndQueuedPoolCoins {
+  poolId: Long;
+  totalActivePoolCoin?: Coin;
+  totalQueuedPoolCoin?: Coin;
+}
+
+export interface QueryAllFarmedPoolCoinsRequest {
+  appId: Long;
+}
+
+export interface QueryAllFarmedPoolCoinsResponse {
+  appId: Long;
+  totalActiveAndQueuedCoins: TotalActiveAndQueuedPoolCoins[];
+}
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -438,7 +456,7 @@ export const QueryGenericParamsRequest = {
 
   fromJSON(object: any): QueryGenericParamsRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -584,14 +602,12 @@ export const QueryPoolsRequest = {
 
   fromJSON(object: any): QueryPoolsRequest {
     return {
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       disabled: isSet(object.disabled) ? String(object.disabled) : "",
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -753,10 +769,8 @@ export const QueryPoolRequest = {
 
   fromJSON(object: any): QueryPoolRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -890,7 +904,7 @@ export const QueryPoolByReserveAddressRequest = {
       reserveAddress: isSet(object.reserveAddress)
         ? String(object.reserveAddress)
         : "",
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -963,7 +977,7 @@ export const QueryPoolByPoolCoinDenomRequest = {
       poolCoinDenom: isSet(object.poolCoinDenom)
         ? String(object.poolCoinDenom)
         : "",
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1042,7 +1056,7 @@ export const QueryPairsRequest = {
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1200,10 +1214,8 @@ export const QueryPairRequest = {
 
   fromJSON(object: any): QueryPairRequest {
     return {
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1340,10 +1352,8 @@ export const QueryDepositRequestsRequest = {
 
   fromJSON(object: any): QueryDepositRequestsRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
@@ -1521,11 +1531,9 @@ export const QueryDepositRequestRequest = {
 
   fromJSON(object: any): QueryDepositRequestRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1681,13 +1689,11 @@ export const QueryWithdrawRequestsRequest = {
 
   fromJSON(object: any): QueryWithdrawRequestsRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -1862,11 +1868,9 @@ export const QueryWithdrawRequestRequest = {
 
   fromJSON(object: any): QueryWithdrawRequestRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -2019,13 +2023,11 @@ export const QueryOrdersRequest = {
 
   fromJSON(object: any): QueryOrdersRequest {
     return {
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -2189,11 +2191,9 @@ export const QueryOrderRequest = {
 
   fromJSON(object: any): QueryOrderRequest {
     return {
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -2348,13 +2348,11 @@ export const QueryOrdersByOrdererRequest = {
   fromJSON(object: any): QueryOrdersByOrdererRequest {
     return {
       orderer: isSet(object.orderer) ? String(object.orderer) : "",
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
         : undefined,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -2528,10 +2526,8 @@ export const PoolResponse = {
 
   fromJSON(object: any): PoolResponse {
     return {
-      id: isSet(object.id) ? Long.fromString(object.id) : Long.UZERO,
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       reserveAddress: isSet(object.reserveAddress)
         ? String(object.reserveAddress)
         : "",
@@ -2542,12 +2538,12 @@ export const PoolResponse = {
         ? PoolBalances.fromJSON(object.balances)
         : undefined,
       lastDepositRequestId: isSet(object.lastDepositRequestId)
-        ? Long.fromString(object.lastDepositRequestId)
+        ? Long.fromValue(object.lastDepositRequestId)
         : Long.UZERO,
       lastWithdrawRequestId: isSet(object.lastWithdrawRequestId)
-        ? Long.fromString(object.lastWithdrawRequestId)
+        ? Long.fromValue(object.lastWithdrawRequestId)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       type: isSet(object.type) ? poolTypeFromJSON(object.type) : 0,
       creator: isSet(object.creator) ? String(object.creator) : "",
       poolCoinSupply: isSet(object.poolCoinSupply)
@@ -2764,10 +2760,8 @@ export const QueryFarmerRequest = {
 
   fromJSON(object: any): QueryFarmerRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       farmer: isSet(object.farmer) ? String(object.farmer) : "",
     };
   },
@@ -3010,13 +3004,11 @@ export const QueryDeserializePoolCoinRequest = {
 
   fromJSON(object: any): QueryDeserializePoolCoinRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       poolCoinAmount: isSet(object.poolCoinAmount)
-        ? Long.fromString(object.poolCoinAmount)
+        ? Long.fromValue(object.poolCoinAmount)
         : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -3152,7 +3144,7 @@ export const QueryPoolsIncentivesRequest = {
 
   fromJSON(object: any): QueryPoolsIncentivesRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -3299,12 +3291,10 @@ export const PoolIncentive = {
 
   fromJSON(object: any): PoolIncentive {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       masterPool: isSet(object.masterPool) ? Boolean(object.masterPool) : false,
       childPoolIds: Array.isArray(object?.childPoolIds)
-        ? object.childPoolIds.map((e: any) => Long.fromString(e))
+        ? object.childPoolIds.map((e: any) => Long.fromValue(e))
         : [],
       totalRewards: isSet(object.totalRewards)
         ? Coin.fromJSON(object.totalRewards)
@@ -3313,10 +3303,10 @@ export const PoolIncentive = {
         ? Coin.fromJSON(object.distributedRewards)
         : undefined,
       totalEpochs: isSet(object.totalEpochs)
-        ? Long.fromString(object.totalEpochs)
+        ? Long.fromValue(object.totalEpochs)
         : Long.UZERO,
       filledEpochs: isSet(object.filledEpochs)
-        ? Long.fromString(object.filledEpochs)
+        ? Long.fromValue(object.filledEpochs)
         : Long.UZERO,
       epochDuration: isSet(object.epochDuration)
         ? Duration.fromJSON(object.epochDuration)
@@ -3325,7 +3315,7 @@ export const PoolIncentive = {
         ? fromJsonTimestamp(object.nextDistribution)
         : undefined,
       isSwapFee: isSet(object.isSwapFee) ? Boolean(object.isSwapFee) : false,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -3519,10 +3509,8 @@ export const QueryFarmedPoolCoinRequest = {
 
   fromJSON(object: any): QueryFarmedPoolCoinRequest {
     return {
-      poolId: isSet(object.poolId)
-        ? Long.fromString(object.poolId)
-        : Long.UZERO,
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
@@ -3686,9 +3674,9 @@ export const QueryOrderBooksRequest = {
 
   fromJSON(object: any): QueryOrderBooksRequest {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       pairIds: Array.isArray(object?.pairIds)
-        ? object.pairIds.map((e: any) => Long.fromString(e))
+        ? object.pairIds.map((e: any) => Long.fromValue(e))
         : [],
       priceUnitPowers: Array.isArray(object?.priceUnitPowers)
         ? object.priceUnitPowers.map((e: any) => Number(e))
@@ -3851,9 +3839,7 @@ export const OrderBookPairResponse = {
 
   fromJSON(object: any): OrderBookPairResponse {
     return {
-      pairId: isSet(object.pairId)
-        ? Long.fromString(object.pairId)
-        : Long.UZERO,
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
       basePrice: isSet(object.basePrice) ? String(object.basePrice) : "",
       orderBooks: Array.isArray(object?.orderBooks)
         ? object.orderBooks.map((e: any) => OrderBookResponse.fromJSON(e))
@@ -4066,6 +4052,264 @@ export const OrderBookTickResponse = {
   },
 };
 
+function createBaseTotalActiveAndQueuedPoolCoins(): TotalActiveAndQueuedPoolCoins {
+  return {
+    poolId: Long.UZERO,
+    totalActivePoolCoin: undefined,
+    totalQueuedPoolCoin: undefined,
+  };
+}
+
+export const TotalActiveAndQueuedPoolCoins = {
+  encode(
+    message: TotalActiveAndQueuedPoolCoins,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.poolId.isZero()) {
+      writer.uint32(8).uint64(message.poolId);
+    }
+    if (message.totalActivePoolCoin !== undefined) {
+      Coin.encode(
+        message.totalActivePoolCoin,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    if (message.totalQueuedPoolCoin !== undefined) {
+      Coin.encode(
+        message.totalQueuedPoolCoin,
+        writer.uint32(26).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): TotalActiveAndQueuedPoolCoins {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseTotalActiveAndQueuedPoolCoins();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.poolId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.totalActivePoolCoin = Coin.decode(reader, reader.uint32());
+          break;
+        case 3:
+          message.totalQueuedPoolCoin = Coin.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): TotalActiveAndQueuedPoolCoins {
+    return {
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      totalActivePoolCoin: isSet(object.totalActivePoolCoin)
+        ? Coin.fromJSON(object.totalActivePoolCoin)
+        : undefined,
+      totalQueuedPoolCoin: isSet(object.totalQueuedPoolCoin)
+        ? Coin.fromJSON(object.totalQueuedPoolCoin)
+        : undefined,
+    };
+  },
+
+  toJSON(message: TotalActiveAndQueuedPoolCoins): unknown {
+    const obj: any = {};
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.totalActivePoolCoin !== undefined &&
+      (obj.totalActivePoolCoin = message.totalActivePoolCoin
+        ? Coin.toJSON(message.totalActivePoolCoin)
+        : undefined);
+    message.totalQueuedPoolCoin !== undefined &&
+      (obj.totalQueuedPoolCoin = message.totalQueuedPoolCoin
+        ? Coin.toJSON(message.totalQueuedPoolCoin)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<TotalActiveAndQueuedPoolCoins>, I>>(
+    object: I
+  ): TotalActiveAndQueuedPoolCoins {
+    const message = createBaseTotalActiveAndQueuedPoolCoins();
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    message.totalActivePoolCoin =
+      object.totalActivePoolCoin !== undefined &&
+      object.totalActivePoolCoin !== null
+        ? Coin.fromPartial(object.totalActivePoolCoin)
+        : undefined;
+    message.totalQueuedPoolCoin =
+      object.totalQueuedPoolCoin !== undefined &&
+      object.totalQueuedPoolCoin !== null
+        ? Coin.fromPartial(object.totalQueuedPoolCoin)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllFarmedPoolCoinsRequest(): QueryAllFarmedPoolCoinsRequest {
+  return { appId: Long.UZERO };
+}
+
+export const QueryAllFarmedPoolCoinsRequest = {
+  encode(
+    message: QueryAllFarmedPoolCoinsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAllFarmedPoolCoinsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllFarmedPoolCoinsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllFarmedPoolCoinsRequest {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: QueryAllFarmedPoolCoinsRequest): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllFarmedPoolCoinsRequest>, I>>(
+    object: I
+  ): QueryAllFarmedPoolCoinsRequest {
+    const message = createBaseQueryAllFarmedPoolCoinsRequest();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseQueryAllFarmedPoolCoinsResponse(): QueryAllFarmedPoolCoinsResponse {
+  return { appId: Long.UZERO, totalActiveAndQueuedCoins: [] };
+}
+
+export const QueryAllFarmedPoolCoinsResponse = {
+  encode(
+    message: QueryAllFarmedPoolCoinsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    for (const v of message.totalActiveAndQueuedCoins) {
+      TotalActiveAndQueuedPoolCoins.encode(
+        v!,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAllFarmedPoolCoinsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllFarmedPoolCoinsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.totalActiveAndQueuedCoins.push(
+            TotalActiveAndQueuedPoolCoins.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllFarmedPoolCoinsResponse {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      totalActiveAndQueuedCoins: Array.isArray(
+        object?.totalActiveAndQueuedCoins
+      )
+        ? object.totalActiveAndQueuedCoins.map((e: any) =>
+            TotalActiveAndQueuedPoolCoins.fromJSON(e)
+          )
+        : [],
+    };
+  },
+
+  toJSON(message: QueryAllFarmedPoolCoinsResponse): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    if (message.totalActiveAndQueuedCoins) {
+      obj.totalActiveAndQueuedCoins = message.totalActiveAndQueuedCoins.map(
+        (e) => (e ? TotalActiveAndQueuedPoolCoins.toJSON(e) : undefined)
+      );
+    } else {
+      obj.totalActiveAndQueuedCoins = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllFarmedPoolCoinsResponse>, I>>(
+    object: I
+  ): QueryAllFarmedPoolCoinsResponse {
+    const message = createBaseQueryAllFarmedPoolCoinsResponse();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.totalActiveAndQueuedCoins =
+      object.totalActiveAndQueuedCoins?.map((e) =>
+        TotalActiveAndQueuedPoolCoins.fromPartial(e)
+      ) || [];
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Params returns parameters of the module. */
@@ -4128,6 +4372,10 @@ export interface Query {
   FarmedPoolCoin(
     request: QueryFarmedPoolCoinRequest
   ): Promise<QueryFarmedPoolCoinResponse>;
+  /** TotalActiveAndQueuedPoolCoin returns the total number of active and queued farmed pool coins in each pool. */
+  TotalActiveAndQueuedPoolCoin(
+    request: QueryAllFarmedPoolCoinsRequest
+  ): Promise<QueryAllFarmedPoolCoinsResponse>;
   OrderBooks(request: QueryOrderBooksRequest): Promise<QueryOrderBooksResponse>;
 }
 
@@ -4154,6 +4402,8 @@ export class QueryClientImpl implements Query {
     this.DeserializePoolCoin = this.DeserializePoolCoin.bind(this);
     this.PoolIncentives = this.PoolIncentives.bind(this);
     this.FarmedPoolCoin = this.FarmedPoolCoin.bind(this);
+    this.TotalActiveAndQueuedPoolCoin =
+      this.TotalActiveAndQueuedPoolCoin.bind(this);
     this.OrderBooks = this.OrderBooks.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
@@ -4403,6 +4653,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryFarmedPoolCoinResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  TotalActiveAndQueuedPoolCoin(
+    request: QueryAllFarmedPoolCoinsRequest
+  ): Promise<QueryAllFarmedPoolCoinsResponse> {
+    const data = QueryAllFarmedPoolCoinsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.liquidity.v1beta1.Query",
+      "TotalActiveAndQueuedPoolCoin",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllFarmedPoolCoinsResponse.decode(new _m0.Reader(data))
     );
   }
 

@@ -2,7 +2,7 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { Asset } from "../../../comdex/asset/v1beta1/asset";
-import { Pair } from "../../../comdex/asset/v1beta1/pair";
+import { Pair, AssetPair } from "../../../comdex/asset/v1beta1/pair";
 import { AppData, AppAndGovTime } from "../../../comdex/asset/v1beta1/app";
 
 export const protobufPackage = "comdex.asset.v1beta1";
@@ -11,6 +11,18 @@ export interface AddAssetsProposal {
   title: string;
   description: string;
   assets?: Asset;
+}
+
+export interface AddMultipleAssetsProposal {
+  title: string;
+  description: string;
+  assets: Asset[];
+}
+
+export interface AddMultiplePairsProposal {
+  title: string;
+  description: string;
+  pairs: Pair[];
 }
 
 export interface UpdateAssetProposal {
@@ -47,6 +59,12 @@ export interface AddAssetInAppProposal {
   title: string;
   description: string;
   app?: AppData;
+}
+
+export interface AddMultipleAssetsPairsProposal {
+  title: string;
+  description: string;
+  assetsPair: AssetPair[];
 }
 
 function createBaseAddAssetsProposal(): AddAssetsProposal {
@@ -122,6 +140,170 @@ export const AddAssetsProposal = {
       object.assets !== undefined && object.assets !== null
         ? Asset.fromPartial(object.assets)
         : undefined;
+    return message;
+  },
+};
+
+function createBaseAddMultipleAssetsProposal(): AddMultipleAssetsProposal {
+  return { title: "", description: "", assets: [] };
+}
+
+export const AddMultipleAssetsProposal = {
+  encode(
+    message: AddMultipleAssetsProposal,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    for (const v of message.assets) {
+      Asset.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): AddMultipleAssetsProposal {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAddMultipleAssetsProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+        case 2:
+          message.description = reader.string();
+          break;
+        case 3:
+          message.assets.push(Asset.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AddMultipleAssetsProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      assets: Array.isArray(object?.assets)
+        ? object.assets.map((e: any) => Asset.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: AddMultipleAssetsProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    if (message.assets) {
+      obj.assets = message.assets.map((e) => (e ? Asset.toJSON(e) : undefined));
+    } else {
+      obj.assets = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddMultipleAssetsProposal>, I>>(
+    object: I
+  ): AddMultipleAssetsProposal {
+    const message = createBaseAddMultipleAssetsProposal();
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.assets = object.assets?.map((e) => Asset.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseAddMultiplePairsProposal(): AddMultiplePairsProposal {
+  return { title: "", description: "", pairs: [] };
+}
+
+export const AddMultiplePairsProposal = {
+  encode(
+    message: AddMultiplePairsProposal,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    for (const v of message.pairs) {
+      Pair.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): AddMultiplePairsProposal {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAddMultiplePairsProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+        case 2:
+          message.description = reader.string();
+          break;
+        case 3:
+          message.pairs.push(Pair.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AddMultiplePairsProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      pairs: Array.isArray(object?.pairs)
+        ? object.pairs.map((e: any) => Pair.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: AddMultiplePairsProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    if (message.pairs) {
+      obj.pairs = message.pairs.map((e) => (e ? Pair.toJSON(e) : undefined));
+    } else {
+      obj.pairs = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddMultiplePairsProposal>, I>>(
+    object: I
+  ): AddMultiplePairsProposal {
+    const message = createBaseAddMultiplePairsProposal();
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
     return message;
   },
 };
@@ -594,6 +776,91 @@ export const AddAssetInAppProposal = {
       object.app !== undefined && object.app !== null
         ? AppData.fromPartial(object.app)
         : undefined;
+    return message;
+  },
+};
+
+function createBaseAddMultipleAssetsPairsProposal(): AddMultipleAssetsPairsProposal {
+  return { title: "", description: "", assetsPair: [] };
+}
+
+export const AddMultipleAssetsPairsProposal = {
+  encode(
+    message: AddMultipleAssetsPairsProposal,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    for (const v of message.assetsPair) {
+      AssetPair.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): AddMultipleAssetsPairsProposal {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAddMultipleAssetsPairsProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+        case 2:
+          message.description = reader.string();
+          break;
+        case 3:
+          message.assetsPair.push(AssetPair.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AddMultipleAssetsPairsProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      assetsPair: Array.isArray(object?.assetsPair)
+        ? object.assetsPair.map((e: any) => AssetPair.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: AddMultipleAssetsPairsProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    if (message.assetsPair) {
+      obj.assetsPair = message.assetsPair.map((e) =>
+        e ? AssetPair.toJSON(e) : undefined
+      );
+    } else {
+      obj.assetsPair = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddMultipleAssetsPairsProposal>, I>>(
+    object: I
+  ): AddMultipleAssetsPairsProposal {
+    const message = createBaseAddMultipleAssetsPairsProposal();
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.assetsPair =
+      object.assetsPair?.map((e) => AssetPair.fromPartial(e)) || [];
     return message;
   },
 };

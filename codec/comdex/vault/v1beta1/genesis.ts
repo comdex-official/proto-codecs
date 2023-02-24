@@ -15,6 +15,7 @@ export interface GenesisState {
   stableMintVault: StableMintVault[];
   appExtendedPairVaultMapping: AppExtendedPairVaultMappingData[];
   userVaultAssetMapping: OwnerAppExtendedPairVaultMappingData[];
+  lengthOfVaults: Long;
 }
 
 function createBaseGenesisState(): GenesisState {
@@ -23,6 +24,7 @@ function createBaseGenesisState(): GenesisState {
     stableMintVault: [],
     appExtendedPairVaultMapping: [],
     userVaultAssetMapping: [],
+    lengthOfVaults: Long.UZERO,
   };
 }
 
@@ -48,6 +50,9 @@ export const GenesisState = {
         v!,
         writer.uint32(34).fork()
       ).ldelim();
+    }
+    if (!message.lengthOfVaults.isZero()) {
+      writer.uint32(40).uint64(message.lengthOfVaults);
     }
     return writer;
   },
@@ -77,6 +82,9 @@ export const GenesisState = {
             OwnerAppExtendedPairVaultMappingData.decode(reader, reader.uint32())
           );
           break;
+        case 5:
+          message.lengthOfVaults = reader.uint64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -105,6 +113,9 @@ export const GenesisState = {
             OwnerAppExtendedPairVaultMappingData.fromJSON(e)
           )
         : [],
+      lengthOfVaults: isSet(object.lengthOfVaults)
+        ? Long.fromValue(object.lengthOfVaults)
+        : Long.UZERO,
     };
   },
 
@@ -136,6 +147,8 @@ export const GenesisState = {
     } else {
       obj.userVaultAssetMapping = [];
     }
+    message.lengthOfVaults !== undefined &&
+      (obj.lengthOfVaults = (message.lengthOfVaults || Long.UZERO).toString());
     return obj;
   },
 
@@ -154,6 +167,10 @@ export const GenesisState = {
       object.userVaultAssetMapping?.map((e) =>
         OwnerAppExtendedPairVaultMappingData.fromPartial(e)
       ) || [];
+    message.lengthOfVaults =
+      object.lengthOfVaults !== undefined && object.lengthOfVaults !== null
+        ? Long.fromValue(object.lengthOfVaults)
+        : Long.UZERO;
     return message;
   },
 };
@@ -190,4 +207,8 @@ export type Exact<P, I extends P> = P extends Builtin
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

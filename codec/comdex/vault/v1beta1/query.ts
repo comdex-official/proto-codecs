@@ -9,6 +9,7 @@ import {
   TvlLockedDataMap,
   OwnerAppExtendedPairVaultMappingData,
   PairStatisticData,
+  StableMintVaultRewards,
 } from "../../../comdex/vault/v1beta1/vault";
 import {
   PageRequest,
@@ -268,6 +269,15 @@ export interface QueryPairsLockedAndMintedStatisticByAppRequest {
 
 export interface QueryPairsLockedAndMintedStatisticByAppResponse {
   pairStatisticData: PairStatisticData[];
+  pagination?: PageResponse;
+}
+
+export interface QueryAllStableMintVaultRewardsRequest {
+  pagination?: PageRequest;
+}
+
+export interface QueryAllStableMintVaultRewardsResponse {
+  stableMintVaultRewards: StableMintVaultRewards[];
   pagination?: PageResponse;
 }
 
@@ -4372,6 +4382,163 @@ export const QueryPairsLockedAndMintedStatisticByAppResponse = {
   },
 };
 
+function createBaseQueryAllStableMintVaultRewardsRequest(): QueryAllStableMintVaultRewardsRequest {
+  return { pagination: undefined };
+}
+
+export const QueryAllStableMintVaultRewardsRequest = {
+  encode(
+    message: QueryAllStableMintVaultRewardsRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAllStableMintVaultRewardsRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllStableMintVaultRewardsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllStableMintVaultRewardsRequest {
+    return {
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllStableMintVaultRewardsRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryAllStableMintVaultRewardsRequest>, I>
+  >(object: I): QueryAllStableMintVaultRewardsRequest {
+    const message = createBaseQueryAllStableMintVaultRewardsRequest();
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryAllStableMintVaultRewardsResponse(): QueryAllStableMintVaultRewardsResponse {
+  return { stableMintVaultRewards: [], pagination: undefined };
+}
+
+export const QueryAllStableMintVaultRewardsResponse = {
+  encode(
+    message: QueryAllStableMintVaultRewardsResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.stableMintVaultRewards) {
+      StableMintVaultRewards.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAllStableMintVaultRewardsResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAllStableMintVaultRewardsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.stableMintVaultRewards.push(
+            StableMintVaultRewards.decode(reader, reader.uint32())
+          );
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllStableMintVaultRewardsResponse {
+    return {
+      stableMintVaultRewards: Array.isArray(object?.stableMintVaultRewards)
+        ? object.stableMintVaultRewards.map((e: any) =>
+            StableMintVaultRewards.fromJSON(e)
+          )
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryAllStableMintVaultRewardsResponse): unknown {
+    const obj: any = {};
+    if (message.stableMintVaultRewards) {
+      obj.stableMintVaultRewards = message.stableMintVaultRewards.map((e) =>
+        e ? StableMintVaultRewards.toJSON(e) : undefined
+      );
+    } else {
+      obj.stableMintVaultRewards = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryAllStableMintVaultRewardsResponse>, I>
+  >(object: I): QueryAllStableMintVaultRewardsResponse {
+    const message = createBaseQueryAllStableMintVaultRewardsResponse();
+    message.stableMintVaultRewards =
+      object.stableMintVaultRewards?.map((e) =>
+        StableMintVaultRewards.fromPartial(e)
+      ) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
 export interface Query {
   QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse>;
   QueryUserExtendedPairTotalData(
@@ -4444,6 +4611,9 @@ export interface Query {
   QueryPairsLockedAndMintedStatisticByApp(
     request: QueryPairsLockedAndMintedStatisticByAppRequest
   ): Promise<QueryPairsLockedAndMintedStatisticByAppResponse>;
+  QueryAllStableMintVaultRewards(
+    request: QueryAllStableMintVaultRewardsRequest
+  ): Promise<QueryAllStableMintVaultRewardsResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -4489,6 +4659,8 @@ export class QueryClientImpl implements Query {
     this.QueryUserMyPositionByApp = this.QueryUserMyPositionByApp.bind(this);
     this.QueryPairsLockedAndMintedStatisticByApp =
       this.QueryPairsLockedAndMintedStatisticByApp.bind(this);
+    this.QueryAllStableMintVaultRewards =
+      this.QueryAllStableMintVaultRewards.bind(this);
   }
   QueryVault(request: QueryVaultRequest): Promise<QueryVaultResponse> {
     const data = QueryVaultRequest.encode(request).finish();
@@ -4854,6 +5026,20 @@ export class QueryClientImpl implements Query {
       QueryPairsLockedAndMintedStatisticByAppResponse.decode(
         new _m0.Reader(data)
       )
+    );
+  }
+
+  QueryAllStableMintVaultRewards(
+    request: QueryAllStableMintVaultRewardsRequest
+  ): Promise<QueryAllStableMintVaultRewardsResponse> {
+    const data = QueryAllStableMintVaultRewardsRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.vault.v1beta1.Query",
+      "QueryAllStableMintVaultRewards",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllStableMintVaultRewardsResponse.decode(new _m0.Reader(data))
     );
   }
 }
