@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PairStatisticData = exports.StableMintVault = exports.MintedDataMap = exports.TvlLockedDataMap = exports.AppExtendedPairVaultMappingData = exports.OwnerAppExtendedPairVaultMappingData = exports.Vault = exports.protobufPackage = void 0;
+exports.StableMintVaultRewards = exports.PairStatisticData = exports.StableMintVault = exports.MintedDataMap = exports.TvlLockedDataMap = exports.AppExtendedPairVaultMappingData = exports.OwnerAppExtendedPairVaultMappingData = exports.Vault = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -746,6 +746,109 @@ exports.PairStatisticData = {
                 object.extendedPairVaultId !== null
                 ? long_1.default.fromValue(object.extendedPairVaultId)
                 : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseStableMintVaultRewards() {
+    return {
+        appId: long_1.default.UZERO,
+        stableExtendedPairId: long_1.default.UZERO,
+        user: "",
+        blockHeight: long_1.default.UZERO,
+        amount: "",
+    };
+}
+exports.StableMintVaultRewards = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.appId.isZero()) {
+            writer.uint32(8).uint64(message.appId);
+        }
+        if (!message.stableExtendedPairId.isZero()) {
+            writer.uint32(16).uint64(message.stableExtendedPairId);
+        }
+        if (message.user !== "") {
+            writer.uint32(26).string(message.user);
+        }
+        if (!message.blockHeight.isZero()) {
+            writer.uint32(32).uint64(message.blockHeight);
+        }
+        if (message.amount !== "") {
+            writer.uint32(42).string(message.amount);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseStableMintVaultRewards();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.appId = reader.uint64();
+                    break;
+                case 2:
+                    message.stableExtendedPairId = reader.uint64();
+                    break;
+                case 3:
+                    message.user = reader.string();
+                    break;
+                case 4:
+                    message.blockHeight = reader.uint64();
+                    break;
+                case 5:
+                    message.amount = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            stableExtendedPairId: isSet(object.stableExtendedPairId)
+                ? long_1.default.fromValue(object.stableExtendedPairId)
+                : long_1.default.UZERO,
+            user: isSet(object.user) ? String(object.user) : "",
+            blockHeight: isSet(object.blockHeight)
+                ? long_1.default.fromValue(object.blockHeight)
+                : long_1.default.UZERO,
+            amount: isSet(object.amount) ? String(object.amount) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.appId !== undefined &&
+            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.stableExtendedPairId !== undefined &&
+            (obj.stableExtendedPairId = (message.stableExtendedPairId || long_1.default.UZERO).toString());
+        message.user !== undefined && (obj.user = message.user);
+        message.blockHeight !== undefined &&
+            (obj.blockHeight = (message.blockHeight || long_1.default.UZERO).toString());
+        message.amount !== undefined && (obj.amount = message.amount);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseStableMintVaultRewards();
+        message.appId =
+            object.appId !== undefined && object.appId !== null
+                ? long_1.default.fromValue(object.appId)
+                : long_1.default.UZERO;
+        message.stableExtendedPairId =
+            object.stableExtendedPairId !== undefined &&
+                object.stableExtendedPairId !== null
+                ? long_1.default.fromValue(object.stableExtendedPairId)
+                : long_1.default.UZERO;
+        message.user = (_a = object.user) !== null && _a !== void 0 ? _a : "";
+        message.blockHeight =
+            object.blockHeight !== undefined && object.blockHeight !== null
+                ? long_1.default.fromValue(object.blockHeight)
+                : long_1.default.UZERO;
+        message.amount = (_b = object.amount) !== null && _b !== void 0 ? _b : "";
         return message;
     },
 };

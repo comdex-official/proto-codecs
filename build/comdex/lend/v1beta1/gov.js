@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddAuctionParamsProposal = exports.AddAssetRatesParams = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
+exports.AddAssetRatesPoolPairsProposal = exports.AddPoolPairsProposal = exports.AddAuctionParamsProposal = exports.AddAssetRatesParams = exports.AddMultipleAssetToPairProposal = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.MultipleLendPairsProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -96,6 +96,76 @@ exports.LendPairsProposal = {
             object.pairs !== undefined && object.pairs !== null
                 ? lend_1.ExtendedPair.fromPartial(object.pairs)
                 : undefined;
+        return message;
+    },
+};
+function createBaseMultipleLendPairsProposal() {
+    return { title: "", description: "", pairs: [] };
+}
+exports.MultipleLendPairsProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        for (const v of message.pairs) {
+            lend_1.ExtendedPair.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMultipleLendPairsProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.pairs.push(lend_1.ExtendedPair.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            pairs: Array.isArray(object === null || object === void 0 ? void 0 : object.pairs)
+                ? object.pairs.map((e) => lend_1.ExtendedPair.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        if (message.pairs) {
+            obj.pairs = message.pairs.map((e) => e ? lend_1.ExtendedPair.toJSON(e) : undefined);
+        }
+        else {
+            obj.pairs = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseMultipleLendPairsProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.pairs = ((_c = object.pairs) === null || _c === void 0 ? void 0 : _c.map((e) => lend_1.ExtendedPair.fromPartial(e))) || [];
         return message;
     },
 };
@@ -238,6 +308,77 @@ exports.AddAssetToPairProposal = {
         return message;
     },
 };
+function createBaseAddMultipleAssetToPairProposal() {
+    return { title: "", description: "", AssetToPairSingleMapping: [] };
+}
+exports.AddMultipleAssetToPairProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        for (const v of message.AssetToPairSingleMapping) {
+            lend_1.AssetToPairSingleMapping.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAddMultipleAssetToPairProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.AssetToPairSingleMapping.push(lend_1.AssetToPairSingleMapping.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            AssetToPairSingleMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.AssetToPairSingleMapping)
+                ? object.AssetToPairSingleMapping.map((e) => lend_1.AssetToPairSingleMapping.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        if (message.AssetToPairSingleMapping) {
+            obj.AssetToPairSingleMapping = message.AssetToPairSingleMapping.map((e) => e ? lend_1.AssetToPairSingleMapping.toJSON(e) : undefined);
+        }
+        else {
+            obj.AssetToPairSingleMapping = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseAddMultipleAssetToPairProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.AssetToPairSingleMapping =
+            ((_c = object.AssetToPairSingleMapping) === null || _c === void 0 ? void 0 : _c.map((e) => lend_1.AssetToPairSingleMapping.fromPartial(e))) || [];
+        return message;
+    },
+};
 function createBaseAddAssetRatesParams() {
     return { title: "", description: "", AssetRatesParams: undefined };
 }
@@ -376,6 +517,149 @@ exports.AddAuctionParamsProposal = {
         message.AuctionParams =
             object.AuctionParams !== undefined && object.AuctionParams !== null
                 ? lend_1.AuctionParams.fromPartial(object.AuctionParams)
+                : undefined;
+        return message;
+    },
+};
+function createBaseAddPoolPairsProposal() {
+    return { title: "", description: "", PoolPairs: undefined };
+}
+exports.AddPoolPairsProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        if (message.PoolPairs !== undefined) {
+            lend_1.PoolPairs.encode(message.PoolPairs, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAddPoolPairsProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.PoolPairs = lend_1.PoolPairs.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            PoolPairs: isSet(object.PoolPairs)
+                ? lend_1.PoolPairs.fromJSON(object.PoolPairs)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        message.PoolPairs !== undefined &&
+            (obj.PoolPairs = message.PoolPairs
+                ? lend_1.PoolPairs.toJSON(message.PoolPairs)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseAddPoolPairsProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.PoolPairs =
+            object.PoolPairs !== undefined && object.PoolPairs !== null
+                ? lend_1.PoolPairs.fromPartial(object.PoolPairs)
+                : undefined;
+        return message;
+    },
+};
+function createBaseAddAssetRatesPoolPairsProposal() {
+    return { title: "", description: "", AssetRatesPoolPairs: undefined };
+}
+exports.AddAssetRatesPoolPairsProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        if (message.AssetRatesPoolPairs !== undefined) {
+            lend_1.AssetRatesPoolPairs.encode(message.AssetRatesPoolPairs, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAddAssetRatesPoolPairsProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.AssetRatesPoolPairs = lend_1.AssetRatesPoolPairs.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            AssetRatesPoolPairs: isSet(object.AssetRatesPoolPairs)
+                ? lend_1.AssetRatesPoolPairs.fromJSON(object.AssetRatesPoolPairs)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        message.AssetRatesPoolPairs !== undefined &&
+            (obj.AssetRatesPoolPairs = message.AssetRatesPoolPairs
+                ? lend_1.AssetRatesPoolPairs.toJSON(message.AssetRatesPoolPairs)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseAddAssetRatesPoolPairsProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.AssetRatesPoolPairs =
+            object.AssetRatesPoolPairs !== undefined &&
+                object.AssetRatesPoolPairs !== null
+                ? lend_1.AssetRatesPoolPairs.fromPartial(object.AssetRatesPoolPairs)
                 : undefined;
         return message;
     },
