@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { GenericParams, Params } from "./params";
+import * as _m0 from "protobufjs/minimal";
+import { GenericParams, Params } from "../../../comdex/liquidity/v1beta1/params";
 import {
   Pair,
   Pool,
@@ -11,7 +11,7 @@ import {
   ActiveFarmer,
   QueuedFarmer,
   MMOrderIndex,
-} from "./liquidity";
+} from "../../../comdex/liquidity/v1beta1/liquidity";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 
@@ -163,15 +163,15 @@ export const AppGenesisState = {
 
   fromJSON(object: any): AppGenesisState {
     return {
-      appId: isSet(object.appId) ? Long.fromString(object.appId) : Long.UZERO,
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       genericParams: isSet(object.genericParams)
         ? GenericParams.fromJSON(object.genericParams)
         : undefined,
       lastPairId: isSet(object.lastPairId)
-        ? Long.fromString(object.lastPairId)
+        ? Long.fromValue(object.lastPairId)
         : Long.UZERO,
       lastPoolId: isSet(object.lastPoolId)
-        ? Long.fromString(object.lastPoolId)
+        ? Long.fromValue(object.lastPoolId)
         : Long.UZERO,
       pairs: Array.isArray(object?.pairs)
         ? object.pairs.map((e: any) => Pair.fromJSON(e))

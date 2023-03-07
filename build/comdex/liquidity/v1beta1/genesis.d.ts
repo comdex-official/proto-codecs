@@ -1,7 +1,7 @@
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { GenericParams, Params } from "./params";
-import { Pair, Pool, DepositRequest, WithdrawRequest, Order, ActiveFarmer, QueuedFarmer, MMOrderIndex } from "./liquidity";
+import * as _m0 from "protobufjs/minimal";
+import { GenericParams, Params } from "../../../comdex/liquidity/v1beta1/params";
+import { Pair, Pool, DepositRequest, WithdrawRequest, Order, ActiveFarmer, QueuedFarmer, MMOrderIndex } from "../../../comdex/liquidity/v1beta1/liquidity";
 export declare const protobufPackage = "comdex.liquidity.v1beta1";
 export interface AppGenesisState {
     appId: Long;
@@ -82,7 +82,7 @@ export declare const AppGenesisState: {
             lastWithdrawRequestId?: string | number | Long.Long | undefined;
             disabled?: boolean | undefined;
             appId?: string | number | Long.Long | undefined;
-            type?: import("./liquidity").PoolType | undefined;
+            type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
             creator?: string | undefined;
             minPrice?: string | undefined;
             maxPrice?: string | undefined;
@@ -108,7 +108,7 @@ export declare const AppGenesisState: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] | undefined;
         withdrawRequests?: {
@@ -124,7 +124,7 @@ export declare const AppGenesisState: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] | undefined;
         orders?: {
@@ -132,7 +132,7 @@ export declare const AppGenesisState: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -150,9 +150,9 @@ export declare const AppGenesisState: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
-            type?: import("./liquidity").OrderType | undefined;
+            type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
         }[] | undefined;
         activeFarmers?: {
             appId?: string | number | Long.Long | undefined;
@@ -1229,7 +1229,7 @@ export declare const AppGenesisState: {
             lastWithdrawRequestId?: string | number | Long.Long | undefined;
             disabled?: boolean | undefined;
             appId?: string | number | Long.Long | undefined;
-            type?: import("./liquidity").PoolType | undefined;
+            type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
             creator?: string | undefined;
             minPrice?: string | undefined;
             maxPrice?: string | undefined;
@@ -1246,7 +1246,7 @@ export declare const AppGenesisState: {
             lastWithdrawRequestId?: string | number | Long.Long | undefined;
             disabled?: boolean | undefined;
             appId?: string | number | Long.Long | undefined;
-            type?: import("./liquidity").PoolType | undefined;
+            type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
             creator?: string | undefined;
             minPrice?: string | undefined;
             maxPrice?: string | undefined;
@@ -1548,7 +1548,7 @@ export declare const AppGenesisState: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pools"][number]["appId"], keyof Long.Long>, never>) | undefined;
-            type?: import("./liquidity").PoolType | undefined;
+            type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
             creator?: string | undefined;
             minPrice?: string | undefined;
             maxPrice?: string | undefined;
@@ -1625,7 +1625,7 @@ export declare const AppGenesisState: {
             lastWithdrawRequestId?: string | number | Long.Long | undefined;
             disabled?: boolean | undefined;
             appId?: string | number | Long.Long | undefined;
-            type?: import("./liquidity").PoolType | undefined;
+            type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
             creator?: string | undefined;
             minPrice?: string | undefined;
             maxPrice?: string | undefined;
@@ -1651,7 +1651,7 @@ export declare const AppGenesisState: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
@@ -1670,7 +1670,7 @@ export declare const AppGenesisState: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -1881,7 +1881,7 @@ export declare const AppGenesisState: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & Record<Exclude<keyof I["depositRequests"][number]["mintedPoolCoin"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -1957,7 +1957,7 @@ export declare const AppGenesisState: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
         withdrawRequests?: ({
@@ -1973,7 +1973,7 @@ export declare const AppGenesisState: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
@@ -1988,7 +1988,7 @@ export declare const AppGenesisState: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         } & {
             id?: string | number | (Long.Long & {
@@ -2186,7 +2186,7 @@ export declare const AppGenesisState: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[]>, never>) | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -2258,7 +2258,7 @@ export declare const AppGenesisState: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             }[] | undefined;
-            status?: import("./liquidity").RequestStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
             appId?: string | number | Long.Long | undefined;
         }[]>, never>) | undefined;
         orders?: ({
@@ -2266,7 +2266,7 @@ export declare const AppGenesisState: {
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -2284,15 +2284,15 @@ export declare const AppGenesisState: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
-            type?: import("./liquidity").OrderType | undefined;
+            type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -2310,9 +2310,9 @@ export declare const AppGenesisState: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
-            type?: import("./liquidity").OrderType | undefined;
+            type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -2489,7 +2489,7 @@ export declare const AppGenesisState: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["orders"][number]["msgHeight"], keyof Long.Long>, never>) | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: ({
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -2573,7 +2573,7 @@ export declare const AppGenesisState: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["orders"][number]["batchId"], keyof Long.Long>, never>) | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | (Long.Long & {
                 high: number;
                 low: number;
@@ -2632,13 +2632,13 @@ export declare const AppGenesisState: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["orders"][number]["appId"], keyof Long.Long>, never>) | undefined;
-            type?: import("./liquidity").OrderType | undefined;
+            type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
         } & Record<Exclude<keyof I["orders"][number], keyof Order>, never>)[] & Record<Exclude<keyof I["orders"], keyof {
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
             msgHeight?: string | number | Long.Long | undefined;
             orderer?: string | undefined;
-            direction?: import("./liquidity").OrderDirection | undefined;
+            direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
             offerCoin?: {
                 denom?: string | undefined;
                 amount?: string | undefined;
@@ -2656,9 +2656,9 @@ export declare const AppGenesisState: {
             openAmount?: string | undefined;
             batchId?: string | number | Long.Long | undefined;
             expireAt?: Date | undefined;
-            status?: import("./liquidity").OrderStatus | undefined;
+            status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
             appId?: string | number | Long.Long | undefined;
-            type?: import("./liquidity").OrderType | undefined;
+            type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
         }[]>, never>) | undefined;
         activeFarmers?: ({
             appId?: string | number | Long.Long | undefined;
@@ -2971,7 +2971,7 @@ export declare const AppGenesisState: {
                     amount?: string | undefined;
                 } & Record<Exclude<keyof I["queuedFarmers"][number]["queudCoins"][number]["farmedPoolCoin"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
                 createdAt?: Date | undefined;
-            } & Record<Exclude<keyof I["queuedFarmers"][number]["queudCoins"][number], keyof import("./liquidity").QueuedCoin>, never>)[] & Record<Exclude<keyof I["queuedFarmers"][number]["queudCoins"], keyof {
+            } & Record<Exclude<keyof I["queuedFarmers"][number]["queudCoins"][number], keyof import("../../../comdex/liquidity/v1beta1/liquidity").QueuedCoin>, never>)[] & Record<Exclude<keyof I["queuedFarmers"][number]["queudCoins"], keyof {
                 farmedPoolCoin?: {
                     denom?: string | undefined;
                     amount?: string | undefined;
@@ -3246,7 +3246,7 @@ export declare const GenesisState: {
                 lastWithdrawRequestId?: string | number | Long.Long | undefined;
                 disabled?: boolean | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").PoolType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
                 creator?: string | undefined;
                 minPrice?: string | undefined;
                 maxPrice?: string | undefined;
@@ -3272,7 +3272,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 } | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[] | undefined;
             withdrawRequests?: {
@@ -3288,7 +3288,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 }[] | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[] | undefined;
             orders?: {
@@ -3296,7 +3296,7 @@ export declare const GenesisState: {
                 pairId?: string | number | Long.Long | undefined;
                 msgHeight?: string | number | Long.Long | undefined;
                 orderer?: string | undefined;
-                direction?: import("./liquidity").OrderDirection | undefined;
+                direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
                 offerCoin?: {
                     denom?: string | undefined;
                     amount?: string | undefined;
@@ -3314,9 +3314,9 @@ export declare const GenesisState: {
                 openAmount?: string | undefined;
                 batchId?: string | number | Long.Long | undefined;
                 expireAt?: Date | undefined;
-                status?: import("./liquidity").OrderStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").OrderType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
             }[] | undefined;
             activeFarmers?: {
                 appId?: string | number | Long.Long | undefined;
@@ -3403,7 +3403,7 @@ export declare const GenesisState: {
                 lastWithdrawRequestId?: string | number | Long.Long | undefined;
                 disabled?: boolean | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").PoolType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
                 creator?: string | undefined;
                 minPrice?: string | undefined;
                 maxPrice?: string | undefined;
@@ -3429,7 +3429,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 } | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[] | undefined;
             withdrawRequests?: {
@@ -3445,7 +3445,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 }[] | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[] | undefined;
             orders?: {
@@ -3453,7 +3453,7 @@ export declare const GenesisState: {
                 pairId?: string | number | Long.Long | undefined;
                 msgHeight?: string | number | Long.Long | undefined;
                 orderer?: string | undefined;
-                direction?: import("./liquidity").OrderDirection | undefined;
+                direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
                 offerCoin?: {
                     denom?: string | undefined;
                     amount?: string | undefined;
@@ -3471,9 +3471,9 @@ export declare const GenesisState: {
                 openAmount?: string | undefined;
                 batchId?: string | number | Long.Long | undefined;
                 expireAt?: Date | undefined;
-                status?: import("./liquidity").OrderStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").OrderType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
             }[] | undefined;
             activeFarmers?: {
                 appId?: string | number | Long.Long | undefined;
@@ -3557,7 +3557,7 @@ export declare const GenesisState: {
                 lastWithdrawRequestId?: string | number | Long.Long | undefined;
                 disabled?: boolean | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").PoolType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
                 creator?: string | undefined;
                 minPrice?: string | undefined;
                 maxPrice?: string | undefined;
@@ -3583,7 +3583,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 } | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[] | undefined;
             withdrawRequests?: {
@@ -3599,7 +3599,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 }[] | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[] | undefined;
             orders?: {
@@ -3607,7 +3607,7 @@ export declare const GenesisState: {
                 pairId?: string | number | Long.Long | undefined;
                 msgHeight?: string | number | Long.Long | undefined;
                 orderer?: string | undefined;
-                direction?: import("./liquidity").OrderDirection | undefined;
+                direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
                 offerCoin?: {
                     denom?: string | undefined;
                     amount?: string | undefined;
@@ -3625,9 +3625,9 @@ export declare const GenesisState: {
                 openAmount?: string | undefined;
                 batchId?: string | number | Long.Long | undefined;
                 expireAt?: Date | undefined;
-                status?: import("./liquidity").OrderStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").OrderType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
             }[] | undefined;
             activeFarmers?: {
                 appId?: string | number | Long.Long | undefined;
@@ -4704,7 +4704,7 @@ export declare const GenesisState: {
                 lastWithdrawRequestId?: string | number | Long.Long | undefined;
                 disabled?: boolean | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").PoolType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
                 creator?: string | undefined;
                 minPrice?: string | undefined;
                 maxPrice?: string | undefined;
@@ -4721,7 +4721,7 @@ export declare const GenesisState: {
                 lastWithdrawRequestId?: string | number | Long.Long | undefined;
                 disabled?: boolean | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").PoolType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
                 creator?: string | undefined;
                 minPrice?: string | undefined;
                 maxPrice?: string | undefined;
@@ -5023,7 +5023,7 @@ export declare const GenesisState: {
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["appGenesisState"][number]["pools"][number]["appId"], keyof Long.Long>, never>) | undefined;
-                type?: import("./liquidity").PoolType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
                 creator?: string | undefined;
                 minPrice?: string | undefined;
                 maxPrice?: string | undefined;
@@ -5100,7 +5100,7 @@ export declare const GenesisState: {
                 lastWithdrawRequestId?: string | number | Long.Long | undefined;
                 disabled?: boolean | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").PoolType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
                 creator?: string | undefined;
                 minPrice?: string | undefined;
                 maxPrice?: string | undefined;
@@ -5126,7 +5126,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 } | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[] & ({
                 id?: string | number | Long.Long | undefined;
@@ -5145,7 +5145,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 } | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             } & {
                 id?: string | number | (Long.Long & {
@@ -5356,7 +5356,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 } & Record<Exclude<keyof I["appGenesisState"][number]["depositRequests"][number]["mintedPoolCoin"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -5432,7 +5432,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 } | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[]>, never>) | undefined;
             withdrawRequests?: ({
@@ -5448,7 +5448,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 }[] | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[] & ({
                 id?: string | number | Long.Long | undefined;
@@ -5463,7 +5463,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 }[] | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             } & {
                 id?: string | number | (Long.Long & {
@@ -5661,7 +5661,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 }[]>, never>) | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -5733,7 +5733,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 }[] | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[]>, never>) | undefined;
             orders?: ({
@@ -5741,7 +5741,7 @@ export declare const GenesisState: {
                 pairId?: string | number | Long.Long | undefined;
                 msgHeight?: string | number | Long.Long | undefined;
                 orderer?: string | undefined;
-                direction?: import("./liquidity").OrderDirection | undefined;
+                direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
                 offerCoin?: {
                     denom?: string | undefined;
                     amount?: string | undefined;
@@ -5759,15 +5759,15 @@ export declare const GenesisState: {
                 openAmount?: string | undefined;
                 batchId?: string | number | Long.Long | undefined;
                 expireAt?: Date | undefined;
-                status?: import("./liquidity").OrderStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").OrderType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
             }[] & ({
                 id?: string | number | Long.Long | undefined;
                 pairId?: string | number | Long.Long | undefined;
                 msgHeight?: string | number | Long.Long | undefined;
                 orderer?: string | undefined;
-                direction?: import("./liquidity").OrderDirection | undefined;
+                direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
                 offerCoin?: {
                     denom?: string | undefined;
                     amount?: string | undefined;
@@ -5785,9 +5785,9 @@ export declare const GenesisState: {
                 openAmount?: string | undefined;
                 batchId?: string | number | Long.Long | undefined;
                 expireAt?: Date | undefined;
-                status?: import("./liquidity").OrderStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").OrderType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
             } & {
                 id?: string | number | (Long.Long & {
                     high: number;
@@ -5964,7 +5964,7 @@ export declare const GenesisState: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["appGenesisState"][number]["orders"][number]["msgHeight"], keyof Long.Long>, never>) | undefined;
                 orderer?: string | undefined;
-                direction?: import("./liquidity").OrderDirection | undefined;
+                direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
                 offerCoin?: ({
                     denom?: string | undefined;
                     amount?: string | undefined;
@@ -6048,7 +6048,7 @@ export declare const GenesisState: {
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["appGenesisState"][number]["orders"][number]["batchId"], keyof Long.Long>, never>) | undefined;
                 expireAt?: Date | undefined;
-                status?: import("./liquidity").OrderStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
                 appId?: string | number | (Long.Long & {
                     high: number;
                     low: number;
@@ -6107,13 +6107,13 @@ export declare const GenesisState: {
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["appGenesisState"][number]["orders"][number]["appId"], keyof Long.Long>, never>) | undefined;
-                type?: import("./liquidity").OrderType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
             } & Record<Exclude<keyof I["appGenesisState"][number]["orders"][number], keyof Order>, never>)[] & Record<Exclude<keyof I["appGenesisState"][number]["orders"], keyof {
                 id?: string | number | Long.Long | undefined;
                 pairId?: string | number | Long.Long | undefined;
                 msgHeight?: string | number | Long.Long | undefined;
                 orderer?: string | undefined;
-                direction?: import("./liquidity").OrderDirection | undefined;
+                direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
                 offerCoin?: {
                     denom?: string | undefined;
                     amount?: string | undefined;
@@ -6131,9 +6131,9 @@ export declare const GenesisState: {
                 openAmount?: string | undefined;
                 batchId?: string | number | Long.Long | undefined;
                 expireAt?: Date | undefined;
-                status?: import("./liquidity").OrderStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").OrderType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
             }[]>, never>) | undefined;
             activeFarmers?: ({
                 appId?: string | number | Long.Long | undefined;
@@ -6446,7 +6446,7 @@ export declare const GenesisState: {
                         amount?: string | undefined;
                     } & Record<Exclude<keyof I["appGenesisState"][number]["queuedFarmers"][number]["queudCoins"][number]["farmedPoolCoin"], keyof import("../../../cosmos/base/v1beta1/coin").Coin>, never>) | undefined;
                     createdAt?: Date | undefined;
-                } & Record<Exclude<keyof I["appGenesisState"][number]["queuedFarmers"][number]["queudCoins"][number], keyof import("./liquidity").QueuedCoin>, never>)[] & Record<Exclude<keyof I["appGenesisState"][number]["queuedFarmers"][number]["queudCoins"], keyof {
+                } & Record<Exclude<keyof I["appGenesisState"][number]["queuedFarmers"][number]["queudCoins"][number], keyof import("../../../comdex/liquidity/v1beta1/liquidity").QueuedCoin>, never>)[] & Record<Exclude<keyof I["appGenesisState"][number]["queuedFarmers"][number]["queudCoins"], keyof {
                     farmedPoolCoin?: {
                         denom?: string | undefined;
                         amount?: string | undefined;
@@ -6712,7 +6712,7 @@ export declare const GenesisState: {
                 lastWithdrawRequestId?: string | number | Long.Long | undefined;
                 disabled?: boolean | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").PoolType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").PoolType | undefined;
                 creator?: string | undefined;
                 minPrice?: string | undefined;
                 maxPrice?: string | undefined;
@@ -6738,7 +6738,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 } | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[] | undefined;
             withdrawRequests?: {
@@ -6754,7 +6754,7 @@ export declare const GenesisState: {
                     denom?: string | undefined;
                     amount?: string | undefined;
                 }[] | undefined;
-                status?: import("./liquidity").RequestStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").RequestStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
             }[] | undefined;
             orders?: {
@@ -6762,7 +6762,7 @@ export declare const GenesisState: {
                 pairId?: string | number | Long.Long | undefined;
                 msgHeight?: string | number | Long.Long | undefined;
                 orderer?: string | undefined;
-                direction?: import("./liquidity").OrderDirection | undefined;
+                direction?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderDirection | undefined;
                 offerCoin?: {
                     denom?: string | undefined;
                     amount?: string | undefined;
@@ -6780,9 +6780,9 @@ export declare const GenesisState: {
                 openAmount?: string | undefined;
                 batchId?: string | number | Long.Long | undefined;
                 expireAt?: Date | undefined;
-                status?: import("./liquidity").OrderStatus | undefined;
+                status?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderStatus | undefined;
                 appId?: string | number | Long.Long | undefined;
-                type?: import("./liquidity").OrderType | undefined;
+                type?: import("../../../comdex/liquidity/v1beta1/liquidity").OrderType | undefined;
             }[] | undefined;
             activeFarmers?: {
                 appId?: string | number | Long.Long | undefined;

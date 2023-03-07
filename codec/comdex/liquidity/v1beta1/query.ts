@@ -1,21 +1,19 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
-import { Params, GenericParams } from "./params";
-import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import * as _m0 from "protobufjs/minimal";
+import { GenericParams, Params } from "../../../comdex/liquidity/v1beta1/params";
 import {
-  Pair,
-  DepositRequest,
-  WithdrawRequest,
-  Order,
-  PoolType,
-  poolTypeFromJSON,
-  poolTypeToJSON,
-  FarmCoin,
-} from "./liquidity";
+  PageRequest,
+  PageResponse
+} from "../../../cosmos/base/query/v1beta1/pagination";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
 import { Timestamp } from "../../../google/protobuf/timestamp";
+import {
+  DepositRequest, FarmCoin, Order, Pair, PoolType,
+  poolTypeFromJSON,
+  poolTypeToJSON, WithdrawRequest
+} from "./liquidity";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 
