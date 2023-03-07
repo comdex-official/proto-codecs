@@ -459,7 +459,7 @@ function createBaseFarmCoin() {
     return { denom: "", decimals: long_1.default.UZERO };
 }
 exports.FarmCoin = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.denom !== "") {
             writer.uint32(10).string(message.denom);
         }
@@ -469,7 +469,7 @@ exports.FarmCoin = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseFarmCoin();
         while (reader.pos < end) {

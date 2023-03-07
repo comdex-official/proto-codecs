@@ -28,10 +28,10 @@ const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
 const params_1 = require("../../../comdex/liquidity/v1beta1/params");
 const pagination_1 = require("../../../cosmos/base/query/v1beta1/pagination");
-const liquidity_1 = require("../../../comdex/liquidity/v1beta1/liquidity");
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const duration_1 = require("../../../google/protobuf/duration");
 const timestamp_1 = require("../../../google/protobuf/timestamp");
+const liquidity_1 = require("./liquidity");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
 function createBaseQueryParamsRequest() {
     return {};
@@ -2960,7 +2960,7 @@ function createBaseTotalActiveAndQueuedPoolCoins() {
     return { poolId: long_1.default.UZERO, totalActivePoolCoin: undefined, totalQueuedPoolCoin: undefined };
 }
 exports.TotalActiveAndQueuedPoolCoins = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.poolId.isZero()) {
             writer.uint32(8).uint64(message.poolId);
         }
@@ -2973,7 +2973,7 @@ exports.TotalActiveAndQueuedPoolCoins = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseTotalActiveAndQueuedPoolCoins();
         while (reader.pos < end) {
@@ -3032,14 +3032,14 @@ function createBaseQueryAllFarmedPoolCoinsRequest() {
     return { appId: long_1.default.UZERO };
 }
 exports.QueryAllFarmedPoolCoinsRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllFarmedPoolCoinsRequest();
         while (reader.pos < end) {
@@ -3076,7 +3076,7 @@ function createBaseQueryAllFarmedPoolCoinsResponse() {
     return { appId: long_1.default.UZERO, totalActiveAndQueuedCoins: [] };
 }
 exports.QueryAllFarmedPoolCoinsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -3086,7 +3086,7 @@ exports.QueryAllFarmedPoolCoinsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllFarmedPoolCoinsResponse();
         while (reader.pos < end) {
@@ -3165,107 +3165,107 @@ class QueryClientImpl {
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Params", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(new _m0.Reader(data)));
     }
     GenericParams(request) {
         const data = exports.QueryGenericParamsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "GenericParams", data);
-        return promise.then((data) => exports.QueryGenericParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryGenericParamsResponse.decode(new _m0.Reader(data)));
     }
     Pools(request) {
         const data = exports.QueryPoolsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Pools", data);
-        return promise.then((data) => exports.QueryPoolsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPoolsResponse.decode(new _m0.Reader(data)));
     }
     Pool(request) {
         const data = exports.QueryPoolRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Pool", data);
-        return promise.then((data) => exports.QueryPoolResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPoolResponse.decode(new _m0.Reader(data)));
     }
     PoolByReserveAddress(request) {
         const data = exports.QueryPoolByReserveAddressRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "PoolByReserveAddress", data);
-        return promise.then((data) => exports.QueryPoolResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPoolResponse.decode(new _m0.Reader(data)));
     }
     PoolByPoolCoinDenom(request) {
         const data = exports.QueryPoolByPoolCoinDenomRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "PoolByPoolCoinDenom", data);
-        return promise.then((data) => exports.QueryPoolResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPoolResponse.decode(new _m0.Reader(data)));
     }
     Pairs(request) {
         const data = exports.QueryPairsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Pairs", data);
-        return promise.then((data) => exports.QueryPairsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPairsResponse.decode(new _m0.Reader(data)));
     }
     Pair(request) {
         const data = exports.QueryPairRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Pair", data);
-        return promise.then((data) => exports.QueryPairResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPairResponse.decode(new _m0.Reader(data)));
     }
     DepositRequests(request) {
         const data = exports.QueryDepositRequestsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DepositRequests", data);
-        return promise.then((data) => exports.QueryDepositRequestsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryDepositRequestsResponse.decode(new _m0.Reader(data)));
     }
     DepositRequest(request) {
         const data = exports.QueryDepositRequestRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DepositRequest", data);
-        return promise.then((data) => exports.QueryDepositRequestResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryDepositRequestResponse.decode(new _m0.Reader(data)));
     }
     WithdrawRequests(request) {
         const data = exports.QueryWithdrawRequestsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "WithdrawRequests", data);
-        return promise.then((data) => exports.QueryWithdrawRequestsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryWithdrawRequestsResponse.decode(new _m0.Reader(data)));
     }
     WithdrawRequest(request) {
         const data = exports.QueryWithdrawRequestRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "WithdrawRequest", data);
-        return promise.then((data) => exports.QueryWithdrawRequestResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryWithdrawRequestResponse.decode(new _m0.Reader(data)));
     }
     Orders(request) {
         const data = exports.QueryOrdersRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Orders", data);
-        return promise.then((data) => exports.QueryOrdersResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryOrdersResponse.decode(new _m0.Reader(data)));
     }
     Order(request) {
         const data = exports.QueryOrderRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Order", data);
-        return promise.then((data) => exports.QueryOrderResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryOrderResponse.decode(new _m0.Reader(data)));
     }
     OrdersByOrderer(request) {
         const data = exports.QueryOrdersByOrdererRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "OrdersByOrderer", data);
-        return promise.then((data) => exports.QueryOrdersResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryOrdersResponse.decode(new _m0.Reader(data)));
     }
     Farmer(request) {
         const data = exports.QueryFarmerRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Farmer", data);
-        return promise.then((data) => exports.QueryFarmerResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryFarmerResponse.decode(new _m0.Reader(data)));
     }
     DeserializePoolCoin(request) {
         const data = exports.QueryDeserializePoolCoinRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DeserializePoolCoin", data);
-        return promise.then((data) => exports.QueryDeserializePoolCoinResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryDeserializePoolCoinResponse.decode(new _m0.Reader(data)));
     }
     PoolIncentives(request) {
         const data = exports.QueryPoolsIncentivesRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "PoolIncentives", data);
-        return promise.then((data) => exports.QueryPoolIncentivesResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryPoolIncentivesResponse.decode(new _m0.Reader(data)));
     }
     FarmedPoolCoin(request) {
         const data = exports.QueryFarmedPoolCoinRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "FarmedPoolCoin", data);
-        return promise.then((data) => exports.QueryFarmedPoolCoinResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryFarmedPoolCoinResponse.decode(new _m0.Reader(data)));
     }
     TotalActiveAndQueuedPoolCoin(request) {
         const data = exports.QueryAllFarmedPoolCoinsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "TotalActiveAndQueuedPoolCoin", data);
-        return promise.then((data) => exports.QueryAllFarmedPoolCoinsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAllFarmedPoolCoinsResponse.decode(new _m0.Reader(data)));
     }
     OrderBooks(request) {
         const data = exports.QueryOrderBooksRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "OrderBooks", data);
-        return promise.then((data) => exports.QueryOrderBooksResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryOrderBooksResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;

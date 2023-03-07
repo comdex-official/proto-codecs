@@ -1615,7 +1615,7 @@ export declare const AppGenesisState: {
                     toUnsigned: () => Long.Long;
                     xor: (other: string | number | Long.Long) => Long.Long;
                 } & Record<Exclude<keyof I["pools"][number]["farmCoin"]["decimals"], keyof Long.Long>, never>) | undefined;
-            } & Record<Exclude<keyof I["pools"][number]["farmCoin"], keyof import("./liquidity").FarmCoin>, never>) | undefined;
+            } & Record<Exclude<keyof I["pools"][number]["farmCoin"], keyof import("../../../comdex/liquidity/v1beta1/liquidity").FarmCoin>, never>) | undefined;
         } & Record<Exclude<keyof I["pools"][number], keyof Pool>, never>)[] & Record<Exclude<keyof I["pools"], keyof {
             id?: string | number | Long.Long | undefined;
             pairId?: string | number | Long.Long | undefined;
@@ -5090,7 +5090,7 @@ export declare const GenesisState: {
                         toUnsigned: () => Long.Long;
                         xor: (other: string | number | Long.Long) => Long.Long;
                     } & Record<Exclude<keyof I["appGenesisState"][number]["pools"][number]["farmCoin"]["decimals"], keyof Long.Long>, never>) | undefined;
-                } & Record<Exclude<keyof I["appGenesisState"][number]["pools"][number]["farmCoin"], keyof import("./liquidity").FarmCoin>, never>) | undefined;
+                } & Record<Exclude<keyof I["appGenesisState"][number]["pools"][number]["farmCoin"], keyof import("../../../comdex/liquidity/v1beta1/liquidity").FarmCoin>, never>) | undefined;
             } & Record<Exclude<keyof I["appGenesisState"][number]["pools"][number], keyof Pool>, never>)[] & Record<Exclude<keyof I["appGenesisState"][number]["pools"], keyof {
                 id?: string | number | Long.Long | undefined;
                 pairId?: string | number | Long.Long | undefined;
