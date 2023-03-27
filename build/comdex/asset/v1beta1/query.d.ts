@@ -19,17 +19,17 @@ export interface QueryAssetRequest {
 export interface QueryAssetResponse {
     asset?: Asset;
 }
-export interface QueryPairsRequest {
+export interface QueryAssetPairsRequest {
     pagination?: PageRequest;
 }
-export interface QueryPairsResponse {
+export interface QueryAssetPairsResponse {
     pairsInfo: PairInfo[];
     pagination?: PageResponse;
 }
-export interface QueryPairRequest {
+export interface QueryAssetPairRequest {
     id: Long;
 }
-export interface QueryPairResponse {
+export interface QueryAssetPairResponse {
     pairInfo?: PairInfo;
 }
 export interface QueryAppRequest {
@@ -575,11 +575,11 @@ export declare const QueryAssetResponse: {
         } & Record<Exclude<keyof I["asset"], keyof Asset>, never>) | undefined;
     } & Record<Exclude<keyof I, "asset">, never>>(object: I): QueryAssetResponse;
 };
-export declare const QueryPairsRequest: {
-    encode(message: QueryPairsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPairsRequest;
-    fromJSON(object: any): QueryPairsRequest;
-    toJSON(message: QueryPairsRequest): unknown;
+export declare const QueryAssetPairsRequest: {
+    encode(message: QueryAssetPairsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetPairsRequest;
+    fromJSON(object: any): QueryAssetPairsRequest;
+    toJSON(message: QueryAssetPairsRequest): unknown;
     fromPartial<I extends {
         pagination?: {
             key?: Uint8Array | undefined;
@@ -716,13 +716,13 @@ export declare const QueryPairsRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageRequest>, never>) | undefined;
-    } & Record<Exclude<keyof I, "pagination">, never>>(object: I): QueryPairsRequest;
+    } & Record<Exclude<keyof I, "pagination">, never>>(object: I): QueryAssetPairsRequest;
 };
-export declare const QueryPairsResponse: {
-    encode(message: QueryPairsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPairsResponse;
-    fromJSON(object: any): QueryPairsResponse;
-    toJSON(message: QueryPairsResponse): unknown;
+export declare const QueryAssetPairsResponse: {
+    encode(message: QueryAssetPairsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetPairsResponse;
+    fromJSON(object: any): QueryAssetPairsResponse;
+    toJSON(message: QueryAssetPairsResponse): unknown;
     fromPartial<I extends {
         pairsInfo?: {
             id?: string | number | Long.Long | undefined;
@@ -996,13 +996,13 @@ export declare const QueryPairsResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pagination"]["total"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
-    } & Record<Exclude<keyof I, keyof QueryPairsResponse>, never>>(object: I): QueryPairsResponse;
+    } & Record<Exclude<keyof I, keyof QueryAssetPairsResponse>, never>>(object: I): QueryAssetPairsResponse;
 };
-export declare const QueryPairRequest: {
-    encode(message: QueryPairRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPairRequest;
-    fromJSON(object: any): QueryPairRequest;
-    toJSON(message: QueryPairRequest): unknown;
+export declare const QueryAssetPairRequest: {
+    encode(message: QueryAssetPairRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetPairRequest;
+    fromJSON(object: any): QueryAssetPairRequest;
+    toJSON(message: QueryAssetPairRequest): unknown;
     fromPartial<I extends {
         id?: string | number | Long.Long | undefined;
     } & {
@@ -1064,13 +1064,13 @@ export declare const QueryPairRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["id"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "id">, never>>(object: I): QueryPairRequest;
+    } & Record<Exclude<keyof I, "id">, never>>(object: I): QueryAssetPairRequest;
 };
-export declare const QueryPairResponse: {
-    encode(message: QueryPairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPairResponse;
-    fromJSON(object: any): QueryPairResponse;
-    toJSON(message: QueryPairResponse): unknown;
+export declare const QueryAssetPairResponse: {
+    encode(message: QueryAssetPairResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetPairResponse;
+    fromJSON(object: any): QueryAssetPairResponse;
+    toJSON(message: QueryAssetPairResponse): unknown;
     fromPartial<I extends {
         pairInfo?: {
             id?: string | number | Long.Long | undefined;
@@ -1264,7 +1264,7 @@ export declare const QueryPairResponse: {
             } & Record<Exclude<keyof I["pairInfo"]["assetOut"], keyof Long.Long>, never>) | undefined;
             denomOut?: string | undefined;
         } & Record<Exclude<keyof I["pairInfo"], keyof PairInfo>, never>) | undefined;
-    } & Record<Exclude<keyof I, "pairInfo">, never>>(object: I): QueryPairResponse;
+    } & Record<Exclude<keyof I, "pairInfo">, never>>(object: I): QueryAssetPairResponse;
 };
 export declare const QueryAppRequest: {
     encode(message: QueryAppRequest, writer?: _m0.Writer): _m0.Writer;
@@ -5803,8 +5803,8 @@ export declare const QueryExtendedPairVaultsByAppWithoutStableResponse: {
 export interface Query {
     QueryAssets(request: QueryAssetsRequest): Promise<QueryAssetsResponse>;
     QueryAsset(request: QueryAssetRequest): Promise<QueryAssetResponse>;
-    QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
-    QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
+    QueryAssetPairs(request: QueryAssetPairsRequest): Promise<QueryAssetPairsResponse>;
+    QueryAssetPair(request: QueryAssetPairRequest): Promise<QueryAssetPairResponse>;
     QueryApps(request: QueryAppsRequest): Promise<QueryAppsResponse>;
     QueryApp(request: QueryAppRequest): Promise<QueryAppResponse>;
     QueryExtendedPairVault(request: QueryExtendedPairVaultRequest): Promise<QueryExtendedPairVaultResponse>;
@@ -5820,8 +5820,8 @@ export declare class QueryClientImpl implements Query {
     constructor(rpc: Rpc);
     QueryAssets(request: QueryAssetsRequest): Promise<QueryAssetsResponse>;
     QueryAsset(request: QueryAssetRequest): Promise<QueryAssetResponse>;
-    QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
-    QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
+    QueryAssetPairs(request: QueryAssetPairsRequest): Promise<QueryAssetPairsResponse>;
+    QueryAssetPair(request: QueryAssetPairRequest): Promise<QueryAssetPairResponse>;
     QueryApps(request: QueryAppsRequest): Promise<QueryAppsResponse>;
     QueryApp(request: QueryAppRequest): Promise<QueryAppResponse>;
     QueryExtendedPairVault(request: QueryExtendedPairVaultRequest): Promise<QueryExtendedPairVaultResponse>;
