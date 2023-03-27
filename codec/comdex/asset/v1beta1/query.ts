@@ -29,20 +29,20 @@ export interface QueryAssetResponse {
   asset?: Asset;
 }
 
-export interface QueryPairsRequest {
+export interface QueryAssetPairsRequest {
   pagination?: PageRequest;
 }
 
-export interface QueryPairsResponse {
+export interface QueryAssetPairsResponse {
   pairsInfo: PairInfo[];
   pagination?: PageResponse;
 }
 
-export interface QueryPairRequest {
+export interface QueryAssetPairRequest {
   id: Long;
 }
 
-export interface QueryPairResponse {
+export interface QueryAssetPairResponse {
   pairInfo?: PairInfo;
 }
 
@@ -386,13 +386,13 @@ export const QueryAssetResponse = {
   },
 };
 
-function createBaseQueryPairsRequest(): QueryPairsRequest {
+function createBaseQueryAssetPairsRequest(): QueryAssetPairsRequest {
   return { pagination: undefined };
 }
 
-export const QueryPairsRequest = {
+export const QueryAssetPairsRequest = {
   encode(
-    message: QueryPairsRequest,
+    message: QueryAssetPairsRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.pagination !== undefined) {
@@ -401,10 +401,13 @@ export const QueryPairsRequest = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPairsRequest {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAssetPairsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPairsRequest();
+    const message = createBaseQueryAssetPairsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -419,7 +422,7 @@ export const QueryPairsRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryPairsRequest {
+  fromJSON(object: any): QueryAssetPairsRequest {
     return {
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -427,7 +430,7 @@ export const QueryPairsRequest = {
     };
   },
 
-  toJSON(message: QueryPairsRequest): unknown {
+  toJSON(message: QueryAssetPairsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
@@ -436,10 +439,10 @@ export const QueryPairsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairsRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAssetPairsRequest>, I>>(
     object: I
-  ): QueryPairsRequest {
-    const message = createBaseQueryPairsRequest();
+  ): QueryAssetPairsRequest {
+    const message = createBaseQueryAssetPairsRequest();
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
         ? PageRequest.fromPartial(object.pagination)
@@ -448,13 +451,13 @@ export const QueryPairsRequest = {
   },
 };
 
-function createBaseQueryPairsResponse(): QueryPairsResponse {
+function createBaseQueryAssetPairsResponse(): QueryAssetPairsResponse {
   return { pairsInfo: [], pagination: undefined };
 }
 
-export const QueryPairsResponse = {
+export const QueryAssetPairsResponse = {
   encode(
-    message: QueryPairsResponse,
+    message: QueryAssetPairsResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.pairsInfo) {
@@ -469,10 +472,13 @@ export const QueryPairsResponse = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPairsResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAssetPairsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPairsResponse();
+    const message = createBaseQueryAssetPairsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -490,7 +496,7 @@ export const QueryPairsResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryPairsResponse {
+  fromJSON(object: any): QueryAssetPairsResponse {
     return {
       pairsInfo: Array.isArray(object?.pairsInfo)
         ? object.pairsInfo.map((e: any) => PairInfo.fromJSON(e))
@@ -501,7 +507,7 @@ export const QueryPairsResponse = {
     };
   },
 
-  toJSON(message: QueryPairsResponse): unknown {
+  toJSON(message: QueryAssetPairsResponse): unknown {
     const obj: any = {};
     if (message.pairsInfo) {
       obj.pairsInfo = message.pairsInfo.map((e) =>
@@ -517,10 +523,10 @@ export const QueryPairsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairsResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAssetPairsResponse>, I>>(
     object: I
-  ): QueryPairsResponse {
-    const message = createBaseQueryPairsResponse();
+  ): QueryAssetPairsResponse {
+    const message = createBaseQueryAssetPairsResponse();
     message.pairsInfo =
       object.pairsInfo?.map((e) => PairInfo.fromPartial(e)) || [];
     message.pagination =
@@ -531,13 +537,13 @@ export const QueryPairsResponse = {
   },
 };
 
-function createBaseQueryPairRequest(): QueryPairRequest {
+function createBaseQueryAssetPairRequest(): QueryAssetPairRequest {
   return { id: Long.UZERO };
 }
 
-export const QueryPairRequest = {
+export const QueryAssetPairRequest = {
   encode(
-    message: QueryPairRequest,
+    message: QueryAssetPairRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (!message.id.isZero()) {
@@ -546,10 +552,13 @@ export const QueryPairRequest = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPairRequest {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAssetPairRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPairRequest();
+    const message = createBaseQueryAssetPairRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -564,23 +573,23 @@ export const QueryPairRequest = {
     return message;
   },
 
-  fromJSON(object: any): QueryPairRequest {
+  fromJSON(object: any): QueryAssetPairRequest {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
     };
   },
 
-  toJSON(message: QueryPairRequest): unknown {
+  toJSON(message: QueryAssetPairRequest): unknown {
     const obj: any = {};
     message.id !== undefined &&
       (obj.id = (message.id || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairRequest>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAssetPairRequest>, I>>(
     object: I
-  ): QueryPairRequest {
-    const message = createBaseQueryPairRequest();
+  ): QueryAssetPairRequest {
+    const message = createBaseQueryAssetPairRequest();
     message.id =
       object.id !== undefined && object.id !== null
         ? Long.fromValue(object.id)
@@ -589,13 +598,13 @@ export const QueryPairRequest = {
   },
 };
 
-function createBaseQueryPairResponse(): QueryPairResponse {
+function createBaseQueryAssetPairResponse(): QueryAssetPairResponse {
   return { pairInfo: undefined };
 }
 
-export const QueryPairResponse = {
+export const QueryAssetPairResponse = {
   encode(
-    message: QueryPairResponse,
+    message: QueryAssetPairResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     if (message.pairInfo !== undefined) {
@@ -604,10 +613,13 @@ export const QueryPairResponse = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPairResponse {
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryAssetPairResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseQueryPairResponse();
+    const message = createBaseQueryAssetPairResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -622,7 +634,7 @@ export const QueryPairResponse = {
     return message;
   },
 
-  fromJSON(object: any): QueryPairResponse {
+  fromJSON(object: any): QueryAssetPairResponse {
     return {
       pairInfo: isSet(object.pairInfo)
         ? PairInfo.fromJSON(object.pairInfo)
@@ -630,7 +642,7 @@ export const QueryPairResponse = {
     };
   },
 
-  toJSON(message: QueryPairResponse): unknown {
+  toJSON(message: QueryAssetPairResponse): unknown {
     const obj: any = {};
     message.pairInfo !== undefined &&
       (obj.pairInfo = message.pairInfo
@@ -639,10 +651,10 @@ export const QueryPairResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairResponse>, I>>(
+  fromPartial<I extends Exact<DeepPartial<QueryAssetPairResponse>, I>>(
     object: I
-  ): QueryPairResponse {
-    const message = createBaseQueryPairResponse();
+  ): QueryAssetPairResponse {
+    const message = createBaseQueryAssetPairResponse();
     message.pairInfo =
       object.pairInfo !== undefined && object.pairInfo !== null
         ? PairInfo.fromPartial(object.pairInfo)
@@ -2011,8 +2023,12 @@ export const QueryExtendedPairVaultsByAppWithoutStableResponse = {
 export interface Query {
   QueryAssets(request: QueryAssetsRequest): Promise<QueryAssetsResponse>;
   QueryAsset(request: QueryAssetRequest): Promise<QueryAssetResponse>;
-  QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
-  QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
+  QueryAssetPairs(
+    request: QueryAssetPairsRequest
+  ): Promise<QueryAssetPairsResponse>;
+  QueryAssetPair(
+    request: QueryAssetPairRequest
+  ): Promise<QueryAssetPairResponse>;
   QueryApps(request: QueryAppsRequest): Promise<QueryAppsResponse>;
   QueryApp(request: QueryAppRequest): Promise<QueryAppResponse>;
   QueryExtendedPairVault(
@@ -2044,8 +2060,8 @@ export class QueryClientImpl implements Query {
     this.rpc = rpc;
     this.QueryAssets = this.QueryAssets.bind(this);
     this.QueryAsset = this.QueryAsset.bind(this);
-    this.QueryPairs = this.QueryPairs.bind(this);
-    this.QueryPair = this.QueryPair.bind(this);
+    this.QueryAssetPairs = this.QueryAssetPairs.bind(this);
+    this.QueryAssetPair = this.QueryAssetPair.bind(this);
     this.QueryApps = this.QueryApps.bind(this);
     this.QueryApp = this.QueryApp.bind(this);
     this.QueryExtendedPairVault = this.QueryExtendedPairVault.bind(this);
@@ -2085,27 +2101,31 @@ export class QueryClientImpl implements Query {
     );
   }
 
-  QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse> {
-    const data = QueryPairsRequest.encode(request).finish();
+  QueryAssetPairs(
+    request: QueryAssetPairsRequest
+  ): Promise<QueryAssetPairsResponse> {
+    const data = QueryAssetPairsRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.asset.v1beta1.Query",
-      "QueryPairs",
+      "QueryAssetPairs",
       data
     );
     return promise.then((data) =>
-      QueryPairsResponse.decode(new _m0.Reader(data))
+      QueryAssetPairsResponse.decode(new _m0.Reader(data))
     );
   }
 
-  QueryPair(request: QueryPairRequest): Promise<QueryPairResponse> {
-    const data = QueryPairRequest.encode(request).finish();
+  QueryAssetPair(
+    request: QueryAssetPairRequest
+  ): Promise<QueryAssetPairResponse> {
+    const data = QueryAssetPairRequest.encode(request).finish();
     const promise = this.rpc.request(
       "comdex.asset.v1beta1.Query",
-      "QueryPair",
+      "QueryAssetPair",
       data
     );
     return promise.then((data) =>
-      QueryPairResponse.decode(new _m0.Reader(data))
+      QueryAssetPairResponse.decode(new _m0.Reader(data))
     );
   }
 
