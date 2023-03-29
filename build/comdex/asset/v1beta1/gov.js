@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -22,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddAssetInAppProposal = exports.UpdateGovTimeInAppProposal = exports.AddAppProposal = exports.UpdatePairProposal = exports.AddPairsProposal = exports.UpdateAssetProposal = exports.AddAssetsProposal = exports.protobufPackage = void 0;
+exports.AddMultipleAssetsPairsProposal = exports.AddAssetInAppProposal = exports.UpdateGovTimeInAppProposal = exports.AddAppProposal = exports.UpdatePairProposal = exports.AddPairsProposal = exports.UpdateAssetProposal = exports.AddMultiplePairsProposal = exports.AddMultipleAssetsProposal = exports.AddAssetsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -94,6 +98,146 @@ exports.AddAssetsProposal = {
             object.assets !== undefined && object.assets !== null
                 ? asset_1.Asset.fromPartial(object.assets)
                 : undefined;
+        return message;
+    },
+};
+function createBaseAddMultipleAssetsProposal() {
+    return { title: "", description: "", assets: [] };
+}
+exports.AddMultipleAssetsProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        for (const v of message.assets) {
+            asset_1.Asset.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAddMultipleAssetsProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.assets.push(asset_1.Asset.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            assets: Array.isArray(object === null || object === void 0 ? void 0 : object.assets)
+                ? object.assets.map((e) => asset_1.Asset.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        if (message.assets) {
+            obj.assets = message.assets.map((e) => (e ? asset_1.Asset.toJSON(e) : undefined));
+        }
+        else {
+            obj.assets = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseAddMultipleAssetsProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.assets = ((_c = object.assets) === null || _c === void 0 ? void 0 : _c.map((e) => asset_1.Asset.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseAddMultiplePairsProposal() {
+    return { title: "", description: "", pairs: [] };
+}
+exports.AddMultiplePairsProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        for (const v of message.pairs) {
+            pair_1.Pair.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAddMultiplePairsProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.pairs.push(pair_1.Pair.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            pairs: Array.isArray(object === null || object === void 0 ? void 0 : object.pairs)
+                ? object.pairs.map((e) => pair_1.Pair.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        if (message.pairs) {
+            obj.pairs = message.pairs.map((e) => (e ? pair_1.Pair.toJSON(e) : undefined));
+        }
+        else {
+            obj.pairs = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseAddMultiplePairsProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.pairs = ((_c = object.pairs) === null || _c === void 0 ? void 0 : _c.map((e) => pair_1.Pair.fromPartial(e))) || [];
         return message;
     },
 };
@@ -500,6 +644,77 @@ exports.AddAssetInAppProposal = {
             object.app !== undefined && object.app !== null
                 ? app_1.AppData.fromPartial(object.app)
                 : undefined;
+        return message;
+    },
+};
+function createBaseAddMultipleAssetsPairsProposal() {
+    return { title: "", description: "", assetsPair: [] };
+}
+exports.AddMultipleAssetsPairsProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        for (const v of message.assetsPair) {
+            pair_1.AssetPair.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAddMultipleAssetsPairsProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.assetsPair.push(pair_1.AssetPair.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            assetsPair: Array.isArray(object === null || object === void 0 ? void 0 : object.assetsPair)
+                ? object.assetsPair.map((e) => pair_1.AssetPair.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        if (message.assetsPair) {
+            obj.assetsPair = message.assetsPair.map((e) => e ? pair_1.AssetPair.toJSON(e) : undefined);
+        }
+        else {
+            obj.assetsPair = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseAddMultipleAssetsPairsProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.assetsPair =
+            ((_c = object.assetsPair) === null || _c === void 0 ? void 0 : _c.map((e) => pair_1.AssetPair.fromPartial(e))) || [];
         return message;
     },
 };

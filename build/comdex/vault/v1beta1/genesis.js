@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -34,6 +38,7 @@ function createBaseGenesisState() {
         stableMintVault: [],
         appExtendedPairVaultMapping: [],
         userVaultAssetMapping: [],
+        lengthOfVaults: long_1.default.UZERO,
     };
 }
 exports.GenesisState = {
@@ -49,6 +54,9 @@ exports.GenesisState = {
         }
         for (const v of message.userVaultAssetMapping) {
             vault_1.OwnerAppExtendedPairVaultMappingData.encode(v, writer.uint32(34).fork()).ldelim();
+        }
+        if (!message.lengthOfVaults.isZero()) {
+            writer.uint32(40).uint64(message.lengthOfVaults);
         }
         return writer;
     },
@@ -71,6 +79,9 @@ exports.GenesisState = {
                 case 4:
                     message.userVaultAssetMapping.push(vault_1.OwnerAppExtendedPairVaultMappingData.decode(reader, reader.uint32()));
                     break;
+                case 5:
+                    message.lengthOfVaults = reader.uint64();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -92,6 +103,9 @@ exports.GenesisState = {
             userVaultAssetMapping: Array.isArray(object === null || object === void 0 ? void 0 : object.userVaultAssetMapping)
                 ? object.userVaultAssetMapping.map((e) => vault_1.OwnerAppExtendedPairVaultMappingData.fromJSON(e))
                 : [],
+            lengthOfVaults: isSet(object.lengthOfVaults)
+                ? long_1.default.fromValue(object.lengthOfVaults)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -120,6 +134,8 @@ exports.GenesisState = {
         else {
             obj.userVaultAssetMapping = [];
         }
+        message.lengthOfVaults !== undefined &&
+            (obj.lengthOfVaults = (message.lengthOfVaults || long_1.default.UZERO).toString());
         return obj;
     },
     fromPartial(object) {
@@ -132,11 +148,18 @@ exports.GenesisState = {
             ((_c = object.appExtendedPairVaultMapping) === null || _c === void 0 ? void 0 : _c.map((e) => vault_1.AppExtendedPairVaultMappingData.fromPartial(e))) || [];
         message.userVaultAssetMapping =
             ((_d = object.userVaultAssetMapping) === null || _d === void 0 ? void 0 : _d.map((e) => vault_1.OwnerAppExtendedPairVaultMappingData.fromPartial(e))) || [];
+        message.lengthOfVaults =
+            object.lengthOfVaults !== undefined && object.lengthOfVaults !== null
+                ? long_1.default.fromValue(object.lengthOfVaults)
+                : long_1.default.UZERO;
         return message;
     },
 };
 if (_m0.util.Long !== long_1.default) {
     _m0.util.Long = long_1.default;
     _m0.configure();
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
 }
 //# sourceMappingURL=genesis.js.map

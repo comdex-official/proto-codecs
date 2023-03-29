@@ -1,12 +1,35 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueuedFarmer = exports.QueuedCoin = exports.ActiveFarmer = exports.MMOrderIndex = exports.Order = exports.WithdrawRequest = exports.DepositRequest = exports.Pool = exports.Pair = exports.addressTypeToJSON = exports.addressTypeFromJSON = exports.AddressType = exports.orderStatusToJSON = exports.orderStatusFromJSON = exports.OrderStatus = exports.requestStatusToJSON = exports.requestStatusFromJSON = exports.RequestStatus = exports.orderDirectionToJSON = exports.orderDirectionFromJSON = exports.OrderDirection = exports.orderTypeToJSON = exports.orderTypeFromJSON = exports.OrderType = exports.poolTypeToJSON = exports.poolTypeFromJSON = exports.PoolType = exports.protobufPackage = void 0;
+exports.QueuedFarmer = exports.QueuedCoin = exports.ActiveFarmer = exports.MMOrderIndex = exports.Order = exports.WithdrawRequest = exports.DepositRequest = exports.Pool = exports.FarmCoin = exports.Pair = exports.addressTypeToJSON = exports.addressTypeFromJSON = exports.AddressType = exports.orderStatusToJSON = exports.orderStatusFromJSON = exports.OrderStatus = exports.requestStatusToJSON = exports.requestStatusFromJSON = exports.RequestStatus = exports.orderDirectionToJSON = exports.orderDirectionFromJSON = exports.OrderDirection = exports.orderTypeToJSON = exports.orderTypeFromJSON = exports.OrderType = exports.poolTypeToJSON = exports.poolTypeFromJSON = exports.PoolType = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
 const timestamp_1 = require("../../../google/protobuf/timestamp");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
@@ -47,8 +70,9 @@ function poolTypeToJSON(object) {
             return "POOL_TYPE_BASIC";
         case PoolType.POOL_TYPE_RANGED:
             return "POOL_TYPE_RANGED";
+        case PoolType.UNRECOGNIZED:
         default:
-            return "UNKNOWN";
+            return "UNRECOGNIZED";
     }
 }
 exports.poolTypeToJSON = poolTypeToJSON;
@@ -96,8 +120,9 @@ function orderTypeToJSON(object) {
             return "ORDER_TYPE_MARKET";
         case OrderType.ORDER_TYPE_MM:
             return "ORDER_TYPE_MM";
+        case OrderType.UNRECOGNIZED:
         default:
-            return "UNKNOWN";
+            return "UNRECOGNIZED";
     }
 }
 exports.orderTypeToJSON = orderTypeToJSON;
@@ -138,8 +163,9 @@ function orderDirectionToJSON(object) {
             return "ORDER_DIRECTION_BUY";
         case OrderDirection.ORDER_DIRECTION_SELL:
             return "ORDER_DIRECTION_SELL";
+        case OrderDirection.UNRECOGNIZED:
         default:
-            return "UNKNOWN";
+            return "UNRECOGNIZED";
     }
 }
 exports.orderDirectionToJSON = orderDirectionToJSON;
@@ -187,8 +213,9 @@ function requestStatusToJSON(object) {
             return "REQUEST_STATUS_SUCCEEDED";
         case RequestStatus.REQUEST_STATUS_FAILED:
             return "REQUEST_STATUS_FAILED";
+        case RequestStatus.UNRECOGNIZED:
         default:
-            return "UNKNOWN";
+            return "UNRECOGNIZED";
     }
 }
 exports.requestStatusToJSON = requestStatusToJSON;
@@ -257,8 +284,9 @@ function orderStatusToJSON(object) {
             return "ORDER_STATUS_CANCELED";
         case OrderStatus.ORDER_STATUS_EXPIRED:
             return "ORDER_STATUS_EXPIRED";
+        case OrderStatus.UNRECOGNIZED:
         default:
-            return "UNKNOWN";
+            return "UNRECOGNIZED";
     }
 }
 exports.orderStatusToJSON = orderStatusToJSON;
@@ -292,8 +320,9 @@ function addressTypeToJSON(object) {
             return "ADDRESS_TYPE_32_BYTES";
         case AddressType.ADDRESS_TYPE_20_BYTES:
             return "ADDRESS_TYPE_20_BYTES";
+        case AddressType.UNRECOGNIZED:
         default:
-            return "UNKNOWN";
+            return "UNRECOGNIZED";
     }
 }
 exports.addressTypeToJSON = addressTypeToJSON;
@@ -311,7 +340,7 @@ function createBasePair() {
     };
 }
 exports.Pair = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -342,7 +371,7 @@ exports.Pair = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBasePair();
         while (reader.pos < end) {
@@ -384,74 +413,107 @@ exports.Pair = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            baseCoinDenom: isSet(object.baseCoinDenom)
-                ? String(object.baseCoinDenom)
-                : "",
-            quoteCoinDenom: isSet(object.quoteCoinDenom)
-                ? String(object.quoteCoinDenom)
-                : "",
-            escrowAddress: isSet(object.escrowAddress)
-                ? String(object.escrowAddress)
-                : "",
-            lastOrderId: isSet(object.lastOrderId)
-                ? long_1.default.fromString(object.lastOrderId)
-                : long_1.default.UZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            baseCoinDenom: isSet(object.baseCoinDenom) ? String(object.baseCoinDenom) : "",
+            quoteCoinDenom: isSet(object.quoteCoinDenom) ? String(object.quoteCoinDenom) : "",
+            escrowAddress: isSet(object.escrowAddress) ? String(object.escrowAddress) : "",
+            lastOrderId: isSet(object.lastOrderId) ? long_1.default.fromValue(object.lastOrderId) : long_1.default.UZERO,
             lastPrice: isSet(object.lastPrice) ? String(object.lastPrice) : "",
-            currentBatchId: isSet(object.currentBatchId)
-                ? long_1.default.fromString(object.currentBatchId)
-                : long_1.default.UZERO,
-            swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress)
-                ? String(object.swapFeeCollectorAddress)
-                : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            currentBatchId: isSet(object.currentBatchId) ? long_1.default.fromValue(object.currentBatchId) : long_1.default.UZERO,
+            swapFeeCollectorAddress: isSet(object.swapFeeCollectorAddress) ? String(object.swapFeeCollectorAddress) : "",
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
-        message.baseCoinDenom !== undefined &&
-            (obj.baseCoinDenom = message.baseCoinDenom);
-        message.quoteCoinDenom !== undefined &&
-            (obj.quoteCoinDenom = message.quoteCoinDenom);
-        message.escrowAddress !== undefined &&
-            (obj.escrowAddress = message.escrowAddress);
-        message.lastOrderId !== undefined &&
-            (obj.lastOrderId = (message.lastOrderId || long_1.default.UZERO).toString());
+        message.id !== undefined && (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.baseCoinDenom !== undefined && (obj.baseCoinDenom = message.baseCoinDenom);
+        message.quoteCoinDenom !== undefined && (obj.quoteCoinDenom = message.quoteCoinDenom);
+        message.escrowAddress !== undefined && (obj.escrowAddress = message.escrowAddress);
+        message.lastOrderId !== undefined && (obj.lastOrderId = (message.lastOrderId || long_1.default.UZERO).toString());
         message.lastPrice !== undefined && (obj.lastPrice = message.lastPrice);
-        message.currentBatchId !== undefined &&
-            (obj.currentBatchId = (message.currentBatchId || long_1.default.UZERO).toString());
-        message.swapFeeCollectorAddress !== undefined &&
-            (obj.swapFeeCollectorAddress = message.swapFeeCollectorAddress);
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.currentBatchId !== undefined && (obj.currentBatchId = (message.currentBatchId || long_1.default.UZERO).toString());
+        message.swapFeeCollectorAddress !== undefined && (obj.swapFeeCollectorAddress = message.swapFeeCollectorAddress);
+        message.appId !== undefined && (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.Pair.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e;
         const message = createBasePair();
-        message.id =
-            object.id !== undefined && object.id !== null
-                ? long_1.default.fromValue(object.id)
-                : long_1.default.UZERO;
+        message.id = (object.id !== undefined && object.id !== null) ? long_1.default.fromValue(object.id) : long_1.default.UZERO;
         message.baseCoinDenom = (_a = object.baseCoinDenom) !== null && _a !== void 0 ? _a : "";
         message.quoteCoinDenom = (_b = object.quoteCoinDenom) !== null && _b !== void 0 ? _b : "";
         message.escrowAddress = (_c = object.escrowAddress) !== null && _c !== void 0 ? _c : "";
-        message.lastOrderId =
-            object.lastOrderId !== undefined && object.lastOrderId !== null
-                ? long_1.default.fromValue(object.lastOrderId)
-                : long_1.default.UZERO;
+        message.lastOrderId = (object.lastOrderId !== undefined && object.lastOrderId !== null)
+            ? long_1.default.fromValue(object.lastOrderId)
+            : long_1.default.UZERO;
         message.lastPrice = (_d = object.lastPrice) !== null && _d !== void 0 ? _d : "";
-        message.currentBatchId =
-            object.currentBatchId !== undefined && object.currentBatchId !== null
-                ? long_1.default.fromValue(object.currentBatchId)
-                : long_1.default.UZERO;
+        message.currentBatchId = (object.currentBatchId !== undefined && object.currentBatchId !== null)
+            ? long_1.default.fromValue(object.currentBatchId)
+            : long_1.default.UZERO;
         message.swapFeeCollectorAddress = (_e = object.swapFeeCollectorAddress) !== null && _e !== void 0 ? _e : "";
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
+        message.appId = (object.appId !== undefined && object.appId !== null) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO;
+        return message;
+    },
+};
+function createBaseFarmCoin() {
+    return { denom: "", decimals: long_1.default.UZERO };
+}
+exports.FarmCoin = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.denom !== "") {
+            writer.uint32(10).string(message.denom);
+        }
+        if (!message.decimals.isZero()) {
+            writer.uint32(16).uint64(message.decimals);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseFarmCoin();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.denom = reader.string();
+                    break;
+                case 2:
+                    message.decimals = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            denom: isSet(object.denom) ? String(object.denom) : "",
+            decimals: isSet(object.decimals) ? long_1.default.fromValue(object.decimals) : long_1.default.UZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.denom !== undefined && (obj.denom = message.denom);
+        message.decimals !== undefined && (obj.decimals = (message.decimals || long_1.default.UZERO).toString());
+        return obj;
+    },
+    create(base) {
+        return exports.FarmCoin.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseFarmCoin();
+        message.denom = (_a = object.denom) !== null && _a !== void 0 ? _a : "";
+        message.decimals = (object.decimals !== undefined && object.decimals !== null)
+            ? long_1.default.fromValue(object.decimals)
+            : long_1.default.UZERO;
         return message;
     },
 };
@@ -469,10 +531,11 @@ function createBasePool() {
         creator: "",
         minPrice: "",
         maxPrice: "",
+        farmCoin: undefined,
     };
 }
 exports.Pool = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -509,10 +572,13 @@ exports.Pool = {
         if (message.maxPrice !== "") {
             writer.uint32(98).string(message.maxPrice);
         }
+        if (message.farmCoin !== undefined) {
+            exports.FarmCoin.encode(message.farmCoin, writer.uint32(106).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBasePool();
         while (reader.pos < end) {
@@ -554,6 +620,9 @@ exports.Pool = {
                 case 12:
                     message.maxPrice = reader.string();
                     break;
+                case 13:
+                    message.farmCoin = exports.FarmCoin.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -563,85 +632,72 @@ exports.Pool = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
-            reserveAddress: isSet(object.reserveAddress)
-                ? String(object.reserveAddress)
-                : "",
-            poolCoinDenom: isSet(object.poolCoinDenom)
-                ? String(object.poolCoinDenom)
-                : "",
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            reserveAddress: isSet(object.reserveAddress) ? String(object.reserveAddress) : "",
+            poolCoinDenom: isSet(object.poolCoinDenom) ? String(object.poolCoinDenom) : "",
             lastDepositRequestId: isSet(object.lastDepositRequestId)
-                ? long_1.default.fromString(object.lastDepositRequestId)
+                ? long_1.default.fromValue(object.lastDepositRequestId)
                 : long_1.default.UZERO,
             lastWithdrawRequestId: isSet(object.lastWithdrawRequestId)
-                ? long_1.default.fromString(object.lastWithdrawRequestId)
+                ? long_1.default.fromValue(object.lastWithdrawRequestId)
                 : long_1.default.UZERO,
             disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             type: isSet(object.type) ? poolTypeFromJSON(object.type) : 0,
             creator: isSet(object.creator) ? String(object.creator) : "",
             minPrice: isSet(object.minPrice) ? String(object.minPrice) : "",
             maxPrice: isSet(object.maxPrice) ? String(object.maxPrice) : "",
+            farmCoin: isSet(object.farmCoin) ? exports.FarmCoin.fromJSON(object.farmCoin) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
-        message.pairId !== undefined &&
-            (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
-        message.reserveAddress !== undefined &&
-            (obj.reserveAddress = message.reserveAddress);
-        message.poolCoinDenom !== undefined &&
-            (obj.poolCoinDenom = message.poolCoinDenom);
+        message.id !== undefined && (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.pairId !== undefined && (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
+        message.reserveAddress !== undefined && (obj.reserveAddress = message.reserveAddress);
+        message.poolCoinDenom !== undefined && (obj.poolCoinDenom = message.poolCoinDenom);
         message.lastDepositRequestId !== undefined &&
             (obj.lastDepositRequestId = (message.lastDepositRequestId || long_1.default.UZERO).toString());
         message.lastWithdrawRequestId !== undefined &&
             (obj.lastWithdrawRequestId = (message.lastWithdrawRequestId || long_1.default.UZERO).toString());
         message.disabled !== undefined && (obj.disabled = message.disabled);
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.appId !== undefined && (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.type !== undefined && (obj.type = poolTypeToJSON(message.type));
         message.creator !== undefined && (obj.creator = message.creator);
         message.minPrice !== undefined && (obj.minPrice = message.minPrice);
         message.maxPrice !== undefined && (obj.maxPrice = message.maxPrice);
+        message.farmCoin !== undefined && (obj.farmCoin = message.farmCoin ? exports.FarmCoin.toJSON(message.farmCoin) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.Pool.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e, _f, _g;
         const message = createBasePool();
-        message.id =
-            object.id !== undefined && object.id !== null
-                ? long_1.default.fromValue(object.id)
-                : long_1.default.UZERO;
-        message.pairId =
-            object.pairId !== undefined && object.pairId !== null
-                ? long_1.default.fromValue(object.pairId)
-                : long_1.default.UZERO;
+        message.id = (object.id !== undefined && object.id !== null) ? long_1.default.fromValue(object.id) : long_1.default.UZERO;
+        message.pairId = (object.pairId !== undefined && object.pairId !== null)
+            ? long_1.default.fromValue(object.pairId)
+            : long_1.default.UZERO;
         message.reserveAddress = (_a = object.reserveAddress) !== null && _a !== void 0 ? _a : "";
         message.poolCoinDenom = (_b = object.poolCoinDenom) !== null && _b !== void 0 ? _b : "";
-        message.lastDepositRequestId =
-            object.lastDepositRequestId !== undefined &&
-                object.lastDepositRequestId !== null
-                ? long_1.default.fromValue(object.lastDepositRequestId)
-                : long_1.default.UZERO;
+        message.lastDepositRequestId = (object.lastDepositRequestId !== undefined && object.lastDepositRequestId !== null)
+            ? long_1.default.fromValue(object.lastDepositRequestId)
+            : long_1.default.UZERO;
         message.lastWithdrawRequestId =
-            object.lastWithdrawRequestId !== undefined &&
-                object.lastWithdrawRequestId !== null
+            (object.lastWithdrawRequestId !== undefined && object.lastWithdrawRequestId !== null)
                 ? long_1.default.fromValue(object.lastWithdrawRequestId)
                 : long_1.default.UZERO;
         message.disabled = (_c = object.disabled) !== null && _c !== void 0 ? _c : false;
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
+        message.appId = (object.appId !== undefined && object.appId !== null) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO;
         message.type = (_d = object.type) !== null && _d !== void 0 ? _d : 0;
         message.creator = (_e = object.creator) !== null && _e !== void 0 ? _e : "";
         message.minPrice = (_f = object.minPrice) !== null && _f !== void 0 ? _f : "";
         message.maxPrice = (_g = object.maxPrice) !== null && _g !== void 0 ? _g : "";
+        message.farmCoin = (object.farmCoin !== undefined && object.farmCoin !== null)
+            ? exports.FarmCoin.fromPartial(object.farmCoin)
+            : undefined;
         return message;
     },
 };
@@ -659,7 +715,7 @@ function createBaseDepositRequest() {
     };
 }
 exports.DepositRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -690,7 +746,7 @@ exports.DepositRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseDepositRequest();
         while (reader.pos < end) {
@@ -732,35 +788,22 @@ exports.DepositRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
-            msgHeight: isSet(object.msgHeight)
-                ? long_1.default.fromString(object.msgHeight)
-                : long_1.default.ZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            msgHeight: isSet(object.msgHeight) ? long_1.default.fromValue(object.msgHeight) : long_1.default.ZERO,
             depositor: isSet(object.depositor) ? String(object.depositor) : "",
-            depositCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.depositCoins)
-                ? object.depositCoins.map((e) => coin_1.Coin.fromJSON(e))
-                : [],
-            acceptedCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.acceptedCoins)
-                ? object.acceptedCoins.map((e) => coin_1.Coin.fromJSON(e))
-                : [],
-            mintedPoolCoin: isSet(object.mintedPoolCoin)
-                ? coin_1.Coin.fromJSON(object.mintedPoolCoin)
-                : undefined,
+            depositCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.depositCoins) ? object.depositCoins.map((e) => coin_1.Coin.fromJSON(e)) : [],
+            acceptedCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.acceptedCoins) ? object.acceptedCoins.map((e) => coin_1.Coin.fromJSON(e)) : [],
+            mintedPoolCoin: isSet(object.mintedPoolCoin) ? coin_1.Coin.fromJSON(object.mintedPoolCoin) : undefined,
             status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
-        message.poolId !== undefined &&
-            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
-        message.msgHeight !== undefined &&
-            (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
+        message.id !== undefined && (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.poolId !== undefined && (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.msgHeight !== undefined && (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
         message.depositor !== undefined && (obj.depositor = message.depositor);
         if (message.depositCoins) {
             obj.depositCoins = message.depositCoins.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
@@ -775,44 +818,32 @@ exports.DepositRequest = {
             obj.acceptedCoins = [];
         }
         message.mintedPoolCoin !== undefined &&
-            (obj.mintedPoolCoin = message.mintedPoolCoin
-                ? coin_1.Coin.toJSON(message.mintedPoolCoin)
-                : undefined);
-        message.status !== undefined &&
-            (obj.status = requestStatusToJSON(message.status));
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+            (obj.mintedPoolCoin = message.mintedPoolCoin ? coin_1.Coin.toJSON(message.mintedPoolCoin) : undefined);
+        message.status !== undefined && (obj.status = requestStatusToJSON(message.status));
+        message.appId !== undefined && (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.DepositRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d;
         const message = createBaseDepositRequest();
-        message.id =
-            object.id !== undefined && object.id !== null
-                ? long_1.default.fromValue(object.id)
-                : long_1.default.UZERO;
-        message.poolId =
-            object.poolId !== undefined && object.poolId !== null
-                ? long_1.default.fromValue(object.poolId)
-                : long_1.default.UZERO;
-        message.msgHeight =
-            object.msgHeight !== undefined && object.msgHeight !== null
-                ? long_1.default.fromValue(object.msgHeight)
-                : long_1.default.ZERO;
+        message.id = (object.id !== undefined && object.id !== null) ? long_1.default.fromValue(object.id) : long_1.default.UZERO;
+        message.poolId = (object.poolId !== undefined && object.poolId !== null)
+            ? long_1.default.fromValue(object.poolId)
+            : long_1.default.UZERO;
+        message.msgHeight = (object.msgHeight !== undefined && object.msgHeight !== null)
+            ? long_1.default.fromValue(object.msgHeight)
+            : long_1.default.ZERO;
         message.depositor = (_a = object.depositor) !== null && _a !== void 0 ? _a : "";
-        message.depositCoins =
-            ((_b = object.depositCoins) === null || _b === void 0 ? void 0 : _b.map((e) => coin_1.Coin.fromPartial(e))) || [];
-        message.acceptedCoins =
-            ((_c = object.acceptedCoins) === null || _c === void 0 ? void 0 : _c.map((e) => coin_1.Coin.fromPartial(e))) || [];
-        message.mintedPoolCoin =
-            object.mintedPoolCoin !== undefined && object.mintedPoolCoin !== null
-                ? coin_1.Coin.fromPartial(object.mintedPoolCoin)
-                : undefined;
+        message.depositCoins = ((_b = object.depositCoins) === null || _b === void 0 ? void 0 : _b.map((e) => coin_1.Coin.fromPartial(e))) || [];
+        message.acceptedCoins = ((_c = object.acceptedCoins) === null || _c === void 0 ? void 0 : _c.map((e) => coin_1.Coin.fromPartial(e))) || [];
+        message.mintedPoolCoin = (object.mintedPoolCoin !== undefined && object.mintedPoolCoin !== null)
+            ? coin_1.Coin.fromPartial(object.mintedPoolCoin)
+            : undefined;
         message.status = (_d = object.status) !== null && _d !== void 0 ? _d : 0;
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
+        message.appId = (object.appId !== undefined && object.appId !== null) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO;
         return message;
     },
 };
@@ -829,7 +860,7 @@ function createBaseWithdrawRequest() {
     };
 }
 exports.WithdrawRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -857,7 +888,7 @@ exports.WithdrawRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseWithdrawRequest();
         while (reader.pos < end) {
@@ -896,76 +927,55 @@ exports.WithdrawRequest = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
-            msgHeight: isSet(object.msgHeight)
-                ? long_1.default.fromString(object.msgHeight)
-                : long_1.default.ZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            msgHeight: isSet(object.msgHeight) ? long_1.default.fromValue(object.msgHeight) : long_1.default.ZERO,
             withdrawer: isSet(object.withdrawer) ? String(object.withdrawer) : "",
-            poolCoin: isSet(object.poolCoin)
-                ? coin_1.Coin.fromJSON(object.poolCoin)
-                : undefined,
+            poolCoin: isSet(object.poolCoin) ? coin_1.Coin.fromJSON(object.poolCoin) : undefined,
             withdrawnCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.withdrawnCoins)
                 ? object.withdrawnCoins.map((e) => coin_1.Coin.fromJSON(e))
                 : [],
             status: isSet(object.status) ? requestStatusFromJSON(object.status) : 0,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
-        message.poolId !== undefined &&
-            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
-        message.msgHeight !== undefined &&
-            (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
+        message.id !== undefined && (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.poolId !== undefined && (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.msgHeight !== undefined && (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
         message.withdrawer !== undefined && (obj.withdrawer = message.withdrawer);
-        message.poolCoin !== undefined &&
-            (obj.poolCoin = message.poolCoin
-                ? coin_1.Coin.toJSON(message.poolCoin)
-                : undefined);
+        message.poolCoin !== undefined && (obj.poolCoin = message.poolCoin ? coin_1.Coin.toJSON(message.poolCoin) : undefined);
         if (message.withdrawnCoins) {
             obj.withdrawnCoins = message.withdrawnCoins.map((e) => e ? coin_1.Coin.toJSON(e) : undefined);
         }
         else {
             obj.withdrawnCoins = [];
         }
-        message.status !== undefined &&
-            (obj.status = requestStatusToJSON(message.status));
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.status !== undefined && (obj.status = requestStatusToJSON(message.status));
+        message.appId !== undefined && (obj.appId = (message.appId || long_1.default.UZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.WithdrawRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c;
         const message = createBaseWithdrawRequest();
-        message.id =
-            object.id !== undefined && object.id !== null
-                ? long_1.default.fromValue(object.id)
-                : long_1.default.UZERO;
-        message.poolId =
-            object.poolId !== undefined && object.poolId !== null
-                ? long_1.default.fromValue(object.poolId)
-                : long_1.default.UZERO;
-        message.msgHeight =
-            object.msgHeight !== undefined && object.msgHeight !== null
-                ? long_1.default.fromValue(object.msgHeight)
-                : long_1.default.ZERO;
+        message.id = (object.id !== undefined && object.id !== null) ? long_1.default.fromValue(object.id) : long_1.default.UZERO;
+        message.poolId = (object.poolId !== undefined && object.poolId !== null)
+            ? long_1.default.fromValue(object.poolId)
+            : long_1.default.UZERO;
+        message.msgHeight = (object.msgHeight !== undefined && object.msgHeight !== null)
+            ? long_1.default.fromValue(object.msgHeight)
+            : long_1.default.ZERO;
         message.withdrawer = (_a = object.withdrawer) !== null && _a !== void 0 ? _a : "";
-        message.poolCoin =
-            object.poolCoin !== undefined && object.poolCoin !== null
-                ? coin_1.Coin.fromPartial(object.poolCoin)
-                : undefined;
-        message.withdrawnCoins =
-            ((_b = object.withdrawnCoins) === null || _b === void 0 ? void 0 : _b.map((e) => coin_1.Coin.fromPartial(e))) || [];
+        message.poolCoin = (object.poolCoin !== undefined && object.poolCoin !== null)
+            ? coin_1.Coin.fromPartial(object.poolCoin)
+            : undefined;
+        message.withdrawnCoins = ((_b = object.withdrawnCoins) === null || _b === void 0 ? void 0 : _b.map((e) => coin_1.Coin.fromPartial(e))) || [];
         message.status = (_c = object.status) !== null && _c !== void 0 ? _c : 0;
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
+        message.appId = (object.appId !== undefined && object.appId !== null) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO;
         return message;
     },
 };
@@ -990,7 +1000,7 @@ function createBaseOrder() {
     };
 }
 exports.Order = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).uint64(message.id);
         }
@@ -1042,7 +1052,7 @@ exports.Order = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseOrder();
         while (reader.pos < end) {
@@ -1105,120 +1115,79 @@ exports.Order = {
     },
     fromJSON(object) {
         return {
-            id: isSet(object.id) ? long_1.default.fromString(object.id) : long_1.default.UZERO,
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
-            msgHeight: isSet(object.msgHeight)
-                ? long_1.default.fromString(object.msgHeight)
-                : long_1.default.ZERO,
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            msgHeight: isSet(object.msgHeight) ? long_1.default.fromValue(object.msgHeight) : long_1.default.ZERO,
             orderer: isSet(object.orderer) ? String(object.orderer) : "",
-            direction: isSet(object.direction)
-                ? orderDirectionFromJSON(object.direction)
-                : 0,
-            offerCoin: isSet(object.offerCoin)
-                ? coin_1.Coin.fromJSON(object.offerCoin)
-                : undefined,
-            remainingOfferCoin: isSet(object.remainingOfferCoin)
-                ? coin_1.Coin.fromJSON(object.remainingOfferCoin)
-                : undefined,
-            receivedCoin: isSet(object.receivedCoin)
-                ? coin_1.Coin.fromJSON(object.receivedCoin)
-                : undefined,
+            direction: isSet(object.direction) ? orderDirectionFromJSON(object.direction) : 0,
+            offerCoin: isSet(object.offerCoin) ? coin_1.Coin.fromJSON(object.offerCoin) : undefined,
+            remainingOfferCoin: isSet(object.remainingOfferCoin) ? coin_1.Coin.fromJSON(object.remainingOfferCoin) : undefined,
+            receivedCoin: isSet(object.receivedCoin) ? coin_1.Coin.fromJSON(object.receivedCoin) : undefined,
             price: isSet(object.price) ? String(object.price) : "",
             amount: isSet(object.amount) ? String(object.amount) : "",
             openAmount: isSet(object.openAmount) ? String(object.openAmount) : "",
-            batchId: isSet(object.batchId)
-                ? long_1.default.fromString(object.batchId)
-                : long_1.default.UZERO,
-            expireAt: isSet(object.expireAt)
-                ? fromJsonTimestamp(object.expireAt)
-                : undefined,
+            batchId: isSet(object.batchId) ? long_1.default.fromValue(object.batchId) : long_1.default.UZERO,
+            expireAt: isSet(object.expireAt) ? fromJsonTimestamp(object.expireAt) : undefined,
             status: isSet(object.status) ? orderStatusFromJSON(object.status) : 0,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
             type: isSet(object.type) ? orderTypeFromJSON(object.type) : 0,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.id !== undefined &&
-            (obj.id = (message.id || long_1.default.UZERO).toString());
-        message.pairId !== undefined &&
-            (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
-        message.msgHeight !== undefined &&
-            (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
+        message.id !== undefined && (obj.id = (message.id || long_1.default.UZERO).toString());
+        message.pairId !== undefined && (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
+        message.msgHeight !== undefined && (obj.msgHeight = (message.msgHeight || long_1.default.ZERO).toString());
         message.orderer !== undefined && (obj.orderer = message.orderer);
-        message.direction !== undefined &&
-            (obj.direction = orderDirectionToJSON(message.direction));
-        message.offerCoin !== undefined &&
-            (obj.offerCoin = message.offerCoin
-                ? coin_1.Coin.toJSON(message.offerCoin)
-                : undefined);
+        message.direction !== undefined && (obj.direction = orderDirectionToJSON(message.direction));
+        message.offerCoin !== undefined && (obj.offerCoin = message.offerCoin ? coin_1.Coin.toJSON(message.offerCoin) : undefined);
         message.remainingOfferCoin !== undefined &&
-            (obj.remainingOfferCoin = message.remainingOfferCoin
-                ? coin_1.Coin.toJSON(message.remainingOfferCoin)
-                : undefined);
+            (obj.remainingOfferCoin = message.remainingOfferCoin ? coin_1.Coin.toJSON(message.remainingOfferCoin) : undefined);
         message.receivedCoin !== undefined &&
-            (obj.receivedCoin = message.receivedCoin
-                ? coin_1.Coin.toJSON(message.receivedCoin)
-                : undefined);
+            (obj.receivedCoin = message.receivedCoin ? coin_1.Coin.toJSON(message.receivedCoin) : undefined);
         message.price !== undefined && (obj.price = message.price);
         message.amount !== undefined && (obj.amount = message.amount);
         message.openAmount !== undefined && (obj.openAmount = message.openAmount);
-        message.batchId !== undefined &&
-            (obj.batchId = (message.batchId || long_1.default.UZERO).toString());
-        message.expireAt !== undefined &&
-            (obj.expireAt = message.expireAt.toISOString());
-        message.status !== undefined &&
-            (obj.status = orderStatusToJSON(message.status));
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.batchId !== undefined && (obj.batchId = (message.batchId || long_1.default.UZERO).toString());
+        message.expireAt !== undefined && (obj.expireAt = message.expireAt.toISOString());
+        message.status !== undefined && (obj.status = orderStatusToJSON(message.status));
+        message.appId !== undefined && (obj.appId = (message.appId || long_1.default.UZERO).toString());
         message.type !== undefined && (obj.type = orderTypeToJSON(message.type));
         return obj;
+    },
+    create(base) {
+        return exports.Order.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         const message = createBaseOrder();
-        message.id =
-            object.id !== undefined && object.id !== null
-                ? long_1.default.fromValue(object.id)
-                : long_1.default.UZERO;
-        message.pairId =
-            object.pairId !== undefined && object.pairId !== null
-                ? long_1.default.fromValue(object.pairId)
-                : long_1.default.UZERO;
-        message.msgHeight =
-            object.msgHeight !== undefined && object.msgHeight !== null
-                ? long_1.default.fromValue(object.msgHeight)
-                : long_1.default.ZERO;
+        message.id = (object.id !== undefined && object.id !== null) ? long_1.default.fromValue(object.id) : long_1.default.UZERO;
+        message.pairId = (object.pairId !== undefined && object.pairId !== null)
+            ? long_1.default.fromValue(object.pairId)
+            : long_1.default.UZERO;
+        message.msgHeight = (object.msgHeight !== undefined && object.msgHeight !== null)
+            ? long_1.default.fromValue(object.msgHeight)
+            : long_1.default.ZERO;
         message.orderer = (_a = object.orderer) !== null && _a !== void 0 ? _a : "";
         message.direction = (_b = object.direction) !== null && _b !== void 0 ? _b : 0;
-        message.offerCoin =
-            object.offerCoin !== undefined && object.offerCoin !== null
-                ? coin_1.Coin.fromPartial(object.offerCoin)
-                : undefined;
-        message.remainingOfferCoin =
-            object.remainingOfferCoin !== undefined &&
-                object.remainingOfferCoin !== null
-                ? coin_1.Coin.fromPartial(object.remainingOfferCoin)
-                : undefined;
-        message.receivedCoin =
-            object.receivedCoin !== undefined && object.receivedCoin !== null
-                ? coin_1.Coin.fromPartial(object.receivedCoin)
-                : undefined;
+        message.offerCoin = (object.offerCoin !== undefined && object.offerCoin !== null)
+            ? coin_1.Coin.fromPartial(object.offerCoin)
+            : undefined;
+        message.remainingOfferCoin = (object.remainingOfferCoin !== undefined && object.remainingOfferCoin !== null)
+            ? coin_1.Coin.fromPartial(object.remainingOfferCoin)
+            : undefined;
+        message.receivedCoin = (object.receivedCoin !== undefined && object.receivedCoin !== null)
+            ? coin_1.Coin.fromPartial(object.receivedCoin)
+            : undefined;
         message.price = (_c = object.price) !== null && _c !== void 0 ? _c : "";
         message.amount = (_d = object.amount) !== null && _d !== void 0 ? _d : "";
         message.openAmount = (_e = object.openAmount) !== null && _e !== void 0 ? _e : "";
-        message.batchId =
-            object.batchId !== undefined && object.batchId !== null
-                ? long_1.default.fromValue(object.batchId)
-                : long_1.default.UZERO;
+        message.batchId = (object.batchId !== undefined && object.batchId !== null)
+            ? long_1.default.fromValue(object.batchId)
+            : long_1.default.UZERO;
         message.expireAt = (_f = object.expireAt) !== null && _f !== void 0 ? _f : undefined;
         message.status = (_g = object.status) !== null && _g !== void 0 ? _g : 0;
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
+        message.appId = (object.appId !== undefined && object.appId !== null) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO;
         message.type = (_h = object.type) !== null && _h !== void 0 ? _h : 0;
         return message;
     },
@@ -1227,7 +1196,7 @@ function createBaseMMOrderIndex() {
     return { orderer: "", appId: long_1.default.UZERO, pairId: long_1.default.UZERO, orderIds: [] };
 }
 exports.MMOrderIndex = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.orderer !== "") {
             writer.uint32(10).string(message.orderer);
         }
@@ -1245,7 +1214,7 @@ exports.MMOrderIndex = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMMOrderIndex();
         while (reader.pos < end) {
@@ -1281,22 +1250,16 @@ exports.MMOrderIndex = {
     fromJSON(object) {
         return {
             orderer: isSet(object.orderer) ? String(object.orderer) : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
-            orderIds: Array.isArray(object === null || object === void 0 ? void 0 : object.orderIds)
-                ? object.orderIds.map((e) => long_1.default.fromString(e))
-                : [],
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            orderIds: Array.isArray(object === null || object === void 0 ? void 0 : object.orderIds) ? object.orderIds.map((e) => long_1.default.fromValue(e)) : [],
         };
     },
     toJSON(message) {
         const obj = {};
         message.orderer !== undefined && (obj.orderer = message.orderer);
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        message.pairId !== undefined &&
-            (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
+        message.appId !== undefined && (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.pairId !== undefined && (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
         if (message.orderIds) {
             obj.orderIds = message.orderIds.map((e) => (e || long_1.default.UZERO).toString());
         }
@@ -1305,32 +1268,26 @@ exports.MMOrderIndex = {
         }
         return obj;
     },
+    create(base) {
+        return exports.MMOrderIndex.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b;
         const message = createBaseMMOrderIndex();
         message.orderer = (_a = object.orderer) !== null && _a !== void 0 ? _a : "";
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        message.pairId =
-            object.pairId !== undefined && object.pairId !== null
-                ? long_1.default.fromValue(object.pairId)
-                : long_1.default.UZERO;
+        message.appId = (object.appId !== undefined && object.appId !== null) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO;
+        message.pairId = (object.pairId !== undefined && object.pairId !== null)
+            ? long_1.default.fromValue(object.pairId)
+            : long_1.default.UZERO;
         message.orderIds = ((_b = object.orderIds) === null || _b === void 0 ? void 0 : _b.map((e) => long_1.default.fromValue(e))) || [];
         return message;
     },
 };
 function createBaseActiveFarmer() {
-    return {
-        appId: long_1.default.UZERO,
-        poolId: long_1.default.UZERO,
-        farmer: "",
-        farmedPoolCoin: undefined,
-    };
+    return { appId: long_1.default.UZERO, poolId: long_1.default.UZERO, farmer: "", farmedPoolCoin: undefined };
 }
 exports.ActiveFarmer = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -1346,7 +1303,7 @@ exports.ActiveFarmer = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseActiveFarmer();
         while (reader.pos < end) {
@@ -1373,45 +1330,35 @@ exports.ActiveFarmer = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             farmer: isSet(object.farmer) ? String(object.farmer) : "",
-            farmedPoolCoin: isSet(object.farmedPoolCoin)
-                ? coin_1.Coin.fromJSON(object.farmedPoolCoin)
-                : undefined,
+            farmedPoolCoin: isSet(object.farmedPoolCoin) ? coin_1.Coin.fromJSON(object.farmedPoolCoin) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        message.poolId !== undefined &&
-            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.appId !== undefined && (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.poolId !== undefined && (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
         message.farmer !== undefined && (obj.farmer = message.farmer);
         message.farmedPoolCoin !== undefined &&
-            (obj.farmedPoolCoin = message.farmedPoolCoin
-                ? coin_1.Coin.toJSON(message.farmedPoolCoin)
-                : undefined);
+            (obj.farmedPoolCoin = message.farmedPoolCoin ? coin_1.Coin.toJSON(message.farmedPoolCoin) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.ActiveFarmer.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
         const message = createBaseActiveFarmer();
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        message.poolId =
-            object.poolId !== undefined && object.poolId !== null
-                ? long_1.default.fromValue(object.poolId)
-                : long_1.default.UZERO;
+        message.appId = (object.appId !== undefined && object.appId !== null) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO;
+        message.poolId = (object.poolId !== undefined && object.poolId !== null)
+            ? long_1.default.fromValue(object.poolId)
+            : long_1.default.UZERO;
         message.farmer = (_a = object.farmer) !== null && _a !== void 0 ? _a : "";
-        message.farmedPoolCoin =
-            object.farmedPoolCoin !== undefined && object.farmedPoolCoin !== null
-                ? coin_1.Coin.fromPartial(object.farmedPoolCoin)
-                : undefined;
+        message.farmedPoolCoin = (object.farmedPoolCoin !== undefined && object.farmedPoolCoin !== null)
+            ? coin_1.Coin.fromPartial(object.farmedPoolCoin)
+            : undefined;
         return message;
     },
 };
@@ -1419,7 +1366,7 @@ function createBaseQueuedCoin() {
     return { farmedPoolCoin: undefined, createdAt: undefined };
 }
 exports.QueuedCoin = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.farmedPoolCoin !== undefined) {
             coin_1.Coin.encode(message.farmedPoolCoin, writer.uint32(10).fork()).ldelim();
         }
@@ -1429,7 +1376,7 @@ exports.QueuedCoin = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueuedCoin();
         while (reader.pos < end) {
@@ -1450,31 +1397,26 @@ exports.QueuedCoin = {
     },
     fromJSON(object) {
         return {
-            farmedPoolCoin: isSet(object.farmedPoolCoin)
-                ? coin_1.Coin.fromJSON(object.farmedPoolCoin)
-                : undefined,
-            createdAt: isSet(object.createdAt)
-                ? fromJsonTimestamp(object.createdAt)
-                : undefined,
+            farmedPoolCoin: isSet(object.farmedPoolCoin) ? coin_1.Coin.fromJSON(object.farmedPoolCoin) : undefined,
+            createdAt: isSet(object.createdAt) ? fromJsonTimestamp(object.createdAt) : undefined,
         };
     },
     toJSON(message) {
         const obj = {};
         message.farmedPoolCoin !== undefined &&
-            (obj.farmedPoolCoin = message.farmedPoolCoin
-                ? coin_1.Coin.toJSON(message.farmedPoolCoin)
-                : undefined);
-        message.createdAt !== undefined &&
-            (obj.createdAt = message.createdAt.toISOString());
+            (obj.farmedPoolCoin = message.farmedPoolCoin ? coin_1.Coin.toJSON(message.farmedPoolCoin) : undefined);
+        message.createdAt !== undefined && (obj.createdAt = message.createdAt.toISOString());
         return obj;
+    },
+    create(base) {
+        return exports.QueuedCoin.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
         const message = createBaseQueuedCoin();
-        message.farmedPoolCoin =
-            object.farmedPoolCoin !== undefined && object.farmedPoolCoin !== null
-                ? coin_1.Coin.fromPartial(object.farmedPoolCoin)
-                : undefined;
+        message.farmedPoolCoin = (object.farmedPoolCoin !== undefined && object.farmedPoolCoin !== null)
+            ? coin_1.Coin.fromPartial(object.farmedPoolCoin)
+            : undefined;
         message.createdAt = (_a = object.createdAt) !== null && _a !== void 0 ? _a : undefined;
         return message;
     },
@@ -1483,7 +1425,7 @@ function createBaseQueuedFarmer() {
     return { appId: long_1.default.UZERO, poolId: long_1.default.UZERO, farmer: "", queudCoins: [] };
 }
 exports.QueuedFarmer = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -1499,7 +1441,7 @@ exports.QueuedFarmer = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueuedFarmer();
         while (reader.pos < end) {
@@ -1526,22 +1468,16 @@ exports.QueuedFarmer = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             farmer: isSet(object.farmer) ? String(object.farmer) : "",
-            queudCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.queudCoins)
-                ? object.queudCoins.map((e) => exports.QueuedCoin.fromJSON(e))
-                : [],
+            queudCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.queudCoins) ? object.queudCoins.map((e) => exports.QueuedCoin.fromJSON(e)) : [],
         };
     },
     toJSON(message) {
         const obj = {};
-        message.appId !== undefined &&
-            (obj.appId = (message.appId || long_1.default.UZERO).toString());
-        message.poolId !== undefined &&
-            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.appId !== undefined && (obj.appId = (message.appId || long_1.default.UZERO).toString());
+        message.poolId !== undefined && (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
         message.farmer !== undefined && (obj.farmer = message.farmer);
         if (message.queudCoins) {
             obj.queudCoins = message.queudCoins.map((e) => e ? exports.QueuedCoin.toJSON(e) : undefined);
@@ -1551,20 +1487,18 @@ exports.QueuedFarmer = {
         }
         return obj;
     },
+    create(base) {
+        return exports.QueuedFarmer.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b;
         const message = createBaseQueuedFarmer();
-        message.appId =
-            object.appId !== undefined && object.appId !== null
-                ? long_1.default.fromValue(object.appId)
-                : long_1.default.UZERO;
-        message.poolId =
-            object.poolId !== undefined && object.poolId !== null
-                ? long_1.default.fromValue(object.poolId)
-                : long_1.default.UZERO;
+        message.appId = (object.appId !== undefined && object.appId !== null) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO;
+        message.poolId = (object.poolId !== undefined && object.poolId !== null)
+            ? long_1.default.fromValue(object.poolId)
+            : long_1.default.UZERO;
         message.farmer = (_a = object.farmer) !== null && _a !== void 0 ? _a : "";
-        message.queudCoins =
-            ((_b = object.queudCoins) === null || _b === void 0 ? void 0 : _b.map((e) => exports.QueuedCoin.fromPartial(e))) || [];
+        message.queudCoins = ((_b = object.queudCoins) === null || _b === void 0 ? void 0 : _b.map((e) => exports.QueuedCoin.fromPartial(e))) || [];
         return message;
     },
 };
@@ -1592,9 +1526,9 @@ function fromJsonTimestamp(o) {
 function numberToLong(number) {
     return long_1.default.fromNumber(number);
 }
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
