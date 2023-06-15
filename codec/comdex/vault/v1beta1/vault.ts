@@ -62,6 +62,14 @@ export interface PairStatisticData {
   extendedPairVaultId: Long;
 }
 
+export interface StableMintVaultRewards {
+  appId: Long;
+  stableExtendedPairId: Long;
+  user: string;
+  blockHeight: Long;
+  amount: string;
+}
+
 function createBaseVault(): Vault {
   return {
     id: Long.UZERO,
@@ -869,6 +877,124 @@ export const PairStatisticData = {
       object.extendedPairVaultId !== null
         ? Long.fromValue(object.extendedPairVaultId)
         : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseStableMintVaultRewards(): StableMintVaultRewards {
+  return {
+    appId: Long.UZERO,
+    stableExtendedPairId: Long.UZERO,
+    user: "",
+    blockHeight: Long.UZERO,
+    amount: "",
+  };
+}
+
+export const StableMintVaultRewards = {
+  encode(
+    message: StableMintVaultRewards,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.appId.isZero()) {
+      writer.uint32(8).uint64(message.appId);
+    }
+    if (!message.stableExtendedPairId.isZero()) {
+      writer.uint32(16).uint64(message.stableExtendedPairId);
+    }
+    if (message.user !== "") {
+      writer.uint32(26).string(message.user);
+    }
+    if (!message.blockHeight.isZero()) {
+      writer.uint32(32).uint64(message.blockHeight);
+    }
+    if (message.amount !== "") {
+      writer.uint32(42).string(message.amount);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): StableMintVaultRewards {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseStableMintVaultRewards();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.appId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.stableExtendedPairId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.user = reader.string();
+          break;
+        case 4:
+          message.blockHeight = reader.uint64() as Long;
+          break;
+        case 5:
+          message.amount = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): StableMintVaultRewards {
+    return {
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+      stableExtendedPairId: isSet(object.stableExtendedPairId)
+        ? Long.fromValue(object.stableExtendedPairId)
+        : Long.UZERO,
+      user: isSet(object.user) ? String(object.user) : "",
+      blockHeight: isSet(object.blockHeight)
+        ? Long.fromValue(object.blockHeight)
+        : Long.UZERO,
+      amount: isSet(object.amount) ? String(object.amount) : "",
+    };
+  },
+
+  toJSON(message: StableMintVaultRewards): unknown {
+    const obj: any = {};
+    message.appId !== undefined &&
+      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.stableExtendedPairId !== undefined &&
+      (obj.stableExtendedPairId = (
+        message.stableExtendedPairId || Long.UZERO
+      ).toString());
+    message.user !== undefined && (obj.user = message.user);
+    message.blockHeight !== undefined &&
+      (obj.blockHeight = (message.blockHeight || Long.UZERO).toString());
+    message.amount !== undefined && (obj.amount = message.amount);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<StableMintVaultRewards>, I>>(
+    object: I
+  ): StableMintVaultRewards {
+    const message = createBaseStableMintVaultRewards();
+    message.appId =
+      object.appId !== undefined && object.appId !== null
+        ? Long.fromValue(object.appId)
+        : Long.UZERO;
+    message.stableExtendedPairId =
+      object.stableExtendedPairId !== undefined &&
+      object.stableExtendedPairId !== null
+        ? Long.fromValue(object.stableExtendedPairId)
+        : Long.UZERO;
+    message.user = object.user ?? "";
+    message.blockHeight =
+      object.blockHeight !== undefined && object.blockHeight !== null
+        ? Long.fromValue(object.blockHeight)
+        : Long.UZERO;
+    message.amount = object.amount ?? "";
     return message;
   },
 };

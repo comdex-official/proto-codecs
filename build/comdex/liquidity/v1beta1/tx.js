@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -6,9 +29,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MsgClientImpl = exports.MsgUnfarmResponse = exports.MsgUnfarm = exports.MsgFarmResponse = exports.MsgFarm = exports.MsgCancelMMOrderResponse = exports.MsgCancelMMOrder = exports.MsgCancelAllOrdersResponse = exports.MsgCancelAllOrders = exports.MsgCancelOrderResponse = exports.MsgCancelOrder = exports.MsgMMOrderResponse = exports.MsgMMOrder = exports.MsgMarketOrderResponse = exports.MsgMarketOrder = exports.MsgLimitOrderResponse = exports.MsgLimitOrder = exports.MsgWithdrawResponse = exports.MsgWithdraw = exports.MsgDepositResponse = exports.MsgDeposit = exports.MsgCreateRangedPoolResponse = exports.MsgCreateRangedPool = exports.MsgCreatePoolResponse = exports.MsgCreatePool = exports.MsgCreatePairResponse = exports.MsgCreatePair = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const minimal_1 = __importDefault(require("protobufjs/minimal"));
+const _m0 = __importStar(require("protobufjs/minimal"));
 const coin_1 = require("../../../cosmos/base/v1beta1/coin");
-const liquidity_1 = require("./liquidity");
+const liquidity_1 = require("../../../comdex/liquidity/v1beta1/liquidity");
 const duration_1 = require("../../../google/protobuf/duration");
 exports.protobufPackage = "comdex.liquidity.v1beta1";
 function createBaseMsgCreatePair() {
@@ -20,7 +43,7 @@ function createBaseMsgCreatePair() {
     };
 }
 exports.MsgCreatePair = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
         }
@@ -36,7 +59,7 @@ exports.MsgCreatePair = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCreatePair();
         while (reader.pos < end) {
@@ -70,7 +93,7 @@ exports.MsgCreatePair = {
             quoteCoinDenom: isSet(object.quoteCoinDenom)
                 ? String(object.quoteCoinDenom)
                 : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -101,11 +124,11 @@ function createBaseMsgCreatePairResponse() {
     return {};
 }
 exports.MsgCreatePairResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCreatePairResponse();
         while (reader.pos < end) {
@@ -139,7 +162,7 @@ function createBaseMsgCreatePool() {
     };
 }
 exports.MsgCreatePool = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
         }
@@ -155,7 +178,7 @@ exports.MsgCreatePool = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCreatePool();
         while (reader.pos < end) {
@@ -183,13 +206,11 @@ exports.MsgCreatePool = {
     fromJSON(object) {
         return {
             creator: isSet(object.creator) ? String(object.creator) : "",
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             depositCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.depositCoins)
                 ? object.depositCoins.map((e) => coin_1.Coin.fromJSON(e))
                 : [],
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -228,11 +249,11 @@ function createBaseMsgCreatePoolResponse() {
     return {};
 }
 exports.MsgCreatePoolResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCreatePoolResponse();
         while (reader.pos < end) {
@@ -269,7 +290,7 @@ function createBaseMsgCreateRangedPool() {
     };
 }
 exports.MsgCreateRangedPool = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.creator !== "") {
             writer.uint32(10).string(message.creator);
         }
@@ -294,7 +315,7 @@ exports.MsgCreateRangedPool = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCreateRangedPool();
         while (reader.pos < end) {
@@ -331,10 +352,8 @@ exports.MsgCreateRangedPool = {
     fromJSON(object) {
         return {
             creator: isSet(object.creator) ? String(object.creator) : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             depositCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.depositCoins)
                 ? object.depositCoins.map((e) => coin_1.Coin.fromJSON(e))
                 : [],
@@ -388,11 +407,11 @@ function createBaseMsgCreateRangedPoolResponse() {
     return {};
 }
 exports.MsgCreateRangedPoolResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCreateRangedPoolResponse();
         while (reader.pos < end) {
@@ -426,7 +445,7 @@ function createBaseMsgDeposit() {
     };
 }
 exports.MsgDeposit = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.depositor !== "") {
             writer.uint32(10).string(message.depositor);
         }
@@ -442,7 +461,7 @@ exports.MsgDeposit = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgDeposit();
         while (reader.pos < end) {
@@ -470,13 +489,11 @@ exports.MsgDeposit = {
     fromJSON(object) {
         return {
             depositor: isSet(object.depositor) ? String(object.depositor) : "",
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             depositCoins: Array.isArray(object === null || object === void 0 ? void 0 : object.depositCoins)
                 ? object.depositCoins.map((e) => coin_1.Coin.fromJSON(e))
                 : [],
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -515,11 +532,11 @@ function createBaseMsgDepositResponse() {
     return {};
 }
 exports.MsgDepositResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgDepositResponse();
         while (reader.pos < end) {
@@ -553,7 +570,7 @@ function createBaseMsgWithdraw() {
     };
 }
 exports.MsgWithdraw = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.withdrawer !== "") {
             writer.uint32(10).string(message.withdrawer);
         }
@@ -569,7 +586,7 @@ exports.MsgWithdraw = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWithdraw();
         while (reader.pos < end) {
@@ -597,13 +614,11 @@ exports.MsgWithdraw = {
     fromJSON(object) {
         return {
             withdrawer: isSet(object.withdrawer) ? String(object.withdrawer) : "",
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             poolCoin: isSet(object.poolCoin)
                 ? coin_1.Coin.fromJSON(object.poolCoin)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -642,11 +657,11 @@ function createBaseMsgWithdrawResponse() {
     return {};
 }
 exports.MsgWithdrawResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWithdrawResponse();
         while (reader.pos < end) {
@@ -685,7 +700,7 @@ function createBaseMsgLimitOrder() {
     };
 }
 exports.MsgLimitOrder = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.orderer !== "") {
             writer.uint32(10).string(message.orderer);
         }
@@ -716,7 +731,7 @@ exports.MsgLimitOrder = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgLimitOrder();
         while (reader.pos < end) {
@@ -759,9 +774,7 @@ exports.MsgLimitOrder = {
     fromJSON(object) {
         return {
             orderer: isSet(object.orderer) ? String(object.orderer) : "",
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             direction: isSet(object.direction)
                 ? (0, liquidity_1.orderDirectionFromJSON)(object.direction)
                 : 0,
@@ -776,7 +789,7 @@ exports.MsgLimitOrder = {
             orderLifespan: isSet(object.orderLifespan)
                 ? duration_1.Duration.fromJSON(object.orderLifespan)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -833,11 +846,11 @@ function createBaseMsgLimitOrderResponse() {
     return {};
 }
 exports.MsgLimitOrderResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgLimitOrderResponse();
         while (reader.pos < end) {
@@ -875,7 +888,7 @@ function createBaseMsgMarketOrder() {
     };
 }
 exports.MsgMarketOrder = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.orderer !== "") {
             writer.uint32(10).string(message.orderer);
         }
@@ -903,7 +916,7 @@ exports.MsgMarketOrder = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgMarketOrder();
         while (reader.pos < end) {
@@ -943,9 +956,7 @@ exports.MsgMarketOrder = {
     fromJSON(object) {
         return {
             orderer: isSet(object.orderer) ? String(object.orderer) : "",
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             direction: isSet(object.direction)
                 ? (0, liquidity_1.orderDirectionFromJSON)(object.direction)
                 : 0,
@@ -959,7 +970,7 @@ exports.MsgMarketOrder = {
             orderLifespan: isSet(object.orderLifespan)
                 ? duration_1.Duration.fromJSON(object.orderLifespan)
                 : undefined,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1014,11 +1025,11 @@ function createBaseMsgMarketOrderResponse() {
     return {};
 }
 exports.MsgMarketOrderResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgMarketOrderResponse();
         while (reader.pos < end) {
@@ -1058,7 +1069,7 @@ function createBaseMsgMMOrder() {
     };
 }
 exports.MsgMMOrder = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.orderer !== "") {
             writer.uint32(10).string(message.orderer);
         }
@@ -1092,7 +1103,7 @@ exports.MsgMMOrder = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgMMOrder();
         while (reader.pos < end) {
@@ -1138,10 +1149,8 @@ exports.MsgMMOrder = {
     fromJSON(object) {
         return {
             orderer: isSet(object.orderer) ? String(object.orderer) : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             maxSellPrice: isSet(object.maxSellPrice)
                 ? String(object.maxSellPrice)
                 : "",
@@ -1209,11 +1218,11 @@ function createBaseMsgMMOrderResponse() {
     return {};
 }
 exports.MsgMMOrderResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgMMOrderResponse();
         while (reader.pos < end) {
@@ -1247,7 +1256,7 @@ function createBaseMsgCancelOrder() {
     };
 }
 exports.MsgCancelOrder = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.orderer !== "") {
             writer.uint32(10).string(message.orderer);
         }
@@ -1263,7 +1272,7 @@ exports.MsgCancelOrder = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCancelOrder();
         while (reader.pos < end) {
@@ -1291,13 +1300,11 @@ exports.MsgCancelOrder = {
     fromJSON(object) {
         return {
             orderer: isSet(object.orderer) ? String(object.orderer) : "",
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
             orderId: isSet(object.orderId)
-                ? long_1.default.fromString(object.orderId)
+                ? long_1.default.fromValue(object.orderId)
                 : long_1.default.UZERO,
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1334,11 +1341,11 @@ function createBaseMsgCancelOrderResponse() {
     return {};
 }
 exports.MsgCancelOrderResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCancelOrderResponse();
         while (reader.pos < end) {
@@ -1367,7 +1374,7 @@ function createBaseMsgCancelAllOrders() {
     return { orderer: "", pairIds: [], appId: long_1.default.UZERO };
 }
 exports.MsgCancelAllOrders = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.orderer !== "") {
             writer.uint32(10).string(message.orderer);
         }
@@ -1382,7 +1389,7 @@ exports.MsgCancelAllOrders = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCancelAllOrders();
         while (reader.pos < end) {
@@ -1416,9 +1423,9 @@ exports.MsgCancelAllOrders = {
         return {
             orderer: isSet(object.orderer) ? String(object.orderer) : "",
             pairIds: Array.isArray(object === null || object === void 0 ? void 0 : object.pairIds)
-                ? object.pairIds.map((e) => long_1.default.fromString(e))
+                ? object.pairIds.map((e) => long_1.default.fromValue(e))
                 : [],
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1450,11 +1457,11 @@ function createBaseMsgCancelAllOrdersResponse() {
     return {};
 }
 exports.MsgCancelAllOrdersResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCancelAllOrdersResponse();
         while (reader.pos < end) {
@@ -1483,7 +1490,7 @@ function createBaseMsgCancelMMOrder() {
     return { orderer: "", appId: long_1.default.UZERO, pairId: long_1.default.UZERO };
 }
 exports.MsgCancelMMOrder = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (message.orderer !== "") {
             writer.uint32(10).string(message.orderer);
         }
@@ -1496,7 +1503,7 @@ exports.MsgCancelMMOrder = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCancelMMOrder();
         while (reader.pos < end) {
@@ -1521,10 +1528,8 @@ exports.MsgCancelMMOrder = {
     fromJSON(object) {
         return {
             orderer: isSet(object.orderer) ? String(object.orderer) : "",
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
-            pairId: isSet(object.pairId)
-                ? long_1.default.fromString(object.pairId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -1555,11 +1560,11 @@ function createBaseMsgCancelMMOrderResponse() {
     return {};
 }
 exports.MsgCancelMMOrderResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCancelMMOrderResponse();
         while (reader.pos < end) {
@@ -1593,7 +1598,7 @@ function createBaseMsgFarm() {
     };
 }
 exports.MsgFarm = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -1609,7 +1614,7 @@ exports.MsgFarm = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgFarm();
         while (reader.pos < end) {
@@ -1636,10 +1641,8 @@ exports.MsgFarm = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             farmer: isSet(object.farmer) ? String(object.farmer) : "",
             farmingPoolCoin: isSet(object.farmingPoolCoin)
                 ? coin_1.Coin.fromJSON(object.farmingPoolCoin)
@@ -1682,11 +1685,11 @@ function createBaseMsgFarmResponse() {
     return {};
 }
 exports.MsgFarmResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgFarmResponse();
         while (reader.pos < end) {
@@ -1720,7 +1723,7 @@ function createBaseMsgUnfarm() {
     };
 }
 exports.MsgUnfarm = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
+    encode(message, writer = _m0.Writer.create()) {
         if (!message.appId.isZero()) {
             writer.uint32(8).uint64(message.appId);
         }
@@ -1736,7 +1739,7 @@ exports.MsgUnfarm = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgUnfarm();
         while (reader.pos < end) {
@@ -1763,10 +1766,8 @@ exports.MsgUnfarm = {
     },
     fromJSON(object) {
         return {
-            appId: isSet(object.appId) ? long_1.default.fromString(object.appId) : long_1.default.UZERO,
-            poolId: isSet(object.poolId)
-                ? long_1.default.fromString(object.poolId)
-                : long_1.default.UZERO,
+            appId: isSet(object.appId) ? long_1.default.fromValue(object.appId) : long_1.default.UZERO,
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
             farmer: isSet(object.farmer) ? String(object.farmer) : "",
             unfarmingPoolCoin: isSet(object.unfarmingPoolCoin)
                 ? coin_1.Coin.fromJSON(object.unfarmingPoolCoin)
@@ -1810,11 +1811,11 @@ function createBaseMsgUnfarmResponse() {
     return {};
 }
 exports.MsgUnfarmResponse = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
+    encode(_, writer = _m0.Writer.create()) {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgUnfarmResponse();
         while (reader.pos < end) {
@@ -1859,73 +1860,73 @@ class MsgClientImpl {
     CreatePair(request) {
         const data = exports.MsgCreatePair.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "CreatePair", data);
-        return promise.then((data) => exports.MsgCreatePairResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCreatePairResponse.decode(new _m0.Reader(data)));
     }
     CreatePool(request) {
         const data = exports.MsgCreatePool.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "CreatePool", data);
-        return promise.then((data) => exports.MsgCreatePoolResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCreatePoolResponse.decode(new _m0.Reader(data)));
     }
     CreateRangedPool(request) {
         const data = exports.MsgCreateRangedPool.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "CreateRangedPool", data);
-        return promise.then((data) => exports.MsgCreateRangedPoolResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCreateRangedPoolResponse.decode(new _m0.Reader(data)));
     }
     Deposit(request) {
         const data = exports.MsgDeposit.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "Deposit", data);
-        return promise.then((data) => exports.MsgDepositResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgDepositResponse.decode(new _m0.Reader(data)));
     }
     Withdraw(request) {
         const data = exports.MsgWithdraw.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "Withdraw", data);
-        return promise.then((data) => exports.MsgWithdrawResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgWithdrawResponse.decode(new _m0.Reader(data)));
     }
     LimitOrder(request) {
         const data = exports.MsgLimitOrder.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "LimitOrder", data);
-        return promise.then((data) => exports.MsgLimitOrderResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgLimitOrderResponse.decode(new _m0.Reader(data)));
     }
     MarketOrder(request) {
         const data = exports.MsgMarketOrder.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "MarketOrder", data);
-        return promise.then((data) => exports.MsgMarketOrderResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgMarketOrderResponse.decode(new _m0.Reader(data)));
     }
     MMOrder(request) {
         const data = exports.MsgMMOrder.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "MMOrder", data);
-        return promise.then((data) => exports.MsgMMOrderResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgMMOrderResponse.decode(new _m0.Reader(data)));
     }
     CancelOrder(request) {
         const data = exports.MsgCancelOrder.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "CancelOrder", data);
-        return promise.then((data) => exports.MsgCancelOrderResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCancelOrderResponse.decode(new _m0.Reader(data)));
     }
     CancelAllOrders(request) {
         const data = exports.MsgCancelAllOrders.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "CancelAllOrders", data);
-        return promise.then((data) => exports.MsgCancelAllOrdersResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCancelAllOrdersResponse.decode(new _m0.Reader(data)));
     }
     CancelMMOrder(request) {
         const data = exports.MsgCancelMMOrder.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "CancelMMOrder", data);
-        return promise.then((data) => exports.MsgCancelMMOrderResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCancelMMOrderResponse.decode(new _m0.Reader(data)));
     }
     Farm(request) {
         const data = exports.MsgFarm.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "Farm", data);
-        return promise.then((data) => exports.MsgFarmResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgFarmResponse.decode(new _m0.Reader(data)));
     }
     Unfarm(request) {
         const data = exports.MsgUnfarm.encode(request).finish();
         const promise = this.rpc.request("comdex.liquidity.v1beta1.Msg", "Unfarm", data);
-        return promise.then((data) => exports.MsgUnfarmResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgUnfarmResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;
-if (minimal_1.default.util.Long !== long_1.default) {
-    minimal_1.default.util.Long = long_1.default;
-    minimal_1.default.configure();
+if (_m0.util.Long !== long_1.default) {
+    _m0.util.Long = long_1.default;
+    _m0.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
