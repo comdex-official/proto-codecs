@@ -2,7 +2,6 @@ import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { SurplusAuction, DebtAuction, DutchAuction, AuctionParams, ProtocolStatistics } from "../../../comdex/auction/v1beta1/auction";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
-import { Params } from "../../../comdex/auction/v1beta1/params";
 import { SurplusBiddings, DebtBiddings, DutchBiddings } from "../../../comdex/auction/v1beta1/biddings";
 export declare const protobufPackage = "comdex.auction.v1beta1";
 export interface QuerySurplusAuctionRequest {
@@ -112,15 +111,10 @@ export interface QueryProtocolStatisticsResponse {
     stats: ProtocolStatistics[];
     pagination?: PageResponse;
 }
-export interface QueryParamsRequest {
-}
-export interface QueryParamsResponse {
-    params?: Params;
-}
-export interface QueryAuctionParamRequest {
+export interface QueryGenericAuctionParamRequest {
     appId: Long;
 }
-export interface QueryAuctionParamResponse {
+export interface QueryGenericAuctionParamResponse {
     auctionParams?: AuctionParams;
 }
 export interface QueryDutchLendAuctionRequest {
@@ -8563,29 +8557,11 @@ export declare const QueryProtocolStatisticsResponse: {
         } & Record<Exclude<keyof I["pagination"], keyof PageResponse>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof QueryProtocolStatisticsResponse>, never>>(object: I): QueryProtocolStatisticsResponse;
 };
-export declare const QueryParamsRequest: {
-    encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsRequest;
-    fromJSON(_: any): QueryParamsRequest;
-    toJSON(_: QueryParamsRequest): unknown;
-    fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryParamsRequest;
-};
-export declare const QueryParamsResponse: {
-    encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsResponse;
-    fromJSON(object: any): QueryParamsResponse;
-    toJSON(message: QueryParamsResponse): unknown;
-    fromPartial<I extends {
-        params?: {} | undefined;
-    } & {
-        params?: ({} & {} & Record<Exclude<keyof I["params"], never>, never>) | undefined;
-    } & Record<Exclude<keyof I, "params">, never>>(object: I): QueryParamsResponse;
-};
-export declare const QueryAuctionParamRequest: {
-    encode(message: QueryAuctionParamRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionParamRequest;
-    fromJSON(object: any): QueryAuctionParamRequest;
-    toJSON(message: QueryAuctionParamRequest): unknown;
+export declare const QueryGenericAuctionParamRequest: {
+    encode(message: QueryGenericAuctionParamRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGenericAuctionParamRequest;
+    fromJSON(object: any): QueryGenericAuctionParamRequest;
+    toJSON(message: QueryGenericAuctionParamRequest): unknown;
     fromPartial<I extends {
         appId?: string | number | Long.Long | undefined;
     } & {
@@ -8647,13 +8623,13 @@ export declare const QueryAuctionParamRequest: {
             toUnsigned: () => Long.Long;
             xor: (other: string | number | Long.Long) => Long.Long;
         } & Record<Exclude<keyof I["appId"], keyof Long.Long>, never>) | undefined;
-    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryAuctionParamRequest;
+    } & Record<Exclude<keyof I, "appId">, never>>(object: I): QueryGenericAuctionParamRequest;
 };
-export declare const QueryAuctionParamResponse: {
-    encode(message: QueryAuctionParamResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionParamResponse;
-    fromJSON(object: any): QueryAuctionParamResponse;
-    toJSON(message: QueryAuctionParamResponse): unknown;
+export declare const QueryGenericAuctionParamResponse: {
+    encode(message: QueryGenericAuctionParamResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGenericAuctionParamResponse;
+    fromJSON(object: any): QueryGenericAuctionParamResponse;
+    toJSON(message: QueryGenericAuctionParamResponse): unknown;
     fromPartial<I extends {
         auctionParams?: {
             appId?: string | number | Long.Long | undefined;
@@ -9090,7 +9066,7 @@ export declare const QueryAuctionParamResponse: {
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["auctionParams"]["bidDurationSeconds"], keyof Long.Long>, never>) | undefined;
         } & Record<Exclude<keyof I["auctionParams"], keyof AuctionParams>, never>) | undefined;
-    } & Record<Exclude<keyof I, "auctionParams">, never>>(object: I): QueryAuctionParamResponse;
+    } & Record<Exclude<keyof I, "auctionParams">, never>>(object: I): QueryGenericAuctionParamResponse;
 };
 export declare const QueryDutchLendAuctionRequest: {
     encode(message: QueryDutchLendAuctionRequest, writer?: _m0.Writer): _m0.Writer;
@@ -12374,9 +12350,8 @@ export interface Query {
     QueryDutchAuction(request: QueryDutchAuctionRequest): Promise<QueryDutchAuctionResponse>;
     QueryDutchAuctions(request: QueryDutchAuctionsRequest): Promise<QueryDutchAuctionsResponse>;
     QueryDutchBiddings(request: QueryDutchBiddingsRequest): Promise<QueryDutchBiddingsResponse>;
-    QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     QueryProtocolStatistics(request: QueryProtocolStatisticsRequest): Promise<QueryProtocolStatisticsResponse>;
-    QueryAuctionParams(request: QueryAuctionParamRequest): Promise<QueryAuctionParamResponse>;
+    QueryGenericAuctionParams(request: QueryGenericAuctionParamRequest): Promise<QueryGenericAuctionParamResponse>;
     QueryDutchLendAuction(request: QueryDutchLendAuctionRequest): Promise<QueryDutchLendAuctionResponse>;
     QueryDutchLendAuctions(request: QueryDutchLendAuctionsRequest): Promise<QueryDutchLendAuctionsResponse>;
     QueryDutchLendBiddings(request: QueryDutchLendBiddingsRequest): Promise<QueryDutchLendBiddingsResponse>;
@@ -12394,9 +12369,8 @@ export declare class QueryClientImpl implements Query {
     QueryDutchAuction(request: QueryDutchAuctionRequest): Promise<QueryDutchAuctionResponse>;
     QueryDutchAuctions(request: QueryDutchAuctionsRequest): Promise<QueryDutchAuctionsResponse>;
     QueryDutchBiddings(request: QueryDutchBiddingsRequest): Promise<QueryDutchBiddingsResponse>;
-    QueryParams(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     QueryProtocolStatistics(request: QueryProtocolStatisticsRequest): Promise<QueryProtocolStatisticsResponse>;
-    QueryAuctionParams(request: QueryAuctionParamRequest): Promise<QueryAuctionParamResponse>;
+    QueryGenericAuctionParams(request: QueryGenericAuctionParamRequest): Promise<QueryGenericAuctionParamResponse>;
     QueryDutchLendAuction(request: QueryDutchLendAuctionRequest): Promise<QueryDutchLendAuctionResponse>;
     QueryDutchLendAuctions(request: QueryDutchLendAuctionsRequest): Promise<QueryDutchLendAuctionsResponse>;
     QueryDutchLendBiddings(request: QueryDutchLendBiddingsRequest): Promise<QueryDutchLendBiddingsResponse>;

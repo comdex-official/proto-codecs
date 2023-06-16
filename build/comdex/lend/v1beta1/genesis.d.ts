@@ -123,6 +123,7 @@ export declare const GenesisState: {
             isInterPool?: boolean | undefined;
             assetOutPoolId?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isEModeEnabled?: boolean | undefined;
         }[] | undefined;
         auctionParams?: {
             appId?: string | number | Long.Long | undefined;
@@ -150,6 +151,10 @@ export declare const GenesisState: {
             liquidationBonus?: string | undefined;
             reserveFactor?: string | undefined;
             cAssetId?: string | number | Long.Long | undefined;
+            isIsolated?: boolean | undefined;
+            eLtv?: string | undefined;
+            eLiquidationThreshold?: string | undefined;
+            eLiquidationPenalty?: string | undefined;
         }[] | undefined;
         modBal?: {
             fundModuleBalance?: {
@@ -1862,6 +1867,7 @@ export declare const GenesisState: {
             isInterPool?: boolean | undefined;
             assetOutPoolId?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isEModeEnabled?: boolean | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             assetIn?: string | number | Long.Long | undefined;
@@ -1869,6 +1875,7 @@ export declare const GenesisState: {
             isInterPool?: boolean | undefined;
             assetOutPoolId?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isEModeEnabled?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -2161,6 +2168,7 @@ export declare const GenesisState: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["extendedPair"][number]["minUsdValueLeft"], keyof Long.Long>, never>) | undefined;
+            isEModeEnabled?: boolean | undefined;
         } & Record<Exclude<keyof I["extendedPair"][number], keyof ExtendedPair>, never>)[] & Record<Exclude<keyof I["extendedPair"], keyof {
             id?: string | number | Long.Long | undefined;
             assetIn?: string | number | Long.Long | undefined;
@@ -2168,6 +2176,7 @@ export declare const GenesisState: {
             isInterPool?: boolean | undefined;
             assetOutPoolId?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isEModeEnabled?: boolean | undefined;
         }[]>, never>) | undefined;
         auctionParams?: ({
             appId?: string | number | Long.Long | undefined;
@@ -2507,6 +2516,10 @@ export declare const GenesisState: {
             liquidationBonus?: string | undefined;
             reserveFactor?: string | undefined;
             cAssetId?: string | number | Long.Long | undefined;
+            isIsolated?: boolean | undefined;
+            eLtv?: string | undefined;
+            eLiquidationThreshold?: string | undefined;
+            eLiquidationPenalty?: string | undefined;
         }[] & ({
             assetId?: string | number | Long.Long | undefined;
             uOptimal?: string | undefined;
@@ -2523,6 +2536,10 @@ export declare const GenesisState: {
             liquidationBonus?: string | undefined;
             reserveFactor?: string | undefined;
             cAssetId?: string | number | Long.Long | undefined;
+            isIsolated?: boolean | undefined;
+            eLtv?: string | undefined;
+            eLiquidationThreshold?: string | undefined;
+            eLiquidationPenalty?: string | undefined;
         } & {
             assetId?: string | number | (Long.Long & {
                 high: number;
@@ -2653,6 +2670,10 @@ export declare const GenesisState: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["assetRatesParams"][number]["cAssetId"], keyof Long.Long>, never>) | undefined;
+            isIsolated?: boolean | undefined;
+            eLtv?: string | undefined;
+            eLiquidationThreshold?: string | undefined;
+            eLiquidationPenalty?: string | undefined;
         } & Record<Exclude<keyof I["assetRatesParams"][number], keyof AssetRatesParams>, never>)[] & Record<Exclude<keyof I["assetRatesParams"], keyof {
             assetId?: string | number | Long.Long | undefined;
             uOptimal?: string | undefined;
@@ -2669,6 +2690,10 @@ export declare const GenesisState: {
             liquidationBonus?: string | undefined;
             reserveFactor?: string | undefined;
             cAssetId?: string | number | Long.Long | undefined;
+            isIsolated?: boolean | undefined;
+            eLtv?: string | undefined;
+            eLiquidationThreshold?: string | undefined;
+            eLiquidationPenalty?: string | undefined;
         }[]>, never>) | undefined;
         modBal?: ({
             fundModuleBalance?: {
