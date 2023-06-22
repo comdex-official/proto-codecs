@@ -203,7 +203,7 @@ export interface QueuedFarmer {
 }
 export declare const Pair: {
     encode(message: Pair, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Pair;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Pair;
     fromJSON(object: any): Pair;
     toJSON(message: Pair): unknown;
     fromPartial<I extends {
@@ -458,7 +458,7 @@ export declare const Pair: {
 };
 export declare const Pool: {
     encode(message: Pool, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Pool;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Pool;
     fromJSON(object: any): Pool;
     toJSON(message: Pool): unknown;
     fromPartial<I extends {
@@ -776,7 +776,7 @@ export declare const Pool: {
 };
 export declare const DepositRequest: {
     encode(message: DepositRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): DepositRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): DepositRequest;
     fromJSON(object: any): DepositRequest;
     toJSON(message: DepositRequest): unknown;
     fromPartial<I extends {
@@ -1070,7 +1070,7 @@ export declare const DepositRequest: {
 };
 export declare const WithdrawRequest: {
     encode(message: WithdrawRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): WithdrawRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): WithdrawRequest;
     fromJSON(object: any): WithdrawRequest;
     toJSON(message: WithdrawRequest): unknown;
     fromPartial<I extends {
@@ -1347,7 +1347,7 @@ export declare const WithdrawRequest: {
 };
 export declare const Order: {
     encode(message: Order, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Order;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Order;
     fromJSON(object: any): Order;
     toJSON(message: Order): unknown;
     fromPartial<I extends {
@@ -1700,7 +1700,7 @@ export declare const Order: {
 };
 export declare const MMOrderIndex: {
     encode(message: MMOrderIndex, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MMOrderIndex;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MMOrderIndex;
     fromJSON(object: any): MMOrderIndex;
     toJSON(message: MMOrderIndex): unknown;
     fromPartial<I extends {
@@ -1888,7 +1888,7 @@ export declare const MMOrderIndex: {
 };
 export declare const ActiveFarmer: {
     encode(message: ActiveFarmer, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ActiveFarmer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ActiveFarmer;
     fromJSON(object: any): ActiveFarmer;
     toJSON(message: ActiveFarmer): unknown;
     fromPartial<I extends {
@@ -2028,7 +2028,7 @@ export declare const ActiveFarmer: {
 };
 export declare const QueuedCoin: {
     encode(message: QueuedCoin, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueuedCoin;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueuedCoin;
     fromJSON(object: any): QueuedCoin;
     toJSON(message: QueuedCoin): unknown;
     fromPartial<I extends {
@@ -2050,7 +2050,7 @@ export declare const QueuedCoin: {
 };
 export declare const QueuedFarmer: {
     encode(message: QueuedFarmer, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueuedFarmer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueuedFarmer;
     fromJSON(object: any): QueuedFarmer;
     toJSON(message: QueuedFarmer): unknown;
     fromPartial<I extends {
@@ -2212,12 +2212,12 @@ export declare const QueuedFarmer: {
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof QueuedFarmer>, never>>(object: I): QueuedFarmer;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

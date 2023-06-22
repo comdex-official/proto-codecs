@@ -59,7 +59,7 @@ export interface AddEModePairsProposal {
 }
 export declare const LendPairsProposal: {
     encode(message: LendPairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LendPairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LendPairsProposal;
     fromJSON(object: any): LendPairsProposal;
     toJSON(message: LendPairsProposal): unknown;
     fromPartial<I extends {
@@ -383,7 +383,7 @@ export declare const LendPairsProposal: {
 };
 export declare const MultipleLendPairsProposal: {
     encode(message: MultipleLendPairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MultipleLendPairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MultipleLendPairsProposal;
     fromJSON(object: any): MultipleLendPairsProposal;
     toJSON(message: MultipleLendPairsProposal): unknown;
     fromPartial<I extends {
@@ -723,7 +723,7 @@ export declare const MultipleLendPairsProposal: {
 };
 export declare const AddPoolsProposal: {
     encode(message: AddPoolsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddPoolsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddPoolsProposal;
     fromJSON(object: any): AddPoolsProposal;
     toJSON(message: AddPoolsProposal): unknown;
     fromPartial<I extends {
@@ -948,7 +948,7 @@ export declare const AddPoolsProposal: {
 };
 export declare const AddAssetToPairProposal: {
     encode(message: AddAssetToPairProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAssetToPairProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetToPairProposal;
     fromJSON(object: any): AddAssetToPairProposal;
     toJSON(message: AddAssetToPairProposal): unknown;
     fromPartial<I extends {
@@ -1146,7 +1146,7 @@ export declare const AddAssetToPairProposal: {
 };
 export declare const AddMultipleAssetToPairProposal: {
     encode(message: AddMultipleAssetToPairProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddMultipleAssetToPairProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddMultipleAssetToPairProposal;
     fromJSON(object: any): AddMultipleAssetToPairProposal;
     toJSON(message: AddMultipleAssetToPairProposal): unknown;
     fromPartial<I extends {
@@ -1352,7 +1352,7 @@ export declare const AddMultipleAssetToPairProposal: {
 };
 export declare const AddAssetRatesParams: {
     encode(message: AddAssetRatesParams, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAssetRatesParams;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetRatesParams;
     fromJSON(object: any): AddAssetRatesParams;
     toJSON(message: AddAssetRatesParams): unknown;
     fromPartial<I extends {
@@ -1541,7 +1541,7 @@ export declare const AddAssetRatesParams: {
 };
 export declare const AddAuctionParamsProposal: {
     encode(message: AddAuctionParamsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAuctionParamsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddAuctionParamsProposal;
     fromJSON(object: any): AddAuctionParamsProposal;
     toJSON(message: AddAuctionParamsProposal): unknown;
     fromPartial<I extends {
@@ -1868,7 +1868,7 @@ export declare const AddAuctionParamsProposal: {
 };
 export declare const AddPoolPairsProposal: {
     encode(message: AddPoolPairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddPoolPairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddPoolPairsProposal;
     fromJSON(object: any): AddPoolPairsProposal;
     toJSON(message: AddPoolPairsProposal): unknown;
     fromPartial<I extends {
@@ -2153,7 +2153,7 @@ export declare const AddPoolPairsProposal: {
 };
 export declare const AddAssetRatesPoolPairsProposal: {
     encode(message: AddAssetRatesPoolPairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAssetRatesPoolPairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetRatesPoolPairsProposal;
     fromJSON(object: any): AddAssetRatesPoolPairsProposal;
     toJSON(message: AddAssetRatesPoolPairsProposal): unknown;
     fromPartial<I extends {
@@ -2540,7 +2540,7 @@ export declare const AddAssetRatesPoolPairsProposal: {
 };
 export declare const AddPoolDepreciateProposal: {
     encode(message: AddPoolDepreciateProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddPoolDepreciateProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddPoolDepreciateProposal;
     fromJSON(object: any): AddPoolDepreciateProposal;
     toJSON(message: AddPoolDepreciateProposal): unknown;
     fromPartial<I extends {
@@ -2636,7 +2636,7 @@ export declare const AddPoolDepreciateProposal: {
 };
 export declare const AddEModePairsProposal: {
     encode(message: AddEModePairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddEModePairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddEModePairsProposal;
     fromJSON(object: any): AddEModePairsProposal;
     toJSON(message: AddEModePairsProposal): unknown;
     fromPartial<I extends {
@@ -2742,12 +2742,12 @@ export declare const AddEModePairsProposal: {
         } & Record<Exclude<keyof I["EModePairsForProposal"], "eModePairs">, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AddEModePairsProposal>, never>>(object: I): AddEModePairsProposal;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

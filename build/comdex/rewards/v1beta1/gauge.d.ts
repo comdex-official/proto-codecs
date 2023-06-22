@@ -30,7 +30,7 @@ export interface GaugeByTriggerDuration {
 }
 export declare const LiquidtyGaugeMetaData: {
     encode(message: LiquidtyGaugeMetaData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LiquidtyGaugeMetaData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LiquidtyGaugeMetaData;
     fromJSON(object: any): LiquidtyGaugeMetaData;
     toJSON(message: LiquidtyGaugeMetaData): unknown;
     fromPartial<I extends {
@@ -159,7 +159,7 @@ export declare const LiquidtyGaugeMetaData: {
 };
 export declare const Gauge: {
     encode(message: Gauge, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Gauge;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Gauge;
     fromJSON(object: any): Gauge;
     toJSON(message: Gauge): unknown;
     fromPartial<I extends {
@@ -691,7 +691,7 @@ export declare const Gauge: {
 };
 export declare const GaugeByTriggerDuration: {
     encode(message: GaugeByTriggerDuration, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): GaugeByTriggerDuration;
+    decode(input: _m0.Reader | Uint8Array, length?: number): GaugeByTriggerDuration;
     fromJSON(object: any): GaugeByTriggerDuration;
     toJSON(message: GaugeByTriggerDuration): unknown;
     fromPartial<I extends {
@@ -825,12 +825,12 @@ export declare const GaugeByTriggerDuration: {
         } & Record<Exclude<keyof I["gaugeIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["gaugeIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof GaugeByTriggerDuration>, never>>(object: I): GaugeByTriggerDuration;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};
