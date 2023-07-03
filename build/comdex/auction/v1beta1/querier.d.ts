@@ -32,7 +32,7 @@ export interface QueryParamsResponse {
 }
 export declare const QueryAuctionRequest: {
     encode(message: QueryAuctionRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionRequest;
     fromJSON(object: any): QueryAuctionRequest;
     toJSON(message: QueryAuctionRequest): unknown;
     fromPartial<I extends {
@@ -100,7 +100,7 @@ export declare const QueryAuctionRequest: {
 };
 export declare const QueryAuctionResponse: {
     encode(message: QueryAuctionResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionResponse;
     fromJSON(object: any): QueryAuctionResponse;
     toJSON(message: QueryAuctionResponse): unknown;
     fromPartial<I extends {
@@ -629,7 +629,7 @@ export declare const QueryAuctionResponse: {
 };
 export declare const QueryAuctionsRequest: {
     encode(message: QueryAuctionsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionsRequest;
     fromJSON(object: any): QueryAuctionsRequest;
     toJSON(message: QueryAuctionsRequest): unknown;
     fromPartial<I extends {
@@ -772,7 +772,7 @@ export declare const QueryAuctionsRequest: {
 };
 export declare const QueryAuctionsResponse: {
     encode(message: QueryAuctionsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionsResponse;
     fromJSON(object: any): QueryAuctionsResponse;
     toJSON(message: QueryAuctionsResponse): unknown;
     fromPartial<I extends {
@@ -1435,7 +1435,7 @@ export declare const QueryAuctionsResponse: {
 };
 export declare const QueryBiddingsRequest: {
     encode(message: QueryBiddingsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryBiddingsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryBiddingsRequest;
     fromJSON(object: any): QueryBiddingsRequest;
     toJSON(message: QueryBiddingsRequest): unknown;
     fromPartial<I extends {
@@ -1446,7 +1446,7 @@ export declare const QueryBiddingsRequest: {
 };
 export declare const QueryBiddingsResponse: {
     encode(message: QueryBiddingsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryBiddingsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryBiddingsResponse;
     fromJSON(object: any): QueryBiddingsResponse;
     toJSON(message: QueryBiddingsResponse): unknown;
     fromPartial<I extends {
@@ -1654,14 +1654,14 @@ export declare const QueryBiddingsResponse: {
 };
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
     fromJSON(_: any): QueryParamsRequest;
     toJSON(_: QueryParamsRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryParamsRequest;
 };
 export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
     fromJSON(object: any): QueryParamsResponse;
     toJSON(message: QueryParamsResponse): unknown;
     fromPartial<I extends {
@@ -1870,12 +1870,12 @@ export declare class QueryServiceClientImpl implements QueryService {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

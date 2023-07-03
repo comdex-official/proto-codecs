@@ -141,7 +141,7 @@ export interface SwapMsgState {
 }
 export declare const PoolType: {
     encode(message: PoolType, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolType;
+    decode(input: _m0.Reader | Uint8Array, length?: number): PoolType;
     fromJSON(object: any): PoolType;
     toJSON(message: PoolType): unknown;
     fromPartial<I extends {
@@ -160,7 +160,7 @@ export declare const PoolType: {
 };
 export declare const Params: {
     encode(message: Params, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Params;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Params;
     fromJSON(object: any): Params;
     toJSON(message: Params): unknown;
     fromPartial<I extends {
@@ -236,7 +236,7 @@ export declare const Params: {
 };
 export declare const Pool: {
     encode(message: Pool, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Pool;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Pool;
     fromJSON(object: any): Pool;
     toJSON(message: Pool): unknown;
     fromPartial<I extends {
@@ -312,7 +312,7 @@ export declare const Pool: {
 };
 export declare const PoolMetadata: {
     encode(message: PoolMetadata, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolMetadata;
+    decode(input: _m0.Reader | Uint8Array, length?: number): PoolMetadata;
     fromJSON(object: any): PoolMetadata;
     toJSON(message: PoolMetadata): unknown;
     fromPartial<I extends {
@@ -408,7 +408,7 @@ export declare const PoolMetadata: {
 };
 export declare const PoolBatch: {
     encode(message: PoolBatch, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolBatch;
+    decode(input: _m0.Reader | Uint8Array, length?: number): PoolBatch;
     fromJSON(object: any): PoolBatch;
     toJSON(message: PoolBatch): unknown;
     fromPartial<I extends {
@@ -773,7 +773,7 @@ export declare const PoolBatch: {
 };
 export declare const DepositMsgState: {
     encode(message: DepositMsgState, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): DepositMsgState;
+    decode(input: _m0.Reader | Uint8Array, length?: number): DepositMsgState;
     fromJSON(object: any): DepositMsgState;
     toJSON(message: DepositMsgState): unknown;
     fromPartial<I extends {
@@ -995,7 +995,7 @@ export declare const DepositMsgState: {
 };
 export declare const WithdrawMsgState: {
     encode(message: WithdrawMsgState, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): WithdrawMsgState;
+    decode(input: _m0.Reader | Uint8Array, length?: number): WithdrawMsgState;
     fromJSON(object: any): WithdrawMsgState;
     toJSON(message: WithdrawMsgState): unknown;
     fromPartial<I extends {
@@ -1211,7 +1211,7 @@ export declare const WithdrawMsgState: {
 };
 export declare const SwapMsgState: {
     encode(message: SwapMsgState, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SwapMsgState;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SwapMsgState;
     fromJSON(object: any): SwapMsgState;
     toJSON(message: SwapMsgState): unknown;
     fromPartial<I extends {
@@ -1541,12 +1541,12 @@ export declare const SwapMsgState: {
         } & Record<Exclude<keyof I["msg"], keyof MsgSwapWithinBatch>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof SwapMsgState>, never>>(object: I): SwapMsgState;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

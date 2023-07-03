@@ -35,56 +35,56 @@ export interface MsgUpdatePairResponse {
 }
 export declare const MsgAddAssetRequest: {
     encode(message: MsgAddAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddAssetRequest;
     fromJSON(object: any): MsgAddAssetRequest;
     toJSON(message: MsgAddAssetRequest): unknown;
     fromPartial(object: DeepPartial<MsgAddAssetRequest>): MsgAddAssetRequest;
 };
 export declare const MsgAddAssetResponse: {
     encode(_: MsgAddAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddAssetResponse;
     fromJSON(_: any): MsgAddAssetResponse;
     toJSON(_: MsgAddAssetResponse): unknown;
     fromPartial(_: DeepPartial<MsgAddAssetResponse>): MsgAddAssetResponse;
 };
 export declare const MsgUpdateAssetRequest: {
     encode(message: MsgUpdateAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUpdateAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateAssetRequest;
     fromJSON(object: any): MsgUpdateAssetRequest;
     toJSON(message: MsgUpdateAssetRequest): unknown;
     fromPartial(object: DeepPartial<MsgUpdateAssetRequest>): MsgUpdateAssetRequest;
 };
 export declare const MsgUpdateAssetResponse: {
     encode(_: MsgUpdateAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUpdateAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateAssetResponse;
     fromJSON(_: any): MsgUpdateAssetResponse;
     toJSON(_: MsgUpdateAssetResponse): unknown;
     fromPartial(_: DeepPartial<MsgUpdateAssetResponse>): MsgUpdateAssetResponse;
 };
 export declare const MsgAddPairRequest: {
     encode(message: MsgAddPairRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddPairRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddPairRequest;
     fromJSON(object: any): MsgAddPairRequest;
     toJSON(message: MsgAddPairRequest): unknown;
     fromPartial(object: DeepPartial<MsgAddPairRequest>): MsgAddPairRequest;
 };
 export declare const MsgAddPairResponse: {
     encode(_: MsgAddPairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddPairResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddPairResponse;
     fromJSON(_: any): MsgAddPairResponse;
     toJSON(_: MsgAddPairResponse): unknown;
     fromPartial(_: DeepPartial<MsgAddPairResponse>): MsgAddPairResponse;
 };
 export declare const MsgUpdatePairRequest: {
     encode(message: MsgUpdatePairRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUpdatePairRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdatePairRequest;
     fromJSON(object: any): MsgUpdatePairRequest;
     toJSON(message: MsgUpdatePairRequest): unknown;
     fromPartial(object: DeepPartial<MsgUpdatePairRequest>): MsgUpdatePairRequest;
 };
 export declare const MsgUpdatePairResponse: {
     encode(_: MsgUpdatePairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUpdatePairResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdatePairResponse;
     fromJSON(_: any): MsgUpdatePairResponse;
     toJSON(_: MsgUpdatePairResponse): unknown;
     fromPartial(_: DeepPartial<MsgUpdatePairResponse>): MsgUpdatePairResponse;
@@ -106,8 +106,8 @@ export declare class MsgServiceClientImpl implements MsgService {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
 export {};

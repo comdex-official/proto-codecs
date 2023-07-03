@@ -65,15 +65,47 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.9.1.tgz#0611b37db4246c937feef529ddcc018cf8e35708"
   integrity sha512-QpLcX9ZSsq3YYUUnD3nFDY8H7wctAhQj/TFKL8Ya8v5fMm3CFXxo8zStsLAl780ltoYoo1WvKUVGBQK+1ifr7g==
 
+"@types/object-hash@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@types/object-hash/-/object-hash-3.0.2.tgz#f3656433e6c6049571fc3fb3fb42f389af96c0eb"
+  integrity sha512-tfyXl1JPCf2hzIDK29gO7qGqJjThKBzg/Cn3bA68R9NmWdOx+f7k5mm4to/n43BHspCwcoUC6FU4NpUoK/h9bQ==
+
 "@vercel/ncc@^0.29.1":
   version "0.29.2"
   resolved "https://registry.yarnpkg.com/@vercel/ncc/-/ncc-0.29.2.tgz#29a35d21b03267a538b536168af766f4270ae8f4"
   integrity sha512-eUxibZD92k+rY0oZJFZooGqdVpGkDrrHlUhj9UAWrtoyXCGmNOWC1Kcr2KPrZoHRSlWwHOcRnkn2nGT+aHY2KA==
 
+case-anything@^2.1.10:
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/case-anything/-/case-anything-2.1.13.tgz#0cdc16278cb29a7fcdeb072400da3f342ba329e9"
+  integrity sha512-zlOQ80VrQ2Ue+ymH5OuM/DlDq64mEm+B9UTdHULv5osUMD6HalNTblf2b1u/m6QecjsnOkBpqVZ+XPwIVsy7Ng==
+
+dataloader@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/dataloader/-/dataloader-1.4.0.tgz#bca11d867f5d3f1b9ed9f737bd15970c65dff5c8"
+  integrity sha512-68s5jYdlvasItOJnCuI2Q9s4q98g0pCyL3HrcKJu8KNugUl8ahgmZYg38ysLTgQjjXX3H8CJLkAvWrclWfcalw==
+
+detect-libc@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
+  integrity sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==
+
+dprint-node@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/dprint-node/-/dprint-node-1.0.7.tgz#f571eaf61affb3a696cff1bdde78a021875ba540"
+  integrity sha512-NTZOW9A7ipb0n7z7nC3wftvsbceircwVHSgzobJsEQa+7RnOMbhrfX5IflA6CtC4GA63DSAiHYXa4JKEy9F7cA==
+  dependencies:
+    detect-libc "^1.0.3"
+
 long@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/long/-/long-4.0.0.tgz#9a7b71cfb7d361a194ea555241c92f7468d5bf28"
   integrity sha512-XsP+KhQif4bjX1kbuSiySJFNAehNxgLb6hPRGJ9QsUr8ajHkuXGdrHmFUTUUXhDwVX2R5bY4JNZEwbUiMhV+MA==
+
+object-hash@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-3.0.0.tgz#73f97f753e7baffc0e2cc9d6e079079744ac82e9"
+  integrity sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==
 
 protobufjs@^6.11.2:
   version "6.11.2"
@@ -93,3 +125,50 @@ protobufjs@^6.11.2:
     "@types/long" "^4.0.1"
     "@types/node" ">=13.7.0"
     long "^4.0.0"
+
+protobufjs@^6.11.3, protobufjs@^6.8.8:
+  version "6.11.3"
+  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-6.11.3.tgz#637a527205a35caa4f3e2a9a4a13ddffe0e7af74"
+  integrity sha512-xL96WDdCZYdU7Slin569tFX712BxsxslWwAfAhCYjQKGTq7dAU91Lomy6nLLhh/dyGhk/YH4TwTSRxTzhuHyZg==
+  dependencies:
+    "@protobufjs/aspromise" "^1.1.2"
+    "@protobufjs/base64" "^1.1.2"
+    "@protobufjs/codegen" "^2.0.4"
+    "@protobufjs/eventemitter" "^1.1.0"
+    "@protobufjs/fetch" "^1.1.0"
+    "@protobufjs/float" "^1.0.2"
+    "@protobufjs/inquire" "^1.1.0"
+    "@protobufjs/path" "^1.1.2"
+    "@protobufjs/pool" "^1.1.0"
+    "@protobufjs/utf8" "^1.1.0"
+    "@types/long" "^4.0.1"
+    "@types/node" ">=13.7.0"
+    long "^4.0.0"
+
+ts-poet@^6.4.1:
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/ts-poet/-/ts-poet-6.4.1.tgz#e68d314a07cf9c0d568a3bfd87023ec91ff77964"
+  integrity sha512-AjZEs4h2w4sDfwpHMxQKHrTlNh2wRbM5NRXmLz0RiH+yPGtSQFbe9hBpNocU8vqVNgfh0BIOiXR80xDz3kKxUQ==
+  dependencies:
+    dprint-node "^1.0.7"
+
+ts-proto-descriptors@1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/ts-proto-descriptors/-/ts-proto-descriptors-1.9.0.tgz#0ed5631f11851846c8de21be2bff346719edce71"
+  integrity sha512-Ui8zA5Q4Jnq6JIGRraUWvECrqixxtwwin8GkhIkvwCpR+JcSPsxWe8HfTj5eHfyruGYI6Zjf96XlC87hTakHfQ==
+  dependencies:
+    long "^4.0.0"
+    protobufjs "^6.8.8"
+
+ts-proto@^1.104.0:
+  version "1.150.1"
+  resolved "https://registry.yarnpkg.com/ts-proto/-/ts-proto-1.150.1.tgz#ae412e37b46c78eac77c5d0483fe669b66290883"
+  integrity sha512-8g6zaegwqRZNbLUQxTRPhNj3yygKjVVtA9GO2EwPiJrnh9e1yUPSEPLc2tCRwf5d11D0cSlZhuRxddXkReIbxg==
+  dependencies:
+    "@types/object-hash" "^3.0.2"
+    case-anything "^2.1.10"
+    dataloader "^1.4.0"
+    object-hash "^3.0.0"
+    protobufjs "^6.11.3"
+    ts-poet "^6.4.1"
+    ts-proto-descriptors "1.9.0"

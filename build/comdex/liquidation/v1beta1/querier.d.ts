@@ -24,7 +24,7 @@ export interface QueryParamsResponse {
 }
 export declare const QueryLockedVaultRequest: {
     encode(message: QueryLockedVaultRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockedVaultRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockedVaultRequest;
     fromJSON(object: any): QueryLockedVaultRequest;
     toJSON(message: QueryLockedVaultRequest): unknown;
     fromPartial<I extends {
@@ -92,7 +92,7 @@ export declare const QueryLockedVaultRequest: {
 };
 export declare const QueryLockedVaultResponse: {
     encode(message: QueryLockedVaultResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockedVaultResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockedVaultResponse;
     fromJSON(object: any): QueryLockedVaultResponse;
     toJSON(message: QueryLockedVaultResponse): unknown;
     fromPartial<I extends {
@@ -319,7 +319,7 @@ export declare const QueryLockedVaultResponse: {
 };
 export declare const QueryLockedVaultsRequest: {
     encode(message: QueryLockedVaultsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockedVaultsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockedVaultsRequest;
     fromJSON(object: any): QueryLockedVaultsRequest;
     toJSON(message: QueryLockedVaultsRequest): unknown;
     fromPartial<I extends {
@@ -462,7 +462,7 @@ export declare const QueryLockedVaultsRequest: {
 };
 export declare const QueryLockedVaultsResponse: {
     encode(message: QueryLockedVaultsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockedVaultsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockedVaultsResponse;
     fromJSON(object: any): QueryLockedVaultsResponse;
     toJSON(message: QueryLockedVaultsResponse): unknown;
     fromPartial<I extends {
@@ -787,14 +787,14 @@ export declare const QueryLockedVaultsResponse: {
 };
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
     fromJSON(_: any): QueryParamsRequest;
     toJSON(_: QueryParamsRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryParamsRequest;
 };
 export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
     fromJSON(object: any): QueryParamsResponse;
     toJSON(message: QueryParamsResponse): unknown;
     fromPartial<I extends {
@@ -818,12 +818,12 @@ export declare class QueryServiceClientImpl implements QueryService {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

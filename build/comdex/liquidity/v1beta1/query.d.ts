@@ -135,7 +135,7 @@ export interface QueryPoolBatchWithdrawMsgResponse {
 }
 export declare const QueryUserPoolsContributionMsgRequest: {
     encode(message: QueryUserPoolsContributionMsgRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryUserPoolsContributionMsgRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryUserPoolsContributionMsgRequest;
     fromJSON(object: any): QueryUserPoolsContributionMsgRequest;
     toJSON(message: QueryUserPoolsContributionMsgRequest): unknown;
     fromPartial<I extends {
@@ -146,7 +146,7 @@ export declare const QueryUserPoolsContributionMsgRequest: {
 };
 export declare const QueryUserPoolsContributionMsgResponse: {
     encode(message: QueryUserPoolsContributionMsgResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryUserPoolsContributionMsgResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryUserPoolsContributionMsgResponse;
     fromJSON(object: any): QueryUserPoolsContributionMsgResponse;
     toJSON(message: QueryUserPoolsContributionMsgResponse): unknown;
     fromPartial<I extends {
@@ -289,7 +289,7 @@ export declare const QueryUserPoolsContributionMsgResponse: {
 };
 export declare const QueryAllUsersPoolsContributionMsgRequest: {
     encode(message: QueryAllUsersPoolsContributionMsgRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllUsersPoolsContributionMsgRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllUsersPoolsContributionMsgRequest;
     fromJSON(object: any): QueryAllUsersPoolsContributionMsgRequest;
     toJSON(message: QueryAllUsersPoolsContributionMsgRequest): unknown;
     fromPartial<I extends {
@@ -432,7 +432,7 @@ export declare const QueryAllUsersPoolsContributionMsgRequest: {
 };
 export declare const QueryAllUsersPoolsContributionMsgResponse: {
     encode(message: QueryAllUsersPoolsContributionMsgResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllUsersPoolsContributionMsgResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllUsersPoolsContributionMsgResponse;
     fromJSON(object: any): QueryAllUsersPoolsContributionMsgResponse;
     toJSON(message: QueryAllUsersPoolsContributionMsgResponse): unknown;
     fromPartial<I extends {
@@ -599,7 +599,7 @@ export declare const QueryAllUsersPoolsContributionMsgResponse: {
 };
 export declare const QueryLiquidityPoolRequest: {
     encode(message: QueryLiquidityPoolRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidityPoolRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolRequest;
     fromJSON(object: any): QueryLiquidityPoolRequest;
     toJSON(message: QueryLiquidityPoolRequest): unknown;
     fromPartial<I extends {
@@ -667,7 +667,7 @@ export declare const QueryLiquidityPoolRequest: {
 };
 export declare const QueryLiquidityPoolResponse: {
     encode(message: QueryLiquidityPoolResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidityPoolResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolResponse;
     fromJSON(object: any): QueryLiquidityPoolResponse;
     toJSON(message: QueryLiquidityPoolResponse): unknown;
     fromPartial<I extends {
@@ -753,7 +753,7 @@ export declare const QueryLiquidityPoolResponse: {
 };
 export declare const QueryLiquidityPoolByPoolCoinDenomRequest: {
     encode(message: QueryLiquidityPoolByPoolCoinDenomRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidityPoolByPoolCoinDenomRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolByPoolCoinDenomRequest;
     fromJSON(object: any): QueryLiquidityPoolByPoolCoinDenomRequest;
     toJSON(message: QueryLiquidityPoolByPoolCoinDenomRequest): unknown;
     fromPartial<I extends {
@@ -764,7 +764,7 @@ export declare const QueryLiquidityPoolByPoolCoinDenomRequest: {
 };
 export declare const QueryLiquidityPoolByReserveAccRequest: {
     encode(message: QueryLiquidityPoolByReserveAccRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidityPoolByReserveAccRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolByReserveAccRequest;
     fromJSON(object: any): QueryLiquidityPoolByReserveAccRequest;
     toJSON(message: QueryLiquidityPoolByReserveAccRequest): unknown;
     fromPartial<I extends {
@@ -775,7 +775,7 @@ export declare const QueryLiquidityPoolByReserveAccRequest: {
 };
 export declare const QueryLiquidityPoolBatchRequest: {
     encode(message: QueryLiquidityPoolBatchRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidityPoolBatchRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolBatchRequest;
     fromJSON(object: any): QueryLiquidityPoolBatchRequest;
     toJSON(message: QueryLiquidityPoolBatchRequest): unknown;
     fromPartial<I extends {
@@ -843,7 +843,7 @@ export declare const QueryLiquidityPoolBatchRequest: {
 };
 export declare const QueryLiquidityPoolBatchResponse: {
     encode(message: QueryLiquidityPoolBatchResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidityPoolBatchResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolBatchResponse;
     fromJSON(object: any): QueryLiquidityPoolBatchResponse;
     toJSON(message: QueryLiquidityPoolBatchResponse): unknown;
     fromPartial<I extends {
@@ -1220,7 +1220,7 @@ export declare const QueryLiquidityPoolBatchResponse: {
 };
 export declare const QueryLiquidityPoolsRequest: {
     encode(message: QueryLiquidityPoolsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidityPoolsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolsRequest;
     fromJSON(object: any): QueryLiquidityPoolsRequest;
     toJSON(message: QueryLiquidityPoolsRequest): unknown;
     fromPartial<I extends {
@@ -1363,7 +1363,7 @@ export declare const QueryLiquidityPoolsRequest: {
 };
 export declare const QueryLiquidityPoolsResponse: {
     encode(message: QueryLiquidityPoolsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidityPoolsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidityPoolsResponse;
     fromJSON(object: any): QueryLiquidityPoolsResponse;
     toJSON(message: QueryLiquidityPoolsResponse): unknown;
     fromPartial<I extends {
@@ -1529,14 +1529,14 @@ export declare const QueryLiquidityPoolsResponse: {
 };
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
     fromJSON(_: any): QueryParamsRequest;
     toJSON(_: QueryParamsRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryParamsRequest;
 };
 export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
     fromJSON(object: any): QueryParamsResponse;
     toJSON(message: QueryParamsResponse): unknown;
     fromPartial<I extends {
@@ -1637,7 +1637,7 @@ export declare const QueryParamsResponse: {
 };
 export declare const QueryPoolBatchSwapMsgsRequest: {
     encode(message: QueryPoolBatchSwapMsgsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchSwapMsgsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchSwapMsgsRequest;
     fromJSON(object: any): QueryPoolBatchSwapMsgsRequest;
     toJSON(message: QueryPoolBatchSwapMsgsRequest): unknown;
     fromPartial<I extends {
@@ -1839,7 +1839,7 @@ export declare const QueryPoolBatchSwapMsgsRequest: {
 };
 export declare const QueryPoolBatchSwapMsgRequest: {
     encode(message: QueryPoolBatchSwapMsgRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchSwapMsgRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchSwapMsgRequest;
     fromJSON(object: any): QueryPoolBatchSwapMsgRequest;
     toJSON(message: QueryPoolBatchSwapMsgRequest): unknown;
     fromPartial<I extends {
@@ -1966,7 +1966,7 @@ export declare const QueryPoolBatchSwapMsgRequest: {
 };
 export declare const QueryPoolBatchSwapMsgsResponse: {
     encode(message: QueryPoolBatchSwapMsgsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchSwapMsgsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchSwapMsgsResponse;
     fromJSON(object: any): QueryPoolBatchSwapMsgsResponse;
     toJSON(message: QueryPoolBatchSwapMsgsResponse): unknown;
     fromPartial<I extends {
@@ -2472,7 +2472,7 @@ export declare const QueryPoolBatchSwapMsgsResponse: {
 };
 export declare const QueryPoolBatchSwapMsgResponse: {
     encode(message: QueryPoolBatchSwapMsgResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchSwapMsgResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchSwapMsgResponse;
     fromJSON(object: any): QueryPoolBatchSwapMsgResponse;
     toJSON(message: QueryPoolBatchSwapMsgResponse): unknown;
     fromPartial<I extends {
@@ -2842,7 +2842,7 @@ export declare const QueryPoolBatchSwapMsgResponse: {
 };
 export declare const QueryPoolBatchDepositMsgsRequest: {
     encode(message: QueryPoolBatchDepositMsgsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchDepositMsgsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchDepositMsgsRequest;
     fromJSON(object: any): QueryPoolBatchDepositMsgsRequest;
     toJSON(message: QueryPoolBatchDepositMsgsRequest): unknown;
     fromPartial<I extends {
@@ -3044,7 +3044,7 @@ export declare const QueryPoolBatchDepositMsgsRequest: {
 };
 export declare const QueryPoolBatchDepositMsgRequest: {
     encode(message: QueryPoolBatchDepositMsgRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchDepositMsgRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchDepositMsgRequest;
     fromJSON(object: any): QueryPoolBatchDepositMsgRequest;
     toJSON(message: QueryPoolBatchDepositMsgRequest): unknown;
     fromPartial<I extends {
@@ -3171,7 +3171,7 @@ export declare const QueryPoolBatchDepositMsgRequest: {
 };
 export declare const QueryPoolBatchDepositMsgsResponse: {
     encode(message: QueryPoolBatchDepositMsgsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchDepositMsgsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchDepositMsgsResponse;
     fromJSON(object: any): QueryPoolBatchDepositMsgsResponse;
     toJSON(message: QueryPoolBatchDepositMsgsResponse): unknown;
     fromPartial<I extends {
@@ -3507,7 +3507,7 @@ export declare const QueryPoolBatchDepositMsgsResponse: {
 };
 export declare const QueryPoolBatchDepositMsgResponse: {
     encode(message: QueryPoolBatchDepositMsgResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchDepositMsgResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchDepositMsgResponse;
     fromJSON(object: any): QueryPoolBatchDepositMsgResponse;
     toJSON(message: QueryPoolBatchDepositMsgResponse): unknown;
     fromPartial<I extends {
@@ -3747,7 +3747,7 @@ export declare const QueryPoolBatchDepositMsgResponse: {
 };
 export declare const QueryPoolBatchWithdrawMsgsRequest: {
     encode(message: QueryPoolBatchWithdrawMsgsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchWithdrawMsgsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchWithdrawMsgsRequest;
     fromJSON(object: any): QueryPoolBatchWithdrawMsgsRequest;
     toJSON(message: QueryPoolBatchWithdrawMsgsRequest): unknown;
     fromPartial<I extends {
@@ -3949,7 +3949,7 @@ export declare const QueryPoolBatchWithdrawMsgsRequest: {
 };
 export declare const QueryPoolBatchWithdrawMsgRequest: {
     encode(message: QueryPoolBatchWithdrawMsgRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchWithdrawMsgRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchWithdrawMsgRequest;
     fromJSON(object: any): QueryPoolBatchWithdrawMsgRequest;
     toJSON(message: QueryPoolBatchWithdrawMsgRequest): unknown;
     fromPartial<I extends {
@@ -4076,7 +4076,7 @@ export declare const QueryPoolBatchWithdrawMsgRequest: {
 };
 export declare const QueryPoolBatchWithdrawMsgsResponse: {
     encode(message: QueryPoolBatchWithdrawMsgsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchWithdrawMsgsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchWithdrawMsgsResponse;
     fromJSON(object: any): QueryPoolBatchWithdrawMsgsResponse;
     toJSON(message: QueryPoolBatchWithdrawMsgsResponse): unknown;
     fromPartial<I extends {
@@ -4406,7 +4406,7 @@ export declare const QueryPoolBatchWithdrawMsgsResponse: {
 };
 export declare const QueryPoolBatchWithdrawMsgResponse: {
     encode(message: QueryPoolBatchWithdrawMsgResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryPoolBatchWithdrawMsgResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolBatchWithdrawMsgResponse;
     fromJSON(object: any): QueryPoolBatchWithdrawMsgResponse;
     toJSON(message: QueryPoolBatchWithdrawMsgResponse): unknown;
     fromPartial<I extends {
@@ -4690,12 +4690,12 @@ export declare class QueryClientImpl implements Query {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

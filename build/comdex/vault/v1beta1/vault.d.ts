@@ -41,7 +41,7 @@ export interface CAssetsMintStatistics_MintedAssetsEntry {
 }
 export declare const Vault: {
     encode(message: Vault, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Vault;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Vault;
     fromJSON(object: any): Vault;
     toJSON(message: Vault): unknown;
     fromPartial<I extends {
@@ -195,7 +195,7 @@ export declare const Vault: {
 };
 export declare const UserVaultIdMapping: {
     encode(message: UserVaultIdMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UserVaultIdMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UserVaultIdMapping;
     fromJSON(object: any): UserVaultIdMapping;
     toJSON(message: UserVaultIdMapping): unknown;
     fromPartial<I extends {
@@ -265,7 +265,7 @@ export declare const UserVaultIdMapping: {
 };
 export declare const VaultIds: {
     encode(message: VaultIds, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): VaultIds;
+    decode(input: _m0.Reader | Uint8Array, length?: number): VaultIds;
     fromJSON(object: any): VaultIds;
     toJSON(message: VaultIds): unknown;
     fromPartial<I extends {
@@ -333,7 +333,7 @@ export declare const VaultIds: {
 };
 export declare const CollateralVaultIdMapping: {
     encode(message: CollateralVaultIdMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CollateralVaultIdMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CollateralVaultIdMapping;
     fromJSON(object: any): CollateralVaultIdMapping;
     toJSON(message: CollateralVaultIdMapping): unknown;
     fromPartial<I extends {
@@ -417,7 +417,7 @@ export declare const CollateralVaultIdMapping: {
 };
 export declare const CollateralVaultIdMapping_CassetsVaultIdsMapEntry: {
     encode(message: CollateralVaultIdMapping_CassetsVaultIdsMapEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CollateralVaultIdMapping_CassetsVaultIdsMapEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CollateralVaultIdMapping_CassetsVaultIdsMapEntry;
     fromJSON(object: any): CollateralVaultIdMapping_CassetsVaultIdsMapEntry;
     toJSON(message: CollateralVaultIdMapping_CassetsVaultIdsMapEntry): unknown;
     fromPartial<I extends {
@@ -493,7 +493,7 @@ export declare const CollateralVaultIdMapping_CassetsVaultIdsMapEntry: {
 };
 export declare const CAssetsMintStatistics: {
     encode(message: CAssetsMintStatistics, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CAssetsMintStatistics;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CAssetsMintStatistics;
     fromJSON(object: any): CAssetsMintStatistics;
     toJSON(message: CAssetsMintStatistics): unknown;
     fromPartial<I extends {
@@ -569,7 +569,7 @@ export declare const CAssetsMintStatistics: {
 };
 export declare const CAssetsMintStatistics_MintedAssetsEntry: {
     encode(message: CAssetsMintStatistics_MintedAssetsEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CAssetsMintStatistics_MintedAssetsEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CAssetsMintStatistics_MintedAssetsEntry;
     fromJSON(object: any): CAssetsMintStatistics_MintedAssetsEntry;
     toJSON(message: CAssetsMintStatistics_MintedAssetsEntry): unknown;
     fromPartial<I extends {
@@ -637,12 +637,12 @@ export declare const CAssetsMintStatistics_MintedAssetsEntry: {
         } & Record<Exclude<keyof I["value"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof CAssetsMintStatistics_MintedAssetsEntry>, never>>(object: I): CAssetsMintStatistics_MintedAssetsEntry;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

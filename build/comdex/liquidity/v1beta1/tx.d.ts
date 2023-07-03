@@ -109,7 +109,7 @@ export interface MsgUnbondPoolTokensResponse {
 }
 export declare const MsgCreatePool: {
     encode(message: MsgCreatePool, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreatePool;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePool;
     fromJSON(object: any): MsgCreatePool;
     toJSON(message: MsgCreatePool): unknown;
     fromPartial<I extends {
@@ -139,14 +139,14 @@ export declare const MsgCreatePool: {
 };
 export declare const MsgCreatePoolResponse: {
     encode(_: MsgCreatePoolResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreatePoolResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePoolResponse;
     fromJSON(_: any): MsgCreatePoolResponse;
     toJSON(_: MsgCreatePoolResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCreatePoolResponse;
 };
 export declare const MsgDepositWithinBatch: {
     encode(message: MsgDepositWithinBatch, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositWithinBatch;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositWithinBatch;
     fromJSON(object: any): MsgDepositWithinBatch;
     toJSON(message: MsgDepositWithinBatch): unknown;
     fromPartial<I extends {
@@ -233,14 +233,14 @@ export declare const MsgDepositWithinBatch: {
 };
 export declare const MsgDepositWithinBatchResponse: {
     encode(_: MsgDepositWithinBatchResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositWithinBatchResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositWithinBatchResponse;
     fromJSON(_: any): MsgDepositWithinBatchResponse;
     toJSON(_: MsgDepositWithinBatchResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgDepositWithinBatchResponse;
 };
 export declare const MsgWithdrawWithinBatch: {
     encode(message: MsgWithdrawWithinBatch, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawWithinBatch;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawWithinBatch;
     fromJSON(object: any): MsgWithdrawWithinBatch;
     toJSON(message: MsgWithdrawWithinBatch): unknown;
     fromPartial<I extends {
@@ -321,14 +321,14 @@ export declare const MsgWithdrawWithinBatch: {
 };
 export declare const MsgWithdrawWithinBatchResponse: {
     encode(_: MsgWithdrawWithinBatchResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawWithinBatchResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawWithinBatchResponse;
     fromJSON(_: any): MsgWithdrawWithinBatchResponse;
     toJSON(_: MsgWithdrawWithinBatchResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgWithdrawWithinBatchResponse;
 };
 export declare const MsgSwapWithinBatch: {
     encode(message: MsgSwapWithinBatch, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgSwapWithinBatch;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgSwapWithinBatch;
     fromJSON(object: any): MsgSwapWithinBatch;
     toJSON(message: MsgSwapWithinBatch): unknown;
     fromPartial<I extends {
@@ -426,14 +426,14 @@ export declare const MsgSwapWithinBatch: {
 };
 export declare const MsgSwapWithinBatchResponse: {
     encode(_: MsgSwapWithinBatchResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgSwapWithinBatchResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgSwapWithinBatchResponse;
     fromJSON(_: any): MsgSwapWithinBatchResponse;
     toJSON(_: MsgSwapWithinBatchResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgSwapWithinBatchResponse;
 };
 export declare const MsgBondPoolTokens: {
     encode(message: MsgBondPoolTokens, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBondPoolTokens;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBondPoolTokens;
     fromJSON(object: any): MsgBondPoolTokens;
     toJSON(message: MsgBondPoolTokens): unknown;
     fromPartial<I extends {
@@ -514,7 +514,7 @@ export declare const MsgBondPoolTokens: {
 };
 export declare const MsgUnbondPoolTokens: {
     encode(message: MsgUnbondPoolTokens, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUnbondPoolTokens;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnbondPoolTokens;
     fromJSON(object: any): MsgUnbondPoolTokens;
     toJSON(message: MsgUnbondPoolTokens): unknown;
     fromPartial<I extends {
@@ -595,14 +595,14 @@ export declare const MsgUnbondPoolTokens: {
 };
 export declare const MsgBondPoolTokensResponse: {
     encode(_: MsgBondPoolTokensResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBondPoolTokensResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBondPoolTokensResponse;
     fromJSON(_: any): MsgBondPoolTokensResponse;
     toJSON(_: MsgBondPoolTokensResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgBondPoolTokensResponse;
 };
 export declare const MsgUnbondPoolTokensResponse: {
     encode(_: MsgUnbondPoolTokensResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUnbondPoolTokensResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnbondPoolTokensResponse;
     fromJSON(_: any): MsgUnbondPoolTokensResponse;
     toJSON(_: MsgUnbondPoolTokensResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgUnbondPoolTokensResponse;
@@ -633,12 +633,12 @@ export declare class MsgClientImpl implements Msg {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

@@ -21,7 +21,7 @@ export interface UserPoolUnbondingTokens {
 }
 export declare const AllUserAddressesArray: {
     encode(message: AllUserAddressesArray, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AllUserAddressesArray;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AllUserAddressesArray;
     fromJSON(object: any): AllUserAddressesArray;
     toJSON(message: AllUserAddressesArray): unknown;
     fromPartial<I extends {
@@ -32,7 +32,7 @@ export declare const AllUserAddressesArray: {
 };
 export declare const UserPoolsData: {
     encode(message: UserPoolsData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UserPoolsData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UserPoolsData;
     fromJSON(object: any): UserPoolsData;
     toJSON(message: UserPoolsData): unknown;
     fromPartial<I extends {
@@ -159,7 +159,7 @@ export declare const UserPoolsData: {
 };
 export declare const UserPools: {
     encode(message: UserPools, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UserPools;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UserPools;
     fromJSON(object: any): UserPools;
     toJSON(message: UserPools): unknown;
     fromPartial<I extends {
@@ -253,7 +253,7 @@ export declare const UserPools: {
 };
 export declare const UserPoolUnbondingTokens: {
     encode(message: UserPoolUnbondingTokens, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UserPoolUnbondingTokens;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UserPoolUnbondingTokens;
     fromJSON(object: any): UserPoolUnbondingTokens;
     toJSON(message: UserPoolUnbondingTokens): unknown;
     fromPartial<I extends {
@@ -266,12 +266,12 @@ export declare const UserPoolUnbondingTokens: {
         unbondingEndTime?: Date | undefined;
     } & Record<Exclude<keyof I, keyof UserPoolUnbondingTokens>, never>>(object: I): UserPoolUnbondingTokens;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

@@ -46,7 +46,7 @@ export interface QueryCAssetsMintStatsResponse {
 }
 export declare const VaultInfo: {
     encode(message: VaultInfo, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): VaultInfo;
+    decode(input: _m0.Reader | Uint8Array, length?: number): VaultInfo;
     fromJSON(object: any): VaultInfo;
     toJSON(message: VaultInfo): unknown;
     fromPartial<I extends {
@@ -216,7 +216,7 @@ export declare const VaultInfo: {
 };
 export declare const QueryVaultRequest: {
     encode(message: QueryVaultRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryVaultRequest;
     fromJSON(object: any): QueryVaultRequest;
     toJSON(message: QueryVaultRequest): unknown;
     fromPartial<I extends {
@@ -284,7 +284,7 @@ export declare const QueryVaultRequest: {
 };
 export declare const QueryVaultResponse: {
     encode(message: QueryVaultResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryVaultResponse;
     fromJSON(object: any): QueryVaultResponse;
     toJSON(message: QueryVaultResponse): unknown;
     fromPartial<I extends {
@@ -475,7 +475,7 @@ export declare const QueryVaultResponse: {
 };
 export declare const QueryVaultsRequest: {
     encode(message: QueryVaultsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryVaultsRequest;
     fromJSON(object: any): QueryVaultsRequest;
     toJSON(message: QueryVaultsRequest): unknown;
     fromPartial<I extends {
@@ -620,7 +620,7 @@ export declare const QueryVaultsRequest: {
 };
 export declare const QueryVaultsResponse: {
     encode(message: QueryVaultsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryVaultsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryVaultsResponse;
     fromJSON(object: any): QueryVaultsResponse;
     toJSON(message: QueryVaultsResponse): unknown;
     fromPartial<I extends {
@@ -913,7 +913,7 @@ export declare const QueryVaultsResponse: {
 };
 export declare const QueryAllVaultsRequest: {
     encode(message: QueryAllVaultsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllVaultsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllVaultsRequest;
     fromJSON(object: any): QueryAllVaultsRequest;
     toJSON(message: QueryAllVaultsRequest): unknown;
     fromPartial<I extends {
@@ -1056,7 +1056,7 @@ export declare const QueryAllVaultsRequest: {
 };
 export declare const QueryAllVaultsResponse: {
     encode(message: QueryAllVaultsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllVaultsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllVaultsResponse;
     fromJSON(object: any): QueryAllVaultsResponse;
     toJSON(message: QueryAllVaultsResponse): unknown;
     fromPartial<I extends {
@@ -1349,14 +1349,14 @@ export declare const QueryAllVaultsResponse: {
 };
 export declare const QueryTotalCollateralRequest: {
     encode(_: QueryTotalCollateralRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalCollateralRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryTotalCollateralRequest;
     fromJSON(_: any): QueryTotalCollateralRequest;
     toJSON(_: QueryTotalCollateralRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryTotalCollateralRequest;
 };
 export declare const QueryTotalCollateralResponse: {
     encode(message: QueryTotalCollateralResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalCollateralResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryTotalCollateralResponse;
     fromJSON(object: any): QueryTotalCollateralResponse;
     toJSON(message: QueryTotalCollateralResponse): unknown;
     fromPartial<I extends {
@@ -1382,14 +1382,14 @@ export declare const QueryTotalCollateralResponse: {
 };
 export declare const QueryCAssetsMintStatsRequest: {
     encode(_: QueryCAssetsMintStatsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCAssetsMintStatsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryCAssetsMintStatsRequest;
     fromJSON(_: any): QueryCAssetsMintStatsRequest;
     toJSON(_: QueryCAssetsMintStatsRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryCAssetsMintStatsRequest;
 };
 export declare const QueryCAssetsMintStatsResponse: {
     encode(message: QueryCAssetsMintStatsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCAssetsMintStatsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryCAssetsMintStatsResponse;
     fromJSON(object: any): QueryCAssetsMintStatsResponse;
     toJSON(message: QueryCAssetsMintStatsResponse): unknown;
     fromPartial<I extends {
@@ -1501,12 +1501,12 @@ export declare class QueryServiceClientImpl implements QueryService {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

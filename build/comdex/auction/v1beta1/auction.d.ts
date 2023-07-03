@@ -19,7 +19,7 @@ export interface CollateralAuction {
 }
 export declare const CollateralAuction: {
     encode(message: CollateralAuction, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CollateralAuction;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CollateralAuction;
     fromJSON(object: any): CollateralAuction;
     toJSON(message: CollateralAuction): unknown;
     fromPartial<I extends {
@@ -509,12 +509,12 @@ export declare const CollateralAuction: {
         } & Record<Exclude<keyof I["biddingIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["biddingIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof CollateralAuction>, never>>(object: I): CollateralAuction;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};
