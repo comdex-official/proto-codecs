@@ -68,6 +68,7 @@ export interface ExtendedPair {
   isInterPool: boolean;
   assetOutPoolId: Long;
   minUsdValueLeft: Long;
+  isEModeEnabled: boolean;
 }
 
 export interface AssetToPairMapping {
@@ -109,6 +110,10 @@ export interface AssetRatesParams {
   liquidationBonus: string;
   reserveFactor: string;
   cAssetId: Long;
+  isIsolated: boolean;
+  eLtv: string;
+  eLiquidationThreshold: string;
+  eLiquidationPenalty: string;
 }
 
 /** BalanceStats */
@@ -235,6 +240,27 @@ export interface AssetRatesPoolPairs {
   cpoolName: string;
   assetData: AssetDataPoolMapping[];
   minUsdValueLeft: Long;
+  isIsolated: boolean;
+}
+
+export interface PoolDepreciate {
+  individualPoolDepreciate: IndividualPoolDepreciate[];
+}
+
+export interface IndividualPoolDepreciate {
+  poolId: Long;
+  isPoolDepreciated: boolean;
+}
+
+export interface EModePairsForProposal {
+  eModePairs: EModePairs[];
+}
+
+export interface EModePairs {
+  pairId: Long;
+  eLtv: string;
+  eLiquidationThreshold: string;
+  eLiquidationPenalty: string;
 }
 
 function createBaseLendAsset(): LendAsset {
@@ -1021,6 +1047,7 @@ function createBaseExtendedPair(): ExtendedPair {
     isInterPool: false,
     assetOutPoolId: Long.UZERO,
     minUsdValueLeft: Long.UZERO,
+    isEModeEnabled: false,
   };
 }
 
@@ -1046,6 +1073,9 @@ export const ExtendedPair = {
     }
     if (!message.minUsdValueLeft.isZero()) {
       writer.uint32(48).uint64(message.minUsdValueLeft);
+    }
+    if (message.isEModeEnabled === true) {
+      writer.uint32(56).bool(message.isEModeEnabled);
     }
     return writer;
   },
@@ -1075,6 +1105,9 @@ export const ExtendedPair = {
         case 6:
           message.minUsdValueLeft = reader.uint64() as Long;
           break;
+        case 7:
+          message.isEModeEnabled = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1101,6 +1134,9 @@ export const ExtendedPair = {
       minUsdValueLeft: isSet(object.minUsdValueLeft)
         ? Long.fromValue(object.minUsdValueLeft)
         : Long.UZERO,
+      isEModeEnabled: isSet(object.isEModeEnabled)
+        ? Boolean(object.isEModeEnabled)
+        : false,
     };
   },
 
@@ -1120,6 +1156,8 @@ export const ExtendedPair = {
       (obj.minUsdValueLeft = (
         message.minUsdValueLeft || Long.UZERO
       ).toString());
+    message.isEModeEnabled !== undefined &&
+      (obj.isEModeEnabled = message.isEModeEnabled);
     return obj;
   },
 
@@ -1148,6 +1186,7 @@ export const ExtendedPair = {
       object.minUsdValueLeft !== undefined && object.minUsdValueLeft !== null
         ? Long.fromValue(object.minUsdValueLeft)
         : Long.UZERO;
+    message.isEModeEnabled = object.isEModeEnabled ?? false;
     return message;
   },
 };
@@ -1489,6 +1528,10 @@ function createBaseAssetRatesParams(): AssetRatesParams {
     liquidationBonus: "",
     reserveFactor: "",
     cAssetId: Long.UZERO,
+    isIsolated: false,
+    eLtv: "",
+    eLiquidationThreshold: "",
+    eLiquidationPenalty: "",
   };
 }
 
@@ -1541,6 +1584,18 @@ export const AssetRatesParams = {
     }
     if (!message.cAssetId.isZero()) {
       writer.uint32(120).uint64(message.cAssetId);
+    }
+    if (message.isIsolated === true) {
+      writer.uint32(128).bool(message.isIsolated);
+    }
+    if (message.eLtv !== "") {
+      writer.uint32(138).string(message.eLtv);
+    }
+    if (message.eLiquidationThreshold !== "") {
+      writer.uint32(146).string(message.eLiquidationThreshold);
+    }
+    if (message.eLiquidationPenalty !== "") {
+      writer.uint32(154).string(message.eLiquidationPenalty);
     }
     return writer;
   },
@@ -1597,6 +1652,18 @@ export const AssetRatesParams = {
         case 15:
           message.cAssetId = reader.uint64() as Long;
           break;
+        case 16:
+          message.isIsolated = reader.bool();
+          break;
+        case 17:
+          message.eLtv = reader.string();
+          break;
+        case 18:
+          message.eLiquidationThreshold = reader.string();
+          break;
+        case 19:
+          message.eLiquidationPenalty = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1640,6 +1707,14 @@ export const AssetRatesParams = {
       cAssetId: isSet(object.cAssetId)
         ? Long.fromValue(object.cAssetId)
         : Long.UZERO,
+      isIsolated: isSet(object.isIsolated) ? Boolean(object.isIsolated) : false,
+      eLtv: isSet(object.eLtv) ? String(object.eLtv) : "",
+      eLiquidationThreshold: isSet(object.eLiquidationThreshold)
+        ? String(object.eLiquidationThreshold)
+        : "",
+      eLiquidationPenalty: isSet(object.eLiquidationPenalty)
+        ? String(object.eLiquidationPenalty)
+        : "",
     };
   },
 
@@ -1669,6 +1744,12 @@ export const AssetRatesParams = {
       (obj.reserveFactor = message.reserveFactor);
     message.cAssetId !== undefined &&
       (obj.cAssetId = (message.cAssetId || Long.UZERO).toString());
+    message.isIsolated !== undefined && (obj.isIsolated = message.isIsolated);
+    message.eLtv !== undefined && (obj.eLtv = message.eLtv);
+    message.eLiquidationThreshold !== undefined &&
+      (obj.eLiquidationThreshold = message.eLiquidationThreshold);
+    message.eLiquidationPenalty !== undefined &&
+      (obj.eLiquidationPenalty = message.eLiquidationPenalty);
     return obj;
   },
 
@@ -1697,6 +1778,10 @@ export const AssetRatesParams = {
       object.cAssetId !== undefined && object.cAssetId !== null
         ? Long.fromValue(object.cAssetId)
         : Long.UZERO;
+    message.isIsolated = object.isIsolated ?? false;
+    message.eLtv = object.eLtv ?? "";
+    message.eLiquidationThreshold = object.eLiquidationThreshold ?? "";
+    message.eLiquidationPenalty = object.eLiquidationPenalty ?? "";
     return message;
   },
 };
@@ -3280,6 +3365,7 @@ function createBaseAssetRatesPoolPairs(): AssetRatesPoolPairs {
     cpoolName: "",
     assetData: [],
     minUsdValueLeft: Long.UZERO,
+    isIsolated: false,
   };
 }
 
@@ -3344,6 +3430,9 @@ export const AssetRatesPoolPairs = {
     }
     if (!message.minUsdValueLeft.isZero()) {
       writer.uint32(152).uint64(message.minUsdValueLeft);
+    }
+    if (message.isIsolated === true) {
+      writer.uint32(160).bool(message.isIsolated);
     }
     return writer;
   },
@@ -3414,6 +3503,9 @@ export const AssetRatesPoolPairs = {
         case 19:
           message.minUsdValueLeft = reader.uint64() as Long;
           break;
+        case 20:
+          message.isIsolated = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -3465,6 +3557,7 @@ export const AssetRatesPoolPairs = {
       minUsdValueLeft: isSet(object.minUsdValueLeft)
         ? Long.fromValue(object.minUsdValueLeft)
         : Long.UZERO,
+      isIsolated: isSet(object.isIsolated) ? Boolean(object.isIsolated) : false,
     };
   },
 
@@ -3507,6 +3600,7 @@ export const AssetRatesPoolPairs = {
       (obj.minUsdValueLeft = (
         message.minUsdValueLeft || Long.UZERO
       ).toString());
+    message.isIsolated !== undefined && (obj.isIsolated = message.isIsolated);
     return obj;
   },
 
@@ -3543,6 +3637,311 @@ export const AssetRatesPoolPairs = {
       object.minUsdValueLeft !== undefined && object.minUsdValueLeft !== null
         ? Long.fromValue(object.minUsdValueLeft)
         : Long.UZERO;
+    message.isIsolated = object.isIsolated ?? false;
+    return message;
+  },
+};
+
+function createBasePoolDepreciate(): PoolDepreciate {
+  return { individualPoolDepreciate: [] };
+}
+
+export const PoolDepreciate = {
+  encode(
+    message: PoolDepreciate,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.individualPoolDepreciate) {
+      IndividualPoolDepreciate.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): PoolDepreciate {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePoolDepreciate();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.individualPoolDepreciate.push(
+            IndividualPoolDepreciate.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): PoolDepreciate {
+    return {
+      individualPoolDepreciate: Array.isArray(object?.individualPoolDepreciate)
+        ? object.individualPoolDepreciate.map((e: any) =>
+            IndividualPoolDepreciate.fromJSON(e)
+          )
+        : [],
+    };
+  },
+
+  toJSON(message: PoolDepreciate): unknown {
+    const obj: any = {};
+    if (message.individualPoolDepreciate) {
+      obj.individualPoolDepreciate = message.individualPoolDepreciate.map((e) =>
+        e ? IndividualPoolDepreciate.toJSON(e) : undefined
+      );
+    } else {
+      obj.individualPoolDepreciate = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<PoolDepreciate>, I>>(
+    object: I
+  ): PoolDepreciate {
+    const message = createBasePoolDepreciate();
+    message.individualPoolDepreciate =
+      object.individualPoolDepreciate?.map((e) =>
+        IndividualPoolDepreciate.fromPartial(e)
+      ) || [];
+    return message;
+  },
+};
+
+function createBaseIndividualPoolDepreciate(): IndividualPoolDepreciate {
+  return { poolId: Long.UZERO, isPoolDepreciated: false };
+}
+
+export const IndividualPoolDepreciate = {
+  encode(
+    message: IndividualPoolDepreciate,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.poolId.isZero()) {
+      writer.uint32(8).uint64(message.poolId);
+    }
+    if (message.isPoolDepreciated === true) {
+      writer.uint32(16).bool(message.isPoolDepreciated);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): IndividualPoolDepreciate {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseIndividualPoolDepreciate();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.poolId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.isPoolDepreciated = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): IndividualPoolDepreciate {
+    return {
+      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
+      isPoolDepreciated: isSet(object.isPoolDepreciated)
+        ? Boolean(object.isPoolDepreciated)
+        : false,
+    };
+  },
+
+  toJSON(message: IndividualPoolDepreciate): unknown {
+    const obj: any = {};
+    message.poolId !== undefined &&
+      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.isPoolDepreciated !== undefined &&
+      (obj.isPoolDepreciated = message.isPoolDepreciated);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<IndividualPoolDepreciate>, I>>(
+    object: I
+  ): IndividualPoolDepreciate {
+    const message = createBaseIndividualPoolDepreciate();
+    message.poolId =
+      object.poolId !== undefined && object.poolId !== null
+        ? Long.fromValue(object.poolId)
+        : Long.UZERO;
+    message.isPoolDepreciated = object.isPoolDepreciated ?? false;
+    return message;
+  },
+};
+
+function createBaseEModePairsForProposal(): EModePairsForProposal {
+  return { eModePairs: [] };
+}
+
+export const EModePairsForProposal = {
+  encode(
+    message: EModePairsForProposal,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.eModePairs) {
+      EModePairs.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): EModePairsForProposal {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEModePairsForProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.eModePairs.push(EModePairs.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): EModePairsForProposal {
+    return {
+      eModePairs: Array.isArray(object?.eModePairs)
+        ? object.eModePairs.map((e: any) => EModePairs.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: EModePairsForProposal): unknown {
+    const obj: any = {};
+    if (message.eModePairs) {
+      obj.eModePairs = message.eModePairs.map((e) =>
+        e ? EModePairs.toJSON(e) : undefined
+      );
+    } else {
+      obj.eModePairs = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EModePairsForProposal>, I>>(
+    object: I
+  ): EModePairsForProposal {
+    const message = createBaseEModePairsForProposal();
+    message.eModePairs =
+      object.eModePairs?.map((e) => EModePairs.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseEModePairs(): EModePairs {
+  return {
+    pairId: Long.UZERO,
+    eLtv: "",
+    eLiquidationThreshold: "",
+    eLiquidationPenalty: "",
+  };
+}
+
+export const EModePairs = {
+  encode(
+    message: EModePairs,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.pairId.isZero()) {
+      writer.uint32(8).uint64(message.pairId);
+    }
+    if (message.eLtv !== "") {
+      writer.uint32(18).string(message.eLtv);
+    }
+    if (message.eLiquidationThreshold !== "") {
+      writer.uint32(26).string(message.eLiquidationThreshold);
+    }
+    if (message.eLiquidationPenalty !== "") {
+      writer.uint32(34).string(message.eLiquidationPenalty);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): EModePairs {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseEModePairs();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pairId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.eLtv = reader.string();
+          break;
+        case 3:
+          message.eLiquidationThreshold = reader.string();
+          break;
+        case 4:
+          message.eLiquidationPenalty = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): EModePairs {
+    return {
+      pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
+      eLtv: isSet(object.eLtv) ? String(object.eLtv) : "",
+      eLiquidationThreshold: isSet(object.eLiquidationThreshold)
+        ? String(object.eLiquidationThreshold)
+        : "",
+      eLiquidationPenalty: isSet(object.eLiquidationPenalty)
+        ? String(object.eLiquidationPenalty)
+        : "",
+    };
+  },
+
+  toJSON(message: EModePairs): unknown {
+    const obj: any = {};
+    message.pairId !== undefined &&
+      (obj.pairId = (message.pairId || Long.UZERO).toString());
+    message.eLtv !== undefined && (obj.eLtv = message.eLtv);
+    message.eLiquidationThreshold !== undefined &&
+      (obj.eLiquidationThreshold = message.eLiquidationThreshold);
+    message.eLiquidationPenalty !== undefined &&
+      (obj.eLiquidationPenalty = message.eLiquidationPenalty);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EModePairs>, I>>(
+    object: I
+  ): EModePairs {
+    const message = createBaseEModePairs();
+    message.pairId =
+      object.pairId !== undefined && object.pairId !== null
+        ? Long.fromValue(object.pairId)
+        : Long.UZERO;
+    message.eLtv = object.eLtv ?? "";
+    message.eLiquidationThreshold = object.eLiquidationThreshold ?? "";
+    message.eLiquidationPenalty = object.eLiquidationPenalty ?? "";
     return message;
   },
 };
