@@ -49,6 +49,7 @@ function createBaseGenesisState() {
         modBal: undefined,
         reserveBal: undefined,
         allReserveStats: [],
+        poolDepreciate: undefined,
     };
 }
 exports.GenesisState = {
@@ -97,6 +98,9 @@ exports.GenesisState = {
         }
         for (const v of message.allReserveStats) {
             lend_1.AllReserveStats.encode(v, writer.uint32(122).fork()).ldelim();
+        }
+        if (message.poolDepreciate !== undefined) {
+            lend_1.PoolDepreciate.encode(message.poolDepreciate, writer.uint32(130).fork()).ldelim();
         }
         return writer;
     },
@@ -152,6 +156,9 @@ exports.GenesisState = {
                 case 15:
                     message.allReserveStats.push(lend_1.AllReserveStats.decode(reader, reader.uint32()));
                     break;
+                case 16:
+                    message.poolDepreciate = lend_1.PoolDepreciate.decode(reader, reader.uint32());
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -204,6 +211,9 @@ exports.GenesisState = {
             allReserveStats: Array.isArray(object === null || object === void 0 ? void 0 : object.allReserveStats)
                 ? object.allReserveStats.map((e) => lend_1.AllReserveStats.fromJSON(e))
                 : [],
+            poolDepreciate: isSet(object.poolDepreciate)
+                ? lend_1.PoolDepreciate.fromJSON(object.poolDepreciate)
+                : undefined,
         };
     },
     toJSON(message) {
@@ -292,6 +302,10 @@ exports.GenesisState = {
         else {
             obj.allReserveStats = [];
         }
+        message.poolDepreciate !== undefined &&
+            (obj.poolDepreciate = message.poolDepreciate
+                ? lend_1.PoolDepreciate.toJSON(message.poolDepreciate)
+                : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -331,6 +345,10 @@ exports.GenesisState = {
                 : undefined;
         message.allReserveStats =
             ((_o = object.allReserveStats) === null || _o === void 0 ? void 0 : _o.map((e) => lend_1.AllReserveStats.fromPartial(e))) || [];
+        message.poolDepreciate =
+            object.poolDepreciate !== undefined && object.poolDepreciate !== null
+                ? lend_1.PoolDepreciate.fromPartial(object.poolDepreciate)
+                : undefined;
         return message;
     },
 };

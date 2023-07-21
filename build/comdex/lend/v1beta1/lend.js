@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AssetRatesPoolPairs = exports.PoolInterestB = exports.PoolInterestDataB = exports.PoolInterest = exports.PoolInterestData = exports.PoolPairs = exports.AssetToPairSingleMapping = exports.AllReserveStats = exports.FundReserveBal = exports.FundModBal = exports.ReserveBal = exports.ModBal = exports.ModuleBalanceStats = exports.ModuleBalance = exports.LendRewardsTracker = exports.BorrowInterestTracker = exports.AuctionParams = exports.ReserveBuybackAssetData = exports.AssetRatesParams = exports.PoolAssetLBMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.UserAssetLendBorrowMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
+exports.EModePairs = exports.EModePairsForProposal = exports.IndividualPoolDepreciate = exports.PoolDepreciate = exports.AssetRatesPoolPairs = exports.PoolInterestB = exports.PoolInterestDataB = exports.PoolInterest = exports.PoolInterestData = exports.PoolPairs = exports.AssetToPairSingleMapping = exports.AllReserveStats = exports.FundReserveBal = exports.FundModBal = exports.ReserveBal = exports.ModBal = exports.ModuleBalanceStats = exports.ModuleBalance = exports.LendRewardsTracker = exports.BorrowInterestTracker = exports.AuctionParams = exports.ReserveBuybackAssetData = exports.AssetRatesParams = exports.PoolAssetLBMapping = exports.AssetToPairMapping = exports.ExtendedPair = exports.AssetDataPoolMapping = exports.UserAssetLendBorrowMapping = exports.Pool = exports.BorrowAsset = exports.LendAsset = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -740,6 +740,7 @@ function createBaseExtendedPair() {
         isInterPool: false,
         assetOutPoolId: long_1.default.UZERO,
         minUsdValueLeft: long_1.default.UZERO,
+        isEModeEnabled: false,
     };
 }
 exports.ExtendedPair = {
@@ -761,6 +762,9 @@ exports.ExtendedPair = {
         }
         if (!message.minUsdValueLeft.isZero()) {
             writer.uint32(48).uint64(message.minUsdValueLeft);
+        }
+        if (message.isEModeEnabled === true) {
+            writer.uint32(56).bool(message.isEModeEnabled);
         }
         return writer;
     },
@@ -789,6 +793,9 @@ exports.ExtendedPair = {
                 case 6:
                     message.minUsdValueLeft = reader.uint64();
                     break;
+                case 7:
+                    message.isEModeEnabled = reader.bool();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -814,6 +821,9 @@ exports.ExtendedPair = {
             minUsdValueLeft: isSet(object.minUsdValueLeft)
                 ? long_1.default.fromValue(object.minUsdValueLeft)
                 : long_1.default.UZERO,
+            isEModeEnabled: isSet(object.isEModeEnabled)
+                ? Boolean(object.isEModeEnabled)
+                : false,
         };
     },
     toJSON(message) {
@@ -830,10 +840,12 @@ exports.ExtendedPair = {
             (obj.assetOutPoolId = (message.assetOutPoolId || long_1.default.UZERO).toString());
         message.minUsdValueLeft !== undefined &&
             (obj.minUsdValueLeft = (message.minUsdValueLeft || long_1.default.UZERO).toString());
+        message.isEModeEnabled !== undefined &&
+            (obj.isEModeEnabled = message.isEModeEnabled);
         return obj;
     },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseExtendedPair();
         message.id =
             object.id !== undefined && object.id !== null
@@ -856,6 +868,7 @@ exports.ExtendedPair = {
             object.minUsdValueLeft !== undefined && object.minUsdValueLeft !== null
                 ? long_1.default.fromValue(object.minUsdValueLeft)
                 : long_1.default.UZERO;
+        message.isEModeEnabled = (_b = object.isEModeEnabled) !== null && _b !== void 0 ? _b : false;
         return message;
     },
 };
@@ -1180,6 +1193,10 @@ function createBaseAssetRatesParams() {
         liquidationBonus: "",
         reserveFactor: "",
         cAssetId: long_1.default.UZERO,
+        isIsolated: false,
+        eLtv: "",
+        eLiquidationThreshold: "",
+        eLiquidationPenalty: "",
     };
 }
 exports.AssetRatesParams = {
@@ -1228,6 +1245,18 @@ exports.AssetRatesParams = {
         }
         if (!message.cAssetId.isZero()) {
             writer.uint32(120).uint64(message.cAssetId);
+        }
+        if (message.isIsolated === true) {
+            writer.uint32(128).bool(message.isIsolated);
+        }
+        if (message.eLtv !== "") {
+            writer.uint32(138).string(message.eLtv);
+        }
+        if (message.eLiquidationThreshold !== "") {
+            writer.uint32(146).string(message.eLiquidationThreshold);
+        }
+        if (message.eLiquidationPenalty !== "") {
+            writer.uint32(154).string(message.eLiquidationPenalty);
         }
         return writer;
     },
@@ -1283,6 +1312,18 @@ exports.AssetRatesParams = {
                 case 15:
                     message.cAssetId = reader.uint64();
                     break;
+                case 16:
+                    message.isIsolated = reader.bool();
+                    break;
+                case 17:
+                    message.eLtv = reader.string();
+                    break;
+                case 18:
+                    message.eLiquidationThreshold = reader.string();
+                    break;
+                case 19:
+                    message.eLiquidationPenalty = reader.string();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -1325,6 +1366,14 @@ exports.AssetRatesParams = {
             cAssetId: isSet(object.cAssetId)
                 ? long_1.default.fromValue(object.cAssetId)
                 : long_1.default.UZERO,
+            isIsolated: isSet(object.isIsolated) ? Boolean(object.isIsolated) : false,
+            eLtv: isSet(object.eLtv) ? String(object.eLtv) : "",
+            eLiquidationThreshold: isSet(object.eLiquidationThreshold)
+                ? String(object.eLiquidationThreshold)
+                : "",
+            eLiquidationPenalty: isSet(object.eLiquidationPenalty)
+                ? String(object.eLiquidationPenalty)
+                : "",
         };
     },
     toJSON(message) {
@@ -1353,10 +1402,16 @@ exports.AssetRatesParams = {
             (obj.reserveFactor = message.reserveFactor);
         message.cAssetId !== undefined &&
             (obj.cAssetId = (message.cAssetId || long_1.default.UZERO).toString());
+        message.isIsolated !== undefined && (obj.isIsolated = message.isIsolated);
+        message.eLtv !== undefined && (obj.eLtv = message.eLtv);
+        message.eLiquidationThreshold !== undefined &&
+            (obj.eLiquidationThreshold = message.eLiquidationThreshold);
+        message.eLiquidationPenalty !== undefined &&
+            (obj.eLiquidationPenalty = message.eLiquidationPenalty);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
         const message = createBaseAssetRatesParams();
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
@@ -1379,6 +1434,10 @@ exports.AssetRatesParams = {
             object.cAssetId !== undefined && object.cAssetId !== null
                 ? long_1.default.fromValue(object.cAssetId)
                 : long_1.default.UZERO;
+        message.isIsolated = (_p = object.isIsolated) !== null && _p !== void 0 ? _p : false;
+        message.eLtv = (_q = object.eLtv) !== null && _q !== void 0 ? _q : "";
+        message.eLiquidationThreshold = (_r = object.eLiquidationThreshold) !== null && _r !== void 0 ? _r : "";
+        message.eLiquidationPenalty = (_s = object.eLiquidationPenalty) !== null && _s !== void 0 ? _s : "";
         return message;
     },
 };
@@ -2740,6 +2799,7 @@ function createBaseAssetRatesPoolPairs() {
         cpoolName: "",
         assetData: [],
         minUsdValueLeft: long_1.default.UZERO,
+        isIsolated: false,
     };
 }
 exports.AssetRatesPoolPairs = {
@@ -2800,6 +2860,9 @@ exports.AssetRatesPoolPairs = {
         }
         if (!message.minUsdValueLeft.isZero()) {
             writer.uint32(152).uint64(message.minUsdValueLeft);
+        }
+        if (message.isIsolated === true) {
+            writer.uint32(160).bool(message.isIsolated);
         }
         return writer;
     },
@@ -2867,6 +2930,9 @@ exports.AssetRatesPoolPairs = {
                 case 19:
                     message.minUsdValueLeft = reader.uint64();
                     break;
+                case 20:
+                    message.isIsolated = reader.bool();
+                    break;
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -2917,6 +2983,7 @@ exports.AssetRatesPoolPairs = {
             minUsdValueLeft: isSet(object.minUsdValueLeft)
                 ? long_1.default.fromValue(object.minUsdValueLeft)
                 : long_1.default.UZERO,
+            isIsolated: isSet(object.isIsolated) ? Boolean(object.isIsolated) : false,
         };
     },
     toJSON(message) {
@@ -2955,10 +3022,11 @@ exports.AssetRatesPoolPairs = {
         }
         message.minUsdValueLeft !== undefined &&
             (obj.minUsdValueLeft = (message.minUsdValueLeft || long_1.default.UZERO).toString());
+        message.isIsolated !== undefined && (obj.isIsolated = message.isIsolated);
         return obj;
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
         const message = createBaseAssetRatesPoolPairs();
         message.assetId =
             object.assetId !== undefined && object.assetId !== null
@@ -2989,6 +3057,257 @@ exports.AssetRatesPoolPairs = {
             object.minUsdValueLeft !== undefined && object.minUsdValueLeft !== null
                 ? long_1.default.fromValue(object.minUsdValueLeft)
                 : long_1.default.UZERO;
+        message.isIsolated = (_s = object.isIsolated) !== null && _s !== void 0 ? _s : false;
+        return message;
+    },
+};
+function createBasePoolDepreciate() {
+    return { individualPoolDepreciate: [] };
+}
+exports.PoolDepreciate = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.individualPoolDepreciate) {
+            exports.IndividualPoolDepreciate.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBasePoolDepreciate();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.individualPoolDepreciate.push(exports.IndividualPoolDepreciate.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            individualPoolDepreciate: Array.isArray(object === null || object === void 0 ? void 0 : object.individualPoolDepreciate)
+                ? object.individualPoolDepreciate.map((e) => exports.IndividualPoolDepreciate.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.individualPoolDepreciate) {
+            obj.individualPoolDepreciate = message.individualPoolDepreciate.map((e) => e ? exports.IndividualPoolDepreciate.toJSON(e) : undefined);
+        }
+        else {
+            obj.individualPoolDepreciate = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBasePoolDepreciate();
+        message.individualPoolDepreciate =
+            ((_a = object.individualPoolDepreciate) === null || _a === void 0 ? void 0 : _a.map((e) => exports.IndividualPoolDepreciate.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseIndividualPoolDepreciate() {
+    return { poolId: long_1.default.UZERO, isPoolDepreciated: false };
+}
+exports.IndividualPoolDepreciate = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.poolId.isZero()) {
+            writer.uint32(8).uint64(message.poolId);
+        }
+        if (message.isPoolDepreciated === true) {
+            writer.uint32(16).bool(message.isPoolDepreciated);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseIndividualPoolDepreciate();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.poolId = reader.uint64();
+                    break;
+                case 2:
+                    message.isPoolDepreciated = reader.bool();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            isPoolDepreciated: isSet(object.isPoolDepreciated)
+                ? Boolean(object.isPoolDepreciated)
+                : false,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.isPoolDepreciated !== undefined &&
+            (obj.isPoolDepreciated = message.isPoolDepreciated);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseIndividualPoolDepreciate();
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.isPoolDepreciated = (_a = object.isPoolDepreciated) !== null && _a !== void 0 ? _a : false;
+        return message;
+    },
+};
+function createBaseEModePairsForProposal() {
+    return { eModePairs: [] };
+}
+exports.EModePairsForProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.eModePairs) {
+            exports.EModePairs.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseEModePairsForProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.eModePairs.push(exports.EModePairs.decode(reader, reader.uint32()));
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            eModePairs: Array.isArray(object === null || object === void 0 ? void 0 : object.eModePairs)
+                ? object.eModePairs.map((e) => exports.EModePairs.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.eModePairs) {
+            obj.eModePairs = message.eModePairs.map((e) => e ? exports.EModePairs.toJSON(e) : undefined);
+        }
+        else {
+            obj.eModePairs = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseEModePairsForProposal();
+        message.eModePairs =
+            ((_a = object.eModePairs) === null || _a === void 0 ? void 0 : _a.map((e) => exports.EModePairs.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseEModePairs() {
+    return {
+        pairId: long_1.default.UZERO,
+        eLtv: "",
+        eLiquidationThreshold: "",
+        eLiquidationPenalty: "",
+    };
+}
+exports.EModePairs = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.pairId.isZero()) {
+            writer.uint32(8).uint64(message.pairId);
+        }
+        if (message.eLtv !== "") {
+            writer.uint32(18).string(message.eLtv);
+        }
+        if (message.eLiquidationThreshold !== "") {
+            writer.uint32(26).string(message.eLiquidationThreshold);
+        }
+        if (message.eLiquidationPenalty !== "") {
+            writer.uint32(34).string(message.eLiquidationPenalty);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseEModePairs();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pairId = reader.uint64();
+                    break;
+                case 2:
+                    message.eLtv = reader.string();
+                    break;
+                case 3:
+                    message.eLiquidationThreshold = reader.string();
+                    break;
+                case 4:
+                    message.eLiquidationPenalty = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            pairId: isSet(object.pairId) ? long_1.default.fromValue(object.pairId) : long_1.default.UZERO,
+            eLtv: isSet(object.eLtv) ? String(object.eLtv) : "",
+            eLiquidationThreshold: isSet(object.eLiquidationThreshold)
+                ? String(object.eLiquidationThreshold)
+                : "",
+            eLiquidationPenalty: isSet(object.eLiquidationPenalty)
+                ? String(object.eLiquidationPenalty)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pairId !== undefined &&
+            (obj.pairId = (message.pairId || long_1.default.UZERO).toString());
+        message.eLtv !== undefined && (obj.eLtv = message.eLtv);
+        message.eLiquidationThreshold !== undefined &&
+            (obj.eLiquidationThreshold = message.eLiquidationThreshold);
+        message.eLiquidationPenalty !== undefined &&
+            (obj.eLiquidationPenalty = message.eLiquidationPenalty);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseEModePairs();
+        message.pairId =
+            object.pairId !== undefined && object.pairId !== null
+                ? long_1.default.fromValue(object.pairId)
+                : long_1.default.UZERO;
+        message.eLtv = (_a = object.eLtv) !== null && _a !== void 0 ? _a : "";
+        message.eLiquidationThreshold = (_b = object.eLiquidationThreshold) !== null && _b !== void 0 ? _b : "";
+        message.eLiquidationPenalty = (_c = object.eLiquidationPenalty) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };

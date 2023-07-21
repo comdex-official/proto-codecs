@@ -1,6 +1,6 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
-import { ExtendedPair, Pool, AssetToPairMapping, AssetRatesParams, AuctionParams, PoolPairs, AssetRatesPoolPairs, AssetToPairSingleMapping } from "../../../comdex/lend/v1beta1/lend";
+import { ExtendedPair, Pool, AssetToPairMapping, AssetRatesParams, AuctionParams, PoolPairs, AssetRatesPoolPairs, PoolDepreciate, EModePairsForProposal, AssetToPairSingleMapping } from "../../../comdex/lend/v1beta1/lend";
 export declare const protobufPackage = "comdex.lend.v1beta1";
 export interface LendPairsProposal {
     title: string;
@@ -47,9 +47,19 @@ export interface AddAssetRatesPoolPairsProposal {
     description: string;
     AssetRatesPoolPairs?: AssetRatesPoolPairs;
 }
+export interface AddPoolDepreciateProposal {
+    title: string;
+    description: string;
+    PoolDepreciate?: PoolDepreciate;
+}
+export interface AddEModePairsProposal {
+    title: string;
+    description: string;
+    EModePairsForProposal?: EModePairsForProposal;
+}
 export declare const LendPairsProposal: {
     encode(message: LendPairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LendPairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LendPairsProposal;
     fromJSON(object: any): LendPairsProposal;
     toJSON(message: LendPairsProposal): unknown;
     fromPartial<I extends {
@@ -62,6 +72,7 @@ export declare const LendPairsProposal: {
             isInterPool?: boolean | undefined;
             assetOutPoolId?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isEModeEnabled?: boolean | undefined;
         } | undefined;
     } & {
         title?: string | undefined;
@@ -73,6 +84,7 @@ export declare const LendPairsProposal: {
             isInterPool?: boolean | undefined;
             assetOutPoolId?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isEModeEnabled?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -365,12 +377,13 @@ export declare const LendPairsProposal: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pairs"]["minUsdValueLeft"], keyof Long.Long>, never>) | undefined;
+            isEModeEnabled?: boolean | undefined;
         } & Record<Exclude<keyof I["pairs"], keyof ExtendedPair>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof LendPairsProposal>, never>>(object: I): LendPairsProposal;
 };
 export declare const MultipleLendPairsProposal: {
     encode(message: MultipleLendPairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MultipleLendPairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MultipleLendPairsProposal;
     fromJSON(object: any): MultipleLendPairsProposal;
     toJSON(message: MultipleLendPairsProposal): unknown;
     fromPartial<I extends {
@@ -383,6 +396,7 @@ export declare const MultipleLendPairsProposal: {
             isInterPool?: boolean | undefined;
             assetOutPoolId?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isEModeEnabled?: boolean | undefined;
         }[] | undefined;
     } & {
         title?: string | undefined;
@@ -394,6 +408,7 @@ export declare const MultipleLendPairsProposal: {
             isInterPool?: boolean | undefined;
             assetOutPoolId?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isEModeEnabled?: boolean | undefined;
         }[] & ({
             id?: string | number | Long.Long | undefined;
             assetIn?: string | number | Long.Long | undefined;
@@ -401,6 +416,7 @@ export declare const MultipleLendPairsProposal: {
             isInterPool?: boolean | undefined;
             assetOutPoolId?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isEModeEnabled?: boolean | undefined;
         } & {
             id?: string | number | (Long.Long & {
                 high: number;
@@ -693,6 +709,7 @@ export declare const MultipleLendPairsProposal: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["pairs"][number]["minUsdValueLeft"], keyof Long.Long>, never>) | undefined;
+            isEModeEnabled?: boolean | undefined;
         } & Record<Exclude<keyof I["pairs"][number], keyof ExtendedPair>, never>)[] & Record<Exclude<keyof I["pairs"], keyof {
             id?: string | number | Long.Long | undefined;
             assetIn?: string | number | Long.Long | undefined;
@@ -700,12 +717,13 @@ export declare const MultipleLendPairsProposal: {
             isInterPool?: boolean | undefined;
             assetOutPoolId?: string | number | Long.Long | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isEModeEnabled?: boolean | undefined;
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof MultipleLendPairsProposal>, never>>(object: I): MultipleLendPairsProposal;
 };
 export declare const AddPoolsProposal: {
     encode(message: AddPoolsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddPoolsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddPoolsProposal;
     fromJSON(object: any): AddPoolsProposal;
     toJSON(message: AddPoolsProposal): unknown;
     fromPartial<I extends {
@@ -930,7 +948,7 @@ export declare const AddPoolsProposal: {
 };
 export declare const AddAssetToPairProposal: {
     encode(message: AddAssetToPairProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAssetToPairProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetToPairProposal;
     fromJSON(object: any): AddAssetToPairProposal;
     toJSON(message: AddAssetToPairProposal): unknown;
     fromPartial<I extends {
@@ -1128,7 +1146,7 @@ export declare const AddAssetToPairProposal: {
 };
 export declare const AddMultipleAssetToPairProposal: {
     encode(message: AddMultipleAssetToPairProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddMultipleAssetToPairProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddMultipleAssetToPairProposal;
     fromJSON(object: any): AddMultipleAssetToPairProposal;
     toJSON(message: AddMultipleAssetToPairProposal): unknown;
     fromPartial<I extends {
@@ -1334,7 +1352,7 @@ export declare const AddMultipleAssetToPairProposal: {
 };
 export declare const AddAssetRatesParams: {
     encode(message: AddAssetRatesParams, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAssetRatesParams;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetRatesParams;
     fromJSON(object: any): AddAssetRatesParams;
     toJSON(message: AddAssetRatesParams): unknown;
     fromPartial<I extends {
@@ -1356,6 +1374,10 @@ export declare const AddAssetRatesParams: {
             liquidationBonus?: string | undefined;
             reserveFactor?: string | undefined;
             cAssetId?: string | number | Long.Long | undefined;
+            isIsolated?: boolean | undefined;
+            eLtv?: string | undefined;
+            eLiquidationThreshold?: string | undefined;
+            eLiquidationPenalty?: string | undefined;
         } | undefined;
     } & {
         title?: string | undefined;
@@ -1376,6 +1398,10 @@ export declare const AddAssetRatesParams: {
             liquidationBonus?: string | undefined;
             reserveFactor?: string | undefined;
             cAssetId?: string | number | Long.Long | undefined;
+            isIsolated?: boolean | undefined;
+            eLtv?: string | undefined;
+            eLiquidationThreshold?: string | undefined;
+            eLiquidationPenalty?: string | undefined;
         } & {
             assetId?: string | number | (Long.Long & {
                 high: number;
@@ -1506,12 +1532,16 @@ export declare const AddAssetRatesParams: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["AssetRatesParams"]["cAssetId"], keyof Long.Long>, never>) | undefined;
+            isIsolated?: boolean | undefined;
+            eLtv?: string | undefined;
+            eLiquidationThreshold?: string | undefined;
+            eLiquidationPenalty?: string | undefined;
         } & Record<Exclude<keyof I["AssetRatesParams"], keyof AssetRatesParams>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AddAssetRatesParams>, never>>(object: I): AddAssetRatesParams;
 };
 export declare const AddAuctionParamsProposal: {
     encode(message: AddAuctionParamsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAuctionParamsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddAuctionParamsProposal;
     fromJSON(object: any): AddAuctionParamsProposal;
     toJSON(message: AddAuctionParamsProposal): unknown;
     fromPartial<I extends {
@@ -1838,7 +1868,7 @@ export declare const AddAuctionParamsProposal: {
 };
 export declare const AddPoolPairsProposal: {
     encode(message: AddPoolPairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddPoolPairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddPoolPairsProposal;
     fromJSON(object: any): AddPoolPairsProposal;
     toJSON(message: AddPoolPairsProposal): unknown;
     fromPartial<I extends {
@@ -2123,7 +2153,7 @@ export declare const AddPoolPairsProposal: {
 };
 export declare const AddAssetRatesPoolPairsProposal: {
     encode(message: AddAssetRatesPoolPairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAssetRatesPoolPairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetRatesPoolPairsProposal;
     fromJSON(object: any): AddAssetRatesPoolPairsProposal;
     toJSON(message: AddAssetRatesPoolPairsProposal): unknown;
     fromPartial<I extends {
@@ -2153,6 +2183,7 @@ export declare const AddAssetRatesPoolPairsProposal: {
                 supplyCap?: string | undefined;
             }[] | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isIsolated?: boolean | undefined;
         } | undefined;
     } & {
         title?: string | undefined;
@@ -2181,6 +2212,7 @@ export declare const AddAssetRatesPoolPairsProposal: {
                 supplyCap?: string | undefined;
             }[] | undefined;
             minUsdValueLeft?: string | number | Long.Long | undefined;
+            isIsolated?: boolean | undefined;
         } & {
             assetId?: string | number | (Long.Long & {
                 high: number;
@@ -2502,15 +2534,220 @@ export declare const AddAssetRatesPoolPairsProposal: {
                 toUnsigned: () => Long.Long;
                 xor: (other: string | number | Long.Long) => Long.Long;
             } & Record<Exclude<keyof I["AssetRatesPoolPairs"]["minUsdValueLeft"], keyof Long.Long>, never>) | undefined;
+            isIsolated?: boolean | undefined;
         } & Record<Exclude<keyof I["AssetRatesPoolPairs"], keyof AssetRatesPoolPairs>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AddAssetRatesPoolPairsProposal>, never>>(object: I): AddAssetRatesPoolPairsProposal;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+export declare const AddPoolDepreciateProposal: {
+    encode(message: AddPoolDepreciateProposal, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddPoolDepreciateProposal;
+    fromJSON(object: any): AddPoolDepreciateProposal;
+    toJSON(message: AddPoolDepreciateProposal): unknown;
+    fromPartial<I extends {
+        title?: string | undefined;
+        description?: string | undefined;
+        PoolDepreciate?: {
+            individualPoolDepreciate?: {
+                poolId?: string | number | Long.Long | undefined;
+                isPoolDepreciated?: boolean | undefined;
+            }[] | undefined;
+        } | undefined;
+    } & {
+        title?: string | undefined;
+        description?: string | undefined;
+        PoolDepreciate?: ({
+            individualPoolDepreciate?: {
+                poolId?: string | number | Long.Long | undefined;
+                isPoolDepreciated?: boolean | undefined;
+            }[] | undefined;
+        } & {
+            individualPoolDepreciate?: ({
+                poolId?: string | number | Long.Long | undefined;
+                isPoolDepreciated?: boolean | undefined;
+            }[] & ({
+                poolId?: string | number | Long.Long | undefined;
+                isPoolDepreciated?: boolean | undefined;
+            } & {
+                poolId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["PoolDepreciate"]["individualPoolDepreciate"][number]["poolId"], keyof Long.Long>, never>) | undefined;
+                isPoolDepreciated?: boolean | undefined;
+            } & Record<Exclude<keyof I["PoolDepreciate"]["individualPoolDepreciate"][number], keyof import("../../../comdex/lend/v1beta1/lend").IndividualPoolDepreciate>, never>)[] & Record<Exclude<keyof I["PoolDepreciate"]["individualPoolDepreciate"], keyof {
+                poolId?: string | number | Long.Long | undefined;
+                isPoolDepreciated?: boolean | undefined;
+            }[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["PoolDepreciate"], "individualPoolDepreciate">, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof AddPoolDepreciateProposal>, never>>(object: I): AddPoolDepreciateProposal;
+};
+export declare const AddEModePairsProposal: {
+    encode(message: AddEModePairsProposal, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AddEModePairsProposal;
+    fromJSON(object: any): AddEModePairsProposal;
+    toJSON(message: AddEModePairsProposal): unknown;
+    fromPartial<I extends {
+        title?: string | undefined;
+        description?: string | undefined;
+        EModePairsForProposal?: {
+            eModePairs?: {
+                pairId?: string | number | Long.Long | undefined;
+                eLtv?: string | undefined;
+                eLiquidationThreshold?: string | undefined;
+                eLiquidationPenalty?: string | undefined;
+            }[] | undefined;
+        } | undefined;
+    } & {
+        title?: string | undefined;
+        description?: string | undefined;
+        EModePairsForProposal?: ({
+            eModePairs?: {
+                pairId?: string | number | Long.Long | undefined;
+                eLtv?: string | undefined;
+                eLiquidationThreshold?: string | undefined;
+                eLiquidationPenalty?: string | undefined;
+            }[] | undefined;
+        } & {
+            eModePairs?: ({
+                pairId?: string | number | Long.Long | undefined;
+                eLtv?: string | undefined;
+                eLiquidationThreshold?: string | undefined;
+                eLiquidationPenalty?: string | undefined;
+            }[] & ({
+                pairId?: string | number | Long.Long | undefined;
+                eLtv?: string | undefined;
+                eLiquidationThreshold?: string | undefined;
+                eLiquidationPenalty?: string | undefined;
+            } & {
+                pairId?: string | number | (Long.Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long.Long) => Long.Long;
+                    and: (other: string | number | Long.Long) => Long.Long;
+                    compare: (other: string | number | Long.Long) => number;
+                    comp: (other: string | number | Long.Long) => number;
+                    divide: (divisor: string | number | Long.Long) => Long.Long;
+                    div: (divisor: string | number | Long.Long) => Long.Long;
+                    equals: (other: string | number | Long.Long) => boolean;
+                    eq: (other: string | number | Long.Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long.Long) => boolean;
+                    gt: (other: string | number | Long.Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    gte: (other: string | number | Long.Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    lessThan: (other: string | number | Long.Long) => boolean;
+                    lt: (other: string | number | Long.Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long.Long) => boolean;
+                    lte: (other: string | number | Long.Long) => boolean;
+                    modulo: (other: string | number | Long.Long) => Long.Long;
+                    mod: (other: string | number | Long.Long) => Long.Long;
+                    multiply: (multiplier: string | number | Long.Long) => Long.Long;
+                    mul: (multiplier: string | number | Long.Long) => Long.Long;
+                    negate: () => Long.Long;
+                    neg: () => Long.Long;
+                    not: () => Long.Long;
+                    notEquals: (other: string | number | Long.Long) => boolean;
+                    neq: (other: string | number | Long.Long) => boolean;
+                    or: (other: string | number | Long.Long) => Long.Long;
+                    shiftLeft: (numBits: number | Long.Long) => Long.Long;
+                    shl: (numBits: number | Long.Long) => Long.Long;
+                    shiftRight: (numBits: number | Long.Long) => Long.Long;
+                    shr: (numBits: number | Long.Long) => Long.Long;
+                    shiftRightUnsigned: (numBits: number | Long.Long) => Long.Long;
+                    shru: (numBits: number | Long.Long) => Long.Long;
+                    subtract: (subtrahend: string | number | Long.Long) => Long.Long;
+                    sub: (subtrahend: string | number | Long.Long) => Long.Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long.Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long.Long;
+                    xor: (other: string | number | Long.Long) => Long.Long;
+                } & Record<Exclude<keyof I["EModePairsForProposal"]["eModePairs"][number]["pairId"], keyof Long.Long>, never>) | undefined;
+                eLtv?: string | undefined;
+                eLiquidationThreshold?: string | undefined;
+                eLiquidationPenalty?: string | undefined;
+            } & Record<Exclude<keyof I["EModePairsForProposal"]["eModePairs"][number], keyof import("../../../comdex/lend/v1beta1/lend").EModePairs>, never>)[] & Record<Exclude<keyof I["EModePairsForProposal"]["eModePairs"], keyof {
+                pairId?: string | number | Long.Long | undefined;
+                eLtv?: string | undefined;
+                eLiquidationThreshold?: string | undefined;
+                eLiquidationPenalty?: string | undefined;
+            }[]>, never>) | undefined;
+        } & Record<Exclude<keyof I["EModePairsForProposal"], "eModePairs">, never>) | undefined;
+    } & Record<Exclude<keyof I, keyof AddEModePairsProposal>, never>>(object: I): AddEModePairsProposal;
+};
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

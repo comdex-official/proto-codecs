@@ -41,7 +41,7 @@ export interface MsgPlaceDutchLendBidResponse {
 }
 export declare const MsgPlaceSurplusBidRequest: {
     encode(message: MsgPlaceSurplusBidRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceSurplusBidRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceSurplusBidRequest;
     fromJSON(object: any): MsgPlaceSurplusBidRequest;
     toJSON(message: MsgPlaceSurplusBidRequest): unknown;
     fromPartial<I extends {
@@ -240,14 +240,14 @@ export declare const MsgPlaceSurplusBidRequest: {
 };
 export declare const MsgPlaceSurplusBidResponse: {
     encode(_: MsgPlaceSurplusBidResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceSurplusBidResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceSurplusBidResponse;
     fromJSON(_: any): MsgPlaceSurplusBidResponse;
     toJSON(_: MsgPlaceSurplusBidResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgPlaceSurplusBidResponse;
 };
 export declare const MsgPlaceDebtBidRequest: {
     encode(message: MsgPlaceDebtBidRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceDebtBidRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceDebtBidRequest;
     fromJSON(object: any): MsgPlaceDebtBidRequest;
     toJSON(message: MsgPlaceDebtBidRequest): unknown;
     fromPartial<I extends {
@@ -457,14 +457,14 @@ export declare const MsgPlaceDebtBidRequest: {
 };
 export declare const MsgPlaceDebtBidResponse: {
     encode(_: MsgPlaceDebtBidResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceDebtBidResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceDebtBidResponse;
     fromJSON(_: any): MsgPlaceDebtBidResponse;
     toJSON(_: MsgPlaceDebtBidResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgPlaceDebtBidResponse;
 };
 export declare const MsgPlaceDutchBidRequest: {
     encode(message: MsgPlaceDutchBidRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceDutchBidRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceDutchBidRequest;
     fromJSON(object: any): MsgPlaceDutchBidRequest;
     toJSON(message: MsgPlaceDutchBidRequest): unknown;
     fromPartial<I extends {
@@ -663,14 +663,14 @@ export declare const MsgPlaceDutchBidRequest: {
 };
 export declare const MsgPlaceDutchBidResponse: {
     encode(_: MsgPlaceDutchBidResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceDutchBidResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceDutchBidResponse;
     fromJSON(_: any): MsgPlaceDutchBidResponse;
     toJSON(_: MsgPlaceDutchBidResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgPlaceDutchBidResponse;
 };
 export declare const MsgPlaceDutchLendBidRequest: {
     encode(message: MsgPlaceDutchLendBidRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceDutchLendBidRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceDutchLendBidRequest;
     fromJSON(object: any): MsgPlaceDutchLendBidRequest;
     toJSON(message: MsgPlaceDutchLendBidRequest): unknown;
     fromPartial<I extends {
@@ -869,7 +869,7 @@ export declare const MsgPlaceDutchLendBidRequest: {
 };
 export declare const MsgPlaceDutchLendBidResponse: {
     encode(_: MsgPlaceDutchLendBidResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceDutchLendBidResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceDutchLendBidResponse;
     fromJSON(_: any): MsgPlaceDutchLendBidResponse;
     toJSON(_: MsgPlaceDutchLendBidResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgPlaceDutchLendBidResponse;
@@ -891,12 +891,12 @@ export declare class MsgClientImpl implements Msg {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

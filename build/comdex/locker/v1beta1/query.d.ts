@@ -150,7 +150,7 @@ export interface QueryLockerTotalRewardsByAssetAppWiseResponse {
 }
 export declare const QueryLockerInfoRequest: {
     encode(message: QueryLockerInfoRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerInfoRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerInfoRequest;
     fromJSON(object: any): QueryLockerInfoRequest;
     toJSON(message: QueryLockerInfoRequest): unknown;
     fromPartial<I extends {
@@ -218,7 +218,7 @@ export declare const QueryLockerInfoRequest: {
 };
 export declare const QueryLockerInfoResponse: {
     encode(message: QueryLockerInfoResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerInfoResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerInfoResponse;
     fromJSON(object: any): QueryLockerInfoResponse;
     toJSON(message: QueryLockerInfoResponse): unknown;
     fromPartial<I extends {
@@ -490,7 +490,7 @@ export declare const QueryLockerInfoResponse: {
 };
 export declare const QueryLockersByAppToAssetIDRequest: {
     encode(message: QueryLockersByAppToAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockersByAppToAssetIDRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockersByAppToAssetIDRequest;
     fromJSON(object: any): QueryLockersByAppToAssetIDRequest;
     toJSON(message: QueryLockersByAppToAssetIDRequest): unknown;
     fromPartial<I extends {
@@ -751,7 +751,7 @@ export declare const QueryLockersByAppToAssetIDRequest: {
 };
 export declare const QueryLockersByAppToAssetIDResponse: {
     encode(message: QueryLockersByAppToAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockersByAppToAssetIDResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockersByAppToAssetIDResponse;
     fromJSON(object: any): QueryLockersByAppToAssetIDResponse;
     toJSON(message: QueryLockersByAppToAssetIDResponse): unknown;
     fromPartial<I extends {
@@ -887,7 +887,7 @@ export declare const QueryLockersByAppToAssetIDResponse: {
 };
 export declare const QueryLockerInfoByAppIDRequest: {
     encode(message: QueryLockerInfoByAppIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerInfoByAppIDRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerInfoByAppIDRequest;
     fromJSON(object: any): QueryLockerInfoByAppIDRequest;
     toJSON(message: QueryLockerInfoByAppIDRequest): unknown;
     fromPartial<I extends {
@@ -1089,7 +1089,7 @@ export declare const QueryLockerInfoByAppIDRequest: {
 };
 export declare const QueryLockerInfoByAppIDResponse: {
     encode(message: QueryLockerInfoByAppIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerInfoByAppIDResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerInfoByAppIDResponse;
     fromJSON(object: any): QueryLockerInfoByAppIDResponse;
     toJSON(message: QueryLockerInfoByAppIDResponse): unknown;
     fromPartial<I extends {
@@ -1225,7 +1225,7 @@ export declare const QueryLockerInfoByAppIDResponse: {
 };
 export declare const QueryTotalDepositByAppAndAssetIDRequest: {
     encode(message: QueryTotalDepositByAppAndAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalDepositByAppAndAssetIDRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryTotalDepositByAppAndAssetIDRequest;
     fromJSON(object: any): QueryTotalDepositByAppAndAssetIDRequest;
     toJSON(message: QueryTotalDepositByAppAndAssetIDRequest): unknown;
     fromPartial<I extends {
@@ -1352,7 +1352,7 @@ export declare const QueryTotalDepositByAppAndAssetIDRequest: {
 };
 export declare const QueryTotalDepositByAppAndAssetIDResponse: {
     encode(message: QueryTotalDepositByAppAndAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTotalDepositByAppAndAssetIDResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryTotalDepositByAppAndAssetIDResponse;
     fromJSON(object: any): QueryTotalDepositByAppAndAssetIDResponse;
     toJSON(message: QueryTotalDepositByAppAndAssetIDResponse): unknown;
     fromPartial<I extends {
@@ -1420,7 +1420,7 @@ export declare const QueryTotalDepositByAppAndAssetIDResponse: {
 };
 export declare const QueryOwnerLockerByAppIDbyOwnerRequest: {
     encode(message: QueryOwnerLockerByAppIDbyOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByAppIDbyOwnerRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryOwnerLockerByAppIDbyOwnerRequest;
     fromJSON(object: any): QueryOwnerLockerByAppIDbyOwnerRequest;
     toJSON(message: QueryOwnerLockerByAppIDbyOwnerRequest): unknown;
     fromPartial<I extends {
@@ -1624,7 +1624,7 @@ export declare const QueryOwnerLockerByAppIDbyOwnerRequest: {
 };
 export declare const QueryOwnerLockerByAppIDbyOwnerResponse: {
     encode(message: QueryOwnerLockerByAppIDbyOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByAppIDbyOwnerResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryOwnerLockerByAppIDbyOwnerResponse;
     fromJSON(object: any): QueryOwnerLockerByAppIDbyOwnerResponse;
     toJSON(message: QueryOwnerLockerByAppIDbyOwnerResponse): unknown;
     fromPartial<I extends {
@@ -1760,7 +1760,7 @@ export declare const QueryOwnerLockerByAppIDbyOwnerResponse: {
 };
 export declare const QueryOwnerLockerOfAllAppsByOwnerRequest: {
     encode(message: QueryOwnerLockerOfAllAppsByOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerOfAllAppsByOwnerRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryOwnerLockerOfAllAppsByOwnerRequest;
     fromJSON(object: any): QueryOwnerLockerOfAllAppsByOwnerRequest;
     toJSON(message: QueryOwnerLockerOfAllAppsByOwnerRequest): unknown;
     fromPartial<I extends {
@@ -1905,7 +1905,7 @@ export declare const QueryOwnerLockerOfAllAppsByOwnerRequest: {
 };
 export declare const QueryOwnerLockerOfAllAppsByOwnerResponse: {
     encode(message: QueryOwnerLockerOfAllAppsByOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerOfAllAppsByOwnerResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryOwnerLockerOfAllAppsByOwnerResponse;
     fromJSON(object: any): QueryOwnerLockerOfAllAppsByOwnerResponse;
     toJSON(message: QueryOwnerLockerOfAllAppsByOwnerResponse): unknown;
     fromPartial<I extends {
@@ -2041,7 +2041,7 @@ export declare const QueryOwnerLockerOfAllAppsByOwnerResponse: {
 };
 export declare const QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest: {
     encode(message: QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest;
     fromJSON(object: any): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest;
     toJSON(message: QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest): unknown;
     fromPartial<I extends {
@@ -2304,7 +2304,7 @@ export declare const QueryOwnerTxDetailsLockerOfAppByOwnerByAssetRequest: {
 };
 export declare const QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse: {
     encode(message: QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse;
     fromJSON(object: any): QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse;
     toJSON(message: QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse): unknown;
     fromPartial<I extends {
@@ -2408,7 +2408,7 @@ export declare const QueryOwnerTxDetailsLockerOfAppByOwnerByAssetResponse: {
 };
 export declare const QueryOwnerLockerByAppToAssetIDbyOwnerRequest: {
     encode(message: QueryOwnerLockerByAppToAssetIDbyOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByAppToAssetIDbyOwnerRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryOwnerLockerByAppToAssetIDbyOwnerRequest;
     fromJSON(object: any): QueryOwnerLockerByAppToAssetIDbyOwnerRequest;
     toJSON(message: QueryOwnerLockerByAppToAssetIDbyOwnerRequest): unknown;
     fromPartial<I extends {
@@ -2537,7 +2537,7 @@ export declare const QueryOwnerLockerByAppToAssetIDbyOwnerRequest: {
 };
 export declare const QueryOwnerLockerByAppToAssetIDbyOwnerResponse: {
     encode(message: QueryOwnerLockerByAppToAssetIDbyOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryOwnerLockerByAppToAssetIDbyOwnerResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryOwnerLockerByAppToAssetIDbyOwnerResponse;
     fromJSON(object: any): QueryOwnerLockerByAppToAssetIDbyOwnerResponse;
     toJSON(message: QueryOwnerLockerByAppToAssetIDbyOwnerResponse): unknown;
     fromPartial<I extends {
@@ -2877,7 +2877,7 @@ export declare const QueryOwnerLockerByAppToAssetIDbyOwnerResponse: {
 };
 export declare const QueryLockerByAppByOwnerRequest: {
     encode(message: QueryLockerByAppByOwnerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerByAppByOwnerRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerByAppByOwnerRequest;
     fromJSON(object: any): QueryLockerByAppByOwnerRequest;
     toJSON(message: QueryLockerByAppByOwnerRequest): unknown;
     fromPartial<I extends {
@@ -3081,7 +3081,7 @@ export declare const QueryLockerByAppByOwnerRequest: {
 };
 export declare const QueryLockerByAppByOwnerResponse: {
     encode(message: QueryLockerByAppByOwnerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerByAppByOwnerResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerByAppByOwnerResponse;
     fromJSON(object: any): QueryLockerByAppByOwnerResponse;
     toJSON(message: QueryLockerByAppByOwnerResponse): unknown;
     fromPartial<I extends {
@@ -3443,7 +3443,7 @@ export declare const QueryLockerByAppByOwnerResponse: {
 };
 export declare const QueryLockerCountByAppIDRequest: {
     encode(message: QueryLockerCountByAppIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByAppIDRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerCountByAppIDRequest;
     fromJSON(object: any): QueryLockerCountByAppIDRequest;
     toJSON(message: QueryLockerCountByAppIDRequest): unknown;
     fromPartial<I extends {
@@ -3511,7 +3511,7 @@ export declare const QueryLockerCountByAppIDRequest: {
 };
 export declare const QueryLockerCountByAppIDResponse: {
     encode(message: QueryLockerCountByAppIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByAppIDResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerCountByAppIDResponse;
     fromJSON(object: any): QueryLockerCountByAppIDResponse;
     toJSON(message: QueryLockerCountByAppIDResponse): unknown;
     fromPartial<I extends {
@@ -3579,7 +3579,7 @@ export declare const QueryLockerCountByAppIDResponse: {
 };
 export declare const QueryLockerCountByAppToAssetIDRequest: {
     encode(message: QueryLockerCountByAppToAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByAppToAssetIDRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerCountByAppToAssetIDRequest;
     fromJSON(object: any): QueryLockerCountByAppToAssetIDRequest;
     toJSON(message: QueryLockerCountByAppToAssetIDRequest): unknown;
     fromPartial<I extends {
@@ -3706,7 +3706,7 @@ export declare const QueryLockerCountByAppToAssetIDRequest: {
 };
 export declare const QueryLockerCountByAppToAssetIDResponse: {
     encode(message: QueryLockerCountByAppToAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerCountByAppToAssetIDResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerCountByAppToAssetIDResponse;
     fromJSON(object: any): QueryLockerCountByAppToAssetIDResponse;
     toJSON(message: QueryLockerCountByAppToAssetIDResponse): unknown;
     fromPartial<I extends {
@@ -3908,7 +3908,7 @@ export declare const QueryLockerCountByAppToAssetIDResponse: {
 };
 export declare const QueryWhiteListedAssetIDsByAppIDRequest: {
     encode(message: QueryWhiteListedAssetIDsByAppIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetIDsByAppIDRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryWhiteListedAssetIDsByAppIDRequest;
     fromJSON(object: any): QueryWhiteListedAssetIDsByAppIDRequest;
     toJSON(message: QueryWhiteListedAssetIDsByAppIDRequest): unknown;
     fromPartial<I extends {
@@ -4110,7 +4110,7 @@ export declare const QueryWhiteListedAssetIDsByAppIDRequest: {
 };
 export declare const QueryWhiteListedAssetIDsByAppIDResponse: {
     encode(message: QueryWhiteListedAssetIDsByAppIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetIDsByAppIDResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryWhiteListedAssetIDsByAppIDResponse;
     fromJSON(object: any): QueryWhiteListedAssetIDsByAppIDResponse;
     toJSON(message: QueryWhiteListedAssetIDsByAppIDResponse): unknown;
     fromPartial<I extends {
@@ -4246,7 +4246,7 @@ export declare const QueryWhiteListedAssetIDsByAppIDResponse: {
 };
 export declare const QueryWhiteListedAssetByAllAppsRequest: {
     encode(message: QueryWhiteListedAssetByAllAppsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetByAllAppsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryWhiteListedAssetByAllAppsRequest;
     fromJSON(object: any): QueryWhiteListedAssetByAllAppsRequest;
     toJSON(message: QueryWhiteListedAssetByAllAppsRequest): unknown;
     fromPartial<I extends {
@@ -4389,7 +4389,7 @@ export declare const QueryWhiteListedAssetByAllAppsRequest: {
 };
 export declare const QueryWhiteListedAssetByAllAppsResponse: {
     encode(message: QueryWhiteListedAssetByAllAppsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhiteListedAssetByAllAppsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryWhiteListedAssetByAllAppsResponse;
     fromJSON(object: any): QueryWhiteListedAssetByAllAppsResponse;
     toJSON(message: QueryWhiteListedAssetByAllAppsResponse): unknown;
     fromPartial<I extends {
@@ -4661,7 +4661,7 @@ export declare const QueryWhiteListedAssetByAllAppsResponse: {
 };
 export declare const AppToAllAsset: {
     encode(message: AppToAllAsset, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppToAllAsset;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AppToAllAsset;
     fromJSON(object: any): AppToAllAsset;
     toJSON(message: AppToAllAsset): unknown;
     fromPartial<I extends {
@@ -4828,14 +4828,14 @@ export declare const AppToAllAsset: {
 };
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
     fromJSON(_: any): QueryParamsRequest;
     toJSON(_: QueryParamsRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryParamsRequest;
 };
 export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
     fromJSON(object: any): QueryParamsResponse;
     toJSON(message: QueryParamsResponse): unknown;
     fromPartial<I extends {
@@ -4846,7 +4846,7 @@ export declare const QueryParamsResponse: {
 };
 export declare const QueryLockerLookupTableByAppRequest: {
     encode(message: QueryLockerLookupTableByAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerLookupTableByAppRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerLookupTableByAppRequest;
     fromJSON(object: any): QueryLockerLookupTableByAppRequest;
     toJSON(message: QueryLockerLookupTableByAppRequest): unknown;
     fromPartial<I extends {
@@ -5048,7 +5048,7 @@ export declare const QueryLockerLookupTableByAppRequest: {
 };
 export declare const QueryLockerLookupTableByAppResponse: {
     encode(message: QueryLockerLookupTableByAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerLookupTableByAppResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerLookupTableByAppResponse;
     fromJSON(object: any): QueryLockerLookupTableByAppResponse;
     toJSON(message: QueryLockerLookupTableByAppResponse): unknown;
     fromPartial<I extends {
@@ -5323,7 +5323,7 @@ export declare const QueryLockerLookupTableByAppResponse: {
 };
 export declare const QueryLockerLookupTableByAppAndAssetIDRequest: {
     encode(message: QueryLockerLookupTableByAppAndAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerLookupTableByAppAndAssetIDRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerLookupTableByAppAndAssetIDRequest;
     fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIDRequest;
     toJSON(message: QueryLockerLookupTableByAppAndAssetIDRequest): unknown;
     fromPartial<I extends {
@@ -5450,7 +5450,7 @@ export declare const QueryLockerLookupTableByAppAndAssetIDRequest: {
 };
 export declare const QueryLockerLookupTableByAppAndAssetIDResponse: {
     encode(message: QueryLockerLookupTableByAppAndAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerLookupTableByAppAndAssetIDResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerLookupTableByAppAndAssetIDResponse;
     fromJSON(object: any): QueryLockerLookupTableByAppAndAssetIDResponse;
     toJSON(message: QueryLockerLookupTableByAppAndAssetIDResponse): unknown;
     fromPartial<I extends {
@@ -5647,7 +5647,7 @@ export declare const QueryLockerLookupTableByAppAndAssetIDResponse: {
 };
 export declare const QueryLockerTotalDepositedByAppRequest: {
     encode(message: QueryLockerTotalDepositedByAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerTotalDepositedByAppRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerTotalDepositedByAppRequest;
     fromJSON(object: any): QueryLockerTotalDepositedByAppRequest;
     toJSON(message: QueryLockerTotalDepositedByAppRequest): unknown;
     fromPartial<I extends {
@@ -5849,7 +5849,7 @@ export declare const QueryLockerTotalDepositedByAppRequest: {
 };
 export declare const QueryLockerTotalDepositedByAppResponse: {
     encode(message: QueryLockerTotalDepositedByAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerTotalDepositedByAppResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerTotalDepositedByAppResponse;
     fromJSON(object: any): QueryLockerTotalDepositedByAppResponse;
     toJSON(message: QueryLockerTotalDepositedByAppResponse): unknown;
     fromPartial<I extends {
@@ -6000,7 +6000,7 @@ export declare const QueryLockerTotalDepositedByAppResponse: {
 };
 export declare const QueryLockerTotalRewardsByAssetAppWiseRequest: {
     encode(message: QueryLockerTotalRewardsByAssetAppWiseRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerTotalRewardsByAssetAppWiseRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerTotalRewardsByAssetAppWiseRequest;
     fromJSON(object: any): QueryLockerTotalRewardsByAssetAppWiseRequest;
     toJSON(message: QueryLockerTotalRewardsByAssetAppWiseRequest): unknown;
     fromPartial<I extends {
@@ -6127,7 +6127,7 @@ export declare const QueryLockerTotalRewardsByAssetAppWiseRequest: {
 };
 export declare const QueryLockerTotalRewardsByAssetAppWiseResponse: {
     encode(message: QueryLockerTotalRewardsByAssetAppWiseResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockerTotalRewardsByAssetAppWiseResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockerTotalRewardsByAssetAppWiseResponse;
     fromJSON(object: any): QueryLockerTotalRewardsByAssetAppWiseResponse;
     toJSON(message: QueryLockerTotalRewardsByAssetAppWiseResponse): unknown;
     fromPartial<I extends {
@@ -6307,12 +6307,12 @@ export declare class QueryClientImpl implements Query {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

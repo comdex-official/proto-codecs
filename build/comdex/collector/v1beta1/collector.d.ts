@@ -46,7 +46,7 @@ export interface AppAssetIdToAuctionLookupTable {
 }
 export declare const CollectorData: {
     encode(message: CollectorData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CollectorData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CollectorData;
     fromJSON(object: any): CollectorData;
     toJSON(message: CollectorData): unknown;
     fromPartial<I extends {
@@ -63,7 +63,7 @@ export declare const CollectorData: {
 };
 export declare const AppAssetIdToFeeCollectedData: {
     encode(message: AppAssetIdToFeeCollectedData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppAssetIdToFeeCollectedData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AppAssetIdToFeeCollectedData;
     fromJSON(object: any): AppAssetIdToFeeCollectedData;
     toJSON(message: AppAssetIdToFeeCollectedData): unknown;
     fromPartial<I extends {
@@ -192,7 +192,7 @@ export declare const AppAssetIdToFeeCollectedData: {
 };
 export declare const AppToAssetIdCollectorMapping: {
     encode(message: AppToAssetIdCollectorMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppToAssetIdCollectorMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AppToAssetIdCollectorMapping;
     fromJSON(object: any): AppToAssetIdCollectorMapping;
     toJSON(message: AppToAssetIdCollectorMapping): unknown;
     fromPartial<I extends {
@@ -336,7 +336,7 @@ export declare const AppToAssetIdCollectorMapping: {
 };
 export declare const CollectorLookupTableData: {
     encode(message: CollectorLookupTableData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): CollectorLookupTableData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): CollectorLookupTableData;
     fromJSON(object: any): CollectorLookupTableData;
     toJSON(message: CollectorLookupTableData): unknown;
     fromPartial<I extends {
@@ -595,7 +595,7 @@ export declare const CollectorLookupTableData: {
 };
 export declare const AppToDenomsMapping: {
     encode(message: AppToDenomsMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppToDenomsMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AppToDenomsMapping;
     fromJSON(object: any): AppToDenomsMapping;
     toJSON(message: AppToDenomsMapping): unknown;
     fromPartial<I extends {
@@ -722,7 +722,7 @@ export declare const AppToDenomsMapping: {
 };
 export declare const AppAssetIdToAuctionLookupTable: {
     encode(message: AppAssetIdToAuctionLookupTable, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppAssetIdToAuctionLookupTable;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AppAssetIdToAuctionLookupTable;
     fromJSON(object: any): AppAssetIdToAuctionLookupTable;
     toJSON(message: AppAssetIdToAuctionLookupTable): unknown;
     fromPartial<I extends {
@@ -916,12 +916,12 @@ export declare const AppAssetIdToAuctionLookupTable: {
         } & Record<Exclude<keyof I["assetOutPrice"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AppAssetIdToAuctionLookupTable>, never>>(object: I): AppAssetIdToAuctionLookupTable;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

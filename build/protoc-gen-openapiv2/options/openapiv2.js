@@ -21,7 +21,7 @@ var Scheme;
     Scheme[Scheme["WS"] = 3] = "WS";
     Scheme[Scheme["WSS"] = 4] = "WSS";
     Scheme[Scheme["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(Scheme = exports.Scheme || (exports.Scheme = {}));
+})(Scheme || (exports.Scheme = Scheme = {}));
 function schemeFromJSON(object) {
     switch (object) {
         case 0:
@@ -74,7 +74,7 @@ var JSONSchema_JSONSchemaSimpleTypes;
     JSONSchema_JSONSchemaSimpleTypes[JSONSchema_JSONSchemaSimpleTypes["OBJECT"] = 6] = "OBJECT";
     JSONSchema_JSONSchemaSimpleTypes[JSONSchema_JSONSchemaSimpleTypes["STRING"] = 7] = "STRING";
     JSONSchema_JSONSchemaSimpleTypes[JSONSchema_JSONSchemaSimpleTypes["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(JSONSchema_JSONSchemaSimpleTypes = exports.JSONSchema_JSONSchemaSimpleTypes || (exports.JSONSchema_JSONSchemaSimpleTypes = {}));
+})(JSONSchema_JSONSchemaSimpleTypes || (exports.JSONSchema_JSONSchemaSimpleTypes = JSONSchema_JSONSchemaSimpleTypes = {}));
 function jSONSchema_JSONSchemaSimpleTypesFromJSON(object) {
     switch (object) {
         case 0:
@@ -142,7 +142,7 @@ var SecurityScheme_Type;
     SecurityScheme_Type[SecurityScheme_Type["TYPE_API_KEY"] = 2] = "TYPE_API_KEY";
     SecurityScheme_Type[SecurityScheme_Type["TYPE_OAUTH2"] = 3] = "TYPE_OAUTH2";
     SecurityScheme_Type[SecurityScheme_Type["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(SecurityScheme_Type = exports.SecurityScheme_Type || (exports.SecurityScheme_Type = {}));
+})(SecurityScheme_Type || (exports.SecurityScheme_Type = SecurityScheme_Type = {}));
 function securityScheme_TypeFromJSON(object) {
     switch (object) {
         case 0:
@@ -186,7 +186,7 @@ var SecurityScheme_In;
     SecurityScheme_In[SecurityScheme_In["IN_QUERY"] = 1] = "IN_QUERY";
     SecurityScheme_In[SecurityScheme_In["IN_HEADER"] = 2] = "IN_HEADER";
     SecurityScheme_In[SecurityScheme_In["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(SecurityScheme_In = exports.SecurityScheme_In || (exports.SecurityScheme_In = {}));
+})(SecurityScheme_In || (exports.SecurityScheme_In = SecurityScheme_In = {}));
 function securityScheme_InFromJSON(object) {
     switch (object) {
         case 0:
@@ -230,7 +230,7 @@ var SecurityScheme_Flow;
     SecurityScheme_Flow[SecurityScheme_Flow["FLOW_APPLICATION"] = 3] = "FLOW_APPLICATION";
     SecurityScheme_Flow[SecurityScheme_Flow["FLOW_ACCESS_CODE"] = 4] = "FLOW_ACCESS_CODE";
     SecurityScheme_Flow[SecurityScheme_Flow["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(SecurityScheme_Flow = exports.SecurityScheme_Flow || (exports.SecurityScheme_Flow = {}));
+})(SecurityScheme_Flow || (exports.SecurityScheme_Flow = SecurityScheme_Flow = {}));
 function securityScheme_FlowFromJSON(object) {
     switch (object) {
         case 0:
