@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddAssetRatesPoolPairsProposal = exports.AddPoolPairsProposal = exports.AddAuctionParamsProposal = exports.AddAssetRatesParams = exports.AddMultipleAssetToPairProposal = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.MultipleLendPairsProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
+exports.AddEModePairsProposal = exports.AddPoolDepreciateProposal = exports.AddAssetRatesPoolPairsProposal = exports.AddPoolPairsProposal = exports.AddAuctionParamsProposal = exports.AddAssetRatesParams = exports.AddMultipleAssetToPairProposal = exports.AddAssetToPairProposal = exports.AddPoolsProposal = exports.MultipleLendPairsProposal = exports.LendPairsProposal = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -664,6 +664,149 @@ exports.AddAssetRatesPoolPairsProposal = {
             object.AssetRatesPoolPairs !== undefined &&
                 object.AssetRatesPoolPairs !== null
                 ? lend_1.AssetRatesPoolPairs.fromPartial(object.AssetRatesPoolPairs)
+                : undefined;
+        return message;
+    },
+};
+function createBaseAddPoolDepreciateProposal() {
+    return { title: "", description: "", PoolDepreciate: undefined };
+}
+exports.AddPoolDepreciateProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        if (message.PoolDepreciate !== undefined) {
+            lend_1.PoolDepreciate.encode(message.PoolDepreciate, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAddPoolDepreciateProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.PoolDepreciate = lend_1.PoolDepreciate.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            PoolDepreciate: isSet(object.PoolDepreciate)
+                ? lend_1.PoolDepreciate.fromJSON(object.PoolDepreciate)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        message.PoolDepreciate !== undefined &&
+            (obj.PoolDepreciate = message.PoolDepreciate
+                ? lend_1.PoolDepreciate.toJSON(message.PoolDepreciate)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseAddPoolDepreciateProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.PoolDepreciate =
+            object.PoolDepreciate !== undefined && object.PoolDepreciate !== null
+                ? lend_1.PoolDepreciate.fromPartial(object.PoolDepreciate)
+                : undefined;
+        return message;
+    },
+};
+function createBaseAddEModePairsProposal() {
+    return { title: "", description: "", EModePairsForProposal: undefined };
+}
+exports.AddEModePairsProposal = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.title !== "") {
+            writer.uint32(10).string(message.title);
+        }
+        if (message.description !== "") {
+            writer.uint32(18).string(message.description);
+        }
+        if (message.EModePairsForProposal !== undefined) {
+            lend_1.EModePairsForProposal.encode(message.EModePairsForProposal, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseAddEModePairsProposal();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    message.EModePairsForProposal = lend_1.EModePairsForProposal.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            title: isSet(object.title) ? String(object.title) : "",
+            description: isSet(object.description) ? String(object.description) : "",
+            EModePairsForProposal: isSet(object.EModePairsForProposal)
+                ? lend_1.EModePairsForProposal.fromJSON(object.EModePairsForProposal)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.title !== undefined && (obj.title = message.title);
+        message.description !== undefined &&
+            (obj.description = message.description);
+        message.EModePairsForProposal !== undefined &&
+            (obj.EModePairsForProposal = message.EModePairsForProposal
+                ? lend_1.EModePairsForProposal.toJSON(message.EModePairsForProposal)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseAddEModePairsProposal();
+        message.title = (_a = object.title) !== null && _a !== void 0 ? _a : "";
+        message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
+        message.EModePairsForProposal =
+            object.EModePairsForProposal !== undefined &&
+                object.EModePairsForProposal !== null
+                ? lend_1.EModePairsForProposal.fromPartial(object.EModePairsForProposal)
                 : undefined;
         return message;
     },

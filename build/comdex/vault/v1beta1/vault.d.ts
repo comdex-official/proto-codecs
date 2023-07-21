@@ -60,7 +60,7 @@ export interface StableMintVaultRewards {
 }
 export declare const Vault: {
     encode(message: Vault, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Vault;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Vault;
     fromJSON(object: any): Vault;
     toJSON(message: Vault): unknown;
     fromPartial<I extends {
@@ -319,7 +319,7 @@ export declare const Vault: {
 };
 export declare const OwnerAppExtendedPairVaultMappingData: {
     encode(message: OwnerAppExtendedPairVaultMappingData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): OwnerAppExtendedPairVaultMappingData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): OwnerAppExtendedPairVaultMappingData;
     fromJSON(object: any): OwnerAppExtendedPairVaultMappingData;
     toJSON(message: OwnerAppExtendedPairVaultMappingData): unknown;
     fromPartial<I extends {
@@ -507,7 +507,7 @@ export declare const OwnerAppExtendedPairVaultMappingData: {
 };
 export declare const AppExtendedPairVaultMappingData: {
     encode(message: AppExtendedPairVaultMappingData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppExtendedPairVaultMappingData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AppExtendedPairVaultMappingData;
     fromJSON(object: any): AppExtendedPairVaultMappingData;
     toJSON(message: AppExtendedPairVaultMappingData): unknown;
     fromPartial<I extends {
@@ -697,7 +697,7 @@ export declare const AppExtendedPairVaultMappingData: {
 };
 export declare const TvlLockedDataMap: {
     encode(message: TvlLockedDataMap, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TvlLockedDataMap;
+    decode(input: _m0.Reader | Uint8Array, length?: number): TvlLockedDataMap;
     fromJSON(object: any): TvlLockedDataMap;
     toJSON(message: TvlLockedDataMap): unknown;
     fromPartial<I extends {
@@ -710,7 +710,7 @@ export declare const TvlLockedDataMap: {
 };
 export declare const MintedDataMap: {
     encode(message: MintedDataMap, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MintedDataMap;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MintedDataMap;
     fromJSON(object: any): MintedDataMap;
     toJSON(message: MintedDataMap): unknown;
     fromPartial<I extends {
@@ -723,7 +723,7 @@ export declare const MintedDataMap: {
 };
 export declare const StableMintVault: {
     encode(message: StableMintVault, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): StableMintVault;
+    decode(input: _m0.Reader | Uint8Array, length?: number): StableMintVault;
     fromJSON(object: any): StableMintVault;
     toJSON(message: StableMintVault): unknown;
     fromPartial<I extends {
@@ -915,7 +915,7 @@ export declare const StableMintVault: {
 };
 export declare const PairStatisticData: {
     encode(message: PairStatisticData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PairStatisticData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): PairStatisticData;
     fromJSON(object: any): PairStatisticData;
     toJSON(message: PairStatisticData): unknown;
     fromPartial<I extends {
@@ -991,7 +991,7 @@ export declare const PairStatisticData: {
 };
 export declare const StableMintVaultRewards: {
     encode(message: StableMintVaultRewards, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): StableMintVaultRewards;
+    decode(input: _m0.Reader | Uint8Array, length?: number): StableMintVaultRewards;
     fromJSON(object: any): StableMintVaultRewards;
     toJSON(message: StableMintVaultRewards): unknown;
     fromPartial<I extends {
@@ -1179,12 +1179,12 @@ export declare const StableMintVaultRewards: {
         amount?: string | undefined;
     } & Record<Exclude<keyof I, keyof StableMintVaultRewards>, never>>(object: I): StableMintVaultRewards;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};
