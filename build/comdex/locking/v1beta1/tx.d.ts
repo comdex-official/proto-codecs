@@ -19,7 +19,7 @@ export interface MsgBeginUnlockingTokensResponse {
 }
 export declare const MsgLockTokens: {
     encode(message: MsgLockTokens, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLockTokens;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLockTokens;
     fromJSON(object: any): MsgLockTokens;
     toJSON(message: MsgLockTokens): unknown;
     fromPartial<I extends {
@@ -109,14 +109,14 @@ export declare const MsgLockTokens: {
 };
 export declare const MsgLockTokensResponse: {
     encode(_: MsgLockTokensResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLockTokensResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLockTokensResponse;
     fromJSON(_: any): MsgLockTokensResponse;
     toJSON(_: MsgLockTokensResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgLockTokensResponse;
 };
 export declare const MsgBeginUnlockingTokens: {
     encode(message: MsgBeginUnlockingTokens, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBeginUnlockingTokens;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBeginUnlockingTokens;
     fromJSON(object: any): MsgBeginUnlockingTokens;
     toJSON(message: MsgBeginUnlockingTokens): unknown;
     fromPartial<I extends {
@@ -197,7 +197,7 @@ export declare const MsgBeginUnlockingTokens: {
 };
 export declare const MsgBeginUnlockingTokensResponse: {
     encode(_: MsgBeginUnlockingTokensResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBeginUnlockingTokensResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBeginUnlockingTokensResponse;
     fromJSON(_: any): MsgBeginUnlockingTokensResponse;
     toJSON(_: MsgBeginUnlockingTokensResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgBeginUnlockingTokensResponse;
@@ -215,12 +215,12 @@ export declare class MsgClientImpl implements Msg {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

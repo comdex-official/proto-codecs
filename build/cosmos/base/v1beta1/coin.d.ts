@@ -31,34 +31,34 @@ export interface DecProto {
 }
 export declare const Coin: {
     encode(message: Coin, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): Coin;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Coin;
     fromJSON(object: any): Coin;
     toJSON(message: Coin): unknown;
     fromPartial(object: DeepPartial<Coin>): Coin;
 };
 export declare const DecCoin: {
     encode(message: DecCoin, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): DecCoin;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): DecCoin;
     fromJSON(object: any): DecCoin;
     toJSON(message: DecCoin): unknown;
     fromPartial(object: DeepPartial<DecCoin>): DecCoin;
 };
 export declare const IntProto: {
     encode(message: IntProto, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): IntProto;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): IntProto;
     fromJSON(object: any): IntProto;
     toJSON(message: IntProto): unknown;
     fromPartial(object: DeepPartial<IntProto>): IntProto;
 };
 export declare const DecProto: {
     encode(message: DecProto, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): DecProto;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): DecProto;
     fromJSON(object: any): DecProto;
     toJSON(message: DecProto): unknown;
     fromPartial(object: DeepPartial<DecProto>): DecProto;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
 export {};

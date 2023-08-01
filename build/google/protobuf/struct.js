@@ -19,7 +19,7 @@ var NullValue;
     /** NULL_VALUE - Null value. */
     NullValue[NullValue["NULL_VALUE"] = 0] = "NULL_VALUE";
     NullValue[NullValue["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(NullValue || (exports.NullValue = NullValue = {}));
+})(NullValue = exports.NullValue || (exports.NullValue = {}));
 function nullValueFromJSON(object) {
     switch (object) {
         case 0:

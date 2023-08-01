@@ -51,7 +51,7 @@ export interface MsgLockerRewardCalcResponse {
 }
 export declare const MsgCreateLockerRequest: {
     encode(message: MsgCreateLockerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateLockerRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreateLockerRequest;
     fromJSON(object: any): MsgCreateLockerRequest;
     toJSON(message: MsgCreateLockerRequest): unknown;
     fromPartial<I extends {
@@ -182,14 +182,14 @@ export declare const MsgCreateLockerRequest: {
 };
 export declare const MsgCreateLockerResponse: {
     encode(_: MsgCreateLockerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateLockerResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreateLockerResponse;
     fromJSON(_: any): MsgCreateLockerResponse;
     toJSON(_: MsgCreateLockerResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCreateLockerResponse;
 };
 export declare const MsgAddWhiteListedAssetRequest: {
     encode(message: MsgAddWhiteListedAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddWhiteListedAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddWhiteListedAssetRequest;
     fromJSON(object: any): MsgAddWhiteListedAssetRequest;
     toJSON(message: MsgAddWhiteListedAssetRequest): unknown;
     fromPartial<I extends {
@@ -318,14 +318,14 @@ export declare const MsgAddWhiteListedAssetRequest: {
 };
 export declare const MsgAddWhiteListedAssetResponse: {
     encode(_: MsgAddWhiteListedAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddWhiteListedAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddWhiteListedAssetResponse;
     fromJSON(_: any): MsgAddWhiteListedAssetResponse;
     toJSON(_: MsgAddWhiteListedAssetResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgAddWhiteListedAssetResponse;
 };
 export declare const MsgDepositAssetRequest: {
     encode(message: MsgDepositAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositAssetRequest;
     fromJSON(object: any): MsgDepositAssetRequest;
     toJSON(message: MsgDepositAssetRequest): unknown;
     fromPartial<I extends {
@@ -515,14 +515,14 @@ export declare const MsgDepositAssetRequest: {
 };
 export declare const MsgDepositAssetResponse: {
     encode(_: MsgDepositAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositAssetResponse;
     fromJSON(_: any): MsgDepositAssetResponse;
     toJSON(_: MsgDepositAssetResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgDepositAssetResponse;
 };
 export declare const MsgWithdrawAssetRequest: {
     encode(message: MsgWithdrawAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawAssetRequest;
     fromJSON(object: any): MsgWithdrawAssetRequest;
     toJSON(message: MsgWithdrawAssetRequest): unknown;
     fromPartial<I extends {
@@ -712,14 +712,14 @@ export declare const MsgWithdrawAssetRequest: {
 };
 export declare const MsgWithdrawAssetResponse: {
     encode(_: MsgWithdrawAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawAssetResponse;
     fromJSON(_: any): MsgWithdrawAssetResponse;
     toJSON(_: MsgWithdrawAssetResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgWithdrawAssetResponse;
 };
 export declare const MsgCloseLockerRequest: {
     encode(message: MsgCloseLockerRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCloseLockerRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCloseLockerRequest;
     fromJSON(object: any): MsgCloseLockerRequest;
     toJSON(message: MsgCloseLockerRequest): unknown;
     fromPartial<I extends {
@@ -907,14 +907,14 @@ export declare const MsgCloseLockerRequest: {
 };
 export declare const MsgCloseLockerResponse: {
     encode(_: MsgCloseLockerResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCloseLockerResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCloseLockerResponse;
     fromJSON(_: any): MsgCloseLockerResponse;
     toJSON(_: MsgCloseLockerResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCloseLockerResponse;
 };
 export declare const MsgLockerRewardCalcRequest: {
     encode(message: MsgLockerRewardCalcRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLockerRewardCalcRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLockerRewardCalcRequest;
     fromJSON(object: any): MsgLockerRewardCalcRequest;
     toJSON(message: MsgLockerRewardCalcRequest): unknown;
     fromPartial<I extends {
@@ -1043,7 +1043,7 @@ export declare const MsgLockerRewardCalcRequest: {
 };
 export declare const MsgLockerRewardCalcResponse: {
     encode(_: MsgLockerRewardCalcResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLockerRewardCalcResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLockerRewardCalcResponse;
     fromJSON(_: any): MsgLockerRewardCalcResponse;
     toJSON(_: MsgLockerRewardCalcResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgLockerRewardCalcResponse;
@@ -1068,12 +1068,12 @@ export declare class MsgClientImpl implements Msg {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

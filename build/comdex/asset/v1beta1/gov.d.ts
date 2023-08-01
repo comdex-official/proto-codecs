@@ -56,7 +56,7 @@ export interface AddMultipleAssetsPairsProposal {
 }
 export declare const AddAssetsProposal: {
     encode(message: AddAssetsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAssetsProposal;
     fromJSON(object: any): AddAssetsProposal;
     toJSON(message: AddAssetsProposal): unknown;
     fromPartial<I extends {
@@ -152,7 +152,7 @@ export declare const AddAssetsProposal: {
 };
 export declare const AddMultipleAssetsProposal: {
     encode(message: AddMultipleAssetsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AddMultipleAssetsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddMultipleAssetsProposal;
     fromJSON(object: any): AddMultipleAssetsProposal;
     toJSON(message: AddMultipleAssetsProposal): unknown;
     fromPartial<I extends {
@@ -264,7 +264,7 @@ export declare const AddMultipleAssetsProposal: {
 };
 export declare const AddMultiplePairsProposal: {
     encode(message: AddMultiplePairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AddMultiplePairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddMultiplePairsProposal;
     fromJSON(object: any): AddMultiplePairsProposal;
     toJSON(message: AddMultiplePairsProposal): unknown;
     fromPartial<I extends {
@@ -470,7 +470,7 @@ export declare const AddMultiplePairsProposal: {
 };
 export declare const UpdateAssetProposal: {
     encode(message: UpdateAssetProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): UpdateAssetProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UpdateAssetProposal;
     fromJSON(object: any): UpdateAssetProposal;
     toJSON(message: UpdateAssetProposal): unknown;
     fromPartial<I extends {
@@ -566,7 +566,7 @@ export declare const UpdateAssetProposal: {
 };
 export declare const AddPairsProposal: {
     encode(message: AddPairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AddPairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddPairsProposal;
     fromJSON(object: any): AddPairsProposal;
     toJSON(message: AddPairsProposal): unknown;
     fromPartial<I extends {
@@ -764,7 +764,7 @@ export declare const AddPairsProposal: {
 };
 export declare const UpdatePairProposal: {
     encode(message: UpdatePairProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): UpdatePairProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UpdatePairProposal;
     fromJSON(object: any): UpdatePairProposal;
     toJSON(message: UpdatePairProposal): unknown;
     fromPartial<I extends {
@@ -962,7 +962,7 @@ export declare const UpdatePairProposal: {
 };
 export declare const AddAppProposal: {
     encode(message: AddAppProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AddAppProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAppProposal;
     fromJSON(object: any): AddAppProposal;
     toJSON(message: AddAppProposal): unknown;
     fromPartial<I extends {
@@ -1199,7 +1199,7 @@ export declare const AddAppProposal: {
 };
 export declare const UpdateGovTimeInAppProposal: {
     encode(message: UpdateGovTimeInAppProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): UpdateGovTimeInAppProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UpdateGovTimeInAppProposal;
     fromJSON(object: any): UpdateGovTimeInAppProposal;
     toJSON(message: UpdateGovTimeInAppProposal): unknown;
     fromPartial<I extends {
@@ -1340,7 +1340,7 @@ export declare const UpdateGovTimeInAppProposal: {
 };
 export declare const AddAssetInAppProposal: {
     encode(message: AddAssetInAppProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetInAppProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddAssetInAppProposal;
     fromJSON(object: any): AddAssetInAppProposal;
     toJSON(message: AddAssetInAppProposal): unknown;
     fromPartial<I extends {
@@ -1577,7 +1577,7 @@ export declare const AddAssetInAppProposal: {
 };
 export declare const AddMultipleAssetsPairsProposal: {
     encode(message: AddMultipleAssetsPairsProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AddMultipleAssetsPairsProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AddMultipleAssetsPairsProposal;
     fromJSON(object: any): AddMultipleAssetsPairsProposal;
     toJSON(message: AddMultipleAssetsPairsProposal): unknown;
     fromPartial<I extends {
@@ -1749,12 +1749,12 @@ export declare const AddMultipleAssetsPairsProposal: {
         }[]>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AddMultipleAssetsPairsProposal>, never>>(object: I): AddMultipleAssetsPairsProposal;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

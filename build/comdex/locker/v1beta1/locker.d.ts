@@ -49,7 +49,7 @@ export interface LockerTotalRewardsByAssetAppWise {
 }
 export declare const Locker: {
     encode(message: Locker, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): Locker;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Locker;
     fromJSON(object: any): Locker;
     toJSON(message: Locker): unknown;
     fromPartial<I extends {
@@ -306,7 +306,7 @@ export declare const Locker: {
 };
 export declare const UserAppAssetLockerMapping: {
     encode(message: UserAppAssetLockerMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): UserAppAssetLockerMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UserAppAssetLockerMapping;
     fromJSON(object: any): UserAppAssetLockerMapping;
     toJSON(message: UserAppAssetLockerMapping): unknown;
     fromPartial<I extends {
@@ -521,7 +521,7 @@ export declare const UserAppAssetLockerMapping: {
 };
 export declare const UserTxData: {
     encode(message: UserTxData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): UserTxData;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UserTxData;
     fromJSON(object: any): UserTxData;
     toJSON(message: UserTxData): unknown;
     fromPartial<I extends {
@@ -538,7 +538,7 @@ export declare const UserTxData: {
 };
 export declare const LockerLookupTableData: {
     encode(message: LockerLookupTableData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): LockerLookupTableData;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LockerLookupTableData;
     fromJSON(object: any): LockerLookupTableData;
     toJSON(message: LockerLookupTableData): unknown;
     fromPartial<I extends {
@@ -726,7 +726,7 @@ export declare const LockerLookupTableData: {
 };
 export declare const LockerProductAssetMapping: {
     encode(message: LockerProductAssetMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): LockerProductAssetMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LockerProductAssetMapping;
     fromJSON(object: any): LockerProductAssetMapping;
     toJSON(message: LockerProductAssetMapping): unknown;
     fromPartial<I extends {
@@ -853,7 +853,7 @@ export declare const LockerProductAssetMapping: {
 };
 export declare const LockedDepositedAmountDataMap: {
     encode(message: LockedDepositedAmountDataMap, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): LockedDepositedAmountDataMap;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LockedDepositedAmountDataMap;
     fromJSON(object: any): LockedDepositedAmountDataMap;
     toJSON(message: LockedDepositedAmountDataMap): unknown;
     fromPartial<I extends {
@@ -923,7 +923,7 @@ export declare const LockedDepositedAmountDataMap: {
 };
 export declare const LockerTotalRewardsByAssetAppWise: {
     encode(message: LockerTotalRewardsByAssetAppWise, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): LockerTotalRewardsByAssetAppWise;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LockerTotalRewardsByAssetAppWise;
     fromJSON(object: any): LockerTotalRewardsByAssetAppWise;
     toJSON(message: LockerTotalRewardsByAssetAppWise): unknown;
     fromPartial<I extends {
@@ -1050,12 +1050,12 @@ export declare const LockerTotalRewardsByAssetAppWise: {
         totalRewards?: string | undefined;
     } & Record<Exclude<keyof I, keyof LockerTotalRewardsByAssetAppWise>, never>>(object: I): LockerTotalRewardsByAssetAppWise;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

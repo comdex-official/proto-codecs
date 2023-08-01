@@ -27,7 +27,7 @@ export interface MsgRemoveMarketForAssetResponse {
 }
 export declare const MsgAddMarketRequest: {
     encode(message: MsgAddMarketRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddMarketRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddMarketRequest;
     fromJSON(object: any): MsgAddMarketRequest;
     toJSON(message: MsgAddMarketRequest): unknown;
     fromPartial<I extends {
@@ -217,14 +217,14 @@ export declare const MsgAddMarketRequest: {
 };
 export declare const MsgAddMarketResponse: {
     encode(_: MsgAddMarketResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddMarketResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddMarketResponse;
     fromJSON(_: any): MsgAddMarketResponse;
     toJSON(_: MsgAddMarketResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgAddMarketResponse;
 };
 export declare const MsgUpdateMarketRequest: {
     encode(message: MsgUpdateMarketRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateMarketRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUpdateMarketRequest;
     fromJSON(object: any): MsgUpdateMarketRequest;
     toJSON(message: MsgUpdateMarketRequest): unknown;
     fromPartial<I extends {
@@ -355,14 +355,14 @@ export declare const MsgUpdateMarketRequest: {
 };
 export declare const MsgUpdateMarketResponse: {
     encode(_: MsgUpdateMarketResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateMarketResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUpdateMarketResponse;
     fromJSON(_: any): MsgUpdateMarketResponse;
     toJSON(_: MsgUpdateMarketResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgUpdateMarketResponse;
 };
 export declare const MsgRemoveMarketForAssetRequest: {
     encode(message: MsgRemoveMarketForAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveMarketForAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgRemoveMarketForAssetRequest;
     fromJSON(object: any): MsgRemoveMarketForAssetRequest;
     toJSON(message: MsgRemoveMarketForAssetRequest): unknown;
     fromPartial<I extends {
@@ -434,7 +434,7 @@ export declare const MsgRemoveMarketForAssetRequest: {
 };
 export declare const MsgRemoveMarketForAssetResponse: {
     encode(_: MsgRemoveMarketForAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveMarketForAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgRemoveMarketForAssetResponse;
     fromJSON(_: any): MsgRemoveMarketForAssetResponse;
     toJSON(_: MsgRemoveMarketForAssetResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgRemoveMarketForAssetResponse;
@@ -454,12 +454,12 @@ export declare class MsgServiceClientImpl implements MsgService {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

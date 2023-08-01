@@ -50,14 +50,14 @@ export interface QueryNetFeeCollectedForAppAndAssetResponse {
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsRequest;
     fromJSON(_: any): QueryParamsRequest;
     toJSON(_: QueryParamsRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryParamsRequest;
 };
 export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsResponse;
     fromJSON(object: any): QueryParamsResponse;
     toJSON(message: QueryParamsResponse): unknown;
     fromPartial<I extends {
@@ -68,7 +68,7 @@ export declare const QueryParamsResponse: {
 };
 export declare const QueryCollectorLookupByAppRequest: {
     encode(message: QueryCollectorLookupByAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryCollectorLookupByAppRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByAppRequest;
     fromJSON(object: any): QueryCollectorLookupByAppRequest;
     toJSON(message: QueryCollectorLookupByAppRequest): unknown;
     fromPartial<I extends {
@@ -270,7 +270,7 @@ export declare const QueryCollectorLookupByAppRequest: {
 };
 export declare const QueryCollectorLookupByAppResponse: {
     encode(message: QueryCollectorLookupByAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryCollectorLookupByAppResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByAppResponse;
     fromJSON(object: any): QueryCollectorLookupByAppResponse;
     toJSON(message: QueryCollectorLookupByAppResponse): unknown;
     fromPartial<I extends {
@@ -637,7 +637,7 @@ export declare const QueryCollectorLookupByAppResponse: {
 };
 export declare const QueryCollectorLookupByAppAndAssetRequest: {
     encode(message: QueryCollectorLookupByAppAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryCollectorLookupByAppAndAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByAppAndAssetRequest;
     fromJSON(object: any): QueryCollectorLookupByAppAndAssetRequest;
     toJSON(message: QueryCollectorLookupByAppAndAssetRequest): unknown;
     fromPartial<I extends {
@@ -764,7 +764,7 @@ export declare const QueryCollectorLookupByAppAndAssetRequest: {
 };
 export declare const QueryCollectorLookupByAppAndAssetResponse: {
     encode(message: QueryCollectorLookupByAppAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryCollectorLookupByAppAndAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorLookupByAppAndAssetResponse;
     fromJSON(object: any): QueryCollectorLookupByAppAndAssetResponse;
     toJSON(message: QueryCollectorLookupByAppAndAssetResponse): unknown;
     fromPartial<I extends {
@@ -1039,7 +1039,7 @@ export declare const QueryCollectorLookupByAppAndAssetResponse: {
 };
 export declare const QueryCollectorDataByAppAndAssetRequest: {
     encode(message: QueryCollectorDataByAppAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryCollectorDataByAppAndAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorDataByAppAndAssetRequest;
     fromJSON(object: any): QueryCollectorDataByAppAndAssetRequest;
     toJSON(message: QueryCollectorDataByAppAndAssetRequest): unknown;
     fromPartial<I extends {
@@ -1166,7 +1166,7 @@ export declare const QueryCollectorDataByAppAndAssetRequest: {
 };
 export declare const QueryCollectorDataByAppAndAssetResponse: {
     encode(message: QueryCollectorDataByAppAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryCollectorDataByAppAndAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryCollectorDataByAppAndAssetResponse;
     fromJSON(object: any): QueryCollectorDataByAppAndAssetResponse;
     toJSON(message: QueryCollectorDataByAppAndAssetResponse): unknown;
     fromPartial<I extends {
@@ -1192,7 +1192,7 @@ export declare const QueryCollectorDataByAppAndAssetResponse: {
 };
 export declare const QueryAuctionMappingForAppAndAssetRequest: {
     encode(message: QueryAuctionMappingForAppAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionMappingForAppAndAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionMappingForAppAndAssetRequest;
     fromJSON(object: any): QueryAuctionMappingForAppAndAssetRequest;
     toJSON(message: QueryAuctionMappingForAppAndAssetRequest): unknown;
     fromPartial<I extends {
@@ -1319,7 +1319,7 @@ export declare const QueryAuctionMappingForAppAndAssetRequest: {
 };
 export declare const QueryAuctionMappingForAppAndAssetResponse: {
     encode(message: QueryAuctionMappingForAppAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionMappingForAppAndAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionMappingForAppAndAssetResponse;
     fromJSON(object: any): QueryAuctionMappingForAppAndAssetResponse;
     toJSON(message: QueryAuctionMappingForAppAndAssetResponse): unknown;
     fromPartial<I extends {
@@ -1528,7 +1528,7 @@ export declare const QueryAuctionMappingForAppAndAssetResponse: {
 };
 export declare const QueryNetFeeCollectedForAppAndAssetRequest: {
     encode(message: QueryNetFeeCollectedForAppAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryNetFeeCollectedForAppAndAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryNetFeeCollectedForAppAndAssetRequest;
     fromJSON(object: any): QueryNetFeeCollectedForAppAndAssetRequest;
     toJSON(message: QueryNetFeeCollectedForAppAndAssetRequest): unknown;
     fromPartial<I extends {
@@ -1655,7 +1655,7 @@ export declare const QueryNetFeeCollectedForAppAndAssetRequest: {
 };
 export declare const QueryNetFeeCollectedForAppAndAssetResponse: {
     encode(message: QueryNetFeeCollectedForAppAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryNetFeeCollectedForAppAndAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryNetFeeCollectedForAppAndAssetResponse;
     fromJSON(object: any): QueryNetFeeCollectedForAppAndAssetResponse;
     toJSON(message: QueryNetFeeCollectedForAppAndAssetResponse): unknown;
     fromPartial<I extends {
@@ -1813,12 +1813,12 @@ export declare class QueryClientImpl implements Query {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

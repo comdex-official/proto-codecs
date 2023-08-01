@@ -12,7 +12,7 @@ export interface ExtendedAsset {
 }
 export declare const ExtendedAsset: {
     encode(message: ExtendedAsset, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ExtendedAsset;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExtendedAsset;
     fromJSON(object: any): ExtendedAsset;
     toJSON(message: ExtendedAsset): unknown;
     fromPartial<I extends {
@@ -145,12 +145,12 @@ export declare const ExtendedAsset: {
         isBridgedAsset?: boolean | undefined;
     } & Record<Exclude<keyof I, keyof ExtendedAsset>, never>>(object: I): ExtendedAsset;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

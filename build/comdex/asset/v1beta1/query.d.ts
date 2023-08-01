@@ -98,7 +98,7 @@ export interface QueryExtendedPairVaultsByAppWithoutStableResponse {
 }
 export declare const QueryAssetsRequest: {
     encode(message: QueryAssetsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetsRequest;
     fromJSON(object: any): QueryAssetsRequest;
     toJSON(message: QueryAssetsRequest): unknown;
     fromPartial<I extends {
@@ -241,7 +241,7 @@ export declare const QueryAssetsRequest: {
 };
 export declare const QueryAssetsResponse: {
     encode(message: QueryAssetsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetsResponse;
     fromJSON(object: any): QueryAssetsResponse;
     toJSON(message: QueryAssetsResponse): unknown;
     fromPartial<I extends {
@@ -417,7 +417,7 @@ export declare const QueryAssetsResponse: {
 };
 export declare const QueryAssetRequest: {
     encode(message: QueryAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetRequest;
     fromJSON(object: any): QueryAssetRequest;
     toJSON(message: QueryAssetRequest): unknown;
     fromPartial<I extends {
@@ -485,7 +485,7 @@ export declare const QueryAssetRequest: {
 };
 export declare const QueryAssetResponse: {
     encode(message: QueryAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetResponse;
     fromJSON(object: any): QueryAssetResponse;
     toJSON(message: QueryAssetResponse): unknown;
     fromPartial<I extends {
@@ -577,7 +577,7 @@ export declare const QueryAssetResponse: {
 };
 export declare const QueryAssetPairsRequest: {
     encode(message: QueryAssetPairsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetPairsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetPairsRequest;
     fromJSON(object: any): QueryAssetPairsRequest;
     toJSON(message: QueryAssetPairsRequest): unknown;
     fromPartial<I extends {
@@ -720,7 +720,7 @@ export declare const QueryAssetPairsRequest: {
 };
 export declare const QueryAssetPairsResponse: {
     encode(message: QueryAssetPairsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetPairsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetPairsResponse;
     fromJSON(object: any): QueryAssetPairsResponse;
     toJSON(message: QueryAssetPairsResponse): unknown;
     fromPartial<I extends {
@@ -1000,7 +1000,7 @@ export declare const QueryAssetPairsResponse: {
 };
 export declare const QueryAssetPairRequest: {
     encode(message: QueryAssetPairRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetPairRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetPairRequest;
     fromJSON(object: any): QueryAssetPairRequest;
     toJSON(message: QueryAssetPairRequest): unknown;
     fromPartial<I extends {
@@ -1068,7 +1068,7 @@ export declare const QueryAssetPairRequest: {
 };
 export declare const QueryAssetPairResponse: {
     encode(message: QueryAssetPairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetPairResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAssetPairResponse;
     fromJSON(object: any): QueryAssetPairResponse;
     toJSON(message: QueryAssetPairResponse): unknown;
     fromPartial<I extends {
@@ -1268,7 +1268,7 @@ export declare const QueryAssetPairResponse: {
 };
 export declare const QueryAppRequest: {
     encode(message: QueryAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAppRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAppRequest;
     fromJSON(object: any): QueryAppRequest;
     toJSON(message: QueryAppRequest): unknown;
     fromPartial<I extends {
@@ -1336,7 +1336,7 @@ export declare const QueryAppRequest: {
 };
 export declare const QueryAppResponse: {
     encode(message: QueryAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAppResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAppResponse;
     fromJSON(object: any): QueryAppResponse;
     toJSON(message: QueryAppResponse): unknown;
     fromPartial<I extends {
@@ -1569,7 +1569,7 @@ export declare const QueryAppResponse: {
 };
 export declare const QueryGovTokenByAppRequest: {
     encode(message: QueryGovTokenByAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryGovTokenByAppRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGovTokenByAppRequest;
     fromJSON(object: any): QueryGovTokenByAppRequest;
     toJSON(message: QueryGovTokenByAppRequest): unknown;
     fromPartial<I extends {
@@ -1637,7 +1637,7 @@ export declare const QueryGovTokenByAppRequest: {
 };
 export declare const QueryGovTokenByAppResponse: {
     encode(message: QueryGovTokenByAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryGovTokenByAppResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGovTokenByAppResponse;
     fromJSON(object: any): QueryGovTokenByAppResponse;
     toJSON(message: QueryGovTokenByAppResponse): unknown;
     fromPartial<I extends {
@@ -1705,7 +1705,7 @@ export declare const QueryGovTokenByAppResponse: {
 };
 export declare const QueryAppsRequest: {
     encode(message: QueryAppsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAppsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAppsRequest;
     fromJSON(object: any): QueryAppsRequest;
     toJSON(message: QueryAppsRequest): unknown;
     fromPartial<I extends {
@@ -1848,7 +1848,7 @@ export declare const QueryAppsRequest: {
 };
 export declare const QueryAppsResponse: {
     encode(message: QueryAppsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAppsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAppsResponse;
     fromJSON(object: any): QueryAppsResponse;
     toJSON(message: QueryAppsResponse): unknown;
     fromPartial<I extends {
@@ -2173,7 +2173,7 @@ export declare const QueryAppsResponse: {
 };
 export declare const QueryExtendedPairVaultRequest: {
     encode(message: QueryExtendedPairVaultRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExtendedPairVaultRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairVaultRequest;
     fromJSON(object: any): QueryExtendedPairVaultRequest;
     toJSON(message: QueryExtendedPairVaultRequest): unknown;
     fromPartial<I extends {
@@ -2241,7 +2241,7 @@ export declare const QueryExtendedPairVaultRequest: {
 };
 export declare const QueryExtendedPairVaultResponse: {
     encode(message: QueryExtendedPairVaultResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExtendedPairVaultResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairVaultResponse;
     fromJSON(object: any): QueryExtendedPairVaultResponse;
     toJSON(message: QueryExtendedPairVaultResponse): unknown;
     fromPartial<I extends {
@@ -2651,7 +2651,7 @@ export declare const QueryExtendedPairVaultResponse: {
 };
 export declare const QueryAllExtendedPairVaultsRequest: {
     encode(message: QueryAllExtendedPairVaultsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllExtendedPairVaultsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairVaultsRequest;
     fromJSON(object: any): QueryAllExtendedPairVaultsRequest;
     toJSON(message: QueryAllExtendedPairVaultsRequest): unknown;
     fromPartial<I extends {
@@ -2794,7 +2794,7 @@ export declare const QueryAllExtendedPairVaultsRequest: {
 };
 export declare const QueryAllExtendedPairVaultsResponse: {
     encode(message: QueryAllExtendedPairVaultsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllExtendedPairVaultsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairVaultsResponse;
     fromJSON(object: any): QueryAllExtendedPairVaultsResponse;
     toJSON(message: QueryAllExtendedPairVaultsResponse): unknown;
     fromPartial<I extends {
@@ -3310,7 +3310,7 @@ export declare const QueryAllExtendedPairVaultsResponse: {
 };
 export declare const QueryAllExtendedPairVaultsByAppRequest: {
     encode(message: QueryAllExtendedPairVaultsByAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllExtendedPairVaultsByAppRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairVaultsByAppRequest;
     fromJSON(object: any): QueryAllExtendedPairVaultsByAppRequest;
     toJSON(message: QueryAllExtendedPairVaultsByAppRequest): unknown;
     fromPartial<I extends {
@@ -3512,7 +3512,7 @@ export declare const QueryAllExtendedPairVaultsByAppRequest: {
 };
 export declare const QueryAllExtendedPairVaultsByAppResponse: {
     encode(message: QueryAllExtendedPairVaultsByAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllExtendedPairVaultsByAppResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairVaultsByAppResponse;
     fromJSON(object: any): QueryAllExtendedPairVaultsByAppResponse;
     toJSON(message: QueryAllExtendedPairVaultsByAppResponse): unknown;
     fromPartial<I extends {
@@ -4028,7 +4028,7 @@ export declare const QueryAllExtendedPairVaultsByAppResponse: {
 };
 export declare const QueryAllExtendedPairStableVaultsIDByAppRequest: {
     encode(message: QueryAllExtendedPairStableVaultsIDByAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllExtendedPairStableVaultsIDByAppRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsIDByAppRequest;
     fromJSON(object: any): QueryAllExtendedPairStableVaultsIDByAppRequest;
     toJSON(message: QueryAllExtendedPairStableVaultsIDByAppRequest): unknown;
     fromPartial<I extends {
@@ -4230,7 +4230,7 @@ export declare const QueryAllExtendedPairStableVaultsIDByAppRequest: {
 };
 export declare const QueryAllExtendedPairStableVaultsIDByAppResponse: {
     encode(message: QueryAllExtendedPairStableVaultsIDByAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllExtendedPairStableVaultsIDByAppResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsIDByAppResponse;
     fromJSON(object: any): QueryAllExtendedPairStableVaultsIDByAppResponse;
     toJSON(message: QueryAllExtendedPairStableVaultsIDByAppResponse): unknown;
     fromPartial<I extends {
@@ -4366,7 +4366,7 @@ export declare const QueryAllExtendedPairStableVaultsIDByAppResponse: {
 };
 export declare const QueryAllExtendedPairStableVaultsByAppRequest: {
     encode(message: QueryAllExtendedPairStableVaultsByAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllExtendedPairStableVaultsByAppRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsByAppRequest;
     fromJSON(object: any): QueryAllExtendedPairStableVaultsByAppRequest;
     toJSON(message: QueryAllExtendedPairStableVaultsByAppRequest): unknown;
     fromPartial<I extends {
@@ -4568,7 +4568,7 @@ export declare const QueryAllExtendedPairStableVaultsByAppRequest: {
 };
 export declare const QueryAllExtendedPairStableVaultsByAppResponse: {
     encode(message: QueryAllExtendedPairStableVaultsByAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllExtendedPairStableVaultsByAppResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllExtendedPairStableVaultsByAppResponse;
     fromJSON(object: any): QueryAllExtendedPairStableVaultsByAppResponse;
     toJSON(message: QueryAllExtendedPairStableVaultsByAppResponse): unknown;
     fromPartial<I extends {
@@ -5084,7 +5084,7 @@ export declare const QueryAllExtendedPairStableVaultsByAppResponse: {
 };
 export declare const QueryExtendedPairVaultsByAppWithoutStableRequest: {
     encode(message: QueryExtendedPairVaultsByAppWithoutStableRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExtendedPairVaultsByAppWithoutStableRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairVaultsByAppWithoutStableRequest;
     fromJSON(object: any): QueryExtendedPairVaultsByAppWithoutStableRequest;
     toJSON(message: QueryExtendedPairVaultsByAppWithoutStableRequest): unknown;
     fromPartial<I extends {
@@ -5286,7 +5286,7 @@ export declare const QueryExtendedPairVaultsByAppWithoutStableRequest: {
 };
 export declare const QueryExtendedPairVaultsByAppWithoutStableResponse: {
     encode(message: QueryExtendedPairVaultsByAppWithoutStableResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExtendedPairVaultsByAppWithoutStableResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtendedPairVaultsByAppWithoutStableResponse;
     fromJSON(object: any): QueryExtendedPairVaultsByAppWithoutStableResponse;
     toJSON(message: QueryExtendedPairVaultsByAppWithoutStableResponse): unknown;
     fromPartial<I extends {
@@ -5835,12 +5835,12 @@ export declare class QueryClientImpl implements Query {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

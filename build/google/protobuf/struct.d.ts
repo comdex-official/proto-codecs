@@ -67,34 +67,34 @@ export interface ListValue {
 }
 export declare const Struct: {
     encode(message: Struct, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): Struct;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Struct;
     fromJSON(object: any): Struct;
     toJSON(message: Struct): unknown;
     fromPartial(object: DeepPartial<Struct>): Struct;
 };
 export declare const Struct_FieldsEntry: {
     encode(message: Struct_FieldsEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): Struct_FieldsEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Struct_FieldsEntry;
     fromJSON(object: any): Struct_FieldsEntry;
     toJSON(message: Struct_FieldsEntry): unknown;
     fromPartial(object: DeepPartial<Struct_FieldsEntry>): Struct_FieldsEntry;
 };
 export declare const Value: {
     encode(message: Value, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): Value;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Value;
     fromJSON(object: any): Value;
     toJSON(message: Value): unknown;
     fromPartial(object: DeepPartial<Value>): Value;
 };
 export declare const ListValue: {
     encode(message: ListValue, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ListValue;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ListValue;
     fromJSON(object: any): ListValue;
     toJSON(message: ListValue): unknown;
     fromPartial(object: DeepPartial<ListValue>): ListValue;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
 export {};

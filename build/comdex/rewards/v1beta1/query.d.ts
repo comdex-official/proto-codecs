@@ -113,14 +113,14 @@ export interface QueryExtLendRewardsAPRResponse {
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsRequest;
     fromJSON(_: any): QueryParamsRequest;
     toJSON(_: QueryParamsRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryParamsRequest;
 };
 export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsResponse;
     fromJSON(object: any): QueryParamsResponse;
     toJSON(message: QueryParamsResponse): unknown;
     fromPartial<I extends {
@@ -131,7 +131,7 @@ export declare const QueryParamsResponse: {
 };
 export declare const QueryAllEpochsInfoRequest: {
     encode(message: QueryAllEpochsInfoRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllEpochsInfoRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllEpochsInfoRequest;
     fromJSON(object: any): QueryAllEpochsInfoRequest;
     toJSON(message: QueryAllEpochsInfoRequest): unknown;
     fromPartial<I extends {
@@ -274,7 +274,7 @@ export declare const QueryAllEpochsInfoRequest: {
 };
 export declare const QueryAllEpochsInfoResponse: {
     encode(message: QueryAllEpochsInfoResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllEpochsInfoResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllEpochsInfoResponse;
     fromJSON(object: any): QueryAllEpochsInfoResponse;
     toJSON(message: QueryAllEpochsInfoResponse): unknown;
     fromPartial<I extends {
@@ -572,7 +572,7 @@ export declare const QueryAllEpochsInfoResponse: {
 };
 export declare const QueryEpochInfoByDurationRequest: {
     encode(message: QueryEpochInfoByDurationRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryEpochInfoByDurationRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryEpochInfoByDurationRequest;
     fromJSON(object: any): QueryEpochInfoByDurationRequest;
     toJSON(message: QueryEpochInfoByDurationRequest): unknown;
     fromPartial<I extends {
@@ -640,7 +640,7 @@ export declare const QueryEpochInfoByDurationRequest: {
 };
 export declare const QueryEpochInfoByDurationResponse: {
     encode(message: QueryEpochInfoByDurationResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryEpochInfoByDurationResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryEpochInfoByDurationResponse;
     fromJSON(object: any): QueryEpochInfoByDurationResponse;
     toJSON(message: QueryEpochInfoByDurationResponse): unknown;
     fromPartial<I extends {
@@ -852,7 +852,7 @@ export declare const QueryEpochInfoByDurationResponse: {
 };
 export declare const QueryAllGaugesRequest: {
     encode(message: QueryAllGaugesRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllGaugesRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllGaugesRequest;
     fromJSON(object: any): QueryAllGaugesRequest;
     toJSON(message: QueryAllGaugesRequest): unknown;
     fromPartial<I extends {
@@ -995,7 +995,7 @@ export declare const QueryAllGaugesRequest: {
 };
 export declare const QueryAllGaugesResponse: {
     encode(message: QueryAllGaugesResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllGaugesResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllGaugesResponse;
     fromJSON(object: any): QueryAllGaugesResponse;
     toJSON(message: QueryAllGaugesResponse): unknown;
     fromPartial<I extends {
@@ -1683,7 +1683,7 @@ export declare const QueryAllGaugesResponse: {
 };
 export declare const QueryGaugeByIdRequest: {
     encode(message: QueryGaugeByIdRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryGaugeByIdRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGaugeByIdRequest;
     fromJSON(object: any): QueryGaugeByIdRequest;
     toJSON(message: QueryGaugeByIdRequest): unknown;
     fromPartial<I extends {
@@ -1751,7 +1751,7 @@ export declare const QueryGaugeByIdRequest: {
 };
 export declare const QueryGaugeByIdResponse: {
     encode(message: QueryGaugeByIdResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryGaugeByIdResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGaugeByIdResponse;
     fromJSON(object: any): QueryGaugeByIdResponse;
     toJSON(message: QueryGaugeByIdResponse): unknown;
     fromPartial<I extends {
@@ -2315,7 +2315,7 @@ export declare const QueryGaugeByIdResponse: {
 };
 export declare const QueryGaugesByDurationRequest: {
     encode(message: QueryGaugesByDurationRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryGaugesByDurationRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGaugesByDurationRequest;
     fromJSON(object: any): QueryGaugesByDurationRequest;
     toJSON(message: QueryGaugesByDurationRequest): unknown;
     fromPartial<I extends {
@@ -2383,7 +2383,7 @@ export declare const QueryGaugesByDurationRequest: {
 };
 export declare const QueryGaugeByDurationResponse: {
     encode(message: QueryGaugeByDurationResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryGaugeByDurationResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGaugeByDurationResponse;
     fromJSON(object: any): QueryGaugeByDurationResponse;
     toJSON(message: QueryGaugeByDurationResponse): unknown;
     fromPartial<I extends {
@@ -3003,7 +3003,7 @@ export declare const QueryGaugeByDurationResponse: {
 };
 export declare const QueryRewardsRequest: {
     encode(message: QueryRewardsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryRewardsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryRewardsRequest;
     fromJSON(object: any): QueryRewardsRequest;
     toJSON(message: QueryRewardsRequest): unknown;
     fromPartial<I extends {
@@ -3146,7 +3146,7 @@ export declare const QueryRewardsRequest: {
 };
 export declare const QueryRewardsResponse: {
     encode(message: QueryRewardsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryRewardsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryRewardsResponse;
     fromJSON(object: any): QueryRewardsResponse;
     toJSON(message: QueryRewardsResponse): unknown;
     fromPartial<I extends {
@@ -3354,7 +3354,7 @@ export declare const QueryRewardsResponse: {
 };
 export declare const QueryRewardRequest: {
     encode(message: QueryRewardRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryRewardRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryRewardRequest;
     fromJSON(object: any): QueryRewardRequest;
     toJSON(message: QueryRewardRequest): unknown;
     fromPartial<I extends {
@@ -3422,7 +3422,7 @@ export declare const QueryRewardRequest: {
 };
 export declare const QueryRewardResponse: {
     encode(message: QueryRewardResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryRewardResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryRewardResponse;
     fromJSON(object: any): QueryRewardResponse;
     toJSON(message: QueryRewardResponse): unknown;
     fromPartial<I extends {
@@ -3562,7 +3562,7 @@ export declare const QueryRewardResponse: {
 };
 export declare const QueryExternalRewardsLockersRequest: {
     encode(message: QueryExternalRewardsLockersRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExternalRewardsLockersRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExternalRewardsLockersRequest;
     fromJSON(object: any): QueryExternalRewardsLockersRequest;
     toJSON(message: QueryExternalRewardsLockersRequest): unknown;
     fromPartial<I extends {
@@ -3705,7 +3705,7 @@ export declare const QueryExternalRewardsLockersRequest: {
 };
 export declare const QueryExternalRewardsLockersResponse: {
     encode(message: QueryExternalRewardsLockersResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExternalRewardsLockersResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExternalRewardsLockersResponse;
     fromJSON(object: any): QueryExternalRewardsLockersResponse;
     toJSON(message: QueryExternalRewardsLockersResponse): unknown;
     fromPartial<I extends {
@@ -4227,7 +4227,7 @@ export declare const QueryExternalRewardsLockersResponse: {
 };
 export declare const QueryExternalRewardVaultsRequest: {
     encode(message: QueryExternalRewardVaultsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExternalRewardVaultsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExternalRewardVaultsRequest;
     fromJSON(object: any): QueryExternalRewardVaultsRequest;
     toJSON(message: QueryExternalRewardVaultsRequest): unknown;
     fromPartial<I extends {
@@ -4370,7 +4370,7 @@ export declare const QueryExternalRewardVaultsRequest: {
 };
 export declare const QueryExternalRewardVaultsResponse: {
     encode(message: QueryExternalRewardVaultsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExternalRewardVaultsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExternalRewardVaultsResponse;
     fromJSON(object: any): QueryExternalRewardVaultsResponse;
     toJSON(message: QueryExternalRewardVaultsResponse): unknown;
     fromPartial<I extends {
@@ -4892,7 +4892,7 @@ export declare const QueryExternalRewardVaultsResponse: {
 };
 export declare const QueryWhitelistedAppIdsVaultRequest: {
     encode(message: QueryWhitelistedAppIdsVaultRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryWhitelistedAppIdsVaultRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhitelistedAppIdsVaultRequest;
     fromJSON(object: any): QueryWhitelistedAppIdsVaultRequest;
     toJSON(message: QueryWhitelistedAppIdsVaultRequest): unknown;
     fromPartial<I extends {
@@ -5035,7 +5035,7 @@ export declare const QueryWhitelistedAppIdsVaultRequest: {
 };
 export declare const QueryWhitelistedAppIdsVaultResponse: {
     encode(message: QueryWhitelistedAppIdsVaultResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryWhitelistedAppIdsVaultResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryWhitelistedAppIdsVaultResponse;
     fromJSON(object: any): QueryWhitelistedAppIdsVaultResponse;
     toJSON(message: QueryWhitelistedAppIdsVaultResponse): unknown;
     fromPartial<I extends {
@@ -5171,7 +5171,7 @@ export declare const QueryWhitelistedAppIdsVaultResponse: {
 };
 export declare const QueryExternalRewardLendsRequest: {
     encode(message: QueryExternalRewardLendsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExternalRewardLendsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExternalRewardLendsRequest;
     fromJSON(object: any): QueryExternalRewardLendsRequest;
     toJSON(message: QueryExternalRewardLendsRequest): unknown;
     fromPartial<I extends {
@@ -5314,7 +5314,7 @@ export declare const QueryExternalRewardLendsRequest: {
 };
 export declare const QueryExternalRewardLendsResponse: {
     encode(message: QueryExternalRewardLendsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExternalRewardLendsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExternalRewardLendsResponse;
     fromJSON(object: any): QueryExternalRewardLendsResponse;
     toJSON(message: QueryExternalRewardLendsResponse): unknown;
     fromPartial<I extends {
@@ -6099,7 +6099,7 @@ export declare const QueryExternalRewardLendsResponse: {
 };
 export declare const QueryExternalRewardStableMintRequest: {
     encode(message: QueryExternalRewardStableMintRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExternalRewardStableMintRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExternalRewardStableMintRequest;
     fromJSON(object: any): QueryExternalRewardStableMintRequest;
     toJSON(message: QueryExternalRewardStableMintRequest): unknown;
     fromPartial<I extends {
@@ -6242,7 +6242,7 @@ export declare const QueryExternalRewardStableMintRequest: {
 };
 export declare const QueryExternalRewardStableMintResponse: {
     encode(message: QueryExternalRewardStableMintResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExternalRewardStableMintResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExternalRewardStableMintResponse;
     fromJSON(object: any): QueryExternalRewardStableMintResponse;
     toJSON(message: QueryExternalRewardStableMintResponse): unknown;
     fromPartial<I extends {
@@ -6826,7 +6826,7 @@ export declare const QueryExternalRewardStableMintResponse: {
 };
 export declare const QueryEpochTimeRequest: {
     encode(message: QueryEpochTimeRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryEpochTimeRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryEpochTimeRequest;
     fromJSON(object: any): QueryEpochTimeRequest;
     toJSON(message: QueryEpochTimeRequest): unknown;
     fromPartial<I extends {
@@ -6969,7 +6969,7 @@ export declare const QueryEpochTimeRequest: {
 };
 export declare const QueryEpochTimeResponse: {
     encode(message: QueryEpochTimeResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryEpochTimeResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryEpochTimeResponse;
     fromJSON(object: any): QueryEpochTimeResponse;
     toJSON(message: QueryEpochTimeResponse): unknown;
     fromPartial<I extends {
@@ -7301,7 +7301,7 @@ export declare const QueryEpochTimeResponse: {
 };
 export declare const QueryExtLendRewardsAPRRequest: {
     encode(message: QueryExtLendRewardsAPRRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExtLendRewardsAPRRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtLendRewardsAPRRequest;
     fromJSON(object: any): QueryExtLendRewardsAPRRequest;
     toJSON(message: QueryExtLendRewardsAPRRequest): unknown;
     fromPartial<I extends {
@@ -7428,7 +7428,7 @@ export declare const QueryExtLendRewardsAPRRequest: {
 };
 export declare const QueryExtLendRewardsAPRResponse: {
     encode(message: QueryExtLendRewardsAPRResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryExtLendRewardsAPRResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryExtLendRewardsAPRResponse;
     fromJSON(object: any): QueryExtLendRewardsAPRResponse;
     toJSON(message: QueryExtLendRewardsAPRResponse): unknown;
     fromPartial<I extends {
@@ -7477,12 +7477,12 @@ export declare class QueryClientImpl implements Query {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

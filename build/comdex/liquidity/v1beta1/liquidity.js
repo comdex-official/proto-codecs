@@ -43,7 +43,7 @@ var PoolType;
     /** POOL_TYPE_RANGED - POOL_TYPE_RANGED specifies the ranged pool type */
     PoolType[PoolType["POOL_TYPE_RANGED"] = 2] = "POOL_TYPE_RANGED";
     PoolType[PoolType["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(PoolType || (exports.PoolType = PoolType = {}));
+})(PoolType = exports.PoolType || (exports.PoolType = {}));
 function poolTypeFromJSON(object) {
     switch (object) {
         case 0:
@@ -88,7 +88,7 @@ var OrderType;
     /** ORDER_TYPE_MM - ORDER_TYPE_MM specifies MM(market making) order type. */
     OrderType[OrderType["ORDER_TYPE_MM"] = 3] = "ORDER_TYPE_MM";
     OrderType[OrderType["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(OrderType || (exports.OrderType = OrderType = {}));
+})(OrderType = exports.OrderType || (exports.OrderType = {}));
 function orderTypeFromJSON(object) {
     switch (object) {
         case 0:
@@ -136,7 +136,7 @@ var OrderDirection;
     /** ORDER_DIRECTION_SELL - ORDER_DIRECTION_SELL specifies sell(swap base coin to quote coin) order direction */
     OrderDirection[OrderDirection["ORDER_DIRECTION_SELL"] = 2] = "ORDER_DIRECTION_SELL";
     OrderDirection[OrderDirection["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(OrderDirection || (exports.OrderDirection = OrderDirection = {}));
+})(OrderDirection = exports.OrderDirection || (exports.OrderDirection = {}));
 function orderDirectionFromJSON(object) {
     switch (object) {
         case 0:
@@ -181,7 +181,7 @@ var RequestStatus;
     /** REQUEST_STATUS_FAILED - REQUEST_STATUS_FAILED indicates the request is failed */
     RequestStatus[RequestStatus["REQUEST_STATUS_FAILED"] = 3] = "REQUEST_STATUS_FAILED";
     RequestStatus[RequestStatus["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(RequestStatus || (exports.RequestStatus = RequestStatus = {}));
+})(RequestStatus = exports.RequestStatus || (exports.RequestStatus = {}));
 function requestStatusFromJSON(object) {
     switch (object) {
         case 0:
@@ -237,7 +237,7 @@ var OrderStatus;
     /** ORDER_STATUS_EXPIRED - ORDER_STATUS_EXPIRED indicates the order has been expired */
     OrderStatus[OrderStatus["ORDER_STATUS_EXPIRED"] = 6] = "ORDER_STATUS_EXPIRED";
     OrderStatus[OrderStatus["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(OrderStatus || (exports.OrderStatus = OrderStatus = {}));
+})(OrderStatus = exports.OrderStatus || (exports.OrderStatus = {}));
 function orderStatusFromJSON(object) {
     switch (object) {
         case 0:
@@ -298,7 +298,7 @@ var AddressType;
     /** ADDRESS_TYPE_20_BYTES - the default 20 bytes length address type. */
     AddressType[AddressType["ADDRESS_TYPE_20_BYTES"] = 1] = "ADDRESS_TYPE_20_BYTES";
     AddressType[AddressType["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(AddressType || (exports.AddressType = AddressType = {}));
+})(AddressType = exports.AddressType || (exports.AddressType = {}));
 function addressTypeFromJSON(object) {
     switch (object) {
         case 0:

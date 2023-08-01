@@ -218,7 +218,7 @@ export interface MsgUnfarmAndWithdrawResponse {
 }
 export declare const MsgCreatePair: {
     encode(message: MsgCreatePair, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePair;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreatePair;
     fromJSON(object: any): MsgCreatePair;
     toJSON(message: MsgCreatePair): unknown;
     create<I extends {
@@ -360,7 +360,7 @@ export declare const MsgCreatePair: {
 };
 export declare const MsgCreatePairResponse: {
     encode(_: MsgCreatePairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePairResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreatePairResponse;
     fromJSON(_: any): MsgCreatePairResponse;
     toJSON(_: MsgCreatePairResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgCreatePairResponse;
@@ -368,7 +368,7 @@ export declare const MsgCreatePairResponse: {
 };
 export declare const MsgCreatePool: {
     encode(message: MsgCreatePool, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePool;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreatePool;
     fromJSON(object: any): MsgCreatePool;
     toJSON(message: MsgCreatePool): unknown;
     create<I extends {
@@ -654,7 +654,7 @@ export declare const MsgCreatePool: {
 };
 export declare const MsgCreatePoolResponse: {
     encode(_: MsgCreatePoolResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreatePoolResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreatePoolResponse;
     fromJSON(_: any): MsgCreatePoolResponse;
     toJSON(_: MsgCreatePoolResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgCreatePoolResponse;
@@ -662,7 +662,7 @@ export declare const MsgCreatePoolResponse: {
 };
 export declare const MsgCreateRangedPool: {
     encode(message: MsgCreateRangedPool, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateRangedPool;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreateRangedPool;
     fromJSON(object: any): MsgCreateRangedPool;
     toJSON(message: MsgCreateRangedPool): unknown;
     create<I extends {
@@ -960,7 +960,7 @@ export declare const MsgCreateRangedPool: {
 };
 export declare const MsgCreateRangedPoolResponse: {
     encode(_: MsgCreateRangedPoolResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateRangedPoolResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreateRangedPoolResponse;
     fromJSON(_: any): MsgCreateRangedPoolResponse;
     toJSON(_: MsgCreateRangedPoolResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgCreateRangedPoolResponse;
@@ -968,7 +968,7 @@ export declare const MsgCreateRangedPoolResponse: {
 };
 export declare const MsgDeposit: {
     encode(message: MsgDeposit, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDeposit;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDeposit;
     fromJSON(object: any): MsgDeposit;
     toJSON(message: MsgDeposit): unknown;
     create<I extends {
@@ -1254,7 +1254,7 @@ export declare const MsgDeposit: {
 };
 export declare const MsgDepositResponse: {
     encode(_: MsgDepositResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositResponse;
     fromJSON(_: any): MsgDepositResponse;
     toJSON(_: MsgDepositResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgDepositResponse;
@@ -1262,7 +1262,7 @@ export declare const MsgDepositResponse: {
 };
 export declare const MsgWithdraw: {
     encode(message: MsgWithdraw, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdraw;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdraw;
     fromJSON(object: any): MsgWithdraw;
     toJSON(message: MsgWithdraw): unknown;
     create<I extends {
@@ -1536,7 +1536,7 @@ export declare const MsgWithdraw: {
 };
 export declare const MsgWithdrawResponse: {
     encode(_: MsgWithdrawResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawResponse;
     fromJSON(_: any): MsgWithdrawResponse;
     toJSON(_: MsgWithdrawResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgWithdrawResponse;
@@ -1544,7 +1544,7 @@ export declare const MsgWithdrawResponse: {
 };
 export declare const MsgLimitOrder: {
     encode(message: MsgLimitOrder, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLimitOrder;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLimitOrder;
     fromJSON(object: any): MsgLimitOrder;
     toJSON(message: MsgLimitOrder): unknown;
     create<I extends {
@@ -1970,7 +1970,7 @@ export declare const MsgLimitOrder: {
 };
 export declare const MsgLimitOrderResponse: {
     encode(_: MsgLimitOrderResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLimitOrderResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLimitOrderResponse;
     fromJSON(_: any): MsgLimitOrderResponse;
     toJSON(_: MsgLimitOrderResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgLimitOrderResponse;
@@ -1978,7 +1978,7 @@ export declare const MsgLimitOrderResponse: {
 };
 export declare const MsgMarketOrder: {
     encode(message: MsgMarketOrder, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgMarketOrder;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgMarketOrder;
     fromJSON(object: any): MsgMarketOrder;
     toJSON(message: MsgMarketOrder): unknown;
     create<I extends {
@@ -2400,7 +2400,7 @@ export declare const MsgMarketOrder: {
 };
 export declare const MsgMarketOrderResponse: {
     encode(_: MsgMarketOrderResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgMarketOrderResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgMarketOrderResponse;
     fromJSON(_: any): MsgMarketOrderResponse;
     toJSON(_: MsgMarketOrderResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgMarketOrderResponse;
@@ -2408,7 +2408,7 @@ export declare const MsgMarketOrderResponse: {
 };
 export declare const MsgMMOrder: {
     encode(message: MsgMMOrder, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgMMOrder;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgMMOrder;
     fromJSON(object: any): MsgMMOrder;
     toJSON(message: MsgMMOrder): unknown;
     create<I extends {
@@ -2820,7 +2820,7 @@ export declare const MsgMMOrder: {
 };
 export declare const MsgMMOrderResponse: {
     encode(_: MsgMMOrderResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgMMOrderResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgMMOrderResponse;
     fromJSON(_: any): MsgMMOrderResponse;
     toJSON(_: MsgMMOrderResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgMMOrderResponse;
@@ -2828,7 +2828,7 @@ export declare const MsgMMOrderResponse: {
 };
 export declare const MsgCancelOrder: {
     encode(message: MsgCancelOrder, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelOrder;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelOrder;
     fromJSON(object: any): MsgCancelOrder;
     toJSON(message: MsgCancelOrder): unknown;
     create<I extends {
@@ -3198,7 +3198,7 @@ export declare const MsgCancelOrder: {
 };
 export declare const MsgCancelOrderResponse: {
     encode(_: MsgCancelOrderResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelOrderResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelOrderResponse;
     fromJSON(_: any): MsgCancelOrderResponse;
     toJSON(_: MsgCancelOrderResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgCancelOrderResponse;
@@ -3206,7 +3206,7 @@ export declare const MsgCancelOrderResponse: {
 };
 export declare const MsgCancelAllOrders: {
     encode(message: MsgCancelAllOrders, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelAllOrders;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelAllOrders;
     fromJSON(object: any): MsgCancelAllOrders;
     toJSON(message: MsgCancelAllOrders): unknown;
     create<I extends {
@@ -3458,7 +3458,7 @@ export declare const MsgCancelAllOrders: {
 };
 export declare const MsgCancelAllOrdersResponse: {
     encode(_: MsgCancelAllOrdersResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelAllOrdersResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelAllOrdersResponse;
     fromJSON(_: any): MsgCancelAllOrdersResponse;
     toJSON(_: MsgCancelAllOrdersResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgCancelAllOrdersResponse;
@@ -3466,7 +3466,7 @@ export declare const MsgCancelAllOrdersResponse: {
 };
 export declare const MsgCancelMMOrder: {
     encode(message: MsgCancelMMOrder, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelMMOrder;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelMMOrder;
     fromJSON(object: any): MsgCancelMMOrder;
     toJSON(message: MsgCancelMMOrder): unknown;
     create<I extends {
@@ -3718,7 +3718,7 @@ export declare const MsgCancelMMOrder: {
 };
 export declare const MsgCancelMMOrderResponse: {
     encode(_: MsgCancelMMOrderResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelMMOrderResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelMMOrderResponse;
     fromJSON(_: any): MsgCancelMMOrderResponse;
     toJSON(_: MsgCancelMMOrderResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgCancelMMOrderResponse;
@@ -3726,7 +3726,7 @@ export declare const MsgCancelMMOrderResponse: {
 };
 export declare const MsgFarm: {
     encode(message: MsgFarm, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgFarm;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFarm;
     fromJSON(object: any): MsgFarm;
     toJSON(message: MsgFarm): unknown;
     create<I extends {
@@ -4000,7 +4000,7 @@ export declare const MsgFarm: {
 };
 export declare const MsgFarmResponse: {
     encode(_: MsgFarmResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgFarmResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFarmResponse;
     fromJSON(_: any): MsgFarmResponse;
     toJSON(_: MsgFarmResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgFarmResponse;
@@ -4008,7 +4008,7 @@ export declare const MsgFarmResponse: {
 };
 export declare const MsgUnfarm: {
     encode(message: MsgUnfarm, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnfarm;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUnfarm;
     fromJSON(object: any): MsgUnfarm;
     toJSON(message: MsgUnfarm): unknown;
     create<I extends {
@@ -4282,7 +4282,7 @@ export declare const MsgUnfarm: {
 };
 export declare const MsgUnfarmResponse: {
     encode(_: MsgUnfarmResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnfarmResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUnfarmResponse;
     fromJSON(_: any): MsgUnfarmResponse;
     toJSON(_: MsgUnfarmResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgUnfarmResponse;
@@ -4290,7 +4290,7 @@ export declare const MsgUnfarmResponse: {
 };
 export declare const MsgDepositAndFarm: {
     encode(message: MsgDepositAndFarm, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositAndFarm;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositAndFarm;
     fromJSON(object: any): MsgDepositAndFarm;
     toJSON(message: MsgDepositAndFarm): unknown;
     create<I extends {
@@ -4576,7 +4576,7 @@ export declare const MsgDepositAndFarm: {
 };
 export declare const MsgDepositAndFarmResponse: {
     encode(_: MsgDepositAndFarmResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositAndFarmResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositAndFarmResponse;
     fromJSON(_: any): MsgDepositAndFarmResponse;
     toJSON(_: MsgDepositAndFarmResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgDepositAndFarmResponse;
@@ -4584,7 +4584,7 @@ export declare const MsgDepositAndFarmResponse: {
 };
 export declare const MsgUnfarmAndWithdraw: {
     encode(message: MsgUnfarmAndWithdraw, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnfarmAndWithdraw;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUnfarmAndWithdraw;
     fromJSON(object: any): MsgUnfarmAndWithdraw;
     toJSON(message: MsgUnfarmAndWithdraw): unknown;
     create<I extends {
@@ -4858,7 +4858,7 @@ export declare const MsgUnfarmAndWithdraw: {
 };
 export declare const MsgUnfarmAndWithdrawResponse: {
     encode(_: MsgUnfarmAndWithdrawResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUnfarmAndWithdrawResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUnfarmAndWithdrawResponse;
     fromJSON(_: any): MsgUnfarmAndWithdrawResponse;
     toJSON(_: MsgUnfarmAndWithdrawResponse): unknown;
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgUnfarmAndWithdrawResponse;
@@ -4922,12 +4922,12 @@ export declare class MsgClientImpl implements Msg {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & {
     [K in Exclude<keyof I, KeysOfUnion<P>>]: never;

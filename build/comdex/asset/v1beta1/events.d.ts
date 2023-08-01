@@ -6,7 +6,7 @@ export interface EventAddPair {
 }
 export declare const EventAddPair: {
     encode(message: EventAddPair, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): EventAddPair;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EventAddPair;
     fromJSON(object: any): EventAddPair;
     toJSON(message: EventAddPair): unknown;
     fromPartial<I extends {
@@ -72,12 +72,12 @@ export declare const EventAddPair: {
         } & Record<Exclude<keyof I["id"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, "id">, never>>(object: I): EventAddPair;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

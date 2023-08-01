@@ -88,7 +88,7 @@ export interface StableVaultExternalRewards {
 }
 export declare const InternalRewards: {
     encode(message: InternalRewards, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): InternalRewards;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): InternalRewards;
     fromJSON(object: any): InternalRewards;
     toJSON(message: InternalRewards): unknown;
     fromPartial<I extends {
@@ -215,7 +215,7 @@ export declare const InternalRewards: {
 };
 export declare const LockerRewardsTracker: {
     encode(message: LockerRewardsTracker, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): LockerRewardsTracker;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LockerRewardsTracker;
     fromJSON(object: any): LockerRewardsTracker;
     toJSON(message: LockerRewardsTracker): unknown;
     fromPartial<I extends {
@@ -344,7 +344,7 @@ export declare const LockerRewardsTracker: {
 };
 export declare const VaultInterestTracker: {
     encode(message: VaultInterestTracker, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): VaultInterestTracker;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): VaultInterestTracker;
     fromJSON(object: any): VaultInterestTracker;
     toJSON(message: VaultInterestTracker): unknown;
     fromPartial<I extends {
@@ -473,7 +473,7 @@ export declare const VaultInterestTracker: {
 };
 export declare const LockerExternalRewards: {
     encode(message: LockerExternalRewards, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): LockerExternalRewards;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LockerExternalRewards;
     fromJSON(object: any): LockerExternalRewards;
     toJSON(message: LockerExternalRewards): unknown;
     fromPartial<I extends {
@@ -866,7 +866,7 @@ export declare const LockerExternalRewards: {
 };
 export declare const VaultExternalRewards: {
     encode(message: VaultExternalRewards, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): VaultExternalRewards;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): VaultExternalRewards;
     fromJSON(object: any): VaultExternalRewards;
     toJSON(message: VaultExternalRewards): unknown;
     fromPartial<I extends {
@@ -1259,7 +1259,7 @@ export declare const VaultExternalRewards: {
 };
 export declare const EpochTime: {
     encode(message: EpochTime, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): EpochTime;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EpochTime;
     fromJSON(object: any): EpochTime;
     toJSON(message: EpochTime): unknown;
     fromPartial<I extends {
@@ -1504,7 +1504,7 @@ export declare const EpochTime: {
 };
 export declare const LendExternalRewards: {
     encode(message: LendExternalRewards, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): LendExternalRewards;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LendExternalRewards;
     fromJSON(object: any): LendExternalRewards;
     toJSON(message: LendExternalRewards): unknown;
     fromPartial<I extends {
@@ -2142,7 +2142,7 @@ export declare const LendExternalRewards: {
 };
 export declare const RewardsAssetPoolData: {
     encode(message: RewardsAssetPoolData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): RewardsAssetPoolData;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RewardsAssetPoolData;
     fromJSON(object: any): RewardsAssetPoolData;
     toJSON(message: RewardsAssetPoolData): unknown;
     fromPartial<I extends {
@@ -2387,7 +2387,7 @@ export declare const RewardsAssetPoolData: {
 };
 export declare const StableVaultExternalRewards: {
     encode(message: StableVaultExternalRewards, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): StableVaultExternalRewards;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): StableVaultExternalRewards;
     fromJSON(object: any): StableVaultExternalRewards;
     toJSON(message: StableVaultExternalRewards): unknown;
     fromPartial<I extends {
@@ -2837,12 +2837,12 @@ export declare const StableVaultExternalRewards: {
         } & Record<Exclude<keyof I["epochId"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof StableVaultExternalRewards>, never>>(object: I): StableVaultExternalRewards;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

@@ -108,7 +108,7 @@ export interface MsgRepayWithdrawResponse {
 }
 export declare const MsgLend: {
     encode(message: MsgLend, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLend;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLend;
     fromJSON(object: any): MsgLend;
     toJSON(message: MsgLend): unknown;
     fromPartial<I extends {
@@ -307,7 +307,7 @@ export declare const MsgLend: {
 };
 export declare const MsgWithdraw: {
     encode(message: MsgWithdraw, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdraw;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdraw;
     fromJSON(object: any): MsgWithdraw;
     toJSON(message: MsgWithdraw): unknown;
     fromPartial<I extends {
@@ -388,7 +388,7 @@ export declare const MsgWithdraw: {
 };
 export declare const MsgDeposit: {
     encode(message: MsgDeposit, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDeposit;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDeposit;
     fromJSON(object: any): MsgDeposit;
     toJSON(message: MsgDeposit): unknown;
     fromPartial<I extends {
@@ -469,7 +469,7 @@ export declare const MsgDeposit: {
 };
 export declare const MsgCloseLend: {
     encode(message: MsgCloseLend, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCloseLend;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCloseLend;
     fromJSON(object: any): MsgCloseLend;
     toJSON(message: MsgCloseLend): unknown;
     fromPartial<I extends {
@@ -539,7 +539,7 @@ export declare const MsgCloseLend: {
 };
 export declare const MsgBorrow: {
     encode(message: MsgBorrow, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBorrow;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBorrow;
     fromJSON(object: any): MsgBorrow;
     toJSON(message: MsgBorrow): unknown;
     fromPartial<I extends {
@@ -692,7 +692,7 @@ export declare const MsgBorrow: {
 };
 export declare const MsgRepay: {
     encode(message: MsgRepay, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgRepay;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgRepay;
     fromJSON(object: any): MsgRepay;
     toJSON(message: MsgRepay): unknown;
     fromPartial<I extends {
@@ -773,7 +773,7 @@ export declare const MsgRepay: {
 };
 export declare const MsgDepositBorrow: {
     encode(message: MsgDepositBorrow, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositBorrow;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositBorrow;
     fromJSON(object: any): MsgDepositBorrow;
     toJSON(message: MsgDepositBorrow): unknown;
     fromPartial<I extends {
@@ -854,7 +854,7 @@ export declare const MsgDepositBorrow: {
 };
 export declare const MsgDraw: {
     encode(message: MsgDraw, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDraw;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDraw;
     fromJSON(object: any): MsgDraw;
     toJSON(message: MsgDraw): unknown;
     fromPartial<I extends {
@@ -935,7 +935,7 @@ export declare const MsgDraw: {
 };
 export declare const MsgCloseBorrow: {
     encode(message: MsgCloseBorrow, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCloseBorrow;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCloseBorrow;
     fromJSON(object: any): MsgCloseBorrow;
     toJSON(message: MsgCloseBorrow): unknown;
     fromPartial<I extends {
@@ -1005,7 +1005,7 @@ export declare const MsgCloseBorrow: {
 };
 export declare const MsgBorrowAlternate: {
     encode(message: MsgBorrowAlternate, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBorrowAlternate;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBorrowAlternate;
     fromJSON(object: any): MsgBorrowAlternate;
     toJSON(message: MsgBorrowAlternate): unknown;
     fromPartial<I extends {
@@ -1276,7 +1276,7 @@ export declare const MsgBorrowAlternate: {
 };
 export declare const MsgFundModuleAccounts: {
     encode(message: MsgFundModuleAccounts, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundModuleAccounts;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFundModuleAccounts;
     fromJSON(object: any): MsgFundModuleAccounts;
     toJSON(message: MsgFundModuleAccounts): unknown;
     fromPartial<I extends {
@@ -1416,7 +1416,7 @@ export declare const MsgFundModuleAccounts: {
 };
 export declare const MsgCalculateInterestAndRewards: {
     encode(message: MsgCalculateInterestAndRewards, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCalculateInterestAndRewards;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCalculateInterestAndRewards;
     fromJSON(object: any): MsgCalculateInterestAndRewards;
     toJSON(message: MsgCalculateInterestAndRewards): unknown;
     fromPartial<I extends {
@@ -1427,7 +1427,7 @@ export declare const MsgCalculateInterestAndRewards: {
 };
 export declare const MsgFundReserveAccounts: {
     encode(message: MsgFundReserveAccounts, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundReserveAccounts;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFundReserveAccounts;
     fromJSON(object: any): MsgFundReserveAccounts;
     toJSON(message: MsgFundReserveAccounts): unknown;
     fromPartial<I extends {
@@ -1508,7 +1508,7 @@ export declare const MsgFundReserveAccounts: {
 };
 export declare const MsgRepayWithdraw: {
     encode(message: MsgRepayWithdraw, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgRepayWithdraw;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgRepayWithdraw;
     fromJSON(object: any): MsgRepayWithdraw;
     toJSON(message: MsgRepayWithdraw): unknown;
     fromPartial<I extends {
@@ -1578,98 +1578,98 @@ export declare const MsgRepayWithdraw: {
 };
 export declare const MsgLendResponse: {
     encode(_: MsgLendResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLendResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLendResponse;
     fromJSON(_: any): MsgLendResponse;
     toJSON(_: MsgLendResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgLendResponse;
 };
 export declare const MsgWithdrawResponse: {
     encode(_: MsgWithdrawResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawResponse;
     fromJSON(_: any): MsgWithdrawResponse;
     toJSON(_: MsgWithdrawResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgWithdrawResponse;
 };
 export declare const MsgDepositResponse: {
     encode(_: MsgDepositResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositResponse;
     fromJSON(_: any): MsgDepositResponse;
     toJSON(_: MsgDepositResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgDepositResponse;
 };
 export declare const MsgCloseLendResponse: {
     encode(_: MsgCloseLendResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCloseLendResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCloseLendResponse;
     fromJSON(_: any): MsgCloseLendResponse;
     toJSON(_: MsgCloseLendResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCloseLendResponse;
 };
 export declare const MsgBorrowResponse: {
     encode(_: MsgBorrowResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBorrowResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBorrowResponse;
     fromJSON(_: any): MsgBorrowResponse;
     toJSON(_: MsgBorrowResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgBorrowResponse;
 };
 export declare const MsgRepayResponse: {
     encode(_: MsgRepayResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgRepayResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgRepayResponse;
     fromJSON(_: any): MsgRepayResponse;
     toJSON(_: MsgRepayResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgRepayResponse;
 };
 export declare const MsgDepositBorrowResponse: {
     encode(_: MsgDepositBorrowResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositBorrowResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositBorrowResponse;
     fromJSON(_: any): MsgDepositBorrowResponse;
     toJSON(_: MsgDepositBorrowResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgDepositBorrowResponse;
 };
 export declare const MsgDrawResponse: {
     encode(_: MsgDrawResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDrawResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDrawResponse;
     fromJSON(_: any): MsgDrawResponse;
     toJSON(_: MsgDrawResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgDrawResponse;
 };
 export declare const MsgCloseBorrowResponse: {
     encode(_: MsgCloseBorrowResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCloseBorrowResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCloseBorrowResponse;
     fromJSON(_: any): MsgCloseBorrowResponse;
     toJSON(_: MsgCloseBorrowResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCloseBorrowResponse;
 };
 export declare const MsgBorrowAlternateResponse: {
     encode(_: MsgBorrowAlternateResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBorrowAlternateResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgBorrowAlternateResponse;
     fromJSON(_: any): MsgBorrowAlternateResponse;
     toJSON(_: MsgBorrowAlternateResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgBorrowAlternateResponse;
 };
 export declare const MsgFundModuleAccountsResponse: {
     encode(_: MsgFundModuleAccountsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundModuleAccountsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFundModuleAccountsResponse;
     fromJSON(_: any): MsgFundModuleAccountsResponse;
     toJSON(_: MsgFundModuleAccountsResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgFundModuleAccountsResponse;
 };
 export declare const MsgCalculateInterestAndRewardsResponse: {
     encode(_: MsgCalculateInterestAndRewardsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCalculateInterestAndRewardsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCalculateInterestAndRewardsResponse;
     fromJSON(_: any): MsgCalculateInterestAndRewardsResponse;
     toJSON(_: MsgCalculateInterestAndRewardsResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCalculateInterestAndRewardsResponse;
 };
 export declare const MsgFundReserveAccountsResponse: {
     encode(_: MsgFundReserveAccountsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundReserveAccountsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgFundReserveAccountsResponse;
     fromJSON(_: any): MsgFundReserveAccountsResponse;
     toJSON(_: MsgFundReserveAccountsResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgFundReserveAccountsResponse;
 };
 export declare const MsgRepayWithdrawResponse: {
     encode(_: MsgRepayWithdrawResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgRepayWithdrawResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgRepayWithdrawResponse;
     fromJSON(_: any): MsgRepayWithdrawResponse;
     toJSON(_: MsgRepayWithdrawResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgRepayWithdrawResponse;
@@ -1719,12 +1719,12 @@ export declare class MsgClientImpl implements Msg {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

@@ -14,7 +14,7 @@ export interface MintedTokens {
 }
 export declare const TokenMint: {
     encode(message: TokenMint, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): TokenMint;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): TokenMint;
     fromJSON(object: any): TokenMint;
     toJSON(message: TokenMint): unknown;
     fromPartial<I extends {
@@ -166,7 +166,7 @@ export declare const TokenMint: {
 };
 export declare const MintedTokens: {
     encode(message: MintedTokens, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MintedTokens;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MintedTokens;
     fromJSON(object: any): MintedTokens;
     toJSON(message: MintedTokens): unknown;
     fromPartial<I extends {
@@ -238,12 +238,12 @@ export declare const MintedTokens: {
         currentSupply?: string | undefined;
     } & Record<Exclude<keyof I, keyof MintedTokens>, never>>(object: I): MintedTokens;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

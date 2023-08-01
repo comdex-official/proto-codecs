@@ -21,7 +21,7 @@ export interface AppAndGovTime {
 }
 export declare const AppMapping: {
     encode(message: AppMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AppMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppMapping;
     fromJSON(object: any): AppMapping;
     toJSON(message: AppMapping): unknown;
     fromPartial<I extends {
@@ -181,7 +181,7 @@ export declare const AppMapping: {
 };
 export declare const MintGenesisToken: {
     encode(message: MintGenesisToken, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MintGenesisToken;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MintGenesisToken;
     fromJSON(object: any): MintGenesisToken;
     toJSON(message: MintGenesisToken): unknown;
     fromPartial<I extends {
@@ -255,7 +255,7 @@ export declare const MintGenesisToken: {
 };
 export declare const AppAndGovTime: {
     encode(message: AppAndGovTime, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AppAndGovTime;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppAndGovTime;
     fromJSON(object: any): AppAndGovTime;
     toJSON(message: AppAndGovTime): unknown;
     fromPartial<I extends {
@@ -323,12 +323,12 @@ export declare const AppAndGovTime: {
         govTimeInSeconds?: number | undefined;
     } & Record<Exclude<keyof I, keyof AppAndGovTime>, never>>(object: I): AppAndGovTime;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

@@ -89,7 +89,7 @@ export interface ActivateExternalRewardsStableMintResponse {
 }
 export declare const MsgCreateGauge: {
     encode(message: MsgCreateGauge, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateGauge;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreateGauge;
     fromJSON(object: any): MsgCreateGauge;
     toJSON(message: MsgCreateGauge): unknown;
     fromPartial<I extends {
@@ -486,14 +486,14 @@ export declare const MsgCreateGauge: {
 };
 export declare const MsgCreateGaugeResponse: {
     encode(_: MsgCreateGaugeResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateGaugeResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCreateGaugeResponse;
     fromJSON(_: any): MsgCreateGaugeResponse;
     toJSON(_: MsgCreateGaugeResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCreateGaugeResponse;
 };
 export declare const WhitelistAsset: {
     encode(message: WhitelistAsset, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): WhitelistAsset;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): WhitelistAsset;
     fromJSON(object: any): WhitelistAsset;
     toJSON(message: WhitelistAsset): unknown;
     fromPartial<I extends {
@@ -622,7 +622,7 @@ export declare const WhitelistAsset: {
 };
 export declare const RemoveWhitelistAsset: {
     encode(message: RemoveWhitelistAsset, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): RemoveWhitelistAsset;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RemoveWhitelistAsset;
     fromJSON(object: any): RemoveWhitelistAsset;
     toJSON(message: RemoveWhitelistAsset): unknown;
     fromPartial<I extends {
@@ -751,21 +751,21 @@ export declare const RemoveWhitelistAsset: {
 };
 export declare const MsgWhitelistAssetResponse: {
     encode(_: MsgWhitelistAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWhitelistAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWhitelistAssetResponse;
     fromJSON(_: any): MsgWhitelistAssetResponse;
     toJSON(_: MsgWhitelistAssetResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgWhitelistAssetResponse;
 };
 export declare const MsgRemoveWhitelistAssetResponse: {
     encode(_: MsgRemoveWhitelistAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveWhitelistAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgRemoveWhitelistAssetResponse;
     fromJSON(_: any): MsgRemoveWhitelistAssetResponse;
     toJSON(_: MsgRemoveWhitelistAssetResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgRemoveWhitelistAssetResponse;
 };
 export declare const WhitelistAppIdVault: {
     encode(message: WhitelistAppIdVault, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): WhitelistAppIdVault;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): WhitelistAppIdVault;
     fromJSON(object: any): WhitelistAppIdVault;
     toJSON(message: WhitelistAppIdVault): unknown;
     fromPartial<I extends {
@@ -835,7 +835,7 @@ export declare const WhitelistAppIdVault: {
 };
 export declare const RemoveWhitelistAppIdVault: {
     encode(message: RemoveWhitelistAppIdVault, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): RemoveWhitelistAppIdVault;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): RemoveWhitelistAppIdVault;
     fromJSON(object: any): RemoveWhitelistAppIdVault;
     toJSON(message: RemoveWhitelistAppIdVault): unknown;
     fromPartial<I extends {
@@ -905,21 +905,21 @@ export declare const RemoveWhitelistAppIdVault: {
 };
 export declare const MsgWhitelistAppIdVaultResponse: {
     encode(_: MsgWhitelistAppIdVaultResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWhitelistAppIdVaultResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWhitelistAppIdVaultResponse;
     fromJSON(_: any): MsgWhitelistAppIdVaultResponse;
     toJSON(_: MsgWhitelistAppIdVaultResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgWhitelistAppIdVaultResponse;
 };
 export declare const MsgRemoveWhitelistAppIdVaultResponse: {
     encode(_: MsgRemoveWhitelistAppIdVaultResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveWhitelistAppIdVaultResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgRemoveWhitelistAppIdVaultResponse;
     fromJSON(_: any): MsgRemoveWhitelistAppIdVaultResponse;
     toJSON(_: MsgRemoveWhitelistAppIdVaultResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgRemoveWhitelistAppIdVaultResponse;
 };
 export declare const ActivateExternalRewardsLockers: {
     encode(message: ActivateExternalRewardsLockers, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsLockers;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ActivateExternalRewardsLockers;
     fromJSON(object: any): ActivateExternalRewardsLockers;
     toJSON(message: ActivateExternalRewardsLockers): unknown;
     fromPartial<I extends {
@@ -1177,14 +1177,14 @@ export declare const ActivateExternalRewardsLockers: {
 };
 export declare const ActivateExternalRewardsLockersResponse: {
     encode(_: ActivateExternalRewardsLockersResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsLockersResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ActivateExternalRewardsLockersResponse;
     fromJSON(_: any): ActivateExternalRewardsLockersResponse;
     toJSON(_: ActivateExternalRewardsLockersResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ActivateExternalRewardsLockersResponse;
 };
 export declare const ActivateExternalRewardsVault: {
     encode(message: ActivateExternalRewardsVault, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsVault;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ActivateExternalRewardsVault;
     fromJSON(object: any): ActivateExternalRewardsVault;
     toJSON(message: ActivateExternalRewardsVault): unknown;
     fromPartial<I extends {
@@ -1442,14 +1442,14 @@ export declare const ActivateExternalRewardsVault: {
 };
 export declare const ActivateExternalRewardsVaultResponse: {
     encode(_: ActivateExternalRewardsVaultResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsVaultResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ActivateExternalRewardsVaultResponse;
     fromJSON(_: any): ActivateExternalRewardsVaultResponse;
     toJSON(_: ActivateExternalRewardsVaultResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ActivateExternalRewardsVaultResponse;
 };
 export declare const ActivateExternalRewardsLend: {
     encode(message: ActivateExternalRewardsLend, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsLend;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ActivateExternalRewardsLend;
     fromJSON(object: any): ActivateExternalRewardsLend;
     toJSON(message: ActivateExternalRewardsLend): unknown;
     fromPartial<I extends {
@@ -1943,14 +1943,14 @@ export declare const ActivateExternalRewardsLend: {
 };
 export declare const ActivateExternalRewardsLendResponse: {
     encode(_: ActivateExternalRewardsLendResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsLendResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ActivateExternalRewardsLendResponse;
     fromJSON(_: any): ActivateExternalRewardsLendResponse;
     toJSON(_: ActivateExternalRewardsLendResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ActivateExternalRewardsLendResponse;
 };
 export declare const ActivateExternalRewardsStableMint: {
     encode(message: ActivateExternalRewardsStableMint, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsStableMint;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ActivateExternalRewardsStableMint;
     fromJSON(object: any): ActivateExternalRewardsStableMint;
     toJSON(message: ActivateExternalRewardsStableMint): unknown;
     fromPartial<I extends {
@@ -2267,7 +2267,7 @@ export declare const ActivateExternalRewardsStableMint: {
 };
 export declare const ActivateExternalRewardsStableMintResponse: {
     encode(_: ActivateExternalRewardsStableMintResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsStableMintResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ActivateExternalRewardsStableMintResponse;
     fromJSON(_: any): ActivateExternalRewardsStableMintResponse;
     toJSON(_: ActivateExternalRewardsStableMintResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): ActivateExternalRewardsStableMintResponse;
@@ -2291,12 +2291,12 @@ export declare class MsgClientImpl implements Msg {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

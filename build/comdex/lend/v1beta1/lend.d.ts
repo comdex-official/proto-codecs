@@ -230,7 +230,7 @@ export interface EModePairs {
 }
 export declare const LendAsset: {
     encode(message: LendAsset, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): LendAsset;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LendAsset;
     fromJSON(object: any): LendAsset;
     toJSON(message: LendAsset): unknown;
     fromPartial<I extends {
@@ -500,7 +500,7 @@ export declare const LendAsset: {
 };
 export declare const BorrowAsset: {
     encode(message: BorrowAsset, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): BorrowAsset;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): BorrowAsset;
     fromJSON(object: any): BorrowAsset;
     toJSON(message: BorrowAsset): unknown;
     fromPartial<I extends {
@@ -737,7 +737,7 @@ export declare const BorrowAsset: {
 };
 export declare const Pool: {
     encode(message: Pool, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): Pool;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Pool;
     fromJSON(object: any): Pool;
     toJSON(message: Pool): unknown;
     fromPartial<I extends {
@@ -945,7 +945,7 @@ export declare const Pool: {
 };
 export declare const UserAssetLendBorrowMapping: {
     encode(message: UserAssetLendBorrowMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): UserAssetLendBorrowMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UserAssetLendBorrowMapping;
     fromJSON(object: any): UserAssetLendBorrowMapping;
     toJSON(message: UserAssetLendBorrowMapping): unknown;
     fromPartial<I extends {
@@ -1133,7 +1133,7 @@ export declare const UserAssetLendBorrowMapping: {
 };
 export declare const AssetDataPoolMapping: {
     encode(message: AssetDataPoolMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AssetDataPoolMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetDataPoolMapping;
     fromJSON(object: any): AssetDataPoolMapping;
     toJSON(message: AssetDataPoolMapping): unknown;
     fromPartial<I extends {
@@ -1262,7 +1262,7 @@ export declare const AssetDataPoolMapping: {
 };
 export declare const ExtendedPair: {
     encode(message: ExtendedPair, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ExtendedPair;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExtendedPair;
     fromJSON(object: any): ExtendedPair;
     toJSON(message: ExtendedPair): unknown;
     fromPartial<I extends {
@@ -1570,7 +1570,7 @@ export declare const ExtendedPair: {
 };
 export declare const AssetToPairMapping: {
     encode(message: AssetToPairMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AssetToPairMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetToPairMapping;
     fromJSON(object: any): AssetToPairMapping;
     toJSON(message: AssetToPairMapping): unknown;
     fromPartial<I extends {
@@ -1756,7 +1756,7 @@ export declare const AssetToPairMapping: {
 };
 export declare const PoolAssetLBMapping: {
     encode(message: PoolAssetLBMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): PoolAssetLBMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolAssetLBMapping;
     fromJSON(object: any): PoolAssetLBMapping;
     toJSON(message: PoolAssetLBMapping): unknown;
     fromPartial<I extends {
@@ -2017,7 +2017,7 @@ export declare const PoolAssetLBMapping: {
 };
 export declare const AssetRatesParams: {
     encode(message: AssetRatesParams, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AssetRatesParams;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetRatesParams;
     fromJSON(object: any): AssetRatesParams;
     toJSON(message: AssetRatesParams): unknown;
     fromPartial<I extends {
@@ -2178,7 +2178,7 @@ export declare const AssetRatesParams: {
 };
 export declare const ReserveBuybackAssetData: {
     encode(message: ReserveBuybackAssetData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ReserveBuybackAssetData;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ReserveBuybackAssetData;
     fromJSON(object: any): ReserveBuybackAssetData;
     toJSON(message: ReserveBuybackAssetData): unknown;
     fromPartial<I extends {
@@ -2250,7 +2250,7 @@ export declare const ReserveBuybackAssetData: {
 };
 export declare const AuctionParams: {
     encode(message: AuctionParams, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AuctionParams;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AuctionParams;
     fromJSON(object: any): AuctionParams;
     toJSON(message: AuctionParams): unknown;
     fromPartial<I extends {
@@ -2560,7 +2560,7 @@ export declare const AuctionParams: {
 };
 export declare const BorrowInterestTracker: {
     encode(message: BorrowInterestTracker, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): BorrowInterestTracker;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): BorrowInterestTracker;
     fromJSON(object: any): BorrowInterestTracker;
     toJSON(message: BorrowInterestTracker): unknown;
     fromPartial<I extends {
@@ -2630,7 +2630,7 @@ export declare const BorrowInterestTracker: {
 };
 export declare const LendRewardsTracker: {
     encode(message: LendRewardsTracker, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): LendRewardsTracker;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LendRewardsTracker;
     fromJSON(object: any): LendRewardsTracker;
     toJSON(message: LendRewardsTracker): unknown;
     fromPartial<I extends {
@@ -2700,7 +2700,7 @@ export declare const LendRewardsTracker: {
 };
 export declare const ModuleBalance: {
     encode(message: ModuleBalance, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ModuleBalance;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ModuleBalance;
     fromJSON(object: any): ModuleBalance;
     toJSON(message: ModuleBalance): unknown;
     fromPartial<I extends {
@@ -2860,7 +2860,7 @@ export declare const ModuleBalance: {
 };
 export declare const ModuleBalanceStats: {
     encode(message: ModuleBalanceStats, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ModuleBalanceStats;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ModuleBalanceStats;
     fromJSON(object: any): ModuleBalanceStats;
     toJSON(message: ModuleBalanceStats): unknown;
     fromPartial<I extends {
@@ -2939,7 +2939,7 @@ export declare const ModuleBalanceStats: {
 };
 export declare const ModBal: {
     encode(message: ModBal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ModBal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ModBal;
     fromJSON(object: any): ModBal;
     toJSON(message: ModBal): unknown;
     fromPartial<I extends {
@@ -3112,7 +3112,7 @@ export declare const ModBal: {
 };
 export declare const ReserveBal: {
     encode(message: ReserveBal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): ReserveBal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ReserveBal;
     fromJSON(object: any): ReserveBal;
     toJSON(message: ReserveBal): unknown;
     fromPartial<I extends {
@@ -3223,7 +3223,7 @@ export declare const ReserveBal: {
 };
 export declare const FundModBal: {
     encode(message: FundModBal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): FundModBal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): FundModBal;
     fromJSON(object: any): FundModBal;
     toJSON(message: FundModBal): unknown;
     fromPartial<I extends {
@@ -3365,7 +3365,7 @@ export declare const FundModBal: {
 };
 export declare const FundReserveBal: {
     encode(message: FundReserveBal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): FundReserveBal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): FundReserveBal;
     fromJSON(object: any): FundReserveBal;
     toJSON(message: FundReserveBal): unknown;
     fromPartial<I extends {
@@ -3448,7 +3448,7 @@ export declare const FundReserveBal: {
 };
 export declare const AllReserveStats: {
     encode(message: AllReserveStats, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AllReserveStats;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AllReserveStats;
     fromJSON(object: any): AllReserveStats;
     toJSON(message: AllReserveStats): unknown;
     fromPartial<I extends {
@@ -3526,7 +3526,7 @@ export declare const AllReserveStats: {
 };
 export declare const AssetToPairSingleMapping: {
     encode(message: AssetToPairSingleMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AssetToPairSingleMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetToPairSingleMapping;
     fromJSON(object: any): AssetToPairSingleMapping;
     toJSON(message: AssetToPairSingleMapping): unknown;
     fromPartial<I extends {
@@ -3712,7 +3712,7 @@ export declare const AssetToPairSingleMapping: {
 };
 export declare const PoolPairs: {
     encode(message: PoolPairs, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): PoolPairs;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolPairs;
     fromJSON(object: any): PoolPairs;
     toJSON(message: PoolPairs): unknown;
     fromPartial<I extends {
@@ -3979,7 +3979,7 @@ export declare const PoolPairs: {
 };
 export declare const PoolInterestData: {
     encode(message: PoolInterestData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): PoolInterestData;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolInterestData;
     fromJSON(object: any): PoolInterestData;
     toJSON(message: PoolInterestData): unknown;
     fromPartial<I extends {
@@ -4049,7 +4049,7 @@ export declare const PoolInterestData: {
 };
 export declare const PoolInterest: {
     encode(message: PoolInterest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): PoolInterest;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolInterest;
     fromJSON(object: any): PoolInterest;
     toJSON(message: PoolInterest): unknown;
     fromPartial<I extends {
@@ -4191,7 +4191,7 @@ export declare const PoolInterest: {
 };
 export declare const PoolInterestDataB: {
     encode(message: PoolInterestDataB, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): PoolInterestDataB;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolInterestDataB;
     fromJSON(object: any): PoolInterestDataB;
     toJSON(message: PoolInterestDataB): unknown;
     fromPartial<I extends {
@@ -4261,7 +4261,7 @@ export declare const PoolInterestDataB: {
 };
 export declare const PoolInterestB: {
     encode(message: PoolInterestB, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): PoolInterestB;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolInterestB;
     fromJSON(object: any): PoolInterestB;
     toJSON(message: PoolInterestB): unknown;
     fromPartial<I extends {
@@ -4403,7 +4403,7 @@ export declare const PoolInterestB: {
 };
 export declare const AssetRatesPoolPairs: {
     encode(message: AssetRatesPoolPairs, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AssetRatesPoolPairs;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetRatesPoolPairs;
     fromJSON(object: any): AssetRatesPoolPairs;
     toJSON(message: AssetRatesPoolPairs): unknown;
     fromPartial<I extends {
@@ -4757,7 +4757,7 @@ export declare const AssetRatesPoolPairs: {
 };
 export declare const PoolDepreciate: {
     encode(message: PoolDepreciate, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): PoolDepreciate;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PoolDepreciate;
     fromJSON(object: any): PoolDepreciate;
     toJSON(message: PoolDepreciate): unknown;
     fromPartial<I extends {
@@ -4840,7 +4840,7 @@ export declare const PoolDepreciate: {
 };
 export declare const IndividualPoolDepreciate: {
     encode(message: IndividualPoolDepreciate, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): IndividualPoolDepreciate;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): IndividualPoolDepreciate;
     fromJSON(object: any): IndividualPoolDepreciate;
     toJSON(message: IndividualPoolDepreciate): unknown;
     fromPartial<I extends {
@@ -4910,7 +4910,7 @@ export declare const IndividualPoolDepreciate: {
 };
 export declare const EModePairsForProposal: {
     encode(message: EModePairsForProposal, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): EModePairsForProposal;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EModePairsForProposal;
     fromJSON(object: any): EModePairsForProposal;
     toJSON(message: EModePairsForProposal): unknown;
     fromPartial<I extends {
@@ -5003,7 +5003,7 @@ export declare const EModePairsForProposal: {
 };
 export declare const EModePairs: {
     encode(message: EModePairs, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): EModePairs;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EModePairs;
     fromJSON(object: any): EModePairs;
     toJSON(message: EModePairs): unknown;
     fromPartial<I extends {
@@ -5075,12 +5075,12 @@ export declare const EModePairs: {
         eLiquidationPenalty?: string | undefined;
     } & Record<Exclude<keyof I, keyof EModePairs>, never>>(object: I): EModePairs;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

@@ -25,7 +25,7 @@ export interface AssetPair {
 }
 export declare const Pair: {
     encode(message: Pair, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): Pair;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Pair;
     fromJSON(object: any): Pair;
     toJSON(message: Pair): unknown;
     fromPartial<I extends {
@@ -211,7 +211,7 @@ export declare const Pair: {
 };
 export declare const PairInfo: {
     encode(message: PairInfo, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): PairInfo;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): PairInfo;
     fromJSON(object: any): PairInfo;
     toJSON(message: PairInfo): unknown;
     fromPartial<I extends {
@@ -401,7 +401,7 @@ export declare const PairInfo: {
 };
 export declare const AssetPair: {
     encode(message: AssetPair, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): AssetPair;
+    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetPair;
     fromJSON(object: any): AssetPair;
     toJSON(message: AssetPair): unknown;
     fromPartial<I extends {
@@ -538,12 +538,12 @@ export declare const AssetPair: {
         } & Record<Exclude<keyof I["assetOut"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AssetPair>, never>>(object: I): AssetPair;
 };
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P : P & {
+declare type KeysOfUnion<T> = T extends T ? keyof T : never;
+export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};
