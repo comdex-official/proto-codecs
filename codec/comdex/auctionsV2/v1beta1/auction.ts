@@ -46,6 +46,15 @@ export interface LimitBidProtocolData {
   maxDiscount: string;
 }
 
+export interface LimitBidProtocolDataForQuery {
+  collateralAssetId: Long;
+  debtAssetId: Long;
+  bidValue: string;
+  maxDiscount: string;
+  collateralAssetDenom: string;
+  debtAssetDenom: string;
+}
+
 function createBaseAuctionHistorical(): AuctionHistorical {
   return {
     auctionId: Long.UZERO,
@@ -634,6 +643,137 @@ export const LimitBidProtocolData = {
         : Long.UZERO;
     message.bidValue = object.bidValue ?? "";
     message.maxDiscount = object.maxDiscount ?? "";
+    return message;
+  },
+};
+
+function createBaseLimitBidProtocolDataForQuery(): LimitBidProtocolDataForQuery {
+  return {
+    collateralAssetId: Long.UZERO,
+    debtAssetId: Long.UZERO,
+    bidValue: "",
+    maxDiscount: "",
+    collateralAssetDenom: "",
+    debtAssetDenom: "",
+  };
+}
+
+export const LimitBidProtocolDataForQuery = {
+  encode(
+    message: LimitBidProtocolDataForQuery,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (!message.collateralAssetId.isZero()) {
+      writer.uint32(8).uint64(message.collateralAssetId);
+    }
+    if (!message.debtAssetId.isZero()) {
+      writer.uint32(16).uint64(message.debtAssetId);
+    }
+    if (message.bidValue !== "") {
+      writer.uint32(26).string(message.bidValue);
+    }
+    if (message.maxDiscount !== "") {
+      writer.uint32(34).string(message.maxDiscount);
+    }
+    if (message.collateralAssetDenom !== "") {
+      writer.uint32(42).string(message.collateralAssetDenom);
+    }
+    if (message.debtAssetDenom !== "") {
+      writer.uint32(50).string(message.debtAssetDenom);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): LimitBidProtocolDataForQuery {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLimitBidProtocolDataForQuery();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.collateralAssetId = reader.uint64() as Long;
+          break;
+        case 2:
+          message.debtAssetId = reader.uint64() as Long;
+          break;
+        case 3:
+          message.bidValue = reader.string();
+          break;
+        case 4:
+          message.maxDiscount = reader.string();
+          break;
+        case 5:
+          message.collateralAssetDenom = reader.string();
+          break;
+        case 6:
+          message.debtAssetDenom = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LimitBidProtocolDataForQuery {
+    return {
+      collateralAssetId: isSet(object.collateralAssetId)
+        ? Long.fromValue(object.collateralAssetId)
+        : Long.UZERO,
+      debtAssetId: isSet(object.debtAssetId)
+        ? Long.fromValue(object.debtAssetId)
+        : Long.UZERO,
+      bidValue: isSet(object.bidValue) ? String(object.bidValue) : "",
+      maxDiscount: isSet(object.maxDiscount) ? String(object.maxDiscount) : "",
+      collateralAssetDenom: isSet(object.collateralAssetDenom)
+        ? String(object.collateralAssetDenom)
+        : "",
+      debtAssetDenom: isSet(object.debtAssetDenom)
+        ? String(object.debtAssetDenom)
+        : "",
+    };
+  },
+
+  toJSON(message: LimitBidProtocolDataForQuery): unknown {
+    const obj: any = {};
+    message.collateralAssetId !== undefined &&
+      (obj.collateralAssetId = (
+        message.collateralAssetId || Long.UZERO
+      ).toString());
+    message.debtAssetId !== undefined &&
+      (obj.debtAssetId = (message.debtAssetId || Long.UZERO).toString());
+    message.bidValue !== undefined && (obj.bidValue = message.bidValue);
+    message.maxDiscount !== undefined &&
+      (obj.maxDiscount = message.maxDiscount);
+    message.collateralAssetDenom !== undefined &&
+      (obj.collateralAssetDenom = message.collateralAssetDenom);
+    message.debtAssetDenom !== undefined &&
+      (obj.debtAssetDenom = message.debtAssetDenom);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LimitBidProtocolDataForQuery>, I>>(
+    object: I
+  ): LimitBidProtocolDataForQuery {
+    const message = createBaseLimitBidProtocolDataForQuery();
+    message.collateralAssetId =
+      object.collateralAssetId !== undefined &&
+      object.collateralAssetId !== null
+        ? Long.fromValue(object.collateralAssetId)
+        : Long.UZERO;
+    message.debtAssetId =
+      object.debtAssetId !== undefined && object.debtAssetId !== null
+        ? Long.fromValue(object.debtAssetId)
+        : Long.UZERO;
+    message.bidValue = object.bidValue ?? "";
+    message.maxDiscount = object.maxDiscount ?? "";
+    message.collateralAssetDenom = object.collateralAssetDenom ?? "";
+    message.debtAssetDenom = object.debtAssetDenom ?? "";
     return message;
   },
 };

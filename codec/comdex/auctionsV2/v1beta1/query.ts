@@ -4,7 +4,7 @@ import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/auctionsV2/v1beta1/params";
 import {
   Auction,
-  LimitBidProtocolData,
+  LimitBidProtocolDataForQuery,
 } from "../../../comdex/auctionsV2/v1beta1/auction";
 import {
   PageRequest,
@@ -93,7 +93,7 @@ export interface QueryLimitBidProtocolDataRequest {
 }
 
 export interface QueryLimitBidProtocolDataResponse {
-  limitBidProtocolData: LimitBidProtocolData[];
+  limitBidProtocolData: LimitBidProtocolDataForQuery[];
   pagination?: PageResponse;
 }
 
@@ -1290,7 +1290,10 @@ export const QueryLimitBidProtocolDataResponse = {
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
     for (const v of message.limitBidProtocolData) {
-      LimitBidProtocolData.encode(v!, writer.uint32(10).fork()).ldelim();
+      LimitBidProtocolDataForQuery.encode(
+        v!,
+        writer.uint32(10).fork()
+      ).ldelim();
     }
     if (message.pagination !== undefined) {
       PageResponse.encode(
@@ -1313,7 +1316,7 @@ export const QueryLimitBidProtocolDataResponse = {
       switch (tag >>> 3) {
         case 1:
           message.limitBidProtocolData.push(
-            LimitBidProtocolData.decode(reader, reader.uint32())
+            LimitBidProtocolDataForQuery.decode(reader, reader.uint32())
           );
           break;
         case 2:
@@ -1331,7 +1334,7 @@ export const QueryLimitBidProtocolDataResponse = {
     return {
       limitBidProtocolData: Array.isArray(object?.limitBidProtocolData)
         ? object.limitBidProtocolData.map((e: any) =>
-            LimitBidProtocolData.fromJSON(e)
+            LimitBidProtocolDataForQuery.fromJSON(e)
           )
         : [],
       pagination: isSet(object.pagination)
@@ -1344,7 +1347,7 @@ export const QueryLimitBidProtocolDataResponse = {
     const obj: any = {};
     if (message.limitBidProtocolData) {
       obj.limitBidProtocolData = message.limitBidProtocolData.map((e) =>
-        e ? LimitBidProtocolData.toJSON(e) : undefined
+        e ? LimitBidProtocolDataForQuery.toJSON(e) : undefined
       );
     } else {
       obj.limitBidProtocolData = [];
@@ -1362,7 +1365,7 @@ export const QueryLimitBidProtocolDataResponse = {
     const message = createBaseQueryLimitBidProtocolDataResponse();
     message.limitBidProtocolData =
       object.limitBidProtocolData?.map((e) =>
-        LimitBidProtocolData.fromPartial(e)
+        LimitBidProtocolDataForQuery.fromPartial(e)
       ) || [];
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
