@@ -1,7 +1,7 @@
 import Long from "long";
 import * as _m0 from "protobufjs/minimal";
 import { Params } from "../../../comdex/auctionsV2/v1beta1/params";
-import { Auction, LimitBidProtocolData } from "../../../comdex/auctionsV2/v1beta1/auction";
+import { Auction, LimitBidProtocolDataForQuery } from "../../../comdex/auctionsV2/v1beta1/auction";
 import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { AuctionParams, Bid, LimitOrderBid, AuctionFeesCollectionFromLimitBidTx } from "../../../comdex/auctionsV2/v1beta1/bid";
 export declare const protobufPackage = "comdex.auctionsV2.v1beta1";
@@ -66,7 +66,7 @@ export interface QueryLimitBidProtocolDataRequest {
     pagination?: PageRequest;
 }
 export interface QueryLimitBidProtocolDataResponse {
-    limitBidProtocolData: LimitBidProtocolData[];
+    limitBidProtocolData: LimitBidProtocolDataForQuery[];
     pagination?: PageResponse;
 }
 export interface QueryAuctionFeesCollectionFromLimitBidTxRequest {
@@ -3553,6 +3553,8 @@ export declare const QueryLimitBidProtocolDataResponse: {
             debtAssetId?: string | number | Long.Long | undefined;
             bidValue?: string | undefined;
             maxDiscount?: string | undefined;
+            collateralAssetDenom?: string | undefined;
+            debtAssetDenom?: string | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -3564,11 +3566,15 @@ export declare const QueryLimitBidProtocolDataResponse: {
             debtAssetId?: string | number | Long.Long | undefined;
             bidValue?: string | undefined;
             maxDiscount?: string | undefined;
+            collateralAssetDenom?: string | undefined;
+            debtAssetDenom?: string | undefined;
         }[] & ({
             collateralAssetId?: string | number | Long.Long | undefined;
             debtAssetId?: string | number | Long.Long | undefined;
             bidValue?: string | undefined;
             maxDiscount?: string | undefined;
+            collateralAssetDenom?: string | undefined;
+            debtAssetDenom?: string | undefined;
         } & {
             collateralAssetId?: string | number | (Long.Long & {
                 high: number;
@@ -3688,11 +3694,15 @@ export declare const QueryLimitBidProtocolDataResponse: {
             } & Record<Exclude<keyof I["limitBidProtocolData"][number]["debtAssetId"], keyof Long.Long>, never>) | undefined;
             bidValue?: string | undefined;
             maxDiscount?: string | undefined;
-        } & Record<Exclude<keyof I["limitBidProtocolData"][number], keyof LimitBidProtocolData>, never>)[] & Record<Exclude<keyof I["limitBidProtocolData"], keyof {
+            collateralAssetDenom?: string | undefined;
+            debtAssetDenom?: string | undefined;
+        } & Record<Exclude<keyof I["limitBidProtocolData"][number], keyof LimitBidProtocolDataForQuery>, never>)[] & Record<Exclude<keyof I["limitBidProtocolData"], keyof {
             collateralAssetId?: string | number | Long.Long | undefined;
             debtAssetId?: string | number | Long.Long | undefined;
             bidValue?: string | undefined;
             maxDiscount?: string | undefined;
+            collateralAssetDenom?: string | undefined;
+            debtAssetDenom?: string | undefined;
         }[]>, never>) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;

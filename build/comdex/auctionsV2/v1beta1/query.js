@@ -1003,7 +1003,7 @@ function createBaseQueryLimitBidProtocolDataResponse() {
 exports.QueryLimitBidProtocolDataResponse = {
     encode(message, writer = _m0.Writer.create()) {
         for (const v of message.limitBidProtocolData) {
-            auction_1.LimitBidProtocolData.encode(v, writer.uint32(10).fork()).ldelim();
+            auction_1.LimitBidProtocolDataForQuery.encode(v, writer.uint32(10).fork()).ldelim();
         }
         if (message.pagination !== undefined) {
             pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
@@ -1018,7 +1018,7 @@ exports.QueryLimitBidProtocolDataResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.limitBidProtocolData.push(auction_1.LimitBidProtocolData.decode(reader, reader.uint32()));
+                    message.limitBidProtocolData.push(auction_1.LimitBidProtocolDataForQuery.decode(reader, reader.uint32()));
                     break;
                 case 2:
                     message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
@@ -1033,7 +1033,7 @@ exports.QueryLimitBidProtocolDataResponse = {
     fromJSON(object) {
         return {
             limitBidProtocolData: Array.isArray(object === null || object === void 0 ? void 0 : object.limitBidProtocolData)
-                ? object.limitBidProtocolData.map((e) => auction_1.LimitBidProtocolData.fromJSON(e))
+                ? object.limitBidProtocolData.map((e) => auction_1.LimitBidProtocolDataForQuery.fromJSON(e))
                 : [],
             pagination: isSet(object.pagination)
                 ? pagination_1.PageResponse.fromJSON(object.pagination)
@@ -1043,7 +1043,7 @@ exports.QueryLimitBidProtocolDataResponse = {
     toJSON(message) {
         const obj = {};
         if (message.limitBidProtocolData) {
-            obj.limitBidProtocolData = message.limitBidProtocolData.map((e) => e ? auction_1.LimitBidProtocolData.toJSON(e) : undefined);
+            obj.limitBidProtocolData = message.limitBidProtocolData.map((e) => e ? auction_1.LimitBidProtocolDataForQuery.toJSON(e) : undefined);
         }
         else {
             obj.limitBidProtocolData = [];
@@ -1058,7 +1058,7 @@ exports.QueryLimitBidProtocolDataResponse = {
         var _a;
         const message = createBaseQueryLimitBidProtocolDataResponse();
         message.limitBidProtocolData =
-            ((_a = object.limitBidProtocolData) === null || _a === void 0 ? void 0 : _a.map((e) => auction_1.LimitBidProtocolData.fromPartial(e))) || [];
+            ((_a = object.limitBidProtocolData) === null || _a === void 0 ? void 0 : _a.map((e) => auction_1.LimitBidProtocolDataForQuery.fromPartial(e))) || [];
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
                 ? pagination_1.PageResponse.fromPartial(object.pagination)
