@@ -5,6 +5,7 @@ import { Params } from "../../../comdex/auctionsV2/v1beta1/params";
 import {
   Auction,
   LimitBidProtocolDataForQuery,
+  LimitBidProtocolDataWithUserForQuery,
 } from "../../../comdex/auctionsV2/v1beta1/auction";
 import {
   PageRequest,
@@ -103,6 +104,16 @@ export interface QueryAuctionFeesCollectionFromLimitBidTxRequest {
 
 export interface QueryAuctionFeesCollectionFromLimitBidTxResponse {
   auctionFeesCollectionFromLimitBidTx: AuctionFeesCollectionFromLimitBidTx[];
+  pagination?: PageResponse;
+}
+
+export interface QueryLimitBidProtocolDataWithUserRequest {
+  bidder: string;
+  pagination?: PageRequest;
+}
+
+export interface QueryLimitBidProtocolDataWithUserResponse {
+  limitBidProtocolDataWithUser: LimitBidProtocolDataWithUserForQuery[];
   pagination?: PageResponse;
 }
 
@@ -1546,6 +1557,178 @@ export const QueryAuctionFeesCollectionFromLimitBidTxResponse = {
   },
 };
 
+function createBaseQueryLimitBidProtocolDataWithUserRequest(): QueryLimitBidProtocolDataWithUserRequest {
+  return { bidder: "", pagination: undefined };
+}
+
+export const QueryLimitBidProtocolDataWithUserRequest = {
+  encode(
+    message: QueryLimitBidProtocolDataWithUserRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.bidder !== "") {
+      writer.uint32(10).string(message.bidder);
+    }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryLimitBidProtocolDataWithUserRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryLimitBidProtocolDataWithUserRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.bidder = reader.string();
+          break;
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryLimitBidProtocolDataWithUserRequest {
+    return {
+      bidder: isSet(object.bidder) ? String(object.bidder) : "",
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryLimitBidProtocolDataWithUserRequest): unknown {
+    const obj: any = {};
+    message.bidder !== undefined && (obj.bidder = message.bidder);
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryLimitBidProtocolDataWithUserRequest>, I>
+  >(object: I): QueryLimitBidProtocolDataWithUserRequest {
+    const message = createBaseQueryLimitBidProtocolDataWithUserRequest();
+    message.bidder = object.bidder ?? "";
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryLimitBidProtocolDataWithUserResponse(): QueryLimitBidProtocolDataWithUserResponse {
+  return { limitBidProtocolDataWithUser: [], pagination: undefined };
+}
+
+export const QueryLimitBidProtocolDataWithUserResponse = {
+  encode(
+    message: QueryLimitBidProtocolDataWithUserResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.limitBidProtocolDataWithUser) {
+      LimitBidProtocolDataWithUserForQuery.encode(
+        v!,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryLimitBidProtocolDataWithUserResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryLimitBidProtocolDataWithUserResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.limitBidProtocolDataWithUser.push(
+            LimitBidProtocolDataWithUserForQuery.decode(reader, reader.uint32())
+          );
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryLimitBidProtocolDataWithUserResponse {
+    return {
+      limitBidProtocolDataWithUser: Array.isArray(
+        object?.limitBidProtocolDataWithUser
+      )
+        ? object.limitBidProtocolDataWithUser.map((e: any) =>
+            LimitBidProtocolDataWithUserForQuery.fromJSON(e)
+          )
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryLimitBidProtocolDataWithUserResponse): unknown {
+    const obj: any = {};
+    if (message.limitBidProtocolDataWithUser) {
+      obj.limitBidProtocolDataWithUser =
+        message.limitBidProtocolDataWithUser.map((e) =>
+          e ? LimitBidProtocolDataWithUserForQuery.toJSON(e) : undefined
+        );
+    } else {
+      obj.limitBidProtocolDataWithUser = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<
+    I extends Exact<DeepPartial<QueryLimitBidProtocolDataWithUserResponse>, I>
+  >(object: I): QueryLimitBidProtocolDataWithUserResponse {
+    const message = createBaseQueryLimitBidProtocolDataWithUserResponse();
+    message.limitBidProtocolDataWithUser =
+      object.limitBidProtocolDataWithUser?.map((e) =>
+        LimitBidProtocolDataWithUserForQuery.fromPartial(e)
+      ) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
 export interface Query {
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   Auction(request: QueryAuctionRequest): Promise<QueryAuctionResponse>;
@@ -1564,6 +1747,9 @@ export interface Query {
   AuctionFeesCollectionData(
     request: QueryAuctionFeesCollectionFromLimitBidTxRequest
   ): Promise<QueryAuctionFeesCollectionFromLimitBidTxResponse>;
+  LimitBidProtocolDataWithUser(
+    request: QueryLimitBidProtocolDataWithUserRequest
+  ): Promise<QueryLimitBidProtocolDataWithUserResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1579,6 +1765,8 @@ export class QueryClientImpl implements Query {
     this.LimitBids = this.LimitBids.bind(this);
     this.LimitBidProtocolData = this.LimitBidProtocolData.bind(this);
     this.AuctionFeesCollectionData = this.AuctionFeesCollectionData.bind(this);
+    this.LimitBidProtocolDataWithUser =
+      this.LimitBidProtocolDataWithUser.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -1696,6 +1884,21 @@ export class QueryClientImpl implements Query {
       QueryAuctionFeesCollectionFromLimitBidTxResponse.decode(
         new _m0.Reader(data)
       )
+    );
+  }
+
+  LimitBidProtocolDataWithUser(
+    request: QueryLimitBidProtocolDataWithUserRequest
+  ): Promise<QueryLimitBidProtocolDataWithUserResponse> {
+    const data =
+      QueryLimitBidProtocolDataWithUserRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.auctionsV2.v1beta1.Query",
+      "LimitBidProtocolDataWithUser",
+      data
+    );
+    return promise.then((data) =>
+      QueryLimitBidProtocolDataWithUserResponse.decode(new _m0.Reader(data))
     );
   }
 }
