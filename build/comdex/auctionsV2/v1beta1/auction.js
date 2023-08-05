@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LimitBidProtocolDataForQuery = exports.LimitBidProtocolData = exports.bidOwnerMapping = exports.Auction = exports.AuctionHistorical = exports.protobufPackage = void 0;
+exports.LimitBidProtocolDataWithUserForQuery = exports.LimitBidProtocolDataForQuery = exports.LimitBidProtocolData = exports.bidOwnerMapping = exports.Auction = exports.AuctionHistorical = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -672,6 +672,135 @@ exports.LimitBidProtocolDataForQuery = {
         message.maxDiscount = (_b = object.maxDiscount) !== null && _b !== void 0 ? _b : "";
         message.collateralAssetDenom = (_c = object.collateralAssetDenom) !== null && _c !== void 0 ? _c : "";
         message.debtAssetDenom = (_d = object.debtAssetDenom) !== null && _d !== void 0 ? _d : "";
+        return message;
+    },
+};
+function createBaseLimitBidProtocolDataWithUserForQuery() {
+    return {
+        collateralAssetId: long_1.default.UZERO,
+        debtAssetId: long_1.default.UZERO,
+        bidValue: "",
+        maxDiscount: "",
+        collateralAssetDenom: "",
+        debtAssetDenom: "",
+        userBidValue: "",
+    };
+}
+exports.LimitBidProtocolDataWithUserForQuery = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (!message.collateralAssetId.isZero()) {
+            writer.uint32(8).uint64(message.collateralAssetId);
+        }
+        if (!message.debtAssetId.isZero()) {
+            writer.uint32(16).uint64(message.debtAssetId);
+        }
+        if (message.bidValue !== "") {
+            writer.uint32(26).string(message.bidValue);
+        }
+        if (message.maxDiscount !== "") {
+            writer.uint32(34).string(message.maxDiscount);
+        }
+        if (message.collateralAssetDenom !== "") {
+            writer.uint32(42).string(message.collateralAssetDenom);
+        }
+        if (message.debtAssetDenom !== "") {
+            writer.uint32(50).string(message.debtAssetDenom);
+        }
+        if (message.userBidValue !== "") {
+            writer.uint32(58).string(message.userBidValue);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseLimitBidProtocolDataWithUserForQuery();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.collateralAssetId = reader.uint64();
+                    break;
+                case 2:
+                    message.debtAssetId = reader.uint64();
+                    break;
+                case 3:
+                    message.bidValue = reader.string();
+                    break;
+                case 4:
+                    message.maxDiscount = reader.string();
+                    break;
+                case 5:
+                    message.collateralAssetDenom = reader.string();
+                    break;
+                case 6:
+                    message.debtAssetDenom = reader.string();
+                    break;
+                case 7:
+                    message.userBidValue = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            collateralAssetId: isSet(object.collateralAssetId)
+                ? long_1.default.fromValue(object.collateralAssetId)
+                : long_1.default.UZERO,
+            debtAssetId: isSet(object.debtAssetId)
+                ? long_1.default.fromValue(object.debtAssetId)
+                : long_1.default.UZERO,
+            bidValue: isSet(object.bidValue) ? String(object.bidValue) : "",
+            maxDiscount: isSet(object.maxDiscount) ? String(object.maxDiscount) : "",
+            collateralAssetDenom: isSet(object.collateralAssetDenom)
+                ? String(object.collateralAssetDenom)
+                : "",
+            debtAssetDenom: isSet(object.debtAssetDenom)
+                ? String(object.debtAssetDenom)
+                : "",
+            userBidValue: isSet(object.userBidValue)
+                ? String(object.userBidValue)
+                : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.collateralAssetId !== undefined &&
+            (obj.collateralAssetId = (message.collateralAssetId || long_1.default.UZERO).toString());
+        message.debtAssetId !== undefined &&
+            (obj.debtAssetId = (message.debtAssetId || long_1.default.UZERO).toString());
+        message.bidValue !== undefined && (obj.bidValue = message.bidValue);
+        message.maxDiscount !== undefined &&
+            (obj.maxDiscount = message.maxDiscount);
+        message.collateralAssetDenom !== undefined &&
+            (obj.collateralAssetDenom = message.collateralAssetDenom);
+        message.debtAssetDenom !== undefined &&
+            (obj.debtAssetDenom = message.debtAssetDenom);
+        message.userBidValue !== undefined &&
+            (obj.userBidValue = message.userBidValue);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d, _e;
+        const message = createBaseLimitBidProtocolDataWithUserForQuery();
+        message.collateralAssetId =
+            object.collateralAssetId !== undefined &&
+                object.collateralAssetId !== null
+                ? long_1.default.fromValue(object.collateralAssetId)
+                : long_1.default.UZERO;
+        message.debtAssetId =
+            object.debtAssetId !== undefined && object.debtAssetId !== null
+                ? long_1.default.fromValue(object.debtAssetId)
+                : long_1.default.UZERO;
+        message.bidValue = (_a = object.bidValue) !== null && _a !== void 0 ? _a : "";
+        message.maxDiscount = (_b = object.maxDiscount) !== null && _b !== void 0 ? _b : "";
+        message.collateralAssetDenom = (_c = object.collateralAssetDenom) !== null && _c !== void 0 ? _c : "";
+        message.debtAssetDenom = (_d = object.debtAssetDenom) !== null && _d !== void 0 ? _d : "";
+        message.userBidValue = (_e = object.userBidValue) !== null && _e !== void 0 ? _e : "";
         return message;
     },
 };
