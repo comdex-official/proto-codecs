@@ -48,6 +48,7 @@ export interface QueryAuctionsResponse {
 
 export interface QueryBidsRequest {
   bidder: string;
+  bidType: Long;
   history: boolean;
   pagination?: PageRequest;
 }
@@ -529,7 +530,12 @@ export const QueryAuctionsResponse = {
 };
 
 function createBaseQueryBidsRequest(): QueryBidsRequest {
-  return { bidder: "", history: false, pagination: undefined };
+  return {
+    bidder: "",
+    bidType: Long.UZERO,
+    history: false,
+    pagination: undefined,
+  };
 }
 
 export const QueryBidsRequest = {
@@ -540,11 +546,14 @@ export const QueryBidsRequest = {
     if (message.bidder !== "") {
       writer.uint32(10).string(message.bidder);
     }
+    if (!message.bidType.isZero()) {
+      writer.uint32(16).uint64(message.bidType);
+    }
     if (message.history === true) {
-      writer.uint32(16).bool(message.history);
+      writer.uint32(24).bool(message.history);
     }
     if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+      PageRequest.encode(message.pagination, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
@@ -560,9 +569,12 @@ export const QueryBidsRequest = {
           message.bidder = reader.string();
           break;
         case 2:
-          message.history = reader.bool();
+          message.bidType = reader.uint64() as Long;
           break;
         case 3:
+          message.history = reader.bool();
+          break;
+        case 4:
           message.pagination = PageRequest.decode(reader, reader.uint32());
           break;
         default:
@@ -576,6 +588,9 @@ export const QueryBidsRequest = {
   fromJSON(object: any): QueryBidsRequest {
     return {
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
+      bidType: isSet(object.bidType)
+        ? Long.fromValue(object.bidType)
+        : Long.UZERO,
       history: isSet(object.history) ? Boolean(object.history) : false,
       pagination: isSet(object.pagination)
         ? PageRequest.fromJSON(object.pagination)
@@ -586,6 +601,8 @@ export const QueryBidsRequest = {
   toJSON(message: QueryBidsRequest): unknown {
     const obj: any = {};
     message.bidder !== undefined && (obj.bidder = message.bidder);
+    message.bidType !== undefined &&
+      (obj.bidType = (message.bidType || Long.UZERO).toString());
     message.history !== undefined && (obj.history = message.history);
     message.pagination !== undefined &&
       (obj.pagination = message.pagination
@@ -599,6 +616,10 @@ export const QueryBidsRequest = {
   ): QueryBidsRequest {
     const message = createBaseQueryBidsRequest();
     message.bidder = object.bidder ?? "";
+    message.bidType =
+      object.bidType !== undefined && object.bidType !== null
+        ? Long.fromValue(object.bidType)
+        : Long.UZERO;
     message.history = object.history ?? false;
     message.pagination =
       object.pagination !== undefined && object.pagination !== null
