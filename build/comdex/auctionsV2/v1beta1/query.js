@@ -371,18 +371,26 @@ exports.QueryAuctionsResponse = {
     },
 };
 function createBaseQueryBidsRequest() {
-    return { bidder: "", history: false, pagination: undefined };
+    return {
+        bidder: "",
+        bidType: long_1.default.UZERO,
+        history: false,
+        pagination: undefined,
+    };
 }
 exports.QueryBidsRequest = {
     encode(message, writer = _m0.Writer.create()) {
         if (message.bidder !== "") {
             writer.uint32(10).string(message.bidder);
         }
+        if (!message.bidType.isZero()) {
+            writer.uint32(16).uint64(message.bidType);
+        }
         if (message.history === true) {
-            writer.uint32(16).bool(message.history);
+            writer.uint32(24).bool(message.history);
         }
         if (message.pagination !== undefined) {
-            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(34).fork()).ldelim();
         }
         return writer;
     },
@@ -397,9 +405,12 @@ exports.QueryBidsRequest = {
                     message.bidder = reader.string();
                     break;
                 case 2:
-                    message.history = reader.bool();
+                    message.bidType = reader.uint64();
                     break;
                 case 3:
+                    message.history = reader.bool();
+                    break;
+                case 4:
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
@@ -412,6 +423,9 @@ exports.QueryBidsRequest = {
     fromJSON(object) {
         return {
             bidder: isSet(object.bidder) ? String(object.bidder) : "",
+            bidType: isSet(object.bidType)
+                ? long_1.default.fromValue(object.bidType)
+                : long_1.default.UZERO,
             history: isSet(object.history) ? Boolean(object.history) : false,
             pagination: isSet(object.pagination)
                 ? pagination_1.PageRequest.fromJSON(object.pagination)
@@ -421,6 +435,8 @@ exports.QueryBidsRequest = {
     toJSON(message) {
         const obj = {};
         message.bidder !== undefined && (obj.bidder = message.bidder);
+        message.bidType !== undefined &&
+            (obj.bidType = (message.bidType || long_1.default.UZERO).toString());
         message.history !== undefined && (obj.history = message.history);
         message.pagination !== undefined &&
             (obj.pagination = message.pagination
@@ -432,6 +448,10 @@ exports.QueryBidsRequest = {
         var _a, _b;
         const message = createBaseQueryBidsRequest();
         message.bidder = (_a = object.bidder) !== null && _a !== void 0 ? _a : "";
+        message.bidType =
+            object.bidType !== undefined && object.bidType !== null
+                ? long_1.default.fromValue(object.bidType)
+                : long_1.default.UZERO;
         message.history = (_b = object.history) !== null && _b !== void 0 ? _b : false;
         message.pagination =
             object.pagination !== undefined && object.pagination !== null
