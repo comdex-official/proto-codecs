@@ -118,6 +118,19 @@ export interface QueryLimitBidProtocolDataWithUserResponse {
   pagination?: PageResponse;
 }
 
+export interface QueryBidsFilterRequest {
+  bidder: string;
+  bidType: Long;
+  history: boolean;
+  pagination?: PageRequest;
+}
+
+export interface QueryBidsFilterResponse {
+  bidder: string;
+  bids: Bid[];
+  pagination?: PageResponse;
+}
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -1750,6 +1763,201 @@ export const QueryLimitBidProtocolDataWithUserResponse = {
   },
 };
 
+function createBaseQueryBidsFilterRequest(): QueryBidsFilterRequest {
+  return {
+    bidder: "",
+    bidType: Long.UZERO,
+    history: false,
+    pagination: undefined,
+  };
+}
+
+export const QueryBidsFilterRequest = {
+  encode(
+    message: QueryBidsFilterRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.bidder !== "") {
+      writer.uint32(10).string(message.bidder);
+    }
+    if (!message.bidType.isZero()) {
+      writer.uint32(16).uint64(message.bidType);
+    }
+    if (message.history === true) {
+      writer.uint32(24).bool(message.history);
+    }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryBidsFilterRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryBidsFilterRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.bidder = reader.string();
+          break;
+        case 2:
+          message.bidType = reader.uint64() as Long;
+          break;
+        case 3:
+          message.history = reader.bool();
+          break;
+        case 4:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryBidsFilterRequest {
+    return {
+      bidder: isSet(object.bidder) ? String(object.bidder) : "",
+      bidType: isSet(object.bidType)
+        ? Long.fromValue(object.bidType)
+        : Long.UZERO,
+      history: isSet(object.history) ? Boolean(object.history) : false,
+      pagination: isSet(object.pagination)
+        ? PageRequest.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryBidsFilterRequest): unknown {
+    const obj: any = {};
+    message.bidder !== undefined && (obj.bidder = message.bidder);
+    message.bidType !== undefined &&
+      (obj.bidType = (message.bidType || Long.UZERO).toString());
+    message.history !== undefined && (obj.history = message.history);
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBidsFilterRequest>, I>>(
+    object: I
+  ): QueryBidsFilterRequest {
+    const message = createBaseQueryBidsFilterRequest();
+    message.bidder = object.bidder ?? "";
+    message.bidType =
+      object.bidType !== undefined && object.bidType !== null
+        ? Long.fromValue(object.bidType)
+        : Long.UZERO;
+    message.history = object.history ?? false;
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageRequest.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseQueryBidsFilterResponse(): QueryBidsFilterResponse {
+  return { bidder: "", bids: [], pagination: undefined };
+}
+
+export const QueryBidsFilterResponse = {
+  encode(
+    message: QueryBidsFilterResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.bidder !== "") {
+      writer.uint32(10).string(message.bidder);
+    }
+    for (const v of message.bids) {
+      Bid.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(26).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): QueryBidsFilterResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryBidsFilterResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.bidder = reader.string();
+          break;
+        case 2:
+          message.bids.push(Bid.decode(reader, reader.uint32()));
+          break;
+        case 3:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryBidsFilterResponse {
+    return {
+      bidder: isSet(object.bidder) ? String(object.bidder) : "",
+      bids: Array.isArray(object?.bids)
+        ? object.bids.map((e: any) => Bid.fromJSON(e))
+        : [],
+      pagination: isSet(object.pagination)
+        ? PageResponse.fromJSON(object.pagination)
+        : undefined,
+    };
+  },
+
+  toJSON(message: QueryBidsFilterResponse): unknown {
+    const obj: any = {};
+    message.bidder !== undefined && (obj.bidder = message.bidder);
+    if (message.bids) {
+      obj.bids = message.bids.map((e) => (e ? Bid.toJSON(e) : undefined));
+    } else {
+      obj.bids = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBidsFilterResponse>, I>>(
+    object: I
+  ): QueryBidsFilterResponse {
+    const message = createBaseQueryBidsFilterResponse();
+    message.bidder = object.bidder ?? "";
+    message.bids = object.bids?.map((e) => Bid.fromPartial(e)) || [];
+    message.pagination =
+      object.pagination !== undefined && object.pagination !== null
+        ? PageResponse.fromPartial(object.pagination)
+        : undefined;
+    return message;
+  },
+};
+
 export interface Query {
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   Auction(request: QueryAuctionRequest): Promise<QueryAuctionResponse>;
@@ -1771,6 +1979,7 @@ export interface Query {
   LimitBidProtocolDataWithUser(
     request: QueryLimitBidProtocolDataWithUserRequest
   ): Promise<QueryLimitBidProtocolDataWithUserResponse>;
+  BidsFilter(request: QueryBidsFilterRequest): Promise<QueryBidsFilterResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -1788,6 +1997,7 @@ export class QueryClientImpl implements Query {
     this.AuctionFeesCollectionData = this.AuctionFeesCollectionData.bind(this);
     this.LimitBidProtocolDataWithUser =
       this.LimitBidProtocolDataWithUser.bind(this);
+    this.BidsFilter = this.BidsFilter.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -1920,6 +2130,20 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryLimitBidProtocolDataWithUserResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  BidsFilter(
+    request: QueryBidsFilterRequest
+  ): Promise<QueryBidsFilterResponse> {
+    const data = QueryBidsFilterRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.auctionsV2.v1beta1.Query",
+      "BidsFilter",
+      data
+    );
+    return promise.then((data) =>
+      QueryBidsFilterResponse.decode(new _m0.Reader(data))
     );
   }
 }
