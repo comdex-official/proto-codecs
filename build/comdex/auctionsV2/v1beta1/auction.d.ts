@@ -57,7 +57,7 @@ export interface LimitBidProtocolDataWithUserForQuery {
 }
 export declare const AuctionHistorical: {
     encode(message: AuctionHistorical, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AuctionHistorical;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AuctionHistorical;
     fromJSON(object: any): AuctionHistorical;
     toJSON(message: AuctionHistorical): unknown;
     fromPartial<I extends {
@@ -1080,7 +1080,7 @@ export declare const AuctionHistorical: {
 };
 export declare const Auction: {
     encode(message: Auction, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Auction;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Auction;
     fromJSON(object: any): Auction;
     toJSON(message: Auction): unknown;
     fromPartial<I extends {
@@ -1555,7 +1555,7 @@ export declare const Auction: {
 };
 export declare const bidOwnerMapping: {
     encode(message: bidOwnerMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): bidOwnerMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number): bidOwnerMapping;
     fromJSON(object: any): bidOwnerMapping;
     toJSON(message: bidOwnerMapping): unknown;
     fromPartial<I extends {
@@ -1625,7 +1625,7 @@ export declare const bidOwnerMapping: {
 };
 export declare const LimitBidProtocolData: {
     encode(message: LimitBidProtocolData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LimitBidProtocolData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LimitBidProtocolData;
     fromJSON(object: any): LimitBidProtocolData;
     toJSON(message: LimitBidProtocolData): unknown;
     fromPartial<I extends {
@@ -1756,7 +1756,7 @@ export declare const LimitBidProtocolData: {
 };
 export declare const LimitBidProtocolDataForQuery: {
     encode(message: LimitBidProtocolDataForQuery, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LimitBidProtocolDataForQuery;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LimitBidProtocolDataForQuery;
     fromJSON(object: any): LimitBidProtocolDataForQuery;
     toJSON(message: LimitBidProtocolDataForQuery): unknown;
     fromPartial<I extends {
@@ -1891,7 +1891,7 @@ export declare const LimitBidProtocolDataForQuery: {
 };
 export declare const LimitBidProtocolDataWithUserForQuery: {
     encode(message: LimitBidProtocolDataWithUserForQuery, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LimitBidProtocolDataWithUserForQuery;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LimitBidProtocolDataWithUserForQuery;
     fromJSON(object: any): LimitBidProtocolDataWithUserForQuery;
     toJSON(message: LimitBidProtocolDataWithUserForQuery): unknown;
     fromPartial<I extends {
@@ -2026,12 +2026,12 @@ export declare const LimitBidProtocolDataWithUserForQuery: {
         userBidValue?: string | undefined;
     } & Record<Exclude<keyof I, keyof LimitBidProtocolDataWithUserForQuery>, never>>(object: I): LimitBidProtocolDataWithUserForQuery;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

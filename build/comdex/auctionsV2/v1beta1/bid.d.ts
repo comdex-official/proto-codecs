@@ -48,7 +48,7 @@ export interface AuctionFeesCollectionFromLimitBidTx {
 }
 export declare const Bid: {
     encode(message: Bid, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Bid;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Bid;
     fromJSON(object: any): Bid;
     toJSON(message: Bid): unknown;
     fromPartial<I extends {
@@ -262,7 +262,7 @@ export declare const Bid: {
 };
 export declare const LimitOrderBid: {
     encode(message: LimitOrderBid, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LimitOrderBid;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LimitOrderBid;
     fromJSON(object: any): LimitOrderBid;
     toJSON(message: LimitOrderBid): unknown;
     fromPartial<I extends {
@@ -522,7 +522,7 @@ export declare const LimitOrderBid: {
 };
 export declare const AuctionParams: {
     encode(message: AuctionParams, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AuctionParams;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AuctionParams;
     fromJSON(object: any): AuctionParams;
     toJSON(message: AuctionParams): unknown;
     fromPartial<I extends {
@@ -661,7 +661,7 @@ export declare const AuctionParams: {
 };
 export declare const LimitOrderBidsForUser: {
     encode(message: LimitOrderBidsForUser, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LimitOrderBidsForUser;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LimitOrderBidsForUser;
     fromJSON(object: any): LimitOrderBidsForUser;
     toJSON(message: LimitOrderBidsForUser): unknown;
     fromPartial<I extends {
@@ -870,7 +870,7 @@ export declare const LimitOrderBidsForUser: {
 };
 export declare const LimitOrderUserKey: {
     encode(message: LimitOrderUserKey, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LimitOrderUserKey;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LimitOrderUserKey;
     fromJSON(object: any): LimitOrderUserKey;
     toJSON(message: LimitOrderUserKey): unknown;
     fromPartial<I extends {
@@ -1058,7 +1058,7 @@ export declare const LimitOrderUserKey: {
 };
 export declare const AuctionFeesCollectionFromLimitBidTx: {
     encode(message: AuctionFeesCollectionFromLimitBidTx, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AuctionFeesCollectionFromLimitBidTx;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AuctionFeesCollectionFromLimitBidTx;
     fromJSON(object: any): AuctionFeesCollectionFromLimitBidTx;
     toJSON(message: AuctionFeesCollectionFromLimitBidTx): unknown;
     fromPartial<I extends {
@@ -1126,12 +1126,12 @@ export declare const AuctionFeesCollectionFromLimitBidTx: {
         amount?: string | undefined;
     } & Record<Exclude<keyof I, keyof AuctionFeesCollectionFromLimitBidTx>, never>>(object: I): AuctionFeesCollectionFromLimitBidTx;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

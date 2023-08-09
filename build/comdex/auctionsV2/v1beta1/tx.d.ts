@@ -37,7 +37,7 @@ export interface MsgWithdrawLimitBidResponse {
 }
 export declare const MsgPlaceMarketBidRequest: {
     encode(message: MsgPlaceMarketBidRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceMarketBidRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceMarketBidRequest;
     fromJSON(object: any): MsgPlaceMarketBidRequest;
     toJSON(message: MsgPlaceMarketBidRequest): unknown;
     fromPartial<I extends {
@@ -118,14 +118,14 @@ export declare const MsgPlaceMarketBidRequest: {
 };
 export declare const MsgPlaceMarketBidResponse: {
     encode(_: MsgPlaceMarketBidResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgPlaceMarketBidResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgPlaceMarketBidResponse;
     fromJSON(_: any): MsgPlaceMarketBidResponse;
     toJSON(_: MsgPlaceMarketBidResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgPlaceMarketBidResponse;
 };
 export declare const MsgDepositLimitBidRequest: {
     encode(message: MsgDepositLimitBidRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositLimitBidRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositLimitBidRequest;
     fromJSON(object: any): MsgDepositLimitBidRequest;
     toJSON(message: MsgDepositLimitBidRequest): unknown;
     fromPartial<I extends {
@@ -267,14 +267,14 @@ export declare const MsgDepositLimitBidRequest: {
 };
 export declare const MsgDepositLimitBidResponse: {
     encode(_: MsgDepositLimitBidResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgDepositLimitBidResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositLimitBidResponse;
     fromJSON(_: any): MsgDepositLimitBidResponse;
     toJSON(_: MsgDepositLimitBidResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgDepositLimitBidResponse;
 };
 export declare const MsgCancelLimitBidRequest: {
     encode(message: MsgCancelLimitBidRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelLimitBidRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelLimitBidRequest;
     fromJSON(object: any): MsgCancelLimitBidRequest;
     toJSON(message: MsgCancelLimitBidRequest): unknown;
     fromPartial<I extends {
@@ -405,14 +405,14 @@ export declare const MsgCancelLimitBidRequest: {
 };
 export declare const MsgCancelLimitBidResponse: {
     encode(_: MsgCancelLimitBidResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgCancelLimitBidResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelLimitBidResponse;
     fromJSON(_: any): MsgCancelLimitBidResponse;
     toJSON(_: MsgCancelLimitBidResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgCancelLimitBidResponse;
 };
 export declare const MsgWithdrawLimitBidRequest: {
     encode(message: MsgWithdrawLimitBidRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawLimitBidRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawLimitBidRequest;
     fromJSON(object: any): MsgWithdrawLimitBidRequest;
     toJSON(message: MsgWithdrawLimitBidRequest): unknown;
     fromPartial<I extends {
@@ -554,7 +554,7 @@ export declare const MsgWithdrawLimitBidRequest: {
 };
 export declare const MsgWithdrawLimitBidResponse: {
     encode(_: MsgWithdrawLimitBidResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgWithdrawLimitBidResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawLimitBidResponse;
     fromJSON(_: any): MsgWithdrawLimitBidResponse;
     toJSON(_: MsgWithdrawLimitBidResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgWithdrawLimitBidResponse;
@@ -576,12 +576,12 @@ export declare class MsgClientImpl implements Msg {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

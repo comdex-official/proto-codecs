@@ -31,7 +31,7 @@ export interface MsgLiquidateExternalKeeperResponse {
 }
 export declare const MsgLiquidateInternalKeeperRequest: {
     encode(message: MsgLiquidateInternalKeeperRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLiquidateInternalKeeperRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLiquidateInternalKeeperRequest;
     fromJSON(object: any): MsgLiquidateInternalKeeperRequest;
     toJSON(message: MsgLiquidateInternalKeeperRequest): unknown;
     fromPartial<I extends {
@@ -160,14 +160,14 @@ export declare const MsgLiquidateInternalKeeperRequest: {
 };
 export declare const MsgLiquidateInternalKeeperResponse: {
     encode(_: MsgLiquidateInternalKeeperResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLiquidateInternalKeeperResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLiquidateInternalKeeperResponse;
     fromJSON(_: any): MsgLiquidateInternalKeeperResponse;
     toJSON(_: MsgLiquidateInternalKeeperResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgLiquidateInternalKeeperResponse;
 };
 export declare const MsgAppReserveFundsRequest: {
     encode(message: MsgAppReserveFundsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAppReserveFundsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAppReserveFundsRequest;
     fromJSON(object: any): MsgAppReserveFundsRequest;
     toJSON(message: MsgAppReserveFundsRequest): unknown;
     fromPartial<I extends {
@@ -307,14 +307,14 @@ export declare const MsgAppReserveFundsRequest: {
 };
 export declare const MsgAppReserveFundsResponse: {
     encode(_: MsgAppReserveFundsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAppReserveFundsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAppReserveFundsResponse;
     fromJSON(_: any): MsgAppReserveFundsResponse;
     toJSON(_: MsgAppReserveFundsResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgAppReserveFundsResponse;
 };
 export declare const MsgLiquidateExternalKeeperRequest: {
     encode(message: MsgLiquidateExternalKeeperRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLiquidateExternalKeeperRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLiquidateExternalKeeperRequest;
     fromJSON(object: any): MsgLiquidateExternalKeeperRequest;
     toJSON(message: MsgLiquidateExternalKeeperRequest): unknown;
     fromPartial<I extends {
@@ -528,7 +528,7 @@ export declare const MsgLiquidateExternalKeeperRequest: {
 };
 export declare const MsgLiquidateExternalKeeperResponse: {
     encode(_: MsgLiquidateExternalKeeperResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgLiquidateExternalKeeperResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgLiquidateExternalKeeperResponse;
     fromJSON(_: any): MsgLiquidateExternalKeeperResponse;
     toJSON(_: MsgLiquidateExternalKeeperResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgLiquidateExternalKeeperResponse;
@@ -548,12 +548,12 @@ export declare class MsgClientImpl implements Msg {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

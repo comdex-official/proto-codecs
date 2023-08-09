@@ -51,14 +51,14 @@ export interface QueryAppReserveFundsTxDataResponse {
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
     fromJSON(_: any): QueryParamsRequest;
     toJSON(_: QueryParamsRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryParamsRequest;
 };
 export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
     fromJSON(object: any): QueryParamsResponse;
     toJSON(message: QueryParamsResponse): unknown;
     fromPartial<I extends {
@@ -132,7 +132,7 @@ export declare const QueryParamsResponse: {
 };
 export declare const QueryLockedVaultRequest: {
     encode(message: QueryLockedVaultRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockedVaultRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockedVaultRequest;
     fromJSON(object: any): QueryLockedVaultRequest;
     toJSON(message: QueryLockedVaultRequest): unknown;
     fromPartial<I extends {
@@ -259,7 +259,7 @@ export declare const QueryLockedVaultRequest: {
 };
 export declare const QueryLockedVaultResponse: {
     encode(message: QueryLockedVaultResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockedVaultResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockedVaultResponse;
     fromJSON(object: any): QueryLockedVaultResponse;
     toJSON(message: QueryLockedVaultResponse): unknown;
     fromPartial<I extends {
@@ -726,7 +726,7 @@ export declare const QueryLockedVaultResponse: {
 };
 export declare const QueryLockedVaultsRequest: {
     encode(message: QueryLockedVaultsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockedVaultsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockedVaultsRequest;
     fromJSON(object: any): QueryLockedVaultsRequest;
     toJSON(message: QueryLockedVaultsRequest): unknown;
     fromPartial<I extends {
@@ -869,7 +869,7 @@ export declare const QueryLockedVaultsRequest: {
 };
 export declare const QueryLockedVaultsResponse: {
     encode(message: QueryLockedVaultsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockedVaultsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockedVaultsResponse;
     fromJSON(object: any): QueryLockedVaultsResponse;
     toJSON(message: QueryLockedVaultsResponse): unknown;
     fromPartial<I extends {
@@ -1472,7 +1472,7 @@ export declare const QueryLockedVaultsResponse: {
 };
 export declare const QueryLiquidationWhiteListingRequest: {
     encode(message: QueryLiquidationWhiteListingRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidationWhiteListingRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidationWhiteListingRequest;
     fromJSON(object: any): QueryLiquidationWhiteListingRequest;
     toJSON(message: QueryLiquidationWhiteListingRequest): unknown;
     fromPartial<I extends {
@@ -1540,7 +1540,7 @@ export declare const QueryLiquidationWhiteListingRequest: {
 };
 export declare const QueryLiquidationWhiteListingResponse: {
     encode(message: QueryLiquidationWhiteListingResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidationWhiteListingResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidationWhiteListingResponse;
     fromJSON(object: any): QueryLiquidationWhiteListingResponse;
     toJSON(message: QueryLiquidationWhiteListingResponse): unknown;
     fromPartial<I extends {
@@ -1656,7 +1656,7 @@ export declare const QueryLiquidationWhiteListingResponse: {
 };
 export declare const QueryLiquidationWhiteListingsRequest: {
     encode(message: QueryLiquidationWhiteListingsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidationWhiteListingsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidationWhiteListingsRequest;
     fromJSON(object: any): QueryLiquidationWhiteListingsRequest;
     toJSON(message: QueryLiquidationWhiteListingsRequest): unknown;
     fromPartial<I extends {
@@ -1799,7 +1799,7 @@ export declare const QueryLiquidationWhiteListingsRequest: {
 };
 export declare const QueryLiquidationWhiteListingsResponse: {
     encode(message: QueryLiquidationWhiteListingsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLiquidationWhiteListingsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLiquidationWhiteListingsResponse;
     fromJSON(object: any): QueryLiquidationWhiteListingsResponse;
     toJSON(message: QueryLiquidationWhiteListingsResponse): unknown;
     fromPartial<I extends {
@@ -2011,7 +2011,7 @@ export declare const QueryLiquidationWhiteListingsResponse: {
 };
 export declare const QueryLockedVaultsHistoryRequest: {
     encode(message: QueryLockedVaultsHistoryRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockedVaultsHistoryRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockedVaultsHistoryRequest;
     fromJSON(object: any): QueryLockedVaultsHistoryRequest;
     toJSON(message: QueryLockedVaultsHistoryRequest): unknown;
     fromPartial<I extends {
@@ -2154,7 +2154,7 @@ export declare const QueryLockedVaultsHistoryRequest: {
 };
 export declare const QueryLockedVaultsHistoryResponse: {
     encode(message: QueryLockedVaultsHistoryResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLockedVaultsHistoryResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLockedVaultsHistoryResponse;
     fromJSON(object: any): QueryLockedVaultsHistoryResponse;
     toJSON(message: QueryLockedVaultsHistoryResponse): unknown;
     fromPartial<I extends {
@@ -2757,7 +2757,7 @@ export declare const QueryLockedVaultsHistoryResponse: {
 };
 export declare const QueryAppReserveFundsTxDataRequest: {
     encode(message: QueryAppReserveFundsTxDataRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAppReserveFundsTxDataRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAppReserveFundsTxDataRequest;
     fromJSON(object: any): QueryAppReserveFundsTxDataRequest;
     toJSON(message: QueryAppReserveFundsTxDataRequest): unknown;
     fromPartial<I extends {
@@ -2825,7 +2825,7 @@ export declare const QueryAppReserveFundsTxDataRequest: {
 };
 export declare const QueryAppReserveFundsTxDataResponse: {
     encode(message: QueryAppReserveFundsTxDataResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAppReserveFundsTxDataResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAppReserveFundsTxDataResponse;
     fromJSON(object: any): QueryAppReserveFundsTxDataResponse;
     toJSON(message: QueryAppReserveFundsTxDataResponse): unknown;
     fromPartial<I extends {
@@ -3025,12 +3025,12 @@ export declare class QueryClientImpl implements Query {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

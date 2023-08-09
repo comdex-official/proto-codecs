@@ -98,14 +98,14 @@ export interface QueryBidsFilterResponse {
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
     fromJSON(_: any): QueryParamsRequest;
     toJSON(_: QueryParamsRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryParamsRequest;
 };
 export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
     fromJSON(object: any): QueryParamsResponse;
     toJSON(message: QueryParamsResponse): unknown;
     fromPartial<I extends {
@@ -116,7 +116,7 @@ export declare const QueryParamsResponse: {
 };
 export declare const QueryAuctionRequest: {
     encode(message: QueryAuctionRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionRequest;
     fromJSON(object: any): QueryAuctionRequest;
     toJSON(message: QueryAuctionRequest): unknown;
     fromPartial<I extends {
@@ -186,7 +186,7 @@ export declare const QueryAuctionRequest: {
 };
 export declare const QueryAuctionResponse: {
     encode(message: QueryAuctionResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionResponse;
     fromJSON(object: any): QueryAuctionResponse;
     toJSON(message: QueryAuctionResponse): unknown;
     fromPartial<I extends {
@@ -692,7 +692,7 @@ export declare const QueryAuctionResponse: {
 };
 export declare const QueryAuctionsRequest: {
     encode(message: QueryAuctionsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionsRequest;
     fromJSON(object: any): QueryAuctionsRequest;
     toJSON(message: QueryAuctionsRequest): unknown;
     fromPartial<I extends {
@@ -896,7 +896,7 @@ export declare const QueryAuctionsRequest: {
 };
 export declare const QueryAuctionsResponse: {
     encode(message: QueryAuctionsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionsResponse;
     fromJSON(object: any): QueryAuctionsResponse;
     toJSON(message: QueryAuctionsResponse): unknown;
     fromPartial<I extends {
@@ -1524,7 +1524,7 @@ export declare const QueryAuctionsResponse: {
 };
 export declare const QueryBidsRequest: {
     encode(message: QueryBidsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryBidsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryBidsRequest;
     fromJSON(object: any): QueryBidsRequest;
     toJSON(message: QueryBidsRequest): unknown;
     fromPartial<I extends {
@@ -1730,7 +1730,7 @@ export declare const QueryBidsRequest: {
 };
 export declare const QueryBidsResponse: {
     encode(message: QueryBidsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryBidsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryBidsResponse;
     fromJSON(object: any): QueryBidsResponse;
     toJSON(message: QueryBidsResponse): unknown;
     fromPartial<I extends {
@@ -2063,14 +2063,14 @@ export declare const QueryBidsResponse: {
 };
 export declare const QueryAuctionParamsRequest: {
     encode(_: QueryAuctionParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionParamsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionParamsRequest;
     fromJSON(_: any): QueryAuctionParamsRequest;
     toJSON(_: QueryAuctionParamsRequest): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): QueryAuctionParamsRequest;
 };
 export declare const QueryAuctionParamsResponse: {
     encode(message: QueryAuctionParamsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionParamsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionParamsResponse;
     fromJSON(object: any): QueryAuctionParamsResponse;
     toJSON(message: QueryAuctionParamsResponse): unknown;
     fromPartial<I extends {
@@ -2222,7 +2222,7 @@ export declare const QueryAuctionParamsResponse: {
 };
 export declare const QueryUserLimitBidsByAssetIDRequest: {
     encode(message: QueryUserLimitBidsByAssetIDRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryUserLimitBidsByAssetIDRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryUserLimitBidsByAssetIDRequest;
     fromJSON(object: any): QueryUserLimitBidsByAssetIDRequest;
     toJSON(message: QueryUserLimitBidsByAssetIDRequest): unknown;
     fromPartial<I extends {
@@ -2485,7 +2485,7 @@ export declare const QueryUserLimitBidsByAssetIDRequest: {
 };
 export declare const QueryUserLimitBidsByAssetIDResponse: {
     encode(message: QueryUserLimitBidsByAssetIDResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryUserLimitBidsByAssetIDResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryUserLimitBidsByAssetIDResponse;
     fromJSON(object: any): QueryUserLimitBidsByAssetIDResponse;
     toJSON(message: QueryUserLimitBidsByAssetIDResponse): unknown;
     fromPartial<I extends {
@@ -2854,7 +2854,7 @@ export declare const QueryUserLimitBidsByAssetIDResponse: {
 };
 export declare const QueryLimitBidsRequest: {
     encode(message: QueryLimitBidsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLimitBidsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLimitBidsRequest;
     fromJSON(object: any): QueryLimitBidsRequest;
     toJSON(message: QueryLimitBidsRequest): unknown;
     fromPartial<I extends {
@@ -3115,7 +3115,7 @@ export declare const QueryLimitBidsRequest: {
 };
 export declare const QueryLimitBidsResponse: {
     encode(message: QueryLimitBidsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLimitBidsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLimitBidsResponse;
     fromJSON(object: any): QueryLimitBidsResponse;
     toJSON(message: QueryLimitBidsResponse): unknown;
     fromPartial<I extends {
@@ -3480,7 +3480,7 @@ export declare const QueryLimitBidsResponse: {
 };
 export declare const QueryLimitBidProtocolDataRequest: {
     encode(message: QueryLimitBidProtocolDataRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLimitBidProtocolDataRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLimitBidProtocolDataRequest;
     fromJSON(object: any): QueryLimitBidProtocolDataRequest;
     toJSON(message: QueryLimitBidProtocolDataRequest): unknown;
     fromPartial<I extends {
@@ -3623,7 +3623,7 @@ export declare const QueryLimitBidProtocolDataRequest: {
 };
 export declare const QueryLimitBidProtocolDataResponse: {
     encode(message: QueryLimitBidProtocolDataResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLimitBidProtocolDataResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLimitBidProtocolDataResponse;
     fromJSON(object: any): QueryLimitBidProtocolDataResponse;
     toJSON(message: QueryLimitBidProtocolDataResponse): unknown;
     fromPartial<I extends {
@@ -3851,7 +3851,7 @@ export declare const QueryLimitBidProtocolDataResponse: {
 };
 export declare const QueryAuctionFeesCollectionFromLimitBidTxRequest: {
     encode(message: QueryAuctionFeesCollectionFromLimitBidTxRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionFeesCollectionFromLimitBidTxRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionFeesCollectionFromLimitBidTxRequest;
     fromJSON(object: any): QueryAuctionFeesCollectionFromLimitBidTxRequest;
     toJSON(message: QueryAuctionFeesCollectionFromLimitBidTxRequest): unknown;
     fromPartial<I extends {
@@ -3994,7 +3994,7 @@ export declare const QueryAuctionFeesCollectionFromLimitBidTxRequest: {
 };
 export declare const QueryAuctionFeesCollectionFromLimitBidTxResponse: {
     encode(message: QueryAuctionFeesCollectionFromLimitBidTxResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAuctionFeesCollectionFromLimitBidTxResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionFeesCollectionFromLimitBidTxResponse;
     fromJSON(object: any): QueryAuctionFeesCollectionFromLimitBidTxResponse;
     toJSON(message: QueryAuctionFeesCollectionFromLimitBidTxResponse): unknown;
     fromPartial<I extends {
@@ -4145,7 +4145,7 @@ export declare const QueryAuctionFeesCollectionFromLimitBidTxResponse: {
 };
 export declare const QueryLimitBidProtocolDataWithUserRequest: {
     encode(message: QueryLimitBidProtocolDataWithUserRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLimitBidProtocolDataWithUserRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLimitBidProtocolDataWithUserRequest;
     fromJSON(object: any): QueryLimitBidProtocolDataWithUserRequest;
     toJSON(message: QueryLimitBidProtocolDataWithUserRequest): unknown;
     fromPartial<I extends {
@@ -4290,7 +4290,7 @@ export declare const QueryLimitBidProtocolDataWithUserRequest: {
 };
 export declare const QueryLimitBidProtocolDataWithUserResponse: {
     encode(message: QueryLimitBidProtocolDataWithUserResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryLimitBidProtocolDataWithUserResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryLimitBidProtocolDataWithUserResponse;
     fromJSON(object: any): QueryLimitBidProtocolDataWithUserResponse;
     toJSON(message: QueryLimitBidProtocolDataWithUserResponse): unknown;
     fromPartial<I extends {
@@ -4523,7 +4523,7 @@ export declare const QueryLimitBidProtocolDataWithUserResponse: {
 };
 export declare const QueryBidsFilterRequest: {
     encode(message: QueryBidsFilterRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryBidsFilterRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryBidsFilterRequest;
     fromJSON(object: any): QueryBidsFilterRequest;
     toJSON(message: QueryBidsFilterRequest): unknown;
     fromPartial<I extends {
@@ -4729,7 +4729,7 @@ export declare const QueryBidsFilterRequest: {
 };
 export declare const QueryBidsFilterResponse: {
     encode(message: QueryBidsFilterResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryBidsFilterResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryBidsFilterResponse;
     fromJSON(object: any): QueryBidsFilterResponse;
     toJSON(message: QueryBidsFilterResponse): unknown;
     fromPartial<I extends {
@@ -5091,12 +5091,12 @@ export declare class QueryClientImpl implements Query {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

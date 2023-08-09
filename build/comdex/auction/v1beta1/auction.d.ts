@@ -84,7 +84,7 @@ export interface AuctionParams {
 }
 export declare const SurplusAuction: {
     encode(message: SurplusAuction, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SurplusAuction;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SurplusAuction;
     fromJSON(object: any): SurplusAuction;
     toJSON(message: SurplusAuction): unknown;
     fromPartial<I extends {
@@ -680,7 +680,7 @@ export declare const SurplusAuction: {
 };
 export declare const DebtAuction: {
     encode(message: DebtAuction, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): DebtAuction;
+    decode(input: _m0.Reader | Uint8Array, length?: number): DebtAuction;
     fromJSON(object: any): DebtAuction;
     toJSON(message: DebtAuction): unknown;
     fromPartial<I extends {
@@ -1287,7 +1287,7 @@ export declare const DebtAuction: {
 };
 export declare const DutchAuction: {
     encode(message: DutchAuction, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): DutchAuction;
+    decode(input: _m0.Reader | Uint8Array, length?: number): DutchAuction;
     fromJSON(object: any): DutchAuction;
     toJSON(message: DutchAuction): unknown;
     fromPartial<I extends {
@@ -1843,7 +1843,7 @@ export declare const DutchAuction: {
 };
 export declare const bidOwnerMapping: {
     encode(message: bidOwnerMapping, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): bidOwnerMapping;
+    decode(input: _m0.Reader | Uint8Array, length?: number): bidOwnerMapping;
     fromJSON(object: any): bidOwnerMapping;
     toJSON(message: bidOwnerMapping): unknown;
     fromPartial<I extends {
@@ -1913,7 +1913,7 @@ export declare const bidOwnerMapping: {
 };
 export declare const ProtocolStatistics: {
     encode(message: ProtocolStatistics, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ProtocolStatistics;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ProtocolStatistics;
     fromJSON(object: any): ProtocolStatistics;
     toJSON(message: ProtocolStatistics): unknown;
     fromPartial<I extends {
@@ -2042,7 +2042,7 @@ export declare const ProtocolStatistics: {
 };
 export declare const AuctionParams: {
     encode(message: AuctionParams, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AuctionParams;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AuctionParams;
     fromJSON(object: any): AuctionParams;
     toJSON(message: AuctionParams): unknown;
     fromPartial<I extends {
@@ -2468,12 +2468,12 @@ export declare const AuctionParams: {
         } & Record<Exclude<keyof I["bidDurationSeconds"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof AuctionParams>, never>>(object: I): AuctionParams;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

@@ -27,7 +27,7 @@ export interface MsgAddPairResponse {
 }
 export declare const MsgAddAssetRequest: {
     encode(message: MsgAddAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddAssetRequest;
     fromJSON(object: any): MsgAddAssetRequest;
     toJSON(message: MsgAddAssetRequest): unknown;
     fromPartial<I extends {
@@ -101,14 +101,14 @@ export declare const MsgAddAssetRequest: {
 };
 export declare const MsgAddAssetResponse: {
     encode(_: MsgAddAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddAssetResponse;
     fromJSON(_: any): MsgAddAssetResponse;
     toJSON(_: MsgAddAssetResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgAddAssetResponse;
 };
 export declare const MsgUpdateAssetRequest: {
     encode(message: MsgUpdateAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUpdateAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateAssetRequest;
     fromJSON(object: any): MsgUpdateAssetRequest;
     toJSON(message: MsgUpdateAssetRequest): unknown;
     fromPartial<I extends {
@@ -241,14 +241,14 @@ export declare const MsgUpdateAssetRequest: {
 };
 export declare const MsgUpdateAssetResponse: {
     encode(_: MsgUpdateAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgUpdateAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateAssetResponse;
     fromJSON(_: any): MsgUpdateAssetResponse;
     toJSON(_: MsgUpdateAssetResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgUpdateAssetResponse;
 };
 export declare const MsgAddPairRequest: {
     encode(message: MsgAddPairRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddPairRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddPairRequest;
     fromJSON(object: any): MsgAddPairRequest;
     toJSON(message: MsgAddPairRequest): unknown;
     fromPartial<I extends {
@@ -377,7 +377,7 @@ export declare const MsgAddPairRequest: {
 };
 export declare const MsgAddPairResponse: {
     encode(_: MsgAddPairResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): MsgAddPairResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddPairResponse;
     fromJSON(_: any): MsgAddPairResponse;
     toJSON(_: MsgAddPairResponse): unknown;
     fromPartial<I extends {} & {} & Record<Exclude<keyof I, never>, never>>(_: I): MsgAddPairResponse;
@@ -397,12 +397,12 @@ export declare class MsgClientImpl implements Msg {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

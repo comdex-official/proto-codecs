@@ -37,7 +37,7 @@ export interface UnlockingByOwner {
 }
 export declare const Lock: {
     encode(message: Lock, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Lock;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Lock;
     fromJSON(object: any): Lock;
     toJSON(message: Lock): unknown;
     fromPartial<I extends {
@@ -188,7 +188,7 @@ export declare const Lock: {
 };
 export declare const Unlocking: {
     encode(message: Unlocking, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Unlocking;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Unlocking;
     fromJSON(object: any): Unlocking;
     toJSON(message: Unlocking): unknown;
     fromPartial<I extends {
@@ -339,7 +339,7 @@ export declare const Unlocking: {
 };
 export declare const LockByOwner: {
     encode(message: LockByOwner, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LockByOwner;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LockByOwner;
     fromJSON(object: any): LockByOwner;
     toJSON(message: LockByOwner): unknown;
     fromPartial<I extends {
@@ -409,7 +409,7 @@ export declare const LockByOwner: {
 };
 export declare const UnlockingByOwner: {
     encode(message: UnlockingByOwner, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): UnlockingByOwner;
+    decode(input: _m0.Reader | Uint8Array, length?: number): UnlockingByOwner;
     fromJSON(object: any): UnlockingByOwner;
     toJSON(message: UnlockingByOwner): unknown;
     fromPartial<I extends {
@@ -477,12 +477,12 @@ export declare const UnlockingByOwner: {
         } & Record<Exclude<keyof I["unlockingIds"][number], keyof Long.Long>, never>))[] & Record<Exclude<keyof I["unlockingIds"], keyof (string | number | Long.Long)[]>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof UnlockingByOwner>, never>>(object: I): UnlockingByOwner;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

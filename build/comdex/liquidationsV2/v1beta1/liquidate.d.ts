@@ -80,7 +80,7 @@ export interface LockedVault {
 }
 export declare const LiquidationWhiteListing: {
     encode(message: LiquidationWhiteListing, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LiquidationWhiteListing;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LiquidationWhiteListing;
     fromJSON(object: any): LiquidationWhiteListing;
     toJSON(message: LiquidationWhiteListing): unknown;
     fromPartial<I extends {
@@ -178,7 +178,7 @@ export declare const LiquidationWhiteListing: {
 };
 export declare const AppReserveFunds: {
     encode(message: AppReserveFunds, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppReserveFunds;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AppReserveFunds;
     fromJSON(object: any): AppReserveFunds;
     toJSON(message: AppReserveFunds): unknown;
     fromPartial<I extends {
@@ -316,7 +316,7 @@ export declare const AppReserveFunds: {
 };
 export declare const AppReserveFundsTxData: {
     encode(message: AppReserveFundsTxData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AppReserveFundsTxData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AppReserveFundsTxData;
     fromJSON(object: any): AppReserveFundsTxData;
     toJSON(message: AppReserveFundsTxData): unknown;
     fromPartial<I extends {
@@ -481,7 +481,7 @@ export declare const AppReserveFundsTxData: {
 };
 export declare const AssetTxData: {
     encode(message: AssetTxData, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): AssetTxData;
+    decode(input: _m0.Reader | Uint8Array, length?: number): AssetTxData;
     fromJSON(object: any): AssetTxData;
     toJSON(message: AssetTxData): unknown;
     fromPartial<I extends {
@@ -562,7 +562,7 @@ export declare const AssetTxData: {
 };
 export declare const DutchAuctionParam: {
     encode(message: DutchAuctionParam, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): DutchAuctionParam;
+    decode(input: _m0.Reader | Uint8Array, length?: number): DutchAuctionParam;
     fromJSON(object: any): DutchAuctionParam;
     toJSON(message: DutchAuctionParam): unknown;
     fromPartial<I extends {
@@ -577,7 +577,7 @@ export declare const DutchAuctionParam: {
 };
 export declare const EnglishAuctionParam: {
     encode(message: EnglishAuctionParam, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): EnglishAuctionParam;
+    decode(input: _m0.Reader | Uint8Array, length?: number): EnglishAuctionParam;
     fromJSON(object: any): EnglishAuctionParam;
     toJSON(message: EnglishAuctionParam): unknown;
     fromPartial<I extends {
@@ -588,7 +588,7 @@ export declare const EnglishAuctionParam: {
 };
 export declare const LiquidationOffsetHolder: {
     encode(message: LiquidationOffsetHolder, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LiquidationOffsetHolder;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LiquidationOffsetHolder;
     fromJSON(object: any): LiquidationOffsetHolder;
     toJSON(message: LiquidationOffsetHolder): unknown;
     fromPartial<I extends {
@@ -715,7 +715,7 @@ export declare const LiquidationOffsetHolder: {
 };
 export declare const LockedVault: {
     encode(message: LockedVault, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): LockedVault;
+    decode(input: _m0.Reader | Uint8Array, length?: number): LockedVault;
     fromJSON(object: any): LockedVault;
     toJSON(message: LockedVault): unknown;
     fromPartial<I extends {
@@ -1142,12 +1142,12 @@ export declare const LockedVault: {
         } & Record<Exclude<keyof I["debtAssetId"], keyof Long.Long>, never>) | undefined;
     } & Record<Exclude<keyof I, keyof LockedVault>, never>>(object: I): LockedVault;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};
