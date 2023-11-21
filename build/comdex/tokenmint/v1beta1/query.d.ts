@@ -29,7 +29,7 @@ export interface QueryTokenMintedByAppAndAssetResponse {
 }
 export declare const QueryAllTokenMintedForAllAppsRequest: {
     encode(message: QueryAllTokenMintedForAllAppsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllTokenMintedForAllAppsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllTokenMintedForAllAppsRequest;
     fromJSON(object: any): QueryAllTokenMintedForAllAppsRequest;
     toJSON(message: QueryAllTokenMintedForAllAppsRequest): unknown;
     fromPartial<I extends {
@@ -172,7 +172,7 @@ export declare const QueryAllTokenMintedForAllAppsRequest: {
 };
 export declare const QueryAllTokenMintedForAllAppsResponse: {
     encode(message: QueryAllTokenMintedForAllAppsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryAllTokenMintedForAllAppsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllTokenMintedForAllAppsResponse;
     fromJSON(object: any): QueryAllTokenMintedForAllAppsResponse;
     toJSON(message: QueryAllTokenMintedForAllAppsResponse): unknown;
     fromPartial<I extends {
@@ -420,7 +420,7 @@ export declare const QueryAllTokenMintedForAllAppsResponse: {
 };
 export declare const QueryTokenMintedByAppRequest: {
     encode(message: QueryTokenMintedByAppRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByAppRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryTokenMintedByAppRequest;
     fromJSON(object: any): QueryTokenMintedByAppRequest;
     toJSON(message: QueryTokenMintedByAppRequest): unknown;
     fromPartial<I extends {
@@ -622,7 +622,7 @@ export declare const QueryTokenMintedByAppRequest: {
 };
 export declare const QueryTokenMintedByAppResponse: {
     encode(message: QueryTokenMintedByAppResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByAppResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryTokenMintedByAppResponse;
     fromJSON(object: any): QueryTokenMintedByAppResponse;
     toJSON(message: QueryTokenMintedByAppResponse): unknown;
     fromPartial<I extends {
@@ -854,7 +854,7 @@ export declare const QueryTokenMintedByAppResponse: {
 };
 export declare const QueryTokenMintedByAppAndAssetRequest: {
     encode(message: QueryTokenMintedByAppAndAssetRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByAppAndAssetRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryTokenMintedByAppAndAssetRequest;
     fromJSON(object: any): QueryTokenMintedByAppAndAssetRequest;
     toJSON(message: QueryTokenMintedByAppAndAssetRequest): unknown;
     fromPartial<I extends {
@@ -1115,7 +1115,7 @@ export declare const QueryTokenMintedByAppAndAssetRequest: {
 };
 export declare const QueryTokenMintedByAppAndAssetResponse: {
     encode(message: QueryTokenMintedByAppAndAssetResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryTokenMintedByAppAndAssetResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryTokenMintedByAppAndAssetResponse;
     fromJSON(object: any): QueryTokenMintedByAppAndAssetResponse;
     toJSON(message: QueryTokenMintedByAppAndAssetResponse): unknown;
     fromPartial<I extends {
@@ -1279,12 +1279,12 @@ export declare class QueryClientImpl implements Query {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

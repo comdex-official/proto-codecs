@@ -90,6 +90,11 @@ export interface MsgFundReserveAccounts {
   amount?: Coin;
 }
 
+export interface MsgRepayWithdraw {
+  borrower: string;
+  borrowId: Long;
+}
+
 export interface MsgLendResponse {}
 
 export interface MsgWithdrawResponse {}
@@ -115,6 +120,8 @@ export interface MsgFundModuleAccountsResponse {}
 export interface MsgCalculateInterestAndRewardsResponse {}
 
 export interface MsgFundReserveAccountsResponse {}
+
+export interface MsgRepayWithdrawResponse {}
 
 function createBaseMsgLend(): MsgLend {
   return {
@@ -1307,6 +1314,75 @@ export const MsgFundReserveAccounts = {
   },
 };
 
+function createBaseMsgRepayWithdraw(): MsgRepayWithdraw {
+  return { borrower: "", borrowId: Long.UZERO };
+}
+
+export const MsgRepayWithdraw = {
+  encode(
+    message: MsgRepayWithdraw,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.borrower !== "") {
+      writer.uint32(10).string(message.borrower);
+    }
+    if (!message.borrowId.isZero()) {
+      writer.uint32(16).uint64(message.borrowId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRepayWithdraw {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgRepayWithdraw();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.borrower = reader.string();
+          break;
+        case 2:
+          message.borrowId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgRepayWithdraw {
+    return {
+      borrower: isSet(object.borrower) ? String(object.borrower) : "",
+      borrowId: isSet(object.borrowId)
+        ? Long.fromValue(object.borrowId)
+        : Long.UZERO,
+    };
+  },
+
+  toJSON(message: MsgRepayWithdraw): unknown {
+    const obj: any = {};
+    message.borrower !== undefined && (obj.borrower = message.borrower);
+    message.borrowId !== undefined &&
+      (obj.borrowId = (message.borrowId || Long.UZERO).toString());
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRepayWithdraw>, I>>(
+    object: I
+  ): MsgRepayWithdraw {
+    const message = createBaseMsgRepayWithdraw();
+    message.borrower = object.borrower ?? "";
+    message.borrowId =
+      object.borrowId !== undefined && object.borrowId !== null
+        ? Long.fromValue(object.borrowId)
+        : Long.UZERO;
+    return message;
+  },
+};
+
 function createBaseMsgLendResponse(): MsgLendResponse {
   return {};
 }
@@ -1900,6 +1976,53 @@ export const MsgFundReserveAccountsResponse = {
   },
 };
 
+function createBaseMsgRepayWithdrawResponse(): MsgRepayWithdrawResponse {
+  return {};
+}
+
+export const MsgRepayWithdrawResponse = {
+  encode(
+    _: MsgRepayWithdrawResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MsgRepayWithdrawResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgRepayWithdrawResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgRepayWithdrawResponse {
+    return {};
+  },
+
+  toJSON(_: MsgRepayWithdrawResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRepayWithdrawResponse>, I>>(
+    _: I
+  ): MsgRepayWithdrawResponse {
+    const message = createBaseMsgRepayWithdrawResponse();
+    return message;
+  },
+};
+
 export interface Msg {
   /** LendAsset defines a method for lending coins to the ModuleAccount. */
   Lend(request: MsgLend): Promise<MsgLendResponse>;
@@ -1930,6 +2053,7 @@ export interface Msg {
   FundReserveAccounts(
     request: MsgFundReserveAccounts
   ): Promise<MsgFundReserveAccountsResponse>;
+  RepayWithdraw(request: MsgRepayWithdraw): Promise<MsgRepayWithdrawResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1950,6 +2074,7 @@ export class MsgClientImpl implements Msg {
     this.CalculateInterestAndRewards =
       this.CalculateInterestAndRewards.bind(this);
     this.FundReserveAccounts = this.FundReserveAccounts.bind(this);
+    this.RepayWithdraw = this.RepayWithdraw.bind(this);
   }
   Lend(request: MsgLend): Promise<MsgLendResponse> {
     const data = MsgLend.encode(request).finish();
@@ -2092,6 +2217,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgFundReserveAccountsResponse.decode(new _m0.Reader(data))
+    );
+  }
+
+  RepayWithdraw(request: MsgRepayWithdraw): Promise<MsgRepayWithdrawResponse> {
+    const data = MsgRepayWithdraw.encode(request).finish();
+    const promise = this.rpc.request(
+      "comdex.lend.v1beta1.Msg",
+      "RepayWithdraw",
+      data
+    );
+    return promise.then((data) =>
+      MsgRepayWithdrawResponse.decode(new _m0.Reader(data))
     );
   }
 }

@@ -749,202 +749,202 @@ export interface Scopes_ScopeEntry {
 }
 export declare const Swagger: {
     encode(message: Swagger, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Swagger;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Swagger;
     fromJSON(object: any): Swagger;
     toJSON(message: Swagger): unknown;
     fromPartial(object: DeepPartial<Swagger>): Swagger;
 };
 export declare const Swagger_ResponsesEntry: {
     encode(message: Swagger_ResponsesEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Swagger_ResponsesEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Swagger_ResponsesEntry;
     fromJSON(object: any): Swagger_ResponsesEntry;
     toJSON(message: Swagger_ResponsesEntry): unknown;
     fromPartial(object: DeepPartial<Swagger_ResponsesEntry>): Swagger_ResponsesEntry;
 };
 export declare const Swagger_ExtensionsEntry: {
     encode(message: Swagger_ExtensionsEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Swagger_ExtensionsEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Swagger_ExtensionsEntry;
     fromJSON(object: any): Swagger_ExtensionsEntry;
     toJSON(message: Swagger_ExtensionsEntry): unknown;
     fromPartial(object: DeepPartial<Swagger_ExtensionsEntry>): Swagger_ExtensionsEntry;
 };
 export declare const Operation: {
     encode(message: Operation, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Operation;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Operation;
     fromJSON(object: any): Operation;
     toJSON(message: Operation): unknown;
     fromPartial(object: DeepPartial<Operation>): Operation;
 };
 export declare const Operation_ResponsesEntry: {
     encode(message: Operation_ResponsesEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Operation_ResponsesEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Operation_ResponsesEntry;
     fromJSON(object: any): Operation_ResponsesEntry;
     toJSON(message: Operation_ResponsesEntry): unknown;
     fromPartial(object: DeepPartial<Operation_ResponsesEntry>): Operation_ResponsesEntry;
 };
 export declare const Operation_ExtensionsEntry: {
     encode(message: Operation_ExtensionsEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Operation_ExtensionsEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Operation_ExtensionsEntry;
     fromJSON(object: any): Operation_ExtensionsEntry;
     toJSON(message: Operation_ExtensionsEntry): unknown;
     fromPartial(object: DeepPartial<Operation_ExtensionsEntry>): Operation_ExtensionsEntry;
 };
 export declare const Header: {
     encode(message: Header, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Header;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Header;
     fromJSON(object: any): Header;
     toJSON(message: Header): unknown;
     fromPartial(object: DeepPartial<Header>): Header;
 };
 export declare const Response: {
     encode(message: Response, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Response;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Response;
     fromJSON(object: any): Response;
     toJSON(message: Response): unknown;
     fromPartial(object: DeepPartial<Response>): Response;
 };
 export declare const Response_HeadersEntry: {
     encode(message: Response_HeadersEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Response_HeadersEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Response_HeadersEntry;
     fromJSON(object: any): Response_HeadersEntry;
     toJSON(message: Response_HeadersEntry): unknown;
     fromPartial(object: DeepPartial<Response_HeadersEntry>): Response_HeadersEntry;
 };
 export declare const Response_ExamplesEntry: {
     encode(message: Response_ExamplesEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Response_ExamplesEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Response_ExamplesEntry;
     fromJSON(object: any): Response_ExamplesEntry;
     toJSON(message: Response_ExamplesEntry): unknown;
     fromPartial(object: DeepPartial<Response_ExamplesEntry>): Response_ExamplesEntry;
 };
 export declare const Response_ExtensionsEntry: {
     encode(message: Response_ExtensionsEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Response_ExtensionsEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Response_ExtensionsEntry;
     fromJSON(object: any): Response_ExtensionsEntry;
     toJSON(message: Response_ExtensionsEntry): unknown;
     fromPartial(object: DeepPartial<Response_ExtensionsEntry>): Response_ExtensionsEntry;
 };
 export declare const Info: {
     encode(message: Info, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Info;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Info;
     fromJSON(object: any): Info;
     toJSON(message: Info): unknown;
     fromPartial(object: DeepPartial<Info>): Info;
 };
 export declare const Info_ExtensionsEntry: {
     encode(message: Info_ExtensionsEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Info_ExtensionsEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Info_ExtensionsEntry;
     fromJSON(object: any): Info_ExtensionsEntry;
     toJSON(message: Info_ExtensionsEntry): unknown;
     fromPartial(object: DeepPartial<Info_ExtensionsEntry>): Info_ExtensionsEntry;
 };
 export declare const Contact: {
     encode(message: Contact, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Contact;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Contact;
     fromJSON(object: any): Contact;
     toJSON(message: Contact): unknown;
     fromPartial(object: DeepPartial<Contact>): Contact;
 };
 export declare const License: {
     encode(message: License, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): License;
+    decode(input: _m0.Reader | Uint8Array, length?: number): License;
     fromJSON(object: any): License;
     toJSON(message: License): unknown;
     fromPartial(object: DeepPartial<License>): License;
 };
 export declare const ExternalDocumentation: {
     encode(message: ExternalDocumentation, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): ExternalDocumentation;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ExternalDocumentation;
     fromJSON(object: any): ExternalDocumentation;
     toJSON(message: ExternalDocumentation): unknown;
     fromPartial(object: DeepPartial<ExternalDocumentation>): ExternalDocumentation;
 };
 export declare const Schema: {
     encode(message: Schema, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Schema;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Schema;
     fromJSON(object: any): Schema;
     toJSON(message: Schema): unknown;
     fromPartial(object: DeepPartial<Schema>): Schema;
 };
 export declare const JSONSchema: {
     encode(message: JSONSchema, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): JSONSchema;
+    decode(input: _m0.Reader | Uint8Array, length?: number): JSONSchema;
     fromJSON(object: any): JSONSchema;
     toJSON(message: JSONSchema): unknown;
     fromPartial(object: DeepPartial<JSONSchema>): JSONSchema;
 };
 export declare const Tag: {
     encode(message: Tag, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Tag;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Tag;
     fromJSON(object: any): Tag;
     toJSON(message: Tag): unknown;
     fromPartial(object: DeepPartial<Tag>): Tag;
 };
 export declare const SecurityDefinitions: {
     encode(message: SecurityDefinitions, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SecurityDefinitions;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SecurityDefinitions;
     fromJSON(object: any): SecurityDefinitions;
     toJSON(message: SecurityDefinitions): unknown;
     fromPartial(object: DeepPartial<SecurityDefinitions>): SecurityDefinitions;
 };
 export declare const SecurityDefinitions_SecurityEntry: {
     encode(message: SecurityDefinitions_SecurityEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SecurityDefinitions_SecurityEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SecurityDefinitions_SecurityEntry;
     fromJSON(object: any): SecurityDefinitions_SecurityEntry;
     toJSON(message: SecurityDefinitions_SecurityEntry): unknown;
     fromPartial(object: DeepPartial<SecurityDefinitions_SecurityEntry>): SecurityDefinitions_SecurityEntry;
 };
 export declare const SecurityScheme: {
     encode(message: SecurityScheme, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SecurityScheme;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SecurityScheme;
     fromJSON(object: any): SecurityScheme;
     toJSON(message: SecurityScheme): unknown;
     fromPartial(object: DeepPartial<SecurityScheme>): SecurityScheme;
 };
 export declare const SecurityScheme_ExtensionsEntry: {
     encode(message: SecurityScheme_ExtensionsEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SecurityScheme_ExtensionsEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SecurityScheme_ExtensionsEntry;
     fromJSON(object: any): SecurityScheme_ExtensionsEntry;
     toJSON(message: SecurityScheme_ExtensionsEntry): unknown;
     fromPartial(object: DeepPartial<SecurityScheme_ExtensionsEntry>): SecurityScheme_ExtensionsEntry;
 };
 export declare const SecurityRequirement: {
     encode(message: SecurityRequirement, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SecurityRequirement;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SecurityRequirement;
     fromJSON(object: any): SecurityRequirement;
     toJSON(message: SecurityRequirement): unknown;
     fromPartial(object: DeepPartial<SecurityRequirement>): SecurityRequirement;
 };
 export declare const SecurityRequirement_SecurityRequirementValue: {
     encode(message: SecurityRequirement_SecurityRequirementValue, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SecurityRequirement_SecurityRequirementValue;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SecurityRequirement_SecurityRequirementValue;
     fromJSON(object: any): SecurityRequirement_SecurityRequirementValue;
     toJSON(message: SecurityRequirement_SecurityRequirementValue): unknown;
     fromPartial(object: DeepPartial<SecurityRequirement_SecurityRequirementValue>): SecurityRequirement_SecurityRequirementValue;
 };
 export declare const SecurityRequirement_SecurityRequirementEntry: {
     encode(message: SecurityRequirement_SecurityRequirementEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): SecurityRequirement_SecurityRequirementEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): SecurityRequirement_SecurityRequirementEntry;
     fromJSON(object: any): SecurityRequirement_SecurityRequirementEntry;
     toJSON(message: SecurityRequirement_SecurityRequirementEntry): unknown;
     fromPartial(object: DeepPartial<SecurityRequirement_SecurityRequirementEntry>): SecurityRequirement_SecurityRequirementEntry;
 };
 export declare const Scopes: {
     encode(message: Scopes, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Scopes;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Scopes;
     fromJSON(object: any): Scopes;
     toJSON(message: Scopes): unknown;
     fromPartial(object: DeepPartial<Scopes>): Scopes;
 };
 export declare const Scopes_ScopeEntry: {
     encode(message: Scopes_ScopeEntry, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): Scopes_ScopeEntry;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Scopes_ScopeEntry;
     fromJSON(object: any): Scopes_ScopeEntry;
     toJSON(message: Scopes_ScopeEntry): unknown;
     fromPartial(object: DeepPartial<Scopes_ScopeEntry>): Scopes_ScopeEntry;
 };
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined | Long;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
 export {};
