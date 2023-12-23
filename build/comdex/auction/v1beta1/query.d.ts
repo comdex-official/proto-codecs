@@ -158,7 +158,7 @@ export interface QueryFilterDutchAuctionsResponse {
 }
 export declare const QuerySurplusAuctionRequest: {
     encode(message: QuerySurplusAuctionRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QuerySurplusAuctionRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QuerySurplusAuctionRequest;
     fromJSON(object: any): QuerySurplusAuctionRequest;
     toJSON(message: QuerySurplusAuctionRequest): unknown;
     fromPartial<I extends {
@@ -346,7 +346,7 @@ export declare const QuerySurplusAuctionRequest: {
 };
 export declare const QuerySurplusAuctionResponse: {
     encode(message: QuerySurplusAuctionResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QuerySurplusAuctionResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QuerySurplusAuctionResponse;
     fromJSON(object: any): QuerySurplusAuctionResponse;
     toJSON(message: QuerySurplusAuctionResponse): unknown;
     fromPartial<I extends {
@@ -975,7 +975,7 @@ export declare const QuerySurplusAuctionResponse: {
 };
 export declare const QuerySurplusAuctionsRequest: {
     encode(message: QuerySurplusAuctionsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QuerySurplusAuctionsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QuerySurplusAuctionsRequest;
     fromJSON(object: any): QuerySurplusAuctionsRequest;
     toJSON(message: QuerySurplusAuctionsRequest): unknown;
     fromPartial<I extends {
@@ -1179,7 +1179,7 @@ export declare const QuerySurplusAuctionsRequest: {
 };
 export declare const QuerySurplusAuctionsResponse: {
     encode(message: QuerySurplusAuctionsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QuerySurplusAuctionsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QuerySurplusAuctionsResponse;
     fromJSON(object: any): QuerySurplusAuctionsResponse;
     toJSON(message: QuerySurplusAuctionsResponse): unknown;
     fromPartial<I extends {
@@ -1934,7 +1934,7 @@ export declare const QuerySurplusAuctionsResponse: {
 };
 export declare const QuerySurplusBiddingsRequest: {
     encode(message: QuerySurplusBiddingsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QuerySurplusBiddingsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QuerySurplusBiddingsRequest;
     fromJSON(object: any): QuerySurplusBiddingsRequest;
     toJSON(message: QuerySurplusBiddingsRequest): unknown;
     fromPartial<I extends {
@@ -2140,7 +2140,7 @@ export declare const QuerySurplusBiddingsRequest: {
 };
 export declare const QuerySurplusBiddingsResponse: {
     encode(message: QuerySurplusBiddingsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QuerySurplusBiddingsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QuerySurplusBiddingsResponse;
     fromJSON(object: any): QuerySurplusBiddingsResponse;
     toJSON(message: QuerySurplusBiddingsResponse): unknown;
     fromPartial<I extends {
@@ -2540,7 +2540,7 @@ export declare const QuerySurplusBiddingsResponse: {
 };
 export declare const QueryDebtAuctionRequest: {
     encode(message: QueryDebtAuctionRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDebtAuctionRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDebtAuctionRequest;
     fromJSON(object: any): QueryDebtAuctionRequest;
     toJSON(message: QueryDebtAuctionRequest): unknown;
     fromPartial<I extends {
@@ -2728,7 +2728,7 @@ export declare const QueryDebtAuctionRequest: {
 };
 export declare const QueryDebtAuctionResponse: {
     encode(message: QueryDebtAuctionResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDebtAuctionResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDebtAuctionResponse;
     fromJSON(object: any): QueryDebtAuctionResponse;
     toJSON(message: QueryDebtAuctionResponse): unknown;
     fromPartial<I extends {
@@ -3506,7 +3506,7 @@ export declare const QueryDebtAuctionResponse: {
 };
 export declare const QueryDebtAuctionsRequest: {
     encode(message: QueryDebtAuctionsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDebtAuctionsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDebtAuctionsRequest;
     fromJSON(object: any): QueryDebtAuctionsRequest;
     toJSON(message: QueryDebtAuctionsRequest): unknown;
     fromPartial<I extends {
@@ -3710,7 +3710,7 @@ export declare const QueryDebtAuctionsRequest: {
 };
 export declare const QueryDebtAuctionsResponse: {
     encode(message: QueryDebtAuctionsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDebtAuctionsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDebtAuctionsResponse;
     fromJSON(object: any): QueryDebtAuctionsResponse;
     toJSON(message: QueryDebtAuctionsResponse): unknown;
     fromPartial<I extends {
@@ -4488,7 +4488,7 @@ export declare const QueryDebtAuctionsResponse: {
 };
 export declare const QueryDebtBiddingsRequest: {
     encode(message: QueryDebtBiddingsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDebtBiddingsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDebtBiddingsRequest;
     fromJSON(object: any): QueryDebtBiddingsRequest;
     toJSON(message: QueryDebtBiddingsRequest): unknown;
     fromPartial<I extends {
@@ -4694,7 +4694,7 @@ export declare const QueryDebtBiddingsRequest: {
 };
 export declare const QueryDebtBiddingsResponse: {
     encode(message: QueryDebtBiddingsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDebtBiddingsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDebtBiddingsResponse;
     fromJSON(object: any): QueryDebtBiddingsResponse;
     toJSON(message: QueryDebtBiddingsResponse): unknown;
     fromPartial<I extends {
@@ -5094,7 +5094,7 @@ export declare const QueryDebtBiddingsResponse: {
 };
 export declare const QueryDutchAuctionRequest: {
     encode(message: QueryDutchAuctionRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchAuctionRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchAuctionRequest;
     fromJSON(object: any): QueryDutchAuctionRequest;
     toJSON(message: QueryDutchAuctionRequest): unknown;
     fromPartial<I extends {
@@ -5282,7 +5282,7 @@ export declare const QueryDutchAuctionRequest: {
 };
 export declare const QueryDutchAuctionResponse: {
     encode(message: QueryDutchAuctionResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchAuctionResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchAuctionResponse;
     fromJSON(object: any): QueryDutchAuctionResponse;
     toJSON(message: QueryDutchAuctionResponse): unknown;
     fromPartial<I extends {
@@ -5878,7 +5878,7 @@ export declare const QueryDutchAuctionResponse: {
 };
 export declare const QueryDutchAuctionsRequest: {
     encode(message: QueryDutchAuctionsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchAuctionsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchAuctionsRequest;
     fromJSON(object: any): QueryDutchAuctionsRequest;
     toJSON(message: QueryDutchAuctionsRequest): unknown;
     fromPartial<I extends {
@@ -6082,7 +6082,7 @@ export declare const QueryDutchAuctionsRequest: {
 };
 export declare const QueryDutchAuctionsResponse: {
     encode(message: QueryDutchAuctionsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchAuctionsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchAuctionsResponse;
     fromJSON(object: any): QueryDutchAuctionsResponse;
     toJSON(message: QueryDutchAuctionsResponse): unknown;
     fromPartial<I extends {
@@ -6818,7 +6818,7 @@ export declare const QueryDutchAuctionsResponse: {
 };
 export declare const QueryDutchBiddingsRequest: {
     encode(message: QueryDutchBiddingsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchBiddingsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchBiddingsRequest;
     fromJSON(object: any): QueryDutchBiddingsRequest;
     toJSON(message: QueryDutchBiddingsRequest): unknown;
     fromPartial<I extends {
@@ -7024,7 +7024,7 @@ export declare const QueryDutchBiddingsRequest: {
 };
 export declare const QueryDutchBiddingsResponse: {
     encode(message: QueryDutchBiddingsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchBiddingsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchBiddingsResponse;
     fromJSON(object: any): QueryDutchBiddingsResponse;
     toJSON(message: QueryDutchBiddingsResponse): unknown;
     fromPartial<I extends {
@@ -7424,7 +7424,7 @@ export declare const QueryDutchBiddingsResponse: {
 };
 export declare const QueryBiddingsForSurplusAuctionRequest: {
     encode(message: QueryBiddingsForSurplusAuctionRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryBiddingsForSurplusAuctionRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryBiddingsForSurplusAuctionRequest;
     fromJSON(object: any): QueryBiddingsForSurplusAuctionRequest;
     toJSON(message: QueryBiddingsForSurplusAuctionRequest): unknown;
     fromPartial<I extends {
@@ -7746,7 +7746,7 @@ export declare const QueryBiddingsForSurplusAuctionRequest: {
 };
 export declare const QueryBiddingsForSurplusAuctionResponse: {
     encode(message: QueryBiddingsForSurplusAuctionResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryBiddingsForSurplusAuctionResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryBiddingsForSurplusAuctionResponse;
     fromJSON(object: any): QueryBiddingsForSurplusAuctionResponse;
     toJSON(message: QueryBiddingsForSurplusAuctionResponse): unknown;
     fromPartial<I extends {
@@ -8144,7 +8144,7 @@ export declare const QueryBiddingsForSurplusAuctionResponse: {
 };
 export declare const QueryProtocolStatisticsRequest: {
     encode(message: QueryProtocolStatisticsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryProtocolStatisticsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryProtocolStatisticsRequest;
     fromJSON(object: any): QueryProtocolStatisticsRequest;
     toJSON(message: QueryProtocolStatisticsRequest): unknown;
     fromPartial<I extends {
@@ -8346,7 +8346,7 @@ export declare const QueryProtocolStatisticsRequest: {
 };
 export declare const QueryProtocolStatisticsResponse: {
     encode(message: QueryProtocolStatisticsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryProtocolStatisticsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryProtocolStatisticsResponse;
     fromJSON(object: any): QueryProtocolStatisticsResponse;
     toJSON(message: QueryProtocolStatisticsResponse): unknown;
     fromPartial<I extends {
@@ -8559,7 +8559,7 @@ export declare const QueryProtocolStatisticsResponse: {
 };
 export declare const QueryGenericAuctionParamRequest: {
     encode(message: QueryGenericAuctionParamRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGenericAuctionParamRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryGenericAuctionParamRequest;
     fromJSON(object: any): QueryGenericAuctionParamRequest;
     toJSON(message: QueryGenericAuctionParamRequest): unknown;
     fromPartial<I extends {
@@ -8627,7 +8627,7 @@ export declare const QueryGenericAuctionParamRequest: {
 };
 export declare const QueryGenericAuctionParamResponse: {
     encode(message: QueryGenericAuctionParamResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryGenericAuctionParamResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryGenericAuctionParamResponse;
     fromJSON(object: any): QueryGenericAuctionParamResponse;
     toJSON(message: QueryGenericAuctionParamResponse): unknown;
     fromPartial<I extends {
@@ -9070,7 +9070,7 @@ export declare const QueryGenericAuctionParamResponse: {
 };
 export declare const QueryDutchLendAuctionRequest: {
     encode(message: QueryDutchLendAuctionRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchLendAuctionRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchLendAuctionRequest;
     fromJSON(object: any): QueryDutchLendAuctionRequest;
     toJSON(message: QueryDutchLendAuctionRequest): unknown;
     fromPartial<I extends {
@@ -9258,7 +9258,7 @@ export declare const QueryDutchLendAuctionRequest: {
 };
 export declare const QueryDutchLendAuctionResponse: {
     encode(message: QueryDutchLendAuctionResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchLendAuctionResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchLendAuctionResponse;
     fromJSON(object: any): QueryDutchLendAuctionResponse;
     toJSON(message: QueryDutchLendAuctionResponse): unknown;
     fromPartial<I extends {
@@ -9854,7 +9854,7 @@ export declare const QueryDutchLendAuctionResponse: {
 };
 export declare const QueryDutchLendAuctionsRequest: {
     encode(message: QueryDutchLendAuctionsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchLendAuctionsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchLendAuctionsRequest;
     fromJSON(object: any): QueryDutchLendAuctionsRequest;
     toJSON(message: QueryDutchLendAuctionsRequest): unknown;
     fromPartial<I extends {
@@ -10058,7 +10058,7 @@ export declare const QueryDutchLendAuctionsRequest: {
 };
 export declare const QueryDutchLendAuctionsResponse: {
     encode(message: QueryDutchLendAuctionsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchLendAuctionsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchLendAuctionsResponse;
     fromJSON(object: any): QueryDutchLendAuctionsResponse;
     toJSON(message: QueryDutchLendAuctionsResponse): unknown;
     fromPartial<I extends {
@@ -10794,7 +10794,7 @@ export declare const QueryDutchLendAuctionsResponse: {
 };
 export declare const QueryDutchLendBiddingsRequest: {
     encode(message: QueryDutchLendBiddingsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchLendBiddingsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchLendBiddingsRequest;
     fromJSON(object: any): QueryDutchLendBiddingsRequest;
     toJSON(message: QueryDutchLendBiddingsRequest): unknown;
     fromPartial<I extends {
@@ -11000,7 +11000,7 @@ export declare const QueryDutchLendBiddingsRequest: {
 };
 export declare const QueryDutchLendBiddingsResponse: {
     encode(message: QueryDutchLendBiddingsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryDutchLendBiddingsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryDutchLendBiddingsResponse;
     fromJSON(object: any): QueryDutchLendBiddingsResponse;
     toJSON(message: QueryDutchLendBiddingsResponse): unknown;
     fromPartial<I extends {
@@ -11400,7 +11400,7 @@ export declare const QueryDutchLendBiddingsResponse: {
 };
 export declare const QueryFilterDutchAuctionsRequest: {
     encode(message: QueryFilterDutchAuctionsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryFilterDutchAuctionsRequest;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryFilterDutchAuctionsRequest;
     fromJSON(object: any): QueryFilterDutchAuctionsRequest;
     toJSON(message: QueryFilterDutchAuctionsRequest): unknown;
     fromPartial<I extends {
@@ -11606,7 +11606,7 @@ export declare const QueryFilterDutchAuctionsRequest: {
 };
 export declare const QueryFilterDutchAuctionsResponse: {
     encode(message: QueryFilterDutchAuctionsResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number | undefined): QueryFilterDutchAuctionsResponse;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryFilterDutchAuctionsResponse;
     fromJSON(object: any): QueryFilterDutchAuctionsResponse;
     toJSON(message: QueryFilterDutchAuctionsResponse): unknown;
     fromPartial<I extends {
@@ -12379,12 +12379,12 @@ export declare class QueryClientImpl implements Query {
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
-declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
-export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+export type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
 } : Partial<T>;
-declare type KeysOfUnion<T> = T extends T ? keyof T : never;
-export declare type Exact<P, I extends P> = P extends Builtin ? P : P & {
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+export type Exact<P, I extends P> = P extends Builtin ? P : P & {
     [K in keyof P]: Exact<P[K], I[K]>;
 } & Record<Exclude<keyof I, KeysOfUnion<P>>, never>;
 export {};

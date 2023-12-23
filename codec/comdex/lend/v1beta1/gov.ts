@@ -9,6 +9,8 @@ import {
   AuctionParams,
   PoolPairs,
   AssetRatesPoolPairs,
+  PoolDepreciate,
+  EModePairsForProposal,
   AssetToPairSingleMapping,
 } from "../../../comdex/lend/v1beta1/lend";
 
@@ -66,6 +68,18 @@ export interface AddAssetRatesPoolPairsProposal {
   title: string;
   description: string;
   AssetRatesPoolPairs?: AssetRatesPoolPairs;
+}
+
+export interface AddPoolDepreciateProposal {
+  title: string;
+  description: string;
+  PoolDepreciate?: PoolDepreciate;
+}
+
+export interface AddEModePairsProposal {
+  title: string;
+  description: string;
+  EModePairsForProposal?: EModePairsForProposal;
 }
 
 function createBaseLendPairsProposal(): LendPairsProposal {
@@ -836,6 +850,187 @@ export const AddAssetRatesPoolPairsProposal = {
       object.AssetRatesPoolPairs !== undefined &&
       object.AssetRatesPoolPairs !== null
         ? AssetRatesPoolPairs.fromPartial(object.AssetRatesPoolPairs)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseAddPoolDepreciateProposal(): AddPoolDepreciateProposal {
+  return { title: "", description: "", PoolDepreciate: undefined };
+}
+
+export const AddPoolDepreciateProposal = {
+  encode(
+    message: AddPoolDepreciateProposal,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    if (message.PoolDepreciate !== undefined) {
+      PoolDepreciate.encode(
+        message.PoolDepreciate,
+        writer.uint32(26).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): AddPoolDepreciateProposal {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAddPoolDepreciateProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+        case 2:
+          message.description = reader.string();
+          break;
+        case 3:
+          message.PoolDepreciate = PoolDepreciate.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AddPoolDepreciateProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      PoolDepreciate: isSet(object.PoolDepreciate)
+        ? PoolDepreciate.fromJSON(object.PoolDepreciate)
+        : undefined,
+    };
+  },
+
+  toJSON(message: AddPoolDepreciateProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    message.PoolDepreciate !== undefined &&
+      (obj.PoolDepreciate = message.PoolDepreciate
+        ? PoolDepreciate.toJSON(message.PoolDepreciate)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddPoolDepreciateProposal>, I>>(
+    object: I
+  ): AddPoolDepreciateProposal {
+    const message = createBaseAddPoolDepreciateProposal();
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.PoolDepreciate =
+      object.PoolDepreciate !== undefined && object.PoolDepreciate !== null
+        ? PoolDepreciate.fromPartial(object.PoolDepreciate)
+        : undefined;
+    return message;
+  },
+};
+
+function createBaseAddEModePairsProposal(): AddEModePairsProposal {
+  return { title: "", description: "", EModePairsForProposal: undefined };
+}
+
+export const AddEModePairsProposal = {
+  encode(
+    message: AddEModePairsProposal,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.title !== "") {
+      writer.uint32(10).string(message.title);
+    }
+    if (message.description !== "") {
+      writer.uint32(18).string(message.description);
+    }
+    if (message.EModePairsForProposal !== undefined) {
+      EModePairsForProposal.encode(
+        message.EModePairsForProposal,
+        writer.uint32(26).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): AddEModePairsProposal {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAddEModePairsProposal();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.title = reader.string();
+          break;
+        case 2:
+          message.description = reader.string();
+          break;
+        case 3:
+          message.EModePairsForProposal = EModePairsForProposal.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AddEModePairsProposal {
+    return {
+      title: isSet(object.title) ? String(object.title) : "",
+      description: isSet(object.description) ? String(object.description) : "",
+      EModePairsForProposal: isSet(object.EModePairsForProposal)
+        ? EModePairsForProposal.fromJSON(object.EModePairsForProposal)
+        : undefined,
+    };
+  },
+
+  toJSON(message: AddEModePairsProposal): unknown {
+    const obj: any = {};
+    message.title !== undefined && (obj.title = message.title);
+    message.description !== undefined &&
+      (obj.description = message.description);
+    message.EModePairsForProposal !== undefined &&
+      (obj.EModePairsForProposal = message.EModePairsForProposal
+        ? EModePairsForProposal.toJSON(message.EModePairsForProposal)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddEModePairsProposal>, I>>(
+    object: I
+  ): AddEModePairsProposal {
+    const message = createBaseAddEModePairsProposal();
+    message.title = object.title ?? "";
+    message.description = object.description ?? "";
+    message.EModePairsForProposal =
+      object.EModePairsForProposal !== undefined &&
+      object.EModePairsForProposal !== null
+        ? EModePairsForProposal.fromPartial(object.EModePairsForProposal)
         : undefined;
     return message;
   },

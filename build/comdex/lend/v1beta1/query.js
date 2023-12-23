@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QueryFundModBalByAssetPoolRequest = exports.QueryAllReserveStatsResponse = exports.QueryAllReserveStatsRequest = exports.QueryFundReserveBalResponse = exports.QueryFundReserveBalRequest = exports.QueryFundModBalResponse = exports.QueryFundModBalRequest = exports.QueryModuleBalanceResponse = exports.QueryModuleBalanceRequest = exports.QueryAuctionParamResponse = exports.QueryAuctionParamRequest = exports.QueryReserveBuybackAssetDataResponse = exports.QueryReserveBuybackAssetDataRequest = exports.QueryPoolAssetLBMappingResponse = exports.QueryPoolAssetLBMappingRequest = exports.QueryAllBorrowByOwnerAndPoolResponse = exports.QueryAllBorrowByOwnerAndPoolRequest = exports.QueryAllBorrowByOwnerResponse = exports.QueryAllBorrowByOwnerRequest = exports.QueryBorrowResponse = exports.QueryBorrowRequest = exports.QueryBorrowsResponse = exports.QueryBorrowsRequest = exports.QueryAssetToPairMappingResponse = exports.QueryAssetToPairMappingRequest = exports.QueryAssetToPairMappingsResponse = exports.QueryAssetToPairMappingsRequest = exports.QueryPoolResponse = exports.QueryPoolRequest = exports.QueryPoolsResponse = exports.QueryPoolsRequest = exports.QueryAssetRatesParamResponse = exports.QueryAssetRatesParamRequest = exports.QueryAssetRatesParamsResponse = exports.QueryAssetRatesParamsRequest = exports.QueryPairResponse = exports.QueryPairRequest = exports.QueryPairsResponse = exports.QueryPairsRequest = exports.QueryAllLendByOwnerAndPoolResponse = exports.QueryAllLendByOwnerAndPoolRequest = exports.QueryAllLendByOwnerResponse = exports.QueryAllLendByOwnerRequest = exports.QueryLendResponse = exports.QueryLendRequest = exports.QueryLendsResponse = exports.QueryLendsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
-exports.QueryClientImpl = exports.QueryBorrowInterestResponse = exports.QueryBorrowInterestRequest = exports.QueryLendInterestResponse = exports.QueryLendInterestRequest = exports.QueryFundModBalByAssetPoolResponse = void 0;
+exports.QueryClientImpl = exports.QueryAllBorrowByOwnerAndDebtPoolResponse = exports.QueryAllBorrowByOwnerAndDebtPoolRequest = exports.QueryBorrowInterestResponse = exports.QueryBorrowInterestRequest = exports.QueryLendInterestResponse = exports.QueryLendInterestRequest = exports.QueryFundModBalByAssetPoolResponse = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const _m0 = __importStar(require("protobufjs/minimal"));
@@ -2934,6 +2934,149 @@ exports.QueryBorrowInterestResponse = {
         return message;
     },
 };
+function createBaseQueryAllBorrowByOwnerAndDebtPoolRequest() {
+    return { owner: "", poolId: long_1.default.UZERO, pagination: undefined };
+}
+exports.QueryAllBorrowByOwnerAndDebtPoolRequest = {
+    encode(message, writer = _m0.Writer.create()) {
+        if (message.owner !== "") {
+            writer.uint32(10).string(message.owner);
+        }
+        if (!message.poolId.isZero()) {
+            writer.uint32(16).uint64(message.poolId);
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageRequest.encode(message.pagination, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllBorrowByOwnerAndDebtPoolRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.owner = reader.string();
+                    break;
+                case 2:
+                    message.poolId = reader.uint64();
+                    break;
+                case 3:
+                    message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            owner: isSet(object.owner) ? String(object.owner) : "",
+            poolId: isSet(object.poolId) ? long_1.default.fromValue(object.poolId) : long_1.default.UZERO,
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageRequest.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.owner !== undefined && (obj.owner = message.owner);
+        message.poolId !== undefined &&
+            (obj.poolId = (message.poolId || long_1.default.UZERO).toString());
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryAllBorrowByOwnerAndDebtPoolRequest();
+        message.owner = (_a = object.owner) !== null && _a !== void 0 ? _a : "";
+        message.poolId =
+            object.poolId !== undefined && object.poolId !== null
+                ? long_1.default.fromValue(object.poolId)
+                : long_1.default.UZERO;
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageRequest.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
+function createBaseQueryAllBorrowByOwnerAndDebtPoolResponse() {
+    return { borrows: [], pagination: undefined };
+}
+exports.QueryAllBorrowByOwnerAndDebtPoolResponse = {
+    encode(message, writer = _m0.Writer.create()) {
+        for (const v of message.borrows) {
+            lend_1.BorrowAsset.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            pagination_1.PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAllBorrowByOwnerAndDebtPoolResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.borrows.push(lend_1.BorrowAsset.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            borrows: Array.isArray(object === null || object === void 0 ? void 0 : object.borrows)
+                ? object.borrows.map((e) => lend_1.BorrowAsset.fromJSON(e))
+                : [],
+            pagination: isSet(object.pagination)
+                ? pagination_1.PageResponse.fromJSON(object.pagination)
+                : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.borrows) {
+            obj.borrows = message.borrows.map((e) => e ? lend_1.BorrowAsset.toJSON(e) : undefined);
+        }
+        else {
+            obj.borrows = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? pagination_1.PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryAllBorrowByOwnerAndDebtPoolResponse();
+        message.borrows =
+            ((_a = object.borrows) === null || _a === void 0 ? void 0 : _a.map((e) => lend_1.BorrowAsset.fromPartial(e))) || [];
+        message.pagination =
+            object.pagination !== undefined && object.pagination !== null
+                ? pagination_1.PageResponse.fromPartial(object.pagination)
+                : undefined;
+        return message;
+    },
+};
 class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -2968,6 +3111,8 @@ class QueryClientImpl {
             this.QueryFundModBalByAssetPool.bind(this);
         this.QueryLendInterest = this.QueryLendInterest.bind(this);
         this.QueryBorrowInterest = this.QueryBorrowInterest.bind(this);
+        this.QueryAllBorrowByOwnerAndDebtPool =
+            this.QueryAllBorrowByOwnerAndDebtPool.bind(this);
     }
     QueryLends(request) {
         const data = exports.QueryLendsRequest.encode(request).finish();
@@ -3103,6 +3248,11 @@ class QueryClientImpl {
         const data = exports.QueryBorrowInterestRequest.encode(request).finish();
         const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryBorrowInterest", data);
         return promise.then((data) => exports.QueryBorrowInterestResponse.decode(new _m0.Reader(data)));
+    }
+    QueryAllBorrowByOwnerAndDebtPool(request) {
+        const data = exports.QueryAllBorrowByOwnerAndDebtPoolRequest.encode(request).finish();
+        const promise = this.rpc.request("comdex.lend.v1beta1.Query", "QueryAllBorrowByOwnerAndDebtPool", data);
+        return promise.then((data) => exports.QueryAllBorrowByOwnerAndDebtPoolResponse.decode(new _m0.Reader(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;

@@ -4,6 +4,7 @@ import * as _m0 from "protobufjs/minimal";
 import {
   ModBal,
   ReserveBal,
+  PoolDepreciate,
   BorrowAsset,
   BorrowInterestTracker,
   LendAsset,
@@ -37,6 +38,7 @@ export interface GenesisState {
   modBal?: ModBal;
   reserveBal?: ReserveBal;
   allReserveStats: AllReserveStats[];
+  poolDepreciate?: PoolDepreciate;
 }
 
 function createBaseGenesisState(): GenesisState {
@@ -56,6 +58,7 @@ function createBaseGenesisState(): GenesisState {
     modBal: undefined,
     reserveBal: undefined,
     allReserveStats: [],
+    poolDepreciate: undefined,
   };
 }
 
@@ -108,6 +111,12 @@ export const GenesisState = {
     }
     for (const v of message.allReserveStats) {
       AllReserveStats.encode(v!, writer.uint32(122).fork()).ldelim();
+    }
+    if (message.poolDepreciate !== undefined) {
+      PoolDepreciate.encode(
+        message.poolDepreciate,
+        writer.uint32(130).fork()
+      ).ldelim();
     }
     return writer;
   },
@@ -184,6 +193,12 @@ export const GenesisState = {
             AllReserveStats.decode(reader, reader.uint32())
           );
           break;
+        case 16:
+          message.poolDepreciate = PoolDepreciate.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -251,6 +266,9 @@ export const GenesisState = {
       allReserveStats: Array.isArray(object?.allReserveStats)
         ? object.allReserveStats.map((e: any) => AllReserveStats.fromJSON(e))
         : [],
+      poolDepreciate: isSet(object.poolDepreciate)
+        ? PoolDepreciate.fromJSON(object.poolDepreciate)
+        : undefined,
     };
   },
 
@@ -351,6 +369,10 @@ export const GenesisState = {
     } else {
       obj.allReserveStats = [];
     }
+    message.poolDepreciate !== undefined &&
+      (obj.poolDepreciate = message.poolDepreciate
+        ? PoolDepreciate.toJSON(message.poolDepreciate)
+        : undefined);
     return obj;
   },
 
@@ -404,6 +426,10 @@ export const GenesisState = {
         : undefined;
     message.allReserveStats =
       object.allReserveStats?.map((e) => AllReserveStats.fromPartial(e)) || [];
+    message.poolDepreciate =
+      object.poolDepreciate !== undefined && object.poolDepreciate !== null
+        ? PoolDepreciate.fromPartial(object.poolDepreciate)
+        : undefined;
     return message;
   },
 };
