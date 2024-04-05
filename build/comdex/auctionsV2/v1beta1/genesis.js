@@ -1,27 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -29,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenesisState = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
-const _m0 = __importStar(require("protobufjs/minimal"));
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const bid_1 = require("../../../comdex/auctionsV2/v1beta1/bid");
 const params_1 = require("../../../comdex/auctionsV2/v1beta1/params");
 const auction_1 = require("../../../comdex/auctionsV2/v1beta1/auction");
@@ -45,7 +22,7 @@ function createBaseGenesisState() {
     };
 }
 exports.GenesisState = {
-    encode(message, writer = _m0.Writer.create()) {
+    encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.auction) {
             auction_1.Auction.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -67,7 +44,7 @@ exports.GenesisState = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseGenesisState();
         while (reader.pos < end) {
@@ -100,22 +77,14 @@ exports.GenesisState = {
     },
     fromJSON(object) {
         return {
-            auction: Array.isArray(object === null || object === void 0 ? void 0 : object.auction)
-                ? object.auction.map((e) => auction_1.Auction.fromJSON(e))
-                : [],
-            auctionParams: isSet(object.auctionParams)
-                ? bid_1.AuctionParams.fromJSON(object.auctionParams)
-                : undefined,
+            auction: Array.isArray(object === null || object === void 0 ? void 0 : object.auction) ? object.auction.map((e) => auction_1.Auction.fromJSON(e)) : [],
+            auctionParams: isSet(object.auctionParams) ? bid_1.AuctionParams.fromJSON(object.auctionParams) : undefined,
             auctionFeesCollectionFromLimitBidTx: Array.isArray(object === null || object === void 0 ? void 0 : object.auctionFeesCollectionFromLimitBidTx)
                 ? object.auctionFeesCollectionFromLimitBidTx.map((e) => bid_1.AuctionFeesCollectionFromLimitBidTx.fromJSON(e))
                 : [],
             params: isSet(object.params) ? params_1.Params.fromJSON(object.params) : undefined,
-            AuctionId: isSet(object.AuctionId)
-                ? long_1.default.fromValue(object.AuctionId)
-                : long_1.default.UZERO,
-            UserBiddingID: isSet(object.UserBiddingID)
-                ? long_1.default.fromValue(object.UserBiddingID)
-                : long_1.default.UZERO,
+            AuctionId: isSet(object.AuctionId) ? long_1.default.fromValue(object.AuctionId) : long_1.default.UZERO,
+            UserBiddingID: isSet(object.UserBiddingID) ? long_1.default.fromValue(object.UserBiddingID) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -127,52 +96,45 @@ exports.GenesisState = {
             obj.auction = [];
         }
         message.auctionParams !== undefined &&
-            (obj.auctionParams = message.auctionParams
-                ? bid_1.AuctionParams.toJSON(message.auctionParams)
-                : undefined);
+            (obj.auctionParams = message.auctionParams ? bid_1.AuctionParams.toJSON(message.auctionParams) : undefined);
         if (message.auctionFeesCollectionFromLimitBidTx) {
-            obj.auctionFeesCollectionFromLimitBidTx =
-                message.auctionFeesCollectionFromLimitBidTx.map((e) => e ? bid_1.AuctionFeesCollectionFromLimitBidTx.toJSON(e) : undefined);
+            obj.auctionFeesCollectionFromLimitBidTx = message.auctionFeesCollectionFromLimitBidTx.map((e) => e ? bid_1.AuctionFeesCollectionFromLimitBidTx.toJSON(e) : undefined);
         }
         else {
             obj.auctionFeesCollectionFromLimitBidTx = [];
         }
-        message.params !== undefined &&
-            (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
-        message.AuctionId !== undefined &&
-            (obj.AuctionId = (message.AuctionId || long_1.default.UZERO).toString());
-        message.UserBiddingID !== undefined &&
-            (obj.UserBiddingID = (message.UserBiddingID || long_1.default.UZERO).toString());
+        message.params !== undefined && (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
+        message.AuctionId !== undefined && (obj.AuctionId = (message.AuctionId || long_1.default.UZERO).toString());
+        message.UserBiddingID !== undefined && (obj.UserBiddingID = (message.UserBiddingID || long_1.default.UZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.GenesisState.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
         const message = createBaseGenesisState();
         message.auction = ((_a = object.auction) === null || _a === void 0 ? void 0 : _a.map((e) => auction_1.Auction.fromPartial(e))) || [];
-        message.auctionParams =
-            object.auctionParams !== undefined && object.auctionParams !== null
-                ? bid_1.AuctionParams.fromPartial(object.auctionParams)
-                : undefined;
+        message.auctionParams = (object.auctionParams !== undefined && object.auctionParams !== null)
+            ? bid_1.AuctionParams.fromPartial(object.auctionParams)
+            : undefined;
         message.auctionFeesCollectionFromLimitBidTx =
             ((_b = object.auctionFeesCollectionFromLimitBidTx) === null || _b === void 0 ? void 0 : _b.map((e) => bid_1.AuctionFeesCollectionFromLimitBidTx.fromPartial(e))) || [];
-        message.params =
-            object.params !== undefined && object.params !== null
-                ? params_1.Params.fromPartial(object.params)
-                : undefined;
-        message.AuctionId =
-            object.AuctionId !== undefined && object.AuctionId !== null
-                ? long_1.default.fromValue(object.AuctionId)
-                : long_1.default.UZERO;
-        message.UserBiddingID =
-            object.UserBiddingID !== undefined && object.UserBiddingID !== null
-                ? long_1.default.fromValue(object.UserBiddingID)
-                : long_1.default.UZERO;
+        message.params = (object.params !== undefined && object.params !== null)
+            ? params_1.Params.fromPartial(object.params)
+            : undefined;
+        message.AuctionId = (object.AuctionId !== undefined && object.AuctionId !== null)
+            ? long_1.default.fromValue(object.AuctionId)
+            : long_1.default.UZERO;
+        message.UserBiddingID = (object.UserBiddingID !== undefined && object.UserBiddingID !== null)
+            ? long_1.default.fromValue(object.UserBiddingID)
+            : long_1.default.UZERO;
         return message;
     },
 };
-if (_m0.util.Long !== long_1.default) {
-    _m0.util.Long = long_1.default;
-    _m0.configure();
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
 }
 function isSet(value) {
     return value !== null && value !== undefined;
