@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { LiquidationWhiteListing } from "../../../comdex/liquidationsV2/v1beta1/liquidate";
+import _m0 from "protobufjs/minimal";
+import { LiquidationWhiteListing } from "./liquidate";
 
 export const protobufPackage = "comdex.liquidationsV2.v1beta1";
 
@@ -16,10 +16,7 @@ function createBaseWhitelistLiquidationProposal(): WhitelistLiquidationProposal 
 }
 
 export const WhitelistLiquidationProposal = {
-  encode(
-    message: WhitelistLiquidationProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: WhitelistLiquidationProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -27,18 +24,12 @@ export const WhitelistLiquidationProposal = {
       writer.uint32(18).string(message.description);
     }
     if (message.whitelisting !== undefined) {
-      LiquidationWhiteListing.encode(
-        message.whitelisting,
-        writer.uint32(26).fork()
-      ).ldelim();
+      LiquidationWhiteListing.encode(message.whitelisting, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): WhitelistLiquidationProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): WhitelistLiquidationProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWhitelistLiquidationProposal();
@@ -52,10 +43,7 @@ export const WhitelistLiquidationProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.whitelisting = LiquidationWhiteListing.decode(
-            reader,
-            reader.uint32()
-          );
+          message.whitelisting = LiquidationWhiteListing.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -69,66 +57,45 @@ export const WhitelistLiquidationProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      whitelisting: isSet(object.whitelisting)
-        ? LiquidationWhiteListing.fromJSON(object.whitelisting)
-        : undefined,
+      whitelisting: isSet(object.whitelisting) ? LiquidationWhiteListing.fromJSON(object.whitelisting) : undefined,
     };
   },
 
   toJSON(message: WhitelistLiquidationProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     message.whitelisting !== undefined &&
-      (obj.whitelisting = message.whitelisting
-        ? LiquidationWhiteListing.toJSON(message.whitelisting)
-        : undefined);
+      (obj.whitelisting = message.whitelisting ? LiquidationWhiteListing.toJSON(message.whitelisting) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<WhitelistLiquidationProposal>, I>>(
-    object: I
-  ): WhitelistLiquidationProposal {
+  create<I extends Exact<DeepPartial<WhitelistLiquidationProposal>, I>>(base?: I): WhitelistLiquidationProposal {
+    return WhitelistLiquidationProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<WhitelistLiquidationProposal>, I>>(object: I): WhitelistLiquidationProposal {
     const message = createBaseWhitelistLiquidationProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.whitelisting =
-      object.whitelisting !== undefined && object.whitelisting !== null
-        ? LiquidationWhiteListing.fromPartial(object.whitelisting)
-        : undefined;
+    message.whitelisting = (object.whitelisting !== undefined && object.whitelisting !== null)
+      ? LiquidationWhiteListing.fromPartial(object.whitelisting)
+      : undefined;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

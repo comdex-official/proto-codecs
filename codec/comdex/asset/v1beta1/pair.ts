@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -74,59 +74,42 @@ export const Pair = {
   fromJSON(object: any): Pair {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      assetIn: isSet(object.assetIn)
-        ? Long.fromValue(object.assetIn)
-        : Long.UZERO,
-      assetOut: isSet(object.assetOut)
-        ? Long.fromValue(object.assetOut)
-        : Long.UZERO,
+      assetIn: isSet(object.assetIn) ? Long.fromValue(object.assetIn) : Long.UZERO,
+      assetOut: isSet(object.assetOut) ? Long.fromValue(object.assetOut) : Long.UZERO,
     };
   },
 
   toJSON(message: Pair): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.assetIn !== undefined &&
-      (obj.assetIn = (message.assetIn || Long.UZERO).toString());
-    message.assetOut !== undefined &&
-      (obj.assetOut = (message.assetOut || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.assetIn !== undefined && (obj.assetIn = (message.assetIn || Long.UZERO).toString());
+    message.assetOut !== undefined && (obj.assetOut = (message.assetOut || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Pair>, I>>(base?: I): Pair {
+    return Pair.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Pair>, I>>(object: I): Pair {
     const message = createBasePair();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
-    message.assetIn =
-      object.assetIn !== undefined && object.assetIn !== null
-        ? Long.fromValue(object.assetIn)
-        : Long.UZERO;
-    message.assetOut =
-      object.assetOut !== undefined && object.assetOut !== null
-        ? Long.fromValue(object.assetOut)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
+    message.assetIn = (object.assetIn !== undefined && object.assetIn !== null)
+      ? Long.fromValue(object.assetIn)
+      : Long.UZERO;
+    message.assetOut = (object.assetOut !== undefined && object.assetOut !== null)
+      ? Long.fromValue(object.assetOut)
+      : Long.UZERO;
     return message;
   },
 };
 
 function createBasePairInfo(): PairInfo {
-  return {
-    id: Long.UZERO,
-    assetIn: Long.UZERO,
-    denomIn: "",
-    assetOut: Long.UZERO,
-    denomOut: "",
-  };
+  return { id: Long.UZERO, assetIn: Long.UZERO, denomIn: "", assetOut: Long.UZERO, denomOut: "" };
 }
 
 export const PairInfo = {
-  encode(
-    message: PairInfo,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: PairInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -178,45 +161,37 @@ export const PairInfo = {
   fromJSON(object: any): PairInfo {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      assetIn: isSet(object.assetIn)
-        ? Long.fromValue(object.assetIn)
-        : Long.UZERO,
+      assetIn: isSet(object.assetIn) ? Long.fromValue(object.assetIn) : Long.UZERO,
       denomIn: isSet(object.denomIn) ? String(object.denomIn) : "",
-      assetOut: isSet(object.assetOut)
-        ? Long.fromValue(object.assetOut)
-        : Long.UZERO,
+      assetOut: isSet(object.assetOut) ? Long.fromValue(object.assetOut) : Long.UZERO,
       denomOut: isSet(object.denomOut) ? String(object.denomOut) : "",
     };
   },
 
   toJSON(message: PairInfo): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.assetIn !== undefined &&
-      (obj.assetIn = (message.assetIn || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.assetIn !== undefined && (obj.assetIn = (message.assetIn || Long.UZERO).toString());
     message.denomIn !== undefined && (obj.denomIn = message.denomIn);
-    message.assetOut !== undefined &&
-      (obj.assetOut = (message.assetOut || Long.UZERO).toString());
+    message.assetOut !== undefined && (obj.assetOut = (message.assetOut || Long.UZERO).toString());
     message.denomOut !== undefined && (obj.denomOut = message.denomOut);
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<PairInfo>, I>>(base?: I): PairInfo {
+    return PairInfo.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<PairInfo>, I>>(object: I): PairInfo {
     const message = createBasePairInfo();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
-    message.assetIn =
-      object.assetIn !== undefined && object.assetIn !== null
-        ? Long.fromValue(object.assetIn)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
+    message.assetIn = (object.assetIn !== undefined && object.assetIn !== null)
+      ? Long.fromValue(object.assetIn)
+      : Long.UZERO;
     message.denomIn = object.denomIn ?? "";
-    message.assetOut =
-      object.assetOut !== undefined && object.assetOut !== null
-        ? Long.fromValue(object.assetOut)
-        : Long.UZERO;
+    message.assetOut = (object.assetOut !== undefined && object.assetOut !== null)
+      ? Long.fromValue(object.assetOut)
+      : Long.UZERO;
     message.denomOut = object.denomOut ?? "";
     return message;
   },
@@ -236,10 +211,7 @@ function createBaseAssetPair(): AssetPair {
 }
 
 export const AssetPair = {
-  encode(
-    message: AssetPair,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AssetPair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -313,85 +285,56 @@ export const AssetPair = {
       denom: isSet(object.denom) ? String(object.denom) : "",
       decimals: isSet(object.decimals) ? String(object.decimals) : "",
       isOnChain: isSet(object.isOnChain) ? Boolean(object.isOnChain) : false,
-      isOraclePriceRequired: isSet(object.isOraclePriceRequired)
-        ? Boolean(object.isOraclePriceRequired)
-        : false,
-      isCdpMintable: isSet(object.isCdpMintable)
-        ? Boolean(object.isCdpMintable)
-        : false,
-      assetOut: isSet(object.assetOut)
-        ? Long.fromValue(object.assetOut)
-        : Long.UZERO,
+      isOraclePriceRequired: isSet(object.isOraclePriceRequired) ? Boolean(object.isOraclePriceRequired) : false,
+      isCdpMintable: isSet(object.isCdpMintable) ? Boolean(object.isCdpMintable) : false,
+      assetOut: isSet(object.assetOut) ? Long.fromValue(object.assetOut) : Long.UZERO,
     };
   },
 
   toJSON(message: AssetPair): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
     message.name !== undefined && (obj.name = message.name);
     message.denom !== undefined && (obj.denom = message.denom);
     message.decimals !== undefined && (obj.decimals = message.decimals);
     message.isOnChain !== undefined && (obj.isOnChain = message.isOnChain);
-    message.isOraclePriceRequired !== undefined &&
-      (obj.isOraclePriceRequired = message.isOraclePriceRequired);
-    message.isCdpMintable !== undefined &&
-      (obj.isCdpMintable = message.isCdpMintable);
-    message.assetOut !== undefined &&
-      (obj.assetOut = (message.assetOut || Long.UZERO).toString());
+    message.isOraclePriceRequired !== undefined && (obj.isOraclePriceRequired = message.isOraclePriceRequired);
+    message.isCdpMintable !== undefined && (obj.isCdpMintable = message.isCdpMintable);
+    message.assetOut !== undefined && (obj.assetOut = (message.assetOut || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AssetPair>, I>>(
-    object: I
-  ): AssetPair {
+  create<I extends Exact<DeepPartial<AssetPair>, I>>(base?: I): AssetPair {
+    return AssetPair.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AssetPair>, I>>(object: I): AssetPair {
     const message = createBaseAssetPair();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
     message.name = object.name ?? "";
     message.denom = object.denom ?? "";
     message.decimals = object.decimals ?? "";
     message.isOnChain = object.isOnChain ?? false;
     message.isOraclePriceRequired = object.isOraclePriceRequired ?? false;
     message.isCdpMintable = object.isCdpMintable ?? false;
-    message.assetOut =
-      object.assetOut !== undefined && object.assetOut !== null
-        ? Long.fromValue(object.assetOut)
-        : Long.UZERO;
+    message.assetOut = (object.assetOut !== undefined && object.assetOut !== null)
+      ? Long.fromValue(object.assetOut)
+      : Long.UZERO;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

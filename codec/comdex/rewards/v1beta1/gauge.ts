@@ -1,8 +1,8 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Duration } from "../../../google/protobuf/duration";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Duration } from "../../../google/protobuf/duration";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.rewards.v1beta1";
@@ -40,10 +40,7 @@ function createBaseLiquidtyGaugeMetaData(): LiquidtyGaugeMetaData {
 }
 
 export const LiquidtyGaugeMetaData = {
-  encode(
-    message: LiquidtyGaugeMetaData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: LiquidtyGaugeMetaData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.poolId.isZero()) {
       writer.uint32(8).uint64(message.poolId);
     }
@@ -58,10 +55,7 @@ export const LiquidtyGaugeMetaData = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): LiquidtyGaugeMetaData {
+  decode(input: _m0.Reader | Uint8Array, length?: number): LiquidtyGaugeMetaData {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLiquidtyGaugeMetaData();
@@ -95,42 +89,34 @@ export const LiquidtyGaugeMetaData = {
   fromJSON(object: any): LiquidtyGaugeMetaData {
     return {
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      isMasterPool: isSet(object.isMasterPool)
-        ? Boolean(object.isMasterPool)
-        : false,
-      childPoolIds: Array.isArray(object?.childPoolIds)
-        ? object.childPoolIds.map((e: any) => Long.fromValue(e))
-        : [],
+      isMasterPool: isSet(object.isMasterPool) ? Boolean(object.isMasterPool) : false,
+      childPoolIds: Array.isArray(object?.childPoolIds) ? object.childPoolIds.map((e: any) => Long.fromValue(e)) : [],
     };
   },
 
   toJSON(message: LiquidtyGaugeMetaData): unknown {
     const obj: any = {};
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.isMasterPool !== undefined &&
-      (obj.isMasterPool = message.isMasterPool);
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.isMasterPool !== undefined && (obj.isMasterPool = message.isMasterPool);
     if (message.childPoolIds) {
-      obj.childPoolIds = message.childPoolIds.map((e) =>
-        (e || Long.UZERO).toString()
-      );
+      obj.childPoolIds = message.childPoolIds.map((e) => (e || Long.UZERO).toString());
     } else {
       obj.childPoolIds = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LiquidtyGaugeMetaData>, I>>(
-    object: I
-  ): LiquidtyGaugeMetaData {
+  create<I extends Exact<DeepPartial<LiquidtyGaugeMetaData>, I>>(base?: I): LiquidtyGaugeMetaData {
+    return LiquidtyGaugeMetaData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LiquidtyGaugeMetaData>, I>>(object: I): LiquidtyGaugeMetaData {
     const message = createBaseLiquidtyGaugeMetaData();
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
     message.isMasterPool = object.isMasterPool ?? false;
-    message.childPoolIds =
-      object.childPoolIds?.map((e) => Long.fromValue(e)) || [];
+    message.childPoolIds = object.childPoolIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };
@@ -163,25 +149,16 @@ export const Gauge = {
       writer.uint32(18).string(message.from);
     }
     if (message.createdAt !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.createdAt),
-        writer.uint32(26).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.createdAt), writer.uint32(26).fork()).ldelim();
     }
     if (message.startTime !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.startTime),
-        writer.uint32(34).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.startTime), writer.uint32(34).fork()).ldelim();
     }
     if (!message.gaugeTypeId.isZero()) {
       writer.uint32(40).uint64(message.gaugeTypeId);
     }
     if (message.triggerDuration !== undefined) {
-      Duration.encode(
-        message.triggerDuration,
-        writer.uint32(50).fork()
-      ).ldelim();
+      Duration.encode(message.triggerDuration, writer.uint32(50).fork()).ldelim();
     }
     if (message.depositAmount !== undefined) {
       Coin.encode(message.depositAmount, writer.uint32(58).fork()).ldelim();
@@ -202,10 +179,7 @@ export const Gauge = {
       writer.uint32(96).bool(message.forSwapFee);
     }
     if (message.liquidityMetaData !== undefined) {
-      LiquidtyGaugeMetaData.encode(
-        message.liquidityMetaData,
-        writer.uint32(106).fork()
-      ).ldelim();
+      LiquidtyGaugeMetaData.encode(message.liquidityMetaData, writer.uint32(106).fork()).ldelim();
     }
     if (!message.appId.isZero()) {
       writer.uint32(112).uint64(message.appId);
@@ -227,14 +201,10 @@ export const Gauge = {
           message.from = reader.string();
           break;
         case 3:
-          message.createdAt = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.createdAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 4:
-          message.startTime = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.startTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 5:
           message.gaugeTypeId = reader.uint64() as Long;
@@ -261,10 +231,7 @@ export const Gauge = {
           message.forSwapFee = reader.bool();
           break;
         case 13:
-          message.liquidityMetaData = LiquidtyGaugeMetaData.decode(
-            reader,
-            reader.uint32()
-          );
+          message.liquidityMetaData = LiquidtyGaugeMetaData.decode(reader, reader.uint32());
           break;
         case 14:
           message.appId = reader.uint64() as Long;
@@ -281,30 +248,14 @@ export const Gauge = {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
-      createdAt: isSet(object.createdAt)
-        ? fromJsonTimestamp(object.createdAt)
-        : undefined,
-      startTime: isSet(object.startTime)
-        ? fromJsonTimestamp(object.startTime)
-        : undefined,
-      gaugeTypeId: isSet(object.gaugeTypeId)
-        ? Long.fromValue(object.gaugeTypeId)
-        : Long.UZERO,
-      triggerDuration: isSet(object.triggerDuration)
-        ? Duration.fromJSON(object.triggerDuration)
-        : undefined,
-      depositAmount: isSet(object.depositAmount)
-        ? Coin.fromJSON(object.depositAmount)
-        : undefined,
-      totalTriggers: isSet(object.totalTriggers)
-        ? Long.fromValue(object.totalTriggers)
-        : Long.UZERO,
-      triggeredCount: isSet(object.triggeredCount)
-        ? Long.fromValue(object.triggeredCount)
-        : Long.UZERO,
-      distributedAmount: isSet(object.distributedAmount)
-        ? Coin.fromJSON(object.distributedAmount)
-        : undefined,
+      createdAt: isSet(object.createdAt) ? fromJsonTimestamp(object.createdAt) : undefined,
+      startTime: isSet(object.startTime) ? fromJsonTimestamp(object.startTime) : undefined,
+      gaugeTypeId: isSet(object.gaugeTypeId) ? Long.fromValue(object.gaugeTypeId) : Long.UZERO,
+      triggerDuration: isSet(object.triggerDuration) ? Duration.fromJSON(object.triggerDuration) : undefined,
+      depositAmount: isSet(object.depositAmount) ? Coin.fromJSON(object.depositAmount) : undefined,
+      totalTriggers: isSet(object.totalTriggers) ? Long.fromValue(object.totalTriggers) : Long.UZERO,
+      triggeredCount: isSet(object.triggeredCount) ? Long.fromValue(object.triggeredCount) : Long.UZERO,
+      distributedAmount: isSet(object.distributedAmount) ? Coin.fromJSON(object.distributedAmount) : undefined,
       isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
       forSwapFee: isSet(object.forSwapFee) ? Boolean(object.forSwapFee) : false,
       liquidityMetaData: isSet(object.liquidityMetaData)
@@ -316,87 +267,62 @@ export const Gauge = {
 
   toJSON(message: Gauge): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
     message.from !== undefined && (obj.from = message.from);
-    message.createdAt !== undefined &&
-      (obj.createdAt = message.createdAt.toISOString());
-    message.startTime !== undefined &&
-      (obj.startTime = message.startTime.toISOString());
-    message.gaugeTypeId !== undefined &&
-      (obj.gaugeTypeId = (message.gaugeTypeId || Long.UZERO).toString());
+    message.createdAt !== undefined && (obj.createdAt = message.createdAt.toISOString());
+    message.startTime !== undefined && (obj.startTime = message.startTime.toISOString());
+    message.gaugeTypeId !== undefined && (obj.gaugeTypeId = (message.gaugeTypeId || Long.UZERO).toString());
     message.triggerDuration !== undefined &&
-      (obj.triggerDuration = message.triggerDuration
-        ? Duration.toJSON(message.triggerDuration)
-        : undefined);
+      (obj.triggerDuration = message.triggerDuration ? Duration.toJSON(message.triggerDuration) : undefined);
     message.depositAmount !== undefined &&
-      (obj.depositAmount = message.depositAmount
-        ? Coin.toJSON(message.depositAmount)
-        : undefined);
-    message.totalTriggers !== undefined &&
-      (obj.totalTriggers = (message.totalTriggers || Long.UZERO).toString());
-    message.triggeredCount !== undefined &&
-      (obj.triggeredCount = (message.triggeredCount || Long.UZERO).toString());
+      (obj.depositAmount = message.depositAmount ? Coin.toJSON(message.depositAmount) : undefined);
+    message.totalTriggers !== undefined && (obj.totalTriggers = (message.totalTriggers || Long.UZERO).toString());
+    message.triggeredCount !== undefined && (obj.triggeredCount = (message.triggeredCount || Long.UZERO).toString());
     message.distributedAmount !== undefined &&
-      (obj.distributedAmount = message.distributedAmount
-        ? Coin.toJSON(message.distributedAmount)
-        : undefined);
+      (obj.distributedAmount = message.distributedAmount ? Coin.toJSON(message.distributedAmount) : undefined);
     message.isActive !== undefined && (obj.isActive = message.isActive);
     message.forSwapFee !== undefined && (obj.forSwapFee = message.forSwapFee);
-    message.liquidityMetaData !== undefined &&
-      (obj.liquidityMetaData = message.liquidityMetaData
-        ? LiquidtyGaugeMetaData.toJSON(message.liquidityMetaData)
-        : undefined);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.liquidityMetaData !== undefined && (obj.liquidityMetaData = message.liquidityMetaData
+      ? LiquidtyGaugeMetaData.toJSON(message.liquidityMetaData)
+      : undefined);
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Gauge>, I>>(base?: I): Gauge {
+    return Gauge.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Gauge>, I>>(object: I): Gauge {
     const message = createBaseGauge();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
     message.from = object.from ?? "";
     message.createdAt = object.createdAt ?? undefined;
     message.startTime = object.startTime ?? undefined;
-    message.gaugeTypeId =
-      object.gaugeTypeId !== undefined && object.gaugeTypeId !== null
-        ? Long.fromValue(object.gaugeTypeId)
-        : Long.UZERO;
-    message.triggerDuration =
-      object.triggerDuration !== undefined && object.triggerDuration !== null
-        ? Duration.fromPartial(object.triggerDuration)
-        : undefined;
-    message.depositAmount =
-      object.depositAmount !== undefined && object.depositAmount !== null
-        ? Coin.fromPartial(object.depositAmount)
-        : undefined;
-    message.totalTriggers =
-      object.totalTriggers !== undefined && object.totalTriggers !== null
-        ? Long.fromValue(object.totalTriggers)
-        : Long.UZERO;
-    message.triggeredCount =
-      object.triggeredCount !== undefined && object.triggeredCount !== null
-        ? Long.fromValue(object.triggeredCount)
-        : Long.UZERO;
-    message.distributedAmount =
-      object.distributedAmount !== undefined &&
-      object.distributedAmount !== null
-        ? Coin.fromPartial(object.distributedAmount)
-        : undefined;
+    message.gaugeTypeId = (object.gaugeTypeId !== undefined && object.gaugeTypeId !== null)
+      ? Long.fromValue(object.gaugeTypeId)
+      : Long.UZERO;
+    message.triggerDuration = (object.triggerDuration !== undefined && object.triggerDuration !== null)
+      ? Duration.fromPartial(object.triggerDuration)
+      : undefined;
+    message.depositAmount = (object.depositAmount !== undefined && object.depositAmount !== null)
+      ? Coin.fromPartial(object.depositAmount)
+      : undefined;
+    message.totalTriggers = (object.totalTriggers !== undefined && object.totalTriggers !== null)
+      ? Long.fromValue(object.totalTriggers)
+      : Long.UZERO;
+    message.triggeredCount = (object.triggeredCount !== undefined && object.triggeredCount !== null)
+      ? Long.fromValue(object.triggeredCount)
+      : Long.UZERO;
+    message.distributedAmount = (object.distributedAmount !== undefined && object.distributedAmount !== null)
+      ? Coin.fromPartial(object.distributedAmount)
+      : undefined;
     message.isActive = object.isActive ?? false;
     message.forSwapFee = object.forSwapFee ?? false;
-    message.liquidityMetaData =
-      object.liquidityMetaData !== undefined &&
-      object.liquidityMetaData !== null
-        ? LiquidtyGaugeMetaData.fromPartial(object.liquidityMetaData)
-        : undefined;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.liquidityMetaData = (object.liquidityMetaData !== undefined && object.liquidityMetaData !== null)
+      ? LiquidtyGaugeMetaData.fromPartial(object.liquidityMetaData)
+      : undefined;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
@@ -406,15 +332,9 @@ function createBaseGaugeByTriggerDuration(): GaugeByTriggerDuration {
 }
 
 export const GaugeByTriggerDuration = {
-  encode(
-    message: GaugeByTriggerDuration,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GaugeByTriggerDuration, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.triggerDuration !== undefined) {
-      Duration.encode(
-        message.triggerDuration,
-        writer.uint32(10).fork()
-      ).ldelim();
+      Duration.encode(message.triggerDuration, writer.uint32(10).fork()).ldelim();
     }
     writer.uint32(18).fork();
     for (const v of message.gaugeIds) {
@@ -424,10 +344,7 @@ export const GaugeByTriggerDuration = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): GaugeByTriggerDuration {
+  decode(input: _m0.Reader | Uint8Array, length?: number): GaugeByTriggerDuration {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGaugeByTriggerDuration();
@@ -457,21 +374,15 @@ export const GaugeByTriggerDuration = {
 
   fromJSON(object: any): GaugeByTriggerDuration {
     return {
-      triggerDuration: isSet(object.triggerDuration)
-        ? Duration.fromJSON(object.triggerDuration)
-        : undefined,
-      gaugeIds: Array.isArray(object?.gaugeIds)
-        ? object.gaugeIds.map((e: any) => Long.fromValue(e))
-        : [],
+      triggerDuration: isSet(object.triggerDuration) ? Duration.fromJSON(object.triggerDuration) : undefined,
+      gaugeIds: Array.isArray(object?.gaugeIds) ? object.gaugeIds.map((e: any) => Long.fromValue(e)) : [],
     };
   },
 
   toJSON(message: GaugeByTriggerDuration): unknown {
     const obj: any = {};
     message.triggerDuration !== undefined &&
-      (obj.triggerDuration = message.triggerDuration
-        ? Duration.toJSON(message.triggerDuration)
-        : undefined);
+      (obj.triggerDuration = message.triggerDuration ? Duration.toJSON(message.triggerDuration) : undefined);
     if (message.gaugeIds) {
       obj.gaugeIds = message.gaugeIds.map((e) => (e || Long.UZERO).toString());
     } else {
@@ -480,47 +391,31 @@ export const GaugeByTriggerDuration = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GaugeByTriggerDuration>, I>>(
-    object: I
-  ): GaugeByTriggerDuration {
+  create<I extends Exact<DeepPartial<GaugeByTriggerDuration>, I>>(base?: I): GaugeByTriggerDuration {
+    return GaugeByTriggerDuration.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GaugeByTriggerDuration>, I>>(object: I): GaugeByTriggerDuration {
     const message = createBaseGaugeByTriggerDuration();
-    message.triggerDuration =
-      object.triggerDuration !== undefined && object.triggerDuration !== null
-        ? Duration.fromPartial(object.triggerDuration)
-        : undefined;
+    message.triggerDuration = (object.triggerDuration !== undefined && object.triggerDuration !== null)
+      ? Duration.fromPartial(object.triggerDuration)
+      : undefined;
     message.gaugeIds = object.gaugeIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

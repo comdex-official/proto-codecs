@@ -1,9 +1,8 @@
 #!/bin/bash
-
 COMDEX_PROTO_DIR="/comdex/proto"
 INPUT_DIR="$COMDEX_PROTO_DIR/comdex"
 OUTPUT_DIR="codec"
-PROTO_DIR="$(pwd)"  # This assumes the script is run from the project root
+PROTO_DIR="$(pwd)" 
 
 mkdir -p "$OUTPUT_DIR"
 

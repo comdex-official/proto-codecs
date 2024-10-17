@@ -1,12 +1,9 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import {
-  AuctionParams,
-  AuctionFeesCollectionFromLimitBidTx,
-} from "../../../comdex/auctionsV2/v1beta1/bid";
-import { Params } from "../../../comdex/auctionsV2/v1beta1/params";
-import { Auction } from "../../../comdex/auctionsV2/v1beta1/auction";
+import { Auction } from "./auction";
+import { AuctionFeesCollectionFromLimitBidTx, AuctionParams } from "./bid";
+import { Params } from "./params";
 
 export const protobufPackage = "comdex.auctionsV2.v1beta1";
 

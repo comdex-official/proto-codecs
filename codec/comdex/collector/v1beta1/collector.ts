@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.collector.v1beta1";
@@ -64,10 +64,7 @@ function createBaseCollectorData(): CollectorData {
 }
 
 export const CollectorData = {
-  encode(
-    message: CollectorData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: CollectorData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.collectedStabilityFee !== "") {
       writer.uint32(10).string(message.collectedStabilityFee);
     }
@@ -112,15 +109,9 @@ export const CollectorData = {
 
   fromJSON(object: any): CollectorData {
     return {
-      collectedStabilityFee: isSet(object.collectedStabilityFee)
-        ? String(object.collectedStabilityFee)
-        : "",
-      collectedClosingFee: isSet(object.collectedClosingFee)
-        ? String(object.collectedClosingFee)
-        : "",
-      collectedOpeningFee: isSet(object.collectedOpeningFee)
-        ? String(object.collectedOpeningFee)
-        : "",
+      collectedStabilityFee: isSet(object.collectedStabilityFee) ? String(object.collectedStabilityFee) : "",
+      collectedClosingFee: isSet(object.collectedClosingFee) ? String(object.collectedClosingFee) : "",
+      collectedOpeningFee: isSet(object.collectedOpeningFee) ? String(object.collectedOpeningFee) : "",
       liquidationRewardsCollected: isSet(object.liquidationRewardsCollected)
         ? String(object.liquidationRewardsCollected)
         : "",
@@ -129,26 +120,24 @@ export const CollectorData = {
 
   toJSON(message: CollectorData): unknown {
     const obj: any = {};
-    message.collectedStabilityFee !== undefined &&
-      (obj.collectedStabilityFee = message.collectedStabilityFee);
-    message.collectedClosingFee !== undefined &&
-      (obj.collectedClosingFee = message.collectedClosingFee);
-    message.collectedOpeningFee !== undefined &&
-      (obj.collectedOpeningFee = message.collectedOpeningFee);
+    message.collectedStabilityFee !== undefined && (obj.collectedStabilityFee = message.collectedStabilityFee);
+    message.collectedClosingFee !== undefined && (obj.collectedClosingFee = message.collectedClosingFee);
+    message.collectedOpeningFee !== undefined && (obj.collectedOpeningFee = message.collectedOpeningFee);
     message.liquidationRewardsCollected !== undefined &&
       (obj.liquidationRewardsCollected = message.liquidationRewardsCollected);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CollectorData>, I>>(
-    object: I
-  ): CollectorData {
+  create<I extends Exact<DeepPartial<CollectorData>, I>>(base?: I): CollectorData {
+    return CollectorData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<CollectorData>, I>>(object: I): CollectorData {
     const message = createBaseCollectorData();
     message.collectedStabilityFee = object.collectedStabilityFee ?? "";
     message.collectedClosingFee = object.collectedClosingFee ?? "";
     message.collectedOpeningFee = object.collectedOpeningFee ?? "";
-    message.liquidationRewardsCollected =
-      object.liquidationRewardsCollected ?? "";
+    message.liquidationRewardsCollected = object.liquidationRewardsCollected ?? "";
     return message;
   },
 };
@@ -158,10 +147,7 @@ function createBaseAppAssetIdToFeeCollectedData(): AppAssetIdToFeeCollectedData 
 }
 
 export const AppAssetIdToFeeCollectedData = {
-  encode(
-    message: AppAssetIdToFeeCollectedData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AppAssetIdToFeeCollectedData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -174,10 +160,7 @@ export const AppAssetIdToFeeCollectedData = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AppAssetIdToFeeCollectedData {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AppAssetIdToFeeCollectedData {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAppAssetIdToFeeCollectedData();
@@ -204,38 +187,29 @@ export const AppAssetIdToFeeCollectedData = {
   fromJSON(object: any): AppAssetIdToFeeCollectedData {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-      netFeesCollected: isSet(object.netFeesCollected)
-        ? String(object.netFeesCollected)
-        : "",
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
+      netFeesCollected: isSet(object.netFeesCollected) ? String(object.netFeesCollected) : "",
     };
   },
 
   toJSON(message: AppAssetIdToFeeCollectedData): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.netFeesCollected !== undefined &&
-      (obj.netFeesCollected = message.netFeesCollected);
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.netFeesCollected !== undefined && (obj.netFeesCollected = message.netFeesCollected);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AppAssetIdToFeeCollectedData>, I>>(
-    object: I
-  ): AppAssetIdToFeeCollectedData {
+  create<I extends Exact<DeepPartial<AppAssetIdToFeeCollectedData>, I>>(base?: I): AppAssetIdToFeeCollectedData {
+    return AppAssetIdToFeeCollectedData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AppAssetIdToFeeCollectedData>, I>>(object: I): AppAssetIdToFeeCollectedData {
     const message = createBaseAppAssetIdToFeeCollectedData();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     message.netFeesCollected = object.netFeesCollected ?? "";
     return message;
   },
@@ -246,10 +220,7 @@ function createBaseAppToAssetIdCollectorMapping(): AppToAssetIdCollectorMapping 
 }
 
 export const AppToAssetIdCollectorMapping = {
-  encode(
-    message: AppToAssetIdCollectorMapping,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AppToAssetIdCollectorMapping, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -257,18 +228,12 @@ export const AppToAssetIdCollectorMapping = {
       writer.uint32(16).uint64(message.assetId);
     }
     if (message.collector !== undefined) {
-      CollectorData.encode(
-        message.collector,
-        writer.uint32(26).fork()
-      ).ldelim();
+      CollectorData.encode(message.collector, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AppToAssetIdCollectorMapping {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AppToAssetIdCollectorMapping {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAppToAssetIdCollectorMapping();
@@ -295,44 +260,33 @@ export const AppToAssetIdCollectorMapping = {
   fromJSON(object: any): AppToAssetIdCollectorMapping {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-      collector: isSet(object.collector)
-        ? CollectorData.fromJSON(object.collector)
-        : undefined,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
+      collector: isSet(object.collector) ? CollectorData.fromJSON(object.collector) : undefined,
     };
   },
 
   toJSON(message: AppToAssetIdCollectorMapping): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.collector !== undefined &&
-      (obj.collector = message.collector
-        ? CollectorData.toJSON(message.collector)
-        : undefined);
+      (obj.collector = message.collector ? CollectorData.toJSON(message.collector) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AppToAssetIdCollectorMapping>, I>>(
-    object: I
-  ): AppToAssetIdCollectorMapping {
+  create<I extends Exact<DeepPartial<AppToAssetIdCollectorMapping>, I>>(base?: I): AppToAssetIdCollectorMapping {
+    return AppToAssetIdCollectorMapping.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AppToAssetIdCollectorMapping>, I>>(object: I): AppToAssetIdCollectorMapping {
     const message = createBaseAppToAssetIdCollectorMapping();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.collector =
-      object.collector !== undefined && object.collector !== null
-        ? CollectorData.fromPartial(object.collector)
-        : undefined;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.collector = (object.collector !== undefined && object.collector !== null)
+      ? CollectorData.fromPartial(object.collector)
+      : undefined;
     return message;
   },
 };
@@ -354,10 +308,7 @@ function createBaseCollectorLookupTableData(): CollectorLookupTableData {
 }
 
 export const CollectorLookupTableData = {
-  encode(
-    message: CollectorLookupTableData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: CollectorLookupTableData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -389,18 +340,12 @@ export const CollectorLookupTableData = {
       writer.uint32(80).int64(message.blockHeight);
     }
     if (message.blockTime !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.blockTime),
-        writer.uint32(90).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.blockTime), writer.uint32(90).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): CollectorLookupTableData {
+  decode(input: _m0.Reader | Uint8Array, length?: number): CollectorLookupTableData {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCollectorLookupTableData();
@@ -438,9 +383,7 @@ export const CollectorLookupTableData = {
           message.blockHeight = reader.int64() as Long;
           break;
         case 11:
-          message.blockTime = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.blockTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -453,88 +396,59 @@ export const CollectorLookupTableData = {
   fromJSON(object: any): CollectorLookupTableData {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      collectorAssetId: isSet(object.collectorAssetId)
-        ? Long.fromValue(object.collectorAssetId)
-        : Long.UZERO,
-      secondaryAssetId: isSet(object.secondaryAssetId)
-        ? Long.fromValue(object.secondaryAssetId)
-        : Long.UZERO,
-      surplusThreshold: isSet(object.surplusThreshold)
-        ? String(object.surplusThreshold)
-        : "",
-      debtThreshold: isSet(object.debtThreshold)
-        ? String(object.debtThreshold)
-        : "",
-      lockerSavingRate: isSet(object.lockerSavingRate)
-        ? String(object.lockerSavingRate)
-        : "",
+      collectorAssetId: isSet(object.collectorAssetId) ? Long.fromValue(object.collectorAssetId) : Long.UZERO,
+      secondaryAssetId: isSet(object.secondaryAssetId) ? Long.fromValue(object.secondaryAssetId) : Long.UZERO,
+      surplusThreshold: isSet(object.surplusThreshold) ? String(object.surplusThreshold) : "",
+      debtThreshold: isSet(object.debtThreshold) ? String(object.debtThreshold) : "",
+      lockerSavingRate: isSet(object.lockerSavingRate) ? String(object.lockerSavingRate) : "",
       lotSize: isSet(object.lotSize) ? String(object.lotSize) : "",
       bidFactor: isSet(object.bidFactor) ? String(object.bidFactor) : "",
       debtLotSize: isSet(object.debtLotSize) ? String(object.debtLotSize) : "",
-      blockHeight: isSet(object.blockHeight)
-        ? Long.fromValue(object.blockHeight)
-        : Long.ZERO,
-      blockTime: isSet(object.blockTime)
-        ? fromJsonTimestamp(object.blockTime)
-        : undefined,
+      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
+      blockTime: isSet(object.blockTime) ? fromJsonTimestamp(object.blockTime) : undefined,
     };
   },
 
   toJSON(message: CollectorLookupTableData): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.collectorAssetId !== undefined &&
-      (obj.collectorAssetId = (
-        message.collectorAssetId || Long.UZERO
-      ).toString());
+      (obj.collectorAssetId = (message.collectorAssetId || Long.UZERO).toString());
     message.secondaryAssetId !== undefined &&
-      (obj.secondaryAssetId = (
-        message.secondaryAssetId || Long.UZERO
-      ).toString());
-    message.surplusThreshold !== undefined &&
-      (obj.surplusThreshold = message.surplusThreshold);
-    message.debtThreshold !== undefined &&
-      (obj.debtThreshold = message.debtThreshold);
-    message.lockerSavingRate !== undefined &&
-      (obj.lockerSavingRate = message.lockerSavingRate);
+      (obj.secondaryAssetId = (message.secondaryAssetId || Long.UZERO).toString());
+    message.surplusThreshold !== undefined && (obj.surplusThreshold = message.surplusThreshold);
+    message.debtThreshold !== undefined && (obj.debtThreshold = message.debtThreshold);
+    message.lockerSavingRate !== undefined && (obj.lockerSavingRate = message.lockerSavingRate);
     message.lotSize !== undefined && (obj.lotSize = message.lotSize);
     message.bidFactor !== undefined && (obj.bidFactor = message.bidFactor);
-    message.debtLotSize !== undefined &&
-      (obj.debtLotSize = message.debtLotSize);
-    message.blockHeight !== undefined &&
-      (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
-    message.blockTime !== undefined &&
-      (obj.blockTime = message.blockTime.toISOString());
+    message.debtLotSize !== undefined && (obj.debtLotSize = message.debtLotSize);
+    message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
+    message.blockTime !== undefined && (obj.blockTime = message.blockTime.toISOString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<CollectorLookupTableData>, I>>(
-    object: I
-  ): CollectorLookupTableData {
+  create<I extends Exact<DeepPartial<CollectorLookupTableData>, I>>(base?: I): CollectorLookupTableData {
+    return CollectorLookupTableData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<CollectorLookupTableData>, I>>(object: I): CollectorLookupTableData {
     const message = createBaseCollectorLookupTableData();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.collectorAssetId =
-      object.collectorAssetId !== undefined && object.collectorAssetId !== null
-        ? Long.fromValue(object.collectorAssetId)
-        : Long.UZERO;
-    message.secondaryAssetId =
-      object.secondaryAssetId !== undefined && object.secondaryAssetId !== null
-        ? Long.fromValue(object.secondaryAssetId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.collectorAssetId = (object.collectorAssetId !== undefined && object.collectorAssetId !== null)
+      ? Long.fromValue(object.collectorAssetId)
+      : Long.UZERO;
+    message.secondaryAssetId = (object.secondaryAssetId !== undefined && object.secondaryAssetId !== null)
+      ? Long.fromValue(object.secondaryAssetId)
+      : Long.UZERO;
     message.surplusThreshold = object.surplusThreshold ?? "";
     message.debtThreshold = object.debtThreshold ?? "";
     message.lockerSavingRate = object.lockerSavingRate ?? "";
     message.lotSize = object.lotSize ?? "";
     message.bidFactor = object.bidFactor ?? "";
     message.debtLotSize = object.debtLotSize ?? "";
-    message.blockHeight =
-      object.blockHeight !== undefined && object.blockHeight !== null
-        ? Long.fromValue(object.blockHeight)
-        : Long.ZERO;
+    message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
+      ? Long.fromValue(object.blockHeight)
+      : Long.ZERO;
     message.blockTime = object.blockTime ?? undefined;
     return message;
   },
@@ -545,10 +459,7 @@ function createBaseAppToDenomsMapping(): AppToDenomsMapping {
 }
 
 export const AppToDenomsMapping = {
-  encode(
-    message: AppToDenomsMapping,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AppToDenomsMapping, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -591,16 +502,13 @@ export const AppToDenomsMapping = {
   fromJSON(object: any): AppToDenomsMapping {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      assetIds: Array.isArray(object?.assetIds)
-        ? object.assetIds.map((e: any) => Long.fromValue(e))
-        : [],
+      assetIds: Array.isArray(object?.assetIds) ? object.assetIds.map((e: any) => Long.fromValue(e)) : [],
     };
   },
 
   toJSON(message: AppToDenomsMapping): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     if (message.assetIds) {
       obj.assetIds = message.assetIds.map((e) => (e || Long.UZERO).toString());
     } else {
@@ -609,14 +517,13 @@ export const AppToDenomsMapping = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AppToDenomsMapping>, I>>(
-    object: I
-  ): AppToDenomsMapping {
+  create<I extends Exact<DeepPartial<AppToDenomsMapping>, I>>(base?: I): AppToDenomsMapping {
+    return AppToDenomsMapping.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AppToDenomsMapping>, I>>(object: I): AppToDenomsMapping {
     const message = createBaseAppToDenomsMapping();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     message.assetIds = object.assetIds?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
@@ -636,10 +543,7 @@ function createBaseAppAssetIdToAuctionLookupTable(): AppAssetIdToAuctionLookupTa
 }
 
 export const AppAssetIdToAuctionLookupTable = {
-  encode(
-    message: AppAssetIdToAuctionLookupTable,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AppAssetIdToAuctionLookupTable, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -667,10 +571,7 @@ export const AppAssetIdToAuctionLookupTable = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AppAssetIdToAuctionLookupTable {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AppAssetIdToAuctionLookupTable {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAppAssetIdToAuctionLookupTable();
@@ -712,104 +613,64 @@ export const AppAssetIdToAuctionLookupTable = {
   fromJSON(object: any): AppAssetIdToAuctionLookupTable {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-      isSurplusAuction: isSet(object.isSurplusAuction)
-        ? Boolean(object.isSurplusAuction)
-        : false,
-      isDebtAuction: isSet(object.isDebtAuction)
-        ? Boolean(object.isDebtAuction)
-        : false,
-      isDistributor: isSet(object.isDistributor)
-        ? Boolean(object.isDistributor)
-        : false,
-      isAuctionActive: isSet(object.isAuctionActive)
-        ? Boolean(object.isAuctionActive)
-        : false,
-      assetOutOraclePrice: isSet(object.assetOutOraclePrice)
-        ? Boolean(object.assetOutOraclePrice)
-        : false,
-      assetOutPrice: isSet(object.assetOutPrice)
-        ? Long.fromValue(object.assetOutPrice)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
+      isSurplusAuction: isSet(object.isSurplusAuction) ? Boolean(object.isSurplusAuction) : false,
+      isDebtAuction: isSet(object.isDebtAuction) ? Boolean(object.isDebtAuction) : false,
+      isDistributor: isSet(object.isDistributor) ? Boolean(object.isDistributor) : false,
+      isAuctionActive: isSet(object.isAuctionActive) ? Boolean(object.isAuctionActive) : false,
+      assetOutOraclePrice: isSet(object.assetOutOraclePrice) ? Boolean(object.assetOutOraclePrice) : false,
+      assetOutPrice: isSet(object.assetOutPrice) ? Long.fromValue(object.assetOutPrice) : Long.UZERO,
     };
   },
 
   toJSON(message: AppAssetIdToAuctionLookupTable): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.isSurplusAuction !== undefined &&
-      (obj.isSurplusAuction = message.isSurplusAuction);
-    message.isDebtAuction !== undefined &&
-      (obj.isDebtAuction = message.isDebtAuction);
-    message.isDistributor !== undefined &&
-      (obj.isDistributor = message.isDistributor);
-    message.isAuctionActive !== undefined &&
-      (obj.isAuctionActive = message.isAuctionActive);
-    message.assetOutOraclePrice !== undefined &&
-      (obj.assetOutOraclePrice = message.assetOutOraclePrice);
-    message.assetOutPrice !== undefined &&
-      (obj.assetOutPrice = (message.assetOutPrice || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.isSurplusAuction !== undefined && (obj.isSurplusAuction = message.isSurplusAuction);
+    message.isDebtAuction !== undefined && (obj.isDebtAuction = message.isDebtAuction);
+    message.isDistributor !== undefined && (obj.isDistributor = message.isDistributor);
+    message.isAuctionActive !== undefined && (obj.isAuctionActive = message.isAuctionActive);
+    message.assetOutOraclePrice !== undefined && (obj.assetOutOraclePrice = message.assetOutOraclePrice);
+    message.assetOutPrice !== undefined && (obj.assetOutPrice = (message.assetOutPrice || Long.UZERO).toString());
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<AppAssetIdToAuctionLookupTable>, I>>(base?: I): AppAssetIdToAuctionLookupTable {
+    return AppAssetIdToAuctionLookupTable.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<AppAssetIdToAuctionLookupTable>, I>>(
-    object: I
+    object: I,
   ): AppAssetIdToAuctionLookupTable {
     const message = createBaseAppAssetIdToAuctionLookupTable();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     message.isSurplusAuction = object.isSurplusAuction ?? false;
     message.isDebtAuction = object.isDebtAuction ?? false;
     message.isDistributor = object.isDistributor ?? false;
     message.isAuctionActive = object.isAuctionActive ?? false;
     message.assetOutOraclePrice = object.assetOutOraclePrice ?? false;
-    message.assetOutPrice =
-      object.assetOutPrice !== undefined && object.assetOutPrice !== null
-        ? Long.fromValue(object.assetOutPrice)
-        : Long.UZERO;
+    message.assetOutPrice = (object.assetOutPrice !== undefined && object.assetOutPrice !== null)
+      ? Long.fromValue(object.assetOutPrice)
+      : Long.UZERO;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

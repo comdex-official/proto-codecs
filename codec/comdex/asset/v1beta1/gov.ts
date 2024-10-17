@@ -1,9 +1,9 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Asset } from "../../../comdex/asset/v1beta1/asset";
-import { Pair, AssetPair } from "../../../comdex/asset/v1beta1/pair";
-import { AppData, AppAndGovTime } from "../../../comdex/asset/v1beta1/app";
+import _m0 from "protobufjs/minimal";
+import { AppAndGovTime, AppData } from "./app";
+import { Asset } from "./asset";
+import { AssetPair, Pair } from "./pair";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -72,10 +72,7 @@ function createBaseAddAssetsProposal(): AddAssetsProposal {
 }
 
 export const AddAssetsProposal = {
-  encode(
-    message: AddAssetsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddAssetsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -123,23 +120,22 @@ export const AddAssetsProposal = {
   toJSON(message: AddAssetsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.assets !== undefined &&
-      (obj.assets = message.assets ? Asset.toJSON(message.assets) : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.assets !== undefined && (obj.assets = message.assets ? Asset.toJSON(message.assets) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddAssetsProposal>, I>>(
-    object: I
-  ): AddAssetsProposal {
+  create<I extends Exact<DeepPartial<AddAssetsProposal>, I>>(base?: I): AddAssetsProposal {
+    return AddAssetsProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddAssetsProposal>, I>>(object: I): AddAssetsProposal {
     const message = createBaseAddAssetsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.assets =
-      object.assets !== undefined && object.assets !== null
-        ? Asset.fromPartial(object.assets)
-        : undefined;
+    message.assets = (object.assets !== undefined && object.assets !== null)
+      ? Asset.fromPartial(object.assets)
+      : undefined;
     return message;
   },
 };
@@ -149,10 +145,7 @@ function createBaseAddMultipleAssetsProposal(): AddMultipleAssetsProposal {
 }
 
 export const AddMultipleAssetsProposal = {
-  encode(
-    message: AddMultipleAssetsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddMultipleAssetsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -165,10 +158,7 @@ export const AddMultipleAssetsProposal = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddMultipleAssetsProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddMultipleAssetsProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddMultipleAssetsProposal();
@@ -196,28 +186,27 @@ export const AddMultipleAssetsProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      assets: Array.isArray(object?.assets)
-        ? object.assets.map((e: any) => Asset.fromJSON(e))
-        : [],
+      assets: Array.isArray(object?.assets) ? object.assets.map((e: any) => Asset.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: AddMultipleAssetsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     if (message.assets) {
-      obj.assets = message.assets.map((e) => (e ? Asset.toJSON(e) : undefined));
+      obj.assets = message.assets.map((e) => e ? Asset.toJSON(e) : undefined);
     } else {
       obj.assets = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddMultipleAssetsProposal>, I>>(
-    object: I
-  ): AddMultipleAssetsProposal {
+  create<I extends Exact<DeepPartial<AddMultipleAssetsProposal>, I>>(base?: I): AddMultipleAssetsProposal {
+    return AddMultipleAssetsProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddMultipleAssetsProposal>, I>>(object: I): AddMultipleAssetsProposal {
     const message = createBaseAddMultipleAssetsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -231,10 +220,7 @@ function createBaseAddMultiplePairsProposal(): AddMultiplePairsProposal {
 }
 
 export const AddMultiplePairsProposal = {
-  encode(
-    message: AddMultiplePairsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddMultiplePairsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -247,10 +233,7 @@ export const AddMultiplePairsProposal = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddMultiplePairsProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddMultiplePairsProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddMultiplePairsProposal();
@@ -278,28 +261,27 @@ export const AddMultiplePairsProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      pairs: Array.isArray(object?.pairs)
-        ? object.pairs.map((e: any) => Pair.fromJSON(e))
-        : [],
+      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => Pair.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: AddMultiplePairsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     if (message.pairs) {
-      obj.pairs = message.pairs.map((e) => (e ? Pair.toJSON(e) : undefined));
+      obj.pairs = message.pairs.map((e) => e ? Pair.toJSON(e) : undefined);
     } else {
       obj.pairs = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddMultiplePairsProposal>, I>>(
-    object: I
-  ): AddMultiplePairsProposal {
+  create<I extends Exact<DeepPartial<AddMultiplePairsProposal>, I>>(base?: I): AddMultiplePairsProposal {
+    return AddMultiplePairsProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddMultiplePairsProposal>, I>>(object: I): AddMultiplePairsProposal {
     const message = createBaseAddMultiplePairsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -313,10 +295,7 @@ function createBaseUpdateAssetProposal(): UpdateAssetProposal {
 }
 
 export const UpdateAssetProposal = {
-  encode(
-    message: UpdateAssetProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: UpdateAssetProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -364,23 +343,20 @@ export const UpdateAssetProposal = {
   toJSON(message: UpdateAssetProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.asset !== undefined &&
-      (obj.asset = message.asset ? Asset.toJSON(message.asset) : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.asset !== undefined && (obj.asset = message.asset ? Asset.toJSON(message.asset) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<UpdateAssetProposal>, I>>(
-    object: I
-  ): UpdateAssetProposal {
+  create<I extends Exact<DeepPartial<UpdateAssetProposal>, I>>(base?: I): UpdateAssetProposal {
+    return UpdateAssetProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<UpdateAssetProposal>, I>>(object: I): UpdateAssetProposal {
     const message = createBaseUpdateAssetProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.asset =
-      object.asset !== undefined && object.asset !== null
-        ? Asset.fromPartial(object.asset)
-        : undefined;
+    message.asset = (object.asset !== undefined && object.asset !== null) ? Asset.fromPartial(object.asset) : undefined;
     return message;
   },
 };
@@ -390,10 +366,7 @@ function createBaseAddPairsProposal(): AddPairsProposal {
 }
 
 export const AddPairsProposal = {
-  encode(
-    message: AddPairsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddPairsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -441,23 +414,20 @@ export const AddPairsProposal = {
   toJSON(message: AddPairsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.pairs !== undefined &&
-      (obj.pairs = message.pairs ? Pair.toJSON(message.pairs) : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.pairs !== undefined && (obj.pairs = message.pairs ? Pair.toJSON(message.pairs) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddPairsProposal>, I>>(
-    object: I
-  ): AddPairsProposal {
+  create<I extends Exact<DeepPartial<AddPairsProposal>, I>>(base?: I): AddPairsProposal {
+    return AddPairsProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddPairsProposal>, I>>(object: I): AddPairsProposal {
     const message = createBaseAddPairsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.pairs =
-      object.pairs !== undefined && object.pairs !== null
-        ? Pair.fromPartial(object.pairs)
-        : undefined;
+    message.pairs = (object.pairs !== undefined && object.pairs !== null) ? Pair.fromPartial(object.pairs) : undefined;
     return message;
   },
 };
@@ -467,10 +437,7 @@ function createBaseUpdatePairProposal(): UpdatePairProposal {
 }
 
 export const UpdatePairProposal = {
-  encode(
-    message: UpdatePairProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: UpdatePairProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -518,23 +485,20 @@ export const UpdatePairProposal = {
   toJSON(message: UpdatePairProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.pairs !== undefined &&
-      (obj.pairs = message.pairs ? Pair.toJSON(message.pairs) : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.pairs !== undefined && (obj.pairs = message.pairs ? Pair.toJSON(message.pairs) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<UpdatePairProposal>, I>>(
-    object: I
-  ): UpdatePairProposal {
+  create<I extends Exact<DeepPartial<UpdatePairProposal>, I>>(base?: I): UpdatePairProposal {
+    return UpdatePairProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<UpdatePairProposal>, I>>(object: I): UpdatePairProposal {
     const message = createBaseUpdatePairProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.pairs =
-      object.pairs !== undefined && object.pairs !== null
-        ? Pair.fromPartial(object.pairs)
-        : undefined;
+    message.pairs = (object.pairs !== undefined && object.pairs !== null) ? Pair.fromPartial(object.pairs) : undefined;
     return message;
   },
 };
@@ -544,10 +508,7 @@ function createBaseAddAppProposal(): AddAppProposal {
 }
 
 export const AddAppProposal = {
-  encode(
-    message: AddAppProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddAppProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -595,23 +556,20 @@ export const AddAppProposal = {
   toJSON(message: AddAppProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.app !== undefined &&
-      (obj.app = message.app ? AppData.toJSON(message.app) : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.app !== undefined && (obj.app = message.app ? AppData.toJSON(message.app) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddAppProposal>, I>>(
-    object: I
-  ): AddAppProposal {
+  create<I extends Exact<DeepPartial<AddAppProposal>, I>>(base?: I): AddAppProposal {
+    return AddAppProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddAppProposal>, I>>(object: I): AddAppProposal {
     const message = createBaseAddAppProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.app =
-      object.app !== undefined && object.app !== null
-        ? AppData.fromPartial(object.app)
-        : undefined;
+    message.app = (object.app !== undefined && object.app !== null) ? AppData.fromPartial(object.app) : undefined;
     return message;
   },
 };
@@ -621,10 +579,7 @@ function createBaseUpdateGovTimeInAppProposal(): UpdateGovTimeInAppProposal {
 }
 
 export const UpdateGovTimeInAppProposal = {
-  encode(
-    message: UpdateGovTimeInAppProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: UpdateGovTimeInAppProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -637,10 +592,7 @@ export const UpdateGovTimeInAppProposal = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): UpdateGovTimeInAppProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): UpdateGovTimeInAppProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUpdateGovTimeInAppProposal();
@@ -668,34 +620,30 @@ export const UpdateGovTimeInAppProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      govTime: isSet(object.govTime)
-        ? AppAndGovTime.fromJSON(object.govTime)
-        : undefined,
+      govTime: isSet(object.govTime) ? AppAndGovTime.fromJSON(object.govTime) : undefined,
     };
   },
 
   toJSON(message: UpdateGovTimeInAppProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     message.govTime !== undefined &&
-      (obj.govTime = message.govTime
-        ? AppAndGovTime.toJSON(message.govTime)
-        : undefined);
+      (obj.govTime = message.govTime ? AppAndGovTime.toJSON(message.govTime) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<UpdateGovTimeInAppProposal>, I>>(
-    object: I
-  ): UpdateGovTimeInAppProposal {
+  create<I extends Exact<DeepPartial<UpdateGovTimeInAppProposal>, I>>(base?: I): UpdateGovTimeInAppProposal {
+    return UpdateGovTimeInAppProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<UpdateGovTimeInAppProposal>, I>>(object: I): UpdateGovTimeInAppProposal {
     const message = createBaseUpdateGovTimeInAppProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.govTime =
-      object.govTime !== undefined && object.govTime !== null
-        ? AppAndGovTime.fromPartial(object.govTime)
-        : undefined;
+    message.govTime = (object.govTime !== undefined && object.govTime !== null)
+      ? AppAndGovTime.fromPartial(object.govTime)
+      : undefined;
     return message;
   },
 };
@@ -705,10 +653,7 @@ function createBaseAddAssetInAppProposal(): AddAssetInAppProposal {
 }
 
 export const AddAssetInAppProposal = {
-  encode(
-    message: AddAssetInAppProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddAssetInAppProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -721,10 +666,7 @@ export const AddAssetInAppProposal = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddAssetInAppProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetInAppProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddAssetInAppProposal();
@@ -759,23 +701,20 @@ export const AddAssetInAppProposal = {
   toJSON(message: AddAssetInAppProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.app !== undefined &&
-      (obj.app = message.app ? AppData.toJSON(message.app) : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.app !== undefined && (obj.app = message.app ? AppData.toJSON(message.app) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddAssetInAppProposal>, I>>(
-    object: I
-  ): AddAssetInAppProposal {
+  create<I extends Exact<DeepPartial<AddAssetInAppProposal>, I>>(base?: I): AddAssetInAppProposal {
+    return AddAssetInAppProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddAssetInAppProposal>, I>>(object: I): AddAssetInAppProposal {
     const message = createBaseAddAssetInAppProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.app =
-      object.app !== undefined && object.app !== null
-        ? AppData.fromPartial(object.app)
-        : undefined;
+    message.app = (object.app !== undefined && object.app !== null) ? AppData.fromPartial(object.app) : undefined;
     return message;
   },
 };
@@ -785,10 +724,7 @@ function createBaseAddMultipleAssetsPairsProposal(): AddMultipleAssetsPairsPropo
 }
 
 export const AddMultipleAssetsPairsProposal = {
-  encode(
-    message: AddMultipleAssetsPairsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddMultipleAssetsPairsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -801,10 +737,7 @@ export const AddMultipleAssetsPairsProposal = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddMultipleAssetsPairsProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddMultipleAssetsPairsProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddMultipleAssetsPairsProposal();
@@ -832,67 +765,48 @@ export const AddMultipleAssetsPairsProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      assetsPair: Array.isArray(object?.assetsPair)
-        ? object.assetsPair.map((e: any) => AssetPair.fromJSON(e))
-        : [],
+      assetsPair: Array.isArray(object?.assetsPair) ? object.assetsPair.map((e: any) => AssetPair.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: AddMultipleAssetsPairsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     if (message.assetsPair) {
-      obj.assetsPair = message.assetsPair.map((e) =>
-        e ? AssetPair.toJSON(e) : undefined
-      );
+      obj.assetsPair = message.assetsPair.map((e) => e ? AssetPair.toJSON(e) : undefined);
     } else {
       obj.assetsPair = [];
     }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<AddMultipleAssetsPairsProposal>, I>>(base?: I): AddMultipleAssetsPairsProposal {
+    return AddMultipleAssetsPairsProposal.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<AddMultipleAssetsPairsProposal>, I>>(
-    object: I
+    object: I,
   ): AddMultipleAssetsPairsProposal {
     const message = createBaseAddMultipleAssetsPairsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.assetsPair =
-      object.assetsPair?.map((e) => AssetPair.fromPartial(e)) || [];
+    message.assetsPair = object.assetsPair?.map((e) => AssetPair.fromPartial(e)) || [];
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

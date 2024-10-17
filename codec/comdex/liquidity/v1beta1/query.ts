@@ -1,19 +1,12 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { GenericParams, Params } from "../../../comdex/liquidity/v1beta1/params";
-import {
-  PageRequest,
-  PageResponse
-} from "../../../cosmos/base/query/v1beta1/pagination";
+import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Duration } from "../../../google/protobuf/duration";
 import { Timestamp } from "../../../google/protobuf/timestamp";
-import {
-  DepositRequest, FarmCoin, Order, Pair, PoolType,
-  poolTypeFromJSON,
-  poolTypeToJSON, WithdrawRequest
-} from "./liquidity";
+import { DepositRequest, Order, Pair, PoolType, poolTypeFromJSON, poolTypeToJSON, WithdrawRequest } from "./liquidity";
+import { GenericParams, Params } from "./params";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 
@@ -197,7 +190,6 @@ export interface PoolResponse {
   maxPrice: string;
   price: string;
   disabled: boolean;
-  farmCoin?: FarmCoin;
 }
 
 export interface PoolBalances {
@@ -2102,7 +2094,6 @@ function createBasePoolResponse(): PoolResponse {
     maxPrice: "",
     price: "",
     disabled: false,
-    farmCoin: undefined,
   };
 }
 
@@ -2152,9 +2143,6 @@ export const PoolResponse = {
     }
     if (message.disabled === true) {
       writer.uint32(120).bool(message.disabled);
-    }
-    if (message.farmCoin !== undefined) {
-      FarmCoin.encode(message.farmCoin, writer.uint32(130).fork()).ldelim();
     }
     return writer;
   },
@@ -2211,9 +2199,6 @@ export const PoolResponse = {
         case 15:
           message.disabled = reader.bool();
           break;
-        case 16:
-          message.farmCoin = FarmCoin.decode(reader, reader.uint32());
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -2243,7 +2228,6 @@ export const PoolResponse = {
       maxPrice: isSet(object.maxPrice) ? String(object.maxPrice) : "",
       price: isSet(object.price) ? String(object.price) : "",
       disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
-      farmCoin: isSet(object.farmCoin) ? FarmCoin.fromJSON(object.farmCoin) : undefined,
     };
   },
 
@@ -2267,7 +2251,6 @@ export const PoolResponse = {
     message.maxPrice !== undefined && (obj.maxPrice = message.maxPrice);
     message.price !== undefined && (obj.price = message.price);
     message.disabled !== undefined && (obj.disabled = message.disabled);
-    message.farmCoin !== undefined && (obj.farmCoin = message.farmCoin ? FarmCoin.toJSON(message.farmCoin) : undefined);
     return obj;
   },
 
@@ -2301,9 +2284,6 @@ export const PoolResponse = {
     message.maxPrice = object.maxPrice ?? "";
     message.price = object.price ?? "";
     message.disabled = object.disabled ?? false;
-    message.farmCoin = (object.farmCoin !== undefined && object.farmCoin !== null)
-      ? FarmCoin.fromPartial(object.farmCoin)
-      : undefined;
     return message;
   },
 };

@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "comdex.vault.v1beta1";
@@ -44,10 +44,7 @@ function createBaseEventCreateVault(): EventCreateVault {
 }
 
 export const EventCreateVault = {
-  encode(
-    message: EventCreateVault,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: EventCreateVault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.sender !== "") {
       writer.uint32(10).string(message.sender);
     }
@@ -81,23 +78,22 @@ export const EventCreateVault = {
   fromJSON(object: any): EventCreateVault {
     return {
       sender: isSet(object.sender) ? String(object.sender) : "",
-      collateralType: isSet(object.collateralType)
-        ? String(object.collateralType)
-        : "",
+      collateralType: isSet(object.collateralType) ? String(object.collateralType) : "",
     };
   },
 
   toJSON(message: EventCreateVault): unknown {
     const obj: any = {};
     message.sender !== undefined && (obj.sender = message.sender);
-    message.collateralType !== undefined &&
-      (obj.collateralType = message.collateralType);
+    message.collateralType !== undefined && (obj.collateralType = message.collateralType);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventCreateVault>, I>>(
-    object: I
-  ): EventCreateVault {
+  create<I extends Exact<DeepPartial<EventCreateVault>, I>>(base?: I): EventCreateVault {
+    return EventCreateVault.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EventCreateVault>, I>>(object: I): EventCreateVault {
     const message = createBaseEventCreateVault();
     message.sender = object.sender ?? "";
     message.collateralType = object.collateralType ?? "";
@@ -110,10 +106,7 @@ function createBaseEventDepositCollateral(): EventDepositCollateral {
 }
 
 export const EventDepositCollateral = {
-  encode(
-    message: EventDepositCollateral,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: EventDepositCollateral, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -126,10 +119,7 @@ export const EventDepositCollateral = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): EventDepositCollateral {
+  decode(input: _m0.Reader | Uint8Array, length?: number): EventDepositCollateral {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventDepositCollateral();
@@ -156,37 +146,31 @@ export const EventDepositCollateral = {
   fromJSON(object: any): EventDepositCollateral {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
-      collateralType: isSet(object.collateralType)
-        ? String(object.collateralType)
-        : "",
-      collateral: isSet(object.collateral)
-        ? Coin.fromJSON(object.collateral)
-        : undefined,
+      collateralType: isSet(object.collateralType) ? String(object.collateralType) : "",
+      collateral: isSet(object.collateral) ? Coin.fromJSON(object.collateral) : undefined,
     };
   },
 
   toJSON(message: EventDepositCollateral): unknown {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
-    message.collateralType !== undefined &&
-      (obj.collateralType = message.collateralType);
+    message.collateralType !== undefined && (obj.collateralType = message.collateralType);
     message.collateral !== undefined &&
-      (obj.collateral = message.collateral
-        ? Coin.toJSON(message.collateral)
-        : undefined);
+      (obj.collateral = message.collateral ? Coin.toJSON(message.collateral) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventDepositCollateral>, I>>(
-    object: I
-  ): EventDepositCollateral {
+  create<I extends Exact<DeepPartial<EventDepositCollateral>, I>>(base?: I): EventDepositCollateral {
+    return EventDepositCollateral.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EventDepositCollateral>, I>>(object: I): EventDepositCollateral {
     const message = createBaseEventDepositCollateral();
     message.owner = object.owner ?? "";
     message.collateralType = object.collateralType ?? "";
-    message.collateral =
-      object.collateral !== undefined && object.collateral !== null
-        ? Coin.fromPartial(object.collateral)
-        : undefined;
+    message.collateral = (object.collateral !== undefined && object.collateral !== null)
+      ? Coin.fromPartial(object.collateral)
+      : undefined;
     return message;
   },
 };
@@ -196,10 +180,7 @@ function createBaseEventWithdrawCollateral(): EventWithdrawCollateral {
 }
 
 export const EventWithdrawCollateral = {
-  encode(
-    message: EventWithdrawCollateral,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: EventWithdrawCollateral, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -212,10 +193,7 @@ export const EventWithdrawCollateral = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): EventWithdrawCollateral {
+  decode(input: _m0.Reader | Uint8Array, length?: number): EventWithdrawCollateral {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventWithdrawCollateral();
@@ -242,37 +220,31 @@ export const EventWithdrawCollateral = {
   fromJSON(object: any): EventWithdrawCollateral {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
-      collateralType: isSet(object.collateralType)
-        ? String(object.collateralType)
-        : "",
-      collateral: isSet(object.collateral)
-        ? Coin.fromJSON(object.collateral)
-        : undefined,
+      collateralType: isSet(object.collateralType) ? String(object.collateralType) : "",
+      collateral: isSet(object.collateral) ? Coin.fromJSON(object.collateral) : undefined,
     };
   },
 
   toJSON(message: EventWithdrawCollateral): unknown {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
-    message.collateralType !== undefined &&
-      (obj.collateralType = message.collateralType);
+    message.collateralType !== undefined && (obj.collateralType = message.collateralType);
     message.collateral !== undefined &&
-      (obj.collateral = message.collateral
-        ? Coin.toJSON(message.collateral)
-        : undefined);
+      (obj.collateral = message.collateral ? Coin.toJSON(message.collateral) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventWithdrawCollateral>, I>>(
-    object: I
-  ): EventWithdrawCollateral {
+  create<I extends Exact<DeepPartial<EventWithdrawCollateral>, I>>(base?: I): EventWithdrawCollateral {
+    return EventWithdrawCollateral.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EventWithdrawCollateral>, I>>(object: I): EventWithdrawCollateral {
     const message = createBaseEventWithdrawCollateral();
     message.owner = object.owner ?? "";
     message.collateralType = object.collateralType ?? "";
-    message.collateral =
-      object.collateral !== undefined && object.collateral !== null
-        ? Coin.fromPartial(object.collateral)
-        : undefined;
+    message.collateral = (object.collateral !== undefined && object.collateral !== null)
+      ? Coin.fromPartial(object.collateral)
+      : undefined;
     return message;
   },
 };
@@ -282,10 +254,7 @@ function createBaseEventDrawDebt(): EventDrawDebt {
 }
 
 export const EventDrawDebt = {
-  encode(
-    message: EventDrawDebt,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: EventDrawDebt, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -325,9 +294,7 @@ export const EventDrawDebt = {
   fromJSON(object: any): EventDrawDebt {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
-      collateralType: isSet(object.collateralType)
-        ? String(object.collateralType)
-        : "",
+      collateralType: isSet(object.collateralType) ? String(object.collateralType) : "",
       debt: isSet(object.debt) ? Coin.fromJSON(object.debt) : undefined,
     };
   },
@@ -335,23 +302,20 @@ export const EventDrawDebt = {
   toJSON(message: EventDrawDebt): unknown {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
-    message.collateralType !== undefined &&
-      (obj.collateralType = message.collateralType);
-    message.debt !== undefined &&
-      (obj.debt = message.debt ? Coin.toJSON(message.debt) : undefined);
+    message.collateralType !== undefined && (obj.collateralType = message.collateralType);
+    message.debt !== undefined && (obj.debt = message.debt ? Coin.toJSON(message.debt) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventDrawDebt>, I>>(
-    object: I
-  ): EventDrawDebt {
+  create<I extends Exact<DeepPartial<EventDrawDebt>, I>>(base?: I): EventDrawDebt {
+    return EventDrawDebt.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EventDrawDebt>, I>>(object: I): EventDrawDebt {
     const message = createBaseEventDrawDebt();
     message.owner = object.owner ?? "";
     message.collateralType = object.collateralType ?? "";
-    message.debt =
-      object.debt !== undefined && object.debt !== null
-        ? Coin.fromPartial(object.debt)
-        : undefined;
+    message.debt = (object.debt !== undefined && object.debt !== null) ? Coin.fromPartial(object.debt) : undefined;
     return message;
   },
 };
@@ -361,10 +325,7 @@ function createBaseEventRepayDebt(): EventRepayDebt {
 }
 
 export const EventRepayDebt = {
-  encode(
-    message: EventRepayDebt,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: EventRepayDebt, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -404,9 +365,7 @@ export const EventRepayDebt = {
   fromJSON(object: any): EventRepayDebt {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
-      collateralType: isSet(object.collateralType)
-        ? String(object.collateralType)
-        : "",
+      collateralType: isSet(object.collateralType) ? String(object.collateralType) : "",
       debt: isSet(object.debt) ? Coin.fromJSON(object.debt) : undefined,
     };
   },
@@ -414,23 +373,20 @@ export const EventRepayDebt = {
   toJSON(message: EventRepayDebt): unknown {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
-    message.collateralType !== undefined &&
-      (obj.collateralType = message.collateralType);
-    message.debt !== undefined &&
-      (obj.debt = message.debt ? Coin.toJSON(message.debt) : undefined);
+    message.collateralType !== undefined && (obj.collateralType = message.collateralType);
+    message.debt !== undefined && (obj.debt = message.debt ? Coin.toJSON(message.debt) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventRepayDebt>, I>>(
-    object: I
-  ): EventRepayDebt {
+  create<I extends Exact<DeepPartial<EventRepayDebt>, I>>(base?: I): EventRepayDebt {
+    return EventRepayDebt.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EventRepayDebt>, I>>(object: I): EventRepayDebt {
     const message = createBaseEventRepayDebt();
     message.owner = object.owner ?? "";
     message.collateralType = object.collateralType ?? "";
-    message.debt =
-      object.debt !== undefined && object.debt !== null
-        ? Coin.fromPartial(object.debt)
-        : undefined;
+    message.debt = (object.debt !== undefined && object.debt !== null) ? Coin.fromPartial(object.debt) : undefined;
     return message;
   },
 };
@@ -440,10 +396,7 @@ function createBaseEventCloseVault(): EventCloseVault {
 }
 
 export const EventCloseVault = {
-  encode(
-    message: EventCloseVault,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: EventCloseVault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -477,23 +430,22 @@ export const EventCloseVault = {
   fromJSON(object: any): EventCloseVault {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
-      collateralType: isSet(object.collateralType)
-        ? String(object.collateralType)
-        : "",
+      collateralType: isSet(object.collateralType) ? String(object.collateralType) : "",
     };
   },
 
   toJSON(message: EventCloseVault): unknown {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
-    message.collateralType !== undefined &&
-      (obj.collateralType = message.collateralType);
+    message.collateralType !== undefined && (obj.collateralType = message.collateralType);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EventCloseVault>, I>>(
-    object: I
-  ): EventCloseVault {
+  create<I extends Exact<DeepPartial<EventCloseVault>, I>>(base?: I): EventCloseVault {
+    return EventCloseVault.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EventCloseVault>, I>>(object: I): EventCloseVault {
     const message = createBaseEventCloseVault();
     message.owner = object.owner ?? "";
     message.collateralType = object.collateralType ?? "";
@@ -501,34 +453,17 @@ export const EventCloseVault = {
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

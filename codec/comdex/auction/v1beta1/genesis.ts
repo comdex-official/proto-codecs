@@ -1,14 +1,8 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Params } from "../../../comdex/auction/v1beta1/params";
-import {
-  SurplusAuction,
-  DebtAuction,
-  DutchAuction,
-  ProtocolStatistics,
-  AuctionParams,
-} from "../../../comdex/auction/v1beta1/auction";
+import _m0 from "protobufjs/minimal";
+import { AuctionParams, DebtAuction, DutchAuction, ProtocolStatistics, SurplusAuction } from "./auction";
+import { Params } from "./params";
 
 export const protobufPackage = "comdex.auction.v1beta1";
 
@@ -37,10 +31,7 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
-  encode(
-    message: GenesisState,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.surplusAuction) {
       SurplusAuction.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -76,32 +67,22 @@ export const GenesisState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.surplusAuction.push(
-            SurplusAuction.decode(reader, reader.uint32())
-          );
+          message.surplusAuction.push(SurplusAuction.decode(reader, reader.uint32()));
           break;
         case 2:
           message.debtAuction.push(DebtAuction.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.dutchAuction.push(
-            DutchAuction.decode(reader, reader.uint32())
-          );
+          message.dutchAuction.push(DutchAuction.decode(reader, reader.uint32()));
           break;
         case 4:
-          message.protocolStatistics.push(
-            ProtocolStatistics.decode(reader, reader.uint32())
-          );
+          message.protocolStatistics.push(ProtocolStatistics.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.auctionParams.push(
-            AuctionParams.decode(reader, reader.uint32())
-          );
+          message.auctionParams.push(AuctionParams.decode(reader, reader.uint32()));
           break;
         case 6:
-          message.dutchLendAuction.push(
-            DutchAuction.decode(reader, reader.uint32())
-          );
+          message.dutchLendAuction.push(DutchAuction.decode(reader, reader.uint32()));
           break;
         case 7:
           message.params = Params.decode(reader, reader.uint32());
@@ -129,9 +110,7 @@ export const GenesisState = {
         ? object.dutchAuction.map((e: any) => DutchAuction.fromJSON(e))
         : [],
       protocolStatistics: Array.isArray(object?.protocolStatistics)
-        ? object.protocolStatistics.map((e: any) =>
-            ProtocolStatistics.fromJSON(e)
-          )
+        ? object.protocolStatistics.map((e: any) => ProtocolStatistics.fromJSON(e))
         : [],
       auctionParams: Array.isArray(object?.auctionParams)
         ? object.auctionParams.map((e: any) => AuctionParams.fromJSON(e))
@@ -140,121 +119,80 @@ export const GenesisState = {
         ? object.dutchLendAuction.map((e: any) => DutchAuction.fromJSON(e))
         : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-      UserBiddingID: isSet(object.UserBiddingID)
-        ? Long.fromValue(object.UserBiddingID)
-        : Long.UZERO,
+      UserBiddingID: isSet(object.UserBiddingID) ? Long.fromValue(object.UserBiddingID) : Long.UZERO,
     };
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     if (message.surplusAuction) {
-      obj.surplusAuction = message.surplusAuction.map((e) =>
-        e ? SurplusAuction.toJSON(e) : undefined
-      );
+      obj.surplusAuction = message.surplusAuction.map((e) => e ? SurplusAuction.toJSON(e) : undefined);
     } else {
       obj.surplusAuction = [];
     }
     if (message.debtAuction) {
-      obj.debtAuction = message.debtAuction.map((e) =>
-        e ? DebtAuction.toJSON(e) : undefined
-      );
+      obj.debtAuction = message.debtAuction.map((e) => e ? DebtAuction.toJSON(e) : undefined);
     } else {
       obj.debtAuction = [];
     }
     if (message.dutchAuction) {
-      obj.dutchAuction = message.dutchAuction.map((e) =>
-        e ? DutchAuction.toJSON(e) : undefined
-      );
+      obj.dutchAuction = message.dutchAuction.map((e) => e ? DutchAuction.toJSON(e) : undefined);
     } else {
       obj.dutchAuction = [];
     }
     if (message.protocolStatistics) {
-      obj.protocolStatistics = message.protocolStatistics.map((e) =>
-        e ? ProtocolStatistics.toJSON(e) : undefined
-      );
+      obj.protocolStatistics = message.protocolStatistics.map((e) => e ? ProtocolStatistics.toJSON(e) : undefined);
     } else {
       obj.protocolStatistics = [];
     }
     if (message.auctionParams) {
-      obj.auctionParams = message.auctionParams.map((e) =>
-        e ? AuctionParams.toJSON(e) : undefined
-      );
+      obj.auctionParams = message.auctionParams.map((e) => e ? AuctionParams.toJSON(e) : undefined);
     } else {
       obj.auctionParams = [];
     }
     if (message.dutchLendAuction) {
-      obj.dutchLendAuction = message.dutchLendAuction.map((e) =>
-        e ? DutchAuction.toJSON(e) : undefined
-      );
+      obj.dutchLendAuction = message.dutchLendAuction.map((e) => e ? DutchAuction.toJSON(e) : undefined);
     } else {
       obj.dutchLendAuction = [];
     }
-    message.params !== undefined &&
-      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    message.UserBiddingID !== undefined &&
-      (obj.UserBiddingID = (message.UserBiddingID || Long.UZERO).toString());
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    message.UserBiddingID !== undefined && (obj.UserBiddingID = (message.UserBiddingID || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
-    object: I
-  ): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+    return GenesisState.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.surplusAuction =
-      object.surplusAuction?.map((e) => SurplusAuction.fromPartial(e)) || [];
-    message.debtAuction =
-      object.debtAuction?.map((e) => DebtAuction.fromPartial(e)) || [];
-    message.dutchAuction =
-      object.dutchAuction?.map((e) => DutchAuction.fromPartial(e)) || [];
-    message.protocolStatistics =
-      object.protocolStatistics?.map((e) =>
-        ProtocolStatistics.fromPartial(e)
-      ) || [];
-    message.auctionParams =
-      object.auctionParams?.map((e) => AuctionParams.fromPartial(e)) || [];
-    message.dutchLendAuction =
-      object.dutchLendAuction?.map((e) => DutchAuction.fromPartial(e)) || [];
-    message.params =
-      object.params !== undefined && object.params !== null
-        ? Params.fromPartial(object.params)
-        : undefined;
-    message.UserBiddingID =
-      object.UserBiddingID !== undefined && object.UserBiddingID !== null
-        ? Long.fromValue(object.UserBiddingID)
-        : Long.UZERO;
+    message.surplusAuction = object.surplusAuction?.map((e) => SurplusAuction.fromPartial(e)) || [];
+    message.debtAuction = object.debtAuction?.map((e) => DebtAuction.fromPartial(e)) || [];
+    message.dutchAuction = object.dutchAuction?.map((e) => DutchAuction.fromPartial(e)) || [];
+    message.protocolStatistics = object.protocolStatistics?.map((e) => ProtocolStatistics.fromPartial(e)) || [];
+    message.auctionParams = object.auctionParams?.map((e) => AuctionParams.fromPartial(e)) || [];
+    message.dutchLendAuction = object.dutchLendAuction?.map((e) => DutchAuction.fromPartial(e)) || [];
+    message.params = (object.params !== undefined && object.params !== null)
+      ? Params.fromPartial(object.params)
+      : undefined;
+    message.UserBiddingID = (object.UserBiddingID !== undefined && object.UserBiddingID !== null)
+      ? Long.fromValue(object.UserBiddingID)
+      : Long.UZERO;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
