@@ -1,23 +1,15 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { Params } from "../../../comdex/auctionsV2/v1beta1/params";
+import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
 import {
   Auction,
   AuctionHistorical,
   LimitBidProtocolDataForQuery,
   LimitBidProtocolDataWithUserForQuery,
-} from "../../../comdex/auctionsV2/v1beta1/auction";
-import {
-  PageRequest,
-  PageResponse,
-} from "../../../cosmos/base/query/v1beta1/pagination";
-import {
-  AuctionParams,
-  Bid,
-  LimitOrderBid,
-  AuctionFeesCollectionFromLimitBidTx,
-} from "../../../comdex/auctionsV2/v1beta1/bid";
+} from "./auction";
+import { AuctionFeesCollectionFromLimitBidTx, AuctionParams, Bid, LimitOrderBid } from "./bid";
+import { Params } from "./params";
 
 export const protobufPackage = "comdex.auctionsV2.v1beta1";
 

@@ -1,8 +1,8 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { FetchPriceCallData } from "./fetch_price";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { FetchPriceCallData } from "./fetch_price";
 
 export const protobufPackage = "comdex.bandoracle.v1beta1";
 
@@ -18,9 +18,12 @@ export interface MsgFetchPriceData {
   prepareGas: Long;
   executeGas: Long;
   clientId: string;
+  twaBatchSize: Long;
+  acceptedHeightDiff: Long;
 }
 
-export interface MsgFetchPriceDataResponse {}
+export interface MsgFetchPriceDataResponse {
+}
 
 function createBaseMsgFetchPriceData(): MsgFetchPriceData {
   return {
@@ -35,14 +38,13 @@ function createBaseMsgFetchPriceData(): MsgFetchPriceData {
     prepareGas: Long.UZERO,
     executeGas: Long.UZERO,
     clientId: "",
+    twaBatchSize: Long.UZERO,
+    acceptedHeightDiff: Long.ZERO,
   };
 }
 
 export const MsgFetchPriceData = {
-  encode(
-    message: MsgFetchPriceData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgFetchPriceData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
@@ -53,10 +55,7 @@ export const MsgFetchPriceData = {
       writer.uint32(26).string(message.sourceChannel);
     }
     if (message.calldata !== undefined) {
-      FetchPriceCallData.encode(
-        message.calldata,
-        writer.uint32(34).fork()
-      ).ldelim();
+      FetchPriceCallData.encode(message.calldata, writer.uint32(34).fork()).ldelim();
     }
     if (!message.askCount.isZero()) {
       writer.uint32(40).uint64(message.askCount);
@@ -78,6 +77,12 @@ export const MsgFetchPriceData = {
     }
     if (message.clientId !== "") {
       writer.uint32(90).string(message.clientId);
+    }
+    if (!message.twaBatchSize.isZero()) {
+      writer.uint32(96).uint64(message.twaBatchSize);
+    }
+    if (!message.acceptedHeightDiff.isZero()) {
+      writer.uint32(104).int64(message.acceptedHeightDiff);
     }
     return writer;
   },
@@ -122,6 +127,12 @@ export const MsgFetchPriceData = {
         case 11:
           message.clientId = reader.string();
           break;
+        case 12:
+          message.twaBatchSize = reader.uint64() as Long;
+          break;
+        case 13:
+          message.acceptedHeightDiff = reader.int64() as Long;
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -133,99 +144,80 @@ export const MsgFetchPriceData = {
   fromJSON(object: any): MsgFetchPriceData {
     return {
       creator: isSet(object.creator) ? String(object.creator) : "",
-      oracleScriptId: isSet(object.oracleScriptId)
-        ? Long.fromString(object.oracleScriptId)
-        : Long.UZERO,
-      sourceChannel: isSet(object.sourceChannel)
-        ? String(object.sourceChannel)
-        : "",
-      calldata: isSet(object.calldata)
-        ? FetchPriceCallData.fromJSON(object.calldata)
-        : undefined,
-      askCount: isSet(object.askCount)
-        ? Long.fromString(object.askCount)
-        : Long.UZERO,
-      minCount: isSet(object.minCount)
-        ? Long.fromString(object.minCount)
-        : Long.UZERO,
-      feeLimit: Array.isArray(object?.feeLimit)
-        ? object.feeLimit.map((e: any) => Coin.fromJSON(e))
-        : [],
+      oracleScriptId: isSet(object.oracleScriptId) ? Long.fromValue(object.oracleScriptId) : Long.UZERO,
+      sourceChannel: isSet(object.sourceChannel) ? String(object.sourceChannel) : "",
+      calldata: isSet(object.calldata) ? FetchPriceCallData.fromJSON(object.calldata) : undefined,
+      askCount: isSet(object.askCount) ? Long.fromValue(object.askCount) : Long.UZERO,
+      minCount: isSet(object.minCount) ? Long.fromValue(object.minCount) : Long.UZERO,
+      feeLimit: Array.isArray(object?.feeLimit) ? object.feeLimit.map((e: any) => Coin.fromJSON(e)) : [],
       requestKey: isSet(object.requestKey) ? String(object.requestKey) : "",
-      prepareGas: isSet(object.prepareGas)
-        ? Long.fromString(object.prepareGas)
-        : Long.UZERO,
-      executeGas: isSet(object.executeGas)
-        ? Long.fromString(object.executeGas)
-        : Long.UZERO,
+      prepareGas: isSet(object.prepareGas) ? Long.fromValue(object.prepareGas) : Long.UZERO,
+      executeGas: isSet(object.executeGas) ? Long.fromValue(object.executeGas) : Long.UZERO,
       clientId: isSet(object.clientId) ? String(object.clientId) : "",
+      twaBatchSize: isSet(object.twaBatchSize) ? Long.fromValue(object.twaBatchSize) : Long.UZERO,
+      acceptedHeightDiff: isSet(object.acceptedHeightDiff) ? Long.fromValue(object.acceptedHeightDiff) : Long.ZERO,
     };
   },
 
   toJSON(message: MsgFetchPriceData): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
-    message.oracleScriptId !== undefined &&
-      (obj.oracleScriptId = (message.oracleScriptId || Long.UZERO).toString());
-    message.sourceChannel !== undefined &&
-      (obj.sourceChannel = message.sourceChannel);
+    message.oracleScriptId !== undefined && (obj.oracleScriptId = (message.oracleScriptId || Long.UZERO).toString());
+    message.sourceChannel !== undefined && (obj.sourceChannel = message.sourceChannel);
     message.calldata !== undefined &&
-      (obj.calldata = message.calldata
-        ? FetchPriceCallData.toJSON(message.calldata)
-        : undefined);
-    message.askCount !== undefined &&
-      (obj.askCount = (message.askCount || Long.UZERO).toString());
-    message.minCount !== undefined &&
-      (obj.minCount = (message.minCount || Long.UZERO).toString());
+      (obj.calldata = message.calldata ? FetchPriceCallData.toJSON(message.calldata) : undefined);
+    message.askCount !== undefined && (obj.askCount = (message.askCount || Long.UZERO).toString());
+    message.minCount !== undefined && (obj.minCount = (message.minCount || Long.UZERO).toString());
     if (message.feeLimit) {
-      obj.feeLimit = message.feeLimit.map((e) =>
-        e ? Coin.toJSON(e) : undefined
-      );
+      obj.feeLimit = message.feeLimit.map((e) => e ? Coin.toJSON(e) : undefined);
     } else {
       obj.feeLimit = [];
     }
     message.requestKey !== undefined && (obj.requestKey = message.requestKey);
-    message.prepareGas !== undefined &&
-      (obj.prepareGas = (message.prepareGas || Long.UZERO).toString());
-    message.executeGas !== undefined &&
-      (obj.executeGas = (message.executeGas || Long.UZERO).toString());
+    message.prepareGas !== undefined && (obj.prepareGas = (message.prepareGas || Long.UZERO).toString());
+    message.executeGas !== undefined && (obj.executeGas = (message.executeGas || Long.UZERO).toString());
     message.clientId !== undefined && (obj.clientId = message.clientId);
+    message.twaBatchSize !== undefined && (obj.twaBatchSize = (message.twaBatchSize || Long.UZERO).toString());
+    message.acceptedHeightDiff !== undefined &&
+      (obj.acceptedHeightDiff = (message.acceptedHeightDiff || Long.ZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgFetchPriceData>, I>>(
-    object: I
-  ): MsgFetchPriceData {
+  create<I extends Exact<DeepPartial<MsgFetchPriceData>, I>>(base?: I): MsgFetchPriceData {
+    return MsgFetchPriceData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgFetchPriceData>, I>>(object: I): MsgFetchPriceData {
     const message = createBaseMsgFetchPriceData();
     message.creator = object.creator ?? "";
-    message.oracleScriptId =
-      object.oracleScriptId !== undefined && object.oracleScriptId !== null
-        ? Long.fromValue(object.oracleScriptId)
-        : Long.UZERO;
+    message.oracleScriptId = (object.oracleScriptId !== undefined && object.oracleScriptId !== null)
+      ? Long.fromValue(object.oracleScriptId)
+      : Long.UZERO;
     message.sourceChannel = object.sourceChannel ?? "";
-    message.calldata =
-      object.calldata !== undefined && object.calldata !== null
-        ? FetchPriceCallData.fromPartial(object.calldata)
-        : undefined;
-    message.askCount =
-      object.askCount !== undefined && object.askCount !== null
-        ? Long.fromValue(object.askCount)
-        : Long.UZERO;
-    message.minCount =
-      object.minCount !== undefined && object.minCount !== null
-        ? Long.fromValue(object.minCount)
-        : Long.UZERO;
+    message.calldata = (object.calldata !== undefined && object.calldata !== null)
+      ? FetchPriceCallData.fromPartial(object.calldata)
+      : undefined;
+    message.askCount = (object.askCount !== undefined && object.askCount !== null)
+      ? Long.fromValue(object.askCount)
+      : Long.UZERO;
+    message.minCount = (object.minCount !== undefined && object.minCount !== null)
+      ? Long.fromValue(object.minCount)
+      : Long.UZERO;
     message.feeLimit = object.feeLimit?.map((e) => Coin.fromPartial(e)) || [];
     message.requestKey = object.requestKey ?? "";
-    message.prepareGas =
-      object.prepareGas !== undefined && object.prepareGas !== null
-        ? Long.fromValue(object.prepareGas)
-        : Long.UZERO;
-    message.executeGas =
-      object.executeGas !== undefined && object.executeGas !== null
-        ? Long.fromValue(object.executeGas)
-        : Long.UZERO;
+    message.prepareGas = (object.prepareGas !== undefined && object.prepareGas !== null)
+      ? Long.fromValue(object.prepareGas)
+      : Long.UZERO;
+    message.executeGas = (object.executeGas !== undefined && object.executeGas !== null)
+      ? Long.fromValue(object.executeGas)
+      : Long.UZERO;
     message.clientId = object.clientId ?? "";
+    message.twaBatchSize = (object.twaBatchSize !== undefined && object.twaBatchSize !== null)
+      ? Long.fromValue(object.twaBatchSize)
+      : Long.UZERO;
+    message.acceptedHeightDiff = (object.acceptedHeightDiff !== undefined && object.acceptedHeightDiff !== null)
+      ? Long.fromValue(object.acceptedHeightDiff)
+      : Long.ZERO;
     return message;
   },
 };
@@ -235,17 +227,11 @@ function createBaseMsgFetchPriceDataResponse(): MsgFetchPriceDataResponse {
 }
 
 export const MsgFetchPriceDataResponse = {
-  encode(
-    _: MsgFetchPriceDataResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgFetchPriceDataResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgFetchPriceDataResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgFetchPriceDataResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgFetchPriceDataResponse();
@@ -269,77 +255,27 @@ export const MsgFetchPriceDataResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgFetchPriceDataResponse>, I>>(
-    _: I
-  ): MsgFetchPriceDataResponse {
+  create<I extends Exact<DeepPartial<MsgFetchPriceDataResponse>, I>>(base?: I): MsgFetchPriceDataResponse {
+    return MsgFetchPriceDataResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgFetchPriceDataResponse>, I>>(_: I): MsgFetchPriceDataResponse {
     const message = createBaseMsgFetchPriceDataResponse();
     return message;
   },
 };
 
-export interface Msg {
-  FetchPriceData(
-    request: MsgFetchPriceData
-  ): Promise<MsgFetchPriceDataResponse>;
-}
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export class MsgClientImpl implements Msg {
-  private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
-    this.rpc = rpc;
-    this.FetchPriceData = this.FetchPriceData.bind(this);
-  }
-  FetchPriceData(
-    request: MsgFetchPriceData
-  ): Promise<MsgFetchPriceDataResponse> {
-    const data = MsgFetchPriceData.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.bandoracle.v1beta1.Msg",
-      "FetchPriceData",
-      data
-    );
-    return promise.then((data) =>
-      MsgFetchPriceDataResponse.decode(new _m0.Reader(data))
-    );
-  }
-}
-
-interface Rpc {
-  request(
-    service: string,
-    method: string,
-    data: Uint8Array
-  ): Promise<Uint8Array>;
-}
-
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
-
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

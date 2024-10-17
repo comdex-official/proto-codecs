@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.tokenmint.v1beta1";
@@ -23,10 +23,7 @@ function createBaseTokenMint(): TokenMint {
 }
 
 export const TokenMint = {
-  encode(
-    message: TokenMint,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: TokenMint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -47,9 +44,7 @@ export const TokenMint = {
           message.appId = reader.uint64() as Long;
           break;
         case 2:
-          message.mintedTokens.push(
-            MintedTokens.decode(reader, reader.uint32())
-          );
+          message.mintedTokens.push(MintedTokens.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -70,46 +65,33 @@ export const TokenMint = {
 
   toJSON(message: TokenMint): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     if (message.mintedTokens) {
-      obj.mintedTokens = message.mintedTokens.map((e) =>
-        e ? MintedTokens.toJSON(e) : undefined
-      );
+      obj.mintedTokens = message.mintedTokens.map((e) => e ? MintedTokens.toJSON(e) : undefined);
     } else {
       obj.mintedTokens = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<TokenMint>, I>>(
-    object: I
-  ): TokenMint {
+  create<I extends Exact<DeepPartial<TokenMint>, I>>(base?: I): TokenMint {
+    return TokenMint.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<TokenMint>, I>>(object: I): TokenMint {
     const message = createBaseTokenMint();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.mintedTokens =
-      object.mintedTokens?.map((e) => MintedTokens.fromPartial(e)) || [];
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.mintedTokens = object.mintedTokens?.map((e) => MintedTokens.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseMintedTokens(): MintedTokens {
-  return {
-    assetId: Long.UZERO,
-    genesisSupply: "",
-    createdAt: undefined,
-    currentSupply: "",
-  };
+  return { assetId: Long.UZERO, genesisSupply: "", createdAt: undefined, currentSupply: "" };
 }
 
 export const MintedTokens = {
-  encode(
-    message: MintedTokens,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MintedTokens, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
@@ -117,10 +99,7 @@ export const MintedTokens = {
       writer.uint32(18).string(message.genesisSupply);
     }
     if (message.createdAt !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.createdAt),
-        writer.uint32(26).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.createdAt), writer.uint32(26).fork()).ldelim();
     }
     if (message.currentSupply !== "") {
       writer.uint32(34).string(message.currentSupply);
@@ -142,9 +121,7 @@ export const MintedTokens = {
           message.genesisSupply = reader.string();
           break;
         case 3:
-          message.createdAt = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.createdAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 4:
           message.currentSupply = reader.string();
@@ -159,42 +136,31 @@ export const MintedTokens = {
 
   fromJSON(object: any): MintedTokens {
     return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-      genesisSupply: isSet(object.genesisSupply)
-        ? String(object.genesisSupply)
-        : "",
-      createdAt: isSet(object.createdAt)
-        ? fromJsonTimestamp(object.createdAt)
-        : undefined,
-      currentSupply: isSet(object.currentSupply)
-        ? String(object.currentSupply)
-        : "",
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
+      genesisSupply: isSet(object.genesisSupply) ? String(object.genesisSupply) : "",
+      createdAt: isSet(object.createdAt) ? fromJsonTimestamp(object.createdAt) : undefined,
+      currentSupply: isSet(object.currentSupply) ? String(object.currentSupply) : "",
     };
   },
 
   toJSON(message: MintedTokens): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.genesisSupply !== undefined &&
-      (obj.genesisSupply = message.genesisSupply);
-    message.createdAt !== undefined &&
-      (obj.createdAt = message.createdAt.toISOString());
-    message.currentSupply !== undefined &&
-      (obj.currentSupply = message.currentSupply);
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.genesisSupply !== undefined && (obj.genesisSupply = message.genesisSupply);
+    message.createdAt !== undefined && (obj.createdAt = message.createdAt.toISOString());
+    message.currentSupply !== undefined && (obj.currentSupply = message.currentSupply);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MintedTokens>, I>>(
-    object: I
-  ): MintedTokens {
+  create<I extends Exact<DeepPartial<MintedTokens>, I>>(base?: I): MintedTokens {
+    return MintedTokens.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MintedTokens>, I>>(object: I): MintedTokens {
     const message = createBaseMintedTokens();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     message.genesisSupply = object.genesisSupply ?? "";
     message.createdAt = object.createdAt ?? undefined;
     message.currentSupply = object.currentSupply ?? "";
@@ -202,34 +168,17 @@ export const MintedTokens = {
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

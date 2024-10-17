@@ -16,10 +16,7 @@ function createBaseFetchPriceProposal(): FetchPriceProposal {
 }
 
 export const FetchPriceProposal = {
-  encode(
-    message: FetchPriceProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: FetchPriceProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -27,10 +24,7 @@ export const FetchPriceProposal = {
       writer.uint32(18).string(message.description);
     }
     if (message.FetchPrice !== undefined) {
-      MsgFetchPriceData.encode(
-        message.FetchPrice,
-        writer.uint32(26).fork()
-      ).ldelim();
+      MsgFetchPriceData.encode(message.FetchPrice, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -49,10 +43,7 @@ export const FetchPriceProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.FetchPrice = MsgFetchPriceData.decode(
-            reader,
-            reader.uint32()
-          );
+          message.FetchPrice = MsgFetchPriceData.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -66,66 +57,45 @@ export const FetchPriceProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      FetchPrice: isSet(object.FetchPrice)
-        ? MsgFetchPriceData.fromJSON(object.FetchPrice)
-        : undefined,
+      FetchPrice: isSet(object.FetchPrice) ? MsgFetchPriceData.fromJSON(object.FetchPrice) : undefined,
     };
   },
 
   toJSON(message: FetchPriceProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     message.FetchPrice !== undefined &&
-      (obj.FetchPrice = message.FetchPrice
-        ? MsgFetchPriceData.toJSON(message.FetchPrice)
-        : undefined);
+      (obj.FetchPrice = message.FetchPrice ? MsgFetchPriceData.toJSON(message.FetchPrice) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<FetchPriceProposal>, I>>(
-    object: I
-  ): FetchPriceProposal {
+  create<I extends Exact<DeepPartial<FetchPriceProposal>, I>>(base?: I): FetchPriceProposal {
+    return FetchPriceProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<FetchPriceProposal>, I>>(object: I): FetchPriceProposal {
     const message = createBaseFetchPriceProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.FetchPrice =
-      object.FetchPrice !== undefined && object.FetchPrice !== null
-        ? MsgFetchPriceData.fromPartial(object.FetchPrice)
-        : undefined;
+    message.FetchPrice = (object.FetchPrice !== undefined && object.FetchPrice !== null)
+      ? MsgFetchPriceData.fromPartial(object.FetchPrice)
+      : undefined;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

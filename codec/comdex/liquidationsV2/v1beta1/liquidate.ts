@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
@@ -103,10 +103,7 @@ function createBaseLiquidationWhiteListing(): LiquidationWhiteListing {
 }
 
 export const LiquidationWhiteListing = {
-  encode(
-    message: LiquidationWhiteListing,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: LiquidationWhiteListing, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -117,19 +114,13 @@ export const LiquidationWhiteListing = {
       writer.uint32(24).bool(message.isDutchActivated);
     }
     if (message.dutchAuctionParam !== undefined) {
-      DutchAuctionParam.encode(
-        message.dutchAuctionParam,
-        writer.uint32(34).fork()
-      ).ldelim();
+      DutchAuctionParam.encode(message.dutchAuctionParam, writer.uint32(34).fork()).ldelim();
     }
     if (message.isEnglishActivated === true) {
       writer.uint32(40).bool(message.isEnglishActivated);
     }
     if (message.englishAuctionParam !== undefined) {
-      EnglishAuctionParam.encode(
-        message.englishAuctionParam,
-        writer.uint32(50).fork()
-      ).ldelim();
+      EnglishAuctionParam.encode(message.englishAuctionParam, writer.uint32(50).fork()).ldelim();
     }
     if (message.keeeperIncentive !== "") {
       writer.uint32(58).string(message.keeeperIncentive);
@@ -137,10 +128,7 @@ export const LiquidationWhiteListing = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): LiquidationWhiteListing {
+  decode(input: _m0.Reader | Uint8Array, length?: number): LiquidationWhiteListing {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLiquidationWhiteListing();
@@ -157,19 +145,13 @@ export const LiquidationWhiteListing = {
           message.isDutchActivated = reader.bool();
           break;
         case 4:
-          message.dutchAuctionParam = DutchAuctionParam.decode(
-            reader,
-            reader.uint32()
-          );
+          message.dutchAuctionParam = DutchAuctionParam.decode(reader, reader.uint32());
           break;
         case 5:
           message.isEnglishActivated = reader.bool();
           break;
         case 6:
-          message.englishAuctionParam = EnglishAuctionParam.decode(
-            reader,
-            reader.uint32()
-          );
+          message.englishAuctionParam = EnglishAuctionParam.decode(reader, reader.uint32());
           break;
         case 7:
           message.keeeperIncentive = reader.string();
@@ -186,67 +168,50 @@ export const LiquidationWhiteListing = {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       initiator: isSet(object.initiator) ? Boolean(object.initiator) : false,
-      isDutchActivated: isSet(object.isDutchActivated)
-        ? Boolean(object.isDutchActivated)
-        : false,
+      isDutchActivated: isSet(object.isDutchActivated) ? Boolean(object.isDutchActivated) : false,
       dutchAuctionParam: isSet(object.dutchAuctionParam)
         ? DutchAuctionParam.fromJSON(object.dutchAuctionParam)
         : undefined,
-      isEnglishActivated: isSet(object.isEnglishActivated)
-        ? Boolean(object.isEnglishActivated)
-        : false,
+      isEnglishActivated: isSet(object.isEnglishActivated) ? Boolean(object.isEnglishActivated) : false,
       englishAuctionParam: isSet(object.englishAuctionParam)
         ? EnglishAuctionParam.fromJSON(object.englishAuctionParam)
         : undefined,
-      keeeperIncentive: isSet(object.keeeperIncentive)
-        ? String(object.keeeperIncentive)
-        : "",
+      keeeperIncentive: isSet(object.keeeperIncentive) ? String(object.keeeperIncentive) : "",
     };
   },
 
   toJSON(message: LiquidationWhiteListing): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.initiator !== undefined && (obj.initiator = message.initiator);
-    message.isDutchActivated !== undefined &&
-      (obj.isDutchActivated = message.isDutchActivated);
-    message.dutchAuctionParam !== undefined &&
-      (obj.dutchAuctionParam = message.dutchAuctionParam
-        ? DutchAuctionParam.toJSON(message.dutchAuctionParam)
-        : undefined);
-    message.isEnglishActivated !== undefined &&
-      (obj.isEnglishActivated = message.isEnglishActivated);
-    message.englishAuctionParam !== undefined &&
-      (obj.englishAuctionParam = message.englishAuctionParam
-        ? EnglishAuctionParam.toJSON(message.englishAuctionParam)
-        : undefined);
-    message.keeeperIncentive !== undefined &&
-      (obj.keeeperIncentive = message.keeeperIncentive);
+    message.isDutchActivated !== undefined && (obj.isDutchActivated = message.isDutchActivated);
+    message.dutchAuctionParam !== undefined && (obj.dutchAuctionParam = message.dutchAuctionParam
+      ? DutchAuctionParam.toJSON(message.dutchAuctionParam)
+      : undefined);
+    message.isEnglishActivated !== undefined && (obj.isEnglishActivated = message.isEnglishActivated);
+    message.englishAuctionParam !== undefined && (obj.englishAuctionParam = message.englishAuctionParam
+      ? EnglishAuctionParam.toJSON(message.englishAuctionParam)
+      : undefined);
+    message.keeeperIncentive !== undefined && (obj.keeeperIncentive = message.keeeperIncentive);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LiquidationWhiteListing>, I>>(
-    object: I
-  ): LiquidationWhiteListing {
+  create<I extends Exact<DeepPartial<LiquidationWhiteListing>, I>>(base?: I): LiquidationWhiteListing {
+    return LiquidationWhiteListing.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LiquidationWhiteListing>, I>>(object: I): LiquidationWhiteListing {
     const message = createBaseLiquidationWhiteListing();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     message.initiator = object.initiator ?? false;
     message.isDutchActivated = object.isDutchActivated ?? false;
-    message.dutchAuctionParam =
-      object.dutchAuctionParam !== undefined &&
-      object.dutchAuctionParam !== null
-        ? DutchAuctionParam.fromPartial(object.dutchAuctionParam)
-        : undefined;
+    message.dutchAuctionParam = (object.dutchAuctionParam !== undefined && object.dutchAuctionParam !== null)
+      ? DutchAuctionParam.fromPartial(object.dutchAuctionParam)
+      : undefined;
     message.isEnglishActivated = object.isEnglishActivated ?? false;
-    message.englishAuctionParam =
-      object.englishAuctionParam !== undefined &&
-      object.englishAuctionParam !== null
-        ? EnglishAuctionParam.fromPartial(object.englishAuctionParam)
-        : undefined;
+    message.englishAuctionParam = (object.englishAuctionParam !== undefined && object.englishAuctionParam !== null)
+      ? EnglishAuctionParam.fromPartial(object.englishAuctionParam)
+      : undefined;
     message.keeeperIncentive = object.keeeperIncentive ?? "";
     return message;
   },
@@ -257,10 +222,7 @@ function createBaseAppReserveFunds(): AppReserveFunds {
 }
 
 export const AppReserveFunds = {
-  encode(
-    message: AppReserveFunds,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AppReserveFunds, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -300,44 +262,33 @@ export const AppReserveFunds = {
   fromJSON(object: any): AppReserveFunds {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-      tokenQuantity: isSet(object.tokenQuantity)
-        ? Coin.fromJSON(object.tokenQuantity)
-        : undefined,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
+      tokenQuantity: isSet(object.tokenQuantity) ? Coin.fromJSON(object.tokenQuantity) : undefined,
     };
   },
 
   toJSON(message: AppReserveFunds): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.tokenQuantity !== undefined &&
-      (obj.tokenQuantity = message.tokenQuantity
-        ? Coin.toJSON(message.tokenQuantity)
-        : undefined);
+      (obj.tokenQuantity = message.tokenQuantity ? Coin.toJSON(message.tokenQuantity) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AppReserveFunds>, I>>(
-    object: I
-  ): AppReserveFunds {
+  create<I extends Exact<DeepPartial<AppReserveFunds>, I>>(base?: I): AppReserveFunds {
+    return AppReserveFunds.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AppReserveFunds>, I>>(object: I): AppReserveFunds {
     const message = createBaseAppReserveFunds();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.tokenQuantity =
-      object.tokenQuantity !== undefined && object.tokenQuantity !== null
-        ? Coin.fromPartial(object.tokenQuantity)
-        : undefined;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.tokenQuantity = (object.tokenQuantity !== undefined && object.tokenQuantity !== null)
+      ? Coin.fromPartial(object.tokenQuantity)
+      : undefined;
     return message;
   },
 };
@@ -347,10 +298,7 @@ function createBaseAppReserveFundsTxData(): AppReserveFundsTxData {
 }
 
 export const AppReserveFundsTxData = {
-  encode(
-    message: AppReserveFundsTxData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AppReserveFundsTxData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -360,10 +308,7 @@ export const AppReserveFundsTxData = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AppReserveFundsTxData {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AppReserveFundsTxData {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAppReserveFundsTxData();
@@ -395,28 +340,23 @@ export const AppReserveFundsTxData = {
 
   toJSON(message: AppReserveFundsTxData): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     if (message.assetTxData) {
-      obj.assetTxData = message.assetTxData.map((e) =>
-        e ? AssetTxData.toJSON(e) : undefined
-      );
+      obj.assetTxData = message.assetTxData.map((e) => e ? AssetTxData.toJSON(e) : undefined);
     } else {
       obj.assetTxData = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AppReserveFundsTxData>, I>>(
-    object: I
-  ): AppReserveFundsTxData {
+  create<I extends Exact<DeepPartial<AppReserveFundsTxData>, I>>(base?: I): AppReserveFundsTxData {
+    return AppReserveFundsTxData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AppReserveFundsTxData>, I>>(object: I): AppReserveFundsTxData {
     const message = createBaseAppReserveFundsTxData();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.assetTxData =
-      object.assetTxData?.map((e) => AssetTxData.fromPartial(e)) || [];
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.assetTxData = object.assetTxData?.map((e) => AssetTxData.fromPartial(e)) || [];
     return message;
   },
 };
@@ -426,10 +366,7 @@ function createBaseAssetTxData(): AssetTxData {
 }
 
 export const AssetTxData = {
-  encode(
-    message: AssetTxData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AssetTxData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
@@ -468,41 +405,34 @@ export const AssetTxData = {
 
   fromJSON(object: any): AssetTxData {
     return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       txType: isSet(object.txType) ? String(object.txType) : "",
-      tokenQuantity: isSet(object.tokenQuantity)
-        ? Coin.fromJSON(object.tokenQuantity)
-        : undefined,
+      tokenQuantity: isSet(object.tokenQuantity) ? Coin.fromJSON(object.tokenQuantity) : undefined,
     };
   },
 
   toJSON(message: AssetTxData): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.txType !== undefined && (obj.txType = message.txType);
     message.tokenQuantity !== undefined &&
-      (obj.tokenQuantity = message.tokenQuantity
-        ? Coin.toJSON(message.tokenQuantity)
-        : undefined);
+      (obj.tokenQuantity = message.tokenQuantity ? Coin.toJSON(message.tokenQuantity) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AssetTxData>, I>>(
-    object: I
-  ): AssetTxData {
+  create<I extends Exact<DeepPartial<AssetTxData>, I>>(base?: I): AssetTxData {
+    return AssetTxData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AssetTxData>, I>>(object: I): AssetTxData {
     const message = createBaseAssetTxData();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     message.txType = object.txType ?? "";
-    message.tokenQuantity =
-      object.tokenQuantity !== undefined && object.tokenQuantity !== null
-        ? Coin.fromPartial(object.tokenQuantity)
-        : undefined;
+    message.tokenQuantity = (object.tokenQuantity !== undefined && object.tokenQuantity !== null)
+      ? Coin.fromPartial(object.tokenQuantity)
+      : undefined;
     return message;
   },
 };
@@ -512,10 +442,7 @@ function createBaseDutchAuctionParam(): DutchAuctionParam {
 }
 
 export const DutchAuctionParam = {
-  encode(
-    message: DutchAuctionParam,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: DutchAuctionParam, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.premium !== "") {
       writer.uint32(10).string(message.premium);
     }
@@ -556,9 +483,7 @@ export const DutchAuctionParam = {
     return {
       premium: isSet(object.premium) ? String(object.premium) : "",
       discount: isSet(object.discount) ? String(object.discount) : "",
-      decrementFactor: isSet(object.decrementFactor)
-        ? String(object.decrementFactor)
-        : "",
+      decrementFactor: isSet(object.decrementFactor) ? String(object.decrementFactor) : "",
     };
   },
 
@@ -566,14 +491,15 @@ export const DutchAuctionParam = {
     const obj: any = {};
     message.premium !== undefined && (obj.premium = message.premium);
     message.discount !== undefined && (obj.discount = message.discount);
-    message.decrementFactor !== undefined &&
-      (obj.decrementFactor = message.decrementFactor);
+    message.decrementFactor !== undefined && (obj.decrementFactor = message.decrementFactor);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DutchAuctionParam>, I>>(
-    object: I
-  ): DutchAuctionParam {
+  create<I extends Exact<DeepPartial<DutchAuctionParam>, I>>(base?: I): DutchAuctionParam {
+    return DutchAuctionParam.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DutchAuctionParam>, I>>(object: I): DutchAuctionParam {
     const message = createBaseDutchAuctionParam();
     message.premium = object.premium ?? "";
     message.discount = object.discount ?? "";
@@ -587,10 +513,7 @@ function createBaseEnglishAuctionParam(): EnglishAuctionParam {
 }
 
 export const EnglishAuctionParam = {
-  encode(
-    message: EnglishAuctionParam,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: EnglishAuctionParam, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.decrementFactor !== "") {
       writer.uint32(10).string(message.decrementFactor);
     }
@@ -616,23 +539,20 @@ export const EnglishAuctionParam = {
   },
 
   fromJSON(object: any): EnglishAuctionParam {
-    return {
-      decrementFactor: isSet(object.decrementFactor)
-        ? String(object.decrementFactor)
-        : "",
-    };
+    return { decrementFactor: isSet(object.decrementFactor) ? String(object.decrementFactor) : "" };
   },
 
   toJSON(message: EnglishAuctionParam): unknown {
     const obj: any = {};
-    message.decrementFactor !== undefined &&
-      (obj.decrementFactor = message.decrementFactor);
+    message.decrementFactor !== undefined && (obj.decrementFactor = message.decrementFactor);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EnglishAuctionParam>, I>>(
-    object: I
-  ): EnglishAuctionParam {
+  create<I extends Exact<DeepPartial<EnglishAuctionParam>, I>>(base?: I): EnglishAuctionParam {
+    return EnglishAuctionParam.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EnglishAuctionParam>, I>>(object: I): EnglishAuctionParam {
     const message = createBaseEnglishAuctionParam();
     message.decrementFactor = object.decrementFactor ?? "";
     return message;
@@ -644,10 +564,7 @@ function createBaseLiquidationOffsetHolder(): LiquidationOffsetHolder {
 }
 
 export const LiquidationOffsetHolder = {
-  encode(
-    message: LiquidationOffsetHolder,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: LiquidationOffsetHolder, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -657,10 +574,7 @@ export const LiquidationOffsetHolder = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): LiquidationOffsetHolder {
+  decode(input: _m0.Reader | Uint8Array, length?: number): LiquidationOffsetHolder {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLiquidationOffsetHolder();
@@ -684,33 +598,27 @@ export const LiquidationOffsetHolder = {
   fromJSON(object: any): LiquidationOffsetHolder {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      currentOffset: isSet(object.currentOffset)
-        ? Long.fromValue(object.currentOffset)
-        : Long.UZERO,
+      currentOffset: isSet(object.currentOffset) ? Long.fromValue(object.currentOffset) : Long.UZERO,
     };
   },
 
   toJSON(message: LiquidationOffsetHolder): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.currentOffset !== undefined &&
-      (obj.currentOffset = (message.currentOffset || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.currentOffset !== undefined && (obj.currentOffset = (message.currentOffset || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LiquidationOffsetHolder>, I>>(
-    object: I
-  ): LiquidationOffsetHolder {
+  create<I extends Exact<DeepPartial<LiquidationOffsetHolder>, I>>(base?: I): LiquidationOffsetHolder {
+    return LiquidationOffsetHolder.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LiquidationOffsetHolder>, I>>(object: I): LiquidationOffsetHolder {
     const message = createBaseLiquidationOffsetHolder();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.currentOffset =
-      object.currentOffset !== undefined && object.currentOffset !== null
-        ? Long.fromValue(object.currentOffset)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.currentOffset = (object.currentOffset !== undefined && object.currentOffset !== null)
+      ? Long.fromValue(object.currentOffset)
+      : Long.UZERO;
     return message;
   },
 };
@@ -742,10 +650,7 @@ function createBaseLockedVault(): LockedVault {
 }
 
 export const LockedVault = {
-  encode(
-    message: LockedVault,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: LockedVault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -771,19 +676,13 @@ export const LockedVault = {
       writer.uint32(66).string(message.currentCollateralisationRatio);
     }
     if (message.collateralToBeAuctioned !== undefined) {
-      Coin.encode(
-        message.collateralToBeAuctioned,
-        writer.uint32(74).fork()
-      ).ldelim();
+      Coin.encode(message.collateralToBeAuctioned, writer.uint32(74).fork()).ldelim();
     }
     if (message.targetDebt !== undefined) {
       Coin.encode(message.targetDebt, writer.uint32(82).fork()).ldelim();
     }
     if (message.liquidationTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.liquidationTimestamp),
-        writer.uint32(90).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.liquidationTimestamp), writer.uint32(90).fork()).ldelim();
     }
     if (message.isInternalKeeper === true) {
       writer.uint32(96).bool(message.isInternalKeeper);
@@ -850,18 +749,13 @@ export const LockedVault = {
           message.currentCollateralisationRatio = reader.string();
           break;
         case 9:
-          message.collateralToBeAuctioned = Coin.decode(
-            reader,
-            reader.uint32()
-          );
+          message.collateralToBeAuctioned = Coin.decode(reader, reader.uint32());
           break;
         case 10:
           message.targetDebt = Coin.decode(reader, reader.uint32());
           break;
         case 11:
-          message.liquidationTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.liquidationTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 12:
           message.isInternalKeeper = reader.bool();
@@ -905,163 +799,97 @@ export const LockedVault = {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      originalVaultId: isSet(object.originalVaultId)
-        ? Long.fromValue(object.originalVaultId)
-        : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
+      originalVaultId: isSet(object.originalVaultId) ? Long.fromValue(object.originalVaultId) : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
-      collateralToken: isSet(object.collateralToken)
-        ? Coin.fromJSON(object.collateralToken)
-        : undefined,
-      debtToken: isSet(object.debtToken)
-        ? Coin.fromJSON(object.debtToken)
-        : undefined,
+      collateralToken: isSet(object.collateralToken) ? Coin.fromJSON(object.collateralToken) : undefined,
+      debtToken: isSet(object.debtToken) ? Coin.fromJSON(object.debtToken) : undefined,
       currentCollateralisationRatio: isSet(object.currentCollateralisationRatio)
         ? String(object.currentCollateralisationRatio)
         : "",
       collateralToBeAuctioned: isSet(object.collateralToBeAuctioned)
         ? Coin.fromJSON(object.collateralToBeAuctioned)
         : undefined,
-      targetDebt: isSet(object.targetDebt)
-        ? Coin.fromJSON(object.targetDebt)
-        : undefined,
+      targetDebt: isSet(object.targetDebt) ? Coin.fromJSON(object.targetDebt) : undefined,
       liquidationTimestamp: isSet(object.liquidationTimestamp)
         ? fromJsonTimestamp(object.liquidationTimestamp)
         : undefined,
-      isInternalKeeper: isSet(object.isInternalKeeper)
-        ? Boolean(object.isInternalKeeper)
-        : false,
-      internalKeeperAddress: isSet(object.internalKeeperAddress)
-        ? String(object.internalKeeperAddress)
-        : "",
-      externalKeeperAddress: isSet(object.externalKeeperAddress)
-        ? String(object.externalKeeperAddress)
-        : "",
-      feeToBeCollected: isSet(object.feeToBeCollected)
-        ? String(object.feeToBeCollected)
-        : "",
-      bonusToBeGiven: isSet(object.bonusToBeGiven)
-        ? String(object.bonusToBeGiven)
-        : "",
-      initiatorType: isSet(object.initiatorType)
-        ? String(object.initiatorType)
-        : "",
-      auctionType: isSet(object.auctionType)
-        ? Boolean(object.auctionType)
-        : false,
+      isInternalKeeper: isSet(object.isInternalKeeper) ? Boolean(object.isInternalKeeper) : false,
+      internalKeeperAddress: isSet(object.internalKeeperAddress) ? String(object.internalKeeperAddress) : "",
+      externalKeeperAddress: isSet(object.externalKeeperAddress) ? String(object.externalKeeperAddress) : "",
+      feeToBeCollected: isSet(object.feeToBeCollected) ? String(object.feeToBeCollected) : "",
+      bonusToBeGiven: isSet(object.bonusToBeGiven) ? String(object.bonusToBeGiven) : "",
+      initiatorType: isSet(object.initiatorType) ? String(object.initiatorType) : "",
+      auctionType: isSet(object.auctionType) ? Boolean(object.auctionType) : false,
       isDebtCmst: isSet(object.isDebtCmst) ? Boolean(object.isDebtCmst) : false,
-      collateralAssetId: isSet(object.collateralAssetId)
-        ? Long.fromValue(object.collateralAssetId)
-        : Long.UZERO,
-      debtAssetId: isSet(object.debtAssetId)
-        ? Long.fromValue(object.debtAssetId)
-        : Long.UZERO,
+      collateralAssetId: isSet(object.collateralAssetId) ? Long.fromValue(object.collateralAssetId) : Long.UZERO,
+      debtAssetId: isSet(object.debtAssetId) ? Long.fromValue(object.debtAssetId) : Long.UZERO,
     };
   },
 
   toJSON(message: LockedVault): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.originalVaultId !== undefined &&
-      (obj.originalVaultId = (
-        message.originalVaultId || Long.UZERO
-      ).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.originalVaultId !== undefined && (obj.originalVaultId = (message.originalVaultId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
     message.owner !== undefined && (obj.owner = message.owner);
     message.collateralToken !== undefined &&
-      (obj.collateralToken = message.collateralToken
-        ? Coin.toJSON(message.collateralToken)
-        : undefined);
-    message.debtToken !== undefined &&
-      (obj.debtToken = message.debtToken
-        ? Coin.toJSON(message.debtToken)
-        : undefined);
+      (obj.collateralToken = message.collateralToken ? Coin.toJSON(message.collateralToken) : undefined);
+    message.debtToken !== undefined && (obj.debtToken = message.debtToken ? Coin.toJSON(message.debtToken) : undefined);
     message.currentCollateralisationRatio !== undefined &&
-      (obj.currentCollateralisationRatio =
-        message.currentCollateralisationRatio);
-    message.collateralToBeAuctioned !== undefined &&
-      (obj.collateralToBeAuctioned = message.collateralToBeAuctioned
-        ? Coin.toJSON(message.collateralToBeAuctioned)
-        : undefined);
+      (obj.currentCollateralisationRatio = message.currentCollateralisationRatio);
+    message.collateralToBeAuctioned !== undefined && (obj.collateralToBeAuctioned = message.collateralToBeAuctioned
+      ? Coin.toJSON(message.collateralToBeAuctioned)
+      : undefined);
     message.targetDebt !== undefined &&
-      (obj.targetDebt = message.targetDebt
-        ? Coin.toJSON(message.targetDebt)
-        : undefined);
+      (obj.targetDebt = message.targetDebt ? Coin.toJSON(message.targetDebt) : undefined);
     message.liquidationTimestamp !== undefined &&
       (obj.liquidationTimestamp = message.liquidationTimestamp.toISOString());
-    message.isInternalKeeper !== undefined &&
-      (obj.isInternalKeeper = message.isInternalKeeper);
-    message.internalKeeperAddress !== undefined &&
-      (obj.internalKeeperAddress = message.internalKeeperAddress);
-    message.externalKeeperAddress !== undefined &&
-      (obj.externalKeeperAddress = message.externalKeeperAddress);
-    message.feeToBeCollected !== undefined &&
-      (obj.feeToBeCollected = message.feeToBeCollected);
-    message.bonusToBeGiven !== undefined &&
-      (obj.bonusToBeGiven = message.bonusToBeGiven);
-    message.initiatorType !== undefined &&
-      (obj.initiatorType = message.initiatorType);
-    message.auctionType !== undefined &&
-      (obj.auctionType = message.auctionType);
+    message.isInternalKeeper !== undefined && (obj.isInternalKeeper = message.isInternalKeeper);
+    message.internalKeeperAddress !== undefined && (obj.internalKeeperAddress = message.internalKeeperAddress);
+    message.externalKeeperAddress !== undefined && (obj.externalKeeperAddress = message.externalKeeperAddress);
+    message.feeToBeCollected !== undefined && (obj.feeToBeCollected = message.feeToBeCollected);
+    message.bonusToBeGiven !== undefined && (obj.bonusToBeGiven = message.bonusToBeGiven);
+    message.initiatorType !== undefined && (obj.initiatorType = message.initiatorType);
+    message.auctionType !== undefined && (obj.auctionType = message.auctionType);
     message.isDebtCmst !== undefined && (obj.isDebtCmst = message.isDebtCmst);
     message.collateralAssetId !== undefined &&
-      (obj.collateralAssetId = (
-        message.collateralAssetId || Long.UZERO
-      ).toString());
-    message.debtAssetId !== undefined &&
-      (obj.debtAssetId = (message.debtAssetId || Long.UZERO).toString());
+      (obj.collateralAssetId = (message.collateralAssetId || Long.UZERO).toString());
+    message.debtAssetId !== undefined && (obj.debtAssetId = (message.debtAssetId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LockedVault>, I>>(
-    object: I
-  ): LockedVault {
+  create<I extends Exact<DeepPartial<LockedVault>, I>>(base?: I): LockedVault {
+    return LockedVault.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LockedVault>, I>>(object: I): LockedVault {
     const message = createBaseLockedVault();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.originalVaultId =
-      object.originalVaultId !== undefined && object.originalVaultId !== null
-        ? Long.fromValue(object.originalVaultId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.originalVaultId = (object.originalVaultId !== undefined && object.originalVaultId !== null)
+      ? Long.fromValue(object.originalVaultId)
+      : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
     message.owner = object.owner ?? "";
-    message.collateralToken =
-      object.collateralToken !== undefined && object.collateralToken !== null
-        ? Coin.fromPartial(object.collateralToken)
-        : undefined;
-    message.debtToken =
-      object.debtToken !== undefined && object.debtToken !== null
-        ? Coin.fromPartial(object.debtToken)
-        : undefined;
-    message.currentCollateralisationRatio =
-      object.currentCollateralisationRatio ?? "";
+    message.collateralToken = (object.collateralToken !== undefined && object.collateralToken !== null)
+      ? Coin.fromPartial(object.collateralToken)
+      : undefined;
+    message.debtToken = (object.debtToken !== undefined && object.debtToken !== null)
+      ? Coin.fromPartial(object.debtToken)
+      : undefined;
+    message.currentCollateralisationRatio = object.currentCollateralisationRatio ?? "";
     message.collateralToBeAuctioned =
-      object.collateralToBeAuctioned !== undefined &&
-      object.collateralToBeAuctioned !== null
+      (object.collateralToBeAuctioned !== undefined && object.collateralToBeAuctioned !== null)
         ? Coin.fromPartial(object.collateralToBeAuctioned)
         : undefined;
-    message.targetDebt =
-      object.targetDebt !== undefined && object.targetDebt !== null
-        ? Coin.fromPartial(object.targetDebt)
-        : undefined;
+    message.targetDebt = (object.targetDebt !== undefined && object.targetDebt !== null)
+      ? Coin.fromPartial(object.targetDebt)
+      : undefined;
     message.liquidationTimestamp = object.liquidationTimestamp ?? undefined;
     message.isInternalKeeper = object.isInternalKeeper ?? false;
     message.internalKeeperAddress = object.internalKeeperAddress ?? "";
@@ -1071,47 +899,27 @@ export const LockedVault = {
     message.initiatorType = object.initiatorType ?? "";
     message.auctionType = object.auctionType ?? false;
     message.isDebtCmst = object.isDebtCmst ?? false;
-    message.collateralAssetId =
-      object.collateralAssetId !== undefined &&
-      object.collateralAssetId !== null
-        ? Long.fromValue(object.collateralAssetId)
-        : Long.UZERO;
-    message.debtAssetId =
-      object.debtAssetId !== undefined && object.debtAssetId !== null
-        ? Long.fromValue(object.debtAssetId)
-        : Long.UZERO;
+    message.collateralAssetId = (object.collateralAssetId !== undefined && object.collateralAssetId !== null)
+      ? Long.fromValue(object.collateralAssetId)
+      : Long.UZERO;
+    message.debtAssetId = (object.debtAssetId !== undefined && object.debtAssetId !== null)
+      ? Long.fromValue(object.debtAssetId)
+      : Long.UZERO;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

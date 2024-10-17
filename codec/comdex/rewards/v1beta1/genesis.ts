@@ -1,17 +1,17 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Params } from "../../../comdex/rewards/v1beta1/params";
+import _m0 from "protobufjs/minimal";
+import { EpochInfo } from "./epochs";
+import { Gauge, GaugeByTriggerDuration } from "./gauge";
+import { Params } from "./params";
 import {
   InternalRewards,
-  LockerRewardsTracker,
-  VaultInterestTracker,
-  LockerExternalRewards,
-  VaultExternalRewards,
   LendExternalRewards,
-} from "../../../comdex/rewards/v1beta1/rewards";
-import { EpochInfo } from "../../../comdex/rewards/v1beta1/epochs";
-import { Gauge, GaugeByTriggerDuration } from "../../../comdex/rewards/v1beta1/gauge";
+  LockerExternalRewards,
+  LockerRewardsTracker,
+  VaultExternalRewards,
+  VaultInterestTracker,
+} from "./rewards";
 
 export const protobufPackage = "comdex.rewards.v1beta1";
 
@@ -47,10 +47,7 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
-  encode(
-    message: GenesisState,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.internalRewards) {
       InternalRewards.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -97,29 +94,19 @@ export const GenesisState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.internalRewards.push(
-            InternalRewards.decode(reader, reader.uint32())
-          );
+          message.internalRewards.push(InternalRewards.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.lockerRewardsTracker.push(
-            LockerRewardsTracker.decode(reader, reader.uint32())
-          );
+          message.lockerRewardsTracker.push(LockerRewardsTracker.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.vaultInterestTracker.push(
-            VaultInterestTracker.decode(reader, reader.uint32())
-          );
+          message.vaultInterestTracker.push(VaultInterestTracker.decode(reader, reader.uint32()));
           break;
         case 4:
-          message.lockerExternalRewards.push(
-            LockerExternalRewards.decode(reader, reader.uint32())
-          );
+          message.lockerExternalRewards.push(LockerExternalRewards.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.vaultExternalRewards.push(
-            VaultExternalRewards.decode(reader, reader.uint32())
-          );
+          message.vaultExternalRewards.push(VaultExternalRewards.decode(reader, reader.uint32()));
           break;
         case 6:
           if ((tag & 7) === 2) {
@@ -138,17 +125,13 @@ export const GenesisState = {
           message.gauge.push(Gauge.decode(reader, reader.uint32()));
           break;
         case 9:
-          message.gaugeByTriggerDuration.push(
-            GaugeByTriggerDuration.decode(reader, reader.uint32())
-          );
+          message.gaugeByTriggerDuration.push(GaugeByTriggerDuration.decode(reader, reader.uint32()));
           break;
         case 10:
           message.params = Params.decode(reader, reader.uint32());
           break;
         case 11:
-          message.lendExternalRewards.push(
-            LendExternalRewards.decode(reader, reader.uint32())
-          );
+          message.lendExternalRewards.push(LendExternalRewards.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -164,44 +147,28 @@ export const GenesisState = {
         ? object.internalRewards.map((e: any) => InternalRewards.fromJSON(e))
         : [],
       lockerRewardsTracker: Array.isArray(object?.lockerRewardsTracker)
-        ? object.lockerRewardsTracker.map((e: any) =>
-            LockerRewardsTracker.fromJSON(e)
-          )
+        ? object.lockerRewardsTracker.map((e: any) => LockerRewardsTracker.fromJSON(e))
         : [],
       vaultInterestTracker: Array.isArray(object?.vaultInterestTracker)
-        ? object.vaultInterestTracker.map((e: any) =>
-            VaultInterestTracker.fromJSON(e)
-          )
+        ? object.vaultInterestTracker.map((e: any) => VaultInterestTracker.fromJSON(e))
         : [],
       lockerExternalRewards: Array.isArray(object?.lockerExternalRewards)
-        ? object.lockerExternalRewards.map((e: any) =>
-            LockerExternalRewards.fromJSON(e)
-          )
+        ? object.lockerExternalRewards.map((e: any) => LockerExternalRewards.fromJSON(e))
         : [],
       vaultExternalRewards: Array.isArray(object?.vaultExternalRewards)
-        ? object.vaultExternalRewards.map((e: any) =>
-            VaultExternalRewards.fromJSON(e)
-          )
+        ? object.vaultExternalRewards.map((e: any) => VaultExternalRewards.fromJSON(e))
         : [],
       appIDs: Array.isArray(object?.appIDs)
         ? object.appIDs.map((e: any) => Long.fromValue(e))
         : [],
-      epochInfo: Array.isArray(object?.epochInfo)
-        ? object.epochInfo.map((e: any) => EpochInfo.fromJSON(e))
-        : [],
-      gauge: Array.isArray(object?.gauge)
-        ? object.gauge.map((e: any) => Gauge.fromJSON(e))
-        : [],
+      epochInfo: Array.isArray(object?.epochInfo) ? object.epochInfo.map((e: any) => EpochInfo.fromJSON(e)) : [],
+      gauge: Array.isArray(object?.gauge) ? object.gauge.map((e: any) => Gauge.fromJSON(e)) : [],
       gaugeByTriggerDuration: Array.isArray(object?.gaugeByTriggerDuration)
-        ? object.gaugeByTriggerDuration.map((e: any) =>
-            GaugeByTriggerDuration.fromJSON(e)
-          )
+        ? object.gaugeByTriggerDuration.map((e: any) => GaugeByTriggerDuration.fromJSON(e))
         : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
       lendExternalRewards: Array.isArray(object?.lendExternalRewards)
-        ? object.lendExternalRewards.map((e: any) =>
-            LendExternalRewards.fromJSON(e)
-          )
+        ? object.lendExternalRewards.map((e: any) => LendExternalRewards.fromJSON(e))
         : [],
     };
   },
@@ -209,9 +176,7 @@ export const GenesisState = {
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     if (message.internalRewards) {
-      obj.internalRewards = message.internalRewards.map((e) =>
-        e ? InternalRewards.toJSON(e) : undefined
-      );
+      obj.internalRewards = message.internalRewards.map((e) => e ? InternalRewards.toJSON(e) : undefined);
     } else {
       obj.internalRewards = [];
     }
@@ -249,14 +214,12 @@ export const GenesisState = {
       obj.appIDs = [];
     }
     if (message.epochInfo) {
-      obj.epochInfo = message.epochInfo.map((e) =>
-        e ? EpochInfo.toJSON(e) : undefined
-      );
+      obj.epochInfo = message.epochInfo.map((e) => e ? EpochInfo.toJSON(e) : undefined);
     } else {
       obj.epochInfo = [];
     }
     if (message.gauge) {
-      obj.gauge = message.gauge.map((e) => (e ? Gauge.toJSON(e) : undefined));
+      obj.gauge = message.gauge.map((e) => e ? Gauge.toJSON(e) : undefined);
     } else {
       obj.gauge = [];
     }
@@ -267,88 +230,51 @@ export const GenesisState = {
     } else {
       obj.gaugeByTriggerDuration = [];
     }
-    message.params !== undefined &&
-      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     if (message.lendExternalRewards) {
-      obj.lendExternalRewards = message.lendExternalRewards.map((e) =>
-        e ? LendExternalRewards.toJSON(e) : undefined
-      );
+      obj.lendExternalRewards = message.lendExternalRewards.map((e) => e ? LendExternalRewards.toJSON(e) : undefined);
     } else {
       obj.lendExternalRewards = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
-    object: I
-  ): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+    return GenesisState.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.internalRewards =
-      object.internalRewards?.map((e) => InternalRewards.fromPartial(e)) || [];
-    message.lockerRewardsTracker =
-      object.lockerRewardsTracker?.map((e) =>
-        LockerRewardsTracker.fromPartial(e)
-      ) || [];
-    message.vaultInterestTracker =
-      object.vaultInterestTracker?.map((e) =>
-        VaultInterestTracker.fromPartial(e)
-      ) || [];
-    message.lockerExternalRewards =
-      object.lockerExternalRewards?.map((e) =>
-        LockerExternalRewards.fromPartial(e)
-      ) || [];
-    message.vaultExternalRewards =
-      object.vaultExternalRewards?.map((e) =>
-        VaultExternalRewards.fromPartial(e)
-      ) || [];
+    message.internalRewards = object.internalRewards?.map((e) => InternalRewards.fromPartial(e)) || [];
+    message.lockerRewardsTracker = object.lockerRewardsTracker?.map((e) => LockerRewardsTracker.fromPartial(e)) || [];
+    message.vaultInterestTracker = object.vaultInterestTracker?.map((e) => VaultInterestTracker.fromPartial(e)) || [];
+    message.lockerExternalRewards = object.lockerExternalRewards?.map((e) => LockerExternalRewards.fromPartial(e)) ||
+      [];
+    message.vaultExternalRewards = object.vaultExternalRewards?.map((e) => VaultExternalRewards.fromPartial(e)) || [];
     message.appIDs = object.appIDs?.map((e) => Long.fromValue(e)) || [];
-    message.epochInfo =
-      object.epochInfo?.map((e) => EpochInfo.fromPartial(e)) || [];
+    message.epochInfo = object.epochInfo?.map((e) => EpochInfo.fromPartial(e)) || [];
     message.gauge = object.gauge?.map((e) => Gauge.fromPartial(e)) || [];
-    message.gaugeByTriggerDuration =
-      object.gaugeByTriggerDuration?.map((e) =>
-        GaugeByTriggerDuration.fromPartial(e)
-      ) || [];
-    message.params =
-      object.params !== undefined && object.params !== null
-        ? Params.fromPartial(object.params)
-        : undefined;
-    message.lendExternalRewards =
-      object.lendExternalRewards?.map((e) =>
-        LendExternalRewards.fromPartial(e)
-      ) || [];
+    message.gaugeByTriggerDuration = object.gaugeByTriggerDuration?.map((e) => GaugeByTriggerDuration.fromPartial(e)) ||
+      [];
+    message.params = (object.params !== undefined && object.params !== null)
+      ? Params.fromPartial(object.params)
+      : undefined;
+    message.lendExternalRewards = object.lendExternalRewards?.map((e) => LendExternalRewards.fromPartial(e)) || [];
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

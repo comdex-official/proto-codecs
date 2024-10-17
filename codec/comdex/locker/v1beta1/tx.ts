@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.locker.v1beta1";
 
@@ -11,7 +11,8 @@ export interface MsgCreateLockerRequest {
   appId: Long;
 }
 
-export interface MsgCreateLockerResponse {}
+export interface MsgCreateLockerResponse {
+}
 
 export interface MsgAddWhiteListedAssetRequest {
   from: string;
@@ -19,7 +20,8 @@ export interface MsgAddWhiteListedAssetRequest {
   assetId: Long;
 }
 
-export interface MsgAddWhiteListedAssetResponse {}
+export interface MsgAddWhiteListedAssetResponse {
+}
 
 export interface MsgDepositAssetRequest {
   depositor: string;
@@ -29,7 +31,8 @@ export interface MsgDepositAssetRequest {
   appId: Long;
 }
 
-export interface MsgDepositAssetResponse {}
+export interface MsgDepositAssetResponse {
+}
 
 export interface MsgWithdrawAssetRequest {
   depositor: string;
@@ -39,7 +42,8 @@ export interface MsgWithdrawAssetRequest {
   appId: Long;
 }
 
-export interface MsgWithdrawAssetResponse {}
+export interface MsgWithdrawAssetResponse {
+}
 
 export interface MsgCloseLockerRequest {
   depositor: string;
@@ -48,7 +52,8 @@ export interface MsgCloseLockerRequest {
   lockerId: Long;
 }
 
-export interface MsgCloseLockerResponse {}
+export interface MsgCloseLockerResponse {
+}
 
 export interface MsgLockerRewardCalcRequest {
   from: string;
@@ -56,17 +61,15 @@ export interface MsgLockerRewardCalcRequest {
   lockerId: Long;
 }
 
-export interface MsgLockerRewardCalcResponse {}
+export interface MsgLockerRewardCalcResponse {
+}
 
 function createBaseMsgCreateLockerRequest(): MsgCreateLockerRequest {
   return { depositor: "", amount: "", assetId: Long.UZERO, appId: Long.UZERO };
 }
 
 export const MsgCreateLockerRequest = {
-  encode(
-    message: MsgCreateLockerRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgCreateLockerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.depositor !== "") {
       writer.uint32(10).string(message.depositor);
     }
@@ -82,10 +85,7 @@ export const MsgCreateLockerRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCreateLockerRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateLockerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateLockerRequest();
@@ -116,9 +116,7 @@ export const MsgCreateLockerRequest = {
     return {
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       amount: isSet(object.amount) ? String(object.amount) : "",
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
@@ -127,27 +125,23 @@ export const MsgCreateLockerRequest = {
     const obj: any = {};
     message.depositor !== undefined && (obj.depositor = message.depositor);
     message.amount !== undefined && (obj.amount = message.amount);
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCreateLockerRequest>, I>>(
-    object: I
-  ): MsgCreateLockerRequest {
+  create<I extends Exact<DeepPartial<MsgCreateLockerRequest>, I>>(base?: I): MsgCreateLockerRequest {
+    return MsgCreateLockerRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreateLockerRequest>, I>>(object: I): MsgCreateLockerRequest {
     const message = createBaseMsgCreateLockerRequest();
     message.depositor = object.depositor ?? "";
     message.amount = object.amount ?? "";
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
@@ -157,17 +151,11 @@ function createBaseMsgCreateLockerResponse(): MsgCreateLockerResponse {
 }
 
 export const MsgCreateLockerResponse = {
-  encode(
-    _: MsgCreateLockerResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgCreateLockerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCreateLockerResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateLockerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateLockerResponse();
@@ -191,9 +179,11 @@ export const MsgCreateLockerResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCreateLockerResponse>, I>>(
-    _: I
-  ): MsgCreateLockerResponse {
+  create<I extends Exact<DeepPartial<MsgCreateLockerResponse>, I>>(base?: I): MsgCreateLockerResponse {
+    return MsgCreateLockerResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreateLockerResponse>, I>>(_: I): MsgCreateLockerResponse {
     const message = createBaseMsgCreateLockerResponse();
     return message;
   },
@@ -204,10 +194,7 @@ function createBaseMsgAddWhiteListedAssetRequest(): MsgAddWhiteListedAssetReques
 }
 
 export const MsgAddWhiteListedAssetRequest = {
-  encode(
-    message: MsgAddWhiteListedAssetRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgAddWhiteListedAssetRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -220,10 +207,7 @@ export const MsgAddWhiteListedAssetRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgAddWhiteListedAssetRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddWhiteListedAssetRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgAddWhiteListedAssetRequest();
@@ -251,35 +235,31 @@ export const MsgAddWhiteListedAssetRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
     };
   },
 
   toJSON(message: MsgAddWhiteListedAssetRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<MsgAddWhiteListedAssetRequest>, I>>(base?: I): MsgAddWhiteListedAssetRequest {
+    return MsgAddWhiteListedAssetRequest.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgAddWhiteListedAssetRequest>, I>>(
-    object: I
+    object: I,
   ): MsgAddWhiteListedAssetRequest {
     const message = createBaseMsgAddWhiteListedAssetRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -289,17 +269,11 @@ function createBaseMsgAddWhiteListedAssetResponse(): MsgAddWhiteListedAssetRespo
 }
 
 export const MsgAddWhiteListedAssetResponse = {
-  encode(
-    _: MsgAddWhiteListedAssetResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgAddWhiteListedAssetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgAddWhiteListedAssetResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddWhiteListedAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgAddWhiteListedAssetResponse();
@@ -323,29 +297,22 @@ export const MsgAddWhiteListedAssetResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgAddWhiteListedAssetResponse>, I>>(
-    _: I
-  ): MsgAddWhiteListedAssetResponse {
+  create<I extends Exact<DeepPartial<MsgAddWhiteListedAssetResponse>, I>>(base?: I): MsgAddWhiteListedAssetResponse {
+    return MsgAddWhiteListedAssetResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgAddWhiteListedAssetResponse>, I>>(_: I): MsgAddWhiteListedAssetResponse {
     const message = createBaseMsgAddWhiteListedAssetResponse();
     return message;
   },
 };
 
 function createBaseMsgDepositAssetRequest(): MsgDepositAssetRequest {
-  return {
-    depositor: "",
-    lockerId: Long.UZERO,
-    amount: "",
-    assetId: Long.UZERO,
-    appId: Long.UZERO,
-  };
+  return { depositor: "", lockerId: Long.UZERO, amount: "", assetId: Long.UZERO, appId: Long.UZERO };
 }
 
 export const MsgDepositAssetRequest = {
-  encode(
-    message: MsgDepositAssetRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgDepositAssetRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.depositor !== "") {
       writer.uint32(10).string(message.depositor);
     }
@@ -364,10 +331,7 @@ export const MsgDepositAssetRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgDepositAssetRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositAssetRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDepositAssetRequest();
@@ -400,13 +364,9 @@ export const MsgDepositAssetRequest = {
   fromJSON(object: any): MsgDepositAssetRequest {
     return {
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      lockerId: isSet(object.lockerId)
-        ? Long.fromValue(object.lockerId)
-        : Long.UZERO,
+      lockerId: isSet(object.lockerId) ? Long.fromValue(object.lockerId) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
@@ -414,34 +374,28 @@ export const MsgDepositAssetRequest = {
   toJSON(message: MsgDepositAssetRequest): unknown {
     const obj: any = {};
     message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.lockerId !== undefined &&
-      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
+    message.lockerId !== undefined && (obj.lockerId = (message.lockerId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositAssetRequest>, I>>(
-    object: I
-  ): MsgDepositAssetRequest {
+  create<I extends Exact<DeepPartial<MsgDepositAssetRequest>, I>>(base?: I): MsgDepositAssetRequest {
+    return MsgDepositAssetRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositAssetRequest>, I>>(object: I): MsgDepositAssetRequest {
     const message = createBaseMsgDepositAssetRequest();
     message.depositor = object.depositor ?? "";
-    message.lockerId =
-      object.lockerId !== undefined && object.lockerId !== null
-        ? Long.fromValue(object.lockerId)
-        : Long.UZERO;
+    message.lockerId = (object.lockerId !== undefined && object.lockerId !== null)
+      ? Long.fromValue(object.lockerId)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
@@ -451,17 +405,11 @@ function createBaseMsgDepositAssetResponse(): MsgDepositAssetResponse {
 }
 
 export const MsgDepositAssetResponse = {
-  encode(
-    _: MsgDepositAssetResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgDepositAssetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgDepositAssetResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDepositAssetResponse();
@@ -485,29 +433,22 @@ export const MsgDepositAssetResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositAssetResponse>, I>>(
-    _: I
-  ): MsgDepositAssetResponse {
+  create<I extends Exact<DeepPartial<MsgDepositAssetResponse>, I>>(base?: I): MsgDepositAssetResponse {
+    return MsgDepositAssetResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositAssetResponse>, I>>(_: I): MsgDepositAssetResponse {
     const message = createBaseMsgDepositAssetResponse();
     return message;
   },
 };
 
 function createBaseMsgWithdrawAssetRequest(): MsgWithdrawAssetRequest {
-  return {
-    depositor: "",
-    lockerId: Long.UZERO,
-    amount: "",
-    assetId: Long.UZERO,
-    appId: Long.UZERO,
-  };
+  return { depositor: "", lockerId: Long.UZERO, amount: "", assetId: Long.UZERO, appId: Long.UZERO };
 }
 
 export const MsgWithdrawAssetRequest = {
-  encode(
-    message: MsgWithdrawAssetRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgWithdrawAssetRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.depositor !== "") {
       writer.uint32(10).string(message.depositor);
     }
@@ -526,10 +467,7 @@ export const MsgWithdrawAssetRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgWithdrawAssetRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawAssetRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWithdrawAssetRequest();
@@ -562,13 +500,9 @@ export const MsgWithdrawAssetRequest = {
   fromJSON(object: any): MsgWithdrawAssetRequest {
     return {
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      lockerId: isSet(object.lockerId)
-        ? Long.fromValue(object.lockerId)
-        : Long.UZERO,
+      lockerId: isSet(object.lockerId) ? Long.fromValue(object.lockerId) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
@@ -576,34 +510,28 @@ export const MsgWithdrawAssetRequest = {
   toJSON(message: MsgWithdrawAssetRequest): unknown {
     const obj: any = {};
     message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.lockerId !== undefined &&
-      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
+    message.lockerId !== undefined && (obj.lockerId = (message.lockerId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWithdrawAssetRequest>, I>>(
-    object: I
-  ): MsgWithdrawAssetRequest {
+  create<I extends Exact<DeepPartial<MsgWithdrawAssetRequest>, I>>(base?: I): MsgWithdrawAssetRequest {
+    return MsgWithdrawAssetRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawAssetRequest>, I>>(object: I): MsgWithdrawAssetRequest {
     const message = createBaseMsgWithdrawAssetRequest();
     message.depositor = object.depositor ?? "";
-    message.lockerId =
-      object.lockerId !== undefined && object.lockerId !== null
-        ? Long.fromValue(object.lockerId)
-        : Long.UZERO;
+    message.lockerId = (object.lockerId !== undefined && object.lockerId !== null)
+      ? Long.fromValue(object.lockerId)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
@@ -613,17 +541,11 @@ function createBaseMsgWithdrawAssetResponse(): MsgWithdrawAssetResponse {
 }
 
 export const MsgWithdrawAssetResponse = {
-  encode(
-    _: MsgWithdrawAssetResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgWithdrawAssetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgWithdrawAssetResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWithdrawAssetResponse();
@@ -647,28 +569,22 @@ export const MsgWithdrawAssetResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWithdrawAssetResponse>, I>>(
-    _: I
-  ): MsgWithdrawAssetResponse {
+  create<I extends Exact<DeepPartial<MsgWithdrawAssetResponse>, I>>(base?: I): MsgWithdrawAssetResponse {
+    return MsgWithdrawAssetResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawAssetResponse>, I>>(_: I): MsgWithdrawAssetResponse {
     const message = createBaseMsgWithdrawAssetResponse();
     return message;
   },
 };
 
 function createBaseMsgCloseLockerRequest(): MsgCloseLockerRequest {
-  return {
-    depositor: "",
-    appId: Long.UZERO,
-    assetId: Long.UZERO,
-    lockerId: Long.UZERO,
-  };
+  return { depositor: "", appId: Long.UZERO, assetId: Long.UZERO, lockerId: Long.UZERO };
 }
 
 export const MsgCloseLockerRequest = {
-  encode(
-    message: MsgCloseLockerRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgCloseLockerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.depositor !== "") {
       writer.uint32(10).string(message.depositor);
     }
@@ -684,10 +600,7 @@ export const MsgCloseLockerRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCloseLockerRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCloseLockerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCloseLockerRequest();
@@ -718,44 +631,34 @@ export const MsgCloseLockerRequest = {
     return {
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-      lockerId: isSet(object.lockerId)
-        ? Long.fromValue(object.lockerId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
+      lockerId: isSet(object.lockerId) ? Long.fromValue(object.lockerId) : Long.UZERO,
     };
   },
 
   toJSON(message: MsgCloseLockerRequest): unknown {
     const obj: any = {};
     message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.lockerId !== undefined &&
-      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.lockerId !== undefined && (obj.lockerId = (message.lockerId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCloseLockerRequest>, I>>(
-    object: I
-  ): MsgCloseLockerRequest {
+  create<I extends Exact<DeepPartial<MsgCloseLockerRequest>, I>>(base?: I): MsgCloseLockerRequest {
+    return MsgCloseLockerRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCloseLockerRequest>, I>>(object: I): MsgCloseLockerRequest {
     const message = createBaseMsgCloseLockerRequest();
     message.depositor = object.depositor ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.lockerId =
-      object.lockerId !== undefined && object.lockerId !== null
-        ? Long.fromValue(object.lockerId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.lockerId = (object.lockerId !== undefined && object.lockerId !== null)
+      ? Long.fromValue(object.lockerId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -765,17 +668,11 @@ function createBaseMsgCloseLockerResponse(): MsgCloseLockerResponse {
 }
 
 export const MsgCloseLockerResponse = {
-  encode(
-    _: MsgCloseLockerResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgCloseLockerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCloseLockerResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCloseLockerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCloseLockerResponse();
@@ -799,9 +696,11 @@ export const MsgCloseLockerResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCloseLockerResponse>, I>>(
-    _: I
-  ): MsgCloseLockerResponse {
+  create<I extends Exact<DeepPartial<MsgCloseLockerResponse>, I>>(base?: I): MsgCloseLockerResponse {
+    return MsgCloseLockerResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCloseLockerResponse>, I>>(_: I): MsgCloseLockerResponse {
     const message = createBaseMsgCloseLockerResponse();
     return message;
   },
@@ -812,10 +711,7 @@ function createBaseMsgLockerRewardCalcRequest(): MsgLockerRewardCalcRequest {
 }
 
 export const MsgLockerRewardCalcRequest = {
-  encode(
-    message: MsgLockerRewardCalcRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgLockerRewardCalcRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -828,10 +724,7 @@ export const MsgLockerRewardCalcRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgLockerRewardCalcRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgLockerRewardCalcRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgLockerRewardCalcRequest();
@@ -859,35 +752,29 @@ export const MsgLockerRewardCalcRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      lockerId: isSet(object.lockerId)
-        ? Long.fromValue(object.lockerId)
-        : Long.UZERO,
+      lockerId: isSet(object.lockerId) ? Long.fromValue(object.lockerId) : Long.UZERO,
     };
   },
 
   toJSON(message: MsgLockerRewardCalcRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.lockerId !== undefined &&
-      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.lockerId !== undefined && (obj.lockerId = (message.lockerId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgLockerRewardCalcRequest>, I>>(
-    object: I
-  ): MsgLockerRewardCalcRequest {
+  create<I extends Exact<DeepPartial<MsgLockerRewardCalcRequest>, I>>(base?: I): MsgLockerRewardCalcRequest {
+    return MsgLockerRewardCalcRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgLockerRewardCalcRequest>, I>>(object: I): MsgLockerRewardCalcRequest {
     const message = createBaseMsgLockerRewardCalcRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.lockerId =
-      object.lockerId !== undefined && object.lockerId !== null
-        ? Long.fromValue(object.lockerId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.lockerId = (object.lockerId !== undefined && object.lockerId !== null)
+      ? Long.fromValue(object.lockerId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -897,17 +784,11 @@ function createBaseMsgLockerRewardCalcResponse(): MsgLockerRewardCalcResponse {
 }
 
 export const MsgLockerRewardCalcResponse = {
-  encode(
-    _: MsgLockerRewardCalcResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgLockerRewardCalcResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgLockerRewardCalcResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgLockerRewardCalcResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgLockerRewardCalcResponse();
@@ -931,9 +812,11 @@ export const MsgLockerRewardCalcResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgLockerRewardCalcResponse>, I>>(
-    _: I
-  ): MsgLockerRewardCalcResponse {
+  create<I extends Exact<DeepPartial<MsgLockerRewardCalcResponse>, I>>(base?: I): MsgLockerRewardCalcResponse {
+    return MsgLockerRewardCalcResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgLockerRewardCalcResponse>, I>>(_: I): MsgLockerRewardCalcResponse {
     const message = createBaseMsgLockerRewardCalcResponse();
     return message;
   },
@@ -941,26 +824,18 @@ export const MsgLockerRewardCalcResponse = {
 
 /** For CLI Command & Proposals */
 export interface Msg {
-  MsgCreateLocker(
-    request: MsgCreateLockerRequest
-  ): Promise<MsgCreateLockerResponse>;
-  MsgDepositAsset(
-    request: MsgDepositAssetRequest
-  ): Promise<MsgDepositAssetResponse>;
-  MsgWithdrawAsset(
-    request: MsgWithdrawAssetRequest
-  ): Promise<MsgWithdrawAssetResponse>;
-  MsgCloseLocker(
-    request: MsgCloseLockerRequest
-  ): Promise<MsgCloseLockerResponse>;
-  MsgLockerRewardCalc(
-    request: MsgLockerRewardCalcRequest
-  ): Promise<MsgLockerRewardCalcResponse>;
+  MsgCreateLocker(request: MsgCreateLockerRequest): Promise<MsgCreateLockerResponse>;
+  MsgDepositAsset(request: MsgDepositAssetRequest): Promise<MsgDepositAssetResponse>;
+  MsgWithdrawAsset(request: MsgWithdrawAssetRequest): Promise<MsgWithdrawAssetResponse>;
+  MsgCloseLocker(request: MsgCloseLockerRequest): Promise<MsgCloseLockerResponse>;
+  MsgLockerRewardCalc(request: MsgLockerRewardCalcRequest): Promise<MsgLockerRewardCalcResponse>;
 }
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "comdex.locker.v1beta1.Msg";
     this.rpc = rpc;
     this.MsgCreateLocker = this.MsgCreateLocker.bind(this);
     this.MsgDepositAsset = this.MsgDepositAsset.bind(this);
@@ -968,113 +843,52 @@ export class MsgClientImpl implements Msg {
     this.MsgCloseLocker = this.MsgCloseLocker.bind(this);
     this.MsgLockerRewardCalc = this.MsgLockerRewardCalc.bind(this);
   }
-  MsgCreateLocker(
-    request: MsgCreateLockerRequest
-  ): Promise<MsgCreateLockerResponse> {
+  MsgCreateLocker(request: MsgCreateLockerRequest): Promise<MsgCreateLockerResponse> {
     const data = MsgCreateLockerRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.locker.v1beta1.Msg",
-      "MsgCreateLocker",
-      data
-    );
-    return promise.then((data) =>
-      MsgCreateLockerResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgCreateLocker", data);
+    return promise.then((data) => MsgCreateLockerResponse.decode(new _m0.Reader(data)));
   }
 
-  MsgDepositAsset(
-    request: MsgDepositAssetRequest
-  ): Promise<MsgDepositAssetResponse> {
+  MsgDepositAsset(request: MsgDepositAssetRequest): Promise<MsgDepositAssetResponse> {
     const data = MsgDepositAssetRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.locker.v1beta1.Msg",
-      "MsgDepositAsset",
-      data
-    );
-    return promise.then((data) =>
-      MsgDepositAssetResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgDepositAsset", data);
+    return promise.then((data) => MsgDepositAssetResponse.decode(new _m0.Reader(data)));
   }
 
-  MsgWithdrawAsset(
-    request: MsgWithdrawAssetRequest
-  ): Promise<MsgWithdrawAssetResponse> {
+  MsgWithdrawAsset(request: MsgWithdrawAssetRequest): Promise<MsgWithdrawAssetResponse> {
     const data = MsgWithdrawAssetRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.locker.v1beta1.Msg",
-      "MsgWithdrawAsset",
-      data
-    );
-    return promise.then((data) =>
-      MsgWithdrawAssetResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgWithdrawAsset", data);
+    return promise.then((data) => MsgWithdrawAssetResponse.decode(new _m0.Reader(data)));
   }
 
-  MsgCloseLocker(
-    request: MsgCloseLockerRequest
-  ): Promise<MsgCloseLockerResponse> {
+  MsgCloseLocker(request: MsgCloseLockerRequest): Promise<MsgCloseLockerResponse> {
     const data = MsgCloseLockerRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.locker.v1beta1.Msg",
-      "MsgCloseLocker",
-      data
-    );
-    return promise.then((data) =>
-      MsgCloseLockerResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgCloseLocker", data);
+    return promise.then((data) => MsgCloseLockerResponse.decode(new _m0.Reader(data)));
   }
 
-  MsgLockerRewardCalc(
-    request: MsgLockerRewardCalcRequest
-  ): Promise<MsgLockerRewardCalcResponse> {
+  MsgLockerRewardCalc(request: MsgLockerRewardCalcRequest): Promise<MsgLockerRewardCalcResponse> {
     const data = MsgLockerRewardCalcRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.locker.v1beta1.Msg",
-      "MsgLockerRewardCalc",
-      data
-    );
-    return promise.then((data) =>
-      MsgLockerRewardCalcResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgLockerRewardCalc", data);
+    return promise.then((data) => MsgLockerRewardCalcResponse.decode(new _m0.Reader(data)));
   }
 }
 
 interface Rpc {
-  request(
-    service: string,
-    method: string,
-    data: Uint8Array
-  ): Promise<Uint8Array>;
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

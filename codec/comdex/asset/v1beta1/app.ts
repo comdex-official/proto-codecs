@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -27,21 +27,11 @@ export interface AppAndGovTime {
 }
 
 function createBaseAppData(): AppData {
-  return {
-    id: Long.UZERO,
-    name: "",
-    shortName: "",
-    minGovDeposit: "",
-    govTimeInSeconds: Long.UZERO,
-    genesisToken: [],
-  };
+  return { id: Long.UZERO, name: "", shortName: "", minGovDeposit: "", govTimeInSeconds: Long.UZERO, genesisToken: [] };
 }
 
 export const AppData = {
-  encode(
-    message: AppData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AppData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -86,9 +76,7 @@ export const AppData = {
           message.govTimeInSeconds = reader.uint64() as Long;
           break;
         case 6:
-          message.genesisToken.push(
-            MintGenesisToken.decode(reader, reader.uint32())
-          );
+          message.genesisToken.push(MintGenesisToken.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -103,12 +91,8 @@ export const AppData = {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       name: isSet(object.name) ? String(object.name) : "",
       shortName: isSet(object.shortName) ? String(object.shortName) : "",
-      minGovDeposit: isSet(object.minGovDeposit)
-        ? String(object.minGovDeposit)
-        : "",
-      govTimeInSeconds: isSet(object.govTimeInSeconds)
-        ? Long.fromValue(object.govTimeInSeconds)
-        : Long.UZERO,
+      minGovDeposit: isSet(object.minGovDeposit) ? String(object.minGovDeposit) : "",
+      govTimeInSeconds: isSet(object.govTimeInSeconds) ? Long.fromValue(object.govTimeInSeconds) : Long.UZERO,
       genesisToken: Array.isArray(object?.genesisToken)
         ? object.genesisToken.map((e: any) => MintGenesisToken.fromJSON(e))
         : [],
@@ -117,59 +101,44 @@ export const AppData = {
 
   toJSON(message: AppData): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
     message.name !== undefined && (obj.name = message.name);
     message.shortName !== undefined && (obj.shortName = message.shortName);
-    message.minGovDeposit !== undefined &&
-      (obj.minGovDeposit = message.minGovDeposit);
+    message.minGovDeposit !== undefined && (obj.minGovDeposit = message.minGovDeposit);
     message.govTimeInSeconds !== undefined &&
-      (obj.govTimeInSeconds = (
-        message.govTimeInSeconds || Long.UZERO
-      ).toString());
+      (obj.govTimeInSeconds = (message.govTimeInSeconds || Long.UZERO).toString());
     if (message.genesisToken) {
-      obj.genesisToken = message.genesisToken.map((e) =>
-        e ? MintGenesisToken.toJSON(e) : undefined
-      );
+      obj.genesisToken = message.genesisToken.map((e) => e ? MintGenesisToken.toJSON(e) : undefined);
     } else {
       obj.genesisToken = [];
     }
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<AppData>, I>>(base?: I): AppData {
+    return AppData.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<AppData>, I>>(object: I): AppData {
     const message = createBaseAppData();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
     message.name = object.name ?? "";
     message.shortName = object.shortName ?? "";
     message.minGovDeposit = object.minGovDeposit ?? "";
-    message.govTimeInSeconds =
-      object.govTimeInSeconds !== undefined && object.govTimeInSeconds !== null
-        ? Long.fromValue(object.govTimeInSeconds)
-        : Long.UZERO;
-    message.genesisToken =
-      object.genesisToken?.map((e) => MintGenesisToken.fromPartial(e)) || [];
+    message.govTimeInSeconds = (object.govTimeInSeconds !== undefined && object.govTimeInSeconds !== null)
+      ? Long.fromValue(object.govTimeInSeconds)
+      : Long.UZERO;
+    message.genesisToken = object.genesisToken?.map((e) => MintGenesisToken.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseMintGenesisToken(): MintGenesisToken {
-  return {
-    assetId: Long.UZERO,
-    genesisSupply: "",
-    isGovToken: false,
-    recipient: "",
-  };
+  return { assetId: Long.UZERO, genesisSupply: "", isGovToken: false, recipient: "" };
 }
 
 export const MintGenesisToken = {
-  encode(
-    message: MintGenesisToken,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MintGenesisToken, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
@@ -214,12 +183,8 @@ export const MintGenesisToken = {
 
   fromJSON(object: any): MintGenesisToken {
     return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-      genesisSupply: isSet(object.genesisSupply)
-        ? String(object.genesisSupply)
-        : "",
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
+      genesisSupply: isSet(object.genesisSupply) ? String(object.genesisSupply) : "",
       isGovToken: isSet(object.isGovToken) ? Boolean(object.isGovToken) : false,
       recipient: isSet(object.recipient) ? String(object.recipient) : "",
     };
@@ -227,23 +192,22 @@ export const MintGenesisToken = {
 
   toJSON(message: MintGenesisToken): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.genesisSupply !== undefined &&
-      (obj.genesisSupply = message.genesisSupply);
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.genesisSupply !== undefined && (obj.genesisSupply = message.genesisSupply);
     message.isGovToken !== undefined && (obj.isGovToken = message.isGovToken);
     message.recipient !== undefined && (obj.recipient = message.recipient);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MintGenesisToken>, I>>(
-    object: I
-  ): MintGenesisToken {
+  create<I extends Exact<DeepPartial<MintGenesisToken>, I>>(base?: I): MintGenesisToken {
+    return MintGenesisToken.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MintGenesisToken>, I>>(object: I): MintGenesisToken {
     const message = createBaseMintGenesisToken();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     message.genesisSupply = object.genesisSupply ?? "";
     message.isGovToken = object.isGovToken ?? false;
     message.recipient = object.recipient ?? "";
@@ -256,10 +220,7 @@ function createBaseAppAndGovTime(): AppAndGovTime {
 }
 
 export const AppAndGovTime = {
-  encode(
-    message: AppAndGovTime,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AppAndGovTime, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -299,73 +260,46 @@ export const AppAndGovTime = {
   fromJSON(object: any): AppAndGovTime {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      govTimeInSeconds: isSet(object.govTimeInSeconds)
-        ? Long.fromValue(object.govTimeInSeconds)
-        : Long.UZERO,
-      minGovDeposit: isSet(object.minGovDeposit)
-        ? String(object.minGovDeposit)
-        : "",
+      govTimeInSeconds: isSet(object.govTimeInSeconds) ? Long.fromValue(object.govTimeInSeconds) : Long.UZERO,
+      minGovDeposit: isSet(object.minGovDeposit) ? String(object.minGovDeposit) : "",
     };
   },
 
   toJSON(message: AppAndGovTime): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.govTimeInSeconds !== undefined &&
-      (obj.govTimeInSeconds = (
-        message.govTimeInSeconds || Long.UZERO
-      ).toString());
-    message.minGovDeposit !== undefined &&
-      (obj.minGovDeposit = message.minGovDeposit);
+      (obj.govTimeInSeconds = (message.govTimeInSeconds || Long.UZERO).toString());
+    message.minGovDeposit !== undefined && (obj.minGovDeposit = message.minGovDeposit);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AppAndGovTime>, I>>(
-    object: I
-  ): AppAndGovTime {
+  create<I extends Exact<DeepPartial<AppAndGovTime>, I>>(base?: I): AppAndGovTime {
+    return AppAndGovTime.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AppAndGovTime>, I>>(object: I): AppAndGovTime {
     const message = createBaseAppAndGovTime();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.govTimeInSeconds =
-      object.govTimeInSeconds !== undefined && object.govTimeInSeconds !== null
-        ? Long.fromValue(object.govTimeInSeconds)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.govTimeInSeconds = (object.govTimeInSeconds !== undefined && object.govTimeInSeconds !== null)
+      ? Long.fromValue(object.govTimeInSeconds)
+      : Long.UZERO;
     message.minGovDeposit = object.minGovDeposit ?? "";
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

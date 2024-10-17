@@ -18,15 +18,17 @@ export interface Market {
   scriptId: Long;
 }
 
+export interface DiscardData {
+  blockHeight: Long;
+  discardBool: boolean;
+}
+
 function createBaseFetchPriceCallData(): FetchPriceCallData {
   return { symbols: [], multiplier: Long.UZERO };
 }
 
 export const FetchPriceCallData = {
-  encode(
-    message: FetchPriceCallData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: FetchPriceCallData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.symbols) {
       writer.uint32(10).string(v!);
     }
@@ -59,12 +61,8 @@ export const FetchPriceCallData = {
 
   fromJSON(object: any): FetchPriceCallData {
     return {
-      symbols: Array.isArray(object?.symbols)
-        ? object.symbols.map((e: any) => String(e))
-        : [],
-      multiplier: isSet(object.multiplier)
-        ? Long.fromString(object.multiplier)
-        : Long.UZERO,
+      symbols: Array.isArray(object?.symbols) ? object.symbols.map((e: any) => String(e)) : [],
+      multiplier: isSet(object.multiplier) ? Long.fromValue(object.multiplier) : Long.UZERO,
     };
   },
 
@@ -75,20 +73,20 @@ export const FetchPriceCallData = {
     } else {
       obj.symbols = [];
     }
-    message.multiplier !== undefined &&
-      (obj.multiplier = (message.multiplier || Long.UZERO).toString());
+    message.multiplier !== undefined && (obj.multiplier = (message.multiplier || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<FetchPriceCallData>, I>>(
-    object: I
-  ): FetchPriceCallData {
+  create<I extends Exact<DeepPartial<FetchPriceCallData>, I>>(base?: I): FetchPriceCallData {
+    return FetchPriceCallData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<FetchPriceCallData>, I>>(object: I): FetchPriceCallData {
     const message = createBaseFetchPriceCallData();
     message.symbols = object.symbols?.map((e) => e) || [];
-    message.multiplier =
-      object.multiplier !== undefined && object.multiplier !== null
-        ? Long.fromValue(object.multiplier)
-        : Long.UZERO;
+    message.multiplier = (object.multiplier !== undefined && object.multiplier !== null)
+      ? Long.fromValue(object.multiplier)
+      : Long.UZERO;
     return message;
   },
 };
@@ -98,10 +96,7 @@ function createBaseFetchPriceResult(): FetchPriceResult {
 }
 
 export const FetchPriceResult = {
-  encode(
-    message: FetchPriceResult,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: FetchPriceResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     writer.uint32(10).fork();
     for (const v of message.rates) {
       writer.uint64(v);
@@ -136,11 +131,7 @@ export const FetchPriceResult = {
   },
 
   fromJSON(object: any): FetchPriceResult {
-    return {
-      rates: Array.isArray(object?.rates)
-        ? object.rates.map((e: any) => Long.fromString(e))
-        : [],
-    };
+    return { rates: Array.isArray(object?.rates) ? object.rates.map((e: any) => Long.fromValue(e)) : [] };
   },
 
   toJSON(message: FetchPriceResult): unknown {
@@ -153,9 +144,11 @@ export const FetchPriceResult = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<FetchPriceResult>, I>>(
-    object: I
-  ): FetchPriceResult {
+  create<I extends Exact<DeepPartial<FetchPriceResult>, I>>(base?: I): FetchPriceResult {
+    return FetchPriceResult.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<FetchPriceResult>, I>>(object: I): FetchPriceResult {
     const message = createBaseFetchPriceResult();
     message.rates = object.rates?.map((e) => Long.fromValue(e)) || [];
     return message;
@@ -167,10 +160,7 @@ function createBaseMarket(): Market {
 }
 
 export const Market = {
-  encode(
-    message: Market,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: Market, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.symbol !== "") {
       writer.uint32(10).string(message.symbol);
     }
@@ -204,59 +194,106 @@ export const Market = {
   fromJSON(object: any): Market {
     return {
       symbol: isSet(object.symbol) ? String(object.symbol) : "",
-      scriptId: isSet(object.scriptId)
-        ? Long.fromString(object.scriptId)
-        : Long.UZERO,
+      scriptId: isSet(object.scriptId) ? Long.fromValue(object.scriptId) : Long.UZERO,
     };
   },
 
   toJSON(message: Market): unknown {
     const obj: any = {};
     message.symbol !== undefined && (obj.symbol = message.symbol);
-    message.scriptId !== undefined &&
-      (obj.scriptId = (message.scriptId || Long.UZERO).toString());
+    message.scriptId !== undefined && (obj.scriptId = (message.scriptId || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Market>, I>>(base?: I): Market {
+    return Market.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Market>, I>>(object: I): Market {
     const message = createBaseMarket();
     message.symbol = object.symbol ?? "";
-    message.scriptId =
-      object.scriptId !== undefined && object.scriptId !== null
-        ? Long.fromValue(object.scriptId)
-        : Long.UZERO;
+    message.scriptId = (object.scriptId !== undefined && object.scriptId !== null)
+      ? Long.fromValue(object.scriptId)
+      : Long.UZERO;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+function createBaseDiscardData(): DiscardData {
+  return { blockHeight: Long.ZERO, discardBool: false };
+}
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export const DiscardData = {
+  encode(message: DiscardData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.blockHeight.isZero()) {
+      writer.uint32(8).int64(message.blockHeight);
+    }
+    if (message.discardBool === true) {
+      writer.uint32(16).bool(message.discardBool);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): DiscardData {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseDiscardData();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.blockHeight = reader.int64() as Long;
+          break;
+        case 2:
+          message.discardBool = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DiscardData {
+    return {
+      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
+      discardBool: isSet(object.discardBool) ? Boolean(object.discardBool) : false,
+    };
+  },
+
+  toJSON(message: DiscardData): unknown {
+    const obj: any = {};
+    message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
+    message.discardBool !== undefined && (obj.discardBool = message.discardBool);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<DiscardData>, I>>(base?: I): DiscardData {
+    return DiscardData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DiscardData>, I>>(object: I): DiscardData {
+    const message = createBaseDiscardData();
+    message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
+      ? Long.fromValue(object.blockHeight)
+      : Long.ZERO;
+    message.discardBool = object.discardBool ?? false;
+    return message;
+  },
+};
+
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

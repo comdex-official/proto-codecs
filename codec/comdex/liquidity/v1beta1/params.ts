@@ -1,13 +1,14 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Duration } from "../../../google/protobuf/duration";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Duration } from "../../../google/protobuf/duration";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 
 /** Params defines the parameters for the liquidity module. */
-export interface Params {}
+export interface Params {
+}
 
 /** Params defines the parameters for the liquidity module. */
 export interface GenericParams {
@@ -66,6 +67,10 @@ export const Params = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<Params>, I>>(base?: I): Params {
+    return Params.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(_: I): Params {
     const message = createBaseParams();
     return message;
@@ -98,10 +103,7 @@ function createBaseGenericParams(): GenericParams {
 }
 
 export const GenericParams = {
-  encode(
-    message: GenericParams,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GenericParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.batchSize.isZero()) {
       writer.uint32(8).uint64(message.batchSize);
     }
@@ -130,10 +132,7 @@ export const GenericParams = {
       writer.uint32(74).string(message.maxPriceLimitRatio);
     }
     if (message.maxOrderLifespan !== undefined) {
-      Duration.encode(
-        message.maxOrderLifespan,
-        writer.uint32(82).fork()
-      ).ldelim();
+      Duration.encode(message.maxOrderLifespan, writer.uint32(82).fork()).ldelim();
     }
     if (message.swapFeeRate !== "") {
       writer.uint32(90).string(message.swapFeeRate);
@@ -245,55 +244,27 @@ export const GenericParams = {
 
   fromJSON(object: any): GenericParams {
     return {
-      batchSize: isSet(object.batchSize)
-        ? Long.fromValue(object.batchSize)
-        : Long.UZERO,
-      tickPrecision: isSet(object.tickPrecision)
-        ? Long.fromValue(object.tickPrecision)
-        : Long.UZERO,
-      feeCollectorAddress: isSet(object.feeCollectorAddress)
-        ? String(object.feeCollectorAddress)
-        : "",
-      dustCollectorAddress: isSet(object.dustCollectorAddress)
-        ? String(object.dustCollectorAddress)
-        : "",
-      minInitialPoolCoinSupply: isSet(object.minInitialPoolCoinSupply)
-        ? String(object.minInitialPoolCoinSupply)
-        : "",
+      batchSize: isSet(object.batchSize) ? Long.fromValue(object.batchSize) : Long.UZERO,
+      tickPrecision: isSet(object.tickPrecision) ? Long.fromValue(object.tickPrecision) : Long.UZERO,
+      feeCollectorAddress: isSet(object.feeCollectorAddress) ? String(object.feeCollectorAddress) : "",
+      dustCollectorAddress: isSet(object.dustCollectorAddress) ? String(object.dustCollectorAddress) : "",
+      minInitialPoolCoinSupply: isSet(object.minInitialPoolCoinSupply) ? String(object.minInitialPoolCoinSupply) : "",
       pairCreationFee: Array.isArray(object?.pairCreationFee)
         ? object.pairCreationFee.map((e: any) => Coin.fromJSON(e))
         : [],
       poolCreationFee: Array.isArray(object?.poolCreationFee)
         ? object.poolCreationFee.map((e: any) => Coin.fromJSON(e))
         : [],
-      minInitialDepositAmount: isSet(object.minInitialDepositAmount)
-        ? String(object.minInitialDepositAmount)
-        : "",
-      maxPriceLimitRatio: isSet(object.maxPriceLimitRatio)
-        ? String(object.maxPriceLimitRatio)
-        : "",
-      maxOrderLifespan: isSet(object.maxOrderLifespan)
-        ? Duration.fromJSON(object.maxOrderLifespan)
-        : undefined,
+      minInitialDepositAmount: isSet(object.minInitialDepositAmount) ? String(object.minInitialDepositAmount) : "",
+      maxPriceLimitRatio: isSet(object.maxPriceLimitRatio) ? String(object.maxPriceLimitRatio) : "",
+      maxOrderLifespan: isSet(object.maxOrderLifespan) ? Duration.fromJSON(object.maxOrderLifespan) : undefined,
       swapFeeRate: isSet(object.swapFeeRate) ? String(object.swapFeeRate) : "",
-      withdrawFeeRate: isSet(object.withdrawFeeRate)
-        ? String(object.withdrawFeeRate)
-        : "",
-      depositExtraGas: isSet(object.depositExtraGas)
-        ? Long.fromValue(object.depositExtraGas)
-        : Long.UZERO,
-      withdrawExtraGas: isSet(object.withdrawExtraGas)
-        ? Long.fromValue(object.withdrawExtraGas)
-        : Long.UZERO,
-      orderExtraGas: isSet(object.orderExtraGas)
-        ? Long.fromValue(object.orderExtraGas)
-        : Long.UZERO,
-      swapFeeDistrDenom: isSet(object.swapFeeDistrDenom)
-        ? String(object.swapFeeDistrDenom)
-        : "",
-      swapFeeBurnRate: isSet(object.swapFeeBurnRate)
-        ? String(object.swapFeeBurnRate)
-        : "",
+      withdrawFeeRate: isSet(object.withdrawFeeRate) ? String(object.withdrawFeeRate) : "",
+      depositExtraGas: isSet(object.depositExtraGas) ? Long.fromValue(object.depositExtraGas) : Long.UZERO,
+      withdrawExtraGas: isSet(object.withdrawExtraGas) ? Long.fromValue(object.withdrawExtraGas) : Long.UZERO,
+      orderExtraGas: isSet(object.orderExtraGas) ? Long.fromValue(object.orderExtraGas) : Long.UZERO,
+      swapFeeDistrDenom: isSet(object.swapFeeDistrDenom) ? String(object.swapFeeDistrDenom) : "",
+      swapFeeBurnRate: isSet(object.swapFeeBurnRate) ? String(object.swapFeeBurnRate) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
       maxNumMarketMakingOrderTicks: isSet(object.maxNumMarketMakingOrderTicks)
         ? Long.fromValue(object.maxNumMarketMakingOrderTicks)
@@ -306,156 +277,100 @@ export const GenericParams = {
 
   toJSON(message: GenericParams): unknown {
     const obj: any = {};
-    message.batchSize !== undefined &&
-      (obj.batchSize = (message.batchSize || Long.UZERO).toString());
-    message.tickPrecision !== undefined &&
-      (obj.tickPrecision = (message.tickPrecision || Long.UZERO).toString());
-    message.feeCollectorAddress !== undefined &&
-      (obj.feeCollectorAddress = message.feeCollectorAddress);
-    message.dustCollectorAddress !== undefined &&
-      (obj.dustCollectorAddress = message.dustCollectorAddress);
-    message.minInitialPoolCoinSupply !== undefined &&
-      (obj.minInitialPoolCoinSupply = message.minInitialPoolCoinSupply);
+    message.batchSize !== undefined && (obj.batchSize = (message.batchSize || Long.UZERO).toString());
+    message.tickPrecision !== undefined && (obj.tickPrecision = (message.tickPrecision || Long.UZERO).toString());
+    message.feeCollectorAddress !== undefined && (obj.feeCollectorAddress = message.feeCollectorAddress);
+    message.dustCollectorAddress !== undefined && (obj.dustCollectorAddress = message.dustCollectorAddress);
+    message.minInitialPoolCoinSupply !== undefined && (obj.minInitialPoolCoinSupply = message.minInitialPoolCoinSupply);
     if (message.pairCreationFee) {
-      obj.pairCreationFee = message.pairCreationFee.map((e) =>
-        e ? Coin.toJSON(e) : undefined
-      );
+      obj.pairCreationFee = message.pairCreationFee.map((e) => e ? Coin.toJSON(e) : undefined);
     } else {
       obj.pairCreationFee = [];
     }
     if (message.poolCreationFee) {
-      obj.poolCreationFee = message.poolCreationFee.map((e) =>
-        e ? Coin.toJSON(e) : undefined
-      );
+      obj.poolCreationFee = message.poolCreationFee.map((e) => e ? Coin.toJSON(e) : undefined);
     } else {
       obj.poolCreationFee = [];
     }
-    message.minInitialDepositAmount !== undefined &&
-      (obj.minInitialDepositAmount = message.minInitialDepositAmount);
-    message.maxPriceLimitRatio !== undefined &&
-      (obj.maxPriceLimitRatio = message.maxPriceLimitRatio);
+    message.minInitialDepositAmount !== undefined && (obj.minInitialDepositAmount = message.minInitialDepositAmount);
+    message.maxPriceLimitRatio !== undefined && (obj.maxPriceLimitRatio = message.maxPriceLimitRatio);
     message.maxOrderLifespan !== undefined &&
-      (obj.maxOrderLifespan = message.maxOrderLifespan
-        ? Duration.toJSON(message.maxOrderLifespan)
-        : undefined);
-    message.swapFeeRate !== undefined &&
-      (obj.swapFeeRate = message.swapFeeRate);
-    message.withdrawFeeRate !== undefined &&
-      (obj.withdrawFeeRate = message.withdrawFeeRate);
-    message.depositExtraGas !== undefined &&
-      (obj.depositExtraGas = (
-        message.depositExtraGas || Long.UZERO
-      ).toString());
+      (obj.maxOrderLifespan = message.maxOrderLifespan ? Duration.toJSON(message.maxOrderLifespan) : undefined);
+    message.swapFeeRate !== undefined && (obj.swapFeeRate = message.swapFeeRate);
+    message.withdrawFeeRate !== undefined && (obj.withdrawFeeRate = message.withdrawFeeRate);
+    message.depositExtraGas !== undefined && (obj.depositExtraGas = (message.depositExtraGas || Long.UZERO).toString());
     message.withdrawExtraGas !== undefined &&
-      (obj.withdrawExtraGas = (
-        message.withdrawExtraGas || Long.UZERO
-      ).toString());
-    message.orderExtraGas !== undefined &&
-      (obj.orderExtraGas = (message.orderExtraGas || Long.UZERO).toString());
-    message.swapFeeDistrDenom !== undefined &&
-      (obj.swapFeeDistrDenom = message.swapFeeDistrDenom);
-    message.swapFeeBurnRate !== undefined &&
-      (obj.swapFeeBurnRate = message.swapFeeBurnRate);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+      (obj.withdrawExtraGas = (message.withdrawExtraGas || Long.UZERO).toString());
+    message.orderExtraGas !== undefined && (obj.orderExtraGas = (message.orderExtraGas || Long.UZERO).toString());
+    message.swapFeeDistrDenom !== undefined && (obj.swapFeeDistrDenom = message.swapFeeDistrDenom);
+    message.swapFeeBurnRate !== undefined && (obj.swapFeeBurnRate = message.swapFeeBurnRate);
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.maxNumMarketMakingOrderTicks !== undefined &&
-      (obj.maxNumMarketMakingOrderTicks = (
-        message.maxNumMarketMakingOrderTicks || Long.UZERO
-      ).toString());
+      (obj.maxNumMarketMakingOrderTicks = (message.maxNumMarketMakingOrderTicks || Long.UZERO).toString());
     message.maxNumActivePoolsPerPair !== undefined &&
-      (obj.maxNumActivePoolsPerPair = (
-        message.maxNumActivePoolsPerPair || Long.UZERO
-      ).toString());
+      (obj.maxNumActivePoolsPerPair = (message.maxNumActivePoolsPerPair || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenericParams>, I>>(
-    object: I
-  ): GenericParams {
+  create<I extends Exact<DeepPartial<GenericParams>, I>>(base?: I): GenericParams {
+    return GenericParams.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GenericParams>, I>>(object: I): GenericParams {
     const message = createBaseGenericParams();
-    message.batchSize =
-      object.batchSize !== undefined && object.batchSize !== null
-        ? Long.fromValue(object.batchSize)
-        : Long.UZERO;
-    message.tickPrecision =
-      object.tickPrecision !== undefined && object.tickPrecision !== null
-        ? Long.fromValue(object.tickPrecision)
-        : Long.UZERO;
+    message.batchSize = (object.batchSize !== undefined && object.batchSize !== null)
+      ? Long.fromValue(object.batchSize)
+      : Long.UZERO;
+    message.tickPrecision = (object.tickPrecision !== undefined && object.tickPrecision !== null)
+      ? Long.fromValue(object.tickPrecision)
+      : Long.UZERO;
     message.feeCollectorAddress = object.feeCollectorAddress ?? "";
     message.dustCollectorAddress = object.dustCollectorAddress ?? "";
     message.minInitialPoolCoinSupply = object.minInitialPoolCoinSupply ?? "";
-    message.pairCreationFee =
-      object.pairCreationFee?.map((e) => Coin.fromPartial(e)) || [];
-    message.poolCreationFee =
-      object.poolCreationFee?.map((e) => Coin.fromPartial(e)) || [];
+    message.pairCreationFee = object.pairCreationFee?.map((e) => Coin.fromPartial(e)) || [];
+    message.poolCreationFee = object.poolCreationFee?.map((e) => Coin.fromPartial(e)) || [];
     message.minInitialDepositAmount = object.minInitialDepositAmount ?? "";
     message.maxPriceLimitRatio = object.maxPriceLimitRatio ?? "";
-    message.maxOrderLifespan =
-      object.maxOrderLifespan !== undefined && object.maxOrderLifespan !== null
-        ? Duration.fromPartial(object.maxOrderLifespan)
-        : undefined;
+    message.maxOrderLifespan = (object.maxOrderLifespan !== undefined && object.maxOrderLifespan !== null)
+      ? Duration.fromPartial(object.maxOrderLifespan)
+      : undefined;
     message.swapFeeRate = object.swapFeeRate ?? "";
     message.withdrawFeeRate = object.withdrawFeeRate ?? "";
-    message.depositExtraGas =
-      object.depositExtraGas !== undefined && object.depositExtraGas !== null
-        ? Long.fromValue(object.depositExtraGas)
-        : Long.UZERO;
-    message.withdrawExtraGas =
-      object.withdrawExtraGas !== undefined && object.withdrawExtraGas !== null
-        ? Long.fromValue(object.withdrawExtraGas)
-        : Long.UZERO;
-    message.orderExtraGas =
-      object.orderExtraGas !== undefined && object.orderExtraGas !== null
-        ? Long.fromValue(object.orderExtraGas)
-        : Long.UZERO;
+    message.depositExtraGas = (object.depositExtraGas !== undefined && object.depositExtraGas !== null)
+      ? Long.fromValue(object.depositExtraGas)
+      : Long.UZERO;
+    message.withdrawExtraGas = (object.withdrawExtraGas !== undefined && object.withdrawExtraGas !== null)
+      ? Long.fromValue(object.withdrawExtraGas)
+      : Long.UZERO;
+    message.orderExtraGas = (object.orderExtraGas !== undefined && object.orderExtraGas !== null)
+      ? Long.fromValue(object.orderExtraGas)
+      : Long.UZERO;
     message.swapFeeDistrDenom = object.swapFeeDistrDenom ?? "";
     message.swapFeeBurnRate = object.swapFeeBurnRate ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     message.maxNumMarketMakingOrderTicks =
-      object.maxNumMarketMakingOrderTicks !== undefined &&
-      object.maxNumMarketMakingOrderTicks !== null
+      (object.maxNumMarketMakingOrderTicks !== undefined && object.maxNumMarketMakingOrderTicks !== null)
         ? Long.fromValue(object.maxNumMarketMakingOrderTicks)
         : Long.UZERO;
     message.maxNumActivePoolsPerPair =
-      object.maxNumActivePoolsPerPair !== undefined &&
-      object.maxNumActivePoolsPerPair !== null
+      (object.maxNumActivePoolsPerPair !== undefined && object.maxNumActivePoolsPerPair !== null)
         ? Long.fromValue(object.maxNumActivePoolsPerPair)
         : Long.UZERO;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

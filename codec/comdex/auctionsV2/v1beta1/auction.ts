@@ -1,9 +1,9 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { LockedVault } from "../../../comdex/liquidationsV2/v1beta1/liquidate";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
+import { LockedVault } from "../../liquidationsV2/v1beta1/liquidate";
 
 export const protobufPackage = "comdex.auctionsV2.v1beta1";
 

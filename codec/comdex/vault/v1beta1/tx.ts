@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.vault.v1beta1";
 
@@ -12,7 +12,8 @@ export interface MsgCreateRequest {
   amountOut: string;
 }
 
-export interface MsgCreateResponse {}
+export interface MsgCreateResponse {
+}
 
 export interface MsgDepositRequest {
   from: string;
@@ -22,7 +23,8 @@ export interface MsgDepositRequest {
   amount: string;
 }
 
-export interface MsgDepositResponse {}
+export interface MsgDepositResponse {
+}
 
 export interface MsgWithdrawRequest {
   from: string;
@@ -32,7 +34,8 @@ export interface MsgWithdrawRequest {
   amount: string;
 }
 
-export interface MsgWithdrawResponse {}
+export interface MsgWithdrawResponse {
+}
 
 export interface MsgDrawRequest {
   from: string;
@@ -42,7 +45,8 @@ export interface MsgDrawRequest {
   amount: string;
 }
 
-export interface MsgDrawResponse {}
+export interface MsgDrawResponse {
+}
 
 export interface MsgRepayRequest {
   from: string;
@@ -52,7 +56,8 @@ export interface MsgRepayRequest {
   amount: string;
 }
 
-export interface MsgRepayResponse {}
+export interface MsgRepayResponse {
+}
 
 export interface MsgCloseRequest {
   from: string;
@@ -61,7 +66,8 @@ export interface MsgCloseRequest {
   userVaultId: Long;
 }
 
-export interface MsgCloseResponse {}
+export interface MsgCloseResponse {
+}
 
 export interface MsgDepositAndDrawRequest {
   from: string;
@@ -71,7 +77,8 @@ export interface MsgDepositAndDrawRequest {
   amount: string;
 }
 
-export interface MsgDepositAndDrawResponse {}
+export interface MsgDepositAndDrawResponse {
+}
 
 export interface MsgCreateStableMintRequest {
   from: string;
@@ -80,7 +87,8 @@ export interface MsgCreateStableMintRequest {
   amount: string;
 }
 
-export interface MsgCreateStableMintResponse {}
+export interface MsgCreateStableMintResponse {
+}
 
 export interface MsgDepositStableMintRequest {
   from: string;
@@ -90,7 +98,8 @@ export interface MsgDepositStableMintRequest {
   stableVaultId: Long;
 }
 
-export interface MsgDepositStableMintResponse {}
+export interface MsgDepositStableMintResponse {
+}
 
 export interface MsgWithdrawStableMintRequest {
   from: string;
@@ -100,7 +109,8 @@ export interface MsgWithdrawStableMintRequest {
   stableVaultId: Long;
 }
 
-export interface MsgWithdrawStableMintResponse {}
+export interface MsgWithdrawStableMintResponse {
+}
 
 export interface MsgVaultInterestCalcRequest {
   from: string;
@@ -108,23 +118,23 @@ export interface MsgVaultInterestCalcRequest {
   userVaultId: Long;
 }
 
-export interface MsgVaultInterestCalcResponse {}
+export interface MsgVaultInterestCalcResponse {
+}
+
+export interface MsgWithdrawStableMintControlRequest {
+  from: string;
+  appId: Long;
+}
+
+export interface MsgWithdrawStableMintControlResponse {
+}
 
 function createBaseMsgCreateRequest(): MsgCreateRequest {
-  return {
-    from: "",
-    appId: Long.UZERO,
-    extendedPairVaultId: Long.UZERO,
-    amountIn: "",
-    amountOut: "",
-  };
+  return { from: "", appId: Long.UZERO, extendedPairVaultId: Long.UZERO, amountIn: "", amountOut: "" };
 }
 
 export const MsgCreateRequest = {
-  encode(
-    message: MsgCreateRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgCreateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -177,9 +187,7 @@ export const MsgCreateRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
       amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
       amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
     };
@@ -188,31 +196,25 @@ export const MsgCreateRequest = {
   toJSON(message: MsgCreateRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
     message.amountIn !== undefined && (obj.amountIn = message.amountIn);
     message.amountOut !== undefined && (obj.amountOut = message.amountOut);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCreateRequest>, I>>(
-    object: I
-  ): MsgCreateRequest {
+  create<I extends Exact<DeepPartial<MsgCreateRequest>, I>>(base?: I): MsgCreateRequest {
+    return MsgCreateRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreateRequest>, I>>(object: I): MsgCreateRequest {
     const message = createBaseMsgCreateRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
     message.amountIn = object.amountIn ?? "";
     message.amountOut = object.amountOut ?? "";
     return message;
@@ -224,10 +226,7 @@ function createBaseMsgCreateResponse(): MsgCreateResponse {
 }
 
 export const MsgCreateResponse = {
-  encode(
-    _: MsgCreateResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgCreateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -255,29 +254,22 @@ export const MsgCreateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCreateResponse>, I>>(
-    _: I
-  ): MsgCreateResponse {
+  create<I extends Exact<DeepPartial<MsgCreateResponse>, I>>(base?: I): MsgCreateResponse {
+    return MsgCreateResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreateResponse>, I>>(_: I): MsgCreateResponse {
     const message = createBaseMsgCreateResponse();
     return message;
   },
 };
 
 function createBaseMsgDepositRequest(): MsgDepositRequest {
-  return {
-    from: "",
-    appId: Long.UZERO,
-    extendedPairVaultId: Long.UZERO,
-    userVaultId: Long.UZERO,
-    amount: "",
-  };
+  return { from: "", appId: Long.UZERO, extendedPairVaultId: Long.UZERO, userVaultId: Long.UZERO, amount: "" };
 }
 
 export const MsgDepositRequest = {
-  encode(
-    message: MsgDepositRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgDepositRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -330,12 +322,8 @@ export const MsgDepositRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
-      userVaultId: isSet(object.userVaultId)
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
+      userVaultId: isSet(object.userVaultId) ? Long.fromValue(object.userVaultId) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
     };
   },
@@ -343,36 +331,28 @@ export const MsgDepositRequest = {
   toJSON(message: MsgDepositRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
-    message.userVaultId !== undefined &&
-      (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
+    message.userVaultId !== undefined && (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositRequest>, I>>(
-    object: I
-  ): MsgDepositRequest {
+  create<I extends Exact<DeepPartial<MsgDepositRequest>, I>>(base?: I): MsgDepositRequest {
+    return MsgDepositRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositRequest>, I>>(object: I): MsgDepositRequest {
     const message = createBaseMsgDepositRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
-    message.userVaultId =
-      object.userVaultId !== undefined && object.userVaultId !== null
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
+    message.userVaultId = (object.userVaultId !== undefined && object.userVaultId !== null)
+      ? Long.fromValue(object.userVaultId)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
     return message;
   },
@@ -383,10 +363,7 @@ function createBaseMsgDepositResponse(): MsgDepositResponse {
 }
 
 export const MsgDepositResponse = {
-  encode(
-    _: MsgDepositResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgDepositResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -414,29 +391,22 @@ export const MsgDepositResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositResponse>, I>>(
-    _: I
-  ): MsgDepositResponse {
+  create<I extends Exact<DeepPartial<MsgDepositResponse>, I>>(base?: I): MsgDepositResponse {
+    return MsgDepositResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositResponse>, I>>(_: I): MsgDepositResponse {
     const message = createBaseMsgDepositResponse();
     return message;
   },
 };
 
 function createBaseMsgWithdrawRequest(): MsgWithdrawRequest {
-  return {
-    from: "",
-    appId: Long.UZERO,
-    extendedPairVaultId: Long.UZERO,
-    userVaultId: Long.UZERO,
-    amount: "",
-  };
+  return { from: "", appId: Long.UZERO, extendedPairVaultId: Long.UZERO, userVaultId: Long.UZERO, amount: "" };
 }
 
 export const MsgWithdrawRequest = {
-  encode(
-    message: MsgWithdrawRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgWithdrawRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -489,12 +459,8 @@ export const MsgWithdrawRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
-      userVaultId: isSet(object.userVaultId)
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
+      userVaultId: isSet(object.userVaultId) ? Long.fromValue(object.userVaultId) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
     };
   },
@@ -502,36 +468,28 @@ export const MsgWithdrawRequest = {
   toJSON(message: MsgWithdrawRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
-    message.userVaultId !== undefined &&
-      (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
+    message.userVaultId !== undefined && (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWithdrawRequest>, I>>(
-    object: I
-  ): MsgWithdrawRequest {
+  create<I extends Exact<DeepPartial<MsgWithdrawRequest>, I>>(base?: I): MsgWithdrawRequest {
+    return MsgWithdrawRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawRequest>, I>>(object: I): MsgWithdrawRequest {
     const message = createBaseMsgWithdrawRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
-    message.userVaultId =
-      object.userVaultId !== undefined && object.userVaultId !== null
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
+    message.userVaultId = (object.userVaultId !== undefined && object.userVaultId !== null)
+      ? Long.fromValue(object.userVaultId)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
     return message;
   },
@@ -542,10 +500,7 @@ function createBaseMsgWithdrawResponse(): MsgWithdrawResponse {
 }
 
 export const MsgWithdrawResponse = {
-  encode(
-    _: MsgWithdrawResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgWithdrawResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -573,29 +528,22 @@ export const MsgWithdrawResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWithdrawResponse>, I>>(
-    _: I
-  ): MsgWithdrawResponse {
+  create<I extends Exact<DeepPartial<MsgWithdrawResponse>, I>>(base?: I): MsgWithdrawResponse {
+    return MsgWithdrawResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawResponse>, I>>(_: I): MsgWithdrawResponse {
     const message = createBaseMsgWithdrawResponse();
     return message;
   },
 };
 
 function createBaseMsgDrawRequest(): MsgDrawRequest {
-  return {
-    from: "",
-    appId: Long.UZERO,
-    extendedPairVaultId: Long.UZERO,
-    userVaultId: Long.UZERO,
-    amount: "",
-  };
+  return { from: "", appId: Long.UZERO, extendedPairVaultId: Long.UZERO, userVaultId: Long.UZERO, amount: "" };
 }
 
 export const MsgDrawRequest = {
-  encode(
-    message: MsgDrawRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgDrawRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -648,12 +596,8 @@ export const MsgDrawRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
-      userVaultId: isSet(object.userVaultId)
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
+      userVaultId: isSet(object.userVaultId) ? Long.fromValue(object.userVaultId) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
     };
   },
@@ -661,36 +605,28 @@ export const MsgDrawRequest = {
   toJSON(message: MsgDrawRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
-    message.userVaultId !== undefined &&
-      (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
+    message.userVaultId !== undefined && (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDrawRequest>, I>>(
-    object: I
-  ): MsgDrawRequest {
+  create<I extends Exact<DeepPartial<MsgDrawRequest>, I>>(base?: I): MsgDrawRequest {
+    return MsgDrawRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDrawRequest>, I>>(object: I): MsgDrawRequest {
     const message = createBaseMsgDrawRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
-    message.userVaultId =
-      object.userVaultId !== undefined && object.userVaultId !== null
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
+    message.userVaultId = (object.userVaultId !== undefined && object.userVaultId !== null)
+      ? Long.fromValue(object.userVaultId)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
     return message;
   },
@@ -701,10 +637,7 @@ function createBaseMsgDrawResponse(): MsgDrawResponse {
 }
 
 export const MsgDrawResponse = {
-  encode(
-    _: MsgDrawResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgDrawResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -732,29 +665,22 @@ export const MsgDrawResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDrawResponse>, I>>(
-    _: I
-  ): MsgDrawResponse {
+  create<I extends Exact<DeepPartial<MsgDrawResponse>, I>>(base?: I): MsgDrawResponse {
+    return MsgDrawResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDrawResponse>, I>>(_: I): MsgDrawResponse {
     const message = createBaseMsgDrawResponse();
     return message;
   },
 };
 
 function createBaseMsgRepayRequest(): MsgRepayRequest {
-  return {
-    from: "",
-    appId: Long.UZERO,
-    extendedPairVaultId: Long.UZERO,
-    userVaultId: Long.UZERO,
-    amount: "",
-  };
+  return { from: "", appId: Long.UZERO, extendedPairVaultId: Long.UZERO, userVaultId: Long.UZERO, amount: "" };
 }
 
 export const MsgRepayRequest = {
-  encode(
-    message: MsgRepayRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgRepayRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -807,12 +733,8 @@ export const MsgRepayRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
-      userVaultId: isSet(object.userVaultId)
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
+      userVaultId: isSet(object.userVaultId) ? Long.fromValue(object.userVaultId) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
     };
   },
@@ -820,36 +742,28 @@ export const MsgRepayRequest = {
   toJSON(message: MsgRepayRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
-    message.userVaultId !== undefined &&
-      (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
+    message.userVaultId !== undefined && (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRepayRequest>, I>>(
-    object: I
-  ): MsgRepayRequest {
+  create<I extends Exact<DeepPartial<MsgRepayRequest>, I>>(base?: I): MsgRepayRequest {
+    return MsgRepayRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRepayRequest>, I>>(object: I): MsgRepayRequest {
     const message = createBaseMsgRepayRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
-    message.userVaultId =
-      object.userVaultId !== undefined && object.userVaultId !== null
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
+    message.userVaultId = (object.userVaultId !== undefined && object.userVaultId !== null)
+      ? Long.fromValue(object.userVaultId)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
     return message;
   },
@@ -860,10 +774,7 @@ function createBaseMsgRepayResponse(): MsgRepayResponse {
 }
 
 export const MsgRepayResponse = {
-  encode(
-    _: MsgRepayResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgRepayResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -891,28 +802,22 @@ export const MsgRepayResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRepayResponse>, I>>(
-    _: I
-  ): MsgRepayResponse {
+  create<I extends Exact<DeepPartial<MsgRepayResponse>, I>>(base?: I): MsgRepayResponse {
+    return MsgRepayResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRepayResponse>, I>>(_: I): MsgRepayResponse {
     const message = createBaseMsgRepayResponse();
     return message;
   },
 };
 
 function createBaseMsgCloseRequest(): MsgCloseRequest {
-  return {
-    from: "",
-    appId: Long.UZERO,
-    extendedPairVaultId: Long.UZERO,
-    userVaultId: Long.UZERO,
-  };
+  return { from: "", appId: Long.UZERO, extendedPairVaultId: Long.UZERO, userVaultId: Long.UZERO };
 }
 
 export const MsgCloseRequest = {
-  encode(
-    message: MsgCloseRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgCloseRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -959,47 +864,35 @@ export const MsgCloseRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
-      userVaultId: isSet(object.userVaultId)
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
+      userVaultId: isSet(object.userVaultId) ? Long.fromValue(object.userVaultId) : Long.UZERO,
     };
   },
 
   toJSON(message: MsgCloseRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
-    message.userVaultId !== undefined &&
-      (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
+    message.userVaultId !== undefined && (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCloseRequest>, I>>(
-    object: I
-  ): MsgCloseRequest {
+  create<I extends Exact<DeepPartial<MsgCloseRequest>, I>>(base?: I): MsgCloseRequest {
+    return MsgCloseRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCloseRequest>, I>>(object: I): MsgCloseRequest {
     const message = createBaseMsgCloseRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
-    message.userVaultId =
-      object.userVaultId !== undefined && object.userVaultId !== null
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
+    message.userVaultId = (object.userVaultId !== undefined && object.userVaultId !== null)
+      ? Long.fromValue(object.userVaultId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -1009,10 +902,7 @@ function createBaseMsgCloseResponse(): MsgCloseResponse {
 }
 
 export const MsgCloseResponse = {
-  encode(
-    _: MsgCloseResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgCloseResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -1040,29 +930,22 @@ export const MsgCloseResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCloseResponse>, I>>(
-    _: I
-  ): MsgCloseResponse {
+  create<I extends Exact<DeepPartial<MsgCloseResponse>, I>>(base?: I): MsgCloseResponse {
+    return MsgCloseResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCloseResponse>, I>>(_: I): MsgCloseResponse {
     const message = createBaseMsgCloseResponse();
     return message;
   },
 };
 
 function createBaseMsgDepositAndDrawRequest(): MsgDepositAndDrawRequest {
-  return {
-    from: "",
-    appId: Long.UZERO,
-    extendedPairVaultId: Long.UZERO,
-    userVaultId: Long.UZERO,
-    amount: "",
-  };
+  return { from: "", appId: Long.UZERO, extendedPairVaultId: Long.UZERO, userVaultId: Long.UZERO, amount: "" };
 }
 
 export const MsgDepositAndDrawRequest = {
-  encode(
-    message: MsgDepositAndDrawRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgDepositAndDrawRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -1081,10 +964,7 @@ export const MsgDepositAndDrawRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgDepositAndDrawRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositAndDrawRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDepositAndDrawRequest();
@@ -1118,12 +998,8 @@ export const MsgDepositAndDrawRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
-      userVaultId: isSet(object.userVaultId)
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
+      userVaultId: isSet(object.userVaultId) ? Long.fromValue(object.userVaultId) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
     };
   },
@@ -1131,36 +1007,28 @@ export const MsgDepositAndDrawRequest = {
   toJSON(message: MsgDepositAndDrawRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
-    message.userVaultId !== undefined &&
-      (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
+    message.userVaultId !== undefined && (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositAndDrawRequest>, I>>(
-    object: I
-  ): MsgDepositAndDrawRequest {
+  create<I extends Exact<DeepPartial<MsgDepositAndDrawRequest>, I>>(base?: I): MsgDepositAndDrawRequest {
+    return MsgDepositAndDrawRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositAndDrawRequest>, I>>(object: I): MsgDepositAndDrawRequest {
     const message = createBaseMsgDepositAndDrawRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
-    message.userVaultId =
-      object.userVaultId !== undefined && object.userVaultId !== null
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
+    message.userVaultId = (object.userVaultId !== undefined && object.userVaultId !== null)
+      ? Long.fromValue(object.userVaultId)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
     return message;
   },
@@ -1171,17 +1039,11 @@ function createBaseMsgDepositAndDrawResponse(): MsgDepositAndDrawResponse {
 }
 
 export const MsgDepositAndDrawResponse = {
-  encode(
-    _: MsgDepositAndDrawResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgDepositAndDrawResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgDepositAndDrawResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositAndDrawResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDepositAndDrawResponse();
@@ -1205,28 +1067,22 @@ export const MsgDepositAndDrawResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositAndDrawResponse>, I>>(
-    _: I
-  ): MsgDepositAndDrawResponse {
+  create<I extends Exact<DeepPartial<MsgDepositAndDrawResponse>, I>>(base?: I): MsgDepositAndDrawResponse {
+    return MsgDepositAndDrawResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositAndDrawResponse>, I>>(_: I): MsgDepositAndDrawResponse {
     const message = createBaseMsgDepositAndDrawResponse();
     return message;
   },
 };
 
 function createBaseMsgCreateStableMintRequest(): MsgCreateStableMintRequest {
-  return {
-    from: "",
-    appId: Long.UZERO,
-    extendedPairVaultId: Long.UZERO,
-    amount: "",
-  };
+  return { from: "", appId: Long.UZERO, extendedPairVaultId: Long.UZERO, amount: "" };
 }
 
 export const MsgCreateStableMintRequest = {
-  encode(
-    message: MsgCreateStableMintRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgCreateStableMintRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -1242,10 +1098,7 @@ export const MsgCreateStableMintRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCreateStableMintRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateStableMintRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateStableMintRequest();
@@ -1276,9 +1129,7 @@ export const MsgCreateStableMintRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
     };
   },
@@ -1286,30 +1137,24 @@ export const MsgCreateStableMintRequest = {
   toJSON(message: MsgCreateStableMintRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCreateStableMintRequest>, I>>(
-    object: I
-  ): MsgCreateStableMintRequest {
+  create<I extends Exact<DeepPartial<MsgCreateStableMintRequest>, I>>(base?: I): MsgCreateStableMintRequest {
+    return MsgCreateStableMintRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreateStableMintRequest>, I>>(object: I): MsgCreateStableMintRequest {
     const message = createBaseMsgCreateStableMintRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
     return message;
   },
@@ -1320,17 +1165,11 @@ function createBaseMsgCreateStableMintResponse(): MsgCreateStableMintResponse {
 }
 
 export const MsgCreateStableMintResponse = {
-  encode(
-    _: MsgCreateStableMintResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgCreateStableMintResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCreateStableMintResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateStableMintResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateStableMintResponse();
@@ -1354,29 +1193,22 @@ export const MsgCreateStableMintResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCreateStableMintResponse>, I>>(
-    _: I
-  ): MsgCreateStableMintResponse {
+  create<I extends Exact<DeepPartial<MsgCreateStableMintResponse>, I>>(base?: I): MsgCreateStableMintResponse {
+    return MsgCreateStableMintResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreateStableMintResponse>, I>>(_: I): MsgCreateStableMintResponse {
     const message = createBaseMsgCreateStableMintResponse();
     return message;
   },
 };
 
 function createBaseMsgDepositStableMintRequest(): MsgDepositStableMintRequest {
-  return {
-    from: "",
-    appId: Long.UZERO,
-    extendedPairVaultId: Long.UZERO,
-    amount: "",
-    stableVaultId: Long.UZERO,
-  };
+  return { from: "", appId: Long.UZERO, extendedPairVaultId: Long.UZERO, amount: "", stableVaultId: Long.UZERO };
 }
 
 export const MsgDepositStableMintRequest = {
-  encode(
-    message: MsgDepositStableMintRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgDepositStableMintRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -1395,10 +1227,7 @@ export const MsgDepositStableMintRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgDepositStableMintRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositStableMintRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDepositStableMintRequest();
@@ -1432,50 +1261,38 @@ export const MsgDepositStableMintRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
-      stableVaultId: isSet(object.stableVaultId)
-        ? Long.fromValue(object.stableVaultId)
-        : Long.UZERO,
+      stableVaultId: isSet(object.stableVaultId) ? Long.fromValue(object.stableVaultId) : Long.UZERO,
     };
   },
 
   toJSON(message: MsgDepositStableMintRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
-    message.stableVaultId !== undefined &&
-      (obj.stableVaultId = (message.stableVaultId || Long.UZERO).toString());
+    message.stableVaultId !== undefined && (obj.stableVaultId = (message.stableVaultId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositStableMintRequest>, I>>(
-    object: I
-  ): MsgDepositStableMintRequest {
+  create<I extends Exact<DeepPartial<MsgDepositStableMintRequest>, I>>(base?: I): MsgDepositStableMintRequest {
+    return MsgDepositStableMintRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositStableMintRequest>, I>>(object: I): MsgDepositStableMintRequest {
     const message = createBaseMsgDepositStableMintRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
-    message.stableVaultId =
-      object.stableVaultId !== undefined && object.stableVaultId !== null
-        ? Long.fromValue(object.stableVaultId)
-        : Long.UZERO;
+    message.stableVaultId = (object.stableVaultId !== undefined && object.stableVaultId !== null)
+      ? Long.fromValue(object.stableVaultId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -1485,17 +1302,11 @@ function createBaseMsgDepositStableMintResponse(): MsgDepositStableMintResponse 
 }
 
 export const MsgDepositStableMintResponse = {
-  encode(
-    _: MsgDepositStableMintResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgDepositStableMintResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgDepositStableMintResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositStableMintResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDepositStableMintResponse();
@@ -1519,29 +1330,22 @@ export const MsgDepositStableMintResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositStableMintResponse>, I>>(
-    _: I
-  ): MsgDepositStableMintResponse {
+  create<I extends Exact<DeepPartial<MsgDepositStableMintResponse>, I>>(base?: I): MsgDepositStableMintResponse {
+    return MsgDepositStableMintResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositStableMintResponse>, I>>(_: I): MsgDepositStableMintResponse {
     const message = createBaseMsgDepositStableMintResponse();
     return message;
   },
 };
 
 function createBaseMsgWithdrawStableMintRequest(): MsgWithdrawStableMintRequest {
-  return {
-    from: "",
-    appId: Long.UZERO,
-    extendedPairVaultId: Long.UZERO,
-    amount: "",
-    stableVaultId: Long.UZERO,
-  };
+  return { from: "", appId: Long.UZERO, extendedPairVaultId: Long.UZERO, amount: "", stableVaultId: Long.UZERO };
 }
 
 export const MsgWithdrawStableMintRequest = {
-  encode(
-    message: MsgWithdrawStableMintRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgWithdrawStableMintRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -1560,10 +1364,7 @@ export const MsgWithdrawStableMintRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgWithdrawStableMintRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawStableMintRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWithdrawStableMintRequest();
@@ -1597,50 +1398,38 @@ export const MsgWithdrawStableMintRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
-      stableVaultId: isSet(object.stableVaultId)
-        ? Long.fromValue(object.stableVaultId)
-        : Long.UZERO,
+      stableVaultId: isSet(object.stableVaultId) ? Long.fromValue(object.stableVaultId) : Long.UZERO,
     };
   },
 
   toJSON(message: MsgWithdrawStableMintRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
-    message.stableVaultId !== undefined &&
-      (obj.stableVaultId = (message.stableVaultId || Long.UZERO).toString());
+    message.stableVaultId !== undefined && (obj.stableVaultId = (message.stableVaultId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWithdrawStableMintRequest>, I>>(
-    object: I
-  ): MsgWithdrawStableMintRequest {
+  create<I extends Exact<DeepPartial<MsgWithdrawStableMintRequest>, I>>(base?: I): MsgWithdrawStableMintRequest {
+    return MsgWithdrawStableMintRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawStableMintRequest>, I>>(object: I): MsgWithdrawStableMintRequest {
     const message = createBaseMsgWithdrawStableMintRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
-    message.stableVaultId =
-      object.stableVaultId !== undefined && object.stableVaultId !== null
-        ? Long.fromValue(object.stableVaultId)
-        : Long.UZERO;
+    message.stableVaultId = (object.stableVaultId !== undefined && object.stableVaultId !== null)
+      ? Long.fromValue(object.stableVaultId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -1650,17 +1439,11 @@ function createBaseMsgWithdrawStableMintResponse(): MsgWithdrawStableMintRespons
 }
 
 export const MsgWithdrawStableMintResponse = {
-  encode(
-    _: MsgWithdrawStableMintResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgWithdrawStableMintResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgWithdrawStableMintResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawStableMintResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWithdrawStableMintResponse();
@@ -1684,9 +1467,11 @@ export const MsgWithdrawStableMintResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWithdrawStableMintResponse>, I>>(
-    _: I
-  ): MsgWithdrawStableMintResponse {
+  create<I extends Exact<DeepPartial<MsgWithdrawStableMintResponse>, I>>(base?: I): MsgWithdrawStableMintResponse {
+    return MsgWithdrawStableMintResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawStableMintResponse>, I>>(_: I): MsgWithdrawStableMintResponse {
     const message = createBaseMsgWithdrawStableMintResponse();
     return message;
   },
@@ -1697,10 +1482,7 @@ function createBaseMsgVaultInterestCalcRequest(): MsgVaultInterestCalcRequest {
 }
 
 export const MsgVaultInterestCalcRequest = {
-  encode(
-    message: MsgVaultInterestCalcRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgVaultInterestCalcRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -1713,10 +1495,7 @@ export const MsgVaultInterestCalcRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgVaultInterestCalcRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgVaultInterestCalcRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgVaultInterestCalcRequest();
@@ -1744,35 +1523,29 @@ export const MsgVaultInterestCalcRequest = {
     return {
       from: isSet(object.from) ? String(object.from) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      userVaultId: isSet(object.userVaultId)
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO,
+      userVaultId: isSet(object.userVaultId) ? Long.fromValue(object.userVaultId) : Long.UZERO,
     };
   },
 
   toJSON(message: MsgVaultInterestCalcRequest): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.userVaultId !== undefined &&
-      (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.userVaultId !== undefined && (obj.userVaultId = (message.userVaultId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgVaultInterestCalcRequest>, I>>(
-    object: I
-  ): MsgVaultInterestCalcRequest {
+  create<I extends Exact<DeepPartial<MsgVaultInterestCalcRequest>, I>>(base?: I): MsgVaultInterestCalcRequest {
+    return MsgVaultInterestCalcRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgVaultInterestCalcRequest>, I>>(object: I): MsgVaultInterestCalcRequest {
     const message = createBaseMsgVaultInterestCalcRequest();
     message.from = object.from ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.userVaultId =
-      object.userVaultId !== undefined && object.userVaultId !== null
-        ? Long.fromValue(object.userVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.userVaultId = (object.userVaultId !== undefined && object.userVaultId !== null)
+      ? Long.fromValue(object.userVaultId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -1782,17 +1555,11 @@ function createBaseMsgVaultInterestCalcResponse(): MsgVaultInterestCalcResponse 
 }
 
 export const MsgVaultInterestCalcResponse = {
-  encode(
-    _: MsgVaultInterestCalcResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgVaultInterestCalcResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgVaultInterestCalcResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgVaultInterestCalcResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgVaultInterestCalcResponse();
@@ -1816,10 +1583,125 @@ export const MsgVaultInterestCalcResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgVaultInterestCalcResponse>, I>>(
-    _: I
-  ): MsgVaultInterestCalcResponse {
+  create<I extends Exact<DeepPartial<MsgVaultInterestCalcResponse>, I>>(base?: I): MsgVaultInterestCalcResponse {
+    return MsgVaultInterestCalcResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgVaultInterestCalcResponse>, I>>(_: I): MsgVaultInterestCalcResponse {
     const message = createBaseMsgVaultInterestCalcResponse();
+    return message;
+  },
+};
+
+function createBaseMsgWithdrawStableMintControlRequest(): MsgWithdrawStableMintControlRequest {
+  return { from: "", appId: Long.UZERO };
+}
+
+export const MsgWithdrawStableMintControlRequest = {
+  encode(message: MsgWithdrawStableMintControlRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.from !== "") {
+      writer.uint32(10).string(message.from);
+    }
+    if (!message.appId.isZero()) {
+      writer.uint32(16).uint64(message.appId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawStableMintControlRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgWithdrawStableMintControlRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.from = reader.string();
+          break;
+        case 2:
+          message.appId = reader.uint64() as Long;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgWithdrawStableMintControlRequest {
+    return {
+      from: isSet(object.from) ? String(object.from) : "",
+      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
+    };
+  },
+
+  toJSON(message: MsgWithdrawStableMintControlRequest): unknown {
+    const obj: any = {};
+    message.from !== undefined && (obj.from = message.from);
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgWithdrawStableMintControlRequest>, I>>(
+    base?: I,
+  ): MsgWithdrawStableMintControlRequest {
+    return MsgWithdrawStableMintControlRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawStableMintControlRequest>, I>>(
+    object: I,
+  ): MsgWithdrawStableMintControlRequest {
+    const message = createBaseMsgWithdrawStableMintControlRequest();
+    message.from = object.from ?? "";
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    return message;
+  },
+};
+
+function createBaseMsgWithdrawStableMintControlResponse(): MsgWithdrawStableMintControlResponse {
+  return {};
+}
+
+export const MsgWithdrawStableMintControlResponse = {
+  encode(_: MsgWithdrawStableMintControlResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawStableMintControlResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgWithdrawStableMintControlResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgWithdrawStableMintControlResponse {
+    return {};
+  },
+
+  toJSON(_: MsgWithdrawStableMintControlResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgWithdrawStableMintControlResponse>, I>>(
+    base?: I,
+  ): MsgWithdrawStableMintControlResponse {
+    return MsgWithdrawStableMintControlResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawStableMintControlResponse>, I>>(
+    _: I,
+  ): MsgWithdrawStableMintControlResponse {
+    const message = createBaseMsgWithdrawStableMintControlResponse();
     return message;
   },
 };
@@ -1831,26 +1713,21 @@ export interface Msg {
   MsgDraw(request: MsgDrawRequest): Promise<MsgDrawResponse>;
   MsgRepay(request: MsgRepayRequest): Promise<MsgRepayResponse>;
   MsgClose(request: MsgCloseRequest): Promise<MsgCloseResponse>;
-  MsgDepositAndDraw(
-    request: MsgDepositAndDrawRequest
-  ): Promise<MsgDepositAndDrawResponse>;
-  MsgCreateStableMint(
-    request: MsgCreateStableMintRequest
-  ): Promise<MsgCreateStableMintResponse>;
-  MsgDepositStableMint(
-    request: MsgDepositStableMintRequest
-  ): Promise<MsgDepositStableMintResponse>;
-  MsgWithdrawStableMint(
-    request: MsgWithdrawStableMintRequest
-  ): Promise<MsgWithdrawStableMintResponse>;
-  MsgVaultInterestCalc(
-    request: MsgVaultInterestCalcRequest
-  ): Promise<MsgVaultInterestCalcResponse>;
+  MsgDepositAndDraw(request: MsgDepositAndDrawRequest): Promise<MsgDepositAndDrawResponse>;
+  MsgCreateStableMint(request: MsgCreateStableMintRequest): Promise<MsgCreateStableMintResponse>;
+  MsgDepositStableMint(request: MsgDepositStableMintRequest): Promise<MsgDepositStableMintResponse>;
+  MsgWithdrawStableMint(request: MsgWithdrawStableMintRequest): Promise<MsgWithdrawStableMintResponse>;
+  MsgVaultInterestCalc(request: MsgVaultInterestCalcRequest): Promise<MsgVaultInterestCalcResponse>;
+  MsgWithdrawStableMintControl(
+    request: MsgWithdrawStableMintControlRequest,
+  ): Promise<MsgWithdrawStableMintControlResponse>;
 }
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "comdex.vault.v1beta1.Msg";
     this.rpc = rpc;
     this.MsgCreate = this.MsgCreate.bind(this);
     this.MsgDeposit = this.MsgDeposit.bind(this);
@@ -1863,184 +1740,98 @@ export class MsgClientImpl implements Msg {
     this.MsgDepositStableMint = this.MsgDepositStableMint.bind(this);
     this.MsgWithdrawStableMint = this.MsgWithdrawStableMint.bind(this);
     this.MsgVaultInterestCalc = this.MsgVaultInterestCalc.bind(this);
+    this.MsgWithdrawStableMintControl = this.MsgWithdrawStableMintControl.bind(this);
   }
   MsgCreate(request: MsgCreateRequest): Promise<MsgCreateResponse> {
     const data = MsgCreateRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgCreate",
-      data
-    );
-    return promise.then((data) =>
-      MsgCreateResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgCreate", data);
+    return promise.then((data) => MsgCreateResponse.decode(new _m0.Reader(data)));
   }
 
   MsgDeposit(request: MsgDepositRequest): Promise<MsgDepositResponse> {
     const data = MsgDepositRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgDeposit",
-      data
-    );
-    return promise.then((data) =>
-      MsgDepositResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgDeposit", data);
+    return promise.then((data) => MsgDepositResponse.decode(new _m0.Reader(data)));
   }
 
   MsgWithdraw(request: MsgWithdrawRequest): Promise<MsgWithdrawResponse> {
     const data = MsgWithdrawRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgWithdraw",
-      data
-    );
-    return promise.then((data) =>
-      MsgWithdrawResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgWithdraw", data);
+    return promise.then((data) => MsgWithdrawResponse.decode(new _m0.Reader(data)));
   }
 
   MsgDraw(request: MsgDrawRequest): Promise<MsgDrawResponse> {
     const data = MsgDrawRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgDraw",
-      data
-    );
+    const promise = this.rpc.request(this.service, "MsgDraw", data);
     return promise.then((data) => MsgDrawResponse.decode(new _m0.Reader(data)));
   }
 
   MsgRepay(request: MsgRepayRequest): Promise<MsgRepayResponse> {
     const data = MsgRepayRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgRepay",
-      data
-    );
-    return promise.then((data) =>
-      MsgRepayResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgRepay", data);
+    return promise.then((data) => MsgRepayResponse.decode(new _m0.Reader(data)));
   }
 
   MsgClose(request: MsgCloseRequest): Promise<MsgCloseResponse> {
     const data = MsgCloseRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgClose",
-      data
-    );
-    return promise.then((data) =>
-      MsgCloseResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgClose", data);
+    return promise.then((data) => MsgCloseResponse.decode(new _m0.Reader(data)));
   }
 
-  MsgDepositAndDraw(
-    request: MsgDepositAndDrawRequest
-  ): Promise<MsgDepositAndDrawResponse> {
+  MsgDepositAndDraw(request: MsgDepositAndDrawRequest): Promise<MsgDepositAndDrawResponse> {
     const data = MsgDepositAndDrawRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgDepositAndDraw",
-      data
-    );
-    return promise.then((data) =>
-      MsgDepositAndDrawResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgDepositAndDraw", data);
+    return promise.then((data) => MsgDepositAndDrawResponse.decode(new _m0.Reader(data)));
   }
 
-  MsgCreateStableMint(
-    request: MsgCreateStableMintRequest
-  ): Promise<MsgCreateStableMintResponse> {
+  MsgCreateStableMint(request: MsgCreateStableMintRequest): Promise<MsgCreateStableMintResponse> {
     const data = MsgCreateStableMintRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgCreateStableMint",
-      data
-    );
-    return promise.then((data) =>
-      MsgCreateStableMintResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgCreateStableMint", data);
+    return promise.then((data) => MsgCreateStableMintResponse.decode(new _m0.Reader(data)));
   }
 
-  MsgDepositStableMint(
-    request: MsgDepositStableMintRequest
-  ): Promise<MsgDepositStableMintResponse> {
+  MsgDepositStableMint(request: MsgDepositStableMintRequest): Promise<MsgDepositStableMintResponse> {
     const data = MsgDepositStableMintRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgDepositStableMint",
-      data
-    );
-    return promise.then((data) =>
-      MsgDepositStableMintResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgDepositStableMint", data);
+    return promise.then((data) => MsgDepositStableMintResponse.decode(new _m0.Reader(data)));
   }
 
-  MsgWithdrawStableMint(
-    request: MsgWithdrawStableMintRequest
-  ): Promise<MsgWithdrawStableMintResponse> {
+  MsgWithdrawStableMint(request: MsgWithdrawStableMintRequest): Promise<MsgWithdrawStableMintResponse> {
     const data = MsgWithdrawStableMintRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgWithdrawStableMint",
-      data
-    );
-    return promise.then((data) =>
-      MsgWithdrawStableMintResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgWithdrawStableMint", data);
+    return promise.then((data) => MsgWithdrawStableMintResponse.decode(new _m0.Reader(data)));
   }
 
-  MsgVaultInterestCalc(
-    request: MsgVaultInterestCalcRequest
-  ): Promise<MsgVaultInterestCalcResponse> {
+  MsgVaultInterestCalc(request: MsgVaultInterestCalcRequest): Promise<MsgVaultInterestCalcResponse> {
     const data = MsgVaultInterestCalcRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.vault.v1beta1.Msg",
-      "MsgVaultInterestCalc",
-      data
-    );
-    return promise.then((data) =>
-      MsgVaultInterestCalcResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "MsgVaultInterestCalc", data);
+    return promise.then((data) => MsgVaultInterestCalcResponse.decode(new _m0.Reader(data)));
+  }
+
+  MsgWithdrawStableMintControl(
+    request: MsgWithdrawStableMintControlRequest,
+  ): Promise<MsgWithdrawStableMintControlResponse> {
+    const data = MsgWithdrawStableMintControlRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "MsgWithdrawStableMintControl", data);
+    return promise.then((data) => MsgWithdrawStableMintControlResponse.decode(new _m0.Reader(data)));
   }
 }
 
 interface Rpc {
-  request(
-    service: string,
-    method: string,
-    data: Uint8Array
-  ): Promise<Uint8Array>;
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

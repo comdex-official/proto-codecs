@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 
 export const protobufPackage = "comdex.lend.v1beta1";
@@ -95,49 +95,54 @@ export interface MsgRepayWithdraw {
   borrowId: Long;
 }
 
-export interface MsgLendResponse {}
+export interface MsgLendResponse {
+}
 
-export interface MsgWithdrawResponse {}
+export interface MsgWithdrawResponse {
+}
 
-export interface MsgDepositResponse {}
+export interface MsgDepositResponse {
+}
 
-export interface MsgCloseLendResponse {}
+export interface MsgCloseLendResponse {
+}
 
-export interface MsgBorrowResponse {}
+export interface MsgBorrowResponse {
+}
 
-export interface MsgRepayResponse {}
+export interface MsgRepayResponse {
+}
 
-export interface MsgDepositBorrowResponse {}
+export interface MsgDepositBorrowResponse {
+}
 
-export interface MsgDrawResponse {}
+export interface MsgDrawResponse {
+}
 
-export interface MsgCloseBorrowResponse {}
+export interface MsgCloseBorrowResponse {
+}
 
-export interface MsgBorrowAlternateResponse {}
+export interface MsgBorrowAlternateResponse {
+}
 
-export interface MsgFundModuleAccountsResponse {}
+export interface MsgFundModuleAccountsResponse {
+}
 
-export interface MsgCalculateInterestAndRewardsResponse {}
+export interface MsgCalculateInterestAndRewardsResponse {
+}
 
-export interface MsgFundReserveAccountsResponse {}
+export interface MsgFundReserveAccountsResponse {
+}
 
-export interface MsgRepayWithdrawResponse {}
+export interface MsgRepayWithdrawResponse {
+}
 
 function createBaseMsgLend(): MsgLend {
-  return {
-    lender: "",
-    assetId: Long.UZERO,
-    amount: undefined,
-    poolId: Long.UZERO,
-    appId: Long.UZERO,
-  };
+  return { lender: "", assetId: Long.UZERO, amount: undefined, poolId: Long.UZERO, appId: Long.UZERO };
 }
 
 export const MsgLend = {
-  encode(
-    message: MsgLend,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgLend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.lender !== "") {
       writer.uint32(10).string(message.lender);
     }
@@ -189,9 +194,7 @@ export const MsgLend = {
   fromJSON(object: any): MsgLend {
     return {
       lender: isSet(object.lender) ? String(object.lender) : "",
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
@@ -201,36 +204,30 @@ export const MsgLend = {
   toJSON(message: MsgLend): unknown {
     const obj: any = {};
     message.lender !== undefined && (obj.lender = message.lender);
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.amount !== undefined &&
-      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgLend>, I>>(base?: I): MsgLend {
+    return MsgLend.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgLend>, I>>(object: I): MsgLend {
     const message = createBaseMsgLend();
     message.lender = object.lender ?? "";
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? Coin.fromPartial(object.amount)
-        : undefined;
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.amount = (object.amount !== undefined && object.amount !== null)
+      ? Coin.fromPartial(object.amount)
+      : undefined;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
@@ -240,10 +237,7 @@ function createBaseMsgWithdraw(): MsgWithdraw {
 }
 
 export const MsgWithdraw = {
-  encode(
-    message: MsgWithdraw,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgWithdraw, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.lender !== "") {
       writer.uint32(10).string(message.lender);
     }
@@ -291,26 +285,24 @@ export const MsgWithdraw = {
   toJSON(message: MsgWithdraw): unknown {
     const obj: any = {};
     message.lender !== undefined && (obj.lender = message.lender);
-    message.lendId !== undefined &&
-      (obj.lendId = (message.lendId || Long.UZERO).toString());
-    message.amount !== undefined &&
-      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.lendId !== undefined && (obj.lendId = (message.lendId || Long.UZERO).toString());
+    message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWithdraw>, I>>(
-    object: I
-  ): MsgWithdraw {
+  create<I extends Exact<DeepPartial<MsgWithdraw>, I>>(base?: I): MsgWithdraw {
+    return MsgWithdraw.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWithdraw>, I>>(object: I): MsgWithdraw {
     const message = createBaseMsgWithdraw();
     message.lender = object.lender ?? "";
-    message.lendId =
-      object.lendId !== undefined && object.lendId !== null
-        ? Long.fromValue(object.lendId)
-        : Long.UZERO;
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? Coin.fromPartial(object.amount)
-        : undefined;
+    message.lendId = (object.lendId !== undefined && object.lendId !== null)
+      ? Long.fromValue(object.lendId)
+      : Long.UZERO;
+    message.amount = (object.amount !== undefined && object.amount !== null)
+      ? Coin.fromPartial(object.amount)
+      : undefined;
     return message;
   },
 };
@@ -320,10 +312,7 @@ function createBaseMsgDeposit(): MsgDeposit {
 }
 
 export const MsgDeposit = {
-  encode(
-    message: MsgDeposit,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgDeposit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.lender !== "") {
       writer.uint32(10).string(message.lender);
     }
@@ -371,26 +360,24 @@ export const MsgDeposit = {
   toJSON(message: MsgDeposit): unknown {
     const obj: any = {};
     message.lender !== undefined && (obj.lender = message.lender);
-    message.lendId !== undefined &&
-      (obj.lendId = (message.lendId || Long.UZERO).toString());
-    message.amount !== undefined &&
-      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.lendId !== undefined && (obj.lendId = (message.lendId || Long.UZERO).toString());
+    message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDeposit>, I>>(
-    object: I
-  ): MsgDeposit {
+  create<I extends Exact<DeepPartial<MsgDeposit>, I>>(base?: I): MsgDeposit {
+    return MsgDeposit.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDeposit>, I>>(object: I): MsgDeposit {
     const message = createBaseMsgDeposit();
     message.lender = object.lender ?? "";
-    message.lendId =
-      object.lendId !== undefined && object.lendId !== null
-        ? Long.fromValue(object.lendId)
-        : Long.UZERO;
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? Coin.fromPartial(object.amount)
-        : undefined;
+    message.lendId = (object.lendId !== undefined && object.lendId !== null)
+      ? Long.fromValue(object.lendId)
+      : Long.UZERO;
+    message.amount = (object.amount !== undefined && object.amount !== null)
+      ? Coin.fromPartial(object.amount)
+      : undefined;
     return message;
   },
 };
@@ -400,10 +387,7 @@ function createBaseMsgCloseLend(): MsgCloseLend {
 }
 
 export const MsgCloseLend = {
-  encode(
-    message: MsgCloseLend,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgCloseLend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.lender !== "") {
       writer.uint32(10).string(message.lender);
     }
@@ -444,20 +428,20 @@ export const MsgCloseLend = {
   toJSON(message: MsgCloseLend): unknown {
     const obj: any = {};
     message.lender !== undefined && (obj.lender = message.lender);
-    message.lendId !== undefined &&
-      (obj.lendId = (message.lendId || Long.UZERO).toString());
+    message.lendId !== undefined && (obj.lendId = (message.lendId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCloseLend>, I>>(
-    object: I
-  ): MsgCloseLend {
+  create<I extends Exact<DeepPartial<MsgCloseLend>, I>>(base?: I): MsgCloseLend {
+    return MsgCloseLend.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCloseLend>, I>>(object: I): MsgCloseLend {
     const message = createBaseMsgCloseLend();
     message.lender = object.lender ?? "";
-    message.lendId =
-      object.lendId !== undefined && object.lendId !== null
-        ? Long.fromValue(object.lendId)
-        : Long.UZERO;
+    message.lendId = (object.lendId !== undefined && object.lendId !== null)
+      ? Long.fromValue(object.lendId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -474,10 +458,7 @@ function createBaseMsgBorrow(): MsgBorrow {
 }
 
 export const MsgBorrow = {
-  encode(
-    message: MsgBorrow,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgBorrow, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.borrower !== "") {
       writer.uint32(10).string(message.borrower);
     }
@@ -537,60 +518,43 @@ export const MsgBorrow = {
       borrower: isSet(object.borrower) ? String(object.borrower) : "",
       lendId: isSet(object.lendId) ? Long.fromValue(object.lendId) : Long.UZERO,
       pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
-      isStableBorrow: isSet(object.isStableBorrow)
-        ? Boolean(object.isStableBorrow)
-        : false,
-      amountIn: isSet(object.amountIn)
-        ? Coin.fromJSON(object.amountIn)
-        : undefined,
-      amountOut: isSet(object.amountOut)
-        ? Coin.fromJSON(object.amountOut)
-        : undefined,
+      isStableBorrow: isSet(object.isStableBorrow) ? Boolean(object.isStableBorrow) : false,
+      amountIn: isSet(object.amountIn) ? Coin.fromJSON(object.amountIn) : undefined,
+      amountOut: isSet(object.amountOut) ? Coin.fromJSON(object.amountOut) : undefined,
     };
   },
 
   toJSON(message: MsgBorrow): unknown {
     const obj: any = {};
     message.borrower !== undefined && (obj.borrower = message.borrower);
-    message.lendId !== undefined &&
-      (obj.lendId = (message.lendId || Long.UZERO).toString());
-    message.pairId !== undefined &&
-      (obj.pairId = (message.pairId || Long.UZERO).toString());
-    message.isStableBorrow !== undefined &&
-      (obj.isStableBorrow = message.isStableBorrow);
-    message.amountIn !== undefined &&
-      (obj.amountIn = message.amountIn
-        ? Coin.toJSON(message.amountIn)
-        : undefined);
-    message.amountOut !== undefined &&
-      (obj.amountOut = message.amountOut
-        ? Coin.toJSON(message.amountOut)
-        : undefined);
+    message.lendId !== undefined && (obj.lendId = (message.lendId || Long.UZERO).toString());
+    message.pairId !== undefined && (obj.pairId = (message.pairId || Long.UZERO).toString());
+    message.isStableBorrow !== undefined && (obj.isStableBorrow = message.isStableBorrow);
+    message.amountIn !== undefined && (obj.amountIn = message.amountIn ? Coin.toJSON(message.amountIn) : undefined);
+    message.amountOut !== undefined && (obj.amountOut = message.amountOut ? Coin.toJSON(message.amountOut) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgBorrow>, I>>(
-    object: I
-  ): MsgBorrow {
+  create<I extends Exact<DeepPartial<MsgBorrow>, I>>(base?: I): MsgBorrow {
+    return MsgBorrow.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgBorrow>, I>>(object: I): MsgBorrow {
     const message = createBaseMsgBorrow();
     message.borrower = object.borrower ?? "";
-    message.lendId =
-      object.lendId !== undefined && object.lendId !== null
-        ? Long.fromValue(object.lendId)
-        : Long.UZERO;
-    message.pairId =
-      object.pairId !== undefined && object.pairId !== null
-        ? Long.fromValue(object.pairId)
-        : Long.UZERO;
+    message.lendId = (object.lendId !== undefined && object.lendId !== null)
+      ? Long.fromValue(object.lendId)
+      : Long.UZERO;
+    message.pairId = (object.pairId !== undefined && object.pairId !== null)
+      ? Long.fromValue(object.pairId)
+      : Long.UZERO;
     message.isStableBorrow = object.isStableBorrow ?? false;
-    message.amountIn =
-      object.amountIn !== undefined && object.amountIn !== null
-        ? Coin.fromPartial(object.amountIn)
-        : undefined;
-    message.amountOut =
-      object.amountOut !== undefined && object.amountOut !== null
-        ? Coin.fromPartial(object.amountOut)
-        : undefined;
+    message.amountIn = (object.amountIn !== undefined && object.amountIn !== null)
+      ? Coin.fromPartial(object.amountIn)
+      : undefined;
+    message.amountOut = (object.amountOut !== undefined && object.amountOut !== null)
+      ? Coin.fromPartial(object.amountOut)
+      : undefined;
     return message;
   },
 };
@@ -600,10 +564,7 @@ function createBaseMsgRepay(): MsgRepay {
 }
 
 export const MsgRepay = {
-  encode(
-    message: MsgRepay,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgRepay, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.borrower !== "") {
       writer.uint32(10).string(message.borrower);
     }
@@ -643,9 +604,7 @@ export const MsgRepay = {
   fromJSON(object: any): MsgRepay {
     return {
       borrower: isSet(object.borrower) ? String(object.borrower) : "",
-      borrowId: isSet(object.borrowId)
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO,
+      borrowId: isSet(object.borrowId) ? Long.fromValue(object.borrowId) : Long.UZERO,
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
     };
   },
@@ -653,24 +612,24 @@ export const MsgRepay = {
   toJSON(message: MsgRepay): unknown {
     const obj: any = {};
     message.borrower !== undefined && (obj.borrower = message.borrower);
-    message.borrowId !== undefined &&
-      (obj.borrowId = (message.borrowId || Long.UZERO).toString());
-    message.amount !== undefined &&
-      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.borrowId !== undefined && (obj.borrowId = (message.borrowId || Long.UZERO).toString());
+    message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgRepay>, I>>(base?: I): MsgRepay {
+    return MsgRepay.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgRepay>, I>>(object: I): MsgRepay {
     const message = createBaseMsgRepay();
     message.borrower = object.borrower ?? "";
-    message.borrowId =
-      object.borrowId !== undefined && object.borrowId !== null
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO;
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? Coin.fromPartial(object.amount)
-        : undefined;
+    message.borrowId = (object.borrowId !== undefined && object.borrowId !== null)
+      ? Long.fromValue(object.borrowId)
+      : Long.UZERO;
+    message.amount = (object.amount !== undefined && object.amount !== null)
+      ? Coin.fromPartial(object.amount)
+      : undefined;
     return message;
   },
 };
@@ -680,10 +639,7 @@ function createBaseMsgDepositBorrow(): MsgDepositBorrow {
 }
 
 export const MsgDepositBorrow = {
-  encode(
-    message: MsgDepositBorrow,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgDepositBorrow, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.borrower !== "") {
       writer.uint32(10).string(message.borrower);
     }
@@ -723,9 +679,7 @@ export const MsgDepositBorrow = {
   fromJSON(object: any): MsgDepositBorrow {
     return {
       borrower: isSet(object.borrower) ? String(object.borrower) : "",
-      borrowId: isSet(object.borrowId)
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO,
+      borrowId: isSet(object.borrowId) ? Long.fromValue(object.borrowId) : Long.UZERO,
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
     };
   },
@@ -733,26 +687,24 @@ export const MsgDepositBorrow = {
   toJSON(message: MsgDepositBorrow): unknown {
     const obj: any = {};
     message.borrower !== undefined && (obj.borrower = message.borrower);
-    message.borrowId !== undefined &&
-      (obj.borrowId = (message.borrowId || Long.UZERO).toString());
-    message.amount !== undefined &&
-      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.borrowId !== undefined && (obj.borrowId = (message.borrowId || Long.UZERO).toString());
+    message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositBorrow>, I>>(
-    object: I
-  ): MsgDepositBorrow {
+  create<I extends Exact<DeepPartial<MsgDepositBorrow>, I>>(base?: I): MsgDepositBorrow {
+    return MsgDepositBorrow.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositBorrow>, I>>(object: I): MsgDepositBorrow {
     const message = createBaseMsgDepositBorrow();
     message.borrower = object.borrower ?? "";
-    message.borrowId =
-      object.borrowId !== undefined && object.borrowId !== null
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO;
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? Coin.fromPartial(object.amount)
-        : undefined;
+    message.borrowId = (object.borrowId !== undefined && object.borrowId !== null)
+      ? Long.fromValue(object.borrowId)
+      : Long.UZERO;
+    message.amount = (object.amount !== undefined && object.amount !== null)
+      ? Coin.fromPartial(object.amount)
+      : undefined;
     return message;
   },
 };
@@ -762,10 +714,7 @@ function createBaseMsgDraw(): MsgDraw {
 }
 
 export const MsgDraw = {
-  encode(
-    message: MsgDraw,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgDraw, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.borrower !== "") {
       writer.uint32(10).string(message.borrower);
     }
@@ -805,9 +754,7 @@ export const MsgDraw = {
   fromJSON(object: any): MsgDraw {
     return {
       borrower: isSet(object.borrower) ? String(object.borrower) : "",
-      borrowId: isSet(object.borrowId)
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO,
+      borrowId: isSet(object.borrowId) ? Long.fromValue(object.borrowId) : Long.UZERO,
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
     };
   },
@@ -815,24 +762,24 @@ export const MsgDraw = {
   toJSON(message: MsgDraw): unknown {
     const obj: any = {};
     message.borrower !== undefined && (obj.borrower = message.borrower);
-    message.borrowId !== undefined &&
-      (obj.borrowId = (message.borrowId || Long.UZERO).toString());
-    message.amount !== undefined &&
-      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.borrowId !== undefined && (obj.borrowId = (message.borrowId || Long.UZERO).toString());
+    message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgDraw>, I>>(base?: I): MsgDraw {
+    return MsgDraw.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDraw>, I>>(object: I): MsgDraw {
     const message = createBaseMsgDraw();
     message.borrower = object.borrower ?? "";
-    message.borrowId =
-      object.borrowId !== undefined && object.borrowId !== null
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO;
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? Coin.fromPartial(object.amount)
-        : undefined;
+    message.borrowId = (object.borrowId !== undefined && object.borrowId !== null)
+      ? Long.fromValue(object.borrowId)
+      : Long.UZERO;
+    message.amount = (object.amount !== undefined && object.amount !== null)
+      ? Coin.fromPartial(object.amount)
+      : undefined;
     return message;
   },
 };
@@ -842,10 +789,7 @@ function createBaseMsgCloseBorrow(): MsgCloseBorrow {
 }
 
 export const MsgCloseBorrow = {
-  encode(
-    message: MsgCloseBorrow,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgCloseBorrow, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.borrower !== "") {
       writer.uint32(10).string(message.borrower);
     }
@@ -879,29 +823,27 @@ export const MsgCloseBorrow = {
   fromJSON(object: any): MsgCloseBorrow {
     return {
       borrower: isSet(object.borrower) ? String(object.borrower) : "",
-      borrowId: isSet(object.borrowId)
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO,
+      borrowId: isSet(object.borrowId) ? Long.fromValue(object.borrowId) : Long.UZERO,
     };
   },
 
   toJSON(message: MsgCloseBorrow): unknown {
     const obj: any = {};
     message.borrower !== undefined && (obj.borrower = message.borrower);
-    message.borrowId !== undefined &&
-      (obj.borrowId = (message.borrowId || Long.UZERO).toString());
+    message.borrowId !== undefined && (obj.borrowId = (message.borrowId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCloseBorrow>, I>>(
-    object: I
-  ): MsgCloseBorrow {
+  create<I extends Exact<DeepPartial<MsgCloseBorrow>, I>>(base?: I): MsgCloseBorrow {
+    return MsgCloseBorrow.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCloseBorrow>, I>>(object: I): MsgCloseBorrow {
     const message = createBaseMsgCloseBorrow();
     message.borrower = object.borrower ?? "";
-    message.borrowId =
-      object.borrowId !== undefined && object.borrowId !== null
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO;
+    message.borrowId = (object.borrowId !== undefined && object.borrowId !== null)
+      ? Long.fromValue(object.borrowId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -920,10 +862,7 @@ function createBaseMsgBorrowAlternate(): MsgBorrowAlternate {
 }
 
 export const MsgBorrowAlternate = {
-  encode(
-    message: MsgBorrowAlternate,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgBorrowAlternate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.lender !== "") {
       writer.uint32(10).string(message.lender);
     }
@@ -993,20 +932,12 @@ export const MsgBorrowAlternate = {
   fromJSON(object: any): MsgBorrowAlternate {
     return {
       lender: isSet(object.lender) ? String(object.lender) : "",
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      amountIn: isSet(object.amountIn)
-        ? Coin.fromJSON(object.amountIn)
-        : undefined,
+      amountIn: isSet(object.amountIn) ? Coin.fromJSON(object.amountIn) : undefined,
       pairId: isSet(object.pairId) ? Long.fromValue(object.pairId) : Long.UZERO,
-      isStableBorrow: isSet(object.isStableBorrow)
-        ? Boolean(object.isStableBorrow)
-        : false,
-      amountOut: isSet(object.amountOut)
-        ? Coin.fromJSON(object.amountOut)
-        : undefined,
+      isStableBorrow: isSet(object.isStableBorrow) ? Boolean(object.isStableBorrow) : false,
+      amountOut: isSet(object.amountOut) ? Coin.fromJSON(object.amountOut) : undefined,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
@@ -1014,75 +945,50 @@ export const MsgBorrowAlternate = {
   toJSON(message: MsgBorrowAlternate): unknown {
     const obj: any = {};
     message.lender !== undefined && (obj.lender = message.lender);
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.amountIn !== undefined &&
-      (obj.amountIn = message.amountIn
-        ? Coin.toJSON(message.amountIn)
-        : undefined);
-    message.pairId !== undefined &&
-      (obj.pairId = (message.pairId || Long.UZERO).toString());
-    message.isStableBorrow !== undefined &&
-      (obj.isStableBorrow = message.isStableBorrow);
-    message.amountOut !== undefined &&
-      (obj.amountOut = message.amountOut
-        ? Coin.toJSON(message.amountOut)
-        : undefined);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.amountIn !== undefined && (obj.amountIn = message.amountIn ? Coin.toJSON(message.amountIn) : undefined);
+    message.pairId !== undefined && (obj.pairId = (message.pairId || Long.UZERO).toString());
+    message.isStableBorrow !== undefined && (obj.isStableBorrow = message.isStableBorrow);
+    message.amountOut !== undefined && (obj.amountOut = message.amountOut ? Coin.toJSON(message.amountOut) : undefined);
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgBorrowAlternate>, I>>(
-    object: I
-  ): MsgBorrowAlternate {
+  create<I extends Exact<DeepPartial<MsgBorrowAlternate>, I>>(base?: I): MsgBorrowAlternate {
+    return MsgBorrowAlternate.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgBorrowAlternate>, I>>(object: I): MsgBorrowAlternate {
     const message = createBaseMsgBorrowAlternate();
     message.lender = object.lender ?? "";
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
-    message.amountIn =
-      object.amountIn !== undefined && object.amountIn !== null
-        ? Coin.fromPartial(object.amountIn)
-        : undefined;
-    message.pairId =
-      object.pairId !== undefined && object.pairId !== null
-        ? Long.fromValue(object.pairId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
+    message.amountIn = (object.amountIn !== undefined && object.amountIn !== null)
+      ? Coin.fromPartial(object.amountIn)
+      : undefined;
+    message.pairId = (object.pairId !== undefined && object.pairId !== null)
+      ? Long.fromValue(object.pairId)
+      : Long.UZERO;
     message.isStableBorrow = object.isStableBorrow ?? false;
-    message.amountOut =
-      object.amountOut !== undefined && object.amountOut !== null
-        ? Coin.fromPartial(object.amountOut)
-        : undefined;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.amountOut = (object.amountOut !== undefined && object.amountOut !== null)
+      ? Coin.fromPartial(object.amountOut)
+      : undefined;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
 
 function createBaseMsgFundModuleAccounts(): MsgFundModuleAccounts {
-  return {
-    poolId: Long.UZERO,
-    assetId: Long.UZERO,
-    lender: "",
-    amount: undefined,
-  };
+  return { poolId: Long.UZERO, assetId: Long.UZERO, lender: "", amount: undefined };
 }
 
 export const MsgFundModuleAccounts = {
-  encode(
-    message: MsgFundModuleAccounts,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgFundModuleAccounts, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.poolId.isZero()) {
       writer.uint32(8).uint64(message.poolId);
     }
@@ -1098,10 +1004,7 @@ export const MsgFundModuleAccounts = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgFundModuleAccounts {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundModuleAccounts {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgFundModuleAccounts();
@@ -1131,9 +1034,7 @@ export const MsgFundModuleAccounts = {
   fromJSON(object: any): MsgFundModuleAccounts {
     return {
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       lender: isSet(object.lender) ? String(object.lender) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
     };
@@ -1141,33 +1042,29 @@ export const MsgFundModuleAccounts = {
 
   toJSON(message: MsgFundModuleAccounts): unknown {
     const obj: any = {};
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.lender !== undefined && (obj.lender = message.lender);
-    message.amount !== undefined &&
-      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgFundModuleAccounts>, I>>(
-    object: I
-  ): MsgFundModuleAccounts {
+  create<I extends Exact<DeepPartial<MsgFundModuleAccounts>, I>>(base?: I): MsgFundModuleAccounts {
+    return MsgFundModuleAccounts.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgFundModuleAccounts>, I>>(object: I): MsgFundModuleAccounts {
     const message = createBaseMsgFundModuleAccounts();
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     message.lender = object.lender ?? "";
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? Coin.fromPartial(object.amount)
-        : undefined;
+    message.amount = (object.amount !== undefined && object.amount !== null)
+      ? Coin.fromPartial(object.amount)
+      : undefined;
     return message;
   },
 };
@@ -1177,20 +1074,14 @@ function createBaseMsgCalculateInterestAndRewards(): MsgCalculateInterestAndRewa
 }
 
 export const MsgCalculateInterestAndRewards = {
-  encode(
-    message: MsgCalculateInterestAndRewards,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgCalculateInterestAndRewards, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.borrower !== "") {
       writer.uint32(10).string(message.borrower);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCalculateInterestAndRewards {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCalculateInterestAndRewards {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCalculateInterestAndRewards();
@@ -1209,9 +1100,7 @@ export const MsgCalculateInterestAndRewards = {
   },
 
   fromJSON(object: any): MsgCalculateInterestAndRewards {
-    return {
-      borrower: isSet(object.borrower) ? String(object.borrower) : "",
-    };
+    return { borrower: isSet(object.borrower) ? String(object.borrower) : "" };
   },
 
   toJSON(message: MsgCalculateInterestAndRewards): unknown {
@@ -1220,8 +1109,12 @@ export const MsgCalculateInterestAndRewards = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<MsgCalculateInterestAndRewards>, I>>(base?: I): MsgCalculateInterestAndRewards {
+    return MsgCalculateInterestAndRewards.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgCalculateInterestAndRewards>, I>>(
-    object: I
+    object: I,
   ): MsgCalculateInterestAndRewards {
     const message = createBaseMsgCalculateInterestAndRewards();
     message.borrower = object.borrower ?? "";
@@ -1234,10 +1127,7 @@ function createBaseMsgFundReserveAccounts(): MsgFundReserveAccounts {
 }
 
 export const MsgFundReserveAccounts = {
-  encode(
-    message: MsgFundReserveAccounts,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgFundReserveAccounts, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
@@ -1250,10 +1140,7 @@ export const MsgFundReserveAccounts = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgFundReserveAccounts {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundReserveAccounts {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgFundReserveAccounts();
@@ -1279,9 +1166,7 @@ export const MsgFundReserveAccounts = {
 
   fromJSON(object: any): MsgFundReserveAccounts {
     return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       lender: isSet(object.lender) ? String(object.lender) : "",
       amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
     };
@@ -1289,27 +1174,25 @@ export const MsgFundReserveAccounts = {
 
   toJSON(message: MsgFundReserveAccounts): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.lender !== undefined && (obj.lender = message.lender);
-    message.amount !== undefined &&
-      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgFundReserveAccounts>, I>>(
-    object: I
-  ): MsgFundReserveAccounts {
+  create<I extends Exact<DeepPartial<MsgFundReserveAccounts>, I>>(base?: I): MsgFundReserveAccounts {
+    return MsgFundReserveAccounts.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgFundReserveAccounts>, I>>(object: I): MsgFundReserveAccounts {
     const message = createBaseMsgFundReserveAccounts();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     message.lender = object.lender ?? "";
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? Coin.fromPartial(object.amount)
-        : undefined;
+    message.amount = (object.amount !== undefined && object.amount !== null)
+      ? Coin.fromPartial(object.amount)
+      : undefined;
     return message;
   },
 };
@@ -1319,10 +1202,7 @@ function createBaseMsgRepayWithdraw(): MsgRepayWithdraw {
 }
 
 export const MsgRepayWithdraw = {
-  encode(
-    message: MsgRepayWithdraw,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgRepayWithdraw, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.borrower !== "") {
       writer.uint32(10).string(message.borrower);
     }
@@ -1356,29 +1236,27 @@ export const MsgRepayWithdraw = {
   fromJSON(object: any): MsgRepayWithdraw {
     return {
       borrower: isSet(object.borrower) ? String(object.borrower) : "",
-      borrowId: isSet(object.borrowId)
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO,
+      borrowId: isSet(object.borrowId) ? Long.fromValue(object.borrowId) : Long.UZERO,
     };
   },
 
   toJSON(message: MsgRepayWithdraw): unknown {
     const obj: any = {};
     message.borrower !== undefined && (obj.borrower = message.borrower);
-    message.borrowId !== undefined &&
-      (obj.borrowId = (message.borrowId || Long.UZERO).toString());
+    message.borrowId !== undefined && (obj.borrowId = (message.borrowId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRepayWithdraw>, I>>(
-    object: I
-  ): MsgRepayWithdraw {
+  create<I extends Exact<DeepPartial<MsgRepayWithdraw>, I>>(base?: I): MsgRepayWithdraw {
+    return MsgRepayWithdraw.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRepayWithdraw>, I>>(object: I): MsgRepayWithdraw {
     const message = createBaseMsgRepayWithdraw();
     message.borrower = object.borrower ?? "";
-    message.borrowId =
-      object.borrowId !== undefined && object.borrowId !== null
-        ? Long.fromValue(object.borrowId)
-        : Long.UZERO;
+    message.borrowId = (object.borrowId !== undefined && object.borrowId !== null)
+      ? Long.fromValue(object.borrowId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -1388,10 +1266,7 @@ function createBaseMsgLendResponse(): MsgLendResponse {
 }
 
 export const MsgLendResponse = {
-  encode(
-    _: MsgLendResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgLendResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -1419,9 +1294,11 @@ export const MsgLendResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgLendResponse>, I>>(
-    _: I
-  ): MsgLendResponse {
+  create<I extends Exact<DeepPartial<MsgLendResponse>, I>>(base?: I): MsgLendResponse {
+    return MsgLendResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgLendResponse>, I>>(_: I): MsgLendResponse {
     const message = createBaseMsgLendResponse();
     return message;
   },
@@ -1432,10 +1309,7 @@ function createBaseMsgWithdrawResponse(): MsgWithdrawResponse {
 }
 
 export const MsgWithdrawResponse = {
-  encode(
-    _: MsgWithdrawResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgWithdrawResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -1463,9 +1337,11 @@ export const MsgWithdrawResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWithdrawResponse>, I>>(
-    _: I
-  ): MsgWithdrawResponse {
+  create<I extends Exact<DeepPartial<MsgWithdrawResponse>, I>>(base?: I): MsgWithdrawResponse {
+    return MsgWithdrawResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWithdrawResponse>, I>>(_: I): MsgWithdrawResponse {
     const message = createBaseMsgWithdrawResponse();
     return message;
   },
@@ -1476,10 +1352,7 @@ function createBaseMsgDepositResponse(): MsgDepositResponse {
 }
 
 export const MsgDepositResponse = {
-  encode(
-    _: MsgDepositResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgDepositResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -1507,9 +1380,11 @@ export const MsgDepositResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositResponse>, I>>(
-    _: I
-  ): MsgDepositResponse {
+  create<I extends Exact<DeepPartial<MsgDepositResponse>, I>>(base?: I): MsgDepositResponse {
+    return MsgDepositResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositResponse>, I>>(_: I): MsgDepositResponse {
     const message = createBaseMsgDepositResponse();
     return message;
   },
@@ -1520,17 +1395,11 @@ function createBaseMsgCloseLendResponse(): MsgCloseLendResponse {
 }
 
 export const MsgCloseLendResponse = {
-  encode(
-    _: MsgCloseLendResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgCloseLendResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCloseLendResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCloseLendResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCloseLendResponse();
@@ -1554,9 +1423,11 @@ export const MsgCloseLendResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCloseLendResponse>, I>>(
-    _: I
-  ): MsgCloseLendResponse {
+  create<I extends Exact<DeepPartial<MsgCloseLendResponse>, I>>(base?: I): MsgCloseLendResponse {
+    return MsgCloseLendResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCloseLendResponse>, I>>(_: I): MsgCloseLendResponse {
     const message = createBaseMsgCloseLendResponse();
     return message;
   },
@@ -1567,10 +1438,7 @@ function createBaseMsgBorrowResponse(): MsgBorrowResponse {
 }
 
 export const MsgBorrowResponse = {
-  encode(
-    _: MsgBorrowResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgBorrowResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -1598,9 +1466,11 @@ export const MsgBorrowResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgBorrowResponse>, I>>(
-    _: I
-  ): MsgBorrowResponse {
+  create<I extends Exact<DeepPartial<MsgBorrowResponse>, I>>(base?: I): MsgBorrowResponse {
+    return MsgBorrowResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgBorrowResponse>, I>>(_: I): MsgBorrowResponse {
     const message = createBaseMsgBorrowResponse();
     return message;
   },
@@ -1611,10 +1481,7 @@ function createBaseMsgRepayResponse(): MsgRepayResponse {
 }
 
 export const MsgRepayResponse = {
-  encode(
-    _: MsgRepayResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgRepayResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -1642,9 +1509,11 @@ export const MsgRepayResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRepayResponse>, I>>(
-    _: I
-  ): MsgRepayResponse {
+  create<I extends Exact<DeepPartial<MsgRepayResponse>, I>>(base?: I): MsgRepayResponse {
+    return MsgRepayResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRepayResponse>, I>>(_: I): MsgRepayResponse {
     const message = createBaseMsgRepayResponse();
     return message;
   },
@@ -1655,17 +1524,11 @@ function createBaseMsgDepositBorrowResponse(): MsgDepositBorrowResponse {
 }
 
 export const MsgDepositBorrowResponse = {
-  encode(
-    _: MsgDepositBorrowResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgDepositBorrowResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgDepositBorrowResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositBorrowResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDepositBorrowResponse();
@@ -1689,9 +1552,11 @@ export const MsgDepositBorrowResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDepositBorrowResponse>, I>>(
-    _: I
-  ): MsgDepositBorrowResponse {
+  create<I extends Exact<DeepPartial<MsgDepositBorrowResponse>, I>>(base?: I): MsgDepositBorrowResponse {
+    return MsgDepositBorrowResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDepositBorrowResponse>, I>>(_: I): MsgDepositBorrowResponse {
     const message = createBaseMsgDepositBorrowResponse();
     return message;
   },
@@ -1702,10 +1567,7 @@ function createBaseMsgDrawResponse(): MsgDrawResponse {
 }
 
 export const MsgDrawResponse = {
-  encode(
-    _: MsgDrawResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgDrawResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -1733,9 +1595,11 @@ export const MsgDrawResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgDrawResponse>, I>>(
-    _: I
-  ): MsgDrawResponse {
+  create<I extends Exact<DeepPartial<MsgDrawResponse>, I>>(base?: I): MsgDrawResponse {
+    return MsgDrawResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgDrawResponse>, I>>(_: I): MsgDrawResponse {
     const message = createBaseMsgDrawResponse();
     return message;
   },
@@ -1746,17 +1610,11 @@ function createBaseMsgCloseBorrowResponse(): MsgCloseBorrowResponse {
 }
 
 export const MsgCloseBorrowResponse = {
-  encode(
-    _: MsgCloseBorrowResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgCloseBorrowResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCloseBorrowResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCloseBorrowResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCloseBorrowResponse();
@@ -1780,9 +1638,11 @@ export const MsgCloseBorrowResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCloseBorrowResponse>, I>>(
-    _: I
-  ): MsgCloseBorrowResponse {
+  create<I extends Exact<DeepPartial<MsgCloseBorrowResponse>, I>>(base?: I): MsgCloseBorrowResponse {
+    return MsgCloseBorrowResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCloseBorrowResponse>, I>>(_: I): MsgCloseBorrowResponse {
     const message = createBaseMsgCloseBorrowResponse();
     return message;
   },
@@ -1793,17 +1653,11 @@ function createBaseMsgBorrowAlternateResponse(): MsgBorrowAlternateResponse {
 }
 
 export const MsgBorrowAlternateResponse = {
-  encode(
-    _: MsgBorrowAlternateResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgBorrowAlternateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgBorrowAlternateResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgBorrowAlternateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgBorrowAlternateResponse();
@@ -1827,9 +1681,11 @@ export const MsgBorrowAlternateResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgBorrowAlternateResponse>, I>>(
-    _: I
-  ): MsgBorrowAlternateResponse {
+  create<I extends Exact<DeepPartial<MsgBorrowAlternateResponse>, I>>(base?: I): MsgBorrowAlternateResponse {
+    return MsgBorrowAlternateResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgBorrowAlternateResponse>, I>>(_: I): MsgBorrowAlternateResponse {
     const message = createBaseMsgBorrowAlternateResponse();
     return message;
   },
@@ -1840,17 +1696,11 @@ function createBaseMsgFundModuleAccountsResponse(): MsgFundModuleAccountsRespons
 }
 
 export const MsgFundModuleAccountsResponse = {
-  encode(
-    _: MsgFundModuleAccountsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgFundModuleAccountsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgFundModuleAccountsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundModuleAccountsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgFundModuleAccountsResponse();
@@ -1874,9 +1724,11 @@ export const MsgFundModuleAccountsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgFundModuleAccountsResponse>, I>>(
-    _: I
-  ): MsgFundModuleAccountsResponse {
+  create<I extends Exact<DeepPartial<MsgFundModuleAccountsResponse>, I>>(base?: I): MsgFundModuleAccountsResponse {
+    return MsgFundModuleAccountsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgFundModuleAccountsResponse>, I>>(_: I): MsgFundModuleAccountsResponse {
     const message = createBaseMsgFundModuleAccountsResponse();
     return message;
   },
@@ -1887,17 +1739,11 @@ function createBaseMsgCalculateInterestAndRewardsResponse(): MsgCalculateInteres
 }
 
 export const MsgCalculateInterestAndRewardsResponse = {
-  encode(
-    _: MsgCalculateInterestAndRewardsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgCalculateInterestAndRewardsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCalculateInterestAndRewardsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCalculateInterestAndRewardsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCalculateInterestAndRewardsResponse();
@@ -1921,9 +1767,15 @@ export const MsgCalculateInterestAndRewardsResponse = {
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<MsgCalculateInterestAndRewardsResponse>, I>
-  >(_: I): MsgCalculateInterestAndRewardsResponse {
+  create<I extends Exact<DeepPartial<MsgCalculateInterestAndRewardsResponse>, I>>(
+    base?: I,
+  ): MsgCalculateInterestAndRewardsResponse {
+    return MsgCalculateInterestAndRewardsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCalculateInterestAndRewardsResponse>, I>>(
+    _: I,
+  ): MsgCalculateInterestAndRewardsResponse {
     const message = createBaseMsgCalculateInterestAndRewardsResponse();
     return message;
   },
@@ -1934,17 +1786,11 @@ function createBaseMsgFundReserveAccountsResponse(): MsgFundReserveAccountsRespo
 }
 
 export const MsgFundReserveAccountsResponse = {
-  encode(
-    _: MsgFundReserveAccountsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgFundReserveAccountsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgFundReserveAccountsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundReserveAccountsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgFundReserveAccountsResponse();
@@ -1968,9 +1814,11 @@ export const MsgFundReserveAccountsResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgFundReserveAccountsResponse>, I>>(
-    _: I
-  ): MsgFundReserveAccountsResponse {
+  create<I extends Exact<DeepPartial<MsgFundReserveAccountsResponse>, I>>(base?: I): MsgFundReserveAccountsResponse {
+    return MsgFundReserveAccountsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgFundReserveAccountsResponse>, I>>(_: I): MsgFundReserveAccountsResponse {
     const message = createBaseMsgFundReserveAccountsResponse();
     return message;
   },
@@ -1981,17 +1829,11 @@ function createBaseMsgRepayWithdrawResponse(): MsgRepayWithdrawResponse {
 }
 
 export const MsgRepayWithdrawResponse = {
-  encode(
-    _: MsgRepayWithdrawResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgRepayWithdrawResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgRepayWithdrawResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRepayWithdrawResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRepayWithdrawResponse();
@@ -2015,9 +1857,11 @@ export const MsgRepayWithdrawResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRepayWithdrawResponse>, I>>(
-    _: I
-  ): MsgRepayWithdrawResponse {
+  create<I extends Exact<DeepPartial<MsgRepayWithdrawResponse>, I>>(base?: I): MsgRepayWithdrawResponse {
+    return MsgRepayWithdrawResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRepayWithdrawResponse>, I>>(_: I): MsgRepayWithdrawResponse {
     const message = createBaseMsgRepayWithdrawResponse();
     return message;
   },
@@ -2040,25 +1884,19 @@ export interface Msg {
   DepositBorrow(request: MsgDepositBorrow): Promise<MsgDepositBorrowResponse>;
   Draw(request: MsgDraw): Promise<MsgDrawResponse>;
   CloseBorrow(request: MsgCloseBorrow): Promise<MsgCloseBorrowResponse>;
-  BorrowAlternate(
-    request: MsgBorrowAlternate
-  ): Promise<MsgBorrowAlternateResponse>;
+  BorrowAlternate(request: MsgBorrowAlternate): Promise<MsgBorrowAlternateResponse>;
   /** FundModuleAccounts funds an existing module account */
-  FundModuleAccounts(
-    request: MsgFundModuleAccounts
-  ): Promise<MsgFundModuleAccountsResponse>;
-  CalculateInterestAndRewards(
-    request: MsgCalculateInterestAndRewards
-  ): Promise<MsgCalculateInterestAndRewardsResponse>;
-  FundReserveAccounts(
-    request: MsgFundReserveAccounts
-  ): Promise<MsgFundReserveAccountsResponse>;
+  FundModuleAccounts(request: MsgFundModuleAccounts): Promise<MsgFundModuleAccountsResponse>;
+  CalculateInterestAndRewards(request: MsgCalculateInterestAndRewards): Promise<MsgCalculateInterestAndRewardsResponse>;
+  FundReserveAccounts(request: MsgFundReserveAccounts): Promise<MsgFundReserveAccountsResponse>;
   RepayWithdraw(request: MsgRepayWithdraw): Promise<MsgRepayWithdrawResponse>;
 }
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "comdex.lend.v1beta1.Msg";
     this.rpc = rpc;
     this.Lend = this.Lend.bind(this);
     this.Withdraw = this.Withdraw.bind(this);
@@ -2071,204 +1909,112 @@ export class MsgClientImpl implements Msg {
     this.CloseBorrow = this.CloseBorrow.bind(this);
     this.BorrowAlternate = this.BorrowAlternate.bind(this);
     this.FundModuleAccounts = this.FundModuleAccounts.bind(this);
-    this.CalculateInterestAndRewards =
-      this.CalculateInterestAndRewards.bind(this);
+    this.CalculateInterestAndRewards = this.CalculateInterestAndRewards.bind(this);
     this.FundReserveAccounts = this.FundReserveAccounts.bind(this);
     this.RepayWithdraw = this.RepayWithdraw.bind(this);
   }
   Lend(request: MsgLend): Promise<MsgLendResponse> {
     const data = MsgLend.encode(request).finish();
-    const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "Lend", data);
+    const promise = this.rpc.request(this.service, "Lend", data);
     return promise.then((data) => MsgLendResponse.decode(new _m0.Reader(data)));
   }
 
   Withdraw(request: MsgWithdraw): Promise<MsgWithdrawResponse> {
     const data = MsgWithdraw.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "Withdraw",
-      data
-    );
-    return promise.then((data) =>
-      MsgWithdrawResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "Withdraw", data);
+    return promise.then((data) => MsgWithdrawResponse.decode(new _m0.Reader(data)));
   }
 
   Deposit(request: MsgDeposit): Promise<MsgDepositResponse> {
     const data = MsgDeposit.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "Deposit",
-      data
-    );
-    return promise.then((data) =>
-      MsgDepositResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "Deposit", data);
+    return promise.then((data) => MsgDepositResponse.decode(new _m0.Reader(data)));
   }
 
   CloseLend(request: MsgCloseLend): Promise<MsgCloseLendResponse> {
     const data = MsgCloseLend.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "CloseLend",
-      data
-    );
-    return promise.then((data) =>
-      MsgCloseLendResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "CloseLend", data);
+    return promise.then((data) => MsgCloseLendResponse.decode(new _m0.Reader(data)));
   }
 
   Borrow(request: MsgBorrow): Promise<MsgBorrowResponse> {
     const data = MsgBorrow.encode(request).finish();
-    const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "Borrow", data);
-    return promise.then((data) =>
-      MsgBorrowResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "Borrow", data);
+    return promise.then((data) => MsgBorrowResponse.decode(new _m0.Reader(data)));
   }
 
   Repay(request: MsgRepay): Promise<MsgRepayResponse> {
     const data = MsgRepay.encode(request).finish();
-    const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "Repay", data);
-    return promise.then((data) =>
-      MsgRepayResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "Repay", data);
+    return promise.then((data) => MsgRepayResponse.decode(new _m0.Reader(data)));
   }
 
   DepositBorrow(request: MsgDepositBorrow): Promise<MsgDepositBorrowResponse> {
     const data = MsgDepositBorrow.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "DepositBorrow",
-      data
-    );
-    return promise.then((data) =>
-      MsgDepositBorrowResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "DepositBorrow", data);
+    return promise.then((data) => MsgDepositBorrowResponse.decode(new _m0.Reader(data)));
   }
 
   Draw(request: MsgDraw): Promise<MsgDrawResponse> {
     const data = MsgDraw.encode(request).finish();
-    const promise = this.rpc.request("comdex.lend.v1beta1.Msg", "Draw", data);
+    const promise = this.rpc.request(this.service, "Draw", data);
     return promise.then((data) => MsgDrawResponse.decode(new _m0.Reader(data)));
   }
 
   CloseBorrow(request: MsgCloseBorrow): Promise<MsgCloseBorrowResponse> {
     const data = MsgCloseBorrow.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "CloseBorrow",
-      data
-    );
-    return promise.then((data) =>
-      MsgCloseBorrowResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "CloseBorrow", data);
+    return promise.then((data) => MsgCloseBorrowResponse.decode(new _m0.Reader(data)));
   }
 
-  BorrowAlternate(
-    request: MsgBorrowAlternate
-  ): Promise<MsgBorrowAlternateResponse> {
+  BorrowAlternate(request: MsgBorrowAlternate): Promise<MsgBorrowAlternateResponse> {
     const data = MsgBorrowAlternate.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "BorrowAlternate",
-      data
-    );
-    return promise.then((data) =>
-      MsgBorrowAlternateResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "BorrowAlternate", data);
+    return promise.then((data) => MsgBorrowAlternateResponse.decode(new _m0.Reader(data)));
   }
 
-  FundModuleAccounts(
-    request: MsgFundModuleAccounts
-  ): Promise<MsgFundModuleAccountsResponse> {
+  FundModuleAccounts(request: MsgFundModuleAccounts): Promise<MsgFundModuleAccountsResponse> {
     const data = MsgFundModuleAccounts.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "FundModuleAccounts",
-      data
-    );
-    return promise.then((data) =>
-      MsgFundModuleAccountsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "FundModuleAccounts", data);
+    return promise.then((data) => MsgFundModuleAccountsResponse.decode(new _m0.Reader(data)));
   }
 
   CalculateInterestAndRewards(
-    request: MsgCalculateInterestAndRewards
+    request: MsgCalculateInterestAndRewards,
   ): Promise<MsgCalculateInterestAndRewardsResponse> {
     const data = MsgCalculateInterestAndRewards.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "CalculateInterestAndRewards",
-      data
-    );
-    return promise.then((data) =>
-      MsgCalculateInterestAndRewardsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "CalculateInterestAndRewards", data);
+    return promise.then((data) => MsgCalculateInterestAndRewardsResponse.decode(new _m0.Reader(data)));
   }
 
-  FundReserveAccounts(
-    request: MsgFundReserveAccounts
-  ): Promise<MsgFundReserveAccountsResponse> {
+  FundReserveAccounts(request: MsgFundReserveAccounts): Promise<MsgFundReserveAccountsResponse> {
     const data = MsgFundReserveAccounts.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "FundReserveAccounts",
-      data
-    );
-    return promise.then((data) =>
-      MsgFundReserveAccountsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "FundReserveAccounts", data);
+    return promise.then((data) => MsgFundReserveAccountsResponse.decode(new _m0.Reader(data)));
   }
 
   RepayWithdraw(request: MsgRepayWithdraw): Promise<MsgRepayWithdrawResponse> {
     const data = MsgRepayWithdraw.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Msg",
-      "RepayWithdraw",
-      data
-    );
-    return promise.then((data) =>
-      MsgRepayWithdrawResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "RepayWithdraw", data);
+    return promise.then((data) => MsgRepayWithdrawResponse.decode(new _m0.Reader(data)));
   }
 }
 
 interface Rpc {
-  request(
-    service: string,
-    method: string,
-    data: Uint8Array
-  ): Promise<Uint8Array>;
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { TimeWeightedAverage } from "../../../comdex/market/v1beta1/market";
+import _m0 from "protobufjs/minimal";
+import { TimeWeightedAverage } from "./market";
 
 export const protobufPackage = "comdex.market.v1beta1";
 
@@ -14,10 +14,7 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
-  encode(
-    message: GenesisState,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.timeWeightedAverage) {
       TimeWeightedAverage.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -32,9 +29,7 @@ export const GenesisState = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.timeWeightedAverage.push(
-            TimeWeightedAverage.decode(reader, reader.uint32())
-          );
+          message.timeWeightedAverage.push(TimeWeightedAverage.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -47,9 +42,7 @@ export const GenesisState = {
   fromJSON(object: any): GenesisState {
     return {
       timeWeightedAverage: Array.isArray(object?.timeWeightedAverage)
-        ? object.timeWeightedAverage.map((e: any) =>
-            TimeWeightedAverage.fromJSON(e)
-          )
+        ? object.timeWeightedAverage.map((e: any) => TimeWeightedAverage.fromJSON(e))
         : [],
     };
   },
@@ -57,55 +50,35 @@ export const GenesisState = {
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     if (message.timeWeightedAverage) {
-      obj.timeWeightedAverage = message.timeWeightedAverage.map((e) =>
-        e ? TimeWeightedAverage.toJSON(e) : undefined
-      );
+      obj.timeWeightedAverage = message.timeWeightedAverage.map((e) => e ? TimeWeightedAverage.toJSON(e) : undefined);
     } else {
       obj.timeWeightedAverage = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
-    object: I
-  ): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+    return GenesisState.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.timeWeightedAverage =
-      object.timeWeightedAverage?.map((e) =>
-        TimeWeightedAverage.fromPartial(e)
-      ) || [];
+    message.timeWeightedAverage = object.timeWeightedAverage?.map((e) => TimeWeightedAverage.fromPartial(e)) || [];
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

@@ -1,15 +1,13 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Params } from "../../../comdex/tokenmint/v1beta1/params";
-import { TokenMint } from "../../../comdex/tokenmint/v1beta1/mint";
+import _m0 from "protobufjs/minimal";
+import { TokenMint } from "./mint";
+import { Params } from "./params";
 
 export const protobufPackage = "comdex.tokenmint.v1beta1";
 
-/** GenesisState defines the tokenmint module's genesis state. */
 export interface GenesisState {
   tokenMint: TokenMint[];
-  /** this line is used by starport scaffolding # genesis/proto/state */
   params?: Params;
 }
 
@@ -18,10 +16,7 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
-  encode(
-    message: GenesisState,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.tokenMint) {
       TokenMint.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -54,9 +49,7 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      tokenMint: Array.isArray(object?.tokenMint)
-        ? object.tokenMint.map((e: any) => TokenMint.fromJSON(e))
-        : [],
+      tokenMint: Array.isArray(object?.tokenMint) ? object.tokenMint.map((e: any) => TokenMint.fromJSON(e)) : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
   },
@@ -64,59 +57,39 @@ export const GenesisState = {
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     if (message.tokenMint) {
-      obj.tokenMint = message.tokenMint.map((e) =>
-        e ? TokenMint.toJSON(e) : undefined
-      );
+      obj.tokenMint = message.tokenMint.map((e) => e ? TokenMint.toJSON(e) : undefined);
     } else {
       obj.tokenMint = [];
     }
-    message.params !== undefined &&
-      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
-    object: I
-  ): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+    return GenesisState.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.tokenMint =
-      object.tokenMint?.map((e) => TokenMint.fromPartial(e)) || [];
-    message.params =
-      object.params !== undefined && object.params !== null
-        ? Params.fromPartial(object.params)
-        : undefined;
+    message.tokenMint = object.tokenMint?.map((e) => TokenMint.fromPartial(e)) || [];
+    message.params = (object.params !== undefined && object.params !== null)
+      ? Params.fromPartial(object.params)
+      : undefined;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

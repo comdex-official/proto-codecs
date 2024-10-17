@@ -1,12 +1,8 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Params } from "../../../comdex/liquidationsV2/v1beta1/params";
-import {
-  LockedVault,
-  LiquidationWhiteListing,
-  AppReserveFunds,
-} from "../../../comdex/liquidationsV2/v1beta1/liquidate";
+import _m0 from "protobufjs/minimal";
+import { AppReserveFunds, LiquidationWhiteListing, LockedVault } from "./liquidate";
+import { Params } from "./params";
 
 export const protobufPackage = "comdex.liquidationsV2.v1beta1";
 
@@ -18,19 +14,11 @@ export interface GenesisState {
 }
 
 function createBaseGenesisState(): GenesisState {
-  return {
-    lockedVault: [],
-    liquidationWhiteListing: [],
-    appReserveFunds: [],
-    params: undefined,
-  };
+  return { lockedVault: [], liquidationWhiteListing: [], appReserveFunds: [], params: undefined };
 }
 
 export const GenesisState = {
-  encode(
-    message: GenesisState,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.lockedVault) {
       LockedVault.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -57,14 +45,10 @@ export const GenesisState = {
           message.lockedVault.push(LockedVault.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.liquidationWhiteListing.push(
-            LiquidationWhiteListing.decode(reader, reader.uint32())
-          );
+          message.liquidationWhiteListing.push(LiquidationWhiteListing.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.appReserveFunds.push(
-            AppReserveFunds.decode(reader, reader.uint32())
-          );
+          message.appReserveFunds.push(AppReserveFunds.decode(reader, reader.uint32()));
           break;
         case 4:
           message.params = Params.decode(reader, reader.uint32());
@@ -83,9 +67,7 @@ export const GenesisState = {
         ? object.lockedVault.map((e: any) => LockedVault.fromJSON(e))
         : [],
       liquidationWhiteListing: Array.isArray(object?.liquidationWhiteListing)
-        ? object.liquidationWhiteListing.map((e: any) =>
-            LiquidationWhiteListing.fromJSON(e)
-          )
+        ? object.liquidationWhiteListing.map((e: any) => LiquidationWhiteListing.fromJSON(e))
         : [],
       appReserveFunds: Array.isArray(object?.appReserveFunds)
         ? object.appReserveFunds.map((e: any) => AppReserveFunds.fromJSON(e))
@@ -97,9 +79,7 @@ export const GenesisState = {
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     if (message.lockedVault) {
-      obj.lockedVault = message.lockedVault.map((e) =>
-        e ? LockedVault.toJSON(e) : undefined
-      );
+      obj.lockedVault = message.lockedVault.map((e) => e ? LockedVault.toJSON(e) : undefined);
     } else {
       obj.lockedVault = [];
     }
@@ -111,65 +91,42 @@ export const GenesisState = {
       obj.liquidationWhiteListing = [];
     }
     if (message.appReserveFunds) {
-      obj.appReserveFunds = message.appReserveFunds.map((e) =>
-        e ? AppReserveFunds.toJSON(e) : undefined
-      );
+      obj.appReserveFunds = message.appReserveFunds.map((e) => e ? AppReserveFunds.toJSON(e) : undefined);
     } else {
       obj.appReserveFunds = [];
     }
-    message.params !== undefined &&
-      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
-    object: I
-  ): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+    return GenesisState.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.lockedVault =
-      object.lockedVault?.map((e) => LockedVault.fromPartial(e)) || [];
+    message.lockedVault = object.lockedVault?.map((e) => LockedVault.fromPartial(e)) || [];
     message.liquidationWhiteListing =
-      object.liquidationWhiteListing?.map((e) =>
-        LiquidationWhiteListing.fromPartial(e)
-      ) || [];
-    message.appReserveFunds =
-      object.appReserveFunds?.map((e) => AppReserveFunds.fromPartial(e)) || [];
-    message.params =
-      object.params !== undefined && object.params !== null
-        ? Params.fromPartial(object.params)
-        : undefined;
+      object.liquidationWhiteListing?.map((e) => LiquidationWhiteListing.fromPartial(e)) || [];
+    message.appReserveFunds = object.appReserveFunds?.map((e) => AppReserveFunds.fromPartial(e)) || [];
+    message.params = (object.params !== undefined && object.params !== null)
+      ? Params.fromPartial(object.params)
+      : undefined;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

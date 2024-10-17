@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "comdex.asset.v1beta1";
 
@@ -95,36 +95,30 @@ export const Asset = {
       denom: isSet(object.denom) ? String(object.denom) : "",
       decimals: isSet(object.decimals) ? String(object.decimals) : "",
       isOnChain: isSet(object.isOnChain) ? Boolean(object.isOnChain) : false,
-      isOraclePriceRequired: isSet(object.isOraclePriceRequired)
-        ? Boolean(object.isOraclePriceRequired)
-        : false,
-      isCdpMintable: isSet(object.isCdpMintable)
-        ? Boolean(object.isCdpMintable)
-        : false,
+      isOraclePriceRequired: isSet(object.isOraclePriceRequired) ? Boolean(object.isOraclePriceRequired) : false,
+      isCdpMintable: isSet(object.isCdpMintable) ? Boolean(object.isCdpMintable) : false,
     };
   },
 
   toJSON(message: Asset): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
     message.name !== undefined && (obj.name = message.name);
     message.denom !== undefined && (obj.denom = message.denom);
     message.decimals !== undefined && (obj.decimals = message.decimals);
     message.isOnChain !== undefined && (obj.isOnChain = message.isOnChain);
-    message.isOraclePriceRequired !== undefined &&
-      (obj.isOraclePriceRequired = message.isOraclePriceRequired);
-    message.isCdpMintable !== undefined &&
-      (obj.isCdpMintable = message.isCdpMintable);
+    message.isOraclePriceRequired !== undefined && (obj.isOraclePriceRequired = message.isOraclePriceRequired);
+    message.isCdpMintable !== undefined && (obj.isCdpMintable = message.isCdpMintable);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Asset>, I>>(base?: I): Asset {
+    return Asset.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Asset>, I>>(object: I): Asset {
     const message = createBaseAsset();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
     message.name = object.name ?? "";
     message.denom = object.denom ?? "";
     message.decimals = object.decimals ?? "";
@@ -135,34 +129,17 @@ export const Asset = {
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

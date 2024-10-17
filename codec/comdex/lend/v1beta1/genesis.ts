@@ -1,24 +1,24 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import {
-  ModBal,
-  ReserveBal,
-  PoolDepreciate,
+  AllReserveStats,
+  AssetRatesParams,
+  AssetToPairMapping,
+  AuctionParams,
   BorrowAsset,
   BorrowInterestTracker,
-  LendAsset,
-  Pool,
-  AssetToPairMapping,
-  PoolAssetLBMapping,
-  LendRewardsTracker,
-  UserAssetLendBorrowMapping,
-  ReserveBuybackAssetData,
   ExtendedPair,
-  AuctionParams,
-  AssetRatesParams,
-  AllReserveStats,
-} from "../../../comdex/lend/v1beta1/lend";
+  LendAsset,
+  LendRewardsTracker,
+  ModBal,
+  Pool,
+  PoolAssetLBMapping,
+  PoolDepreciate,
+  ReserveBal,
+  ReserveBuybackAssetData,
+  UserAssetLendBorrowMapping,
+} from "./lend";
 
 export const protobufPackage = "comdex.lend.v1beta1";
 
@@ -63,10 +63,7 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
-  encode(
-    message: GenesisState,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.borrowAsset) {
       BorrowAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -113,10 +110,7 @@ export const GenesisState = {
       AllReserveStats.encode(v!, writer.uint32(122).fork()).ldelim();
     }
     if (message.poolDepreciate !== undefined) {
-      PoolDepreciate.encode(
-        message.poolDepreciate,
-        writer.uint32(130).fork()
-      ).ldelim();
+      PoolDepreciate.encode(message.poolDepreciate, writer.uint32(130).fork()).ldelim();
     }
     return writer;
   },
@@ -132,9 +126,7 @@ export const GenesisState = {
           message.borrowAsset.push(BorrowAsset.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.borrowInterestTracker.push(
-            BorrowInterestTracker.decode(reader, reader.uint32())
-          );
+          message.borrowInterestTracker.push(BorrowInterestTracker.decode(reader, reader.uint32()));
           break;
         case 3:
           message.lendAsset.push(LendAsset.decode(reader, reader.uint32()));
@@ -143,44 +135,28 @@ export const GenesisState = {
           message.pool.push(Pool.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.assetToPairMapping.push(
-            AssetToPairMapping.decode(reader, reader.uint32())
-          );
+          message.assetToPairMapping.push(AssetToPairMapping.decode(reader, reader.uint32()));
           break;
         case 6:
-          message.poolAssetLBMapping.push(
-            PoolAssetLBMapping.decode(reader, reader.uint32())
-          );
+          message.poolAssetLBMapping.push(PoolAssetLBMapping.decode(reader, reader.uint32()));
           break;
         case 7:
-          message.lendRewardsTracker.push(
-            LendRewardsTracker.decode(reader, reader.uint32())
-          );
+          message.lendRewardsTracker.push(LendRewardsTracker.decode(reader, reader.uint32()));
           break;
         case 8:
-          message.userAssetLendBorrowMapping.push(
-            UserAssetLendBorrowMapping.decode(reader, reader.uint32())
-          );
+          message.userAssetLendBorrowMapping.push(UserAssetLendBorrowMapping.decode(reader, reader.uint32()));
           break;
         case 9:
-          message.reserveBuybackAssetData.push(
-            ReserveBuybackAssetData.decode(reader, reader.uint32())
-          );
+          message.reserveBuybackAssetData.push(ReserveBuybackAssetData.decode(reader, reader.uint32()));
           break;
         case 10:
-          message.extendedPair.push(
-            ExtendedPair.decode(reader, reader.uint32())
-          );
+          message.extendedPair.push(ExtendedPair.decode(reader, reader.uint32()));
           break;
         case 11:
-          message.auctionParams.push(
-            AuctionParams.decode(reader, reader.uint32())
-          );
+          message.auctionParams.push(AuctionParams.decode(reader, reader.uint32()));
           break;
         case 12:
-          message.assetRatesParams.push(
-            AssetRatesParams.decode(reader, reader.uint32())
-          );
+          message.assetRatesParams.push(AssetRatesParams.decode(reader, reader.uint32()));
           break;
         case 13:
           message.modBal = ModBal.decode(reader, reader.uint32());
@@ -189,15 +165,10 @@ export const GenesisState = {
           message.reserveBal = ReserveBal.decode(reader, reader.uint32());
           break;
         case 15:
-          message.allReserveStats.push(
-            AllReserveStats.decode(reader, reader.uint32())
-          );
+          message.allReserveStats.push(AllReserveStats.decode(reader, reader.uint32()));
           break;
         case 16:
-          message.poolDepreciate = PoolDepreciate.decode(
-            reader,
-            reader.uint32()
-          );
+          message.poolDepreciate = PoolDepreciate.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -213,42 +184,24 @@ export const GenesisState = {
         ? object.borrowAsset.map((e: any) => BorrowAsset.fromJSON(e))
         : [],
       borrowInterestTracker: Array.isArray(object?.borrowInterestTracker)
-        ? object.borrowInterestTracker.map((e: any) =>
-            BorrowInterestTracker.fromJSON(e)
-          )
+        ? object.borrowInterestTracker.map((e: any) => BorrowInterestTracker.fromJSON(e))
         : [],
-      lendAsset: Array.isArray(object?.lendAsset)
-        ? object.lendAsset.map((e: any) => LendAsset.fromJSON(e))
-        : [],
-      pool: Array.isArray(object?.pool)
-        ? object.pool.map((e: any) => Pool.fromJSON(e))
-        : [],
+      lendAsset: Array.isArray(object?.lendAsset) ? object.lendAsset.map((e: any) => LendAsset.fromJSON(e)) : [],
+      pool: Array.isArray(object?.pool) ? object.pool.map((e: any) => Pool.fromJSON(e)) : [],
       assetToPairMapping: Array.isArray(object?.assetToPairMapping)
-        ? object.assetToPairMapping.map((e: any) =>
-            AssetToPairMapping.fromJSON(e)
-          )
+        ? object.assetToPairMapping.map((e: any) => AssetToPairMapping.fromJSON(e))
         : [],
       poolAssetLBMapping: Array.isArray(object?.poolAssetLBMapping)
-        ? object.poolAssetLBMapping.map((e: any) =>
-            PoolAssetLBMapping.fromJSON(e)
-          )
+        ? object.poolAssetLBMapping.map((e: any) => PoolAssetLBMapping.fromJSON(e))
         : [],
       lendRewardsTracker: Array.isArray(object?.lendRewardsTracker)
-        ? object.lendRewardsTracker.map((e: any) =>
-            LendRewardsTracker.fromJSON(e)
-          )
+        ? object.lendRewardsTracker.map((e: any) => LendRewardsTracker.fromJSON(e))
         : [],
-      userAssetLendBorrowMapping: Array.isArray(
-        object?.userAssetLendBorrowMapping
-      )
-        ? object.userAssetLendBorrowMapping.map((e: any) =>
-            UserAssetLendBorrowMapping.fromJSON(e)
-          )
+      userAssetLendBorrowMapping: Array.isArray(object?.userAssetLendBorrowMapping)
+        ? object.userAssetLendBorrowMapping.map((e: any) => UserAssetLendBorrowMapping.fromJSON(e))
         : [],
       reserveBuybackAssetData: Array.isArray(object?.reserveBuybackAssetData)
-        ? object.reserveBuybackAssetData.map((e: any) =>
-            ReserveBuybackAssetData.fromJSON(e)
-          )
+        ? object.reserveBuybackAssetData.map((e: any) => ReserveBuybackAssetData.fromJSON(e))
         : [],
       extendedPair: Array.isArray(object?.extendedPair)
         ? object.extendedPair.map((e: any) => ExtendedPair.fromJSON(e))
@@ -260,24 +213,18 @@ export const GenesisState = {
         ? object.assetRatesParams.map((e: any) => AssetRatesParams.fromJSON(e))
         : [],
       modBal: isSet(object.modBal) ? ModBal.fromJSON(object.modBal) : undefined,
-      reserveBal: isSet(object.reserveBal)
-        ? ReserveBal.fromJSON(object.reserveBal)
-        : undefined,
+      reserveBal: isSet(object.reserveBal) ? ReserveBal.fromJSON(object.reserveBal) : undefined,
       allReserveStats: Array.isArray(object?.allReserveStats)
         ? object.allReserveStats.map((e: any) => AllReserveStats.fromJSON(e))
         : [],
-      poolDepreciate: isSet(object.poolDepreciate)
-        ? PoolDepreciate.fromJSON(object.poolDepreciate)
-        : undefined,
+      poolDepreciate: isSet(object.poolDepreciate) ? PoolDepreciate.fromJSON(object.poolDepreciate) : undefined,
     };
   },
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     if (message.borrowAsset) {
-      obj.borrowAsset = message.borrowAsset.map((e) =>
-        e ? BorrowAsset.toJSON(e) : undefined
-      );
+      obj.borrowAsset = message.borrowAsset.map((e) => e ? BorrowAsset.toJSON(e) : undefined);
     } else {
       obj.borrowAsset = [];
     }
@@ -289,41 +236,33 @@ export const GenesisState = {
       obj.borrowInterestTracker = [];
     }
     if (message.lendAsset) {
-      obj.lendAsset = message.lendAsset.map((e) =>
-        e ? LendAsset.toJSON(e) : undefined
-      );
+      obj.lendAsset = message.lendAsset.map((e) => e ? LendAsset.toJSON(e) : undefined);
     } else {
       obj.lendAsset = [];
     }
     if (message.pool) {
-      obj.pool = message.pool.map((e) => (e ? Pool.toJSON(e) : undefined));
+      obj.pool = message.pool.map((e) => e ? Pool.toJSON(e) : undefined);
     } else {
       obj.pool = [];
     }
     if (message.assetToPairMapping) {
-      obj.assetToPairMapping = message.assetToPairMapping.map((e) =>
-        e ? AssetToPairMapping.toJSON(e) : undefined
-      );
+      obj.assetToPairMapping = message.assetToPairMapping.map((e) => e ? AssetToPairMapping.toJSON(e) : undefined);
     } else {
       obj.assetToPairMapping = [];
     }
     if (message.poolAssetLBMapping) {
-      obj.poolAssetLBMapping = message.poolAssetLBMapping.map((e) =>
-        e ? PoolAssetLBMapping.toJSON(e) : undefined
-      );
+      obj.poolAssetLBMapping = message.poolAssetLBMapping.map((e) => e ? PoolAssetLBMapping.toJSON(e) : undefined);
     } else {
       obj.poolAssetLBMapping = [];
     }
     if (message.lendRewardsTracker) {
-      obj.lendRewardsTracker = message.lendRewardsTracker.map((e) =>
-        e ? LendRewardsTracker.toJSON(e) : undefined
-      );
+      obj.lendRewardsTracker = message.lendRewardsTracker.map((e) => e ? LendRewardsTracker.toJSON(e) : undefined);
     } else {
       obj.lendRewardsTracker = [];
     }
     if (message.userAssetLendBorrowMapping) {
-      obj.userAssetLendBorrowMapping = message.userAssetLendBorrowMapping.map(
-        (e) => (e ? UserAssetLendBorrowMapping.toJSON(e) : undefined)
+      obj.userAssetLendBorrowMapping = message.userAssetLendBorrowMapping.map((e) =>
+        e ? UserAssetLendBorrowMapping.toJSON(e) : undefined
       );
     } else {
       obj.userAssetLendBorrowMapping = [];
@@ -336,132 +275,79 @@ export const GenesisState = {
       obj.reserveBuybackAssetData = [];
     }
     if (message.extendedPair) {
-      obj.extendedPair = message.extendedPair.map((e) =>
-        e ? ExtendedPair.toJSON(e) : undefined
-      );
+      obj.extendedPair = message.extendedPair.map((e) => e ? ExtendedPair.toJSON(e) : undefined);
     } else {
       obj.extendedPair = [];
     }
     if (message.auctionParams) {
-      obj.auctionParams = message.auctionParams.map((e) =>
-        e ? AuctionParams.toJSON(e) : undefined
-      );
+      obj.auctionParams = message.auctionParams.map((e) => e ? AuctionParams.toJSON(e) : undefined);
     } else {
       obj.auctionParams = [];
     }
     if (message.assetRatesParams) {
-      obj.assetRatesParams = message.assetRatesParams.map((e) =>
-        e ? AssetRatesParams.toJSON(e) : undefined
-      );
+      obj.assetRatesParams = message.assetRatesParams.map((e) => e ? AssetRatesParams.toJSON(e) : undefined);
     } else {
       obj.assetRatesParams = [];
     }
-    message.modBal !== undefined &&
-      (obj.modBal = message.modBal ? ModBal.toJSON(message.modBal) : undefined);
+    message.modBal !== undefined && (obj.modBal = message.modBal ? ModBal.toJSON(message.modBal) : undefined);
     message.reserveBal !== undefined &&
-      (obj.reserveBal = message.reserveBal
-        ? ReserveBal.toJSON(message.reserveBal)
-        : undefined);
+      (obj.reserveBal = message.reserveBal ? ReserveBal.toJSON(message.reserveBal) : undefined);
     if (message.allReserveStats) {
-      obj.allReserveStats = message.allReserveStats.map((e) =>
-        e ? AllReserveStats.toJSON(e) : undefined
-      );
+      obj.allReserveStats = message.allReserveStats.map((e) => e ? AllReserveStats.toJSON(e) : undefined);
     } else {
       obj.allReserveStats = [];
     }
     message.poolDepreciate !== undefined &&
-      (obj.poolDepreciate = message.poolDepreciate
-        ? PoolDepreciate.toJSON(message.poolDepreciate)
-        : undefined);
+      (obj.poolDepreciate = message.poolDepreciate ? PoolDepreciate.toJSON(message.poolDepreciate) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
-    object: I
-  ): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+    return GenesisState.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.borrowAsset =
-      object.borrowAsset?.map((e) => BorrowAsset.fromPartial(e)) || [];
-    message.borrowInterestTracker =
-      object.borrowInterestTracker?.map((e) =>
-        BorrowInterestTracker.fromPartial(e)
-      ) || [];
-    message.lendAsset =
-      object.lendAsset?.map((e) => LendAsset.fromPartial(e)) || [];
-    message.pool = object.pool?.map((e) => Pool.fromPartial(e)) || [];
-    message.assetToPairMapping =
-      object.assetToPairMapping?.map((e) =>
-        AssetToPairMapping.fromPartial(e)
-      ) || [];
-    message.poolAssetLBMapping =
-      object.poolAssetLBMapping?.map((e) =>
-        PoolAssetLBMapping.fromPartial(e)
-      ) || [];
-    message.lendRewardsTracker =
-      object.lendRewardsTracker?.map((e) =>
-        LendRewardsTracker.fromPartial(e)
-      ) || [];
-    message.userAssetLendBorrowMapping =
-      object.userAssetLendBorrowMapping?.map((e) =>
-        UserAssetLendBorrowMapping.fromPartial(e)
-      ) || [];
-    message.reserveBuybackAssetData =
-      object.reserveBuybackAssetData?.map((e) =>
-        ReserveBuybackAssetData.fromPartial(e)
-      ) || [];
-    message.extendedPair =
-      object.extendedPair?.map((e) => ExtendedPair.fromPartial(e)) || [];
-    message.auctionParams =
-      object.auctionParams?.map((e) => AuctionParams.fromPartial(e)) || [];
-    message.assetRatesParams =
-      object.assetRatesParams?.map((e) => AssetRatesParams.fromPartial(e)) ||
+    message.borrowAsset = object.borrowAsset?.map((e) => BorrowAsset.fromPartial(e)) || [];
+    message.borrowInterestTracker = object.borrowInterestTracker?.map((e) => BorrowInterestTracker.fromPartial(e)) ||
       [];
-    message.modBal =
-      object.modBal !== undefined && object.modBal !== null
-        ? ModBal.fromPartial(object.modBal)
-        : undefined;
-    message.reserveBal =
-      object.reserveBal !== undefined && object.reserveBal !== null
-        ? ReserveBal.fromPartial(object.reserveBal)
-        : undefined;
-    message.allReserveStats =
-      object.allReserveStats?.map((e) => AllReserveStats.fromPartial(e)) || [];
-    message.poolDepreciate =
-      object.poolDepreciate !== undefined && object.poolDepreciate !== null
-        ? PoolDepreciate.fromPartial(object.poolDepreciate)
-        : undefined;
+    message.lendAsset = object.lendAsset?.map((e) => LendAsset.fromPartial(e)) || [];
+    message.pool = object.pool?.map((e) => Pool.fromPartial(e)) || [];
+    message.assetToPairMapping = object.assetToPairMapping?.map((e) => AssetToPairMapping.fromPartial(e)) || [];
+    message.poolAssetLBMapping = object.poolAssetLBMapping?.map((e) => PoolAssetLBMapping.fromPartial(e)) || [];
+    message.lendRewardsTracker = object.lendRewardsTracker?.map((e) => LendRewardsTracker.fromPartial(e)) || [];
+    message.userAssetLendBorrowMapping =
+      object.userAssetLendBorrowMapping?.map((e) => UserAssetLendBorrowMapping.fromPartial(e)) || [];
+    message.reserveBuybackAssetData =
+      object.reserveBuybackAssetData?.map((e) => ReserveBuybackAssetData.fromPartial(e)) || [];
+    message.extendedPair = object.extendedPair?.map((e) => ExtendedPair.fromPartial(e)) || [];
+    message.auctionParams = object.auctionParams?.map((e) => AuctionParams.fromPartial(e)) || [];
+    message.assetRatesParams = object.assetRatesParams?.map((e) => AssetRatesParams.fromPartial(e)) || [];
+    message.modBal = (object.modBal !== undefined && object.modBal !== null)
+      ? ModBal.fromPartial(object.modBal)
+      : undefined;
+    message.reserveBal = (object.reserveBal !== undefined && object.reserveBal !== null)
+      ? ReserveBal.fromPartial(object.reserveBal)
+      : undefined;
+    message.allReserveStats = object.allReserveStats?.map((e) => AllReserveStats.fromPartial(e)) || [];
+    message.poolDepreciate = (object.poolDepreciate !== undefined && object.poolDepreciate !== null)
+      ? PoolDepreciate.fromPartial(object.poolDepreciate)
+      : undefined;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

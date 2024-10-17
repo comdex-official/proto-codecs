@@ -1,18 +1,18 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import {
+  AssetRatesParams,
+  AssetRatesPoolPairs,
+  AssetToPairMapping,
+  AssetToPairSingleMapping,
+  AuctionParams,
+  EModePairsForProposal,
   ExtendedPair,
   Pool,
-  AssetToPairMapping,
-  AssetRatesParams,
-  AuctionParams,
-  PoolPairs,
-  AssetRatesPoolPairs,
   PoolDepreciate,
-  EModePairsForProposal,
-  AssetToPairSingleMapping,
-} from "../../../comdex/lend/v1beta1/lend";
+  PoolPairs,
+} from "./lend";
 
 export const protobufPackage = "comdex.lend.v1beta1";
 
@@ -87,10 +87,7 @@ function createBaseLendPairsProposal(): LendPairsProposal {
 }
 
 export const LendPairsProposal = {
-  encode(
-    message: LendPairsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: LendPairsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -131,34 +128,29 @@ export const LendPairsProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      pairs: isSet(object.pairs)
-        ? ExtendedPair.fromJSON(object.pairs)
-        : undefined,
+      pairs: isSet(object.pairs) ? ExtendedPair.fromJSON(object.pairs) : undefined,
     };
   },
 
   toJSON(message: LendPairsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.pairs !== undefined &&
-      (obj.pairs = message.pairs
-        ? ExtendedPair.toJSON(message.pairs)
-        : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.pairs !== undefined && (obj.pairs = message.pairs ? ExtendedPair.toJSON(message.pairs) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LendPairsProposal>, I>>(
-    object: I
-  ): LendPairsProposal {
+  create<I extends Exact<DeepPartial<LendPairsProposal>, I>>(base?: I): LendPairsProposal {
+    return LendPairsProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LendPairsProposal>, I>>(object: I): LendPairsProposal {
     const message = createBaseLendPairsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.pairs =
-      object.pairs !== undefined && object.pairs !== null
-        ? ExtendedPair.fromPartial(object.pairs)
-        : undefined;
+    message.pairs = (object.pairs !== undefined && object.pairs !== null)
+      ? ExtendedPair.fromPartial(object.pairs)
+      : undefined;
     return message;
   },
 };
@@ -168,10 +160,7 @@ function createBaseMultipleLendPairsProposal(): MultipleLendPairsProposal {
 }
 
 export const MultipleLendPairsProposal = {
-  encode(
-    message: MultipleLendPairsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MultipleLendPairsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -184,10 +173,7 @@ export const MultipleLendPairsProposal = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MultipleLendPairsProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MultipleLendPairsProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMultipleLendPairsProposal();
@@ -215,30 +201,27 @@ export const MultipleLendPairsProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      pairs: Array.isArray(object?.pairs)
-        ? object.pairs.map((e: any) => ExtendedPair.fromJSON(e))
-        : [],
+      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => ExtendedPair.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: MultipleLendPairsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     if (message.pairs) {
-      obj.pairs = message.pairs.map((e) =>
-        e ? ExtendedPair.toJSON(e) : undefined
-      );
+      obj.pairs = message.pairs.map((e) => e ? ExtendedPair.toJSON(e) : undefined);
     } else {
       obj.pairs = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MultipleLendPairsProposal>, I>>(
-    object: I
-  ): MultipleLendPairsProposal {
+  create<I extends Exact<DeepPartial<MultipleLendPairsProposal>, I>>(base?: I): MultipleLendPairsProposal {
+    return MultipleLendPairsProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MultipleLendPairsProposal>, I>>(object: I): MultipleLendPairsProposal {
     const message = createBaseMultipleLendPairsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
@@ -252,10 +235,7 @@ function createBaseAddPoolsProposal(): AddPoolsProposal {
 }
 
 export const AddPoolsProposal = {
-  encode(
-    message: AddPoolsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddPoolsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -303,23 +283,20 @@ export const AddPoolsProposal = {
   toJSON(message: AddPoolsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.Pool !== undefined &&
-      (obj.Pool = message.Pool ? Pool.toJSON(message.Pool) : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.Pool !== undefined && (obj.Pool = message.Pool ? Pool.toJSON(message.Pool) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddPoolsProposal>, I>>(
-    object: I
-  ): AddPoolsProposal {
+  create<I extends Exact<DeepPartial<AddPoolsProposal>, I>>(base?: I): AddPoolsProposal {
+    return AddPoolsProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddPoolsProposal>, I>>(object: I): AddPoolsProposal {
     const message = createBaseAddPoolsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.Pool =
-      object.Pool !== undefined && object.Pool !== null
-        ? Pool.fromPartial(object.Pool)
-        : undefined;
+    message.Pool = (object.Pool !== undefined && object.Pool !== null) ? Pool.fromPartial(object.Pool) : undefined;
     return message;
   },
 };
@@ -329,10 +306,7 @@ function createBaseAddAssetToPairProposal(): AddAssetToPairProposal {
 }
 
 export const AddAssetToPairProposal = {
-  encode(
-    message: AddAssetToPairProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddAssetToPairProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -340,18 +314,12 @@ export const AddAssetToPairProposal = {
       writer.uint32(18).string(message.description);
     }
     if (message.AssetToPairMapping !== undefined) {
-      AssetToPairMapping.encode(
-        message.AssetToPairMapping,
-        writer.uint32(26).fork()
-      ).ldelim();
+      AssetToPairMapping.encode(message.AssetToPairMapping, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddAssetToPairProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetToPairProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddAssetToPairProposal();
@@ -365,10 +333,7 @@ export const AddAssetToPairProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.AssetToPairMapping = AssetToPairMapping.decode(
-            reader,
-            reader.uint32()
-          );
+          message.AssetToPairMapping = AssetToPairMapping.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -391,26 +356,24 @@ export const AddAssetToPairProposal = {
   toJSON(message: AddAssetToPairProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.AssetToPairMapping !== undefined &&
-      (obj.AssetToPairMapping = message.AssetToPairMapping
-        ? AssetToPairMapping.toJSON(message.AssetToPairMapping)
-        : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.AssetToPairMapping !== undefined && (obj.AssetToPairMapping = message.AssetToPairMapping
+      ? AssetToPairMapping.toJSON(message.AssetToPairMapping)
+      : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddAssetToPairProposal>, I>>(
-    object: I
-  ): AddAssetToPairProposal {
+  create<I extends Exact<DeepPartial<AddAssetToPairProposal>, I>>(base?: I): AddAssetToPairProposal {
+    return AddAssetToPairProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddAssetToPairProposal>, I>>(object: I): AddAssetToPairProposal {
     const message = createBaseAddAssetToPairProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.AssetToPairMapping =
-      object.AssetToPairMapping !== undefined &&
-      object.AssetToPairMapping !== null
-        ? AssetToPairMapping.fromPartial(object.AssetToPairMapping)
-        : undefined;
+    message.AssetToPairMapping = (object.AssetToPairMapping !== undefined && object.AssetToPairMapping !== null)
+      ? AssetToPairMapping.fromPartial(object.AssetToPairMapping)
+      : undefined;
     return message;
   },
 };
@@ -420,10 +383,7 @@ function createBaseAddMultipleAssetToPairProposal(): AddMultipleAssetToPairPropo
 }
 
 export const AddMultipleAssetToPairProposal = {
-  encode(
-    message: AddMultipleAssetToPairProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddMultipleAssetToPairProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -436,10 +396,7 @@ export const AddMultipleAssetToPairProposal = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddMultipleAssetToPairProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddMultipleAssetToPairProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddMultipleAssetToPairProposal();
@@ -453,9 +410,7 @@ export const AddMultipleAssetToPairProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.AssetToPairSingleMapping.push(
-            AssetToPairSingleMapping.decode(reader, reader.uint32())
-          );
+          message.AssetToPairSingleMapping.push(AssetToPairSingleMapping.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -470,9 +425,7 @@ export const AddMultipleAssetToPairProposal = {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
       AssetToPairSingleMapping: Array.isArray(object?.AssetToPairSingleMapping)
-        ? object.AssetToPairSingleMapping.map((e: any) =>
-            AssetToPairSingleMapping.fromJSON(e)
-          )
+        ? object.AssetToPairSingleMapping.map((e: any) => AssetToPairSingleMapping.fromJSON(e))
         : [],
     };
   },
@@ -480,8 +433,7 @@ export const AddMultipleAssetToPairProposal = {
   toJSON(message: AddMultipleAssetToPairProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     if (message.AssetToPairSingleMapping) {
       obj.AssetToPairSingleMapping = message.AssetToPairSingleMapping.map((e) =>
         e ? AssetToPairSingleMapping.toJSON(e) : undefined
@@ -492,16 +444,18 @@ export const AddMultipleAssetToPairProposal = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<AddMultipleAssetToPairProposal>, I>>(base?: I): AddMultipleAssetToPairProposal {
+    return AddMultipleAssetToPairProposal.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<AddMultipleAssetToPairProposal>, I>>(
-    object: I
+    object: I,
   ): AddMultipleAssetToPairProposal {
     const message = createBaseAddMultipleAssetToPairProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.AssetToPairSingleMapping =
-      object.AssetToPairSingleMapping?.map((e) =>
-        AssetToPairSingleMapping.fromPartial(e)
-      ) || [];
+      object.AssetToPairSingleMapping?.map((e) => AssetToPairSingleMapping.fromPartial(e)) || [];
     return message;
   },
 };
@@ -511,10 +465,7 @@ function createBaseAddAssetRatesParams(): AddAssetRatesParams {
 }
 
 export const AddAssetRatesParams = {
-  encode(
-    message: AddAssetRatesParams,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddAssetRatesParams, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -522,10 +473,7 @@ export const AddAssetRatesParams = {
       writer.uint32(18).string(message.description);
     }
     if (message.AssetRatesParams !== undefined) {
-      AssetRatesParams.encode(
-        message.AssetRatesParams,
-        writer.uint32(26).fork()
-      ).ldelim();
+      AssetRatesParams.encode(message.AssetRatesParams, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -544,10 +492,7 @@ export const AddAssetRatesParams = {
           message.description = reader.string();
           break;
         case 3:
-          message.AssetRatesParams = AssetRatesParams.decode(
-            reader,
-            reader.uint32()
-          );
+          message.AssetRatesParams = AssetRatesParams.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -561,34 +506,30 @@ export const AddAssetRatesParams = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      AssetRatesParams: isSet(object.AssetRatesParams)
-        ? AssetRatesParams.fromJSON(object.AssetRatesParams)
-        : undefined,
+      AssetRatesParams: isSet(object.AssetRatesParams) ? AssetRatesParams.fromJSON(object.AssetRatesParams) : undefined,
     };
   },
 
   toJSON(message: AddAssetRatesParams): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     message.AssetRatesParams !== undefined &&
-      (obj.AssetRatesParams = message.AssetRatesParams
-        ? AssetRatesParams.toJSON(message.AssetRatesParams)
-        : undefined);
+      (obj.AssetRatesParams = message.AssetRatesParams ? AssetRatesParams.toJSON(message.AssetRatesParams) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddAssetRatesParams>, I>>(
-    object: I
-  ): AddAssetRatesParams {
+  create<I extends Exact<DeepPartial<AddAssetRatesParams>, I>>(base?: I): AddAssetRatesParams {
+    return AddAssetRatesParams.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddAssetRatesParams>, I>>(object: I): AddAssetRatesParams {
     const message = createBaseAddAssetRatesParams();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.AssetRatesParams =
-      object.AssetRatesParams !== undefined && object.AssetRatesParams !== null
-        ? AssetRatesParams.fromPartial(object.AssetRatesParams)
-        : undefined;
+    message.AssetRatesParams = (object.AssetRatesParams !== undefined && object.AssetRatesParams !== null)
+      ? AssetRatesParams.fromPartial(object.AssetRatesParams)
+      : undefined;
     return message;
   },
 };
@@ -598,10 +539,7 @@ function createBaseAddAuctionParamsProposal(): AddAuctionParamsProposal {
 }
 
 export const AddAuctionParamsProposal = {
-  encode(
-    message: AddAuctionParamsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddAuctionParamsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -609,18 +547,12 @@ export const AddAuctionParamsProposal = {
       writer.uint32(18).string(message.description);
     }
     if (message.AuctionParams !== undefined) {
-      AuctionParams.encode(
-        message.AuctionParams,
-        writer.uint32(26).fork()
-      ).ldelim();
+      AuctionParams.encode(message.AuctionParams, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddAuctionParamsProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddAuctionParamsProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddAuctionParamsProposal();
@@ -648,34 +580,30 @@ export const AddAuctionParamsProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      AuctionParams: isSet(object.AuctionParams)
-        ? AuctionParams.fromJSON(object.AuctionParams)
-        : undefined,
+      AuctionParams: isSet(object.AuctionParams) ? AuctionParams.fromJSON(object.AuctionParams) : undefined,
     };
   },
 
   toJSON(message: AddAuctionParamsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     message.AuctionParams !== undefined &&
-      (obj.AuctionParams = message.AuctionParams
-        ? AuctionParams.toJSON(message.AuctionParams)
-        : undefined);
+      (obj.AuctionParams = message.AuctionParams ? AuctionParams.toJSON(message.AuctionParams) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddAuctionParamsProposal>, I>>(
-    object: I
-  ): AddAuctionParamsProposal {
+  create<I extends Exact<DeepPartial<AddAuctionParamsProposal>, I>>(base?: I): AddAuctionParamsProposal {
+    return AddAuctionParamsProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddAuctionParamsProposal>, I>>(object: I): AddAuctionParamsProposal {
     const message = createBaseAddAuctionParamsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.AuctionParams =
-      object.AuctionParams !== undefined && object.AuctionParams !== null
-        ? AuctionParams.fromPartial(object.AuctionParams)
-        : undefined;
+    message.AuctionParams = (object.AuctionParams !== undefined && object.AuctionParams !== null)
+      ? AuctionParams.fromPartial(object.AuctionParams)
+      : undefined;
     return message;
   },
 };
@@ -685,10 +613,7 @@ function createBaseAddPoolPairsProposal(): AddPoolPairsProposal {
 }
 
 export const AddPoolPairsProposal = {
-  encode(
-    message: AddPoolPairsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddPoolPairsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -701,10 +626,7 @@ export const AddPoolPairsProposal = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddPoolPairsProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddPoolPairsProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddPoolPairsProposal();
@@ -732,34 +654,30 @@ export const AddPoolPairsProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      PoolPairs: isSet(object.PoolPairs)
-        ? PoolPairs.fromJSON(object.PoolPairs)
-        : undefined,
+      PoolPairs: isSet(object.PoolPairs) ? PoolPairs.fromJSON(object.PoolPairs) : undefined,
     };
   },
 
   toJSON(message: AddPoolPairsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     message.PoolPairs !== undefined &&
-      (obj.PoolPairs = message.PoolPairs
-        ? PoolPairs.toJSON(message.PoolPairs)
-        : undefined);
+      (obj.PoolPairs = message.PoolPairs ? PoolPairs.toJSON(message.PoolPairs) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddPoolPairsProposal>, I>>(
-    object: I
-  ): AddPoolPairsProposal {
+  create<I extends Exact<DeepPartial<AddPoolPairsProposal>, I>>(base?: I): AddPoolPairsProposal {
+    return AddPoolPairsProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddPoolPairsProposal>, I>>(object: I): AddPoolPairsProposal {
     const message = createBaseAddPoolPairsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.PoolPairs =
-      object.PoolPairs !== undefined && object.PoolPairs !== null
-        ? PoolPairs.fromPartial(object.PoolPairs)
-        : undefined;
+    message.PoolPairs = (object.PoolPairs !== undefined && object.PoolPairs !== null)
+      ? PoolPairs.fromPartial(object.PoolPairs)
+      : undefined;
     return message;
   },
 };
@@ -769,10 +687,7 @@ function createBaseAddAssetRatesPoolPairsProposal(): AddAssetRatesPoolPairsPropo
 }
 
 export const AddAssetRatesPoolPairsProposal = {
-  encode(
-    message: AddAssetRatesPoolPairsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddAssetRatesPoolPairsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -780,18 +695,12 @@ export const AddAssetRatesPoolPairsProposal = {
       writer.uint32(18).string(message.description);
     }
     if (message.AssetRatesPoolPairs !== undefined) {
-      AssetRatesPoolPairs.encode(
-        message.AssetRatesPoolPairs,
-        writer.uint32(26).fork()
-      ).ldelim();
+      AssetRatesPoolPairs.encode(message.AssetRatesPoolPairs, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddAssetRatesPoolPairsProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddAssetRatesPoolPairsProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddAssetRatesPoolPairsProposal();
@@ -805,10 +714,7 @@ export const AddAssetRatesPoolPairsProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.AssetRatesPoolPairs = AssetRatesPoolPairs.decode(
-            reader,
-            reader.uint32()
-          );
+          message.AssetRatesPoolPairs = AssetRatesPoolPairs.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -831,26 +737,26 @@ export const AddAssetRatesPoolPairsProposal = {
   toJSON(message: AddAssetRatesPoolPairsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.AssetRatesPoolPairs !== undefined &&
-      (obj.AssetRatesPoolPairs = message.AssetRatesPoolPairs
-        ? AssetRatesPoolPairs.toJSON(message.AssetRatesPoolPairs)
-        : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.AssetRatesPoolPairs !== undefined && (obj.AssetRatesPoolPairs = message.AssetRatesPoolPairs
+      ? AssetRatesPoolPairs.toJSON(message.AssetRatesPoolPairs)
+      : undefined);
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<AddAssetRatesPoolPairsProposal>, I>>(base?: I): AddAssetRatesPoolPairsProposal {
+    return AddAssetRatesPoolPairsProposal.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<AddAssetRatesPoolPairsProposal>, I>>(
-    object: I
+    object: I,
   ): AddAssetRatesPoolPairsProposal {
     const message = createBaseAddAssetRatesPoolPairsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.AssetRatesPoolPairs =
-      object.AssetRatesPoolPairs !== undefined &&
-      object.AssetRatesPoolPairs !== null
-        ? AssetRatesPoolPairs.fromPartial(object.AssetRatesPoolPairs)
-        : undefined;
+    message.AssetRatesPoolPairs = (object.AssetRatesPoolPairs !== undefined && object.AssetRatesPoolPairs !== null)
+      ? AssetRatesPoolPairs.fromPartial(object.AssetRatesPoolPairs)
+      : undefined;
     return message;
   },
 };
@@ -860,10 +766,7 @@ function createBaseAddPoolDepreciateProposal(): AddPoolDepreciateProposal {
 }
 
 export const AddPoolDepreciateProposal = {
-  encode(
-    message: AddPoolDepreciateProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddPoolDepreciateProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -871,18 +774,12 @@ export const AddPoolDepreciateProposal = {
       writer.uint32(18).string(message.description);
     }
     if (message.PoolDepreciate !== undefined) {
-      PoolDepreciate.encode(
-        message.PoolDepreciate,
-        writer.uint32(26).fork()
-      ).ldelim();
+      PoolDepreciate.encode(message.PoolDepreciate, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddPoolDepreciateProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddPoolDepreciateProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddPoolDepreciateProposal();
@@ -896,10 +793,7 @@ export const AddPoolDepreciateProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.PoolDepreciate = PoolDepreciate.decode(
-            reader,
-            reader.uint32()
-          );
+          message.PoolDepreciate = PoolDepreciate.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -913,34 +807,30 @@ export const AddPoolDepreciateProposal = {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
-      PoolDepreciate: isSet(object.PoolDepreciate)
-        ? PoolDepreciate.fromJSON(object.PoolDepreciate)
-        : undefined,
+      PoolDepreciate: isSet(object.PoolDepreciate) ? PoolDepreciate.fromJSON(object.PoolDepreciate) : undefined,
     };
   },
 
   toJSON(message: AddPoolDepreciateProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
+    message.description !== undefined && (obj.description = message.description);
     message.PoolDepreciate !== undefined &&
-      (obj.PoolDepreciate = message.PoolDepreciate
-        ? PoolDepreciate.toJSON(message.PoolDepreciate)
-        : undefined);
+      (obj.PoolDepreciate = message.PoolDepreciate ? PoolDepreciate.toJSON(message.PoolDepreciate) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddPoolDepreciateProposal>, I>>(
-    object: I
-  ): AddPoolDepreciateProposal {
+  create<I extends Exact<DeepPartial<AddPoolDepreciateProposal>, I>>(base?: I): AddPoolDepreciateProposal {
+    return AddPoolDepreciateProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddPoolDepreciateProposal>, I>>(object: I): AddPoolDepreciateProposal {
     const message = createBaseAddPoolDepreciateProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
-    message.PoolDepreciate =
-      object.PoolDepreciate !== undefined && object.PoolDepreciate !== null
-        ? PoolDepreciate.fromPartial(object.PoolDepreciate)
-        : undefined;
+    message.PoolDepreciate = (object.PoolDepreciate !== undefined && object.PoolDepreciate !== null)
+      ? PoolDepreciate.fromPartial(object.PoolDepreciate)
+      : undefined;
     return message;
   },
 };
@@ -950,10 +840,7 @@ function createBaseAddEModePairsProposal(): AddEModePairsProposal {
 }
 
 export const AddEModePairsProposal = {
-  encode(
-    message: AddEModePairsProposal,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AddEModePairsProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -961,18 +848,12 @@ export const AddEModePairsProposal = {
       writer.uint32(18).string(message.description);
     }
     if (message.EModePairsForProposal !== undefined) {
-      EModePairsForProposal.encode(
-        message.EModePairsForProposal,
-        writer.uint32(26).fork()
-      ).ldelim();
+      EModePairsForProposal.encode(message.EModePairsForProposal, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AddEModePairsProposal {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AddEModePairsProposal {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddEModePairsProposal();
@@ -986,10 +867,7 @@ export const AddEModePairsProposal = {
           message.description = reader.string();
           break;
         case 3:
-          message.EModePairsForProposal = EModePairsForProposal.decode(
-            reader,
-            reader.uint32()
-          );
+          message.EModePairsForProposal = EModePairsForProposal.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -1012,58 +890,40 @@ export const AddEModePairsProposal = {
   toJSON(message: AddEModePairsProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.EModePairsForProposal !== undefined &&
-      (obj.EModePairsForProposal = message.EModePairsForProposal
-        ? EModePairsForProposal.toJSON(message.EModePairsForProposal)
-        : undefined);
+    message.description !== undefined && (obj.description = message.description);
+    message.EModePairsForProposal !== undefined && (obj.EModePairsForProposal = message.EModePairsForProposal
+      ? EModePairsForProposal.toJSON(message.EModePairsForProposal)
+      : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AddEModePairsProposal>, I>>(
-    object: I
-  ): AddEModePairsProposal {
+  create<I extends Exact<DeepPartial<AddEModePairsProposal>, I>>(base?: I): AddEModePairsProposal {
+    return AddEModePairsProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AddEModePairsProposal>, I>>(object: I): AddEModePairsProposal {
     const message = createBaseAddEModePairsProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.EModePairsForProposal =
-      object.EModePairsForProposal !== undefined &&
-      object.EModePairsForProposal !== null
+      (object.EModePairsForProposal !== undefined && object.EModePairsForProposal !== null)
         ? EModePairsForProposal.fromPartial(object.EModePairsForProposal)
         : undefined;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

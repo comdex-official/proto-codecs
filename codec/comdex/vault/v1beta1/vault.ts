@@ -1,11 +1,11 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
 export const protobufPackage = "comdex.vault.v1beta1";
 
-/** app_vault_type_id will be the key for  the KVStore for this value. */
+/** app_vault_type_id will be the key for  the KVStore for this value */
 export interface Vault {
   id: Long;
   appId: Long;
@@ -107,10 +107,7 @@ export const Vault = {
       writer.uint32(50).string(message.amountOut);
     }
     if (message.createdAt !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.createdAt),
-        writer.uint32(58).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.createdAt), writer.uint32(58).fork()).ldelim();
     }
     if (message.interestAccumulated !== "") {
       writer.uint32(66).string(message.interestAccumulated);
@@ -122,10 +119,7 @@ export const Vault = {
       writer.uint32(80).int64(message.blockHeight);
     }
     if (message.blockTime !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.blockTime),
-        writer.uint32(90).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.blockTime), writer.uint32(90).fork()).ldelim();
     }
     return writer;
   },
@@ -156,9 +150,7 @@ export const Vault = {
           message.amountOut = reader.string();
           break;
         case 7:
-          message.createdAt = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.createdAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 8:
           message.interestAccumulated = reader.string();
@@ -170,9 +162,7 @@ export const Vault = {
           message.blockHeight = reader.int64() as Long;
           break;
         case 11:
-          message.blockTime = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.blockTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -186,100 +176,66 @@ export const Vault = {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
       owner: isSet(object.owner) ? String(object.owner) : "",
       amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
       amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
-      createdAt: isSet(object.createdAt)
-        ? fromJsonTimestamp(object.createdAt)
-        : undefined,
-      interestAccumulated: isSet(object.interestAccumulated)
-        ? String(object.interestAccumulated)
-        : "",
-      closingFeeAccumulated: isSet(object.closingFeeAccumulated)
-        ? String(object.closingFeeAccumulated)
-        : "",
-      blockHeight: isSet(object.blockHeight)
-        ? Long.fromValue(object.blockHeight)
-        : Long.ZERO,
-      blockTime: isSet(object.blockTime)
-        ? fromJsonTimestamp(object.blockTime)
-        : undefined,
+      createdAt: isSet(object.createdAt) ? fromJsonTimestamp(object.createdAt) : undefined,
+      interestAccumulated: isSet(object.interestAccumulated) ? String(object.interestAccumulated) : "",
+      closingFeeAccumulated: isSet(object.closingFeeAccumulated) ? String(object.closingFeeAccumulated) : "",
+      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.ZERO,
+      blockTime: isSet(object.blockTime) ? fromJsonTimestamp(object.blockTime) : undefined,
     };
   },
 
   toJSON(message: Vault): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
     message.owner !== undefined && (obj.owner = message.owner);
     message.amountIn !== undefined && (obj.amountIn = message.amountIn);
     message.amountOut !== undefined && (obj.amountOut = message.amountOut);
-    message.createdAt !== undefined &&
-      (obj.createdAt = message.createdAt.toISOString());
-    message.interestAccumulated !== undefined &&
-      (obj.interestAccumulated = message.interestAccumulated);
-    message.closingFeeAccumulated !== undefined &&
-      (obj.closingFeeAccumulated = message.closingFeeAccumulated);
-    message.blockHeight !== undefined &&
-      (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
-    message.blockTime !== undefined &&
-      (obj.blockTime = message.blockTime.toISOString());
+    message.createdAt !== undefined && (obj.createdAt = message.createdAt.toISOString());
+    message.interestAccumulated !== undefined && (obj.interestAccumulated = message.interestAccumulated);
+    message.closingFeeAccumulated !== undefined && (obj.closingFeeAccumulated = message.closingFeeAccumulated);
+    message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.ZERO).toString());
+    message.blockTime !== undefined && (obj.blockTime = message.blockTime.toISOString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Vault>, I>>(base?: I): Vault {
+    return Vault.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Vault>, I>>(object: I): Vault {
     const message = createBaseVault();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
     message.owner = object.owner ?? "";
     message.amountIn = object.amountIn ?? "";
     message.amountOut = object.amountOut ?? "";
     message.createdAt = object.createdAt ?? undefined;
     message.interestAccumulated = object.interestAccumulated ?? "";
     message.closingFeeAccumulated = object.closingFeeAccumulated ?? "";
-    message.blockHeight =
-      object.blockHeight !== undefined && object.blockHeight !== null
-        ? Long.fromValue(object.blockHeight)
-        : Long.ZERO;
+    message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
+      ? Long.fromValue(object.blockHeight)
+      : Long.ZERO;
     message.blockTime = object.blockTime ?? undefined;
     return message;
   },
 };
 
 function createBaseOwnerAppExtendedPairVaultMappingData(): OwnerAppExtendedPairVaultMappingData {
-  return {
-    owner: "",
-    appId: Long.UZERO,
-    extendedPairId: Long.UZERO,
-    vaultId: Long.UZERO,
-  };
+  return { owner: "", appId: Long.UZERO, extendedPairId: Long.UZERO, vaultId: Long.UZERO };
 }
 
 export const OwnerAppExtendedPairVaultMappingData = {
-  encode(
-    message: OwnerAppExtendedPairVaultMappingData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: OwnerAppExtendedPairVaultMappingData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -295,10 +251,7 @@ export const OwnerAppExtendedPairVaultMappingData = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): OwnerAppExtendedPairVaultMappingData {
+  decode(input: _m0.Reader | Uint8Array, length?: number): OwnerAppExtendedPairVaultMappingData {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOwnerAppExtendedPairVaultMappingData();
@@ -329,44 +282,38 @@ export const OwnerAppExtendedPairVaultMappingData = {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
-        : Long.UZERO,
-      vaultId: isSet(object.vaultId)
-        ? Long.fromValue(object.vaultId)
-        : Long.UZERO,
+      extendedPairId: isSet(object.extendedPairId) ? Long.fromValue(object.extendedPairId) : Long.UZERO,
+      vaultId: isSet(object.vaultId) ? Long.fromValue(object.vaultId) : Long.UZERO,
     };
   },
 
   toJSON(message: OwnerAppExtendedPairVaultMappingData): unknown {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.extendedPairId !== undefined &&
-      (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
-    message.vaultId !== undefined &&
-      (obj.vaultId = (message.vaultId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.extendedPairId !== undefined && (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
+    message.vaultId !== undefined && (obj.vaultId = (message.vaultId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<OwnerAppExtendedPairVaultMappingData>, I>
-  >(object: I): OwnerAppExtendedPairVaultMappingData {
+  create<I extends Exact<DeepPartial<OwnerAppExtendedPairVaultMappingData>, I>>(
+    base?: I,
+  ): OwnerAppExtendedPairVaultMappingData {
+    return OwnerAppExtendedPairVaultMappingData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<OwnerAppExtendedPairVaultMappingData>, I>>(
+    object: I,
+  ): OwnerAppExtendedPairVaultMappingData {
     const message = createBaseOwnerAppExtendedPairVaultMappingData();
     message.owner = object.owner ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairId =
-      object.extendedPairId !== undefined && object.extendedPairId !== null
-        ? Long.fromValue(object.extendedPairId)
-        : Long.UZERO;
-    message.vaultId =
-      object.vaultId !== undefined && object.vaultId !== null
-        ? Long.fromValue(object.vaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairId = (object.extendedPairId !== undefined && object.extendedPairId !== null)
+      ? Long.fromValue(object.extendedPairId)
+      : Long.UZERO;
+    message.vaultId = (object.vaultId !== undefined && object.vaultId !== null)
+      ? Long.fromValue(object.vaultId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -382,10 +329,7 @@ function createBaseAppExtendedPairVaultMappingData(): AppExtendedPairVaultMappin
 }
 
 export const AppExtendedPairVaultMappingData = {
-  encode(
-    message: AppExtendedPairVaultMappingData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AppExtendedPairVaultMappingData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -406,10 +350,7 @@ export const AppExtendedPairVaultMappingData = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): AppExtendedPairVaultMappingData {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AppExtendedPairVaultMappingData {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAppExtendedPairVaultMappingData();
@@ -449,51 +390,39 @@ export const AppExtendedPairVaultMappingData = {
   fromJSON(object: any): AppExtendedPairVaultMappingData {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
-        : Long.UZERO,
-      vaultIds: Array.isArray(object?.vaultIds)
-        ? object.vaultIds.map((e: any) => Long.fromValue(e))
-        : [],
-      tokenMintedAmount: isSet(object.tokenMintedAmount)
-        ? String(object.tokenMintedAmount)
-        : "",
-      collateralLockedAmount: isSet(object.collateralLockedAmount)
-        ? String(object.collateralLockedAmount)
-        : "",
+      extendedPairId: isSet(object.extendedPairId) ? Long.fromValue(object.extendedPairId) : Long.UZERO,
+      vaultIds: Array.isArray(object?.vaultIds) ? object.vaultIds.map((e: any) => Long.fromValue(e)) : [],
+      tokenMintedAmount: isSet(object.tokenMintedAmount) ? String(object.tokenMintedAmount) : "",
+      collateralLockedAmount: isSet(object.collateralLockedAmount) ? String(object.collateralLockedAmount) : "",
     };
   },
 
   toJSON(message: AppExtendedPairVaultMappingData): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.extendedPairId !== undefined &&
-      (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.extendedPairId !== undefined && (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
     if (message.vaultIds) {
       obj.vaultIds = message.vaultIds.map((e) => (e || Long.UZERO).toString());
     } else {
       obj.vaultIds = [];
     }
-    message.tokenMintedAmount !== undefined &&
-      (obj.tokenMintedAmount = message.tokenMintedAmount);
-    message.collateralLockedAmount !== undefined &&
-      (obj.collateralLockedAmount = message.collateralLockedAmount);
+    message.tokenMintedAmount !== undefined && (obj.tokenMintedAmount = message.tokenMintedAmount);
+    message.collateralLockedAmount !== undefined && (obj.collateralLockedAmount = message.collateralLockedAmount);
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<AppExtendedPairVaultMappingData>, I>>(base?: I): AppExtendedPairVaultMappingData {
+    return AppExtendedPairVaultMappingData.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<AppExtendedPairVaultMappingData>, I>>(
-    object: I
+    object: I,
   ): AppExtendedPairVaultMappingData {
     const message = createBaseAppExtendedPairVaultMappingData();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairId =
-      object.extendedPairId !== undefined && object.extendedPairId !== null
-        ? Long.fromValue(object.extendedPairId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairId = (object.extendedPairId !== undefined && object.extendedPairId !== null)
+      ? Long.fromValue(object.extendedPairId)
+      : Long.UZERO;
     message.vaultIds = object.vaultIds?.map((e) => Long.fromValue(e)) || [];
     message.tokenMintedAmount = object.tokenMintedAmount ?? "";
     message.collateralLockedAmount = object.collateralLockedAmount ?? "";
@@ -506,10 +435,7 @@ function createBaseTvlLockedDataMap(): TvlLockedDataMap {
 }
 
 export const TvlLockedDataMap = {
-  encode(
-    message: TvlLockedDataMap,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: TvlLockedDataMap, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.assetDenom !== "") {
       writer.uint32(10).string(message.assetDenom);
     }
@@ -543,23 +469,22 @@ export const TvlLockedDataMap = {
   fromJSON(object: any): TvlLockedDataMap {
     return {
       assetDenom: isSet(object.assetDenom) ? String(object.assetDenom) : "",
-      collateralLockedAmount: isSet(object.collateralLockedAmount)
-        ? String(object.collateralLockedAmount)
-        : "",
+      collateralLockedAmount: isSet(object.collateralLockedAmount) ? String(object.collateralLockedAmount) : "",
     };
   },
 
   toJSON(message: TvlLockedDataMap): unknown {
     const obj: any = {};
     message.assetDenom !== undefined && (obj.assetDenom = message.assetDenom);
-    message.collateralLockedAmount !== undefined &&
-      (obj.collateralLockedAmount = message.collateralLockedAmount);
+    message.collateralLockedAmount !== undefined && (obj.collateralLockedAmount = message.collateralLockedAmount);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<TvlLockedDataMap>, I>>(
-    object: I
-  ): TvlLockedDataMap {
+  create<I extends Exact<DeepPartial<TvlLockedDataMap>, I>>(base?: I): TvlLockedDataMap {
+    return TvlLockedDataMap.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<TvlLockedDataMap>, I>>(object: I): TvlLockedDataMap {
     const message = createBaseTvlLockedDataMap();
     message.assetDenom = object.assetDenom ?? "";
     message.collateralLockedAmount = object.collateralLockedAmount ?? "";
@@ -572,10 +497,7 @@ function createBaseMintedDataMap(): MintedDataMap {
 }
 
 export const MintedDataMap = {
-  encode(
-    message: MintedDataMap,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MintedDataMap, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.assetDenom !== "") {
       writer.uint32(10).string(message.assetDenom);
     }
@@ -609,23 +531,22 @@ export const MintedDataMap = {
   fromJSON(object: any): MintedDataMap {
     return {
       assetDenom: isSet(object.assetDenom) ? String(object.assetDenom) : "",
-      mintedAmount: isSet(object.mintedAmount)
-        ? String(object.mintedAmount)
-        : "",
+      mintedAmount: isSet(object.mintedAmount) ? String(object.mintedAmount) : "",
     };
   },
 
   toJSON(message: MintedDataMap): unknown {
     const obj: any = {};
     message.assetDenom !== undefined && (obj.assetDenom = message.assetDenom);
-    message.mintedAmount !== undefined &&
-      (obj.mintedAmount = message.mintedAmount);
+    message.mintedAmount !== undefined && (obj.mintedAmount = message.mintedAmount);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MintedDataMap>, I>>(
-    object: I
-  ): MintedDataMap {
+  create<I extends Exact<DeepPartial<MintedDataMap>, I>>(base?: I): MintedDataMap {
+    return MintedDataMap.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MintedDataMap>, I>>(object: I): MintedDataMap {
     const message = createBaseMintedDataMap();
     message.assetDenom = object.assetDenom ?? "";
     message.mintedAmount = object.mintedAmount ?? "";
@@ -645,10 +566,7 @@ function createBaseStableMintVault(): StableMintVault {
 }
 
 export const StableMintVault = {
-  encode(
-    message: StableMintVault,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: StableMintVault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -665,10 +583,7 @@ export const StableMintVault = {
       writer.uint32(40).uint64(message.extendedPairVaultId);
     }
     if (message.createdAt !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.createdAt),
-        writer.uint32(50).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.createdAt), writer.uint32(50).fork()).ldelim();
     }
     return writer;
   },
@@ -696,9 +611,7 @@ export const StableMintVault = {
           message.extendedPairVaultId = reader.uint64() as Long;
           break;
         case 6:
-          message.createdAt = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.createdAt = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -714,51 +627,36 @@ export const StableMintVault = {
       amountIn: isSet(object.amountIn) ? String(object.amountIn) : "",
       amountOut: isSet(object.amountOut) ? String(object.amountOut) : "",
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
-      createdAt: isSet(object.createdAt)
-        ? fromJsonTimestamp(object.createdAt)
-        : undefined,
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
+      createdAt: isSet(object.createdAt) ? fromJsonTimestamp(object.createdAt) : undefined,
     };
   },
 
   toJSON(message: StableMintVault): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
     message.amountIn !== undefined && (obj.amountIn = message.amountIn);
     message.amountOut !== undefined && (obj.amountOut = message.amountOut);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
-    message.createdAt !== undefined &&
-      (obj.createdAt = message.createdAt.toISOString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
+    message.createdAt !== undefined && (obj.createdAt = message.createdAt.toISOString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<StableMintVault>, I>>(
-    object: I
-  ): StableMintVault {
+  create<I extends Exact<DeepPartial<StableMintVault>, I>>(base?: I): StableMintVault {
+    return StableMintVault.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<StableMintVault>, I>>(object: I): StableMintVault {
     const message = createBaseStableMintVault();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
     message.amountIn = object.amountIn ?? "";
     message.amountOut = object.amountOut ?? "";
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
     message.createdAt = object.createdAt ?? undefined;
     return message;
   },
@@ -775,10 +673,7 @@ function createBasePairStatisticData(): PairStatisticData {
 }
 
 export const PairStatisticData = {
-  encode(
-    message: PairStatisticData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: PairStatisticData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.assetInDenom !== "") {
       writer.uint32(10).string(message.assetInDenom);
     }
@@ -829,73 +724,48 @@ export const PairStatisticData = {
 
   fromJSON(object: any): PairStatisticData {
     return {
-      assetInDenom: isSet(object.assetInDenom)
-        ? String(object.assetInDenom)
-        : "",
-      assetOutDenom: isSet(object.assetOutDenom)
-        ? String(object.assetOutDenom)
-        : "",
-      collateralAmount: isSet(object.collateralAmount)
-        ? String(object.collateralAmount)
-        : "",
-      mintedAmount: isSet(object.mintedAmount)
-        ? String(object.mintedAmount)
-        : "",
-      extendedPairVaultId: isSet(object.extendedPairVaultId)
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO,
+      assetInDenom: isSet(object.assetInDenom) ? String(object.assetInDenom) : "",
+      assetOutDenom: isSet(object.assetOutDenom) ? String(object.assetOutDenom) : "",
+      collateralAmount: isSet(object.collateralAmount) ? String(object.collateralAmount) : "",
+      mintedAmount: isSet(object.mintedAmount) ? String(object.mintedAmount) : "",
+      extendedPairVaultId: isSet(object.extendedPairVaultId) ? Long.fromValue(object.extendedPairVaultId) : Long.UZERO,
     };
   },
 
   toJSON(message: PairStatisticData): unknown {
     const obj: any = {};
-    message.assetInDenom !== undefined &&
-      (obj.assetInDenom = message.assetInDenom);
-    message.assetOutDenom !== undefined &&
-      (obj.assetOutDenom = message.assetOutDenom);
-    message.collateralAmount !== undefined &&
-      (obj.collateralAmount = message.collateralAmount);
-    message.mintedAmount !== undefined &&
-      (obj.mintedAmount = message.mintedAmount);
+    message.assetInDenom !== undefined && (obj.assetInDenom = message.assetInDenom);
+    message.assetOutDenom !== undefined && (obj.assetOutDenom = message.assetOutDenom);
+    message.collateralAmount !== undefined && (obj.collateralAmount = message.collateralAmount);
+    message.mintedAmount !== undefined && (obj.mintedAmount = message.mintedAmount);
     message.extendedPairVaultId !== undefined &&
-      (obj.extendedPairVaultId = (
-        message.extendedPairVaultId || Long.UZERO
-      ).toString());
+      (obj.extendedPairVaultId = (message.extendedPairVaultId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<PairStatisticData>, I>>(
-    object: I
-  ): PairStatisticData {
+  create<I extends Exact<DeepPartial<PairStatisticData>, I>>(base?: I): PairStatisticData {
+    return PairStatisticData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<PairStatisticData>, I>>(object: I): PairStatisticData {
     const message = createBasePairStatisticData();
     message.assetInDenom = object.assetInDenom ?? "";
     message.assetOutDenom = object.assetOutDenom ?? "";
     message.collateralAmount = object.collateralAmount ?? "";
     message.mintedAmount = object.mintedAmount ?? "";
-    message.extendedPairVaultId =
-      object.extendedPairVaultId !== undefined &&
-      object.extendedPairVaultId !== null
-        ? Long.fromValue(object.extendedPairVaultId)
-        : Long.UZERO;
+    message.extendedPairVaultId = (object.extendedPairVaultId !== undefined && object.extendedPairVaultId !== null)
+      ? Long.fromValue(object.extendedPairVaultId)
+      : Long.UZERO;
     return message;
   },
 };
 
 function createBaseStableMintVaultRewards(): StableMintVaultRewards {
-  return {
-    appId: Long.UZERO,
-    stableExtendedPairId: Long.UZERO,
-    user: "",
-    blockHeight: Long.UZERO,
-    amount: "",
-  };
+  return { appId: Long.UZERO, stableExtendedPairId: Long.UZERO, user: "", blockHeight: Long.UZERO, amount: "" };
 }
 
 export const StableMintVaultRewards = {
-  encode(
-    message: StableMintVaultRewards,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: StableMintVaultRewards, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -914,10 +784,7 @@ export const StableMintVaultRewards = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): StableMintVaultRewards {
+  decode(input: _m0.Reader | Uint8Array, length?: number): StableMintVaultRewards {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStableMintVaultRewards();
@@ -954,79 +821,52 @@ export const StableMintVaultRewards = {
         ? Long.fromValue(object.stableExtendedPairId)
         : Long.UZERO,
       user: isSet(object.user) ? String(object.user) : "",
-      blockHeight: isSet(object.blockHeight)
-        ? Long.fromValue(object.blockHeight)
-        : Long.UZERO,
+      blockHeight: isSet(object.blockHeight) ? Long.fromValue(object.blockHeight) : Long.UZERO,
       amount: isSet(object.amount) ? String(object.amount) : "",
     };
   },
 
   toJSON(message: StableMintVaultRewards): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.stableExtendedPairId !== undefined &&
-      (obj.stableExtendedPairId = (
-        message.stableExtendedPairId || Long.UZERO
-      ).toString());
+      (obj.stableExtendedPairId = (message.stableExtendedPairId || Long.UZERO).toString());
     message.user !== undefined && (obj.user = message.user);
-    message.blockHeight !== undefined &&
-      (obj.blockHeight = (message.blockHeight || Long.UZERO).toString());
+    message.blockHeight !== undefined && (obj.blockHeight = (message.blockHeight || Long.UZERO).toString());
     message.amount !== undefined && (obj.amount = message.amount);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<StableMintVaultRewards>, I>>(
-    object: I
-  ): StableMintVaultRewards {
+  create<I extends Exact<DeepPartial<StableMintVaultRewards>, I>>(base?: I): StableMintVaultRewards {
+    return StableMintVaultRewards.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<StableMintVaultRewards>, I>>(object: I): StableMintVaultRewards {
     const message = createBaseStableMintVaultRewards();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.stableExtendedPairId =
-      object.stableExtendedPairId !== undefined &&
-      object.stableExtendedPairId !== null
-        ? Long.fromValue(object.stableExtendedPairId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.stableExtendedPairId = (object.stableExtendedPairId !== undefined && object.stableExtendedPairId !== null)
+      ? Long.fromValue(object.stableExtendedPairId)
+      : Long.UZERO;
     message.user = object.user ?? "";
-    message.blockHeight =
-      object.blockHeight !== undefined && object.blockHeight !== null
-        ? Long.fromValue(object.blockHeight)
-        : Long.UZERO;
+    message.blockHeight = (object.blockHeight !== undefined && object.blockHeight !== null)
+      ? Long.fromValue(object.blockHeight)
+      : Long.UZERO;
     message.amount = object.amount ?? "";
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

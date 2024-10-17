@@ -1,14 +1,14 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Params } from "../../../comdex/locker/v1beta1/params";
+import _m0 from "protobufjs/minimal";
 import {
   Locker,
+  LockerLookupTableData,
   LockerProductAssetMapping,
   LockerTotalRewardsByAssetAppWise,
-  LockerLookupTableData,
   UserAppAssetLockerMapping,
-} from "../../../comdex/locker/v1beta1/locker";
+} from "./locker";
+import { Params } from "./params";
 
 export const protobufPackage = "comdex.locker.v1beta1";
 
@@ -33,10 +33,7 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
-  encode(
-    message: GenesisState,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.lockers) {
       Locker.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -44,10 +41,7 @@ export const GenesisState = {
       LockerProductAssetMapping.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     for (const v of message.lockerTotalRewardsByAssetAppWise) {
-      LockerTotalRewardsByAssetAppWise.encode(
-        v!,
-        writer.uint32(26).fork()
-      ).ldelim();
+      LockerTotalRewardsByAssetAppWise.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     for (const v of message.lockerLookupTable) {
       LockerLookupTableData.encode(v!, writer.uint32(34).fork()).ldelim();
@@ -72,24 +66,18 @@ export const GenesisState = {
           message.lockers.push(Locker.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.lockerProductAssetMapping.push(
-            LockerProductAssetMapping.decode(reader, reader.uint32())
-          );
+          message.lockerProductAssetMapping.push(LockerProductAssetMapping.decode(reader, reader.uint32()));
           break;
         case 3:
           message.lockerTotalRewardsByAssetAppWise.push(
-            LockerTotalRewardsByAssetAppWise.decode(reader, reader.uint32())
+            LockerTotalRewardsByAssetAppWise.decode(reader, reader.uint32()),
           );
           break;
         case 4:
-          message.lockerLookupTable.push(
-            LockerLookupTableData.decode(reader, reader.uint32())
-          );
+          message.lockerLookupTable.push(LockerLookupTableData.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.userLockerAssetMapping.push(
-            UserAppAssetLockerMapping.decode(reader, reader.uint32())
-          );
+          message.userLockerAssetMapping.push(UserAppAssetLockerMapping.decode(reader, reader.uint32()));
           break;
         case 6:
           message.params = Params.decode(reader, reader.uint32());
@@ -104,32 +92,18 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     return {
-      lockers: Array.isArray(object?.lockers)
-        ? object.lockers.map((e: any) => Locker.fromJSON(e))
+      lockers: Array.isArray(object?.lockers) ? object.lockers.map((e: any) => Locker.fromJSON(e)) : [],
+      lockerProductAssetMapping: Array.isArray(object?.lockerProductAssetMapping)
+        ? object.lockerProductAssetMapping.map((e: any) => LockerProductAssetMapping.fromJSON(e))
         : [],
-      lockerProductAssetMapping: Array.isArray(
-        object?.lockerProductAssetMapping
-      )
-        ? object.lockerProductAssetMapping.map((e: any) =>
-            LockerProductAssetMapping.fromJSON(e)
-          )
-        : [],
-      lockerTotalRewardsByAssetAppWise: Array.isArray(
-        object?.lockerTotalRewardsByAssetAppWise
-      )
-        ? object.lockerTotalRewardsByAssetAppWise.map((e: any) =>
-            LockerTotalRewardsByAssetAppWise.fromJSON(e)
-          )
+      lockerTotalRewardsByAssetAppWise: Array.isArray(object?.lockerTotalRewardsByAssetAppWise)
+        ? object.lockerTotalRewardsByAssetAppWise.map((e: any) => LockerTotalRewardsByAssetAppWise.fromJSON(e))
         : [],
       lockerLookupTable: Array.isArray(object?.lockerLookupTable)
-        ? object.lockerLookupTable.map((e: any) =>
-            LockerLookupTableData.fromJSON(e)
-          )
+        ? object.lockerLookupTable.map((e: any) => LockerLookupTableData.fromJSON(e))
         : [],
       userLockerAssetMapping: Array.isArray(object?.userLockerAssetMapping)
-        ? object.userLockerAssetMapping.map((e: any) =>
-            UserAppAssetLockerMapping.fromJSON(e)
-          )
+        ? object.userLockerAssetMapping.map((e: any) => UserAppAssetLockerMapping.fromJSON(e))
         : [],
       params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
     };
@@ -138,31 +112,26 @@ export const GenesisState = {
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
     if (message.lockers) {
-      obj.lockers = message.lockers.map((e) =>
-        e ? Locker.toJSON(e) : undefined
-      );
+      obj.lockers = message.lockers.map((e) => e ? Locker.toJSON(e) : undefined);
     } else {
       obj.lockers = [];
     }
     if (message.lockerProductAssetMapping) {
-      obj.lockerProductAssetMapping = message.lockerProductAssetMapping.map(
-        (e) => (e ? LockerProductAssetMapping.toJSON(e) : undefined)
+      obj.lockerProductAssetMapping = message.lockerProductAssetMapping.map((e) =>
+        e ? LockerProductAssetMapping.toJSON(e) : undefined
       );
     } else {
       obj.lockerProductAssetMapping = [];
     }
     if (message.lockerTotalRewardsByAssetAppWise) {
-      obj.lockerTotalRewardsByAssetAppWise =
-        message.lockerTotalRewardsByAssetAppWise.map((e) =>
-          e ? LockerTotalRewardsByAssetAppWise.toJSON(e) : undefined
-        );
+      obj.lockerTotalRewardsByAssetAppWise = message.lockerTotalRewardsByAssetAppWise.map((e) =>
+        e ? LockerTotalRewardsByAssetAppWise.toJSON(e) : undefined
+      );
     } else {
       obj.lockerTotalRewardsByAssetAppWise = [];
     }
     if (message.lockerLookupTable) {
-      obj.lockerLookupTable = message.lockerLookupTable.map((e) =>
-        e ? LockerLookupTableData.toJSON(e) : undefined
-      );
+      obj.lockerLookupTable = message.lockerLookupTable.map((e) => e ? LockerLookupTableData.toJSON(e) : undefined);
     } else {
       obj.lockerLookupTable = [];
     }
@@ -173,68 +142,42 @@ export const GenesisState = {
     } else {
       obj.userLockerAssetMapping = [];
     }
-    message.params !== undefined &&
-      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
-    object: I
-  ): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+    return GenesisState.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
     message.lockers = object.lockers?.map((e) => Locker.fromPartial(e)) || [];
     message.lockerProductAssetMapping =
-      object.lockerProductAssetMapping?.map((e) =>
-        LockerProductAssetMapping.fromPartial(e)
-      ) || [];
+      object.lockerProductAssetMapping?.map((e) => LockerProductAssetMapping.fromPartial(e)) || [];
     message.lockerTotalRewardsByAssetAppWise =
-      object.lockerTotalRewardsByAssetAppWise?.map((e) =>
-        LockerTotalRewardsByAssetAppWise.fromPartial(e)
-      ) || [];
-    message.lockerLookupTable =
-      object.lockerLookupTable?.map((e) =>
-        LockerLookupTableData.fromPartial(e)
-      ) || [];
+      object.lockerTotalRewardsByAssetAppWise?.map((e) => LockerTotalRewardsByAssetAppWise.fromPartial(e)) || [];
+    message.lockerLookupTable = object.lockerLookupTable?.map((e) => LockerLookupTableData.fromPartial(e)) || [];
     message.userLockerAssetMapping =
-      object.userLockerAssetMapping?.map((e) =>
-        UserAppAssetLockerMapping.fromPartial(e)
-      ) || [];
-    message.params =
-      object.params !== undefined && object.params !== null
-        ? Params.fromPartial(object.params)
-        : undefined;
+      object.userLockerAssetMapping?.map((e) => UserAppAssetLockerMapping.fromPartial(e)) || [];
+    message.params = (object.params !== undefined && object.params !== null)
+      ? Params.fromPartial(object.params)
+      : undefined;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

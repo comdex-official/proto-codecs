@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
@@ -312,12 +312,6 @@ export interface Pair {
   appId: Long;
 }
 
-/** Farm Coin defines the basic implementation and meta data for the farm token. */
-export interface FarmCoin {
-  denom: string;
-  decimals: Long;
-}
-
 /** Pool defines a basic liquidity pool with no min-price and max-price. */
 export interface Pool {
   id: Long;
@@ -332,7 +326,6 @@ export interface Pool {
   creator: string;
   minPrice: string;
   maxPrice: string;
-  farmCoin?: FarmCoin;
 }
 
 /** DepositRequest defines a deposit request. */
@@ -571,70 +564,6 @@ export const Pair = {
   },
 };
 
-function createBaseFarmCoin(): FarmCoin {
-  return { denom: "", decimals: Long.UZERO };
-}
-
-export const FarmCoin = {
-  encode(message: FarmCoin, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.denom !== "") {
-      writer.uint32(10).string(message.denom);
-    }
-    if (!message.decimals.isZero()) {
-      writer.uint32(16).uint64(message.decimals);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): FarmCoin {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseFarmCoin();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.denom = reader.string();
-          break;
-        case 2:
-          message.decimals = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): FarmCoin {
-    return {
-      denom: isSet(object.denom) ? String(object.denom) : "",
-      decimals: isSet(object.decimals) ? Long.fromValue(object.decimals) : Long.UZERO,
-    };
-  },
-
-  toJSON(message: FarmCoin): unknown {
-    const obj: any = {};
-    message.denom !== undefined && (obj.denom = message.denom);
-    message.decimals !== undefined && (obj.decimals = (message.decimals || Long.UZERO).toString());
-    return obj;
-  },
-
-  create<I extends Exact<DeepPartial<FarmCoin>, I>>(base?: I): FarmCoin {
-    return FarmCoin.fromPartial(base ?? {});
-  },
-
-  fromPartial<I extends Exact<DeepPartial<FarmCoin>, I>>(object: I): FarmCoin {
-    const message = createBaseFarmCoin();
-    message.denom = object.denom ?? "";
-    message.decimals = (object.decimals !== undefined && object.decimals !== null)
-      ? Long.fromValue(object.decimals)
-      : Long.UZERO;
-    return message;
-  },
-};
-
 function createBasePool(): Pool {
   return {
     id: Long.UZERO,
@@ -649,7 +578,6 @@ function createBasePool(): Pool {
     creator: "",
     minPrice: "",
     maxPrice: "",
-    farmCoin: undefined,
   };
 }
 
@@ -690,9 +618,6 @@ export const Pool = {
     }
     if (message.maxPrice !== "") {
       writer.uint32(98).string(message.maxPrice);
-    }
-    if (message.farmCoin !== undefined) {
-      FarmCoin.encode(message.farmCoin, writer.uint32(106).fork()).ldelim();
     }
     return writer;
   },
@@ -740,9 +665,6 @@ export const Pool = {
         case 12:
           message.maxPrice = reader.string();
           break;
-        case 13:
-          message.farmCoin = FarmCoin.decode(reader, reader.uint32());
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -769,7 +691,6 @@ export const Pool = {
       creator: isSet(object.creator) ? String(object.creator) : "",
       minPrice: isSet(object.minPrice) ? String(object.minPrice) : "",
       maxPrice: isSet(object.maxPrice) ? String(object.maxPrice) : "",
-      farmCoin: isSet(object.farmCoin) ? FarmCoin.fromJSON(object.farmCoin) : undefined,
     };
   },
 
@@ -789,7 +710,6 @@ export const Pool = {
     message.creator !== undefined && (obj.creator = message.creator);
     message.minPrice !== undefined && (obj.minPrice = message.minPrice);
     message.maxPrice !== undefined && (obj.maxPrice = message.maxPrice);
-    message.farmCoin !== undefined && (obj.farmCoin = message.farmCoin ? FarmCoin.toJSON(message.farmCoin) : undefined);
     return obj;
   },
 
@@ -818,9 +738,6 @@ export const Pool = {
     message.creator = object.creator ?? "";
     message.minPrice = object.minPrice ?? "";
     message.maxPrice = object.maxPrice ?? "";
-    message.farmCoin = (object.farmCoin !== undefined && object.farmCoin !== null)
-      ? FarmCoin.fromPartial(object.farmCoin)
-      : undefined;
     return message;
   },
 };

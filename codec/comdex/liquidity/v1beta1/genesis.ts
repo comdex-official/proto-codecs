@@ -1,17 +1,17 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { GenericParams, Params } from "../../../comdex/liquidity/v1beta1/params";
+import _m0 from "protobufjs/minimal";
 import {
+  ActiveFarmer,
+  DepositRequest,
+  MMOrderIndex,
+  Order,
   Pair,
   Pool,
-  DepositRequest,
-  WithdrawRequest,
-  Order,
-  ActiveFarmer,
   QueuedFarmer,
-  MMOrderIndex,
-} from "../../../comdex/liquidity/v1beta1/liquidity";
+  WithdrawRequest,
+} from "./liquidity";
+import { GenericParams, Params } from "./params";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 
@@ -54,18 +54,12 @@ function createBaseAppGenesisState(): AppGenesisState {
 }
 
 export const AppGenesisState = {
-  encode(
-    message: AppGenesisState,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: AppGenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
     if (message.genericParams !== undefined) {
-      GenericParams.encode(
-        message.genericParams,
-        writer.uint32(18).fork()
-      ).ldelim();
+      GenericParams.encode(message.genericParams, writer.uint32(18).fork()).ldelim();
     }
     if (!message.lastPairId.isZero()) {
       writer.uint32(24).uint64(message.lastPairId);
@@ -126,32 +120,22 @@ export const AppGenesisState = {
           message.pools.push(Pool.decode(reader, reader.uint32()));
           break;
         case 7:
-          message.depositRequests.push(
-            DepositRequest.decode(reader, reader.uint32())
-          );
+          message.depositRequests.push(DepositRequest.decode(reader, reader.uint32()));
           break;
         case 8:
-          message.withdrawRequests.push(
-            WithdrawRequest.decode(reader, reader.uint32())
-          );
+          message.withdrawRequests.push(WithdrawRequest.decode(reader, reader.uint32()));
           break;
         case 9:
           message.orders.push(Order.decode(reader, reader.uint32()));
           break;
         case 10:
-          message.activeFarmers.push(
-            ActiveFarmer.decode(reader, reader.uint32())
-          );
+          message.activeFarmers.push(ActiveFarmer.decode(reader, reader.uint32()));
           break;
         case 11:
-          message.queuedFarmers.push(
-            QueuedFarmer.decode(reader, reader.uint32())
-          );
+          message.queuedFarmers.push(QueuedFarmer.decode(reader, reader.uint32()));
           break;
         case 12:
-          message.marketMakingOrderIndexes.push(
-            MMOrderIndex.decode(reader, reader.uint32())
-          );
+          message.marketMakingOrderIndexes.push(MMOrderIndex.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -164,30 +148,18 @@ export const AppGenesisState = {
   fromJSON(object: any): AppGenesisState {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      genericParams: isSet(object.genericParams)
-        ? GenericParams.fromJSON(object.genericParams)
-        : undefined,
-      lastPairId: isSet(object.lastPairId)
-        ? Long.fromValue(object.lastPairId)
-        : Long.UZERO,
-      lastPoolId: isSet(object.lastPoolId)
-        ? Long.fromValue(object.lastPoolId)
-        : Long.UZERO,
-      pairs: Array.isArray(object?.pairs)
-        ? object.pairs.map((e: any) => Pair.fromJSON(e))
-        : [],
-      pools: Array.isArray(object?.pools)
-        ? object.pools.map((e: any) => Pool.fromJSON(e))
-        : [],
+      genericParams: isSet(object.genericParams) ? GenericParams.fromJSON(object.genericParams) : undefined,
+      lastPairId: isSet(object.lastPairId) ? Long.fromValue(object.lastPairId) : Long.UZERO,
+      lastPoolId: isSet(object.lastPoolId) ? Long.fromValue(object.lastPoolId) : Long.UZERO,
+      pairs: Array.isArray(object?.pairs) ? object.pairs.map((e: any) => Pair.fromJSON(e)) : [],
+      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => Pool.fromJSON(e)) : [],
       depositRequests: Array.isArray(object?.depositRequests)
         ? object.depositRequests.map((e: any) => DepositRequest.fromJSON(e))
         : [],
       withdrawRequests: Array.isArray(object?.withdrawRequests)
         ? object.withdrawRequests.map((e: any) => WithdrawRequest.fromJSON(e))
         : [],
-      orders: Array.isArray(object?.orders)
-        ? object.orders.map((e: any) => Order.fromJSON(e))
-        : [],
+      orders: Array.isArray(object?.orders) ? object.orders.map((e: any) => Order.fromJSON(e)) : [],
       activeFarmers: Array.isArray(object?.activeFarmers)
         ? object.activeFarmers.map((e: any) => ActiveFarmer.fromJSON(e))
         : [],
@@ -195,65 +167,50 @@ export const AppGenesisState = {
         ? object.queuedFarmers.map((e: any) => QueuedFarmer.fromJSON(e))
         : [],
       marketMakingOrderIndexes: Array.isArray(object?.marketMakingOrderIndexes)
-        ? object.marketMakingOrderIndexes.map((e: any) =>
-            MMOrderIndex.fromJSON(e)
-          )
+        ? object.marketMakingOrderIndexes.map((e: any) => MMOrderIndex.fromJSON(e))
         : [],
     };
   },
 
   toJSON(message: AppGenesisState): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     message.genericParams !== undefined &&
-      (obj.genericParams = message.genericParams
-        ? GenericParams.toJSON(message.genericParams)
-        : undefined);
-    message.lastPairId !== undefined &&
-      (obj.lastPairId = (message.lastPairId || Long.UZERO).toString());
-    message.lastPoolId !== undefined &&
-      (obj.lastPoolId = (message.lastPoolId || Long.UZERO).toString());
+      (obj.genericParams = message.genericParams ? GenericParams.toJSON(message.genericParams) : undefined);
+    message.lastPairId !== undefined && (obj.lastPairId = (message.lastPairId || Long.UZERO).toString());
+    message.lastPoolId !== undefined && (obj.lastPoolId = (message.lastPoolId || Long.UZERO).toString());
     if (message.pairs) {
-      obj.pairs = message.pairs.map((e) => (e ? Pair.toJSON(e) : undefined));
+      obj.pairs = message.pairs.map((e) => e ? Pair.toJSON(e) : undefined);
     } else {
       obj.pairs = [];
     }
     if (message.pools) {
-      obj.pools = message.pools.map((e) => (e ? Pool.toJSON(e) : undefined));
+      obj.pools = message.pools.map((e) => e ? Pool.toJSON(e) : undefined);
     } else {
       obj.pools = [];
     }
     if (message.depositRequests) {
-      obj.depositRequests = message.depositRequests.map((e) =>
-        e ? DepositRequest.toJSON(e) : undefined
-      );
+      obj.depositRequests = message.depositRequests.map((e) => e ? DepositRequest.toJSON(e) : undefined);
     } else {
       obj.depositRequests = [];
     }
     if (message.withdrawRequests) {
-      obj.withdrawRequests = message.withdrawRequests.map((e) =>
-        e ? WithdrawRequest.toJSON(e) : undefined
-      );
+      obj.withdrawRequests = message.withdrawRequests.map((e) => e ? WithdrawRequest.toJSON(e) : undefined);
     } else {
       obj.withdrawRequests = [];
     }
     if (message.orders) {
-      obj.orders = message.orders.map((e) => (e ? Order.toJSON(e) : undefined));
+      obj.orders = message.orders.map((e) => e ? Order.toJSON(e) : undefined);
     } else {
       obj.orders = [];
     }
     if (message.activeFarmers) {
-      obj.activeFarmers = message.activeFarmers.map((e) =>
-        e ? ActiveFarmer.toJSON(e) : undefined
-      );
+      obj.activeFarmers = message.activeFarmers.map((e) => e ? ActiveFarmer.toJSON(e) : undefined);
     } else {
       obj.activeFarmers = [];
     }
     if (message.queuedFarmers) {
-      obj.queuedFarmers = message.queuedFarmers.map((e) =>
-        e ? QueuedFarmer.toJSON(e) : undefined
-      );
+      obj.queuedFarmers = message.queuedFarmers.map((e) => e ? QueuedFarmer.toJSON(e) : undefined);
     } else {
       obj.queuedFarmers = [];
     }
@@ -267,41 +224,30 @@ export const AppGenesisState = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<AppGenesisState>, I>>(
-    object: I
-  ): AppGenesisState {
+  create<I extends Exact<DeepPartial<AppGenesisState>, I>>(base?: I): AppGenesisState {
+    return AppGenesisState.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<AppGenesisState>, I>>(object: I): AppGenesisState {
     const message = createBaseAppGenesisState();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.genericParams =
-      object.genericParams !== undefined && object.genericParams !== null
-        ? GenericParams.fromPartial(object.genericParams)
-        : undefined;
-    message.lastPairId =
-      object.lastPairId !== undefined && object.lastPairId !== null
-        ? Long.fromValue(object.lastPairId)
-        : Long.UZERO;
-    message.lastPoolId =
-      object.lastPoolId !== undefined && object.lastPoolId !== null
-        ? Long.fromValue(object.lastPoolId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.genericParams = (object.genericParams !== undefined && object.genericParams !== null)
+      ? GenericParams.fromPartial(object.genericParams)
+      : undefined;
+    message.lastPairId = (object.lastPairId !== undefined && object.lastPairId !== null)
+      ? Long.fromValue(object.lastPairId)
+      : Long.UZERO;
+    message.lastPoolId = (object.lastPoolId !== undefined && object.lastPoolId !== null)
+      ? Long.fromValue(object.lastPoolId)
+      : Long.UZERO;
     message.pairs = object.pairs?.map((e) => Pair.fromPartial(e)) || [];
     message.pools = object.pools?.map((e) => Pool.fromPartial(e)) || [];
-    message.depositRequests =
-      object.depositRequests?.map((e) => DepositRequest.fromPartial(e)) || [];
-    message.withdrawRequests =
-      object.withdrawRequests?.map((e) => WithdrawRequest.fromPartial(e)) || [];
+    message.depositRequests = object.depositRequests?.map((e) => DepositRequest.fromPartial(e)) || [];
+    message.withdrawRequests = object.withdrawRequests?.map((e) => WithdrawRequest.fromPartial(e)) || [];
     message.orders = object.orders?.map((e) => Order.fromPartial(e)) || [];
-    message.activeFarmers =
-      object.activeFarmers?.map((e) => ActiveFarmer.fromPartial(e)) || [];
-    message.queuedFarmers =
-      object.queuedFarmers?.map((e) => QueuedFarmer.fromPartial(e)) || [];
-    message.marketMakingOrderIndexes =
-      object.marketMakingOrderIndexes?.map((e) =>
-        MMOrderIndex.fromPartial(e)
-      ) || [];
+    message.activeFarmers = object.activeFarmers?.map((e) => ActiveFarmer.fromPartial(e)) || [];
+    message.queuedFarmers = object.queuedFarmers?.map((e) => QueuedFarmer.fromPartial(e)) || [];
+    message.marketMakingOrderIndexes = object.marketMakingOrderIndexes?.map((e) => MMOrderIndex.fromPartial(e)) || [];
     return message;
   },
 };
@@ -311,10 +257,7 @@ function createBaseGenesisState(): GenesisState {
 }
 
 export const GenesisState = {
-  encode(
-    message: GenesisState,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: GenesisState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -335,9 +278,7 @@ export const GenesisState = {
           message.params = Params.decode(reader, reader.uint32());
           break;
         case 2:
-          message.appGenesisState.push(
-            AppGenesisState.decode(reader, reader.uint32())
-          );
+          message.appGenesisState.push(AppGenesisState.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -358,60 +299,40 @@ export const GenesisState = {
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {};
-    message.params !== undefined &&
-      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     if (message.appGenesisState) {
-      obj.appGenesisState = message.appGenesisState.map((e) =>
-        e ? AppGenesisState.toJSON(e) : undefined
-      );
+      obj.appGenesisState = message.appGenesisState.map((e) => e ? AppGenesisState.toJSON(e) : undefined);
     } else {
       obj.appGenesisState = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(
-    object: I
-  ): GenesisState {
+  create<I extends Exact<DeepPartial<GenesisState>, I>>(base?: I): GenesisState {
+    return GenesisState.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<GenesisState>, I>>(object: I): GenesisState {
     const message = createBaseGenesisState();
-    message.params =
-      object.params !== undefined && object.params !== null
-        ? Params.fromPartial(object.params)
-        : undefined;
-    message.appGenesisState =
-      object.appGenesisState?.map((e) => AppGenesisState.fromPartial(e)) || [];
+    message.params = (object.params !== undefined && object.params !== null)
+      ? Params.fromPartial(object.params)
+      : undefined;
+    message.appGenesisState = object.appGenesisState?.map((e) => AppGenesisState.fromPartial(e)) || [];
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
