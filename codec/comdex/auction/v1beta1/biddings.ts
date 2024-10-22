@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
@@ -61,10 +61,7 @@ function createBaseSurplusBiddings(): SurplusBiddings {
 }
 
 export const SurplusBiddings = {
-  encode(
-    message: SurplusBiddings,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: SurplusBiddings, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.biddingId.isZero()) {
       writer.uint32(8).uint64(message.biddingId);
     }
@@ -75,10 +72,7 @@ export const SurplusBiddings = {
       writer.uint32(26).string(message.auctionStatus);
     }
     if (message.auctionedCollateral !== undefined) {
-      Coin.encode(
-        message.auctionedCollateral,
-        writer.uint32(34).fork()
-      ).ldelim();
+      Coin.encode(message.auctionedCollateral, writer.uint32(34).fork()).ldelim();
     }
     if (message.bidder !== "") {
       writer.uint32(42).string(message.bidder);
@@ -87,10 +81,7 @@ export const SurplusBiddings = {
       Coin.encode(message.bid, writer.uint32(50).fork()).ldelim();
     }
     if (message.biddingTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.biddingTimestamp),
-        writer.uint32(58).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.biddingTimestamp), writer.uint32(58).fork()).ldelim();
     }
     if (message.biddingStatus !== "") {
       writer.uint32(66).string(message.biddingStatus);
@@ -130,9 +121,7 @@ export const SurplusBiddings = {
           message.bid = Coin.decode(reader, reader.uint32());
           break;
         case 7:
-          message.biddingTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.biddingTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 8:
           message.biddingStatus = reader.string();
@@ -153,94 +142,60 @@ export const SurplusBiddings = {
 
   fromJSON(object: any): SurplusBiddings {
     return {
-      biddingId: isSet(object.biddingId)
-        ? Long.fromValue(object.biddingId)
-        : Long.UZERO,
-      auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
-        : Long.UZERO,
-      auctionStatus: isSet(object.auctionStatus)
-        ? String(object.auctionStatus)
-        : "",
-      auctionedCollateral: isSet(object.auctionedCollateral)
-        ? Coin.fromJSON(object.auctionedCollateral)
-        : undefined,
+      biddingId: isSet(object.biddingId) ? Long.fromValue(object.biddingId) : Long.UZERO,
+      auctionId: isSet(object.auctionId) ? Long.fromValue(object.auctionId) : Long.UZERO,
+      auctionStatus: isSet(object.auctionStatus) ? String(object.auctionStatus) : "",
+      auctionedCollateral: isSet(object.auctionedCollateral) ? Coin.fromJSON(object.auctionedCollateral) : undefined,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       bid: isSet(object.bid) ? Coin.fromJSON(object.bid) : undefined,
-      biddingTimestamp: isSet(object.biddingTimestamp)
-        ? fromJsonTimestamp(object.biddingTimestamp)
-        : undefined,
-      biddingStatus: isSet(object.biddingStatus)
-        ? String(object.biddingStatus)
-        : "",
-      auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
-        : Long.UZERO,
+      biddingTimestamp: isSet(object.biddingTimestamp) ? fromJsonTimestamp(object.biddingTimestamp) : undefined,
+      biddingStatus: isSet(object.biddingStatus) ? String(object.biddingStatus) : "",
+      auctionMappingId: isSet(object.auctionMappingId) ? Long.fromValue(object.auctionMappingId) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
   toJSON(message: SurplusBiddings): unknown {
     const obj: any = {};
-    message.biddingId !== undefined &&
-      (obj.biddingId = (message.biddingId || Long.UZERO).toString());
-    message.auctionId !== undefined &&
-      (obj.auctionId = (message.auctionId || Long.UZERO).toString());
-    message.auctionStatus !== undefined &&
-      (obj.auctionStatus = message.auctionStatus);
+    message.biddingId !== undefined && (obj.biddingId = (message.biddingId || Long.UZERO).toString());
+    message.auctionId !== undefined && (obj.auctionId = (message.auctionId || Long.UZERO).toString());
+    message.auctionStatus !== undefined && (obj.auctionStatus = message.auctionStatus);
     message.auctionedCollateral !== undefined &&
-      (obj.auctionedCollateral = message.auctionedCollateral
-        ? Coin.toJSON(message.auctionedCollateral)
-        : undefined);
+      (obj.auctionedCollateral = message.auctionedCollateral ? Coin.toJSON(message.auctionedCollateral) : undefined);
     message.bidder !== undefined && (obj.bidder = message.bidder);
-    message.bid !== undefined &&
-      (obj.bid = message.bid ? Coin.toJSON(message.bid) : undefined);
-    message.biddingTimestamp !== undefined &&
-      (obj.biddingTimestamp = message.biddingTimestamp.toISOString());
-    message.biddingStatus !== undefined &&
-      (obj.biddingStatus = message.biddingStatus);
+    message.bid !== undefined && (obj.bid = message.bid ? Coin.toJSON(message.bid) : undefined);
+    message.biddingTimestamp !== undefined && (obj.biddingTimestamp = message.biddingTimestamp.toISOString());
+    message.biddingStatus !== undefined && (obj.biddingStatus = message.biddingStatus);
     message.auctionMappingId !== undefined &&
-      (obj.auctionMappingId = (
-        message.auctionMappingId || Long.UZERO
-      ).toString());
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+      (obj.auctionMappingId = (message.auctionMappingId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SurplusBiddings>, I>>(
-    object: I
-  ): SurplusBiddings {
+  create<I extends Exact<DeepPartial<SurplusBiddings>, I>>(base?: I): SurplusBiddings {
+    return SurplusBiddings.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<SurplusBiddings>, I>>(object: I): SurplusBiddings {
     const message = createBaseSurplusBiddings();
-    message.biddingId =
-      object.biddingId !== undefined && object.biddingId !== null
-        ? Long.fromValue(object.biddingId)
-        : Long.UZERO;
-    message.auctionId =
-      object.auctionId !== undefined && object.auctionId !== null
-        ? Long.fromValue(object.auctionId)
-        : Long.UZERO;
+    message.biddingId = (object.biddingId !== undefined && object.biddingId !== null)
+      ? Long.fromValue(object.biddingId)
+      : Long.UZERO;
+    message.auctionId = (object.auctionId !== undefined && object.auctionId !== null)
+      ? Long.fromValue(object.auctionId)
+      : Long.UZERO;
     message.auctionStatus = object.auctionStatus ?? "";
-    message.auctionedCollateral =
-      object.auctionedCollateral !== undefined &&
-      object.auctionedCollateral !== null
-        ? Coin.fromPartial(object.auctionedCollateral)
-        : undefined;
+    message.auctionedCollateral = (object.auctionedCollateral !== undefined && object.auctionedCollateral !== null)
+      ? Coin.fromPartial(object.auctionedCollateral)
+      : undefined;
     message.bidder = object.bidder ?? "";
-    message.bid =
-      object.bid !== undefined && object.bid !== null
-        ? Coin.fromPartial(object.bid)
-        : undefined;
+    message.bid = (object.bid !== undefined && object.bid !== null) ? Coin.fromPartial(object.bid) : undefined;
     message.biddingTimestamp = object.biddingTimestamp ?? undefined;
     message.biddingStatus = object.biddingStatus ?? "";
-    message.auctionMappingId =
-      object.auctionMappingId !== undefined && object.auctionMappingId !== null
-        ? Long.fromValue(object.auctionMappingId)
-        : Long.UZERO;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.auctionMappingId = (object.auctionMappingId !== undefined && object.auctionMappingId !== null)
+      ? Long.fromValue(object.auctionMappingId)
+      : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
@@ -261,10 +216,7 @@ function createBaseDebtBiddings(): DebtBiddings {
 }
 
 export const DebtBiddings = {
-  encode(
-    message: DebtBiddings,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: DebtBiddings, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.biddingId.isZero()) {
       writer.uint32(8).uint64(message.biddingId);
     }
@@ -284,10 +236,7 @@ export const DebtBiddings = {
       Coin.encode(message.bid, writer.uint32(50).fork()).ldelim();
     }
     if (message.biddingTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.biddingTimestamp),
-        writer.uint32(58).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.biddingTimestamp), writer.uint32(58).fork()).ldelim();
     }
     if (message.biddingStatus !== "") {
       writer.uint32(66).string(message.biddingStatus);
@@ -327,9 +276,7 @@ export const DebtBiddings = {
           message.bid = Coin.decode(reader, reader.uint32());
           break;
         case 7:
-          message.biddingTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.biddingTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 8:
           message.biddingStatus = reader.string();
@@ -350,93 +297,60 @@ export const DebtBiddings = {
 
   fromJSON(object: any): DebtBiddings {
     return {
-      biddingId: isSet(object.biddingId)
-        ? Long.fromValue(object.biddingId)
-        : Long.UZERO,
-      auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
-        : Long.UZERO,
-      auctionStatus: isSet(object.auctionStatus)
-        ? String(object.auctionStatus)
-        : "",
-      outflowTokens: isSet(object.outflowTokens)
-        ? Coin.fromJSON(object.outflowTokens)
-        : undefined,
+      biddingId: isSet(object.biddingId) ? Long.fromValue(object.biddingId) : Long.UZERO,
+      auctionId: isSet(object.auctionId) ? Long.fromValue(object.auctionId) : Long.UZERO,
+      auctionStatus: isSet(object.auctionStatus) ? String(object.auctionStatus) : "",
+      outflowTokens: isSet(object.outflowTokens) ? Coin.fromJSON(object.outflowTokens) : undefined,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
       bid: isSet(object.bid) ? Coin.fromJSON(object.bid) : undefined,
-      biddingTimestamp: isSet(object.biddingTimestamp)
-        ? fromJsonTimestamp(object.biddingTimestamp)
-        : undefined,
-      biddingStatus: isSet(object.biddingStatus)
-        ? String(object.biddingStatus)
-        : "",
-      auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
-        : Long.UZERO,
+      biddingTimestamp: isSet(object.biddingTimestamp) ? fromJsonTimestamp(object.biddingTimestamp) : undefined,
+      biddingStatus: isSet(object.biddingStatus) ? String(object.biddingStatus) : "",
+      auctionMappingId: isSet(object.auctionMappingId) ? Long.fromValue(object.auctionMappingId) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
   toJSON(message: DebtBiddings): unknown {
     const obj: any = {};
-    message.biddingId !== undefined &&
-      (obj.biddingId = (message.biddingId || Long.UZERO).toString());
-    message.auctionId !== undefined &&
-      (obj.auctionId = (message.auctionId || Long.UZERO).toString());
-    message.auctionStatus !== undefined &&
-      (obj.auctionStatus = message.auctionStatus);
+    message.biddingId !== undefined && (obj.biddingId = (message.biddingId || Long.UZERO).toString());
+    message.auctionId !== undefined && (obj.auctionId = (message.auctionId || Long.UZERO).toString());
+    message.auctionStatus !== undefined && (obj.auctionStatus = message.auctionStatus);
     message.outflowTokens !== undefined &&
-      (obj.outflowTokens = message.outflowTokens
-        ? Coin.toJSON(message.outflowTokens)
-        : undefined);
+      (obj.outflowTokens = message.outflowTokens ? Coin.toJSON(message.outflowTokens) : undefined);
     message.bidder !== undefined && (obj.bidder = message.bidder);
-    message.bid !== undefined &&
-      (obj.bid = message.bid ? Coin.toJSON(message.bid) : undefined);
-    message.biddingTimestamp !== undefined &&
-      (obj.biddingTimestamp = message.biddingTimestamp.toISOString());
-    message.biddingStatus !== undefined &&
-      (obj.biddingStatus = message.biddingStatus);
+    message.bid !== undefined && (obj.bid = message.bid ? Coin.toJSON(message.bid) : undefined);
+    message.biddingTimestamp !== undefined && (obj.biddingTimestamp = message.biddingTimestamp.toISOString());
+    message.biddingStatus !== undefined && (obj.biddingStatus = message.biddingStatus);
     message.auctionMappingId !== undefined &&
-      (obj.auctionMappingId = (
-        message.auctionMappingId || Long.UZERO
-      ).toString());
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+      (obj.auctionMappingId = (message.auctionMappingId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DebtBiddings>, I>>(
-    object: I
-  ): DebtBiddings {
+  create<I extends Exact<DeepPartial<DebtBiddings>, I>>(base?: I): DebtBiddings {
+    return DebtBiddings.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DebtBiddings>, I>>(object: I): DebtBiddings {
     const message = createBaseDebtBiddings();
-    message.biddingId =
-      object.biddingId !== undefined && object.biddingId !== null
-        ? Long.fromValue(object.biddingId)
-        : Long.UZERO;
-    message.auctionId =
-      object.auctionId !== undefined && object.auctionId !== null
-        ? Long.fromValue(object.auctionId)
-        : Long.UZERO;
+    message.biddingId = (object.biddingId !== undefined && object.biddingId !== null)
+      ? Long.fromValue(object.biddingId)
+      : Long.UZERO;
+    message.auctionId = (object.auctionId !== undefined && object.auctionId !== null)
+      ? Long.fromValue(object.auctionId)
+      : Long.UZERO;
     message.auctionStatus = object.auctionStatus ?? "";
-    message.outflowTokens =
-      object.outflowTokens !== undefined && object.outflowTokens !== null
-        ? Coin.fromPartial(object.outflowTokens)
-        : undefined;
+    message.outflowTokens = (object.outflowTokens !== undefined && object.outflowTokens !== null)
+      ? Coin.fromPartial(object.outflowTokens)
+      : undefined;
     message.bidder = object.bidder ?? "";
-    message.bid =
-      object.bid !== undefined && object.bid !== null
-        ? Coin.fromPartial(object.bid)
-        : undefined;
+    message.bid = (object.bid !== undefined && object.bid !== null) ? Coin.fromPartial(object.bid) : undefined;
     message.biddingTimestamp = object.biddingTimestamp ?? undefined;
     message.biddingStatus = object.biddingStatus ?? "";
-    message.auctionMappingId =
-      object.auctionMappingId !== undefined && object.auctionMappingId !== null
-        ? Long.fromValue(object.auctionMappingId)
-        : Long.UZERO;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.auctionMappingId = (object.auctionMappingId !== undefined && object.auctionMappingId !== null)
+      ? Long.fromValue(object.auctionMappingId)
+      : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
@@ -457,10 +371,7 @@ function createBaseDutchBiddings(): DutchBiddings {
 }
 
 export const DutchBiddings = {
-  encode(
-    message: DutchBiddings,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: DutchBiddings, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.biddingId.isZero()) {
       writer.uint32(8).uint64(message.biddingId);
     }
@@ -471,10 +382,7 @@ export const DutchBiddings = {
       writer.uint32(26).string(message.auctionStatus);
     }
     if (message.outflowTokenAmount !== undefined) {
-      Coin.encode(
-        message.outflowTokenAmount,
-        writer.uint32(34).fork()
-      ).ldelim();
+      Coin.encode(message.outflowTokenAmount, writer.uint32(34).fork()).ldelim();
     }
     if (message.inflowTokenAmount !== undefined) {
       Coin.encode(message.inflowTokenAmount, writer.uint32(42).fork()).ldelim();
@@ -483,10 +391,7 @@ export const DutchBiddings = {
       writer.uint32(50).string(message.bidder);
     }
     if (message.biddingTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.biddingTimestamp),
-        writer.uint32(58).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.biddingTimestamp), writer.uint32(58).fork()).ldelim();
     }
     if (message.biddingStatus !== "") {
       writer.uint32(66).string(message.biddingStatus);
@@ -526,9 +431,7 @@ export const DutchBiddings = {
           message.bidder = reader.string();
           break;
         case 7:
-          message.biddingTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.biddingTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 8:
           message.biddingStatus = reader.string();
@@ -549,131 +452,78 @@ export const DutchBiddings = {
 
   fromJSON(object: any): DutchBiddings {
     return {
-      biddingId: isSet(object.biddingId)
-        ? Long.fromValue(object.biddingId)
-        : Long.UZERO,
-      auctionId: isSet(object.auctionId)
-        ? Long.fromValue(object.auctionId)
-        : Long.UZERO,
-      auctionStatus: isSet(object.auctionStatus)
-        ? String(object.auctionStatus)
-        : "",
-      outflowTokenAmount: isSet(object.outflowTokenAmount)
-        ? Coin.fromJSON(object.outflowTokenAmount)
-        : undefined,
-      inflowTokenAmount: isSet(object.inflowTokenAmount)
-        ? Coin.fromJSON(object.inflowTokenAmount)
-        : undefined,
+      biddingId: isSet(object.biddingId) ? Long.fromValue(object.biddingId) : Long.UZERO,
+      auctionId: isSet(object.auctionId) ? Long.fromValue(object.auctionId) : Long.UZERO,
+      auctionStatus: isSet(object.auctionStatus) ? String(object.auctionStatus) : "",
+      outflowTokenAmount: isSet(object.outflowTokenAmount) ? Coin.fromJSON(object.outflowTokenAmount) : undefined,
+      inflowTokenAmount: isSet(object.inflowTokenAmount) ? Coin.fromJSON(object.inflowTokenAmount) : undefined,
       bidder: isSet(object.bidder) ? String(object.bidder) : "",
-      biddingTimestamp: isSet(object.biddingTimestamp)
-        ? fromJsonTimestamp(object.biddingTimestamp)
-        : undefined,
-      biddingStatus: isSet(object.biddingStatus)
-        ? String(object.biddingStatus)
-        : "",
-      auctionMappingId: isSet(object.auctionMappingId)
-        ? Long.fromValue(object.auctionMappingId)
-        : Long.UZERO,
+      biddingTimestamp: isSet(object.biddingTimestamp) ? fromJsonTimestamp(object.biddingTimestamp) : undefined,
+      biddingStatus: isSet(object.biddingStatus) ? String(object.biddingStatus) : "",
+      auctionMappingId: isSet(object.auctionMappingId) ? Long.fromValue(object.auctionMappingId) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
     };
   },
 
   toJSON(message: DutchBiddings): unknown {
     const obj: any = {};
-    message.biddingId !== undefined &&
-      (obj.biddingId = (message.biddingId || Long.UZERO).toString());
-    message.auctionId !== undefined &&
-      (obj.auctionId = (message.auctionId || Long.UZERO).toString());
-    message.auctionStatus !== undefined &&
-      (obj.auctionStatus = message.auctionStatus);
+    message.biddingId !== undefined && (obj.biddingId = (message.biddingId || Long.UZERO).toString());
+    message.auctionId !== undefined && (obj.auctionId = (message.auctionId || Long.UZERO).toString());
+    message.auctionStatus !== undefined && (obj.auctionStatus = message.auctionStatus);
     message.outflowTokenAmount !== undefined &&
-      (obj.outflowTokenAmount = message.outflowTokenAmount
-        ? Coin.toJSON(message.outflowTokenAmount)
-        : undefined);
+      (obj.outflowTokenAmount = message.outflowTokenAmount ? Coin.toJSON(message.outflowTokenAmount) : undefined);
     message.inflowTokenAmount !== undefined &&
-      (obj.inflowTokenAmount = message.inflowTokenAmount
-        ? Coin.toJSON(message.inflowTokenAmount)
-        : undefined);
+      (obj.inflowTokenAmount = message.inflowTokenAmount ? Coin.toJSON(message.inflowTokenAmount) : undefined);
     message.bidder !== undefined && (obj.bidder = message.bidder);
-    message.biddingTimestamp !== undefined &&
-      (obj.biddingTimestamp = message.biddingTimestamp.toISOString());
-    message.biddingStatus !== undefined &&
-      (obj.biddingStatus = message.biddingStatus);
+    message.biddingTimestamp !== undefined && (obj.biddingTimestamp = message.biddingTimestamp.toISOString());
+    message.biddingStatus !== undefined && (obj.biddingStatus = message.biddingStatus);
     message.auctionMappingId !== undefined &&
-      (obj.auctionMappingId = (
-        message.auctionMappingId || Long.UZERO
-      ).toString());
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+      (obj.auctionMappingId = (message.auctionMappingId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DutchBiddings>, I>>(
-    object: I
-  ): DutchBiddings {
+  create<I extends Exact<DeepPartial<DutchBiddings>, I>>(base?: I): DutchBiddings {
+    return DutchBiddings.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<DutchBiddings>, I>>(object: I): DutchBiddings {
     const message = createBaseDutchBiddings();
-    message.biddingId =
-      object.biddingId !== undefined && object.biddingId !== null
-        ? Long.fromValue(object.biddingId)
-        : Long.UZERO;
-    message.auctionId =
-      object.auctionId !== undefined && object.auctionId !== null
-        ? Long.fromValue(object.auctionId)
-        : Long.UZERO;
+    message.biddingId = (object.biddingId !== undefined && object.biddingId !== null)
+      ? Long.fromValue(object.biddingId)
+      : Long.UZERO;
+    message.auctionId = (object.auctionId !== undefined && object.auctionId !== null)
+      ? Long.fromValue(object.auctionId)
+      : Long.UZERO;
     message.auctionStatus = object.auctionStatus ?? "";
-    message.outflowTokenAmount =
-      object.outflowTokenAmount !== undefined &&
-      object.outflowTokenAmount !== null
-        ? Coin.fromPartial(object.outflowTokenAmount)
-        : undefined;
-    message.inflowTokenAmount =
-      object.inflowTokenAmount !== undefined &&
-      object.inflowTokenAmount !== null
-        ? Coin.fromPartial(object.inflowTokenAmount)
-        : undefined;
+    message.outflowTokenAmount = (object.outflowTokenAmount !== undefined && object.outflowTokenAmount !== null)
+      ? Coin.fromPartial(object.outflowTokenAmount)
+      : undefined;
+    message.inflowTokenAmount = (object.inflowTokenAmount !== undefined && object.inflowTokenAmount !== null)
+      ? Coin.fromPartial(object.inflowTokenAmount)
+      : undefined;
     message.bidder = object.bidder ?? "";
     message.biddingTimestamp = object.biddingTimestamp ?? undefined;
     message.biddingStatus = object.biddingStatus ?? "";
-    message.auctionMappingId =
-      object.auctionMappingId !== undefined && object.auctionMappingId !== null
-        ? Long.fromValue(object.auctionMappingId)
-        : Long.UZERO;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.auctionMappingId = (object.auctionMappingId !== undefined && object.auctionMappingId !== null)
+      ? Long.fromValue(object.auctionMappingId)
+      : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

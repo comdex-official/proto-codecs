@@ -1,6 +1,6 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import { Timestamp } from "../../../google/protobuf/timestamp";
 
@@ -104,10 +104,7 @@ function createBaseInternalRewards(): InternalRewards {
 }
 
 export const InternalRewards = {
-  encode(
-    message: InternalRewards,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: InternalRewards, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appMappingId.isZero()) {
       writer.uint32(8).uint64(message.appMappingId);
     }
@@ -140,53 +137,40 @@ export const InternalRewards = {
 
   fromJSON(object: any): InternalRewards {
     return {
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
     };
   },
 
   toJSON(message: InternalRewards): unknown {
     const obj: any = {};
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<InternalRewards>, I>>(
-    object: I
-  ): InternalRewards {
+  create<I extends Exact<DeepPartial<InternalRewards>, I>>(base?: I): InternalRewards {
+    return InternalRewards.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<InternalRewards>, I>>(object: I): InternalRewards {
     const message = createBaseInternalRewards();
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     return message;
   },
 };
 
 function createBaseLockerRewardsTracker(): LockerRewardsTracker {
-  return {
-    lockerId: Long.UZERO,
-    appMappingId: Long.UZERO,
-    rewardsAccumulated: "",
-  };
+  return { lockerId: Long.UZERO, appMappingId: Long.UZERO, rewardsAccumulated: "" };
 }
 
 export const LockerRewardsTracker = {
-  encode(
-    message: LockerRewardsTracker,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: LockerRewardsTracker, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.lockerId.isZero()) {
       writer.uint32(8).uint64(message.lockerId);
     }
@@ -199,10 +183,7 @@ export const LockerRewardsTracker = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): LockerRewardsTracker {
+  decode(input: _m0.Reader | Uint8Array, length?: number): LockerRewardsTracker {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLockerRewardsTracker();
@@ -228,59 +209,43 @@ export const LockerRewardsTracker = {
 
   fromJSON(object: any): LockerRewardsTracker {
     return {
-      lockerId: isSet(object.lockerId)
-        ? Long.fromValue(object.lockerId)
-        : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
-      rewardsAccumulated: isSet(object.rewardsAccumulated)
-        ? String(object.rewardsAccumulated)
-        : "",
+      lockerId: isSet(object.lockerId) ? Long.fromValue(object.lockerId) : Long.UZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
+      rewardsAccumulated: isSet(object.rewardsAccumulated) ? String(object.rewardsAccumulated) : "",
     };
   },
 
   toJSON(message: LockerRewardsTracker): unknown {
     const obj: any = {};
-    message.lockerId !== undefined &&
-      (obj.lockerId = (message.lockerId || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    message.rewardsAccumulated !== undefined &&
-      (obj.rewardsAccumulated = message.rewardsAccumulated);
+    message.lockerId !== undefined && (obj.lockerId = (message.lockerId || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.rewardsAccumulated !== undefined && (obj.rewardsAccumulated = message.rewardsAccumulated);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LockerRewardsTracker>, I>>(
-    object: I
-  ): LockerRewardsTracker {
+  create<I extends Exact<DeepPartial<LockerRewardsTracker>, I>>(base?: I): LockerRewardsTracker {
+    return LockerRewardsTracker.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LockerRewardsTracker>, I>>(object: I): LockerRewardsTracker {
     const message = createBaseLockerRewardsTracker();
-    message.lockerId =
-      object.lockerId !== undefined && object.lockerId !== null
-        ? Long.fromValue(object.lockerId)
-        : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
+    message.lockerId = (object.lockerId !== undefined && object.lockerId !== null)
+      ? Long.fromValue(object.lockerId)
+      : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
     message.rewardsAccumulated = object.rewardsAccumulated ?? "";
     return message;
   },
 };
 
 function createBaseVaultInterestTracker(): VaultInterestTracker {
-  return {
-    vaultId: Long.UZERO,
-    appMappingId: Long.UZERO,
-    interestAccumulated: "",
-  };
+  return { vaultId: Long.UZERO, appMappingId: Long.UZERO, interestAccumulated: "" };
 }
 
 export const VaultInterestTracker = {
-  encode(
-    message: VaultInterestTracker,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: VaultInterestTracker, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.vaultId.isZero()) {
       writer.uint32(8).uint64(message.vaultId);
     }
@@ -293,10 +258,7 @@ export const VaultInterestTracker = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): VaultInterestTracker {
+  decode(input: _m0.Reader | Uint8Array, length?: number): VaultInterestTracker {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVaultInterestTracker();
@@ -322,41 +284,32 @@ export const VaultInterestTracker = {
 
   fromJSON(object: any): VaultInterestTracker {
     return {
-      vaultId: isSet(object.vaultId)
-        ? Long.fromValue(object.vaultId)
-        : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
-      interestAccumulated: isSet(object.interestAccumulated)
-        ? String(object.interestAccumulated)
-        : "",
+      vaultId: isSet(object.vaultId) ? Long.fromValue(object.vaultId) : Long.UZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
+      interestAccumulated: isSet(object.interestAccumulated) ? String(object.interestAccumulated) : "",
     };
   },
 
   toJSON(message: VaultInterestTracker): unknown {
     const obj: any = {};
-    message.vaultId !== undefined &&
-      (obj.vaultId = (message.vaultId || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    message.interestAccumulated !== undefined &&
-      (obj.interestAccumulated = message.interestAccumulated);
+    message.vaultId !== undefined && (obj.vaultId = (message.vaultId || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.interestAccumulated !== undefined && (obj.interestAccumulated = message.interestAccumulated);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<VaultInterestTracker>, I>>(
-    object: I
-  ): VaultInterestTracker {
+  create<I extends Exact<DeepPartial<VaultInterestTracker>, I>>(base?: I): VaultInterestTracker {
+    return VaultInterestTracker.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<VaultInterestTracker>, I>>(object: I): VaultInterestTracker {
     const message = createBaseVaultInterestTracker();
-    message.vaultId =
-      object.vaultId !== undefined && object.vaultId !== null
-        ? Long.fromValue(object.vaultId)
-        : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
+    message.vaultId = (object.vaultId !== undefined && object.vaultId !== null)
+      ? Long.fromValue(object.vaultId)
+      : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
     message.interestAccumulated = object.interestAccumulated ?? "";
     return message;
   },
@@ -380,10 +333,7 @@ function createBaseLockerExternalRewards(): LockerExternalRewards {
 }
 
 export const LockerExternalRewards = {
-  encode(
-    message: LockerExternalRewards,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: LockerExternalRewards, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -409,16 +359,10 @@ export const LockerExternalRewards = {
       writer.uint32(66).string(message.depositor);
     }
     if (message.startTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.startTimestamp),
-        writer.uint32(74).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.startTimestamp), writer.uint32(74).fork()).ldelim();
     }
     if (message.endTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.endTimestamp),
-        writer.uint32(82).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.endTimestamp), writer.uint32(82).fork()).ldelim();
     }
     if (!message.minLockupTimeSeconds.isZero()) {
       writer.uint32(88).int64(message.minLockupTimeSeconds);
@@ -429,10 +373,7 @@ export const LockerExternalRewards = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): LockerExternalRewards {
+  decode(input: _m0.Reader | Uint8Array, length?: number): LockerExternalRewards {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLockerExternalRewards();
@@ -464,14 +405,10 @@ export const LockerExternalRewards = {
           message.depositor = reader.string();
           break;
         case 9:
-          message.startTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.startTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 10:
-          message.endTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.endTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 11:
           message.minLockupTimeSeconds = reader.int64() as Long;
@@ -490,112 +427,74 @@ export const LockerExternalRewards = {
   fromJSON(object: any): LockerExternalRewards {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-      totalRewards: isSet(object.totalRewards)
-        ? Coin.fromJSON(object.totalRewards)
-        : undefined,
-      durationDays: isSet(object.durationDays)
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
+      totalRewards: isSet(object.totalRewards) ? Coin.fromJSON(object.totalRewards) : undefined,
+      durationDays: isSet(object.durationDays) ? Long.fromValue(object.durationDays) : Long.ZERO,
       isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
-      availableRewards: isSet(object.availableRewards)
-        ? Coin.fromJSON(object.availableRewards)
-        : undefined,
+      availableRewards: isSet(object.availableRewards) ? Coin.fromJSON(object.availableRewards) : undefined,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      startTimestamp: isSet(object.startTimestamp)
-        ? fromJsonTimestamp(object.startTimestamp)
-        : undefined,
-      endTimestamp: isSet(object.endTimestamp)
-        ? fromJsonTimestamp(object.endTimestamp)
-        : undefined,
+      startTimestamp: isSet(object.startTimestamp) ? fromJsonTimestamp(object.startTimestamp) : undefined,
+      endTimestamp: isSet(object.endTimestamp) ? fromJsonTimestamp(object.endTimestamp) : undefined,
       minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
         ? Long.fromValue(object.minLockupTimeSeconds)
         : Long.ZERO,
-      epochId: isSet(object.epochId)
-        ? Long.fromValue(object.epochId)
-        : Long.UZERO,
+      epochId: isSet(object.epochId) ? Long.fromValue(object.epochId) : Long.UZERO,
     };
   },
 
   toJSON(message: LockerExternalRewards): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.totalRewards !== undefined &&
-      (obj.totalRewards = message.totalRewards
-        ? Coin.toJSON(message.totalRewards)
-        : undefined);
-    message.durationDays !== undefined &&
-      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+      (obj.totalRewards = message.totalRewards ? Coin.toJSON(message.totalRewards) : undefined);
+    message.durationDays !== undefined && (obj.durationDays = (message.durationDays || Long.ZERO).toString());
     message.isActive !== undefined && (obj.isActive = message.isActive);
     message.availableRewards !== undefined &&
-      (obj.availableRewards = message.availableRewards
-        ? Coin.toJSON(message.availableRewards)
-        : undefined);
+      (obj.availableRewards = message.availableRewards ? Coin.toJSON(message.availableRewards) : undefined);
     message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.startTimestamp !== undefined &&
-      (obj.startTimestamp = message.startTimestamp.toISOString());
-    message.endTimestamp !== undefined &&
-      (obj.endTimestamp = message.endTimestamp.toISOString());
+    message.startTimestamp !== undefined && (obj.startTimestamp = message.startTimestamp.toISOString());
+    message.endTimestamp !== undefined && (obj.endTimestamp = message.endTimestamp.toISOString());
     message.minLockupTimeSeconds !== undefined &&
-      (obj.minLockupTimeSeconds = (
-        message.minLockupTimeSeconds || Long.ZERO
-      ).toString());
-    message.epochId !== undefined &&
-      (obj.epochId = (message.epochId || Long.UZERO).toString());
+      (obj.minLockupTimeSeconds = (message.minLockupTimeSeconds || Long.ZERO).toString());
+    message.epochId !== undefined && (obj.epochId = (message.epochId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LockerExternalRewards>, I>>(
-    object: I
-  ): LockerExternalRewards {
+  create<I extends Exact<DeepPartial<LockerExternalRewards>, I>>(base?: I): LockerExternalRewards {
+    return LockerExternalRewards.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LockerExternalRewards>, I>>(object: I): LockerExternalRewards {
     const message = createBaseLockerExternalRewards();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.totalRewards =
-      object.totalRewards !== undefined && object.totalRewards !== null
-        ? Coin.fromPartial(object.totalRewards)
-        : undefined;
-    message.durationDays =
-      object.durationDays !== undefined && object.durationDays !== null
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.totalRewards = (object.totalRewards !== undefined && object.totalRewards !== null)
+      ? Coin.fromPartial(object.totalRewards)
+      : undefined;
+    message.durationDays = (object.durationDays !== undefined && object.durationDays !== null)
+      ? Long.fromValue(object.durationDays)
+      : Long.ZERO;
     message.isActive = object.isActive ?? false;
-    message.availableRewards =
-      object.availableRewards !== undefined && object.availableRewards !== null
-        ? Coin.fromPartial(object.availableRewards)
-        : undefined;
+    message.availableRewards = (object.availableRewards !== undefined && object.availableRewards !== null)
+      ? Coin.fromPartial(object.availableRewards)
+      : undefined;
     message.depositor = object.depositor ?? "";
     message.startTimestamp = object.startTimestamp ?? undefined;
     message.endTimestamp = object.endTimestamp ?? undefined;
-    message.minLockupTimeSeconds =
-      object.minLockupTimeSeconds !== undefined &&
-      object.minLockupTimeSeconds !== null
-        ? Long.fromValue(object.minLockupTimeSeconds)
-        : Long.ZERO;
-    message.epochId =
-      object.epochId !== undefined && object.epochId !== null
-        ? Long.fromValue(object.epochId)
-        : Long.UZERO;
+    message.minLockupTimeSeconds = (object.minLockupTimeSeconds !== undefined && object.minLockupTimeSeconds !== null)
+      ? Long.fromValue(object.minLockupTimeSeconds)
+      : Long.ZERO;
+    message.epochId = (object.epochId !== undefined && object.epochId !== null)
+      ? Long.fromValue(object.epochId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -618,10 +517,7 @@ function createBaseVaultExternalRewards(): VaultExternalRewards {
 }
 
 export const VaultExternalRewards = {
-  encode(
-    message: VaultExternalRewards,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: VaultExternalRewards, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -647,16 +543,10 @@ export const VaultExternalRewards = {
       writer.uint32(66).string(message.depositor);
     }
     if (message.startTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.startTimestamp),
-        writer.uint32(74).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.startTimestamp), writer.uint32(74).fork()).ldelim();
     }
     if (message.endTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.endTimestamp),
-        writer.uint32(82).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.endTimestamp), writer.uint32(82).fork()).ldelim();
     }
     if (!message.minLockupTimeSeconds.isZero()) {
       writer.uint32(88).int64(message.minLockupTimeSeconds);
@@ -667,10 +557,7 @@ export const VaultExternalRewards = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): VaultExternalRewards {
+  decode(input: _m0.Reader | Uint8Array, length?: number): VaultExternalRewards {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVaultExternalRewards();
@@ -702,14 +589,10 @@ export const VaultExternalRewards = {
           message.depositor = reader.string();
           break;
         case 9:
-          message.startTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.startTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 10:
-          message.endTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.endTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 11:
           message.minLockupTimeSeconds = reader.int64() as Long;
@@ -728,130 +611,84 @@ export const VaultExternalRewards = {
   fromJSON(object: any): VaultExternalRewards {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
-      extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
-        : Long.UZERO,
-      totalRewards: isSet(object.totalRewards)
-        ? Coin.fromJSON(object.totalRewards)
-        : undefined,
-      durationDays: isSet(object.durationDays)
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
+      extendedPairId: isSet(object.extendedPairId) ? Long.fromValue(object.extendedPairId) : Long.UZERO,
+      totalRewards: isSet(object.totalRewards) ? Coin.fromJSON(object.totalRewards) : undefined,
+      durationDays: isSet(object.durationDays) ? Long.fromValue(object.durationDays) : Long.ZERO,
       isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
-      availableRewards: isSet(object.availableRewards)
-        ? Coin.fromJSON(object.availableRewards)
-        : undefined,
+      availableRewards: isSet(object.availableRewards) ? Coin.fromJSON(object.availableRewards) : undefined,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      startTimestamp: isSet(object.startTimestamp)
-        ? fromJsonTimestamp(object.startTimestamp)
-        : undefined,
-      endTimestamp: isSet(object.endTimestamp)
-        ? fromJsonTimestamp(object.endTimestamp)
-        : undefined,
+      startTimestamp: isSet(object.startTimestamp) ? fromJsonTimestamp(object.startTimestamp) : undefined,
+      endTimestamp: isSet(object.endTimestamp) ? fromJsonTimestamp(object.endTimestamp) : undefined,
       minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
         ? Long.fromValue(object.minLockupTimeSeconds)
         : Long.ZERO,
-      epochId: isSet(object.epochId)
-        ? Long.fromValue(object.epochId)
-        : Long.UZERO,
+      epochId: isSet(object.epochId) ? Long.fromValue(object.epochId) : Long.UZERO,
     };
   },
 
   toJSON(message: VaultExternalRewards): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    message.extendedPairId !== undefined &&
-      (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.extendedPairId !== undefined && (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
     message.totalRewards !== undefined &&
-      (obj.totalRewards = message.totalRewards
-        ? Coin.toJSON(message.totalRewards)
-        : undefined);
-    message.durationDays !== undefined &&
-      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+      (obj.totalRewards = message.totalRewards ? Coin.toJSON(message.totalRewards) : undefined);
+    message.durationDays !== undefined && (obj.durationDays = (message.durationDays || Long.ZERO).toString());
     message.isActive !== undefined && (obj.isActive = message.isActive);
     message.availableRewards !== undefined &&
-      (obj.availableRewards = message.availableRewards
-        ? Coin.toJSON(message.availableRewards)
-        : undefined);
+      (obj.availableRewards = message.availableRewards ? Coin.toJSON(message.availableRewards) : undefined);
     message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.startTimestamp !== undefined &&
-      (obj.startTimestamp = message.startTimestamp.toISOString());
-    message.endTimestamp !== undefined &&
-      (obj.endTimestamp = message.endTimestamp.toISOString());
+    message.startTimestamp !== undefined && (obj.startTimestamp = message.startTimestamp.toISOString());
+    message.endTimestamp !== undefined && (obj.endTimestamp = message.endTimestamp.toISOString());
     message.minLockupTimeSeconds !== undefined &&
-      (obj.minLockupTimeSeconds = (
-        message.minLockupTimeSeconds || Long.ZERO
-      ).toString());
-    message.epochId !== undefined &&
-      (obj.epochId = (message.epochId || Long.UZERO).toString());
+      (obj.minLockupTimeSeconds = (message.minLockupTimeSeconds || Long.ZERO).toString());
+    message.epochId !== undefined && (obj.epochId = (message.epochId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<VaultExternalRewards>, I>>(
-    object: I
-  ): VaultExternalRewards {
+  create<I extends Exact<DeepPartial<VaultExternalRewards>, I>>(base?: I): VaultExternalRewards {
+    return VaultExternalRewards.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<VaultExternalRewards>, I>>(object: I): VaultExternalRewards {
     const message = createBaseVaultExternalRewards();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
-    message.extendedPairId =
-      object.extendedPairId !== undefined && object.extendedPairId !== null
-        ? Long.fromValue(object.extendedPairId)
-        : Long.UZERO;
-    message.totalRewards =
-      object.totalRewards !== undefined && object.totalRewards !== null
-        ? Coin.fromPartial(object.totalRewards)
-        : undefined;
-    message.durationDays =
-      object.durationDays !== undefined && object.durationDays !== null
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
+    message.extendedPairId = (object.extendedPairId !== undefined && object.extendedPairId !== null)
+      ? Long.fromValue(object.extendedPairId)
+      : Long.UZERO;
+    message.totalRewards = (object.totalRewards !== undefined && object.totalRewards !== null)
+      ? Coin.fromPartial(object.totalRewards)
+      : undefined;
+    message.durationDays = (object.durationDays !== undefined && object.durationDays !== null)
+      ? Long.fromValue(object.durationDays)
+      : Long.ZERO;
     message.isActive = object.isActive ?? false;
-    message.availableRewards =
-      object.availableRewards !== undefined && object.availableRewards !== null
-        ? Coin.fromPartial(object.availableRewards)
-        : undefined;
+    message.availableRewards = (object.availableRewards !== undefined && object.availableRewards !== null)
+      ? Coin.fromPartial(object.availableRewards)
+      : undefined;
     message.depositor = object.depositor ?? "";
     message.startTimestamp = object.startTimestamp ?? undefined;
     message.endTimestamp = object.endTimestamp ?? undefined;
-    message.minLockupTimeSeconds =
-      object.minLockupTimeSeconds !== undefined &&
-      object.minLockupTimeSeconds !== null
-        ? Long.fromValue(object.minLockupTimeSeconds)
-        : Long.ZERO;
-    message.epochId =
-      object.epochId !== undefined && object.epochId !== null
-        ? Long.fromValue(object.epochId)
-        : Long.UZERO;
+    message.minLockupTimeSeconds = (object.minLockupTimeSeconds !== undefined && object.minLockupTimeSeconds !== null)
+      ? Long.fromValue(object.minLockupTimeSeconds)
+      : Long.ZERO;
+    message.epochId = (object.epochId !== undefined && object.epochId !== null)
+      ? Long.fromValue(object.epochId)
+      : Long.UZERO;
     return message;
   },
 };
 
 function createBaseEpochTime(): EpochTime {
-  return {
-    id: Long.UZERO,
-    appMappingId: Long.UZERO,
-    startingTime: Long.ZERO,
-    count: Long.UZERO,
-  };
+  return { id: Long.UZERO, appMappingId: Long.UZERO, startingTime: Long.ZERO, count: Long.UZERO };
 }
 
 export const EpochTime = {
-  encode(
-    message: EpochTime,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: EpochTime, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -897,49 +734,35 @@ export const EpochTime = {
   fromJSON(object: any): EpochTime {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
-      startingTime: isSet(object.startingTime)
-        ? Long.fromValue(object.startingTime)
-        : Long.ZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
+      startingTime: isSet(object.startingTime) ? Long.fromValue(object.startingTime) : Long.ZERO,
       count: isSet(object.count) ? Long.fromValue(object.count) : Long.UZERO,
     };
   },
 
   toJSON(message: EpochTime): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    message.startingTime !== undefined &&
-      (obj.startingTime = (message.startingTime || Long.ZERO).toString());
-    message.count !== undefined &&
-      (obj.count = (message.count || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.startingTime !== undefined && (obj.startingTime = (message.startingTime || Long.ZERO).toString());
+    message.count !== undefined && (obj.count = (message.count || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<EpochTime>, I>>(
-    object: I
-  ): EpochTime {
+  create<I extends Exact<DeepPartial<EpochTime>, I>>(base?: I): EpochTime {
+    return EpochTime.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<EpochTime>, I>>(object: I): EpochTime {
     const message = createBaseEpochTime();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
-    message.startingTime =
-      object.startingTime !== undefined && object.startingTime !== null
-        ? Long.fromValue(object.startingTime)
-        : Long.ZERO;
-    message.count =
-      object.count !== undefined && object.count !== null
-        ? Long.fromValue(object.count)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
+    message.startingTime = (object.startingTime !== undefined && object.startingTime !== null)
+      ? Long.fromValue(object.startingTime)
+      : Long.ZERO;
+    message.count = (object.count !== undefined && object.count !== null) ? Long.fromValue(object.count) : Long.UZERO;
     return message;
   },
 };
@@ -963,10 +786,7 @@ function createBaseLendExternalRewards(): LendExternalRewards {
 }
 
 export const LendExternalRewards = {
-  encode(
-    message: LendExternalRewards,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: LendExternalRewards, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -974,10 +794,7 @@ export const LendExternalRewards = {
       writer.uint32(16).uint64(message.appMappingId);
     }
     if (message.rewardsAssetPoolData !== undefined) {
-      RewardsAssetPoolData.encode(
-        message.rewardsAssetPoolData,
-        writer.uint32(26).fork()
-      ).ldelim();
+      RewardsAssetPoolData.encode(message.rewardsAssetPoolData, writer.uint32(26).fork()).ldelim();
     }
     if (message.totalRewards !== undefined) {
       Coin.encode(message.totalRewards, writer.uint32(34).fork()).ldelim();
@@ -998,16 +815,10 @@ export const LendExternalRewards = {
       writer.uint32(74).string(message.depositor);
     }
     if (message.startTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.startTimestamp),
-        writer.uint32(82).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.startTimestamp), writer.uint32(82).fork()).ldelim();
     }
     if (message.endTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.endTimestamp),
-        writer.uint32(90).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.endTimestamp), writer.uint32(90).fork()).ldelim();
     }
     if (!message.minLockupTimeSeconds.isZero()) {
       writer.uint32(96).int64(message.minLockupTimeSeconds);
@@ -1032,10 +843,7 @@ export const LendExternalRewards = {
           message.appMappingId = reader.uint64() as Long;
           break;
         case 3:
-          message.rewardsAssetPoolData = RewardsAssetPoolData.decode(
-            reader,
-            reader.uint32()
-          );
+          message.rewardsAssetPoolData = RewardsAssetPoolData.decode(reader, reader.uint32());
           break;
         case 4:
           message.totalRewards = Coin.decode(reader, reader.uint32());
@@ -1056,14 +864,10 @@ export const LendExternalRewards = {
           message.depositor = reader.string();
           break;
         case 10:
-          message.startTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.startTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 11:
-          message.endTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.endTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 12:
           message.minLockupTimeSeconds = reader.int64() as Long;
@@ -1082,142 +886,93 @@ export const LendExternalRewards = {
   fromJSON(object: any): LendExternalRewards {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
       rewardsAssetPoolData: isSet(object.rewardsAssetPoolData)
         ? RewardsAssetPoolData.fromJSON(object.rewardsAssetPoolData)
         : undefined,
-      totalRewards: isSet(object.totalRewards)
-        ? Coin.fromJSON(object.totalRewards)
-        : undefined,
-      masterPoolId: isSet(object.masterPoolId)
-        ? Long.fromValue(object.masterPoolId)
-        : Long.ZERO,
-      durationDays: isSet(object.durationDays)
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO,
+      totalRewards: isSet(object.totalRewards) ? Coin.fromJSON(object.totalRewards) : undefined,
+      masterPoolId: isSet(object.masterPoolId) ? Long.fromValue(object.masterPoolId) : Long.ZERO,
+      durationDays: isSet(object.durationDays) ? Long.fromValue(object.durationDays) : Long.ZERO,
       isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
-      availableRewards: isSet(object.availableRewards)
-        ? Coin.fromJSON(object.availableRewards)
-        : undefined,
+      availableRewards: isSet(object.availableRewards) ? Coin.fromJSON(object.availableRewards) : undefined,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      startTimestamp: isSet(object.startTimestamp)
-        ? fromJsonTimestamp(object.startTimestamp)
-        : undefined,
-      endTimestamp: isSet(object.endTimestamp)
-        ? fromJsonTimestamp(object.endTimestamp)
-        : undefined,
+      startTimestamp: isSet(object.startTimestamp) ? fromJsonTimestamp(object.startTimestamp) : undefined,
+      endTimestamp: isSet(object.endTimestamp) ? fromJsonTimestamp(object.endTimestamp) : undefined,
       minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
         ? Long.fromValue(object.minLockupTimeSeconds)
         : Long.ZERO,
-      epochId: isSet(object.epochId)
-        ? Long.fromValue(object.epochId)
-        : Long.UZERO,
+      epochId: isSet(object.epochId) ? Long.fromValue(object.epochId) : Long.UZERO,
     };
   },
 
   toJSON(message: LendExternalRewards): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    message.rewardsAssetPoolData !== undefined &&
-      (obj.rewardsAssetPoolData = message.rewardsAssetPoolData
-        ? RewardsAssetPoolData.toJSON(message.rewardsAssetPoolData)
-        : undefined);
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.rewardsAssetPoolData !== undefined && (obj.rewardsAssetPoolData = message.rewardsAssetPoolData
+      ? RewardsAssetPoolData.toJSON(message.rewardsAssetPoolData)
+      : undefined);
     message.totalRewards !== undefined &&
-      (obj.totalRewards = message.totalRewards
-        ? Coin.toJSON(message.totalRewards)
-        : undefined);
-    message.masterPoolId !== undefined &&
-      (obj.masterPoolId = (message.masterPoolId || Long.ZERO).toString());
-    message.durationDays !== undefined &&
-      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+      (obj.totalRewards = message.totalRewards ? Coin.toJSON(message.totalRewards) : undefined);
+    message.masterPoolId !== undefined && (obj.masterPoolId = (message.masterPoolId || Long.ZERO).toString());
+    message.durationDays !== undefined && (obj.durationDays = (message.durationDays || Long.ZERO).toString());
     message.isActive !== undefined && (obj.isActive = message.isActive);
     message.availableRewards !== undefined &&
-      (obj.availableRewards = message.availableRewards
-        ? Coin.toJSON(message.availableRewards)
-        : undefined);
+      (obj.availableRewards = message.availableRewards ? Coin.toJSON(message.availableRewards) : undefined);
     message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.startTimestamp !== undefined &&
-      (obj.startTimestamp = message.startTimestamp.toISOString());
-    message.endTimestamp !== undefined &&
-      (obj.endTimestamp = message.endTimestamp.toISOString());
+    message.startTimestamp !== undefined && (obj.startTimestamp = message.startTimestamp.toISOString());
+    message.endTimestamp !== undefined && (obj.endTimestamp = message.endTimestamp.toISOString());
     message.minLockupTimeSeconds !== undefined &&
-      (obj.minLockupTimeSeconds = (
-        message.minLockupTimeSeconds || Long.ZERO
-      ).toString());
-    message.epochId !== undefined &&
-      (obj.epochId = (message.epochId || Long.UZERO).toString());
+      (obj.minLockupTimeSeconds = (message.minLockupTimeSeconds || Long.ZERO).toString());
+    message.epochId !== undefined && (obj.epochId = (message.epochId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<LendExternalRewards>, I>>(
-    object: I
-  ): LendExternalRewards {
+  create<I extends Exact<DeepPartial<LendExternalRewards>, I>>(base?: I): LendExternalRewards {
+    return LendExternalRewards.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<LendExternalRewards>, I>>(object: I): LendExternalRewards {
     const message = createBaseLendExternalRewards();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
-    message.rewardsAssetPoolData =
-      object.rewardsAssetPoolData !== undefined &&
-      object.rewardsAssetPoolData !== null
-        ? RewardsAssetPoolData.fromPartial(object.rewardsAssetPoolData)
-        : undefined;
-    message.totalRewards =
-      object.totalRewards !== undefined && object.totalRewards !== null
-        ? Coin.fromPartial(object.totalRewards)
-        : undefined;
-    message.masterPoolId =
-      object.masterPoolId !== undefined && object.masterPoolId !== null
-        ? Long.fromValue(object.masterPoolId)
-        : Long.ZERO;
-    message.durationDays =
-      object.durationDays !== undefined && object.durationDays !== null
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
+    message.rewardsAssetPoolData = (object.rewardsAssetPoolData !== undefined && object.rewardsAssetPoolData !== null)
+      ? RewardsAssetPoolData.fromPartial(object.rewardsAssetPoolData)
+      : undefined;
+    message.totalRewards = (object.totalRewards !== undefined && object.totalRewards !== null)
+      ? Coin.fromPartial(object.totalRewards)
+      : undefined;
+    message.masterPoolId = (object.masterPoolId !== undefined && object.masterPoolId !== null)
+      ? Long.fromValue(object.masterPoolId)
+      : Long.ZERO;
+    message.durationDays = (object.durationDays !== undefined && object.durationDays !== null)
+      ? Long.fromValue(object.durationDays)
+      : Long.ZERO;
     message.isActive = object.isActive ?? false;
-    message.availableRewards =
-      object.availableRewards !== undefined && object.availableRewards !== null
-        ? Coin.fromPartial(object.availableRewards)
-        : undefined;
+    message.availableRewards = (object.availableRewards !== undefined && object.availableRewards !== null)
+      ? Coin.fromPartial(object.availableRewards)
+      : undefined;
     message.depositor = object.depositor ?? "";
     message.startTimestamp = object.startTimestamp ?? undefined;
     message.endTimestamp = object.endTimestamp ?? undefined;
-    message.minLockupTimeSeconds =
-      object.minLockupTimeSeconds !== undefined &&
-      object.minLockupTimeSeconds !== null
-        ? Long.fromValue(object.minLockupTimeSeconds)
-        : Long.ZERO;
-    message.epochId =
-      object.epochId !== undefined && object.epochId !== null
-        ? Long.fromValue(object.epochId)
-        : Long.UZERO;
+    message.minLockupTimeSeconds = (object.minLockupTimeSeconds !== undefined && object.minLockupTimeSeconds !== null)
+      ? Long.fromValue(object.minLockupTimeSeconds)
+      : Long.ZERO;
+    message.epochId = (object.epochId !== undefined && object.epochId !== null)
+      ? Long.fromValue(object.epochId)
+      : Long.UZERO;
     return message;
   },
 };
 
 function createBaseRewardsAssetPoolData(): RewardsAssetPoolData {
-  return {
-    cPoolId: Long.UZERO,
-    assetId: [],
-    cSwapAppId: Long.UZERO,
-    cSwapMinLockAmount: Long.UZERO,
-  };
+  return { cPoolId: Long.UZERO, assetId: [], cSwapAppId: Long.UZERO, cSwapMinLockAmount: Long.UZERO };
 }
 
 export const RewardsAssetPoolData = {
-  encode(
-    message: RewardsAssetPoolData,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: RewardsAssetPoolData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.cPoolId.isZero()) {
       writer.uint32(8).uint64(message.cPoolId);
     }
@@ -1235,10 +990,7 @@ export const RewardsAssetPoolData = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): RewardsAssetPoolData {
+  decode(input: _m0.Reader | Uint8Array, length?: number): RewardsAssetPoolData {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRewardsAssetPoolData();
@@ -1274,57 +1026,43 @@ export const RewardsAssetPoolData = {
 
   fromJSON(object: any): RewardsAssetPoolData {
     return {
-      cPoolId: isSet(object.cPoolId)
-        ? Long.fromValue(object.cPoolId)
-        : Long.UZERO,
-      assetId: Array.isArray(object?.assetId)
-        ? object.assetId.map((e: any) => Long.fromValue(e))
-        : [],
-      cSwapAppId: isSet(object.cSwapAppId)
-        ? Long.fromValue(object.cSwapAppId)
-        : Long.UZERO,
-      cSwapMinLockAmount: isSet(object.cSwapMinLockAmount)
-        ? Long.fromValue(object.cSwapMinLockAmount)
-        : Long.UZERO,
+      cPoolId: isSet(object.cPoolId) ? Long.fromValue(object.cPoolId) : Long.UZERO,
+      assetId: Array.isArray(object?.assetId) ? object.assetId.map((e: any) => Long.fromValue(e)) : [],
+      cSwapAppId: isSet(object.cSwapAppId) ? Long.fromValue(object.cSwapAppId) : Long.UZERO,
+      cSwapMinLockAmount: isSet(object.cSwapMinLockAmount) ? Long.fromValue(object.cSwapMinLockAmount) : Long.UZERO,
     };
   },
 
   toJSON(message: RewardsAssetPoolData): unknown {
     const obj: any = {};
-    message.cPoolId !== undefined &&
-      (obj.cPoolId = (message.cPoolId || Long.UZERO).toString());
+    message.cPoolId !== undefined && (obj.cPoolId = (message.cPoolId || Long.UZERO).toString());
     if (message.assetId) {
       obj.assetId = message.assetId.map((e) => (e || Long.UZERO).toString());
     } else {
       obj.assetId = [];
     }
-    message.cSwapAppId !== undefined &&
-      (obj.cSwapAppId = (message.cSwapAppId || Long.UZERO).toString());
+    message.cSwapAppId !== undefined && (obj.cSwapAppId = (message.cSwapAppId || Long.UZERO).toString());
     message.cSwapMinLockAmount !== undefined &&
-      (obj.cSwapMinLockAmount = (
-        message.cSwapMinLockAmount || Long.UZERO
-      ).toString());
+      (obj.cSwapMinLockAmount = (message.cSwapMinLockAmount || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RewardsAssetPoolData>, I>>(
-    object: I
-  ): RewardsAssetPoolData {
+  create<I extends Exact<DeepPartial<RewardsAssetPoolData>, I>>(base?: I): RewardsAssetPoolData {
+    return RewardsAssetPoolData.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<RewardsAssetPoolData>, I>>(object: I): RewardsAssetPoolData {
     const message = createBaseRewardsAssetPoolData();
-    message.cPoolId =
-      object.cPoolId !== undefined && object.cPoolId !== null
-        ? Long.fromValue(object.cPoolId)
-        : Long.UZERO;
+    message.cPoolId = (object.cPoolId !== undefined && object.cPoolId !== null)
+      ? Long.fromValue(object.cPoolId)
+      : Long.UZERO;
     message.assetId = object.assetId?.map((e) => Long.fromValue(e)) || [];
-    message.cSwapAppId =
-      object.cSwapAppId !== undefined && object.cSwapAppId !== null
-        ? Long.fromValue(object.cSwapAppId)
-        : Long.UZERO;
-    message.cSwapMinLockAmount =
-      object.cSwapMinLockAmount !== undefined &&
-      object.cSwapMinLockAmount !== null
-        ? Long.fromValue(object.cSwapMinLockAmount)
-        : Long.UZERO;
+    message.cSwapAppId = (object.cSwapAppId !== undefined && object.cSwapAppId !== null)
+      ? Long.fromValue(object.cSwapAppId)
+      : Long.UZERO;
+    message.cSwapMinLockAmount = (object.cSwapMinLockAmount !== undefined && object.cSwapMinLockAmount !== null)
+      ? Long.fromValue(object.cSwapMinLockAmount)
+      : Long.UZERO;
     return message;
   },
 };
@@ -1348,10 +1086,7 @@ function createBaseStableVaultExternalRewards(): StableVaultExternalRewards {
 }
 
 export const StableVaultExternalRewards = {
-  encode(
-    message: StableVaultExternalRewards,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: StableVaultExternalRewards, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -1380,16 +1115,10 @@ export const StableVaultExternalRewards = {
       writer.uint32(74).string(message.depositor);
     }
     if (message.startTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.startTimestamp),
-        writer.uint32(82).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.startTimestamp), writer.uint32(82).fork()).ldelim();
     }
     if (message.endTimestamp !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.endTimestamp),
-        writer.uint32(90).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.endTimestamp), writer.uint32(90).fork()).ldelim();
     }
     if (!message.acceptedBlockHeight.isZero()) {
       writer.uint32(96).int64(message.acceptedBlockHeight);
@@ -1400,10 +1129,7 @@ export const StableVaultExternalRewards = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): StableVaultExternalRewards {
+  decode(input: _m0.Reader | Uint8Array, length?: number): StableVaultExternalRewards {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStableVaultExternalRewards();
@@ -1438,14 +1164,10 @@ export const StableVaultExternalRewards = {
           message.depositor = reader.string();
           break;
         case 10:
-          message.startTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.startTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 11:
-          message.endTimestamp = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.endTimestamp = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 12:
           message.acceptedBlockHeight = reader.int64() as Long;
@@ -1465,150 +1187,89 @@ export const StableVaultExternalRewards = {
     return {
       id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      cswapAppId: isSet(object.cswapAppId)
-        ? Long.fromValue(object.cswapAppId)
-        : Long.UZERO,
-      commodoAppId: isSet(object.commodoAppId)
-        ? Long.fromValue(object.commodoAppId)
-        : Long.UZERO,
-      totalRewards: isSet(object.totalRewards)
-        ? Coin.fromJSON(object.totalRewards)
-        : undefined,
-      durationDays: isSet(object.durationDays)
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO,
+      cswapAppId: isSet(object.cswapAppId) ? Long.fromValue(object.cswapAppId) : Long.UZERO,
+      commodoAppId: isSet(object.commodoAppId) ? Long.fromValue(object.commodoAppId) : Long.UZERO,
+      totalRewards: isSet(object.totalRewards) ? Coin.fromJSON(object.totalRewards) : undefined,
+      durationDays: isSet(object.durationDays) ? Long.fromValue(object.durationDays) : Long.ZERO,
       isActive: isSet(object.isActive) ? Boolean(object.isActive) : false,
-      availableRewards: isSet(object.availableRewards)
-        ? Coin.fromJSON(object.availableRewards)
-        : undefined,
+      availableRewards: isSet(object.availableRewards) ? Coin.fromJSON(object.availableRewards) : undefined,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      startTimestamp: isSet(object.startTimestamp)
-        ? fromJsonTimestamp(object.startTimestamp)
-        : undefined,
-      endTimestamp: isSet(object.endTimestamp)
-        ? fromJsonTimestamp(object.endTimestamp)
-        : undefined,
-      acceptedBlockHeight: isSet(object.acceptedBlockHeight)
-        ? Long.fromValue(object.acceptedBlockHeight)
-        : Long.ZERO,
-      epochId: isSet(object.epochId)
-        ? Long.fromValue(object.epochId)
-        : Long.UZERO,
+      startTimestamp: isSet(object.startTimestamp) ? fromJsonTimestamp(object.startTimestamp) : undefined,
+      endTimestamp: isSet(object.endTimestamp) ? fromJsonTimestamp(object.endTimestamp) : undefined,
+      acceptedBlockHeight: isSet(object.acceptedBlockHeight) ? Long.fromValue(object.acceptedBlockHeight) : Long.ZERO,
+      epochId: isSet(object.epochId) ? Long.fromValue(object.epochId) : Long.UZERO,
     };
   },
 
   toJSON(message: StableVaultExternalRewards): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.cswapAppId !== undefined &&
-      (obj.cswapAppId = (message.cswapAppId || Long.UZERO).toString());
-    message.commodoAppId !== undefined &&
-      (obj.commodoAppId = (message.commodoAppId || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.cswapAppId !== undefined && (obj.cswapAppId = (message.cswapAppId || Long.UZERO).toString());
+    message.commodoAppId !== undefined && (obj.commodoAppId = (message.commodoAppId || Long.UZERO).toString());
     message.totalRewards !== undefined &&
-      (obj.totalRewards = message.totalRewards
-        ? Coin.toJSON(message.totalRewards)
-        : undefined);
-    message.durationDays !== undefined &&
-      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+      (obj.totalRewards = message.totalRewards ? Coin.toJSON(message.totalRewards) : undefined);
+    message.durationDays !== undefined && (obj.durationDays = (message.durationDays || Long.ZERO).toString());
     message.isActive !== undefined && (obj.isActive = message.isActive);
     message.availableRewards !== undefined &&
-      (obj.availableRewards = message.availableRewards
-        ? Coin.toJSON(message.availableRewards)
-        : undefined);
+      (obj.availableRewards = message.availableRewards ? Coin.toJSON(message.availableRewards) : undefined);
     message.depositor !== undefined && (obj.depositor = message.depositor);
-    message.startTimestamp !== undefined &&
-      (obj.startTimestamp = message.startTimestamp.toISOString());
-    message.endTimestamp !== undefined &&
-      (obj.endTimestamp = message.endTimestamp.toISOString());
+    message.startTimestamp !== undefined && (obj.startTimestamp = message.startTimestamp.toISOString());
+    message.endTimestamp !== undefined && (obj.endTimestamp = message.endTimestamp.toISOString());
     message.acceptedBlockHeight !== undefined &&
-      (obj.acceptedBlockHeight = (
-        message.acceptedBlockHeight || Long.ZERO
-      ).toString());
-    message.epochId !== undefined &&
-      (obj.epochId = (message.epochId || Long.UZERO).toString());
+      (obj.acceptedBlockHeight = (message.acceptedBlockHeight || Long.ZERO).toString());
+    message.epochId !== undefined && (obj.epochId = (message.epochId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<StableVaultExternalRewards>, I>>(
-    object: I
-  ): StableVaultExternalRewards {
+  create<I extends Exact<DeepPartial<StableVaultExternalRewards>, I>>(base?: I): StableVaultExternalRewards {
+    return StableVaultExternalRewards.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<StableVaultExternalRewards>, I>>(object: I): StableVaultExternalRewards {
     const message = createBaseStableVaultExternalRewards();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.cswapAppId =
-      object.cswapAppId !== undefined && object.cswapAppId !== null
-        ? Long.fromValue(object.cswapAppId)
-        : Long.UZERO;
-    message.commodoAppId =
-      object.commodoAppId !== undefined && object.commodoAppId !== null
-        ? Long.fromValue(object.commodoAppId)
-        : Long.UZERO;
-    message.totalRewards =
-      object.totalRewards !== undefined && object.totalRewards !== null
-        ? Coin.fromPartial(object.totalRewards)
-        : undefined;
-    message.durationDays =
-      object.durationDays !== undefined && object.durationDays !== null
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.cswapAppId = (object.cswapAppId !== undefined && object.cswapAppId !== null)
+      ? Long.fromValue(object.cswapAppId)
+      : Long.UZERO;
+    message.commodoAppId = (object.commodoAppId !== undefined && object.commodoAppId !== null)
+      ? Long.fromValue(object.commodoAppId)
+      : Long.UZERO;
+    message.totalRewards = (object.totalRewards !== undefined && object.totalRewards !== null)
+      ? Coin.fromPartial(object.totalRewards)
+      : undefined;
+    message.durationDays = (object.durationDays !== undefined && object.durationDays !== null)
+      ? Long.fromValue(object.durationDays)
+      : Long.ZERO;
     message.isActive = object.isActive ?? false;
-    message.availableRewards =
-      object.availableRewards !== undefined && object.availableRewards !== null
-        ? Coin.fromPartial(object.availableRewards)
-        : undefined;
+    message.availableRewards = (object.availableRewards !== undefined && object.availableRewards !== null)
+      ? Coin.fromPartial(object.availableRewards)
+      : undefined;
     message.depositor = object.depositor ?? "";
     message.startTimestamp = object.startTimestamp ?? undefined;
     message.endTimestamp = object.endTimestamp ?? undefined;
-    message.acceptedBlockHeight =
-      object.acceptedBlockHeight !== undefined &&
-      object.acceptedBlockHeight !== null
-        ? Long.fromValue(object.acceptedBlockHeight)
-        : Long.ZERO;
-    message.epochId =
-      object.epochId !== undefined && object.epochId !== null
-        ? Long.fromValue(object.epochId)
-        : Long.UZERO;
+    message.acceptedBlockHeight = (object.acceptedBlockHeight !== undefined && object.acceptedBlockHeight !== null)
+      ? Long.fromValue(object.acceptedBlockHeight)
+      : Long.ZERO;
+    message.epochId = (object.epochId !== undefined && object.epochId !== null)
+      ? Long.fromValue(object.epochId)
+      : Long.UZERO;
     return message;
   },
 };
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

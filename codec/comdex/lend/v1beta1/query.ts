@@ -1,34 +1,32 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Params } from "../../../comdex/lend/v1beta1/params";
+import _m0 from "protobufjs/minimal";
+import { PageRequest, PageResponse } from "../../../cosmos/base/query/v1beta1/pagination";
+import { Coin } from "../../../cosmos/base/v1beta1/coin";
 import {
-  PageRequest,
-  PageResponse,
-} from "../../../cosmos/base/query/v1beta1/pagination";
-import {
-  LendAsset,
-  ExtendedPair,
-  AssetRatesParams,
-  Pool,
-  AssetToPairMapping,
-  BorrowAsset,
-  PoolAssetLBMapping,
-  ReserveBuybackAssetData,
-  AuctionParams,
-  ModuleBalance,
-  ModBal,
-  ReserveBal,
   AllReserveStats,
+  AssetRatesParams,
+  AssetToPairMapping,
+  AuctionParams,
+  BorrowAsset,
+  ExtendedPair,
+  LendAsset,
+  ModBal,
+  ModuleBalance,
+  Pool,
+  PoolAssetLBMapping,
   PoolInterest,
   PoolInterestB,
-} from "../../../comdex/lend/v1beta1/lend";
-import { Coin } from "../../../cosmos/base/v1beta1/coin";
+  ReserveBal,
+  ReserveBuybackAssetData,
+} from "./lend";
+import { Params } from "./params";
 
 export const protobufPackage = "comdex.lend.v1beta1";
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
-export interface QueryParamsRequest {}
+export interface QueryParamsRequest {
+}
 
 /** QueryParamsResponse is response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
@@ -214,13 +212,15 @@ export interface QueryModuleBalanceResponse {
   ModuleBalance?: ModuleBalance;
 }
 
-export interface QueryFundModBalRequest {}
+export interface QueryFundModBalRequest {
+}
 
 export interface QueryFundModBalResponse {
   FundModBalance?: ModBal;
 }
 
-export interface QueryFundReserveBalRequest {}
+export interface QueryFundReserveBalRequest {
+}
 
 export interface QueryFundReserveBalResponse {
   FundReserveBalance?: ReserveBal;
@@ -243,13 +243,15 @@ export interface QueryFundModBalByAssetPoolResponse {
   amount?: Coin;
 }
 
-export interface QueryLendInterestRequest {}
+export interface QueryLendInterestRequest {
+}
 
 export interface QueryLendInterestResponse {
   poolInterest: PoolInterest[];
 }
 
-export interface QueryBorrowInterestRequest {}
+export interface QueryBorrowInterestRequest {
+}
 
 export interface QueryBorrowInterestResponse {
   poolInterest: PoolInterestB[];
@@ -271,10 +273,7 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
 }
 
 export const QueryParamsRequest = {
-  encode(
-    _: QueryParamsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: QueryParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -302,9 +301,11 @@ export const QueryParamsRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(
-    _: I
-  ): QueryParamsRequest {
+  create<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(base?: I): QueryParamsRequest {
+    return QueryParamsRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
     const message = createBaseQueryParamsRequest();
     return message;
   },
@@ -315,10 +316,7 @@ function createBaseQueryParamsResponse(): QueryParamsResponse {
 }
 
 export const QueryParamsResponse = {
-  encode(
-    message: QueryParamsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
@@ -344,26 +342,24 @@ export const QueryParamsResponse = {
   },
 
   fromJSON(object: any): QueryParamsResponse {
-    return {
-      params: isSet(object.params) ? Params.fromJSON(object.params) : undefined,
-    };
+    return { params: isSet(object.params) ? Params.fromJSON(object.params) : undefined };
   },
 
   toJSON(message: QueryParamsResponse): unknown {
     const obj: any = {};
-    message.params !== undefined &&
-      (obj.params = message.params ? Params.toJSON(message.params) : undefined);
+    message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(
-    object: I
-  ): QueryParamsResponse {
+  create<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(base?: I): QueryParamsResponse {
+    return QueryParamsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
     const message = createBaseQueryParamsResponse();
-    message.params =
-      object.params !== undefined && object.params !== null
-        ? Params.fromPartial(object.params)
-        : undefined;
+    message.params = (object.params !== undefined && object.params !== null)
+      ? Params.fromPartial(object.params)
+      : undefined;
     return message;
   },
 };
@@ -373,10 +369,7 @@ function createBaseQueryLendsRequest(): QueryLendsRequest {
 }
 
 export const QueryLendsRequest = {
-  encode(
-    message: QueryLendsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryLendsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
@@ -402,30 +395,25 @@ export const QueryLendsRequest = {
   },
 
   fromJSON(object: any): QueryLendsRequest {
-    return {
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryLendsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLendsRequest>, I>>(
-    object: I
-  ): QueryLendsRequest {
+  create<I extends Exact<DeepPartial<QueryLendsRequest>, I>>(base?: I): QueryLendsRequest {
+    return QueryLendsRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryLendsRequest>, I>>(object: I): QueryLendsRequest {
     const message = createBaseQueryLendsRequest();
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -435,18 +423,12 @@ function createBaseQueryLendsResponse(): QueryLendsResponse {
 }
 
 export const QueryLendsResponse = {
-  encode(
-    message: QueryLendsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryLendsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.lends) {
       LendAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -474,40 +456,33 @@ export const QueryLendsResponse = {
 
   fromJSON(object: any): QueryLendsResponse {
     return {
-      lends: Array.isArray(object?.lends)
-        ? object.lends.map((e: any) => LendAsset.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      lends: Array.isArray(object?.lends) ? object.lends.map((e: any) => LendAsset.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryLendsResponse): unknown {
     const obj: any = {};
     if (message.lends) {
-      obj.lends = message.lends.map((e) =>
-        e ? LendAsset.toJSON(e) : undefined
-      );
+      obj.lends = message.lends.map((e) => e ? LendAsset.toJSON(e) : undefined);
     } else {
       obj.lends = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLendsResponse>, I>>(
-    object: I
-  ): QueryLendsResponse {
+  create<I extends Exact<DeepPartial<QueryLendsResponse>, I>>(base?: I): QueryLendsResponse {
+    return QueryLendsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryLendsResponse>, I>>(object: I): QueryLendsResponse {
     const message = createBaseQueryLendsResponse();
     message.lends = object.lends?.map((e) => LendAsset.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -517,10 +492,7 @@ function createBaseQueryLendRequest(): QueryLendRequest {
 }
 
 export const QueryLendRequest = {
-  encode(
-    message: QueryLendRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryLendRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -546,26 +518,22 @@ export const QueryLendRequest = {
   },
 
   fromJSON(object: any): QueryLendRequest {
-    return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-    };
+    return { id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO };
   },
 
   toJSON(message: QueryLendRequest): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLendRequest>, I>>(
-    object: I
-  ): QueryLendRequest {
+  create<I extends Exact<DeepPartial<QueryLendRequest>, I>>(base?: I): QueryLendRequest {
+    return QueryLendRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryLendRequest>, I>>(object: I): QueryLendRequest {
     const message = createBaseQueryLendRequest();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
     return message;
   },
 };
@@ -575,10 +543,7 @@ function createBaseQueryLendResponse(): QueryLendResponse {
 }
 
 export const QueryLendResponse = {
-  encode(
-    message: QueryLendResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryLendResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.lend !== undefined) {
       LendAsset.encode(message.lend, writer.uint32(10).fork()).ldelim();
     }
@@ -604,26 +569,22 @@ export const QueryLendResponse = {
   },
 
   fromJSON(object: any): QueryLendResponse {
-    return {
-      lend: isSet(object.lend) ? LendAsset.fromJSON(object.lend) : undefined,
-    };
+    return { lend: isSet(object.lend) ? LendAsset.fromJSON(object.lend) : undefined };
   },
 
   toJSON(message: QueryLendResponse): unknown {
     const obj: any = {};
-    message.lend !== undefined &&
-      (obj.lend = message.lend ? LendAsset.toJSON(message.lend) : undefined);
+    message.lend !== undefined && (obj.lend = message.lend ? LendAsset.toJSON(message.lend) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLendResponse>, I>>(
-    object: I
-  ): QueryLendResponse {
+  create<I extends Exact<DeepPartial<QueryLendResponse>, I>>(base?: I): QueryLendResponse {
+    return QueryLendResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryLendResponse>, I>>(object: I): QueryLendResponse {
     const message = createBaseQueryLendResponse();
-    message.lend =
-      object.lend !== undefined && object.lend !== null
-        ? LendAsset.fromPartial(object.lend)
-        : undefined;
+    message.lend = (object.lend !== undefined && object.lend !== null) ? LendAsset.fromPartial(object.lend) : undefined;
     return message;
   },
 };
@@ -633,10 +594,7 @@ function createBaseQueryAllLendByOwnerRequest(): QueryAllLendByOwnerRequest {
 }
 
 export const QueryAllLendByOwnerRequest = {
-  encode(
-    message: QueryAllLendByOwnerRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllLendByOwnerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -646,10 +604,7 @@ export const QueryAllLendByOwnerRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllLendByOwnerRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllLendByOwnerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllLendByOwnerRequest();
@@ -673,9 +628,7 @@ export const QueryAllLendByOwnerRequest = {
   fromJSON(object: any): QueryAllLendByOwnerRequest {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
 
@@ -683,21 +636,20 @@ export const QueryAllLendByOwnerRequest = {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllLendByOwnerRequest>, I>>(
-    object: I
-  ): QueryAllLendByOwnerRequest {
+  create<I extends Exact<DeepPartial<QueryAllLendByOwnerRequest>, I>>(base?: I): QueryAllLendByOwnerRequest {
+    return QueryAllLendByOwnerRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllLendByOwnerRequest>, I>>(object: I): QueryAllLendByOwnerRequest {
     const message = createBaseQueryAllLendByOwnerRequest();
     message.owner = object.owner ?? "";
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -707,26 +659,17 @@ function createBaseQueryAllLendByOwnerResponse(): QueryAllLendByOwnerResponse {
 }
 
 export const QueryAllLendByOwnerResponse = {
-  encode(
-    message: QueryAllLendByOwnerResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllLendByOwnerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.lends) {
       LendAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllLendByOwnerResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllLendByOwnerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllLendByOwnerResponse();
@@ -749,40 +692,33 @@ export const QueryAllLendByOwnerResponse = {
 
   fromJSON(object: any): QueryAllLendByOwnerResponse {
     return {
-      lends: Array.isArray(object?.lends)
-        ? object.lends.map((e: any) => LendAsset.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      lends: Array.isArray(object?.lends) ? object.lends.map((e: any) => LendAsset.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryAllLendByOwnerResponse): unknown {
     const obj: any = {};
     if (message.lends) {
-      obj.lends = message.lends.map((e) =>
-        e ? LendAsset.toJSON(e) : undefined
-      );
+      obj.lends = message.lends.map((e) => e ? LendAsset.toJSON(e) : undefined);
     } else {
       obj.lends = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllLendByOwnerResponse>, I>>(
-    object: I
-  ): QueryAllLendByOwnerResponse {
+  create<I extends Exact<DeepPartial<QueryAllLendByOwnerResponse>, I>>(base?: I): QueryAllLendByOwnerResponse {
+    return QueryAllLendByOwnerResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllLendByOwnerResponse>, I>>(object: I): QueryAllLendByOwnerResponse {
     const message = createBaseQueryAllLendByOwnerResponse();
     message.lends = object.lends?.map((e) => LendAsset.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -792,10 +728,7 @@ function createBaseQueryAllLendByOwnerAndPoolRequest(): QueryAllLendByOwnerAndPo
 }
 
 export const QueryAllLendByOwnerAndPoolRequest = {
-  encode(
-    message: QueryAllLendByOwnerAndPoolRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllLendByOwnerAndPoolRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -808,10 +741,7 @@ export const QueryAllLendByOwnerAndPoolRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllLendByOwnerAndPoolRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllLendByOwnerAndPoolRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllLendByOwnerAndPoolRequest();
@@ -839,37 +769,36 @@ export const QueryAllLendByOwnerAndPoolRequest = {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryAllLendByOwnerAndPoolRequest): unknown {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryAllLendByOwnerAndPoolRequest>, I>
-  >(object: I): QueryAllLendByOwnerAndPoolRequest {
+  create<I extends Exact<DeepPartial<QueryAllLendByOwnerAndPoolRequest>, I>>(
+    base?: I,
+  ): QueryAllLendByOwnerAndPoolRequest {
+    return QueryAllLendByOwnerAndPoolRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllLendByOwnerAndPoolRequest>, I>>(
+    object: I,
+  ): QueryAllLendByOwnerAndPoolRequest {
     const message = createBaseQueryAllLendByOwnerAndPoolRequest();
     message.owner = object.owner ?? "";
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -879,26 +808,17 @@ function createBaseQueryAllLendByOwnerAndPoolResponse(): QueryAllLendByOwnerAndP
 }
 
 export const QueryAllLendByOwnerAndPoolResponse = {
-  encode(
-    message: QueryAllLendByOwnerAndPoolResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllLendByOwnerAndPoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.lends) {
       LendAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllLendByOwnerAndPoolResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllLendByOwnerAndPoolResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllLendByOwnerAndPoolResponse();
@@ -921,40 +841,37 @@ export const QueryAllLendByOwnerAndPoolResponse = {
 
   fromJSON(object: any): QueryAllLendByOwnerAndPoolResponse {
     return {
-      lends: Array.isArray(object?.lends)
-        ? object.lends.map((e: any) => LendAsset.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      lends: Array.isArray(object?.lends) ? object.lends.map((e: any) => LendAsset.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryAllLendByOwnerAndPoolResponse): unknown {
     const obj: any = {};
     if (message.lends) {
-      obj.lends = message.lends.map((e) =>
-        e ? LendAsset.toJSON(e) : undefined
-      );
+      obj.lends = message.lends.map((e) => e ? LendAsset.toJSON(e) : undefined);
     } else {
       obj.lends = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryAllLendByOwnerAndPoolResponse>, I>
-  >(object: I): QueryAllLendByOwnerAndPoolResponse {
+  create<I extends Exact<DeepPartial<QueryAllLendByOwnerAndPoolResponse>, I>>(
+    base?: I,
+  ): QueryAllLendByOwnerAndPoolResponse {
+    return QueryAllLendByOwnerAndPoolResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllLendByOwnerAndPoolResponse>, I>>(
+    object: I,
+  ): QueryAllLendByOwnerAndPoolResponse {
     const message = createBaseQueryAllLendByOwnerAndPoolResponse();
     message.lends = object.lends?.map((e) => LendAsset.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -964,10 +881,7 @@ function createBaseQueryPairsRequest(): QueryPairsRequest {
 }
 
 export const QueryPairsRequest = {
-  encode(
-    message: QueryPairsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryPairsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
@@ -993,30 +907,25 @@ export const QueryPairsRequest = {
   },
 
   fromJSON(object: any): QueryPairsRequest {
-    return {
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryPairsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairsRequest>, I>>(
-    object: I
-  ): QueryPairsRequest {
+  create<I extends Exact<DeepPartial<QueryPairsRequest>, I>>(base?: I): QueryPairsRequest {
+    return QueryPairsRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPairsRequest>, I>>(object: I): QueryPairsRequest {
     const message = createBaseQueryPairsRequest();
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -1026,18 +935,12 @@ function createBaseQueryPairsResponse(): QueryPairsResponse {
 }
 
 export const QueryPairsResponse = {
-  encode(
-    message: QueryPairsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryPairsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.extendedPairs) {
       ExtendedPair.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -1050,9 +953,7 @@ export const QueryPairsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.extendedPairs.push(
-            ExtendedPair.decode(reader, reader.uint32())
-          );
+          message.extendedPairs.push(ExtendedPair.decode(reader, reader.uint32()));
           break;
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
@@ -1070,38 +971,32 @@ export const QueryPairsResponse = {
       extendedPairs: Array.isArray(object?.extendedPairs)
         ? object.extendedPairs.map((e: any) => ExtendedPair.fromJSON(e))
         : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryPairsResponse): unknown {
     const obj: any = {};
     if (message.extendedPairs) {
-      obj.extendedPairs = message.extendedPairs.map((e) =>
-        e ? ExtendedPair.toJSON(e) : undefined
-      );
+      obj.extendedPairs = message.extendedPairs.map((e) => e ? ExtendedPair.toJSON(e) : undefined);
     } else {
       obj.extendedPairs = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairsResponse>, I>>(
-    object: I
-  ): QueryPairsResponse {
+  create<I extends Exact<DeepPartial<QueryPairsResponse>, I>>(base?: I): QueryPairsResponse {
+    return QueryPairsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPairsResponse>, I>>(object: I): QueryPairsResponse {
     const message = createBaseQueryPairsResponse();
-    message.extendedPairs =
-      object.extendedPairs?.map((e) => ExtendedPair.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.extendedPairs = object.extendedPairs?.map((e) => ExtendedPair.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -1111,10 +1006,7 @@ function createBaseQueryPairRequest(): QueryPairRequest {
 }
 
 export const QueryPairRequest = {
-  encode(
-    message: QueryPairRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryPairRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -1140,26 +1032,22 @@ export const QueryPairRequest = {
   },
 
   fromJSON(object: any): QueryPairRequest {
-    return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-    };
+    return { id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO };
   },
 
   toJSON(message: QueryPairRequest): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairRequest>, I>>(
-    object: I
-  ): QueryPairRequest {
+  create<I extends Exact<DeepPartial<QueryPairRequest>, I>>(base?: I): QueryPairRequest {
+    return QueryPairRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPairRequest>, I>>(object: I): QueryPairRequest {
     const message = createBaseQueryPairRequest();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
     return message;
   },
 };
@@ -1169,15 +1057,9 @@ function createBaseQueryPairResponse(): QueryPairResponse {
 }
 
 export const QueryPairResponse = {
-  encode(
-    message: QueryPairResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryPairResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.ExtendedPair !== undefined) {
-      ExtendedPair.encode(
-        message.ExtendedPair,
-        writer.uint32(10).fork()
-      ).ldelim();
+      ExtendedPair.encode(message.ExtendedPair, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -1201,30 +1083,25 @@ export const QueryPairResponse = {
   },
 
   fromJSON(object: any): QueryPairResponse {
-    return {
-      ExtendedPair: isSet(object.ExtendedPair)
-        ? ExtendedPair.fromJSON(object.ExtendedPair)
-        : undefined,
-    };
+    return { ExtendedPair: isSet(object.ExtendedPair) ? ExtendedPair.fromJSON(object.ExtendedPair) : undefined };
   },
 
   toJSON(message: QueryPairResponse): unknown {
     const obj: any = {};
     message.ExtendedPair !== undefined &&
-      (obj.ExtendedPair = message.ExtendedPair
-        ? ExtendedPair.toJSON(message.ExtendedPair)
-        : undefined);
+      (obj.ExtendedPair = message.ExtendedPair ? ExtendedPair.toJSON(message.ExtendedPair) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPairResponse>, I>>(
-    object: I
-  ): QueryPairResponse {
+  create<I extends Exact<DeepPartial<QueryPairResponse>, I>>(base?: I): QueryPairResponse {
+    return QueryPairResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPairResponse>, I>>(object: I): QueryPairResponse {
     const message = createBaseQueryPairResponse();
-    message.ExtendedPair =
-      object.ExtendedPair !== undefined && object.ExtendedPair !== null
-        ? ExtendedPair.fromPartial(object.ExtendedPair)
-        : undefined;
+    message.ExtendedPair = (object.ExtendedPair !== undefined && object.ExtendedPair !== null)
+      ? ExtendedPair.fromPartial(object.ExtendedPair)
+      : undefined;
     return message;
   },
 };
@@ -1234,20 +1111,14 @@ function createBaseQueryAssetRatesParamsRequest(): QueryAssetRatesParamsRequest 
 }
 
 export const QueryAssetRatesParamsRequest = {
-  encode(
-    message: QueryAssetRatesParamsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAssetRatesParamsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAssetRatesParamsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetRatesParamsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAssetRatesParamsRequest();
@@ -1266,30 +1137,25 @@ export const QueryAssetRatesParamsRequest = {
   },
 
   fromJSON(object: any): QueryAssetRatesParamsRequest {
-    return {
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryAssetRatesParamsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamsRequest>, I>>(
-    object: I
-  ): QueryAssetRatesParamsRequest {
+  create<I extends Exact<DeepPartial<QueryAssetRatesParamsRequest>, I>>(base?: I): QueryAssetRatesParamsRequest {
+    return QueryAssetRatesParamsRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamsRequest>, I>>(object: I): QueryAssetRatesParamsRequest {
     const message = createBaseQueryAssetRatesParamsRequest();
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -1299,26 +1165,17 @@ function createBaseQueryAssetRatesParamsResponse(): QueryAssetRatesParamsRespons
 }
 
 export const QueryAssetRatesParamsResponse = {
-  encode(
-    message: QueryAssetRatesParamsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAssetRatesParamsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.AssetRatesParams) {
       AssetRatesParams.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAssetRatesParamsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetRatesParamsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAssetRatesParamsResponse();
@@ -1326,9 +1183,7 @@ export const QueryAssetRatesParamsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.AssetRatesParams.push(
-            AssetRatesParams.decode(reader, reader.uint32())
-          );
+          message.AssetRatesParams.push(AssetRatesParams.decode(reader, reader.uint32()));
           break;
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
@@ -1346,39 +1201,34 @@ export const QueryAssetRatesParamsResponse = {
       AssetRatesParams: Array.isArray(object?.AssetRatesParams)
         ? object.AssetRatesParams.map((e: any) => AssetRatesParams.fromJSON(e))
         : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryAssetRatesParamsResponse): unknown {
     const obj: any = {};
     if (message.AssetRatesParams) {
-      obj.AssetRatesParams = message.AssetRatesParams.map((e) =>
-        e ? AssetRatesParams.toJSON(e) : undefined
-      );
+      obj.AssetRatesParams = message.AssetRatesParams.map((e) => e ? AssetRatesParams.toJSON(e) : undefined);
     } else {
       obj.AssetRatesParams = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryAssetRatesParamsResponse>, I>>(base?: I): QueryAssetRatesParamsResponse {
+    return QueryAssetRatesParamsResponse.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamsResponse>, I>>(
-    object: I
+    object: I,
   ): QueryAssetRatesParamsResponse {
     const message = createBaseQueryAssetRatesParamsResponse();
-    message.AssetRatesParams =
-      object.AssetRatesParams?.map((e) => AssetRatesParams.fromPartial(e)) ||
-      [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.AssetRatesParams = object.AssetRatesParams?.map((e) => AssetRatesParams.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -1388,20 +1238,14 @@ function createBaseQueryAssetRatesParamRequest(): QueryAssetRatesParamRequest {
 }
 
 export const QueryAssetRatesParamRequest = {
-  encode(
-    message: QueryAssetRatesParamRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAssetRatesParamRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAssetRatesParamRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetRatesParamRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAssetRatesParamRequest();
@@ -1420,26 +1264,22 @@ export const QueryAssetRatesParamRequest = {
   },
 
   fromJSON(object: any): QueryAssetRatesParamRequest {
-    return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-    };
+    return { id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO };
   },
 
   toJSON(message: QueryAssetRatesParamRequest): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamRequest>, I>>(
-    object: I
-  ): QueryAssetRatesParamRequest {
+  create<I extends Exact<DeepPartial<QueryAssetRatesParamRequest>, I>>(base?: I): QueryAssetRatesParamRequest {
+    return QueryAssetRatesParamRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamRequest>, I>>(object: I): QueryAssetRatesParamRequest {
     const message = createBaseQueryAssetRatesParamRequest();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
     return message;
   },
 };
@@ -1449,23 +1289,14 @@ function createBaseQueryAssetRatesParamResponse(): QueryAssetRatesParamResponse 
 }
 
 export const QueryAssetRatesParamResponse = {
-  encode(
-    message: QueryAssetRatesParamResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAssetRatesParamResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.AssetRatesparams !== undefined) {
-      AssetRatesParams.encode(
-        message.AssetRatesparams,
-        writer.uint32(10).fork()
-      ).ldelim();
+      AssetRatesParams.encode(message.AssetRatesparams, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAssetRatesParamResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetRatesParamResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAssetRatesParamResponse();
@@ -1473,10 +1304,7 @@ export const QueryAssetRatesParamResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.AssetRatesparams = AssetRatesParams.decode(
-            reader,
-            reader.uint32()
-          );
+          message.AssetRatesparams = AssetRatesParams.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -1488,29 +1316,26 @@ export const QueryAssetRatesParamResponse = {
 
   fromJSON(object: any): QueryAssetRatesParamResponse {
     return {
-      AssetRatesparams: isSet(object.AssetRatesparams)
-        ? AssetRatesParams.fromJSON(object.AssetRatesparams)
-        : undefined,
+      AssetRatesparams: isSet(object.AssetRatesparams) ? AssetRatesParams.fromJSON(object.AssetRatesparams) : undefined,
     };
   },
 
   toJSON(message: QueryAssetRatesParamResponse): unknown {
     const obj: any = {};
     message.AssetRatesparams !== undefined &&
-      (obj.AssetRatesparams = message.AssetRatesparams
-        ? AssetRatesParams.toJSON(message.AssetRatesparams)
-        : undefined);
+      (obj.AssetRatesparams = message.AssetRatesparams ? AssetRatesParams.toJSON(message.AssetRatesparams) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamResponse>, I>>(
-    object: I
-  ): QueryAssetRatesParamResponse {
+  create<I extends Exact<DeepPartial<QueryAssetRatesParamResponse>, I>>(base?: I): QueryAssetRatesParamResponse {
+    return QueryAssetRatesParamResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAssetRatesParamResponse>, I>>(object: I): QueryAssetRatesParamResponse {
     const message = createBaseQueryAssetRatesParamResponse();
-    message.AssetRatesparams =
-      object.AssetRatesparams !== undefined && object.AssetRatesparams !== null
-        ? AssetRatesParams.fromPartial(object.AssetRatesparams)
-        : undefined;
+    message.AssetRatesparams = (object.AssetRatesparams !== undefined && object.AssetRatesparams !== null)
+      ? AssetRatesParams.fromPartial(object.AssetRatesparams)
+      : undefined;
     return message;
   },
 };
@@ -1520,10 +1345,7 @@ function createBaseQueryPoolsRequest(): QueryPoolsRequest {
 }
 
 export const QueryPoolsRequest = {
-  encode(
-    message: QueryPoolsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryPoolsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
@@ -1549,30 +1371,25 @@ export const QueryPoolsRequest = {
   },
 
   fromJSON(object: any): QueryPoolsRequest {
-    return {
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryPoolsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPoolsRequest>, I>>(
-    object: I
-  ): QueryPoolsRequest {
+  create<I extends Exact<DeepPartial<QueryPoolsRequest>, I>>(base?: I): QueryPoolsRequest {
+    return QueryPoolsRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPoolsRequest>, I>>(object: I): QueryPoolsRequest {
     const message = createBaseQueryPoolsRequest();
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -1582,18 +1399,12 @@ function createBaseQueryPoolsResponse(): QueryPoolsResponse {
 }
 
 export const QueryPoolsResponse = {
-  encode(
-    message: QueryPoolsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryPoolsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.pools) {
       Pool.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -1621,38 +1432,33 @@ export const QueryPoolsResponse = {
 
   fromJSON(object: any): QueryPoolsResponse {
     return {
-      pools: Array.isArray(object?.pools)
-        ? object.pools.map((e: any) => Pool.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      pools: Array.isArray(object?.pools) ? object.pools.map((e: any) => Pool.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryPoolsResponse): unknown {
     const obj: any = {};
     if (message.pools) {
-      obj.pools = message.pools.map((e) => (e ? Pool.toJSON(e) : undefined));
+      obj.pools = message.pools.map((e) => e ? Pool.toJSON(e) : undefined);
     } else {
       obj.pools = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPoolsResponse>, I>>(
-    object: I
-  ): QueryPoolsResponse {
+  create<I extends Exact<DeepPartial<QueryPoolsResponse>, I>>(base?: I): QueryPoolsResponse {
+    return QueryPoolsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPoolsResponse>, I>>(object: I): QueryPoolsResponse {
     const message = createBaseQueryPoolsResponse();
     message.pools = object.pools?.map((e) => Pool.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -1662,10 +1468,7 @@ function createBaseQueryPoolRequest(): QueryPoolRequest {
 }
 
 export const QueryPoolRequest = {
-  encode(
-    message: QueryPoolRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryPoolRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -1691,26 +1494,22 @@ export const QueryPoolRequest = {
   },
 
   fromJSON(object: any): QueryPoolRequest {
-    return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-    };
+    return { id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO };
   },
 
   toJSON(message: QueryPoolRequest): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPoolRequest>, I>>(
-    object: I
-  ): QueryPoolRequest {
+  create<I extends Exact<DeepPartial<QueryPoolRequest>, I>>(base?: I): QueryPoolRequest {
+    return QueryPoolRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPoolRequest>, I>>(object: I): QueryPoolRequest {
     const message = createBaseQueryPoolRequest();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
     return message;
   },
 };
@@ -1720,10 +1519,7 @@ function createBaseQueryPoolResponse(): QueryPoolResponse {
 }
 
 export const QueryPoolResponse = {
-  encode(
-    message: QueryPoolResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryPoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pool !== undefined) {
       Pool.encode(message.pool, writer.uint32(10).fork()).ldelim();
     }
@@ -1749,26 +1545,22 @@ export const QueryPoolResponse = {
   },
 
   fromJSON(object: any): QueryPoolResponse {
-    return {
-      pool: isSet(object.pool) ? Pool.fromJSON(object.pool) : undefined,
-    };
+    return { pool: isSet(object.pool) ? Pool.fromJSON(object.pool) : undefined };
   },
 
   toJSON(message: QueryPoolResponse): unknown {
     const obj: any = {};
-    message.pool !== undefined &&
-      (obj.pool = message.pool ? Pool.toJSON(message.pool) : undefined);
+    message.pool !== undefined && (obj.pool = message.pool ? Pool.toJSON(message.pool) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryPoolResponse>, I>>(
-    object: I
-  ): QueryPoolResponse {
+  create<I extends Exact<DeepPartial<QueryPoolResponse>, I>>(base?: I): QueryPoolResponse {
+    return QueryPoolResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryPoolResponse>, I>>(object: I): QueryPoolResponse {
     const message = createBaseQueryPoolResponse();
-    message.pool =
-      object.pool !== undefined && object.pool !== null
-        ? Pool.fromPartial(object.pool)
-        : undefined;
+    message.pool = (object.pool !== undefined && object.pool !== null) ? Pool.fromPartial(object.pool) : undefined;
     return message;
   },
 };
@@ -1778,20 +1570,14 @@ function createBaseQueryAssetToPairMappingsRequest(): QueryAssetToPairMappingsRe
 }
 
 export const QueryAssetToPairMappingsRequest = {
-  encode(
-    message: QueryAssetToPairMappingsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAssetToPairMappingsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAssetToPairMappingsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetToPairMappingsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAssetToPairMappingsRequest();
@@ -1810,30 +1596,27 @@ export const QueryAssetToPairMappingsRequest = {
   },
 
   fromJSON(object: any): QueryAssetToPairMappingsRequest {
-    return {
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryAssetToPairMappingsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryAssetToPairMappingsRequest>, I>>(base?: I): QueryAssetToPairMappingsRequest {
+    return QueryAssetToPairMappingsRequest.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryAssetToPairMappingsRequest>, I>>(
-    object: I
+    object: I,
   ): QueryAssetToPairMappingsRequest {
     const message = createBaseQueryAssetToPairMappingsRequest();
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -1843,26 +1626,17 @@ function createBaseQueryAssetToPairMappingsResponse(): QueryAssetToPairMappingsR
 }
 
 export const QueryAssetToPairMappingsResponse = {
-  encode(
-    message: QueryAssetToPairMappingsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAssetToPairMappingsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.assetToPairMappings) {
       AssetToPairMapping.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAssetToPairMappingsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetToPairMappingsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAssetToPairMappingsResponse();
@@ -1870,9 +1644,7 @@ export const QueryAssetToPairMappingsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.assetToPairMappings.push(
-            AssetToPairMapping.decode(reader, reader.uint32())
-          );
+          message.assetToPairMappings.push(AssetToPairMapping.decode(reader, reader.uint32()));
           break;
         case 2:
           message.pagination = PageResponse.decode(reader, reader.uint32());
@@ -1888,44 +1660,38 @@ export const QueryAssetToPairMappingsResponse = {
   fromJSON(object: any): QueryAssetToPairMappingsResponse {
     return {
       assetToPairMappings: Array.isArray(object?.assetToPairMappings)
-        ? object.assetToPairMappings.map((e: any) =>
-            AssetToPairMapping.fromJSON(e)
-          )
+        ? object.assetToPairMappings.map((e: any) => AssetToPairMapping.fromJSON(e))
         : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryAssetToPairMappingsResponse): unknown {
     const obj: any = {};
     if (message.assetToPairMappings) {
-      obj.assetToPairMappings = message.assetToPairMappings.map((e) =>
-        e ? AssetToPairMapping.toJSON(e) : undefined
-      );
+      obj.assetToPairMappings = message.assetToPairMappings.map((e) => e ? AssetToPairMapping.toJSON(e) : undefined);
     } else {
       obj.assetToPairMappings = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryAssetToPairMappingsResponse>, I>
-  >(object: I): QueryAssetToPairMappingsResponse {
+  create<I extends Exact<DeepPartial<QueryAssetToPairMappingsResponse>, I>>(
+    base?: I,
+  ): QueryAssetToPairMappingsResponse {
+    return QueryAssetToPairMappingsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAssetToPairMappingsResponse>, I>>(
+    object: I,
+  ): QueryAssetToPairMappingsResponse {
     const message = createBaseQueryAssetToPairMappingsResponse();
-    message.assetToPairMappings =
-      object.assetToPairMappings?.map((e) =>
-        AssetToPairMapping.fromPartial(e)
-      ) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.assetToPairMappings = object.assetToPairMappings?.map((e) => AssetToPairMapping.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -1935,10 +1701,7 @@ function createBaseQueryAssetToPairMappingRequest(): QueryAssetToPairMappingRequ
 }
 
 export const QueryAssetToPairMappingRequest = {
-  encode(
-    message: QueryAssetToPairMappingRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAssetToPairMappingRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
@@ -1948,10 +1711,7 @@ export const QueryAssetToPairMappingRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAssetToPairMappingRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetToPairMappingRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAssetToPairMappingRequest();
@@ -1974,34 +1734,32 @@ export const QueryAssetToPairMappingRequest = {
 
   fromJSON(object: any): QueryAssetToPairMappingRequest {
     return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
     };
   },
 
   toJSON(message: QueryAssetToPairMappingRequest): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryAssetToPairMappingRequest>, I>>(base?: I): QueryAssetToPairMappingRequest {
+    return QueryAssetToPairMappingRequest.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryAssetToPairMappingRequest>, I>>(
-    object: I
+    object: I,
   ): QueryAssetToPairMappingRequest {
     const message = createBaseQueryAssetToPairMappingRequest();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -2011,23 +1769,14 @@ function createBaseQueryAssetToPairMappingResponse(): QueryAssetToPairMappingRes
 }
 
 export const QueryAssetToPairMappingResponse = {
-  encode(
-    message: QueryAssetToPairMappingResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAssetToPairMappingResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.AssetToPairMapping !== undefined) {
-      AssetToPairMapping.encode(
-        message.AssetToPairMapping,
-        writer.uint32(10).fork()
-      ).ldelim();
+      AssetToPairMapping.encode(message.AssetToPairMapping, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAssetToPairMappingResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAssetToPairMappingResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAssetToPairMappingResponse();
@@ -2035,10 +1784,7 @@ export const QueryAssetToPairMappingResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.AssetToPairMapping = AssetToPairMapping.decode(
-            reader,
-            reader.uint32()
-          );
+          message.AssetToPairMapping = AssetToPairMapping.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2058,22 +1804,23 @@ export const QueryAssetToPairMappingResponse = {
 
   toJSON(message: QueryAssetToPairMappingResponse): unknown {
     const obj: any = {};
-    message.AssetToPairMapping !== undefined &&
-      (obj.AssetToPairMapping = message.AssetToPairMapping
-        ? AssetToPairMapping.toJSON(message.AssetToPairMapping)
-        : undefined);
+    message.AssetToPairMapping !== undefined && (obj.AssetToPairMapping = message.AssetToPairMapping
+      ? AssetToPairMapping.toJSON(message.AssetToPairMapping)
+      : undefined);
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryAssetToPairMappingResponse>, I>>(base?: I): QueryAssetToPairMappingResponse {
+    return QueryAssetToPairMappingResponse.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryAssetToPairMappingResponse>, I>>(
-    object: I
+    object: I,
   ): QueryAssetToPairMappingResponse {
     const message = createBaseQueryAssetToPairMappingResponse();
-    message.AssetToPairMapping =
-      object.AssetToPairMapping !== undefined &&
-      object.AssetToPairMapping !== null
-        ? AssetToPairMapping.fromPartial(object.AssetToPairMapping)
-        : undefined;
+    message.AssetToPairMapping = (object.AssetToPairMapping !== undefined && object.AssetToPairMapping !== null)
+      ? AssetToPairMapping.fromPartial(object.AssetToPairMapping)
+      : undefined;
     return message;
   },
 };
@@ -2083,10 +1830,7 @@ function createBaseQueryBorrowsRequest(): QueryBorrowsRequest {
 }
 
 export const QueryBorrowsRequest = {
-  encode(
-    message: QueryBorrowsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryBorrowsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pagination !== undefined) {
       PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
     }
@@ -2112,30 +1856,25 @@ export const QueryBorrowsRequest = {
   },
 
   fromJSON(object: any): QueryBorrowsRequest {
-    return {
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
-    };
+    return { pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined };
   },
 
   toJSON(message: QueryBorrowsRequest): unknown {
     const obj: any = {};
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryBorrowsRequest>, I>>(
-    object: I
-  ): QueryBorrowsRequest {
+  create<I extends Exact<DeepPartial<QueryBorrowsRequest>, I>>(base?: I): QueryBorrowsRequest {
+    return QueryBorrowsRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowsRequest>, I>>(object: I): QueryBorrowsRequest {
     const message = createBaseQueryBorrowsRequest();
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -2145,26 +1884,17 @@ function createBaseQueryBorrowsResponse(): QueryBorrowsResponse {
 }
 
 export const QueryBorrowsResponse = {
-  encode(
-    message: QueryBorrowsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryBorrowsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.borrows) {
       BorrowAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryBorrowsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryBorrowsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryBorrowsResponse();
@@ -2187,41 +1917,33 @@ export const QueryBorrowsResponse = {
 
   fromJSON(object: any): QueryBorrowsResponse {
     return {
-      borrows: Array.isArray(object?.borrows)
-        ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      borrows: Array.isArray(object?.borrows) ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryBorrowsResponse): unknown {
     const obj: any = {};
     if (message.borrows) {
-      obj.borrows = message.borrows.map((e) =>
-        e ? BorrowAsset.toJSON(e) : undefined
-      );
+      obj.borrows = message.borrows.map((e) => e ? BorrowAsset.toJSON(e) : undefined);
     } else {
       obj.borrows = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryBorrowsResponse>, I>>(
-    object: I
-  ): QueryBorrowsResponse {
+  create<I extends Exact<DeepPartial<QueryBorrowsResponse>, I>>(base?: I): QueryBorrowsResponse {
+    return QueryBorrowsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowsResponse>, I>>(object: I): QueryBorrowsResponse {
     const message = createBaseQueryBorrowsResponse();
-    message.borrows =
-      object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.borrows = object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -2231,10 +1953,7 @@ function createBaseQueryBorrowRequest(): QueryBorrowRequest {
 }
 
 export const QueryBorrowRequest = {
-  encode(
-    message: QueryBorrowRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryBorrowRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.id.isZero()) {
       writer.uint32(8).uint64(message.id);
     }
@@ -2260,26 +1979,22 @@ export const QueryBorrowRequest = {
   },
 
   fromJSON(object: any): QueryBorrowRequest {
-    return {
-      id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO,
-    };
+    return { id: isSet(object.id) ? Long.fromValue(object.id) : Long.UZERO };
   },
 
   toJSON(message: QueryBorrowRequest): unknown {
     const obj: any = {};
-    message.id !== undefined &&
-      (obj.id = (message.id || Long.UZERO).toString());
+    message.id !== undefined && (obj.id = (message.id || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryBorrowRequest>, I>>(
-    object: I
-  ): QueryBorrowRequest {
+  create<I extends Exact<DeepPartial<QueryBorrowRequest>, I>>(base?: I): QueryBorrowRequest {
+    return QueryBorrowRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowRequest>, I>>(object: I): QueryBorrowRequest {
     const message = createBaseQueryBorrowRequest();
-    message.id =
-      object.id !== undefined && object.id !== null
-        ? Long.fromValue(object.id)
-        : Long.UZERO;
+    message.id = (object.id !== undefined && object.id !== null) ? Long.fromValue(object.id) : Long.UZERO;
     return message;
   },
 };
@@ -2289,10 +2004,7 @@ function createBaseQueryBorrowResponse(): QueryBorrowResponse {
 }
 
 export const QueryBorrowResponse = {
-  encode(
-    message: QueryBorrowResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryBorrowResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.borrow !== undefined) {
       BorrowAsset.encode(message.borrow, writer.uint32(10).fork()).ldelim();
     }
@@ -2318,30 +2030,24 @@ export const QueryBorrowResponse = {
   },
 
   fromJSON(object: any): QueryBorrowResponse {
-    return {
-      borrow: isSet(object.borrow)
-        ? BorrowAsset.fromJSON(object.borrow)
-        : undefined,
-    };
+    return { borrow: isSet(object.borrow) ? BorrowAsset.fromJSON(object.borrow) : undefined };
   },
 
   toJSON(message: QueryBorrowResponse): unknown {
     const obj: any = {};
-    message.borrow !== undefined &&
-      (obj.borrow = message.borrow
-        ? BorrowAsset.toJSON(message.borrow)
-        : undefined);
+    message.borrow !== undefined && (obj.borrow = message.borrow ? BorrowAsset.toJSON(message.borrow) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryBorrowResponse>, I>>(
-    object: I
-  ): QueryBorrowResponse {
+  create<I extends Exact<DeepPartial<QueryBorrowResponse>, I>>(base?: I): QueryBorrowResponse {
+    return QueryBorrowResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowResponse>, I>>(object: I): QueryBorrowResponse {
     const message = createBaseQueryBorrowResponse();
-    message.borrow =
-      object.borrow !== undefined && object.borrow !== null
-        ? BorrowAsset.fromPartial(object.borrow)
-        : undefined;
+    message.borrow = (object.borrow !== undefined && object.borrow !== null)
+      ? BorrowAsset.fromPartial(object.borrow)
+      : undefined;
     return message;
   },
 };
@@ -2351,10 +2057,7 @@ function createBaseQueryAllBorrowByOwnerRequest(): QueryAllBorrowByOwnerRequest 
 }
 
 export const QueryAllBorrowByOwnerRequest = {
-  encode(
-    message: QueryAllBorrowByOwnerRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllBorrowByOwnerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -2364,10 +2067,7 @@ export const QueryAllBorrowByOwnerRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllBorrowByOwnerRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllBorrowByOwnerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllBorrowByOwnerRequest();
@@ -2391,9 +2091,7 @@ export const QueryAllBorrowByOwnerRequest = {
   fromJSON(object: any): QueryAllBorrowByOwnerRequest {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
 
@@ -2401,21 +2099,20 @@ export const QueryAllBorrowByOwnerRequest = {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllBorrowByOwnerRequest>, I>>(
-    object: I
-  ): QueryAllBorrowByOwnerRequest {
+  create<I extends Exact<DeepPartial<QueryAllBorrowByOwnerRequest>, I>>(base?: I): QueryAllBorrowByOwnerRequest {
+    return QueryAllBorrowByOwnerRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllBorrowByOwnerRequest>, I>>(object: I): QueryAllBorrowByOwnerRequest {
     const message = createBaseQueryAllBorrowByOwnerRequest();
     message.owner = object.owner ?? "";
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -2425,26 +2122,17 @@ function createBaseQueryAllBorrowByOwnerResponse(): QueryAllBorrowByOwnerRespons
 }
 
 export const QueryAllBorrowByOwnerResponse = {
-  encode(
-    message: QueryAllBorrowByOwnerResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllBorrowByOwnerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.borrows) {
       BorrowAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllBorrowByOwnerResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllBorrowByOwnerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllBorrowByOwnerResponse();
@@ -2467,41 +2155,35 @@ export const QueryAllBorrowByOwnerResponse = {
 
   fromJSON(object: any): QueryAllBorrowByOwnerResponse {
     return {
-      borrows: Array.isArray(object?.borrows)
-        ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      borrows: Array.isArray(object?.borrows) ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryAllBorrowByOwnerResponse): unknown {
     const obj: any = {};
     if (message.borrows) {
-      obj.borrows = message.borrows.map((e) =>
-        e ? BorrowAsset.toJSON(e) : undefined
-      );
+      obj.borrows = message.borrows.map((e) => e ? BorrowAsset.toJSON(e) : undefined);
     } else {
       obj.borrows = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryAllBorrowByOwnerResponse>, I>>(base?: I): QueryAllBorrowByOwnerResponse {
+    return QueryAllBorrowByOwnerResponse.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryAllBorrowByOwnerResponse>, I>>(
-    object: I
+    object: I,
   ): QueryAllBorrowByOwnerResponse {
     const message = createBaseQueryAllBorrowByOwnerResponse();
-    message.borrows =
-      object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.borrows = object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -2511,10 +2193,7 @@ function createBaseQueryAllBorrowByOwnerAndPoolRequest(): QueryAllBorrowByOwnerA
 }
 
 export const QueryAllBorrowByOwnerAndPoolRequest = {
-  encode(
-    message: QueryAllBorrowByOwnerAndPoolRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllBorrowByOwnerAndPoolRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -2527,10 +2206,7 @@ export const QueryAllBorrowByOwnerAndPoolRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllBorrowByOwnerAndPoolRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllBorrowByOwnerAndPoolRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllBorrowByOwnerAndPoolRequest();
@@ -2558,37 +2234,36 @@ export const QueryAllBorrowByOwnerAndPoolRequest = {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryAllBorrowByOwnerAndPoolRequest): unknown {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndPoolRequest>, I>
-  >(object: I): QueryAllBorrowByOwnerAndPoolRequest {
+  create<I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndPoolRequest>, I>>(
+    base?: I,
+  ): QueryAllBorrowByOwnerAndPoolRequest {
+    return QueryAllBorrowByOwnerAndPoolRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndPoolRequest>, I>>(
+    object: I,
+  ): QueryAllBorrowByOwnerAndPoolRequest {
     const message = createBaseQueryAllBorrowByOwnerAndPoolRequest();
     message.owner = object.owner ?? "";
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -2598,26 +2273,17 @@ function createBaseQueryAllBorrowByOwnerAndPoolResponse(): QueryAllBorrowByOwner
 }
 
 export const QueryAllBorrowByOwnerAndPoolResponse = {
-  encode(
-    message: QueryAllBorrowByOwnerAndPoolResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllBorrowByOwnerAndPoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.borrows) {
       BorrowAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllBorrowByOwnerAndPoolResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllBorrowByOwnerAndPoolResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllBorrowByOwnerAndPoolResponse();
@@ -2640,41 +2306,37 @@ export const QueryAllBorrowByOwnerAndPoolResponse = {
 
   fromJSON(object: any): QueryAllBorrowByOwnerAndPoolResponse {
     return {
-      borrows: Array.isArray(object?.borrows)
-        ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      borrows: Array.isArray(object?.borrows) ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryAllBorrowByOwnerAndPoolResponse): unknown {
     const obj: any = {};
     if (message.borrows) {
-      obj.borrows = message.borrows.map((e) =>
-        e ? BorrowAsset.toJSON(e) : undefined
-      );
+      obj.borrows = message.borrows.map((e) => e ? BorrowAsset.toJSON(e) : undefined);
     } else {
       obj.borrows = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndPoolResponse>, I>
-  >(object: I): QueryAllBorrowByOwnerAndPoolResponse {
+  create<I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndPoolResponse>, I>>(
+    base?: I,
+  ): QueryAllBorrowByOwnerAndPoolResponse {
+    return QueryAllBorrowByOwnerAndPoolResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndPoolResponse>, I>>(
+    object: I,
+  ): QueryAllBorrowByOwnerAndPoolResponse {
     const message = createBaseQueryAllBorrowByOwnerAndPoolResponse();
-    message.borrows =
-      object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.borrows = object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -2684,10 +2346,7 @@ function createBaseQueryPoolAssetLBMappingRequest(): QueryPoolAssetLBMappingRequ
 }
 
 export const QueryPoolAssetLBMappingRequest = {
-  encode(
-    message: QueryPoolAssetLBMappingRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryPoolAssetLBMappingRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
@@ -2697,10 +2356,7 @@ export const QueryPoolAssetLBMappingRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryPoolAssetLBMappingRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolAssetLBMappingRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPoolAssetLBMappingRequest();
@@ -2723,34 +2379,32 @@ export const QueryPoolAssetLBMappingRequest = {
 
   fromJSON(object: any): QueryPoolAssetLBMappingRequest {
     return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
     };
   },
 
   toJSON(message: QueryPoolAssetLBMappingRequest): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryPoolAssetLBMappingRequest>, I>>(base?: I): QueryPoolAssetLBMappingRequest {
+    return QueryPoolAssetLBMappingRequest.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryPoolAssetLBMappingRequest>, I>>(
-    object: I
+    object: I,
   ): QueryPoolAssetLBMappingRequest {
     const message = createBaseQueryPoolAssetLBMappingRequest();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -2760,23 +2414,14 @@ function createBaseQueryPoolAssetLBMappingResponse(): QueryPoolAssetLBMappingRes
 }
 
 export const QueryPoolAssetLBMappingResponse = {
-  encode(
-    message: QueryPoolAssetLBMappingResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryPoolAssetLBMappingResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.PoolAssetLBMapping !== undefined) {
-      PoolAssetLBMapping.encode(
-        message.PoolAssetLBMapping,
-        writer.uint32(10).fork()
-      ).ldelim();
+      PoolAssetLBMapping.encode(message.PoolAssetLBMapping, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryPoolAssetLBMappingResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryPoolAssetLBMappingResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryPoolAssetLBMappingResponse();
@@ -2784,10 +2429,7 @@ export const QueryPoolAssetLBMappingResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.PoolAssetLBMapping = PoolAssetLBMapping.decode(
-            reader,
-            reader.uint32()
-          );
+          message.PoolAssetLBMapping = PoolAssetLBMapping.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2807,22 +2449,23 @@ export const QueryPoolAssetLBMappingResponse = {
 
   toJSON(message: QueryPoolAssetLBMappingResponse): unknown {
     const obj: any = {};
-    message.PoolAssetLBMapping !== undefined &&
-      (obj.PoolAssetLBMapping = message.PoolAssetLBMapping
-        ? PoolAssetLBMapping.toJSON(message.PoolAssetLBMapping)
-        : undefined);
+    message.PoolAssetLBMapping !== undefined && (obj.PoolAssetLBMapping = message.PoolAssetLBMapping
+      ? PoolAssetLBMapping.toJSON(message.PoolAssetLBMapping)
+      : undefined);
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryPoolAssetLBMappingResponse>, I>>(base?: I): QueryPoolAssetLBMappingResponse {
+    return QueryPoolAssetLBMappingResponse.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryPoolAssetLBMappingResponse>, I>>(
-    object: I
+    object: I,
   ): QueryPoolAssetLBMappingResponse {
     const message = createBaseQueryPoolAssetLBMappingResponse();
-    message.PoolAssetLBMapping =
-      object.PoolAssetLBMapping !== undefined &&
-      object.PoolAssetLBMapping !== null
-        ? PoolAssetLBMapping.fromPartial(object.PoolAssetLBMapping)
-        : undefined;
+    message.PoolAssetLBMapping = (object.PoolAssetLBMapping !== undefined && object.PoolAssetLBMapping !== null)
+      ? PoolAssetLBMapping.fromPartial(object.PoolAssetLBMapping)
+      : undefined;
     return message;
   },
 };
@@ -2832,20 +2475,14 @@ function createBaseQueryReserveBuybackAssetDataRequest(): QueryReserveBuybackAss
 }
 
 export const QueryReserveBuybackAssetDataRequest = {
-  encode(
-    message: QueryReserveBuybackAssetDataRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryReserveBuybackAssetDataRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryReserveBuybackAssetDataRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryReserveBuybackAssetDataRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryReserveBuybackAssetDataRequest();
@@ -2864,28 +2501,28 @@ export const QueryReserveBuybackAssetDataRequest = {
   },
 
   fromJSON(object: any): QueryReserveBuybackAssetDataRequest {
-    return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-    };
+    return { assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO };
   },
 
   toJSON(message: QueryReserveBuybackAssetDataRequest): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryReserveBuybackAssetDataRequest>, I>
-  >(object: I): QueryReserveBuybackAssetDataRequest {
+  create<I extends Exact<DeepPartial<QueryReserveBuybackAssetDataRequest>, I>>(
+    base?: I,
+  ): QueryReserveBuybackAssetDataRequest {
+    return QueryReserveBuybackAssetDataRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryReserveBuybackAssetDataRequest>, I>>(
+    object: I,
+  ): QueryReserveBuybackAssetDataRequest {
     const message = createBaseQueryReserveBuybackAssetDataRequest();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -2895,23 +2532,14 @@ function createBaseQueryReserveBuybackAssetDataResponse(): QueryReserveBuybackAs
 }
 
 export const QueryReserveBuybackAssetDataResponse = {
-  encode(
-    message: QueryReserveBuybackAssetDataResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryReserveBuybackAssetDataResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.ReserveBuybackAssetData !== undefined) {
-      ReserveBuybackAssetData.encode(
-        message.ReserveBuybackAssetData,
-        writer.uint32(10).fork()
-      ).ldelim();
+      ReserveBuybackAssetData.encode(message.ReserveBuybackAssetData, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryReserveBuybackAssetDataResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryReserveBuybackAssetDataResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryReserveBuybackAssetDataResponse();
@@ -2919,10 +2547,7 @@ export const QueryReserveBuybackAssetDataResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.ReserveBuybackAssetData = ReserveBuybackAssetData.decode(
-            reader,
-            reader.uint32()
-          );
+          message.ReserveBuybackAssetData = ReserveBuybackAssetData.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -2942,20 +2567,24 @@ export const QueryReserveBuybackAssetDataResponse = {
 
   toJSON(message: QueryReserveBuybackAssetDataResponse): unknown {
     const obj: any = {};
-    message.ReserveBuybackAssetData !== undefined &&
-      (obj.ReserveBuybackAssetData = message.ReserveBuybackAssetData
-        ? ReserveBuybackAssetData.toJSON(message.ReserveBuybackAssetData)
-        : undefined);
+    message.ReserveBuybackAssetData !== undefined && (obj.ReserveBuybackAssetData = message.ReserveBuybackAssetData
+      ? ReserveBuybackAssetData.toJSON(message.ReserveBuybackAssetData)
+      : undefined);
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryReserveBuybackAssetDataResponse>, I>
-  >(object: I): QueryReserveBuybackAssetDataResponse {
+  create<I extends Exact<DeepPartial<QueryReserveBuybackAssetDataResponse>, I>>(
+    base?: I,
+  ): QueryReserveBuybackAssetDataResponse {
+    return QueryReserveBuybackAssetDataResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryReserveBuybackAssetDataResponse>, I>>(
+    object: I,
+  ): QueryReserveBuybackAssetDataResponse {
     const message = createBaseQueryReserveBuybackAssetDataResponse();
     message.ReserveBuybackAssetData =
-      object.ReserveBuybackAssetData !== undefined &&
-      object.ReserveBuybackAssetData !== null
+      (object.ReserveBuybackAssetData !== undefined && object.ReserveBuybackAssetData !== null)
         ? ReserveBuybackAssetData.fromPartial(object.ReserveBuybackAssetData)
         : undefined;
     return message;
@@ -2967,20 +2596,14 @@ function createBaseQueryAuctionParamRequest(): QueryAuctionParamRequest {
 }
 
 export const QueryAuctionParamRequest = {
-  encode(
-    message: QueryAuctionParamRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAuctionParamRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAuctionParamRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionParamRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAuctionParamRequest();
@@ -2999,26 +2622,22 @@ export const QueryAuctionParamRequest = {
   },
 
   fromJSON(object: any): QueryAuctionParamRequest {
-    return {
-      appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-    };
+    return { appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO };
   },
 
   toJSON(message: QueryAuctionParamRequest): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAuctionParamRequest>, I>>(
-    object: I
-  ): QueryAuctionParamRequest {
+  create<I extends Exact<DeepPartial<QueryAuctionParamRequest>, I>>(base?: I): QueryAuctionParamRequest {
+    return QueryAuctionParamRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAuctionParamRequest>, I>>(object: I): QueryAuctionParamRequest {
     const message = createBaseQueryAuctionParamRequest();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
@@ -3028,23 +2647,14 @@ function createBaseQueryAuctionParamResponse(): QueryAuctionParamResponse {
 }
 
 export const QueryAuctionParamResponse = {
-  encode(
-    message: QueryAuctionParamResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAuctionParamResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.auctionParams !== undefined) {
-      AuctionParams.encode(
-        message.auctionParams,
-        writer.uint32(10).fork()
-      ).ldelim();
+      AuctionParams.encode(message.auctionParams, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAuctionParamResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAuctionParamResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAuctionParamResponse();
@@ -3063,30 +2673,25 @@ export const QueryAuctionParamResponse = {
   },
 
   fromJSON(object: any): QueryAuctionParamResponse {
-    return {
-      auctionParams: isSet(object.auctionParams)
-        ? AuctionParams.fromJSON(object.auctionParams)
-        : undefined,
-    };
+    return { auctionParams: isSet(object.auctionParams) ? AuctionParams.fromJSON(object.auctionParams) : undefined };
   },
 
   toJSON(message: QueryAuctionParamResponse): unknown {
     const obj: any = {};
     message.auctionParams !== undefined &&
-      (obj.auctionParams = message.auctionParams
-        ? AuctionParams.toJSON(message.auctionParams)
-        : undefined);
+      (obj.auctionParams = message.auctionParams ? AuctionParams.toJSON(message.auctionParams) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAuctionParamResponse>, I>>(
-    object: I
-  ): QueryAuctionParamResponse {
+  create<I extends Exact<DeepPartial<QueryAuctionParamResponse>, I>>(base?: I): QueryAuctionParamResponse {
+    return QueryAuctionParamResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAuctionParamResponse>, I>>(object: I): QueryAuctionParamResponse {
     const message = createBaseQueryAuctionParamResponse();
-    message.auctionParams =
-      object.auctionParams !== undefined && object.auctionParams !== null
-        ? AuctionParams.fromPartial(object.auctionParams)
-        : undefined;
+    message.auctionParams = (object.auctionParams !== undefined && object.auctionParams !== null)
+      ? AuctionParams.fromPartial(object.auctionParams)
+      : undefined;
     return message;
   },
 };
@@ -3096,20 +2701,14 @@ function createBaseQueryModuleBalanceRequest(): QueryModuleBalanceRequest {
 }
 
 export const QueryModuleBalanceRequest = {
-  encode(
-    message: QueryModuleBalanceRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryModuleBalanceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.poolId.isZero()) {
       writer.uint32(8).uint64(message.poolId);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryModuleBalanceRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleBalanceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryModuleBalanceRequest();
@@ -3128,26 +2727,24 @@ export const QueryModuleBalanceRequest = {
   },
 
   fromJSON(object: any): QueryModuleBalanceRequest {
-    return {
-      poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-    };
+    return { poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO };
   },
 
   toJSON(message: QueryModuleBalanceRequest): unknown {
     const obj: any = {};
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryModuleBalanceRequest>, I>>(
-    object: I
-  ): QueryModuleBalanceRequest {
+  create<I extends Exact<DeepPartial<QueryModuleBalanceRequest>, I>>(base?: I): QueryModuleBalanceRequest {
+    return QueryModuleBalanceRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryModuleBalanceRequest>, I>>(object: I): QueryModuleBalanceRequest {
     const message = createBaseQueryModuleBalanceRequest();
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -3157,23 +2754,14 @@ function createBaseQueryModuleBalanceResponse(): QueryModuleBalanceResponse {
 }
 
 export const QueryModuleBalanceResponse = {
-  encode(
-    message: QueryModuleBalanceResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryModuleBalanceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.ModuleBalance !== undefined) {
-      ModuleBalance.encode(
-        message.ModuleBalance,
-        writer.uint32(10).fork()
-      ).ldelim();
+      ModuleBalance.encode(message.ModuleBalance, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryModuleBalanceResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleBalanceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryModuleBalanceResponse();
@@ -3192,30 +2780,25 @@ export const QueryModuleBalanceResponse = {
   },
 
   fromJSON(object: any): QueryModuleBalanceResponse {
-    return {
-      ModuleBalance: isSet(object.ModuleBalance)
-        ? ModuleBalance.fromJSON(object.ModuleBalance)
-        : undefined,
-    };
+    return { ModuleBalance: isSet(object.ModuleBalance) ? ModuleBalance.fromJSON(object.ModuleBalance) : undefined };
   },
 
   toJSON(message: QueryModuleBalanceResponse): unknown {
     const obj: any = {};
     message.ModuleBalance !== undefined &&
-      (obj.ModuleBalance = message.ModuleBalance
-        ? ModuleBalance.toJSON(message.ModuleBalance)
-        : undefined);
+      (obj.ModuleBalance = message.ModuleBalance ? ModuleBalance.toJSON(message.ModuleBalance) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryModuleBalanceResponse>, I>>(
-    object: I
-  ): QueryModuleBalanceResponse {
+  create<I extends Exact<DeepPartial<QueryModuleBalanceResponse>, I>>(base?: I): QueryModuleBalanceResponse {
+    return QueryModuleBalanceResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryModuleBalanceResponse>, I>>(object: I): QueryModuleBalanceResponse {
     const message = createBaseQueryModuleBalanceResponse();
-    message.ModuleBalance =
-      object.ModuleBalance !== undefined && object.ModuleBalance !== null
-        ? ModuleBalance.fromPartial(object.ModuleBalance)
-        : undefined;
+    message.ModuleBalance = (object.ModuleBalance !== undefined && object.ModuleBalance !== null)
+      ? ModuleBalance.fromPartial(object.ModuleBalance)
+      : undefined;
     return message;
   },
 };
@@ -3225,17 +2808,11 @@ function createBaseQueryFundModBalRequest(): QueryFundModBalRequest {
 }
 
 export const QueryFundModBalRequest = {
-  encode(
-    _: QueryFundModBalRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: QueryFundModBalRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryFundModBalRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFundModBalRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryFundModBalRequest();
@@ -3259,9 +2836,11 @@ export const QueryFundModBalRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryFundModBalRequest>, I>>(
-    _: I
-  ): QueryFundModBalRequest {
+  create<I extends Exact<DeepPartial<QueryFundModBalRequest>, I>>(base?: I): QueryFundModBalRequest {
+    return QueryFundModBalRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundModBalRequest>, I>>(_: I): QueryFundModBalRequest {
     const message = createBaseQueryFundModBalRequest();
     return message;
   },
@@ -3272,20 +2851,14 @@ function createBaseQueryFundModBalResponse(): QueryFundModBalResponse {
 }
 
 export const QueryFundModBalResponse = {
-  encode(
-    message: QueryFundModBalResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryFundModBalResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.FundModBalance !== undefined) {
       ModBal.encode(message.FundModBalance, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryFundModBalResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFundModBalResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryFundModBalResponse();
@@ -3304,30 +2877,25 @@ export const QueryFundModBalResponse = {
   },
 
   fromJSON(object: any): QueryFundModBalResponse {
-    return {
-      FundModBalance: isSet(object.FundModBalance)
-        ? ModBal.fromJSON(object.FundModBalance)
-        : undefined,
-    };
+    return { FundModBalance: isSet(object.FundModBalance) ? ModBal.fromJSON(object.FundModBalance) : undefined };
   },
 
   toJSON(message: QueryFundModBalResponse): unknown {
     const obj: any = {};
     message.FundModBalance !== undefined &&
-      (obj.FundModBalance = message.FundModBalance
-        ? ModBal.toJSON(message.FundModBalance)
-        : undefined);
+      (obj.FundModBalance = message.FundModBalance ? ModBal.toJSON(message.FundModBalance) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryFundModBalResponse>, I>>(
-    object: I
-  ): QueryFundModBalResponse {
+  create<I extends Exact<DeepPartial<QueryFundModBalResponse>, I>>(base?: I): QueryFundModBalResponse {
+    return QueryFundModBalResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundModBalResponse>, I>>(object: I): QueryFundModBalResponse {
     const message = createBaseQueryFundModBalResponse();
-    message.FundModBalance =
-      object.FundModBalance !== undefined && object.FundModBalance !== null
-        ? ModBal.fromPartial(object.FundModBalance)
-        : undefined;
+    message.FundModBalance = (object.FundModBalance !== undefined && object.FundModBalance !== null)
+      ? ModBal.fromPartial(object.FundModBalance)
+      : undefined;
     return message;
   },
 };
@@ -3337,17 +2905,11 @@ function createBaseQueryFundReserveBalRequest(): QueryFundReserveBalRequest {
 }
 
 export const QueryFundReserveBalRequest = {
-  encode(
-    _: QueryFundReserveBalRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: QueryFundReserveBalRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryFundReserveBalRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFundReserveBalRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryFundReserveBalRequest();
@@ -3371,9 +2933,11 @@ export const QueryFundReserveBalRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryFundReserveBalRequest>, I>>(
-    _: I
-  ): QueryFundReserveBalRequest {
+  create<I extends Exact<DeepPartial<QueryFundReserveBalRequest>, I>>(base?: I): QueryFundReserveBalRequest {
+    return QueryFundReserveBalRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundReserveBalRequest>, I>>(_: I): QueryFundReserveBalRequest {
     const message = createBaseQueryFundReserveBalRequest();
     return message;
   },
@@ -3384,23 +2948,14 @@ function createBaseQueryFundReserveBalResponse(): QueryFundReserveBalResponse {
 }
 
 export const QueryFundReserveBalResponse = {
-  encode(
-    message: QueryFundReserveBalResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryFundReserveBalResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.FundReserveBalance !== undefined) {
-      ReserveBal.encode(
-        message.FundReserveBalance,
-        writer.uint32(10).fork()
-      ).ldelim();
+      ReserveBal.encode(message.FundReserveBalance, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryFundReserveBalResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFundReserveBalResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryFundReserveBalResponse();
@@ -3408,10 +2963,7 @@ export const QueryFundReserveBalResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.FundReserveBalance = ReserveBal.decode(
-            reader,
-            reader.uint32()
-          );
+          message.FundReserveBalance = ReserveBal.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -3423,30 +2975,26 @@ export const QueryFundReserveBalResponse = {
 
   fromJSON(object: any): QueryFundReserveBalResponse {
     return {
-      FundReserveBalance: isSet(object.FundReserveBalance)
-        ? ReserveBal.fromJSON(object.FundReserveBalance)
-        : undefined,
+      FundReserveBalance: isSet(object.FundReserveBalance) ? ReserveBal.fromJSON(object.FundReserveBalance) : undefined,
     };
   },
 
   toJSON(message: QueryFundReserveBalResponse): unknown {
     const obj: any = {};
     message.FundReserveBalance !== undefined &&
-      (obj.FundReserveBalance = message.FundReserveBalance
-        ? ReserveBal.toJSON(message.FundReserveBalance)
-        : undefined);
+      (obj.FundReserveBalance = message.FundReserveBalance ? ReserveBal.toJSON(message.FundReserveBalance) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryFundReserveBalResponse>, I>>(
-    object: I
-  ): QueryFundReserveBalResponse {
+  create<I extends Exact<DeepPartial<QueryFundReserveBalResponse>, I>>(base?: I): QueryFundReserveBalResponse {
+    return QueryFundReserveBalResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundReserveBalResponse>, I>>(object: I): QueryFundReserveBalResponse {
     const message = createBaseQueryFundReserveBalResponse();
-    message.FundReserveBalance =
-      object.FundReserveBalance !== undefined &&
-      object.FundReserveBalance !== null
-        ? ReserveBal.fromPartial(object.FundReserveBalance)
-        : undefined;
+    message.FundReserveBalance = (object.FundReserveBalance !== undefined && object.FundReserveBalance !== null)
+      ? ReserveBal.fromPartial(object.FundReserveBalance)
+      : undefined;
     return message;
   },
 };
@@ -3456,20 +3004,14 @@ function createBaseQueryAllReserveStatsRequest(): QueryAllReserveStatsRequest {
 }
 
 export const QueryAllReserveStatsRequest = {
-  encode(
-    message: QueryAllReserveStatsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllReserveStatsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllReserveStatsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllReserveStatsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllReserveStatsRequest();
@@ -3488,28 +3030,24 @@ export const QueryAllReserveStatsRequest = {
   },
 
   fromJSON(object: any): QueryAllReserveStatsRequest {
-    return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-    };
+    return { assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO };
   },
 
   toJSON(message: QueryAllReserveStatsRequest): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllReserveStatsRequest>, I>>(
-    object: I
-  ): QueryAllReserveStatsRequest {
+  create<I extends Exact<DeepPartial<QueryAllReserveStatsRequest>, I>>(base?: I): QueryAllReserveStatsRequest {
+    return QueryAllReserveStatsRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllReserveStatsRequest>, I>>(object: I): QueryAllReserveStatsRequest {
     const message = createBaseQueryAllReserveStatsRequest();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -3519,23 +3057,14 @@ function createBaseQueryAllReserveStatsResponse(): QueryAllReserveStatsResponse 
 }
 
 export const QueryAllReserveStatsResponse = {
-  encode(
-    message: QueryAllReserveStatsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllReserveStatsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.AllReserveStats !== undefined) {
-      AllReserveStats.encode(
-        message.AllReserveStats,
-        writer.uint32(10).fork()
-      ).ldelim();
+      AllReserveStats.encode(message.AllReserveStats, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllReserveStatsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllReserveStatsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllReserveStatsResponse();
@@ -3543,10 +3072,7 @@ export const QueryAllReserveStatsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.AllReserveStats = AllReserveStats.decode(
-            reader,
-            reader.uint32()
-          );
+          message.AllReserveStats = AllReserveStats.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -3558,29 +3084,26 @@ export const QueryAllReserveStatsResponse = {
 
   fromJSON(object: any): QueryAllReserveStatsResponse {
     return {
-      AllReserveStats: isSet(object.AllReserveStats)
-        ? AllReserveStats.fromJSON(object.AllReserveStats)
-        : undefined,
+      AllReserveStats: isSet(object.AllReserveStats) ? AllReserveStats.fromJSON(object.AllReserveStats) : undefined,
     };
   },
 
   toJSON(message: QueryAllReserveStatsResponse): unknown {
     const obj: any = {};
     message.AllReserveStats !== undefined &&
-      (obj.AllReserveStats = message.AllReserveStats
-        ? AllReserveStats.toJSON(message.AllReserveStats)
-        : undefined);
+      (obj.AllReserveStats = message.AllReserveStats ? AllReserveStats.toJSON(message.AllReserveStats) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryAllReserveStatsResponse>, I>>(
-    object: I
-  ): QueryAllReserveStatsResponse {
+  create<I extends Exact<DeepPartial<QueryAllReserveStatsResponse>, I>>(base?: I): QueryAllReserveStatsResponse {
+    return QueryAllReserveStatsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllReserveStatsResponse>, I>>(object: I): QueryAllReserveStatsResponse {
     const message = createBaseQueryAllReserveStatsResponse();
-    message.AllReserveStats =
-      object.AllReserveStats !== undefined && object.AllReserveStats !== null
-        ? AllReserveStats.fromPartial(object.AllReserveStats)
-        : undefined;
+    message.AllReserveStats = (object.AllReserveStats !== undefined && object.AllReserveStats !== null)
+      ? AllReserveStats.fromPartial(object.AllReserveStats)
+      : undefined;
     return message;
   },
 };
@@ -3590,10 +3113,7 @@ function createBaseQueryFundModBalByAssetPoolRequest(): QueryFundModBalByAssetPo
 }
 
 export const QueryFundModBalByAssetPoolRequest = {
-  encode(
-    message: QueryFundModBalByAssetPoolRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryFundModBalByAssetPoolRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.assetId.isZero()) {
       writer.uint32(8).uint64(message.assetId);
     }
@@ -3603,10 +3123,7 @@ export const QueryFundModBalByAssetPoolRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryFundModBalByAssetPoolRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFundModBalByAssetPoolRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryFundModBalByAssetPoolRequest();
@@ -3629,34 +3146,34 @@ export const QueryFundModBalByAssetPoolRequest = {
 
   fromJSON(object: any): QueryFundModBalByAssetPoolRequest {
     return {
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
     };
   },
 
   toJSON(message: QueryFundModBalByAssetPoolRequest): unknown {
     const obj: any = {};
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryFundModBalByAssetPoolRequest>, I>
-  >(object: I): QueryFundModBalByAssetPoolRequest {
+  create<I extends Exact<DeepPartial<QueryFundModBalByAssetPoolRequest>, I>>(
+    base?: I,
+  ): QueryFundModBalByAssetPoolRequest {
+    return QueryFundModBalByAssetPoolRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundModBalByAssetPoolRequest>, I>>(
+    object: I,
+  ): QueryFundModBalByAssetPoolRequest {
     const message = createBaseQueryFundModBalByAssetPoolRequest();
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -3666,20 +3183,14 @@ function createBaseQueryFundModBalByAssetPoolResponse(): QueryFundModBalByAssetP
 }
 
 export const QueryFundModBalByAssetPoolResponse = {
-  encode(
-    message: QueryFundModBalByAssetPoolResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryFundModBalByAssetPoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.amount !== undefined) {
       Coin.encode(message.amount, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryFundModBalByAssetPoolResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryFundModBalByAssetPoolResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryFundModBalByAssetPoolResponse();
@@ -3698,26 +3209,28 @@ export const QueryFundModBalByAssetPoolResponse = {
   },
 
   fromJSON(object: any): QueryFundModBalByAssetPoolResponse {
-    return {
-      amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined,
-    };
+    return { amount: isSet(object.amount) ? Coin.fromJSON(object.amount) : undefined };
   },
 
   toJSON(message: QueryFundModBalByAssetPoolResponse): unknown {
     const obj: any = {};
-    message.amount !== undefined &&
-      (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
+    message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryFundModBalByAssetPoolResponse>, I>
-  >(object: I): QueryFundModBalByAssetPoolResponse {
+  create<I extends Exact<DeepPartial<QueryFundModBalByAssetPoolResponse>, I>>(
+    base?: I,
+  ): QueryFundModBalByAssetPoolResponse {
+    return QueryFundModBalByAssetPoolResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryFundModBalByAssetPoolResponse>, I>>(
+    object: I,
+  ): QueryFundModBalByAssetPoolResponse {
     const message = createBaseQueryFundModBalByAssetPoolResponse();
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? Coin.fromPartial(object.amount)
-        : undefined;
+    message.amount = (object.amount !== undefined && object.amount !== null)
+      ? Coin.fromPartial(object.amount)
+      : undefined;
     return message;
   },
 };
@@ -3727,17 +3240,11 @@ function createBaseQueryLendInterestRequest(): QueryLendInterestRequest {
 }
 
 export const QueryLendInterestRequest = {
-  encode(
-    _: QueryLendInterestRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: QueryLendInterestRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryLendInterestRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryLendInterestRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryLendInterestRequest();
@@ -3761,9 +3268,11 @@ export const QueryLendInterestRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLendInterestRequest>, I>>(
-    _: I
-  ): QueryLendInterestRequest {
+  create<I extends Exact<DeepPartial<QueryLendInterestRequest>, I>>(base?: I): QueryLendInterestRequest {
+    return QueryLendInterestRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryLendInterestRequest>, I>>(_: I): QueryLendInterestRequest {
     const message = createBaseQueryLendInterestRequest();
     return message;
   },
@@ -3774,20 +3283,14 @@ function createBaseQueryLendInterestResponse(): QueryLendInterestResponse {
 }
 
 export const QueryLendInterestResponse = {
-  encode(
-    message: QueryLendInterestResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryLendInterestResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.poolInterest) {
       PoolInterest.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryLendInterestResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryLendInterestResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryLendInterestResponse();
@@ -3795,9 +3298,7 @@ export const QueryLendInterestResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.poolInterest.push(
-            PoolInterest.decode(reader, reader.uint32())
-          );
+          message.poolInterest.push(PoolInterest.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -3818,21 +3319,20 @@ export const QueryLendInterestResponse = {
   toJSON(message: QueryLendInterestResponse): unknown {
     const obj: any = {};
     if (message.poolInterest) {
-      obj.poolInterest = message.poolInterest.map((e) =>
-        e ? PoolInterest.toJSON(e) : undefined
-      );
+      obj.poolInterest = message.poolInterest.map((e) => e ? PoolInterest.toJSON(e) : undefined);
     } else {
       obj.poolInterest = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryLendInterestResponse>, I>>(
-    object: I
-  ): QueryLendInterestResponse {
+  create<I extends Exact<DeepPartial<QueryLendInterestResponse>, I>>(base?: I): QueryLendInterestResponse {
+    return QueryLendInterestResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryLendInterestResponse>, I>>(object: I): QueryLendInterestResponse {
     const message = createBaseQueryLendInterestResponse();
-    message.poolInterest =
-      object.poolInterest?.map((e) => PoolInterest.fromPartial(e)) || [];
+    message.poolInterest = object.poolInterest?.map((e) => PoolInterest.fromPartial(e)) || [];
     return message;
   },
 };
@@ -3842,17 +3342,11 @@ function createBaseQueryBorrowInterestRequest(): QueryBorrowInterestRequest {
 }
 
 export const QueryBorrowInterestRequest = {
-  encode(
-    _: QueryBorrowInterestRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: QueryBorrowInterestRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryBorrowInterestRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryBorrowInterestRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryBorrowInterestRequest();
@@ -3876,9 +3370,11 @@ export const QueryBorrowInterestRequest = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryBorrowInterestRequest>, I>>(
-    _: I
-  ): QueryBorrowInterestRequest {
+  create<I extends Exact<DeepPartial<QueryBorrowInterestRequest>, I>>(base?: I): QueryBorrowInterestRequest {
+    return QueryBorrowInterestRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowInterestRequest>, I>>(_: I): QueryBorrowInterestRequest {
     const message = createBaseQueryBorrowInterestRequest();
     return message;
   },
@@ -3889,20 +3385,14 @@ function createBaseQueryBorrowInterestResponse(): QueryBorrowInterestResponse {
 }
 
 export const QueryBorrowInterestResponse = {
-  encode(
-    message: QueryBorrowInterestResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryBorrowInterestResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.poolInterest) {
       PoolInterestB.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryBorrowInterestResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryBorrowInterestResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryBorrowInterestResponse();
@@ -3910,9 +3400,7 @@ export const QueryBorrowInterestResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.poolInterest.push(
-            PoolInterestB.decode(reader, reader.uint32())
-          );
+          message.poolInterest.push(PoolInterestB.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -3933,21 +3421,20 @@ export const QueryBorrowInterestResponse = {
   toJSON(message: QueryBorrowInterestResponse): unknown {
     const obj: any = {};
     if (message.poolInterest) {
-      obj.poolInterest = message.poolInterest.map((e) =>
-        e ? PoolInterestB.toJSON(e) : undefined
-      );
+      obj.poolInterest = message.poolInterest.map((e) => e ? PoolInterestB.toJSON(e) : undefined);
     } else {
       obj.poolInterest = [];
     }
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<QueryBorrowInterestResponse>, I>>(
-    object: I
-  ): QueryBorrowInterestResponse {
+  create<I extends Exact<DeepPartial<QueryBorrowInterestResponse>, I>>(base?: I): QueryBorrowInterestResponse {
+    return QueryBorrowInterestResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryBorrowInterestResponse>, I>>(object: I): QueryBorrowInterestResponse {
     const message = createBaseQueryBorrowInterestResponse();
-    message.poolInterest =
-      object.poolInterest?.map((e) => PoolInterestB.fromPartial(e)) || [];
+    message.poolInterest = object.poolInterest?.map((e) => PoolInterestB.fromPartial(e)) || [];
     return message;
   },
 };
@@ -3957,10 +3444,7 @@ function createBaseQueryAllBorrowByOwnerAndDebtPoolRequest(): QueryAllBorrowByOw
 }
 
 export const QueryAllBorrowByOwnerAndDebtPoolRequest = {
-  encode(
-    message: QueryAllBorrowByOwnerAndDebtPoolRequest,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllBorrowByOwnerAndDebtPoolRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.owner !== "") {
       writer.uint32(10).string(message.owner);
     }
@@ -3973,10 +3457,7 @@ export const QueryAllBorrowByOwnerAndDebtPoolRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllBorrowByOwnerAndDebtPoolRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllBorrowByOwnerAndDebtPoolRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllBorrowByOwnerAndDebtPoolRequest();
@@ -4004,37 +3485,36 @@ export const QueryAllBorrowByOwnerAndDebtPoolRequest = {
     return {
       owner: isSet(object.owner) ? String(object.owner) : "",
       poolId: isSet(object.poolId) ? Long.fromValue(object.poolId) : Long.UZERO,
-      pagination: isSet(object.pagination)
-        ? PageRequest.fromJSON(object.pagination)
-        : undefined,
+      pagination: isSet(object.pagination) ? PageRequest.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryAllBorrowByOwnerAndDebtPoolRequest): unknown {
     const obj: any = {};
     message.owner !== undefined && (obj.owner = message.owner);
-    message.poolId !== undefined &&
-      (obj.poolId = (message.poolId || Long.UZERO).toString());
+    message.poolId !== undefined && (obj.poolId = (message.poolId || Long.UZERO).toString());
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageRequest.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndDebtPoolRequest>, I>
-  >(object: I): QueryAllBorrowByOwnerAndDebtPoolRequest {
+  create<I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndDebtPoolRequest>, I>>(
+    base?: I,
+  ): QueryAllBorrowByOwnerAndDebtPoolRequest {
+    return QueryAllBorrowByOwnerAndDebtPoolRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndDebtPoolRequest>, I>>(
+    object: I,
+  ): QueryAllBorrowByOwnerAndDebtPoolRequest {
     const message = createBaseQueryAllBorrowByOwnerAndDebtPoolRequest();
     message.owner = object.owner ?? "";
-    message.poolId =
-      object.poolId !== undefined && object.poolId !== null
-        ? Long.fromValue(object.poolId)
-        : Long.UZERO;
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageRequest.fromPartial(object.pagination)
-        : undefined;
+    message.poolId = (object.poolId !== undefined && object.poolId !== null)
+      ? Long.fromValue(object.poolId)
+      : Long.UZERO;
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageRequest.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -4044,26 +3524,17 @@ function createBaseQueryAllBorrowByOwnerAndDebtPoolResponse(): QueryAllBorrowByO
 }
 
 export const QueryAllBorrowByOwnerAndDebtPoolResponse = {
-  encode(
-    message: QueryAllBorrowByOwnerAndDebtPoolResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: QueryAllBorrowByOwnerAndDebtPoolResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.borrows) {
       BorrowAsset.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.pagination !== undefined) {
-      PageResponse.encode(
-        message.pagination,
-        writer.uint32(18).fork()
-      ).ldelim();
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): QueryAllBorrowByOwnerAndDebtPoolResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllBorrowByOwnerAndDebtPoolResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllBorrowByOwnerAndDebtPoolResponse();
@@ -4086,41 +3557,37 @@ export const QueryAllBorrowByOwnerAndDebtPoolResponse = {
 
   fromJSON(object: any): QueryAllBorrowByOwnerAndDebtPoolResponse {
     return {
-      borrows: Array.isArray(object?.borrows)
-        ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e))
-        : [],
-      pagination: isSet(object.pagination)
-        ? PageResponse.fromJSON(object.pagination)
-        : undefined,
+      borrows: Array.isArray(object?.borrows) ? object.borrows.map((e: any) => BorrowAsset.fromJSON(e)) : [],
+      pagination: isSet(object.pagination) ? PageResponse.fromJSON(object.pagination) : undefined,
     };
   },
 
   toJSON(message: QueryAllBorrowByOwnerAndDebtPoolResponse): unknown {
     const obj: any = {};
     if (message.borrows) {
-      obj.borrows = message.borrows.map((e) =>
-        e ? BorrowAsset.toJSON(e) : undefined
-      );
+      obj.borrows = message.borrows.map((e) => e ? BorrowAsset.toJSON(e) : undefined);
     } else {
       obj.borrows = [];
     }
     message.pagination !== undefined &&
-      (obj.pagination = message.pagination
-        ? PageResponse.toJSON(message.pagination)
-        : undefined);
+      (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndDebtPoolResponse>, I>
-  >(object: I): QueryAllBorrowByOwnerAndDebtPoolResponse {
+  create<I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndDebtPoolResponse>, I>>(
+    base?: I,
+  ): QueryAllBorrowByOwnerAndDebtPoolResponse {
+    return QueryAllBorrowByOwnerAndDebtPoolResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAllBorrowByOwnerAndDebtPoolResponse>, I>>(
+    object: I,
+  ): QueryAllBorrowByOwnerAndDebtPoolResponse {
     const message = createBaseQueryAllBorrowByOwnerAndDebtPoolResponse();
-    message.borrows =
-      object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
-    message.pagination =
-      object.pagination !== undefined && object.pagination !== null
-        ? PageResponse.fromPartial(object.pagination)
-        : undefined;
+    message.borrows = object.borrows?.map((e) => BorrowAsset.fromPartial(e)) || [];
+    message.pagination = (object.pagination !== undefined && object.pagination !== null)
+      ? PageResponse.fromPartial(object.pagination)
+      : undefined;
     return message;
   },
 };
@@ -4128,81 +3595,50 @@ export const QueryAllBorrowByOwnerAndDebtPoolResponse = {
 export interface Query {
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse>;
   QueryLend(request: QueryLendRequest): Promise<QueryLendResponse>;
-  QueryAllLendByOwner(
-    request: QueryAllLendByOwnerRequest
-  ): Promise<QueryAllLendByOwnerResponse>;
-  QueryAllLendByOwnerAndPool(
-    request: QueryAllLendByOwnerAndPoolRequest
-  ): Promise<QueryAllLendByOwnerAndPoolResponse>;
+  QueryAllLendByOwner(request: QueryAllLendByOwnerRequest): Promise<QueryAllLendByOwnerResponse>;
+  QueryAllLendByOwnerAndPool(request: QueryAllLendByOwnerAndPoolRequest): Promise<QueryAllLendByOwnerAndPoolResponse>;
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse>;
   QueryPair(request: QueryPairRequest): Promise<QueryPairResponse>;
-  QueryAssetRatesParams(
-    request: QueryAssetRatesParamsRequest
-  ): Promise<QueryAssetRatesParamsResponse>;
-  QueryAssetRatesParam(
-    request: QueryAssetRatesParamRequest
-  ): Promise<QueryAssetRatesParamResponse>;
+  QueryAssetRatesParams(request: QueryAssetRatesParamsRequest): Promise<QueryAssetRatesParamsResponse>;
+  QueryAssetRatesParam(request: QueryAssetRatesParamRequest): Promise<QueryAssetRatesParamResponse>;
   QueryPools(request: QueryPoolsRequest): Promise<QueryPoolsResponse>;
   QueryPool(request: QueryPoolRequest): Promise<QueryPoolResponse>;
-  QueryAssetToPairMappings(
-    request: QueryAssetToPairMappingsRequest
-  ): Promise<QueryAssetToPairMappingsResponse>;
-  QueryAssetToPairMapping(
-    request: QueryAssetToPairMappingRequest
-  ): Promise<QueryAssetToPairMappingResponse>;
+  QueryAssetToPairMappings(request: QueryAssetToPairMappingsRequest): Promise<QueryAssetToPairMappingsResponse>;
+  QueryAssetToPairMapping(request: QueryAssetToPairMappingRequest): Promise<QueryAssetToPairMappingResponse>;
   QueryBorrows(request: QueryBorrowsRequest): Promise<QueryBorrowsResponse>;
   QueryBorrow(request: QueryBorrowRequest): Promise<QueryBorrowResponse>;
-  QueryAllBorrowByOwner(
-    request: QueryAllBorrowByOwnerRequest
-  ): Promise<QueryAllBorrowByOwnerResponse>;
+  QueryAllBorrowByOwner(request: QueryAllBorrowByOwnerRequest): Promise<QueryAllBorrowByOwnerResponse>;
   QueryAllBorrowByOwnerAndPool(
-    request: QueryAllBorrowByOwnerAndPoolRequest
+    request: QueryAllBorrowByOwnerAndPoolRequest,
   ): Promise<QueryAllBorrowByOwnerAndPoolResponse>;
-  QueryPoolAssetLBMapping(
-    request: QueryPoolAssetLBMappingRequest
-  ): Promise<QueryPoolAssetLBMappingResponse>;
+  QueryPoolAssetLBMapping(request: QueryPoolAssetLBMappingRequest): Promise<QueryPoolAssetLBMappingResponse>;
   QueryReserveBuybackAssetData(
-    request: QueryReserveBuybackAssetDataRequest
+    request: QueryReserveBuybackAssetDataRequest,
   ): Promise<QueryReserveBuybackAssetDataResponse>;
-  QueryAuctionParams(
-    request: QueryAuctionParamRequest
-  ): Promise<QueryAuctionParamResponse>;
-  QueryModuleBalance(
-    request: QueryModuleBalanceRequest
-  ): Promise<QueryModuleBalanceResponse>;
-  QueryFundModBal(
-    request: QueryFundModBalRequest
-  ): Promise<QueryFundModBalResponse>;
-  QueryFundReserveBal(
-    request: QueryFundReserveBalRequest
-  ): Promise<QueryFundReserveBalResponse>;
-  QueryAllReserveStats(
-    request: QueryAllReserveStatsRequest
-  ): Promise<QueryAllReserveStatsResponse>;
-  QueryFundModBalByAssetPool(
-    request: QueryFundModBalByAssetPoolRequest
-  ): Promise<QueryFundModBalByAssetPoolResponse>;
-  QueryLendInterest(
-    request: QueryLendInterestRequest
-  ): Promise<QueryLendInterestResponse>;
-  QueryBorrowInterest(
-    request: QueryBorrowInterestRequest
-  ): Promise<QueryBorrowInterestResponse>;
+  QueryAuctionParams(request: QueryAuctionParamRequest): Promise<QueryAuctionParamResponse>;
+  QueryModuleBalance(request: QueryModuleBalanceRequest): Promise<QueryModuleBalanceResponse>;
+  QueryFundModBal(request: QueryFundModBalRequest): Promise<QueryFundModBalResponse>;
+  QueryFundReserveBal(request: QueryFundReserveBalRequest): Promise<QueryFundReserveBalResponse>;
+  QueryAllReserveStats(request: QueryAllReserveStatsRequest): Promise<QueryAllReserveStatsResponse>;
+  QueryFundModBalByAssetPool(request: QueryFundModBalByAssetPoolRequest): Promise<QueryFundModBalByAssetPoolResponse>;
+  QueryLendInterest(request: QueryLendInterestRequest): Promise<QueryLendInterestResponse>;
+  QueryBorrowInterest(request: QueryBorrowInterestRequest): Promise<QueryBorrowInterestResponse>;
   QueryAllBorrowByOwnerAndDebtPool(
-    request: QueryAllBorrowByOwnerAndDebtPoolRequest
+    request: QueryAllBorrowByOwnerAndDebtPoolRequest,
   ): Promise<QueryAllBorrowByOwnerAndDebtPoolResponse>;
 }
 
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "comdex.lend.v1beta1.Query";
     this.rpc = rpc;
     this.QueryLends = this.QueryLends.bind(this);
     this.QueryLend = this.QueryLend.bind(this);
     this.QueryAllLendByOwner = this.QueryAllLendByOwner.bind(this);
-    this.QueryAllLendByOwnerAndPool =
-      this.QueryAllLendByOwnerAndPool.bind(this);
+    this.QueryAllLendByOwnerAndPool = this.QueryAllLendByOwnerAndPool.bind(this);
     this.Params = this.Params.bind(this);
     this.QueryPairs = this.QueryPairs.bind(this);
     this.QueryPair = this.QueryPair.bind(this);
@@ -4215,435 +3651,209 @@ export class QueryClientImpl implements Query {
     this.QueryBorrows = this.QueryBorrows.bind(this);
     this.QueryBorrow = this.QueryBorrow.bind(this);
     this.QueryAllBorrowByOwner = this.QueryAllBorrowByOwner.bind(this);
-    this.QueryAllBorrowByOwnerAndPool =
-      this.QueryAllBorrowByOwnerAndPool.bind(this);
+    this.QueryAllBorrowByOwnerAndPool = this.QueryAllBorrowByOwnerAndPool.bind(this);
     this.QueryPoolAssetLBMapping = this.QueryPoolAssetLBMapping.bind(this);
-    this.QueryReserveBuybackAssetData =
-      this.QueryReserveBuybackAssetData.bind(this);
+    this.QueryReserveBuybackAssetData = this.QueryReserveBuybackAssetData.bind(this);
     this.QueryAuctionParams = this.QueryAuctionParams.bind(this);
     this.QueryModuleBalance = this.QueryModuleBalance.bind(this);
     this.QueryFundModBal = this.QueryFundModBal.bind(this);
     this.QueryFundReserveBal = this.QueryFundReserveBal.bind(this);
     this.QueryAllReserveStats = this.QueryAllReserveStats.bind(this);
-    this.QueryFundModBalByAssetPool =
-      this.QueryFundModBalByAssetPool.bind(this);
+    this.QueryFundModBalByAssetPool = this.QueryFundModBalByAssetPool.bind(this);
     this.QueryLendInterest = this.QueryLendInterest.bind(this);
     this.QueryBorrowInterest = this.QueryBorrowInterest.bind(this);
-    this.QueryAllBorrowByOwnerAndDebtPool =
-      this.QueryAllBorrowByOwnerAndDebtPool.bind(this);
+    this.QueryAllBorrowByOwnerAndDebtPool = this.QueryAllBorrowByOwnerAndDebtPool.bind(this);
   }
   QueryLends(request: QueryLendsRequest): Promise<QueryLendsResponse> {
     const data = QueryLendsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryLends",
-      data
-    );
-    return promise.then((data) =>
-      QueryLendsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryLends", data);
+    return promise.then((data) => QueryLendsResponse.decode(new _m0.Reader(data)));
   }
 
   QueryLend(request: QueryLendRequest): Promise<QueryLendResponse> {
     const data = QueryLendRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryLend",
-      data
-    );
-    return promise.then((data) =>
-      QueryLendResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryLend", data);
+    return promise.then((data) => QueryLendResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryAllLendByOwner(
-    request: QueryAllLendByOwnerRequest
-  ): Promise<QueryAllLendByOwnerResponse> {
+  QueryAllLendByOwner(request: QueryAllLendByOwnerRequest): Promise<QueryAllLendByOwnerResponse> {
     const data = QueryAllLendByOwnerRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAllLendByOwner",
-      data
-    );
-    return promise.then((data) =>
-      QueryAllLendByOwnerResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryAllLendByOwner", data);
+    return promise.then((data) => QueryAllLendByOwnerResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryAllLendByOwnerAndPool(
-    request: QueryAllLendByOwnerAndPoolRequest
-  ): Promise<QueryAllLendByOwnerAndPoolResponse> {
+  QueryAllLendByOwnerAndPool(request: QueryAllLendByOwnerAndPoolRequest): Promise<QueryAllLendByOwnerAndPoolResponse> {
     const data = QueryAllLendByOwnerAndPoolRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAllLendByOwnerAndPool",
-      data
-    );
-    return promise.then((data) =>
-      QueryAllLendByOwnerAndPoolResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryAllLendByOwnerAndPool", data);
+    return promise.then((data) => QueryAllLendByOwnerAndPoolResponse.decode(new _m0.Reader(data)));
   }
 
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "Params",
-      data
-    );
-    return promise.then((data) =>
-      QueryParamsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "Params", data);
+    return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
   }
 
   QueryPairs(request: QueryPairsRequest): Promise<QueryPairsResponse> {
     const data = QueryPairsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryPairs",
-      data
-    );
-    return promise.then((data) =>
-      QueryPairsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryPairs", data);
+    return promise.then((data) => QueryPairsResponse.decode(new _m0.Reader(data)));
   }
 
   QueryPair(request: QueryPairRequest): Promise<QueryPairResponse> {
     const data = QueryPairRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryPair",
-      data
-    );
-    return promise.then((data) =>
-      QueryPairResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryPair", data);
+    return promise.then((data) => QueryPairResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryAssetRatesParams(
-    request: QueryAssetRatesParamsRequest
-  ): Promise<QueryAssetRatesParamsResponse> {
+  QueryAssetRatesParams(request: QueryAssetRatesParamsRequest): Promise<QueryAssetRatesParamsResponse> {
     const data = QueryAssetRatesParamsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAssetRatesParams",
-      data
-    );
-    return promise.then((data) =>
-      QueryAssetRatesParamsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryAssetRatesParams", data);
+    return promise.then((data) => QueryAssetRatesParamsResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryAssetRatesParam(
-    request: QueryAssetRatesParamRequest
-  ): Promise<QueryAssetRatesParamResponse> {
+  QueryAssetRatesParam(request: QueryAssetRatesParamRequest): Promise<QueryAssetRatesParamResponse> {
     const data = QueryAssetRatesParamRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAssetRatesParam",
-      data
-    );
-    return promise.then((data) =>
-      QueryAssetRatesParamResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryAssetRatesParam", data);
+    return promise.then((data) => QueryAssetRatesParamResponse.decode(new _m0.Reader(data)));
   }
 
   QueryPools(request: QueryPoolsRequest): Promise<QueryPoolsResponse> {
     const data = QueryPoolsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryPools",
-      data
-    );
-    return promise.then((data) =>
-      QueryPoolsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryPools", data);
+    return promise.then((data) => QueryPoolsResponse.decode(new _m0.Reader(data)));
   }
 
   QueryPool(request: QueryPoolRequest): Promise<QueryPoolResponse> {
     const data = QueryPoolRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryPool",
-      data
-    );
-    return promise.then((data) =>
-      QueryPoolResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryPool", data);
+    return promise.then((data) => QueryPoolResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryAssetToPairMappings(
-    request: QueryAssetToPairMappingsRequest
-  ): Promise<QueryAssetToPairMappingsResponse> {
+  QueryAssetToPairMappings(request: QueryAssetToPairMappingsRequest): Promise<QueryAssetToPairMappingsResponse> {
     const data = QueryAssetToPairMappingsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAssetToPairMappings",
-      data
-    );
-    return promise.then((data) =>
-      QueryAssetToPairMappingsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryAssetToPairMappings", data);
+    return promise.then((data) => QueryAssetToPairMappingsResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryAssetToPairMapping(
-    request: QueryAssetToPairMappingRequest
-  ): Promise<QueryAssetToPairMappingResponse> {
+  QueryAssetToPairMapping(request: QueryAssetToPairMappingRequest): Promise<QueryAssetToPairMappingResponse> {
     const data = QueryAssetToPairMappingRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAssetToPairMapping",
-      data
-    );
-    return promise.then((data) =>
-      QueryAssetToPairMappingResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryAssetToPairMapping", data);
+    return promise.then((data) => QueryAssetToPairMappingResponse.decode(new _m0.Reader(data)));
   }
 
   QueryBorrows(request: QueryBorrowsRequest): Promise<QueryBorrowsResponse> {
     const data = QueryBorrowsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryBorrows",
-      data
-    );
-    return promise.then((data) =>
-      QueryBorrowsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryBorrows", data);
+    return promise.then((data) => QueryBorrowsResponse.decode(new _m0.Reader(data)));
   }
 
   QueryBorrow(request: QueryBorrowRequest): Promise<QueryBorrowResponse> {
     const data = QueryBorrowRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryBorrow",
-      data
-    );
-    return promise.then((data) =>
-      QueryBorrowResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryBorrow", data);
+    return promise.then((data) => QueryBorrowResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryAllBorrowByOwner(
-    request: QueryAllBorrowByOwnerRequest
-  ): Promise<QueryAllBorrowByOwnerResponse> {
+  QueryAllBorrowByOwner(request: QueryAllBorrowByOwnerRequest): Promise<QueryAllBorrowByOwnerResponse> {
     const data = QueryAllBorrowByOwnerRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAllBorrowByOwner",
-      data
-    );
-    return promise.then((data) =>
-      QueryAllBorrowByOwnerResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryAllBorrowByOwner", data);
+    return promise.then((data) => QueryAllBorrowByOwnerResponse.decode(new _m0.Reader(data)));
   }
 
   QueryAllBorrowByOwnerAndPool(
-    request: QueryAllBorrowByOwnerAndPoolRequest
+    request: QueryAllBorrowByOwnerAndPoolRequest,
   ): Promise<QueryAllBorrowByOwnerAndPoolResponse> {
     const data = QueryAllBorrowByOwnerAndPoolRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAllBorrowByOwnerAndPool",
-      data
-    );
-    return promise.then((data) =>
-      QueryAllBorrowByOwnerAndPoolResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryAllBorrowByOwnerAndPool", data);
+    return promise.then((data) => QueryAllBorrowByOwnerAndPoolResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryPoolAssetLBMapping(
-    request: QueryPoolAssetLBMappingRequest
-  ): Promise<QueryPoolAssetLBMappingResponse> {
+  QueryPoolAssetLBMapping(request: QueryPoolAssetLBMappingRequest): Promise<QueryPoolAssetLBMappingResponse> {
     const data = QueryPoolAssetLBMappingRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryPoolAssetLBMapping",
-      data
-    );
-    return promise.then((data) =>
-      QueryPoolAssetLBMappingResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryPoolAssetLBMapping", data);
+    return promise.then((data) => QueryPoolAssetLBMappingResponse.decode(new _m0.Reader(data)));
   }
 
   QueryReserveBuybackAssetData(
-    request: QueryReserveBuybackAssetDataRequest
+    request: QueryReserveBuybackAssetDataRequest,
   ): Promise<QueryReserveBuybackAssetDataResponse> {
     const data = QueryReserveBuybackAssetDataRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryReserveBuybackAssetData",
-      data
-    );
-    return promise.then((data) =>
-      QueryReserveBuybackAssetDataResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryReserveBuybackAssetData", data);
+    return promise.then((data) => QueryReserveBuybackAssetDataResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryAuctionParams(
-    request: QueryAuctionParamRequest
-  ): Promise<QueryAuctionParamResponse> {
+  QueryAuctionParams(request: QueryAuctionParamRequest): Promise<QueryAuctionParamResponse> {
     const data = QueryAuctionParamRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAuctionParams",
-      data
-    );
-    return promise.then((data) =>
-      QueryAuctionParamResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryAuctionParams", data);
+    return promise.then((data) => QueryAuctionParamResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryModuleBalance(
-    request: QueryModuleBalanceRequest
-  ): Promise<QueryModuleBalanceResponse> {
+  QueryModuleBalance(request: QueryModuleBalanceRequest): Promise<QueryModuleBalanceResponse> {
     const data = QueryModuleBalanceRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryModuleBalance",
-      data
-    );
-    return promise.then((data) =>
-      QueryModuleBalanceResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryModuleBalance", data);
+    return promise.then((data) => QueryModuleBalanceResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryFundModBal(
-    request: QueryFundModBalRequest
-  ): Promise<QueryFundModBalResponse> {
+  QueryFundModBal(request: QueryFundModBalRequest): Promise<QueryFundModBalResponse> {
     const data = QueryFundModBalRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryFundModBal",
-      data
-    );
-    return promise.then((data) =>
-      QueryFundModBalResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryFundModBal", data);
+    return promise.then((data) => QueryFundModBalResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryFundReserveBal(
-    request: QueryFundReserveBalRequest
-  ): Promise<QueryFundReserveBalResponse> {
+  QueryFundReserveBal(request: QueryFundReserveBalRequest): Promise<QueryFundReserveBalResponse> {
     const data = QueryFundReserveBalRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryFundReserveBal",
-      data
-    );
-    return promise.then((data) =>
-      QueryFundReserveBalResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryFundReserveBal", data);
+    return promise.then((data) => QueryFundReserveBalResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryAllReserveStats(
-    request: QueryAllReserveStatsRequest
-  ): Promise<QueryAllReserveStatsResponse> {
+  QueryAllReserveStats(request: QueryAllReserveStatsRequest): Promise<QueryAllReserveStatsResponse> {
     const data = QueryAllReserveStatsRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAllReserveStats",
-      data
-    );
-    return promise.then((data) =>
-      QueryAllReserveStatsResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryAllReserveStats", data);
+    return promise.then((data) => QueryAllReserveStatsResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryFundModBalByAssetPool(
-    request: QueryFundModBalByAssetPoolRequest
-  ): Promise<QueryFundModBalByAssetPoolResponse> {
+  QueryFundModBalByAssetPool(request: QueryFundModBalByAssetPoolRequest): Promise<QueryFundModBalByAssetPoolResponse> {
     const data = QueryFundModBalByAssetPoolRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryFundModBalByAssetPool",
-      data
-    );
-    return promise.then((data) =>
-      QueryFundModBalByAssetPoolResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryFundModBalByAssetPool", data);
+    return promise.then((data) => QueryFundModBalByAssetPoolResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryLendInterest(
-    request: QueryLendInterestRequest
-  ): Promise<QueryLendInterestResponse> {
+  QueryLendInterest(request: QueryLendInterestRequest): Promise<QueryLendInterestResponse> {
     const data = QueryLendInterestRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryLendInterest",
-      data
-    );
-    return promise.then((data) =>
-      QueryLendInterestResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryLendInterest", data);
+    return promise.then((data) => QueryLendInterestResponse.decode(new _m0.Reader(data)));
   }
 
-  QueryBorrowInterest(
-    request: QueryBorrowInterestRequest
-  ): Promise<QueryBorrowInterestResponse> {
+  QueryBorrowInterest(request: QueryBorrowInterestRequest): Promise<QueryBorrowInterestResponse> {
     const data = QueryBorrowInterestRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryBorrowInterest",
-      data
-    );
-    return promise.then((data) =>
-      QueryBorrowInterestResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "QueryBorrowInterest", data);
+    return promise.then((data) => QueryBorrowInterestResponse.decode(new _m0.Reader(data)));
   }
 
   QueryAllBorrowByOwnerAndDebtPool(
-    request: QueryAllBorrowByOwnerAndDebtPoolRequest
+    request: QueryAllBorrowByOwnerAndDebtPoolRequest,
   ): Promise<QueryAllBorrowByOwnerAndDebtPoolResponse> {
-    const data =
-      QueryAllBorrowByOwnerAndDebtPoolRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.lend.v1beta1.Query",
-      "QueryAllBorrowByOwnerAndDebtPool",
-      data
-    );
-    return promise.then((data) =>
-      QueryAllBorrowByOwnerAndDebtPoolResponse.decode(new _m0.Reader(data))
-    );
+    const data = QueryAllBorrowByOwnerAndDebtPoolRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "QueryAllBorrowByOwnerAndDebtPool", data);
+    return promise.then((data) => QueryAllBorrowByOwnerAndDebtPoolResponse.decode(new _m0.Reader(data)));
   }
 }
 
 interface Rpc {
-  request(
-    service: string,
-    method: string,
-    data: Uint8Array
-  ): Promise<Uint8Array>;
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

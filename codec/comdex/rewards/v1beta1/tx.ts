@@ -1,10 +1,10 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
-import { Duration } from "../../../google/protobuf/duration";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
+import { Duration } from "../../../google/protobuf/duration";
 import { Timestamp } from "../../../google/protobuf/timestamp";
-import { LiquidtyGaugeMetaData } from "../../../comdex/rewards/v1beta1/gauge";
+import { LiquidtyGaugeMetaData } from "./gauge";
 
 export const protobufPackage = "comdex.rewards.v1beta1";
 
@@ -19,7 +19,8 @@ export interface MsgCreateGauge {
   appId: Long;
 }
 
-export interface MsgCreateGaugeResponse {}
+export interface MsgCreateGaugeResponse {
+}
 
 export interface WhitelistAsset {
   appMappingId: Long;
@@ -33,9 +34,11 @@ export interface RemoveWhitelistAsset {
   assetId: Long;
 }
 
-export interface MsgWhitelistAssetResponse {}
+export interface MsgWhitelistAssetResponse {
+}
 
-export interface MsgRemoveWhitelistAssetResponse {}
+export interface MsgRemoveWhitelistAssetResponse {
+}
 
 export interface WhitelistAppIdVault {
   appMappingId: Long;
@@ -47,9 +50,11 @@ export interface RemoveWhitelistAppIdVault {
   from: string;
 }
 
-export interface MsgWhitelistAppIdVaultResponse {}
+export interface MsgWhitelistAppIdVaultResponse {
+}
 
-export interface MsgRemoveWhitelistAppIdVaultResponse {}
+export interface MsgRemoveWhitelistAppIdVaultResponse {
+}
 
 export interface ActivateExternalRewardsLockers {
   appMappingId: Long;
@@ -60,7 +65,8 @@ export interface ActivateExternalRewardsLockers {
   minLockupTimeSeconds: Long;
 }
 
-export interface ActivateExternalRewardsLockersResponse {}
+export interface ActivateExternalRewardsLockersResponse {
+}
 
 export interface ActivateExternalRewardsVault {
   appMappingId: Long;
@@ -71,7 +77,8 @@ export interface ActivateExternalRewardsVault {
   minLockupTimeSeconds: Long;
 }
 
-export interface ActivateExternalRewardsVaultResponse {}
+export interface ActivateExternalRewardsVaultResponse {
+}
 
 export interface ActivateExternalRewardsLend {
   appMappingId: Long;
@@ -86,7 +93,8 @@ export interface ActivateExternalRewardsLend {
   depositor: string;
 }
 
-export interface ActivateExternalRewardsLendResponse {}
+export interface ActivateExternalRewardsLendResponse {
+}
 
 export interface ActivateExternalRewardsStableMint {
   appId: Long;
@@ -98,7 +106,8 @@ export interface ActivateExternalRewardsStableMint {
   acceptedBlockHeight: Long;
 }
 
-export interface ActivateExternalRewardsStableMintResponse {}
+export interface ActivateExternalRewardsStableMintResponse {
+}
 
 function createBaseMsgCreateGauge(): MsgCreateGauge {
   return {
@@ -114,10 +123,7 @@ function createBaseMsgCreateGauge(): MsgCreateGauge {
 }
 
 export const MsgCreateGauge = {
-  encode(
-    message: MsgCreateGauge,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: MsgCreateGauge, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from !== "") {
       writer.uint32(10).string(message.from);
     }
@@ -125,10 +131,7 @@ export const MsgCreateGauge = {
       writer.uint32(16).uint64(message.gaugeTypeId);
     }
     if (message.triggerDuration !== undefined) {
-      Duration.encode(
-        message.triggerDuration,
-        writer.uint32(26).fork()
-      ).ldelim();
+      Duration.encode(message.triggerDuration, writer.uint32(26).fork()).ldelim();
     }
     if (message.depositAmount !== undefined) {
       Coin.encode(message.depositAmount, writer.uint32(34).fork()).ldelim();
@@ -137,16 +140,10 @@ export const MsgCreateGauge = {
       writer.uint32(40).uint64(message.totalTriggers);
     }
     if (message.startTime !== undefined) {
-      Timestamp.encode(
-        toTimestamp(message.startTime),
-        writer.uint32(50).fork()
-      ).ldelim();
+      Timestamp.encode(toTimestamp(message.startTime), writer.uint32(50).fork()).ldelim();
     }
     if (message.liquidityMetaData !== undefined) {
-      LiquidtyGaugeMetaData.encode(
-        message.liquidityMetaData,
-        writer.uint32(58).fork()
-      ).ldelim();
+      LiquidtyGaugeMetaData.encode(message.liquidityMetaData, writer.uint32(58).fork()).ldelim();
     }
     if (!message.appId.isZero()) {
       writer.uint32(64).uint64(message.appId);
@@ -177,15 +174,10 @@ export const MsgCreateGauge = {
           message.totalTriggers = reader.uint64() as Long;
           break;
         case 6:
-          message.startTime = fromTimestamp(
-            Timestamp.decode(reader, reader.uint32())
-          );
+          message.startTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
           break;
         case 7:
-          message.liquidityMetaData = LiquidtyGaugeMetaData.decode(
-            reader,
-            reader.uint32()
-          );
+          message.liquidityMetaData = LiquidtyGaugeMetaData.decode(reader, reader.uint32());
           break;
         case 8:
           message.appId = reader.uint64() as Long;
@@ -201,21 +193,11 @@ export const MsgCreateGauge = {
   fromJSON(object: any): MsgCreateGauge {
     return {
       from: isSet(object.from) ? String(object.from) : "",
-      gaugeTypeId: isSet(object.gaugeTypeId)
-        ? Long.fromValue(object.gaugeTypeId)
-        : Long.UZERO,
-      triggerDuration: isSet(object.triggerDuration)
-        ? Duration.fromJSON(object.triggerDuration)
-        : undefined,
-      depositAmount: isSet(object.depositAmount)
-        ? Coin.fromJSON(object.depositAmount)
-        : undefined,
-      totalTriggers: isSet(object.totalTriggers)
-        ? Long.fromValue(object.totalTriggers)
-        : Long.UZERO,
-      startTime: isSet(object.startTime)
-        ? fromJsonTimestamp(object.startTime)
-        : undefined,
+      gaugeTypeId: isSet(object.gaugeTypeId) ? Long.fromValue(object.gaugeTypeId) : Long.UZERO,
+      triggerDuration: isSet(object.triggerDuration) ? Duration.fromJSON(object.triggerDuration) : undefined,
+      depositAmount: isSet(object.depositAmount) ? Coin.fromJSON(object.depositAmount) : undefined,
+      totalTriggers: isSet(object.totalTriggers) ? Long.fromValue(object.totalTriggers) : Long.UZERO,
+      startTime: isSet(object.startTime) ? fromJsonTimestamp(object.startTime) : undefined,
       liquidityMetaData: isSet(object.liquidityMetaData)
         ? LiquidtyGaugeMetaData.fromJSON(object.liquidityMetaData)
         : undefined,
@@ -226,60 +208,44 @@ export const MsgCreateGauge = {
   toJSON(message: MsgCreateGauge): unknown {
     const obj: any = {};
     message.from !== undefined && (obj.from = message.from);
-    message.gaugeTypeId !== undefined &&
-      (obj.gaugeTypeId = (message.gaugeTypeId || Long.UZERO).toString());
+    message.gaugeTypeId !== undefined && (obj.gaugeTypeId = (message.gaugeTypeId || Long.UZERO).toString());
     message.triggerDuration !== undefined &&
-      (obj.triggerDuration = message.triggerDuration
-        ? Duration.toJSON(message.triggerDuration)
-        : undefined);
+      (obj.triggerDuration = message.triggerDuration ? Duration.toJSON(message.triggerDuration) : undefined);
     message.depositAmount !== undefined &&
-      (obj.depositAmount = message.depositAmount
-        ? Coin.toJSON(message.depositAmount)
-        : undefined);
-    message.totalTriggers !== undefined &&
-      (obj.totalTriggers = (message.totalTriggers || Long.UZERO).toString());
-    message.startTime !== undefined &&
-      (obj.startTime = message.startTime.toISOString());
-    message.liquidityMetaData !== undefined &&
-      (obj.liquidityMetaData = message.liquidityMetaData
-        ? LiquidtyGaugeMetaData.toJSON(message.liquidityMetaData)
-        : undefined);
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
+      (obj.depositAmount = message.depositAmount ? Coin.toJSON(message.depositAmount) : undefined);
+    message.totalTriggers !== undefined && (obj.totalTriggers = (message.totalTriggers || Long.UZERO).toString());
+    message.startTime !== undefined && (obj.startTime = message.startTime.toISOString());
+    message.liquidityMetaData !== undefined && (obj.liquidityMetaData = message.liquidityMetaData
+      ? LiquidtyGaugeMetaData.toJSON(message.liquidityMetaData)
+      : undefined);
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCreateGauge>, I>>(
-    object: I
-  ): MsgCreateGauge {
+  create<I extends Exact<DeepPartial<MsgCreateGauge>, I>>(base?: I): MsgCreateGauge {
+    return MsgCreateGauge.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreateGauge>, I>>(object: I): MsgCreateGauge {
     const message = createBaseMsgCreateGauge();
     message.from = object.from ?? "";
-    message.gaugeTypeId =
-      object.gaugeTypeId !== undefined && object.gaugeTypeId !== null
-        ? Long.fromValue(object.gaugeTypeId)
-        : Long.UZERO;
-    message.triggerDuration =
-      object.triggerDuration !== undefined && object.triggerDuration !== null
-        ? Duration.fromPartial(object.triggerDuration)
-        : undefined;
-    message.depositAmount =
-      object.depositAmount !== undefined && object.depositAmount !== null
-        ? Coin.fromPartial(object.depositAmount)
-        : undefined;
-    message.totalTriggers =
-      object.totalTriggers !== undefined && object.totalTriggers !== null
-        ? Long.fromValue(object.totalTriggers)
-        : Long.UZERO;
+    message.gaugeTypeId = (object.gaugeTypeId !== undefined && object.gaugeTypeId !== null)
+      ? Long.fromValue(object.gaugeTypeId)
+      : Long.UZERO;
+    message.triggerDuration = (object.triggerDuration !== undefined && object.triggerDuration !== null)
+      ? Duration.fromPartial(object.triggerDuration)
+      : undefined;
+    message.depositAmount = (object.depositAmount !== undefined && object.depositAmount !== null)
+      ? Coin.fromPartial(object.depositAmount)
+      : undefined;
+    message.totalTriggers = (object.totalTriggers !== undefined && object.totalTriggers !== null)
+      ? Long.fromValue(object.totalTriggers)
+      : Long.UZERO;
     message.startTime = object.startTime ?? undefined;
-    message.liquidityMetaData =
-      object.liquidityMetaData !== undefined &&
-      object.liquidityMetaData !== null
-        ? LiquidtyGaugeMetaData.fromPartial(object.liquidityMetaData)
-        : undefined;
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
+    message.liquidityMetaData = (object.liquidityMetaData !== undefined && object.liquidityMetaData !== null)
+      ? LiquidtyGaugeMetaData.fromPartial(object.liquidityMetaData)
+      : undefined;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
     return message;
   },
 };
@@ -289,17 +255,11 @@ function createBaseMsgCreateGaugeResponse(): MsgCreateGaugeResponse {
 }
 
 export const MsgCreateGaugeResponse = {
-  encode(
-    _: MsgCreateGaugeResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgCreateGaugeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgCreateGaugeResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateGaugeResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateGaugeResponse();
@@ -323,9 +283,11 @@ export const MsgCreateGaugeResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgCreateGaugeResponse>, I>>(
-    _: I
-  ): MsgCreateGaugeResponse {
+  create<I extends Exact<DeepPartial<MsgCreateGaugeResponse>, I>>(base?: I): MsgCreateGaugeResponse {
+    return MsgCreateGaugeResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgCreateGaugeResponse>, I>>(_: I): MsgCreateGaugeResponse {
     const message = createBaseMsgCreateGaugeResponse();
     return message;
   },
@@ -336,10 +298,7 @@ function createBaseWhitelistAsset(): WhitelistAsset {
 }
 
 export const WhitelistAsset = {
-  encode(
-    message: WhitelistAsset,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: WhitelistAsset, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appMappingId.isZero()) {
       writer.uint32(8).uint64(message.appMappingId);
     }
@@ -378,39 +337,33 @@ export const WhitelistAsset = {
 
   fromJSON(object: any): WhitelistAsset {
     return {
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
     };
   },
 
   toJSON(message: WhitelistAsset): unknown {
     const obj: any = {};
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
     message.from !== undefined && (obj.from = message.from);
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<WhitelistAsset>, I>>(
-    object: I
-  ): WhitelistAsset {
+  create<I extends Exact<DeepPartial<WhitelistAsset>, I>>(base?: I): WhitelistAsset {
+    return WhitelistAsset.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<WhitelistAsset>, I>>(object: I): WhitelistAsset {
     const message = createBaseWhitelistAsset();
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
     message.from = object.from ?? "";
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -420,10 +373,7 @@ function createBaseRemoveWhitelistAsset(): RemoveWhitelistAsset {
 }
 
 export const RemoveWhitelistAsset = {
-  encode(
-    message: RemoveWhitelistAsset,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: RemoveWhitelistAsset, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appMappingId.isZero()) {
       writer.uint32(8).uint64(message.appMappingId);
     }
@@ -436,10 +386,7 @@ export const RemoveWhitelistAsset = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): RemoveWhitelistAsset {
+  decode(input: _m0.Reader | Uint8Array, length?: number): RemoveWhitelistAsset {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRemoveWhitelistAsset();
@@ -465,39 +412,33 @@ export const RemoveWhitelistAsset = {
 
   fromJSON(object: any): RemoveWhitelistAsset {
     return {
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
     };
   },
 
   toJSON(message: RemoveWhitelistAsset): unknown {
     const obj: any = {};
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
     message.from !== undefined && (obj.from = message.from);
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RemoveWhitelistAsset>, I>>(
-    object: I
-  ): RemoveWhitelistAsset {
+  create<I extends Exact<DeepPartial<RemoveWhitelistAsset>, I>>(base?: I): RemoveWhitelistAsset {
+    return RemoveWhitelistAsset.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<RemoveWhitelistAsset>, I>>(object: I): RemoveWhitelistAsset {
     const message = createBaseRemoveWhitelistAsset();
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
     message.from = object.from ?? "";
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
     return message;
   },
 };
@@ -507,17 +448,11 @@ function createBaseMsgWhitelistAssetResponse(): MsgWhitelistAssetResponse {
 }
 
 export const MsgWhitelistAssetResponse = {
-  encode(
-    _: MsgWhitelistAssetResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgWhitelistAssetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgWhitelistAssetResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWhitelistAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWhitelistAssetResponse();
@@ -541,9 +476,11 @@ export const MsgWhitelistAssetResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWhitelistAssetResponse>, I>>(
-    _: I
-  ): MsgWhitelistAssetResponse {
+  create<I extends Exact<DeepPartial<MsgWhitelistAssetResponse>, I>>(base?: I): MsgWhitelistAssetResponse {
+    return MsgWhitelistAssetResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWhitelistAssetResponse>, I>>(_: I): MsgWhitelistAssetResponse {
     const message = createBaseMsgWhitelistAssetResponse();
     return message;
   },
@@ -554,17 +491,11 @@ function createBaseMsgRemoveWhitelistAssetResponse(): MsgRemoveWhitelistAssetRes
 }
 
 export const MsgRemoveWhitelistAssetResponse = {
-  encode(
-    _: MsgRemoveWhitelistAssetResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgRemoveWhitelistAssetResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgRemoveWhitelistAssetResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveWhitelistAssetResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRemoveWhitelistAssetResponse();
@@ -588,9 +519,11 @@ export const MsgRemoveWhitelistAssetResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgRemoveWhitelistAssetResponse>, I>>(
-    _: I
-  ): MsgRemoveWhitelistAssetResponse {
+  create<I extends Exact<DeepPartial<MsgRemoveWhitelistAssetResponse>, I>>(base?: I): MsgRemoveWhitelistAssetResponse {
+    return MsgRemoveWhitelistAssetResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRemoveWhitelistAssetResponse>, I>>(_: I): MsgRemoveWhitelistAssetResponse {
     const message = createBaseMsgRemoveWhitelistAssetResponse();
     return message;
   },
@@ -601,10 +534,7 @@ function createBaseWhitelistAppIdVault(): WhitelistAppIdVault {
 }
 
 export const WhitelistAppIdVault = {
-  encode(
-    message: WhitelistAppIdVault,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: WhitelistAppIdVault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appMappingId.isZero()) {
       writer.uint32(8).uint64(message.appMappingId);
     }
@@ -637,29 +567,27 @@ export const WhitelistAppIdVault = {
 
   fromJSON(object: any): WhitelistAppIdVault {
     return {
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
     };
   },
 
   toJSON(message: WhitelistAppIdVault): unknown {
     const obj: any = {};
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
     message.from !== undefined && (obj.from = message.from);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<WhitelistAppIdVault>, I>>(
-    object: I
-  ): WhitelistAppIdVault {
+  create<I extends Exact<DeepPartial<WhitelistAppIdVault>, I>>(base?: I): WhitelistAppIdVault {
+    return WhitelistAppIdVault.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<WhitelistAppIdVault>, I>>(object: I): WhitelistAppIdVault {
     const message = createBaseWhitelistAppIdVault();
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
     message.from = object.from ?? "";
     return message;
   },
@@ -670,10 +598,7 @@ function createBaseRemoveWhitelistAppIdVault(): RemoveWhitelistAppIdVault {
 }
 
 export const RemoveWhitelistAppIdVault = {
-  encode(
-    message: RemoveWhitelistAppIdVault,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: RemoveWhitelistAppIdVault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appMappingId.isZero()) {
       writer.uint32(8).uint64(message.appMappingId);
     }
@@ -683,10 +608,7 @@ export const RemoveWhitelistAppIdVault = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): RemoveWhitelistAppIdVault {
+  decode(input: _m0.Reader | Uint8Array, length?: number): RemoveWhitelistAppIdVault {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRemoveWhitelistAppIdVault();
@@ -709,29 +631,27 @@ export const RemoveWhitelistAppIdVault = {
 
   fromJSON(object: any): RemoveWhitelistAppIdVault {
     return {
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
       from: isSet(object.from) ? String(object.from) : "",
     };
   },
 
   toJSON(message: RemoveWhitelistAppIdVault): unknown {
     const obj: any = {};
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
     message.from !== undefined && (obj.from = message.from);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<RemoveWhitelistAppIdVault>, I>>(
-    object: I
-  ): RemoveWhitelistAppIdVault {
+  create<I extends Exact<DeepPartial<RemoveWhitelistAppIdVault>, I>>(base?: I): RemoveWhitelistAppIdVault {
+    return RemoveWhitelistAppIdVault.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<RemoveWhitelistAppIdVault>, I>>(object: I): RemoveWhitelistAppIdVault {
     const message = createBaseRemoveWhitelistAppIdVault();
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
     message.from = object.from ?? "";
     return message;
   },
@@ -742,17 +662,11 @@ function createBaseMsgWhitelistAppIdVaultResponse(): MsgWhitelistAppIdVaultRespo
 }
 
 export const MsgWhitelistAppIdVaultResponse = {
-  encode(
-    _: MsgWhitelistAppIdVaultResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgWhitelistAppIdVaultResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgWhitelistAppIdVaultResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgWhitelistAppIdVaultResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgWhitelistAppIdVaultResponse();
@@ -776,9 +690,11 @@ export const MsgWhitelistAppIdVaultResponse = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgWhitelistAppIdVaultResponse>, I>>(
-    _: I
-  ): MsgWhitelistAppIdVaultResponse {
+  create<I extends Exact<DeepPartial<MsgWhitelistAppIdVaultResponse>, I>>(base?: I): MsgWhitelistAppIdVaultResponse {
+    return MsgWhitelistAppIdVaultResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgWhitelistAppIdVaultResponse>, I>>(_: I): MsgWhitelistAppIdVaultResponse {
     const message = createBaseMsgWhitelistAppIdVaultResponse();
     return message;
   },
@@ -789,17 +705,11 @@ function createBaseMsgRemoveWhitelistAppIdVaultResponse(): MsgRemoveWhitelistApp
 }
 
 export const MsgRemoveWhitelistAppIdVaultResponse = {
-  encode(
-    _: MsgRemoveWhitelistAppIdVaultResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: MsgRemoveWhitelistAppIdVaultResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): MsgRemoveWhitelistAppIdVaultResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgRemoveWhitelistAppIdVaultResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRemoveWhitelistAppIdVaultResponse();
@@ -823,9 +733,15 @@ export const MsgRemoveWhitelistAppIdVaultResponse = {
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<MsgRemoveWhitelistAppIdVaultResponse>, I>
-  >(_: I): MsgRemoveWhitelistAppIdVaultResponse {
+  create<I extends Exact<DeepPartial<MsgRemoveWhitelistAppIdVaultResponse>, I>>(
+    base?: I,
+  ): MsgRemoveWhitelistAppIdVaultResponse {
+    return MsgRemoveWhitelistAppIdVaultResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgRemoveWhitelistAppIdVaultResponse>, I>>(
+    _: I,
+  ): MsgRemoveWhitelistAppIdVaultResponse {
     const message = createBaseMsgRemoveWhitelistAppIdVaultResponse();
     return message;
   },
@@ -843,10 +759,7 @@ function createBaseActivateExternalRewardsLockers(): ActivateExternalRewardsLock
 }
 
 export const ActivateExternalRewardsLockers = {
-  encode(
-    message: ActivateExternalRewardsLockers,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: ActivateExternalRewardsLockers, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appMappingId.isZero()) {
       writer.uint32(8).uint64(message.appMappingId);
     }
@@ -868,10 +781,7 @@ export const ActivateExternalRewardsLockers = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): ActivateExternalRewardsLockers {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsLockers {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseActivateExternalRewardsLockers();
@@ -906,18 +816,10 @@ export const ActivateExternalRewardsLockers = {
 
   fromJSON(object: any): ActivateExternalRewardsLockers {
     return {
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
-      assetId: isSet(object.assetId)
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO,
-      totalRewards: isSet(object.totalRewards)
-        ? Coin.fromJSON(object.totalRewards)
-        : undefined,
-      durationDays: isSet(object.durationDays)
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
+      assetId: isSet(object.assetId) ? Long.fromValue(object.assetId) : Long.UZERO,
+      totalRewards: isSet(object.totalRewards) ? Coin.fromJSON(object.totalRewards) : undefined,
+      durationDays: isSet(object.durationDays) ? Long.fromValue(object.durationDays) : Long.ZERO,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
         ? Long.fromValue(object.minLockupTimeSeconds)
@@ -927,50 +829,41 @@ export const ActivateExternalRewardsLockers = {
 
   toJSON(message: ActivateExternalRewardsLockers): unknown {
     const obj: any = {};
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    message.assetId !== undefined &&
-      (obj.assetId = (message.assetId || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.assetId !== undefined && (obj.assetId = (message.assetId || Long.UZERO).toString());
     message.totalRewards !== undefined &&
-      (obj.totalRewards = message.totalRewards
-        ? Coin.toJSON(message.totalRewards)
-        : undefined);
-    message.durationDays !== undefined &&
-      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+      (obj.totalRewards = message.totalRewards ? Coin.toJSON(message.totalRewards) : undefined);
+    message.durationDays !== undefined && (obj.durationDays = (message.durationDays || Long.ZERO).toString());
     message.depositor !== undefined && (obj.depositor = message.depositor);
     message.minLockupTimeSeconds !== undefined &&
-      (obj.minLockupTimeSeconds = (
-        message.minLockupTimeSeconds || Long.ZERO
-      ).toString());
+      (obj.minLockupTimeSeconds = (message.minLockupTimeSeconds || Long.ZERO).toString());
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<ActivateExternalRewardsLockers>, I>>(base?: I): ActivateExternalRewardsLockers {
+    return ActivateExternalRewardsLockers.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsLockers>, I>>(
-    object: I
+    object: I,
   ): ActivateExternalRewardsLockers {
     const message = createBaseActivateExternalRewardsLockers();
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
-    message.assetId =
-      object.assetId !== undefined && object.assetId !== null
-        ? Long.fromValue(object.assetId)
-        : Long.UZERO;
-    message.totalRewards =
-      object.totalRewards !== undefined && object.totalRewards !== null
-        ? Coin.fromPartial(object.totalRewards)
-        : undefined;
-    message.durationDays =
-      object.durationDays !== undefined && object.durationDays !== null
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
+    message.assetId = (object.assetId !== undefined && object.assetId !== null)
+      ? Long.fromValue(object.assetId)
+      : Long.UZERO;
+    message.totalRewards = (object.totalRewards !== undefined && object.totalRewards !== null)
+      ? Coin.fromPartial(object.totalRewards)
+      : undefined;
+    message.durationDays = (object.durationDays !== undefined && object.durationDays !== null)
+      ? Long.fromValue(object.durationDays)
+      : Long.ZERO;
     message.depositor = object.depositor ?? "";
-    message.minLockupTimeSeconds =
-      object.minLockupTimeSeconds !== undefined &&
-      object.minLockupTimeSeconds !== null
-        ? Long.fromValue(object.minLockupTimeSeconds)
-        : Long.ZERO;
+    message.minLockupTimeSeconds = (object.minLockupTimeSeconds !== undefined && object.minLockupTimeSeconds !== null)
+      ? Long.fromValue(object.minLockupTimeSeconds)
+      : Long.ZERO;
     return message;
   },
 };
@@ -980,17 +873,11 @@ function createBaseActivateExternalRewardsLockersResponse(): ActivateExternalRew
 }
 
 export const ActivateExternalRewardsLockersResponse = {
-  encode(
-    _: ActivateExternalRewardsLockersResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: ActivateExternalRewardsLockersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): ActivateExternalRewardsLockersResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsLockersResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseActivateExternalRewardsLockersResponse();
@@ -1014,9 +901,15 @@ export const ActivateExternalRewardsLockersResponse = {
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<ActivateExternalRewardsLockersResponse>, I>
-  >(_: I): ActivateExternalRewardsLockersResponse {
+  create<I extends Exact<DeepPartial<ActivateExternalRewardsLockersResponse>, I>>(
+    base?: I,
+  ): ActivateExternalRewardsLockersResponse {
+    return ActivateExternalRewardsLockersResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsLockersResponse>, I>>(
+    _: I,
+  ): ActivateExternalRewardsLockersResponse {
     const message = createBaseActivateExternalRewardsLockersResponse();
     return message;
   },
@@ -1034,10 +927,7 @@ function createBaseActivateExternalRewardsVault(): ActivateExternalRewardsVault 
 }
 
 export const ActivateExternalRewardsVault = {
-  encode(
-    message: ActivateExternalRewardsVault,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: ActivateExternalRewardsVault, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appMappingId.isZero()) {
       writer.uint32(8).uint64(message.appMappingId);
     }
@@ -1059,10 +949,7 @@ export const ActivateExternalRewardsVault = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): ActivateExternalRewardsVault {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsVault {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseActivateExternalRewardsVault();
@@ -1097,18 +984,10 @@ export const ActivateExternalRewardsVault = {
 
   fromJSON(object: any): ActivateExternalRewardsVault {
     return {
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
-      extendedPairId: isSet(object.extendedPairId)
-        ? Long.fromValue(object.extendedPairId)
-        : Long.UZERO,
-      totalRewards: isSet(object.totalRewards)
-        ? Coin.fromJSON(object.totalRewards)
-        : undefined,
-      durationDays: isSet(object.durationDays)
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
+      extendedPairId: isSet(object.extendedPairId) ? Long.fromValue(object.extendedPairId) : Long.UZERO,
+      totalRewards: isSet(object.totalRewards) ? Coin.fromJSON(object.totalRewards) : undefined,
+      durationDays: isSet(object.durationDays) ? Long.fromValue(object.durationDays) : Long.ZERO,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
       minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
         ? Long.fromValue(object.minLockupTimeSeconds)
@@ -1118,50 +997,39 @@ export const ActivateExternalRewardsVault = {
 
   toJSON(message: ActivateExternalRewardsVault): unknown {
     const obj: any = {};
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    message.extendedPairId !== undefined &&
-      (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.extendedPairId !== undefined && (obj.extendedPairId = (message.extendedPairId || Long.UZERO).toString());
     message.totalRewards !== undefined &&
-      (obj.totalRewards = message.totalRewards
-        ? Coin.toJSON(message.totalRewards)
-        : undefined);
-    message.durationDays !== undefined &&
-      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+      (obj.totalRewards = message.totalRewards ? Coin.toJSON(message.totalRewards) : undefined);
+    message.durationDays !== undefined && (obj.durationDays = (message.durationDays || Long.ZERO).toString());
     message.depositor !== undefined && (obj.depositor = message.depositor);
     message.minLockupTimeSeconds !== undefined &&
-      (obj.minLockupTimeSeconds = (
-        message.minLockupTimeSeconds || Long.ZERO
-      ).toString());
+      (obj.minLockupTimeSeconds = (message.minLockupTimeSeconds || Long.ZERO).toString());
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsVault>, I>>(
-    object: I
-  ): ActivateExternalRewardsVault {
+  create<I extends Exact<DeepPartial<ActivateExternalRewardsVault>, I>>(base?: I): ActivateExternalRewardsVault {
+    return ActivateExternalRewardsVault.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsVault>, I>>(object: I): ActivateExternalRewardsVault {
     const message = createBaseActivateExternalRewardsVault();
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
-    message.extendedPairId =
-      object.extendedPairId !== undefined && object.extendedPairId !== null
-        ? Long.fromValue(object.extendedPairId)
-        : Long.UZERO;
-    message.totalRewards =
-      object.totalRewards !== undefined && object.totalRewards !== null
-        ? Coin.fromPartial(object.totalRewards)
-        : undefined;
-    message.durationDays =
-      object.durationDays !== undefined && object.durationDays !== null
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
+    message.extendedPairId = (object.extendedPairId !== undefined && object.extendedPairId !== null)
+      ? Long.fromValue(object.extendedPairId)
+      : Long.UZERO;
+    message.totalRewards = (object.totalRewards !== undefined && object.totalRewards !== null)
+      ? Coin.fromPartial(object.totalRewards)
+      : undefined;
+    message.durationDays = (object.durationDays !== undefined && object.durationDays !== null)
+      ? Long.fromValue(object.durationDays)
+      : Long.ZERO;
     message.depositor = object.depositor ?? "";
-    message.minLockupTimeSeconds =
-      object.minLockupTimeSeconds !== undefined &&
-      object.minLockupTimeSeconds !== null
-        ? Long.fromValue(object.minLockupTimeSeconds)
-        : Long.ZERO;
+    message.minLockupTimeSeconds = (object.minLockupTimeSeconds !== undefined && object.minLockupTimeSeconds !== null)
+      ? Long.fromValue(object.minLockupTimeSeconds)
+      : Long.ZERO;
     return message;
   },
 };
@@ -1171,17 +1039,11 @@ function createBaseActivateExternalRewardsVaultResponse(): ActivateExternalRewar
 }
 
 export const ActivateExternalRewardsVaultResponse = {
-  encode(
-    _: ActivateExternalRewardsVaultResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: ActivateExternalRewardsVaultResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): ActivateExternalRewardsVaultResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsVaultResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseActivateExternalRewardsVaultResponse();
@@ -1205,9 +1067,15 @@ export const ActivateExternalRewardsVaultResponse = {
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<ActivateExternalRewardsVaultResponse>, I>
-  >(_: I): ActivateExternalRewardsVaultResponse {
+  create<I extends Exact<DeepPartial<ActivateExternalRewardsVaultResponse>, I>>(
+    base?: I,
+  ): ActivateExternalRewardsVaultResponse {
+    return ActivateExternalRewardsVaultResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsVaultResponse>, I>>(
+    _: I,
+  ): ActivateExternalRewardsVaultResponse {
     const message = createBaseActivateExternalRewardsVaultResponse();
     return message;
   },
@@ -1229,10 +1097,7 @@ function createBaseActivateExternalRewardsLend(): ActivateExternalRewardsLend {
 }
 
 export const ActivateExternalRewardsLend = {
-  encode(
-    message: ActivateExternalRewardsLend,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: ActivateExternalRewardsLend, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appMappingId.isZero()) {
       writer.uint32(8).uint64(message.appMappingId);
     }
@@ -1268,10 +1133,7 @@ export const ActivateExternalRewardsLend = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): ActivateExternalRewardsLend {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsLend {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseActivateExternalRewardsLend();
@@ -1325,30 +1187,14 @@ export const ActivateExternalRewardsLend = {
 
   fromJSON(object: any): ActivateExternalRewardsLend {
     return {
-      appMappingId: isSet(object.appMappingId)
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO,
-      cPoolId: isSet(object.cPoolId)
-        ? Long.fromValue(object.cPoolId)
-        : Long.UZERO,
-      assetId: Array.isArray(object?.assetId)
-        ? object.assetId.map((e: any) => Long.fromValue(e))
-        : [],
-      cSwapAppId: isSet(object.cSwapAppId)
-        ? Long.fromValue(object.cSwapAppId)
-        : Long.UZERO,
-      cSwapMinLockAmount: isSet(object.cSwapMinLockAmount)
-        ? Long.fromValue(object.cSwapMinLockAmount)
-        : Long.UZERO,
-      totalRewards: isSet(object.totalRewards)
-        ? Coin.fromJSON(object.totalRewards)
-        : undefined,
-      masterPoolId: isSet(object.masterPoolId)
-        ? Long.fromValue(object.masterPoolId)
-        : Long.ZERO,
-      durationDays: isSet(object.durationDays)
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO,
+      appMappingId: isSet(object.appMappingId) ? Long.fromValue(object.appMappingId) : Long.UZERO,
+      cPoolId: isSet(object.cPoolId) ? Long.fromValue(object.cPoolId) : Long.UZERO,
+      assetId: Array.isArray(object?.assetId) ? object.assetId.map((e: any) => Long.fromValue(e)) : [],
+      cSwapAppId: isSet(object.cSwapAppId) ? Long.fromValue(object.cSwapAppId) : Long.UZERO,
+      cSwapMinLockAmount: isSet(object.cSwapMinLockAmount) ? Long.fromValue(object.cSwapMinLockAmount) : Long.UZERO,
+      totalRewards: isSet(object.totalRewards) ? Coin.fromJSON(object.totalRewards) : undefined,
+      masterPoolId: isSet(object.masterPoolId) ? Long.fromValue(object.masterPoolId) : Long.ZERO,
+      durationDays: isSet(object.durationDays) ? Long.fromValue(object.durationDays) : Long.ZERO,
       minLockupTimeSeconds: isSet(object.minLockupTimeSeconds)
         ? Long.fromValue(object.minLockupTimeSeconds)
         : Long.ZERO,
@@ -1358,76 +1204,57 @@ export const ActivateExternalRewardsLend = {
 
   toJSON(message: ActivateExternalRewardsLend): unknown {
     const obj: any = {};
-    message.appMappingId !== undefined &&
-      (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
-    message.cPoolId !== undefined &&
-      (obj.cPoolId = (message.cPoolId || Long.UZERO).toString());
+    message.appMappingId !== undefined && (obj.appMappingId = (message.appMappingId || Long.UZERO).toString());
+    message.cPoolId !== undefined && (obj.cPoolId = (message.cPoolId || Long.UZERO).toString());
     if (message.assetId) {
       obj.assetId = message.assetId.map((e) => (e || Long.UZERO).toString());
     } else {
       obj.assetId = [];
     }
-    message.cSwapAppId !== undefined &&
-      (obj.cSwapAppId = (message.cSwapAppId || Long.UZERO).toString());
+    message.cSwapAppId !== undefined && (obj.cSwapAppId = (message.cSwapAppId || Long.UZERO).toString());
     message.cSwapMinLockAmount !== undefined &&
-      (obj.cSwapMinLockAmount = (
-        message.cSwapMinLockAmount || Long.UZERO
-      ).toString());
+      (obj.cSwapMinLockAmount = (message.cSwapMinLockAmount || Long.UZERO).toString());
     message.totalRewards !== undefined &&
-      (obj.totalRewards = message.totalRewards
-        ? Coin.toJSON(message.totalRewards)
-        : undefined);
-    message.masterPoolId !== undefined &&
-      (obj.masterPoolId = (message.masterPoolId || Long.ZERO).toString());
-    message.durationDays !== undefined &&
-      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+      (obj.totalRewards = message.totalRewards ? Coin.toJSON(message.totalRewards) : undefined);
+    message.masterPoolId !== undefined && (obj.masterPoolId = (message.masterPoolId || Long.ZERO).toString());
+    message.durationDays !== undefined && (obj.durationDays = (message.durationDays || Long.ZERO).toString());
     message.minLockupTimeSeconds !== undefined &&
-      (obj.minLockupTimeSeconds = (
-        message.minLockupTimeSeconds || Long.ZERO
-      ).toString());
+      (obj.minLockupTimeSeconds = (message.minLockupTimeSeconds || Long.ZERO).toString());
     message.depositor !== undefined && (obj.depositor = message.depositor);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsLend>, I>>(
-    object: I
-  ): ActivateExternalRewardsLend {
+  create<I extends Exact<DeepPartial<ActivateExternalRewardsLend>, I>>(base?: I): ActivateExternalRewardsLend {
+    return ActivateExternalRewardsLend.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsLend>, I>>(object: I): ActivateExternalRewardsLend {
     const message = createBaseActivateExternalRewardsLend();
-    message.appMappingId =
-      object.appMappingId !== undefined && object.appMappingId !== null
-        ? Long.fromValue(object.appMappingId)
-        : Long.UZERO;
-    message.cPoolId =
-      object.cPoolId !== undefined && object.cPoolId !== null
-        ? Long.fromValue(object.cPoolId)
-        : Long.UZERO;
+    message.appMappingId = (object.appMappingId !== undefined && object.appMappingId !== null)
+      ? Long.fromValue(object.appMappingId)
+      : Long.UZERO;
+    message.cPoolId = (object.cPoolId !== undefined && object.cPoolId !== null)
+      ? Long.fromValue(object.cPoolId)
+      : Long.UZERO;
     message.assetId = object.assetId?.map((e) => Long.fromValue(e)) || [];
-    message.cSwapAppId =
-      object.cSwapAppId !== undefined && object.cSwapAppId !== null
-        ? Long.fromValue(object.cSwapAppId)
-        : Long.UZERO;
-    message.cSwapMinLockAmount =
-      object.cSwapMinLockAmount !== undefined &&
-      object.cSwapMinLockAmount !== null
-        ? Long.fromValue(object.cSwapMinLockAmount)
-        : Long.UZERO;
-    message.totalRewards =
-      object.totalRewards !== undefined && object.totalRewards !== null
-        ? Coin.fromPartial(object.totalRewards)
-        : undefined;
-    message.masterPoolId =
-      object.masterPoolId !== undefined && object.masterPoolId !== null
-        ? Long.fromValue(object.masterPoolId)
-        : Long.ZERO;
-    message.durationDays =
-      object.durationDays !== undefined && object.durationDays !== null
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO;
-    message.minLockupTimeSeconds =
-      object.minLockupTimeSeconds !== undefined &&
-      object.minLockupTimeSeconds !== null
-        ? Long.fromValue(object.minLockupTimeSeconds)
-        : Long.ZERO;
+    message.cSwapAppId = (object.cSwapAppId !== undefined && object.cSwapAppId !== null)
+      ? Long.fromValue(object.cSwapAppId)
+      : Long.UZERO;
+    message.cSwapMinLockAmount = (object.cSwapMinLockAmount !== undefined && object.cSwapMinLockAmount !== null)
+      ? Long.fromValue(object.cSwapMinLockAmount)
+      : Long.UZERO;
+    message.totalRewards = (object.totalRewards !== undefined && object.totalRewards !== null)
+      ? Coin.fromPartial(object.totalRewards)
+      : undefined;
+    message.masterPoolId = (object.masterPoolId !== undefined && object.masterPoolId !== null)
+      ? Long.fromValue(object.masterPoolId)
+      : Long.ZERO;
+    message.durationDays = (object.durationDays !== undefined && object.durationDays !== null)
+      ? Long.fromValue(object.durationDays)
+      : Long.ZERO;
+    message.minLockupTimeSeconds = (object.minLockupTimeSeconds !== undefined && object.minLockupTimeSeconds !== null)
+      ? Long.fromValue(object.minLockupTimeSeconds)
+      : Long.ZERO;
     message.depositor = object.depositor ?? "";
     return message;
   },
@@ -1438,17 +1265,11 @@ function createBaseActivateExternalRewardsLendResponse(): ActivateExternalReward
 }
 
 export const ActivateExternalRewardsLendResponse = {
-  encode(
-    _: ActivateExternalRewardsLendResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: ActivateExternalRewardsLendResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): ActivateExternalRewardsLendResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsLendResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseActivateExternalRewardsLendResponse();
@@ -1472,9 +1293,15 @@ export const ActivateExternalRewardsLendResponse = {
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<ActivateExternalRewardsLendResponse>, I>
-  >(_: I): ActivateExternalRewardsLendResponse {
+  create<I extends Exact<DeepPartial<ActivateExternalRewardsLendResponse>, I>>(
+    base?: I,
+  ): ActivateExternalRewardsLendResponse {
+    return ActivateExternalRewardsLendResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsLendResponse>, I>>(
+    _: I,
+  ): ActivateExternalRewardsLendResponse {
     const message = createBaseActivateExternalRewardsLendResponse();
     return message;
   },
@@ -1493,10 +1320,7 @@ function createBaseActivateExternalRewardsStableMint(): ActivateExternalRewardsS
 }
 
 export const ActivateExternalRewardsStableMint = {
-  encode(
-    message: ActivateExternalRewardsStableMint,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(message: ActivateExternalRewardsStableMint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (!message.appId.isZero()) {
       writer.uint32(8).uint64(message.appId);
     }
@@ -1521,10 +1345,7 @@ export const ActivateExternalRewardsStableMint = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): ActivateExternalRewardsStableMint {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsStableMint {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseActivateExternalRewardsStableMint();
@@ -1563,77 +1384,56 @@ export const ActivateExternalRewardsStableMint = {
   fromJSON(object: any): ActivateExternalRewardsStableMint {
     return {
       appId: isSet(object.appId) ? Long.fromValue(object.appId) : Long.UZERO,
-      cswapAppId: isSet(object.cswapAppId)
-        ? Long.fromValue(object.cswapAppId)
-        : Long.UZERO,
-      commodoAppId: isSet(object.commodoAppId)
-        ? Long.fromValue(object.commodoAppId)
-        : Long.UZERO,
-      totalRewards: isSet(object.totalRewards)
-        ? Coin.fromJSON(object.totalRewards)
-        : undefined,
-      durationDays: isSet(object.durationDays)
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO,
+      cswapAppId: isSet(object.cswapAppId) ? Long.fromValue(object.cswapAppId) : Long.UZERO,
+      commodoAppId: isSet(object.commodoAppId) ? Long.fromValue(object.commodoAppId) : Long.UZERO,
+      totalRewards: isSet(object.totalRewards) ? Coin.fromJSON(object.totalRewards) : undefined,
+      durationDays: isSet(object.durationDays) ? Long.fromValue(object.durationDays) : Long.ZERO,
       depositor: isSet(object.depositor) ? String(object.depositor) : "",
-      acceptedBlockHeight: isSet(object.acceptedBlockHeight)
-        ? Long.fromValue(object.acceptedBlockHeight)
-        : Long.ZERO,
+      acceptedBlockHeight: isSet(object.acceptedBlockHeight) ? Long.fromValue(object.acceptedBlockHeight) : Long.ZERO,
     };
   },
 
   toJSON(message: ActivateExternalRewardsStableMint): unknown {
     const obj: any = {};
-    message.appId !== undefined &&
-      (obj.appId = (message.appId || Long.UZERO).toString());
-    message.cswapAppId !== undefined &&
-      (obj.cswapAppId = (message.cswapAppId || Long.UZERO).toString());
-    message.commodoAppId !== undefined &&
-      (obj.commodoAppId = (message.commodoAppId || Long.UZERO).toString());
+    message.appId !== undefined && (obj.appId = (message.appId || Long.UZERO).toString());
+    message.cswapAppId !== undefined && (obj.cswapAppId = (message.cswapAppId || Long.UZERO).toString());
+    message.commodoAppId !== undefined && (obj.commodoAppId = (message.commodoAppId || Long.UZERO).toString());
     message.totalRewards !== undefined &&
-      (obj.totalRewards = message.totalRewards
-        ? Coin.toJSON(message.totalRewards)
-        : undefined);
-    message.durationDays !== undefined &&
-      (obj.durationDays = (message.durationDays || Long.ZERO).toString());
+      (obj.totalRewards = message.totalRewards ? Coin.toJSON(message.totalRewards) : undefined);
+    message.durationDays !== undefined && (obj.durationDays = (message.durationDays || Long.ZERO).toString());
     message.depositor !== undefined && (obj.depositor = message.depositor);
     message.acceptedBlockHeight !== undefined &&
-      (obj.acceptedBlockHeight = (
-        message.acceptedBlockHeight || Long.ZERO
-      ).toString());
+      (obj.acceptedBlockHeight = (message.acceptedBlockHeight || Long.ZERO).toString());
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<ActivateExternalRewardsStableMint>, I>
-  >(object: I): ActivateExternalRewardsStableMint {
+  create<I extends Exact<DeepPartial<ActivateExternalRewardsStableMint>, I>>(
+    base?: I,
+  ): ActivateExternalRewardsStableMint {
+    return ActivateExternalRewardsStableMint.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsStableMint>, I>>(
+    object: I,
+  ): ActivateExternalRewardsStableMint {
     const message = createBaseActivateExternalRewardsStableMint();
-    message.appId =
-      object.appId !== undefined && object.appId !== null
-        ? Long.fromValue(object.appId)
-        : Long.UZERO;
-    message.cswapAppId =
-      object.cswapAppId !== undefined && object.cswapAppId !== null
-        ? Long.fromValue(object.cswapAppId)
-        : Long.UZERO;
-    message.commodoAppId =
-      object.commodoAppId !== undefined && object.commodoAppId !== null
-        ? Long.fromValue(object.commodoAppId)
-        : Long.UZERO;
-    message.totalRewards =
-      object.totalRewards !== undefined && object.totalRewards !== null
-        ? Coin.fromPartial(object.totalRewards)
-        : undefined;
-    message.durationDays =
-      object.durationDays !== undefined && object.durationDays !== null
-        ? Long.fromValue(object.durationDays)
-        : Long.ZERO;
+    message.appId = (object.appId !== undefined && object.appId !== null) ? Long.fromValue(object.appId) : Long.UZERO;
+    message.cswapAppId = (object.cswapAppId !== undefined && object.cswapAppId !== null)
+      ? Long.fromValue(object.cswapAppId)
+      : Long.UZERO;
+    message.commodoAppId = (object.commodoAppId !== undefined && object.commodoAppId !== null)
+      ? Long.fromValue(object.commodoAppId)
+      : Long.UZERO;
+    message.totalRewards = (object.totalRewards !== undefined && object.totalRewards !== null)
+      ? Coin.fromPartial(object.totalRewards)
+      : undefined;
+    message.durationDays = (object.durationDays !== undefined && object.durationDays !== null)
+      ? Long.fromValue(object.durationDays)
+      : Long.ZERO;
     message.depositor = object.depositor ?? "";
-    message.acceptedBlockHeight =
-      object.acceptedBlockHeight !== undefined &&
-      object.acceptedBlockHeight !== null
-        ? Long.fromValue(object.acceptedBlockHeight)
-        : Long.ZERO;
+    message.acceptedBlockHeight = (object.acceptedBlockHeight !== undefined && object.acceptedBlockHeight !== null)
+      ? Long.fromValue(object.acceptedBlockHeight)
+      : Long.ZERO;
     return message;
   },
 };
@@ -1643,17 +1443,11 @@ function createBaseActivateExternalRewardsStableMintResponse(): ActivateExternal
 }
 
 export const ActivateExternalRewardsStableMintResponse = {
-  encode(
-    _: ActivateExternalRewardsStableMintResponse,
-    writer: _m0.Writer = _m0.Writer.create()
-  ): _m0.Writer {
+  encode(_: ActivateExternalRewardsStableMintResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number
-  ): ActivateExternalRewardsStableMintResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ActivateExternalRewardsStableMintResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseActivateExternalRewardsStableMintResponse();
@@ -1677,9 +1471,15 @@ export const ActivateExternalRewardsStableMintResponse = {
     return obj;
   },
 
-  fromPartial<
-    I extends Exact<DeepPartial<ActivateExternalRewardsStableMintResponse>, I>
-  >(_: I): ActivateExternalRewardsStableMintResponse {
+  create<I extends Exact<DeepPartial<ActivateExternalRewardsStableMintResponse>, I>>(
+    base?: I,
+  ): ActivateExternalRewardsStableMintResponse {
+    return ActivateExternalRewardsStableMintResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<ActivateExternalRewardsStableMintResponse>, I>>(
+    _: I,
+  ): ActivateExternalRewardsStableMintResponse {
     const message = createBaseActivateExternalRewardsStableMintResponse();
     return message;
   },
@@ -1687,23 +1487,19 @@ export const ActivateExternalRewardsStableMintResponse = {
 
 export interface Msg {
   CreateGauge(request: MsgCreateGauge): Promise<MsgCreateGaugeResponse>;
-  ExternalRewardsLockers(
-    request: ActivateExternalRewardsLockers
-  ): Promise<ActivateExternalRewardsLockersResponse>;
-  ExternalRewardsVault(
-    request: ActivateExternalRewardsVault
-  ): Promise<ActivateExternalRewardsVaultResponse>;
-  ExternalRewardsLend(
-    request: ActivateExternalRewardsLend
-  ): Promise<ActivateExternalRewardsLendResponse>;
+  ExternalRewardsLockers(request: ActivateExternalRewardsLockers): Promise<ActivateExternalRewardsLockersResponse>;
+  ExternalRewardsVault(request: ActivateExternalRewardsVault): Promise<ActivateExternalRewardsVaultResponse>;
+  ExternalRewardsLend(request: ActivateExternalRewardsLend): Promise<ActivateExternalRewardsLendResponse>;
   ExternalRewardsStableMint(
-    request: ActivateExternalRewardsStableMint
+    request: ActivateExternalRewardsStableMint,
   ): Promise<ActivateExternalRewardsStableMintResponse>;
 }
 
 export class MsgClientImpl implements Msg {
   private readonly rpc: Rpc;
-  constructor(rpc: Rpc) {
+  private readonly service: string;
+  constructor(rpc: Rpc, opts?: { service?: string }) {
+    this.service = opts?.service || "comdex.rewards.v1beta1.Msg";
     this.rpc = rpc;
     this.CreateGauge = this.CreateGauge.bind(this);
     this.ExternalRewardsLockers = this.ExternalRewardsLockers.bind(this);
@@ -1713,109 +1509,52 @@ export class MsgClientImpl implements Msg {
   }
   CreateGauge(request: MsgCreateGauge): Promise<MsgCreateGaugeResponse> {
     const data = MsgCreateGauge.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.rewards.v1beta1.Msg",
-      "CreateGauge",
-      data
-    );
-    return promise.then((data) =>
-      MsgCreateGaugeResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "CreateGauge", data);
+    return promise.then((data) => MsgCreateGaugeResponse.decode(new _m0.Reader(data)));
   }
 
-  ExternalRewardsLockers(
-    request: ActivateExternalRewardsLockers
-  ): Promise<ActivateExternalRewardsLockersResponse> {
+  ExternalRewardsLockers(request: ActivateExternalRewardsLockers): Promise<ActivateExternalRewardsLockersResponse> {
     const data = ActivateExternalRewardsLockers.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.rewards.v1beta1.Msg",
-      "ExternalRewardsLockers",
-      data
-    );
-    return promise.then((data) =>
-      ActivateExternalRewardsLockersResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "ExternalRewardsLockers", data);
+    return promise.then((data) => ActivateExternalRewardsLockersResponse.decode(new _m0.Reader(data)));
   }
 
-  ExternalRewardsVault(
-    request: ActivateExternalRewardsVault
-  ): Promise<ActivateExternalRewardsVaultResponse> {
+  ExternalRewardsVault(request: ActivateExternalRewardsVault): Promise<ActivateExternalRewardsVaultResponse> {
     const data = ActivateExternalRewardsVault.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.rewards.v1beta1.Msg",
-      "ExternalRewardsVault",
-      data
-    );
-    return promise.then((data) =>
-      ActivateExternalRewardsVaultResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "ExternalRewardsVault", data);
+    return promise.then((data) => ActivateExternalRewardsVaultResponse.decode(new _m0.Reader(data)));
   }
 
-  ExternalRewardsLend(
-    request: ActivateExternalRewardsLend
-  ): Promise<ActivateExternalRewardsLendResponse> {
+  ExternalRewardsLend(request: ActivateExternalRewardsLend): Promise<ActivateExternalRewardsLendResponse> {
     const data = ActivateExternalRewardsLend.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.rewards.v1beta1.Msg",
-      "ExternalRewardsLend",
-      data
-    );
-    return promise.then((data) =>
-      ActivateExternalRewardsLendResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "ExternalRewardsLend", data);
+    return promise.then((data) => ActivateExternalRewardsLendResponse.decode(new _m0.Reader(data)));
   }
 
   ExternalRewardsStableMint(
-    request: ActivateExternalRewardsStableMint
+    request: ActivateExternalRewardsStableMint,
   ): Promise<ActivateExternalRewardsStableMintResponse> {
     const data = ActivateExternalRewardsStableMint.encode(request).finish();
-    const promise = this.rpc.request(
-      "comdex.rewards.v1beta1.Msg",
-      "ExternalRewardsStableMint",
-      data
-    );
-    return promise.then((data) =>
-      ActivateExternalRewardsStableMintResponse.decode(new _m0.Reader(data))
-    );
+    const promise = this.rpc.request(this.service, "ExternalRewardsStableMint", data);
+    return promise.then((data) => ActivateExternalRewardsStableMintResponse.decode(new _m0.Reader(data)));
   }
 }
 
 interface Rpc {
-  request(
-    service: string,
-    method: string,
-    data: Uint8Array
-  ): Promise<Uint8Array>;
+  request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Long
-  ? string | number | Long
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin
-  ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & Record<
-        Exclude<keyof I, KeysOfUnion<P>>,
-        never
-      >;
+export type Exact<P, I extends P> = P extends Builtin ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function toTimestamp(date: Date): Timestamp {
   const seconds = numberToLong(date.getTime() / 1_000);

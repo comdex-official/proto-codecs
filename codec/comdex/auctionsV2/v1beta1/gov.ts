@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { AuctionParams } from "../../../comdex/auctionsV2/v1beta1/bid";
+import { AuctionParams } from "./bid";
 
 export const protobufPackage = "comdex.auctionsV2.v1beta1";
 

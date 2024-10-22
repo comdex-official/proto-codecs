@@ -1,13 +1,9 @@
 /* eslint-disable */
 import Long from "long";
-import * as _m0 from "protobufjs/minimal";
+import _m0 from "protobufjs/minimal";
 import { Coin } from "../../../cosmos/base/v1beta1/coin";
-import {
-  OrderDirection,
-  orderDirectionFromJSON,
-  orderDirectionToJSON,
-} from "../../../comdex/liquidity/v1beta1/liquidity";
 import { Duration } from "../../../google/protobuf/duration";
+import { OrderDirection, orderDirectionFromJSON, orderDirectionToJSON } from "./liquidity";
 
 export const protobufPackage = "comdex.liquidity.v1beta1";
 
